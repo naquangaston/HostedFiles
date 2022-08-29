@@ -1,0 +1,52 @@
+var used = {};
+        function makeid1(length) {
+            var result = '';
+            var characters = '1234567890';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() *
+                    charactersLength));
+            }
+            return result
+        }
+        function makeid2(length) {
+            var result = '';
+            var characters = 'abcdefghijklmnopqrstuvwxyz';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() *
+                    charactersLength));
+            }
+            return result
+        }
+function Ecode(str) {
+            return (/[\w]+/g).test(str) ? '\\u00' + str.charCodeAt(0).toString(16).slice(-4) : str
+        }
+function f(a,b){
+    var c=a.split(".")
+    var base=c[0]
+    var NewPath=("['"+c.splice(1, c.length).join("']['")+"']").split("").map(Ecode).join("")
+    str=str.replace(a,base+NewPath)
+}
+
+function generateVar(){
+    var c= "_0x"+makeid1(1)+makeid2(2)+makeid1(2)
+    return !used[c]?(used[c]=c):generateVar()
+}
+var replaced={}
+function g(a,b){
+    try{
+    var base=a.match(/[a-zA-Z0-9$_]+/gi)
+    var name=base[1]
+    if(replaced[name]){
+        return
+    }else replaced[name]=1
+    var newname=generateVar()
+    var list=(str.match(new RegExp(`[^A-Z^a-z\d^$^_^\.^_](${name})[^$^A-Z^a-z\d^_]`, 'g'))||[]).map(e=>[e,e.replace(name,newname)])
+list.forEach(e=>str=str.replace(e[0],[1]))
+}catch(err){}
+}
+var methods=str.match(/[$_a-zA-Z\)\]]+\.[\.A-Z0-9a-z_$]+/gi).
+forEach(f)
+str.match(/(var|let|function|const) [\w $_]+/gi).forEach(g)
+console.log(str)

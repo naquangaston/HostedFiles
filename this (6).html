@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src * gap:; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src * data: blob: android-webview-video-poster:; style-src * 'unsafe-inline';">
+  <script src="index.js"></script>
+  <script src="yes.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src='CustomLogging.js'></script>
+  <script>
+    (async () => {
+      const request = new XMLHttpRequest();
+      const url = `https://raw.githubusercontent.com/liddiard/text-diff/master/diff.js`;
+      request.open("GET", url);
+      request.send();
+      await new Promise((..._) => {
+        request.onload = (e) => {
+          try { eval(request.responseText) } catch (err) { }
+          _[0]()
+        }
+      });
+      console.log('Script difference loaded')
+      return function (...a) { }
+    })();
+  </script>
+  <link rel="stylesheet" href="main.css">
+  <style>
+    #video {
+      border: 1px solid #999;
+      width: 98%;
+      max-width: 860px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .warn {
+      color: orange;
+    }
+
+    .info {
+      color: darkgreen;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="particles-js"></div>
+  <script src="particles.js"></script>
+  <script src="particles.min.js"></script>
+  <h2 class="bass-title">
+    <span class="bass-blur logo-neon">
+      <span class="text-Logo pulse1">Test</span>
+    </span>
+  </h2>
+  <hr>
+  <br><br>
+  <span id="_fps">
+    <script>
+      const times = [];
+      var fps = 0;
+      function refreshLoop() { window.requestAnimationFrame(() => { const now = performance.now(); while (times.length > 0 && times[0] <= now - 1000) { times.shift() }; times.push(now); fps = times.length, _fps.innerText = 'FPS:' + fps, refreshLoop() }) }
+      refreshLoop()
+    </script>
+  </span>
+  <br><br>
+  <div id="filediv" style="width: 30%;border: 2px dashed red;">
+    <script>
+    var Video=new VideoPlayer()
+    function element(_){return(document.createElement(_))};
+    var inp=element('input')
+    inp.placeholder='Enter video url'
+    inp.onchange=function(e){
+        try{Video.Gen_f_url(inp.value);
+            var sp=element('span')
+            sp.innerText='Src:'+Video.iframe.src+'\n';
+            document.body.append(element('br'))
+            document.body.append(sp)
+        }catch(err){
+            var sp=element('span')
+            sp.innerText='Src:'+Video.iframe.src+'\nErr:'+err+'\n';
+            document.body.append(element('br'))
+            document.body.append(sp)}
+    }
+    document.body.append(element('hr'))
+    document.body.append(inp)
+    document.body.append(element('br'))
+    Video.append(document.body)
+      async function _File_Loaded() {
+        try {
+          console.log(files.files[0])
+          $('#Go')[0].disabled = 1;
+          processFile(files.files[0], function (e) {
+            window.text=(e)
+            Toconv.value = atob(e.split("base64,")[1])
+          })
+          $('#Go')[0].disabled = 0;
+        } catch (err) { console.log(err) }
+      }
+      const File_Loaded=(function(){const R=arguments;return async function/*File_Loaded*/t(){try{R[4][0][R[2][0]](files[R[2][1]][0]);$(R[2][2])[0][R[2][3]]=1,processFile(files[R[2][1]][0],function(e){R[4][1][R[2][5]]=(e);Toconv[R[2][6]]=atob(e[R[2][7]](R[2][8])[1])});$(R[2][2])[0][R[2][3]]=0}catch(err){R[4][0][R[2][0]](err)}}})([],[""],['\u006c\u006f\u0067','\u0066\u0069\u006c\u0065\u0073','#\u0047\u006f','\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064','\u0066\u0069\u006c\u0065\u0073','\u0074\u0065\u0078\u0074','\u0076\u0061\u006c\u0075\u0065','\u0073\u0070\u006c\u0069\u0074','\u0062\u0061\u0073\u0065\u0036\u0034,','#\u0047\u006f','\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064','\u006c\u006f\u0067'],[''],[console,window],{})
+    </script>
+    <textarea id="hidden" style="display: none;"></textarea>
+    <span id="prog">:</span><br>
+    <span id="prog2">:</span><br>
+    <input size="1" id="files" type="file" onchange="File_Loaded()">
+  </div>
+  <script>$(filediv).toggle()</script>
+  <button id="Fileup" onclick="$(filediv).toggle()">Upload file</button>&nbsp;
+  <button id="Go"
+  onclick="setTimeout(()=>{!keys(down).length&&(window.clear(),this.ec=heheha(Toconv.value,window.OBS2),Output.value=ec.result,FZ.innerText=ec.size.unit)},100)">Go!</button>&nbsp;
+  <button onclick="JustString(Toconv.value)">Just compile</button><br>
+  <textarea id="Toconv"></textarea>
+  <select id="type" onchange="window.cv=this.value">
+  </select>&nbsp;<span>To</span><select onchange=""></select><br>
+  <textarea id="Output"></textarea><br>
+  <textarea id="log">
+  </textarea>
+  <span>Size:<span id="FZ"></span><br><span id="download"
+      onclick="Encoded.download(prompt('Enter File name'),Output.value)">Download</span></span>
+  <div id="after"></div><br>
+  <br><br>
+  <hr>
+  <br><br>
+  <h3>Scrapper</h3><br>
+  <form id='myform' method="GET" action="">
+    <input name='tags' placeholder="enter tags"><br>
+    <span>images per page: </span><input name='limit' placeholder="images per page" value="10" type="number"><br>
+    <span>page index: </span><input id="_cpage" name="page" type="number" width="auto" min="1" value="1" placeholder="page index">
+    <br><input type="button" value="Search">
+  </form><br>
+ <span>Image size <input id="IMG_size" onchange="this.value=function(_){_=Number(_);if(_>100||_<0)_>100?_=100:_=0;[...document.querySelectorAll('img')].forEach(img=>{img.style.width=_+'%'});return _}(this.value)" value=5 type="number" max=100 min=0>%</span>
+ <br><input onclick="prevpage()" type="button" value="Previous Page"><input onclick="nextpage()" type="button" value="Next Page"><br>
+  <div id="mydiv"></div>
+  <script>
+    const Toconv = document.getElementById("Toconv")
+    const Output = document.getElementById("Output")
+    function JustString(str) {
+      if (Toconv.value.match(/[`'"]/gi)) {
+        confirm('Your code contains string values makes sure your string values and may not stack properly\nDo you want to continue?') && (Output.value = Format2(RemoveSpacing(Toconv.value)))
+      } else Output.value = Format2(RemoveSpacing(Toconv.value))
+    }
+    var form = document.forms[0];
+    var div = document.getElementById('mydiv');
+    var info = {
+      tags: '',
+      limit: 10 || '10',
+      page: 1 || '1'
+    }
+    form.onsubmit = async (_) => {
+      console.log(_)
+			alert(1)
+      _.preventDefault();
+      var arr = $(form).serialize().split('&');
+      $(document.forms[0]).serializeArray().forEach(e => {
+        var key = Object.keys(e)[0]
+        var key2 = Object.keys(e)[1]
+        info[e[key]] = e[key2]
+      })
+      window.tags_ = info.tags
+      window.limit_ = info.limit
+      window.page_ = info.page
+      var p = await scrap('e926', tags_, limit_, page_);
+      p = p.posts;
+      window.post = p;
+      window.pgnum = page_;
+      div.innerHTML = ''
+      post.forEach(e => {
+        var url = e.file.url;
+        div.innerHTML += `<a target="_blank" href="${url}"><img src="${url}"></a>`
+      })
+			alert(2)
+    };
+    async function nextpage() {
+      page_++
+      var p = await scrap('e926', tags_, limit_, page_);
+      p = p.posts; window.post = p;
+      post.forEach(e => {
+        var url = e.file.url;
+        div.innerHTML += `<a target="_blank" href="${url}"><img src="${url}"></a>`
+      })
+			[...document.querySelectorAll('img')].forEach(img=>{img.style.width=IMG_size.value+'%'})
+    }
+    async function prevpage() {
+      if (page_ < 1) return;
+      page_--
+      var p = await scrap('e926', tags_, limit_, page_);
+      p = p.posts; window.post = p;
+      post.forEach(e => {
+        var url = e.file.url;
+        div.innerHTML += `<a target="_blank" href="${url}"><img src="${url}"></a>`
+      })
+			[...document.querySelectorAll('img')].forEach(img=>{img.style.width=IMG_size.value+'%'})
+    }
+  </script>
+</body>
+
+</html>

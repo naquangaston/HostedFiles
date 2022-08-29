@@ -1,0 +1,73 @@
+body{background-color: rgb(34, 32, 32);}
+body{color: white;}
+input{
+    background-color: rgba(0,0,0,0);
+    outline: none;
+    border: none;
+    color: red;
+}
+#log{
+    background-color: rgba(0,0,0,0);
+    color: lightgreen;
+}
+.empty{
+    content: attr(value);
+}
+select,select:focus{
+    background-color: rgba(0,0,0,0);
+    outline: none;
+    border: none;
+    color: rgb(255, 136, 0);
+}
+button{
+    background-color: rgba(0,0,0,0);
+    outline: none;
+    border: 2px solid rgb(208, 255, 0);
+    color: rgb(94, 255, 0);
+}
+button:hover,input:focus{
+    background-color: rgba(0,0,0,0);
+    outline: none;
+    border: 2px solid rgb(255, 0, 0);
+    color: rgb(0, 132, 255);
+}
+img,picture{
+    width: 50px;
+    height: auto;
+    border-radius: 25px;
+    border: 2px solid #2a21ad;
+}
+::-webkit-scrollbar{
+    display:none;
+}
+span.first{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+}
+span.middle{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+span.last{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+}
+del{
+    text-decoration: line-through;
+    color: red;
+    border-radius: 3px;
+    border: 1px solid coral;
+    background-color: rgba(111,8,8,1);
+}
+ins{
+    background-color: rgba(7,92,7,1);
+    color: rgba(56,233,56,1);
+    border-radius: 3px;
+    border: 1px solid lightgreen;
+}
+textarea{
+    text-overflow: clip;
+
+}
