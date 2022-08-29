@@ -57,7 +57,7 @@
     <script src="particles.min.js"></script>
     <h2 class="bass-title">
       <span class="bass-blur logo-neon">
-        <span class="text-Logo pulse1">TestV10</span>
+        <span class="text-Logo pulse1">TestV11</span>
       </span>
     </h2>
     <hr>
@@ -181,11 +181,11 @@
 				for(let i=0;i<allImgs.length;i++){
 					var prev=allImgs[i][0]
 					var real=allImgs[i][1]
-					if(isElementInViewport(prev)||isElementInViewport(real)){
+					if(isElementInViewport(prev)){
 						real.style.display='inline-block'
 						prev.style.display='none'
 					}
-					if(!(isElementInViewport(prev)||isElementInViewport(real))){
+					if(!(isElementInViewport(real))){
 						real.style.display='none'
 						prev.style.display='inline-block'
 					}
