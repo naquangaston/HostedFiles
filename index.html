@@ -2,7 +2,7 @@
 <html>
 
   <head>
-		<title>n-NOT my site test</title>
+		<title>my site test</title>
     <meta http-equiv="Content-Security-Policy" content="default-src * gap:; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src * data: blob: android-webview-video-poster:; style-src * 'unsafe-inline';">
     <script src="index.js"></script>
     <script src="yes.js"></script>
@@ -177,7 +177,17 @@
     <script>
       //alert('bru')
       var allImgs = []
-
+			setInterval(()=>{
+				for(let i=0;i<allImgs.length;i++){
+					var prev=allImgs[i][0]
+					var real=allImgs[i][1]
+					if(isElementInViewport(real)){
+						real.style.display='inline-block'
+						prev.style.display='none'
+					}else{real.style.display='none'
+						prev.style.display='inline-block'}
+				}
+			},500)
       function isElementInViewport(el) {
 
         // Special bonus for those using jQuery
