@@ -57,7 +57,7 @@
     <script src="particles.min.js"></script>
     <h2 class="bass-title">
       <span class="bass-blur logo-neon">
-        <span class="text-Logo pulse1">TestV13</span>
+        <span class="text-Logo pulse1">TestV14</span>
       </span>
     </h2>
     <hr>
@@ -201,7 +201,7 @@
         var rect = el.getBoundingClientRect();
 
         return (
-          rect.top >= 0 &&
+          rect.top >= 0-(((window.innerHeight || document.documentElement.clientHeight)/2)) &&
           rect.left >= 0 &&
           rect.bottom <= ((window.innerHeight || document.documentElement.clientHeight)+((window.innerHeight || document.documentElement.clientHeight)/2)) && /* or $(window).height() */
           rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
