@@ -57,7 +57,7 @@
     <script src="particles.min.js"></script>
     <h2 class="bass-title">
       <span class="bass-blur logo-neon">
-        <span class="text-Logo pulse1">TestV11</span>
+        <span class="text-Logo pulse1">TestV12</span>
       </span>
     </h2>
     <hr>
@@ -177,7 +177,7 @@
     <script>
       //alert('bru')
       var allImgs = []
-			setInterval(()=>{
+			onscroll=function(){
 				for(let i=0;i<allImgs.length;i++){
 					var prev=allImgs[i][0]
 					var real=allImgs[i][1]
@@ -190,7 +190,7 @@
 						prev.style.display='inline-block'
 					}
 				}
-			},2000)
+			}
       function isElementInViewport(el) {
 
         // Special bonus for those using jQuery
