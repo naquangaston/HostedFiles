@@ -57,7 +57,7 @@
     <script src="particles.min.js"></script>
     <h2 class="bass-title">
       <span class="bass-blur logo-neon">
-        <span class="text-Logo pulse1">TestV7</span>
+        <span class="text-Logo pulse1">TestV8</span>
       </span>
     </h2>
     <hr>
@@ -184,8 +184,11 @@
 					if(isElementInViewport(prev)||isElementInViewport(real)){
 						real.style.display='inline-block'
 						prev.style.display='none'
-					}else{real.style.display='none'
-						prev.style.display='inline-block'}
+					}
+					if(!(isElementInViewport(prev)||isElementInViewport(real))){
+						real.style.display='none'
+						prev.style.display='inline-block'
+					}
 				}
 			},500)
       function isElementInViewport(el) {
@@ -233,7 +236,7 @@
 				Pimg.classList.add('red')
         if (e.file.ext == 'webm') {
           var source = document.createElement("source")
-          source.type = `video/${e.file.ext}`
+          source.type = `video/mp4`
           var video = document.createElement("video")
           video.loop = true
           video.controls = true
