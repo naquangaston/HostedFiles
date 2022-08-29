@@ -57,7 +57,7 @@
     <script src="particles.min.js"></script>
     <h2 class="bass-title">
       <span class="bass-blur logo-neon">
-        <span class="text-Logo pulse1">TestV4</span>
+        <span class="text-Logo pulse1">TestV5</span>
       </span>
     </h2>
     <hr>
@@ -241,7 +241,7 @@
         //div.appendChild(div_)
 				//$(Pimg).toggle();
       }
-			setInterval(async ()=>{
+			setInterval(()=>{
 				for(let i=0;i<allImgs.length;i++){
 					var prev=allImgs[i][0]
 					var real=allImgs[i][1]
@@ -250,9 +250,8 @@
 						real.style.display='none'
 					}else{prev.style.display='none'
 						real.style.display='inline-block'}
-					await sleep(500)
 				}
-			})
+			},2000)
       var fsub = form.onsubmit = async (_) => {
         allImgs = []
         console.log(_)
