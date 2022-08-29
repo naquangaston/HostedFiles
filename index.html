@@ -57,7 +57,7 @@
     <script src="particles.min.js"></script>
     <h2 class="bass-title">
       <span class="bass-blur logo-neon">
-        <span class="text-Logo pulse1">TestV6</span>
+        <span class="text-Logo pulse1">TestV7</span>
       </span>
     </h2>
     <hr>
@@ -239,12 +239,14 @@
           video.controls = true
           video.appendChild(source)
           div_.appendChild(video)
+		video.onclick=()=>open(url)
 					video.classList.add('green')
           allImgs.push([Pimg,video])
         } else {
           var Rimg = document.createElement('img')
 					Rimg.classList.add('green')
           Rimg.src = url;
+		Rimg.onclick=()=>open(url)
           div_.appendChild(Rimg)
           allImgs.push([Pimg,Rimg])
         }
