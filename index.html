@@ -220,7 +220,7 @@
         var Pimg = document.createElement("img")
         Pimg.src = preview
         div_.appendChild(Pimg)
-				Pimg.classList.add(e.file.ext)
+				Pimg.classList.add('red')
         if (e.file.ext == 'webm') {
           var source = document.createElement("source")
           source.type = `video/${e.file.ext}`
@@ -229,12 +229,14 @@
           video.controls = true
           video.appendChild(source)
           div_.appendChild(video)
+					video.classList.add('green')
           allImgs.push([Pimg,video])
 					setInterval(()=>{
 						(isElementInViewport(Pimg)||isElementInViewport(video))?(video.style.display='inline-block',Pimg.style.display='none'):(video.style.display='none',Pimg.style.display='inline-block')
 					},2000)
         } else {
           var Rimg = document.createElement('img')
+					Rimg.classList.add('green')
           Rimg.src = url;
           div_.appendChild(Rimg)
           allImgs.push([Pimg,Rimg])
