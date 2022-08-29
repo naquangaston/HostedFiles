@@ -57,7 +57,7 @@
     <script src="particles.min.js"></script>
     <h2 class="bass-title">
       <span class="bass-blur logo-neon">
-        <span class="text-Logo pulse1">TestV15</span>
+        <span class="text-Logo pulse1">TestV16</span>
       </span>
     </h2>
     <hr>
@@ -268,7 +268,7 @@
           var key2 = Object.keys(e)[1]
           info[e[key]] = e[key2]
         })
-        window.tags_ = encodeURIComponent(info.tags.split(' ').join('+'))
+        window.tags_ = info.tags
         window.limit_ = info.limit
         window.page_ = info.page
         var p = await scrap('e926', tags_, limit_, page_);
