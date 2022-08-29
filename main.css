@@ -41,6 +41,8 @@ img,picture{
 video,.webm{
 	border: 2px solid red;
 }
+.green{border: 2px solid green;}
+.red{border: 2px solid blue;}
 ::-webkit-scrollbar{
     display:none;
 }
