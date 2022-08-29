@@ -231,22 +231,28 @@
           div_.appendChild(video)
 					video.classList.add('green')
           allImgs.push([Pimg,video])
-					setInterval(()=>{
-						(isElementInViewport(Pimg)||isElementInViewport(video))?(video.style.display='inline-block',Pimg.style.display='none'):(video.style.display='none',Pimg.style.display='inline-block')
-					},2000)
         } else {
           var Rimg = document.createElement('img')
 					Rimg.classList.add('green')
           Rimg.src = url;
           div_.appendChild(Rimg)
           allImgs.push([Pimg,Rimg])
-					setInterval(()=>{
-						(isElementInViewport(Pimg)||isElementInViewport(Rimg))?(Rimg.style.display='inline-block',Pimg.style.display='none'):(Rimg.style.display='none',Pimg.style.display='inline-block')
-					},2000)
         }
         //div.appendChild(div_)
 				//$(Pimg).toggle();
       }
+			setInterval(async ()=>{
+				for(let i=0;i<allImgs.length;i++){
+					var prev=allImgs[i][0]
+					var real=allImgs[i][1]
+					if(isElementInViewport(prev)){
+						prev.style.display='inline-block'
+						real.style.display='none'
+					}else{prev.style.display='none'
+						real.style.display='inline-block'}
+					await sleep(250)
+				}
+			})
       var fsub = form.onsubmit = async (_) => {
         allImgs = []
         console.log(_)
