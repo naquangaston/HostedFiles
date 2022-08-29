@@ -181,7 +181,7 @@
 				for(let i=0;i<allImgs.length;i++){
 					var prev=allImgs[i][0]
 					var real=allImgs[i][1]
-					if(isElementInViewport(real)){
+					if(isElementInViewport(prev)||isElementInViewport(real)){
 						real.style.display='inline-block'
 						prev.style.display='none'
 					}else{real.style.display='none'
