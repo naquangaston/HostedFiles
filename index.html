@@ -60,7 +60,7 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
     <script src="particles.min.js"></script>
     <h2 class="bass-title">
       <span class="bass-blur logo-neon">
-        <span class="text-Logo pulse1">TestV16</span>
+        <span class="text-Logo pulse1">TestV18</span>
       </span>
     </h2>
     <hr>
@@ -228,7 +228,30 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
       }
       form = document.getElementById("myform");
       //alert(form)
-			function fimg(e) {
+	    var sent=0
+	    var max=10
+	    var done={}
+	    async function fimg(e){
+		    if(e.pools){
+			    for(let i=0;i<e.pools.length;i++){
+				    const pool=e.pools[i]
+				    let pid=pool.id
+				    const response = await fetch(`https://e926.net/pools/${pid}.json`);
+				    const j = await response.json();
+						const {post_ids}=j
+			    for(let i=0;i<post_ids.length;i++){
+				    let id=post_ids[i]
+				    if(id==e.id){_fimg(e)}
+				    else{
+					    const response_ = await fetch(`https://e926.net/posts/${id}.json`);_fimg(await response.json())
+				    }
+			    }
+			    }
+		    }
+	    }
+			async function _fimg(e,ip=false) {
+				if(done[e.id])return;
+				done[e.id]=true
         var url = e.file.url;
         var preview = e.preview.url
         var div_ = div
@@ -262,6 +285,7 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
       }
       var fsub = form.onsubmit = async (_) => {
         allImgs = []
+				done={}
         console.log(_)
         //alert(1)
         _.preventDefault();
