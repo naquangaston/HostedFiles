@@ -180,7 +180,7 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
     <script>
       //alert('bru')
       var allImgs = []
-			onscroll=function(){
+			onscroll=async function(){
 				for(let i=0;i<allImgs.length;i++){
 					var prev=allImgs[i][0]
 					var real=allImgs[i][1]
@@ -246,14 +246,14 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
           video.controls = true
           video.appendChild(source)
           div_.appendChild(video)
-		video.onclick=()=>open(url)
+		video.onclick=()=>open(`http://e926.net/posts/${e.id}`)
 					video.classList.add('green')
           allImgs.push([Pimg,video])
         } else {
           var Rimg = document.createElement('img')
 					Rimg.classList.add('green')
           Rimg.src = url;
-		      Rimg.onclick=()=>open(url)
+		      Rimg.onclick=()=>open(`http://e926.net/posts/${e.id}`)
           div_.appendChild(Rimg)
           allImgs.push([Pimg,Rimg])
         }
