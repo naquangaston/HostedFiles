@@ -217,12 +217,12 @@
     const Toconv = document.getElementById("Toconv")
     const Output = document.getElementById("Output")
 
-    async function forEachAsync(r,f){
-    for(let i =0;i<r.length;i++){
+    async function forEachAsync(r, f) {
+      for (let i = 0; i < r.length; i++) {
         await f(r[i])
+      }
+      return true
     }
-    return true
-}
     function JustString(str) {
       if (Toconv.value.match(/[`'"]/gi)) {
         confirm('Your code contains string values makes sure your string values and may not stack properly\nDo you want to continue?') && (Output.value = Format2(RemoveSpacing(Toconv.value)))
@@ -264,14 +264,13 @@
             else {
               //const response_ = await fetch(`https://e926.net/posts/${id}.json`);
               //console.log({response_})
-              var rp = await (await fetch(`https://e926.net/posts/${id}.json`)).json()
-              console.log('Name:', j.name, rp.id)
-              _fimg(rp)
+              var rp = (await (await fetch(`https://e926.net/posts/${id}.json`)).json()).post
+              !rp.file.url?console.warn('Skipped',rp.id):(console.log('Name:', j.name, rp.id),_fimg(rp))
             }
           }
         }
-      return true
-      } else {_fimg(e);return true}
+        return true
+      } else { _fimg(e); return true }
     }
     async function _fimg(e, ip = false) {
       if (done[e.id]) return;
@@ -306,11 +305,16 @@
       }
       //div.appendChild(div_)
       //$(Pimg).toggle();
+      allImgs.forEach(img => {
+        img.forEach(eimg => {
+          eimg.style.width = IMG_size.value + '%'
+        })
+      })
     }
     var fsub = form.onsubmit = async (_) => {
       allImgs = []
       done = {}
-      pls={};
+      pls = {};
       console.log(_)
       //alert(1)
       _.preventDefault();
@@ -328,13 +332,13 @@
       window.post = p;
       window.pgnum = page_;
       div.innerHTML = ''
-      forEachAsync(post,fimg).then(e=>{
+      forEachAsync(post, fimg).then(e => {
         console.log('Fixed')
         allImgs.forEach(img => {
-        img.forEach(eimg => {
-          eimg.style.width = IMG_size.value + '%'
+          img.forEach(eimg => {
+            eimg.style.width = IMG_size.value + '%'
+          })
         })
-      })
       })
       //alert(2)
     };
@@ -343,13 +347,13 @@
       var p = await scrap('e926', tags_, limit_, page_);
       p = p.posts;
       window.post = p;
-      forEachAsync(post,fimg).then(e=>{
+      forEachAsync(post, fimg).then(e => {
         console.log('Fixed')
         allImgs.forEach(img => {
-        img.forEach(eimg => {
-          eimg.style.width = IMG_size.value + '%'
+          img.forEach(eimg => {
+            eimg.style.width = IMG_size.value + '%'
+          })
         })
-      })
       })
     }
     async function prevpage() {
@@ -358,13 +362,13 @@
       var p = await scrap('e926', tags_, limit_, page_);
       p = p.posts;
       window.post = p;
-      forEachAsync(post,fimg).then(e=>{
+      forEachAsync(post, fimg).then(e => {
         console.log('Fixed')
         allImgs.forEach(img => {
-        img.forEach(eimg => {
-          eimg.style.width = IMG_size.value + '%'
+          img.forEach(eimg => {
+            eimg.style.width = IMG_size.value + '%'
+          })
         })
-      })
       })
     }
 
