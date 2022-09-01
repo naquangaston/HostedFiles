@@ -21,6 +21,7 @@
 setValue=GM_setValue
 getValue=GM_getValue
 _GMinfo=GM_info
+gameWrapper=true
 //globalRoot = (typeof exports == "undefined" ? !this.Device ? (typeof window == "undefined" ? this : (globalThis || self || window || top)) : exports : this);
 function t_obj(obj,_val,f){
     for(let i in obj){
@@ -12948,6 +12949,9 @@ function start_exe(){
                 }
                 function sleep(ms) { return new Promise(a => setTimeout(a, ms)) }
                 var loaded
+                _myWin=startwin("myWin_")
+                myWin_=(_myWin)
+                var myWin=_myWin.document.body
                 function loader() {
                     function noAds(){return setInterval(()=>{;[...document.getElementsByTagName('iframe')].forEach(e=>e.remove())},10)}
                     class _Player{
@@ -12963,11 +12967,8 @@ function start_exe(){
                     loaded=!loaded;
                     input=unsafeWindow.input;
                     var d=GM_getValue('data')||{};
-                    _myWin=startwin("myWin_")
-                    myWin_=(_myWin)
                     //var _win=window.myWin_
                     //_win.document.write()
-                    var myWin=_myWin.document.body
                     addEventListener("beforeunload",function(){window.myWin_.close()})
                     var divs=[]
                     /*
