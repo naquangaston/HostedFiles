@@ -59,7 +59,7 @@
   <script src="particles.min.js"></script>
   <h2 class="bass-title">
     <span class="bass-blur logo-neon">
-      <span class="text-Logo pulse1">TestV21</span>
+      <span class="text-Logo pulse1">TestV22</span>
     </span>
   </h2>
   <hr>
@@ -217,8 +217,13 @@
     const Toconv = document.getElementById("Toconv")
     const Output = document.getElementById("Output")
 
-    async function forEachAsync(r, f) {
+    async function forEachAsync(r, f, skip = 0) {
+      let skipped = 0
       for (let i = 0; i < r.length; i++) {
+        if (skipped < skip) {
+          skipped++
+          f(r[i]).then(() => { skipped-- }); i++
+        }
         await f(r[i])
       }
       return true
@@ -258,23 +263,23 @@
           const j = await response.json();
           const { post_ids } = j
           console.log('Name:', j.name)
-          for (let i_ = 0; i_ < post_ids.length; i_++) {
-            let id = post_ids[i_]
+          forEachAsync(post_ids, async function (id) {
+            //let id = post_ids[i_]
             if (id == e.id) { _fimg(e) }
             else {
               //const response_ = await fetch(`https://e926.net/posts/${id}.json`);
               //console.log({response_})
               var rp = (await (await fetch(`https://e926.net/posts/${id}.json`)).json()).post
-              !rp.file.url?console.warn('Skipped',rp.id):(console.log('Name:', j.name, rp.id),_fimg(rp))
+              !rp.file.url ? console.warn('Skipped', rp.id) : (console.log('Name:', j.name, rp.id), _fimg(rp))
             }
-          }
+          }, 6)
         }
         return true
       } else { _fimg(e); return true }
     }
     async function _fimg(e, ip = false) {
       if (done[e.id]) return;
-      done[e.id] = true
+      done[e.id] = e;
       var url = e.file.url;
       var preview = e.preview.url
       var div_ = div
@@ -332,12 +337,10 @@
       window.post = p;
       window.pgnum = page_;
       div.innerHTML = ''
-      forEachAsync(post, fimg).then(e => {
-        console.log('Fixed')
-        allImgs.forEach(img => {
-          img.forEach(eimg => {
-            eimg.style.width = IMG_size.value + '%'
-          })
+      post.forEach(fimg)
+      allImgs.forEach(img => {
+        img.forEach(eimg => {
+          eimg.style.width = IMG_size.value + '%'
         })
       })
       //alert(2)
@@ -347,12 +350,10 @@
       var p = await scrap('e926', tags_, limit_, page_);
       p = p.posts;
       window.post = p;
-      forEachAsync(post, fimg).then(e => {
-        console.log('Fixed')
-        allImgs.forEach(img => {
-          img.forEach(eimg => {
-            eimg.style.width = IMG_size.value + '%'
-          })
+      post.forEach(fimg)
+      allImgs.forEach(img => {
+        img.forEach(eimg => {
+          eimg.style.width = IMG_size.value + '%'
         })
       })
     }
@@ -362,12 +363,10 @@
       var p = await scrap('e926', tags_, limit_, page_);
       p = p.posts;
       window.post = p;
-      forEachAsync(post, fimg).then(e => {
-        console.log('Fixed')
-        allImgs.forEach(img => {
-          img.forEach(eimg => {
-            eimg.style.width = IMG_size.value + '%'
-          })
+      post.forEach(fimg)
+      allImgs.forEach(img => {
+        img.forEach(eimg => {
+          eimg.style.width = IMG_size.value + '%'
         })
       })
     }
