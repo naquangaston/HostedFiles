@@ -13073,6 +13073,7 @@ function start_exe(){
                     });
                     var loggedkk = false
                     var did_=false;
+                    var noads=false
                     setInterval(() => {
                         //document.querySelector('d-base').shadowRoot.children[0].tagName=="D-STATS"
                         info.stats = document.querySelector('d-base').shadowRoot.children[0].tagName=="D-STATS"
@@ -13140,9 +13141,10 @@ function start_exe(){
                             })
                             }
                     })
+                    MenuFix()
                 }
 
-                unsafeWindow.loop=setInterval(()=>{unsafeWindow.input&&(clearInterval(unsafeWindow.loop),delete unsafeWindow.loop,loader())})
+                _loop=setInterval(()=>{unsafeWindow.input&&(clearInterval(_loop),delete _loop,loader())})
                 //var firstPlay=false,isdead=false
                 function log(...d) { console.log(...d) }
                 function log_(title, body) { var l = new CustomLog(title); l.log(body) }
@@ -13166,6 +13168,8 @@ function start_exe(){
                     }
                     let element = function (a, b = {}) { return document.createElement(a, b) }
                     var myMenu = _myWin.document.getElementById('menu')
+                    var fps_=false
+                    function fps_toggle(){input.set_convar('ren_fps', !fps_);}
                     function FixGame() { var info = (function ({ gamemode, name }) { return { gamemode, name } })(localStorage); for (let i in localStorage) (localStorage.removeItem(i));localStorage.clear();for (let i in info) (localStorage.setItem(i, info[i])); location.href = location.href }
                     var rows = []
                     function newRow() { var row = document.createElement('div') }
@@ -13173,13 +13177,21 @@ function start_exe(){
                         //for(let i=rows.length-1;i<line;i++){}
                         var button = document.createElement('button'); button.innerText = name; button.onclick = f;
                         var span = element('span'); span.innerText = desc || "No description."; span.className = 'menuDesc'
-                        if (line) myMenu.append(document.createElement('br'));
+                        if (line) (myMenu.append(document.createElement('br')),myMenu.append(document.createElement('br')));
                         myMenu.append(button)
                         myMenu.append(span)
 
                     }
+                    function add(a,c){
+                        const {type,text,value,default_,linstenFor}=a,{line,desc}=c
+                        var e=document.createElement('input');e.type=type,e.value=default_||text
+                        typeof line=='boolean'?(myMenu.append(document.createElement('br')),myMenu.append(document.createElement('br'))):console.warn('No new lines added')
+                        typeof linstenFor=='object'?Object.keys(linstenFor).forEach(e=>{e.addEventListener(e,linstenFor[e])}):console.warn('linstenFor','not found');myMenu.append(e)
+                        var span = element('span'); span.innerText = desc || "No description."; span.className = 'menuDesc';myMenu.append(span)
+                    }
                     addButton('Fix Game', FixGame, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
                     addButton('Remove-Ads', RemoveAds, {line:true, desc: 'Use to remove ads that may cause gae lag' })
+                    add({type:'checkbox',text:"Show fps",listenFor:{change:fps_toggle}},{line:true, desc: '' })
                     var allChecks = [];
                     const Tanks = new Object(); for (let i in Builds) {try{Builds[i]._builds.forEach(e => { var tank = e.p; const { name, desc, build } = e; if (!Tanks[tank]) Tanks[tank] = []; Tanks[tank].push({ name, desc, build }) }) }catch(err){}}
                     var Builds_M = window.myWin_.document.getElementById('myUL')
@@ -13228,7 +13240,7 @@ function start_exe(){
                 document.onreadystatechange = function (e) {
                     log_("ReadyState", document.readyState)
                     console.log('Info:',GM_info)
-                    MenuFix()
+                    //MenuFix()
                     st=GM_info
                     if (document.readyState == "complete") {
                         var _ = setInterval(() => {
@@ -13239,7 +13251,8 @@ function start_exe(){
                                     if (t.style.width.length) {
                                         //Spawn();loader()
                                         //setTimeout(Spawn,500)
-                                        setTimeout(loader, 500)
+                                        //_myWin.stop()
+                                        //setTimeout(loader, 500)
                                         //setTimeout(AutoStatus,600)
                                         clearInterval(_)
                                     }
