@@ -14,7 +14,7 @@
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_obf.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/ResourceLoader_.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_Formatter_.js
-// @run-at document-start
+// @run-at document-idle
 // ==/UserScript==
 // @require https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
 //http://bdsmtest.org/r/CgWCTFTm
@@ -7089,6 +7089,21 @@ function start_exe(){
                         "_builds": [
                             {
                                 "p": "Basic Tank",
+                                "name": "lol",
+                                "build": {
+                                    "regen": "0",
+                                    "health": "6",
+                                    "body": "0",
+                                    "bspeed": "2",
+                                    "pen": "5",
+                                    "dmg": "6",
+                                    "reloads": "6",
+                                    "speed": "6"
+                                },
+                                "desc": "Ultima"
+                            },
+                            {
+                                "p": "Basic Tank",
                                 "name": "Ram Trolling",
                                 "build": {
                                     "regen": "7",
@@ -13167,13 +13182,17 @@ function start_exe(){
                         }
                     }
                     let element = function (a, b = {}) { return document.createElement(a, b) }
-                    var myMenu = _myWin.document.getElementById('menu')
+                    var myMenu = _myWin.menu||_myWin.document.getElementById('menu')
                     var fps_=false
                     function fps_toggle(){input.set_convar('ren_fps', !fps_);}
                     function FixGame() { var info = (function ({ gamemode, name }) { return { gamemode, name } })(localStorage); for (let i in localStorage) (localStorage.removeItem(i));localStorage.clear();for (let i in info) (localStorage.setItem(i, info[i])); location.href = location.href }
                     var rows = []
                     function newRow() { var row = document.createElement('div') }
-                    function addButton(name, f, { desc, line, space, befors, afters }) {
+                    async function addButton(name, f, { desc, line, space, befors, afters }) {
+                        myMenu = _myWin.menu||_myWin.document.getElementById('menu')
+                        log('Appending',{name,f,desc,line,space})
+                        if(!myMenu)await new Promise(b=>{let a=setInterval(()=>{myMenu = _myWin.menu||_myWin.document.getElementById('menu');!!myMenu&&(clearInterval(a),b())})})
+                        log('Done',{name,f,desc,line,space})
                         //for(let i=rows.length-1;i<line;i++){}
                         var button = document.createElement('button'); button.innerText = name; button.onclick = f;
                         var span = element('span'); span.innerText = desc || "No description."; span.className = 'menuDesc'
@@ -13182,7 +13201,8 @@ function start_exe(){
                         myMenu.append(span)
 
                     }
-                    function add(a,c){
+                    async function add(a,c){
+                        if(!myMenu)await new Promise(b=>{let a=setInterval(()=>{myMenu = _myWin.menu||_myWin.document.getElementById('menu');!!myMenu&&(clearInterval(a),b())})})
                         const {type,text,value,default_,linstenFor}=a,{line,desc}=c
                         var e=document.createElement('input');e.type=type,e.value=default_||text
                         typeof line=='boolean'?(myMenu.append(document.createElement('br')),myMenu.append(document.createElement('br'))):console.warn('No new lines added')
@@ -13204,11 +13224,10 @@ function start_exe(){
                                 var divid = `dropDown_${b.split(' ').join('_')}_div`
                                 var div = element('div')
                                 div.id = divid;
-                                button.onclick = function () { $(div).toggle(2000, "swing") }
+                                button.onclick = function () { _myWin.$(div).toggle(2000, "swing") }
                                 console.log({a,b})
                                 a.forEach(e => {
                                     var { name, build, desc } = e;
-
                                     var sect = element("div")
                                     var button = element('input')
                                     button.type = 'button'
@@ -13231,7 +13250,7 @@ function start_exe(){
                                 li.append(lid)
                                 li.append(div)
                                 Builds_M.append(li)
-                                $(`#dropDown_${b.split(' ').join('_')}_div`).toggle()
+                                _myWin.$(`#dropDown_${b.split(' ').join('_')}_div`).toggle()
                                 //for (let i = 0; i < NoL; i++)(Builds_M.append(element('br')))
                                }catch(err){}
                         }
