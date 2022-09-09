@@ -1,6 +1,7 @@
-<title>Cloner ziper</title>
+<title>Cloner</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/Stuk/jszip/dist/jszip.min.js"></script>
-<input id='user_'><br><input type='button' id="sea" value='Clone'><br>
+<input id='user_'><br><input type='button' id="sea" value='Clone'><input type='button' id="evw" value='Events'><br>
 <h2 id="mySpan"></h2>
 <script>
     (function(global, factory) {
@@ -201,10 +202,31 @@
 
 </script>
 <script async type="module">
-    var my=document.getElementById('mySpan')
+	var my=document.getElementById('mySpan')
 	var searchB=document.getElementById('sea')
+	var eventB=document.getElementById('evw')
 	var userB=document.getElementById('user_')
-    function log(...d){my.innerText=d;console.log(...d)}
+	function log(...d){my.innerText=d;console.log(...d)}
+	log('importing')
+	import { createTokenAuth } from "https://cdn.skypack.dev/@octokit/auth-token";
+	import { Octokit, App } from "https://cdn.skypack.dev/octokit";
+	log('Getting config')
+	async function promptToken(){
+	let a=prompt('Enter your ghp token','ghp_PersonalAccessToken01245678900000000').replace('ghp_PersonalAccessToken01245678900000000','')
+	log('Testing token...')
+	var b=null
+	try{b=new Octokit({ auth: config.auth })}catch(err){}
+	return !b?(log('Token failed',a),a.length?(await promptToken()):('')):a
+	}
+	delete localStorage.config
+	let config=
+	!localStorage.config?(log('Token defaulted'),localStorage.config=JSON.stringify({auth:await promptToken()}),JSON.parse(localStorage.config)):(log('Token found-'),JSON.parse(localStorage.config))
+	
+
+
+
+	function t_obj(obj,p,c){let _=c||{};for(let a in obj){let b=(p?p+'_':"")+a;typeof obj[a]=="object"?t_obj(obj[a],b,_):_[b]=obj[a]}return(_)}
+	var events='GET /users/{owner}/events'
 	function formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 Bytes';
 
@@ -216,18 +238,14 @@
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
-	log('importing')
-  import { Octokit, App } from "https://cdn.skypack.dev/octokit";
-	log('Getting config')
-	let config={
-		auth:"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"
-	}
+	
+
 	log('Logging in')
 	const octokit = new Octokit({ auth: config.auth });
 	const {data} = await octokit.rest.users.getAuthenticated();
 	const{login}=data
 	
-	log("Hello, %s", login);
+	log("Hello, %s", userB.value=login);
 	var user_='HaXXerIO'
 	//const HostedFiles=(await octokit.rest.repos.get({owner:login,repo:'HostedFiles'})).data;
 	async function se(user=user_){
@@ -299,5 +317,30 @@
 	}
 	searchB.onclick=function(){
 	se(userB.value)
+	}
+	eventB.onclick=async function(){
+		let owner=userB.value
+		log('getting events')
+		var events_=(await octokit.request(events, {owner})).data;
+		var count=events_.length;
+		log(count,'Collected')
+		count--
+		events_.forEach(async(event,index)=>{
+			var div=document.createElement('div')
+			var area=document.createElement('textarea')
+			var b=t_obj(event.payload.commits)
+			var msg=b['0_message']
+			var url=b['0_url']
+			var d=new URL(url)
+			var dd=d.pathname.split('/')
+			var repo=dd[3]
+			var commits=`GET ${dd.join('/')}`
+			//console.log({commits,dd})
+			var data=await (await fetch(url)).json()
+			var {commit:{message},files,files:[{patch,changes,deletions,additions,status}]}=data
+			log('Got',[files[0].filename],` ${changes}-changes`,message)
+		})
+		
+		
 	}
 </script>
