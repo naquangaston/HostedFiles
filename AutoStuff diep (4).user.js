@@ -14,24 +14,14 @@
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_obf.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/ResourceLoader_.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_Formatter_.js
-// @run-at document-idle
+// @run-at document-start
 // ==/UserScript==
 // @require https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
 //http://bdsmtest.org/r/CgWCTFTm
 setValue=GM_setValue
 getValue=GM_getValue
 _GMinfo=GM_info
-gameWrapper=true
 //globalRoot = (typeof exports == "undefined" ? !this.Device ? (typeof window == "undefined" ? this : (globalThis || self || window || top)) : exports : this);
-function t_obj(obj,_val,f){
-    for(let i in obj){
-        if(obj[i]===_val){
-            obj[i]=f(i)
-        }
-        if(typeof obj[i]=='object')obj[i]=t_obj(obj[i])
-    }
-    return obj
-}
 async function get(url) {
     return new Promise((..._) => {
         $.get(url, (a, b) => {
@@ -50,11 +40,7 @@ async function getToken(id=440929,log=''){
                 step==1&&typeof e.data=='object'&&(step++,console.log(e.data));
                 typeof e.data=='object'&&e.data.status&&(console.log('Status:',e.data.status))
 
-            }
-            else if(e.origin==(new URL(location.href)).origin){
-                e.loaded==true&&(fm)
-            }
-            else console.log('Unhandled Post',e)
+            }else console.log('Unhandled Post',e)
         }
     })
 }
@@ -6675,14 +6661,13 @@ function start_exe(){
             function sleep(ms){return new Promise((r,j)=>{setTimeout(r,ms)})}
             function checkWin(myWindow=this.win1) {return !myWindow?false:myWindow.closed?false:true}
             function startwin(win,name=null,reopen,c){
-                var win_
                 name==null&&(name=win);
                 console.log('attemp the close',win)
                 try{if(reopen)window[win].close()}catch
                     (err){window[win]=null;console.warn('attemp the close',win,'Fail')}
-                try{if(!checkWin(window[win]))(window[win]=win_=open(c,'PROFILES',`width=256,height=305`),console.log('Making',win,'in',name),console.log(window[win])
+                try{if(!checkWin(window[win]))(window[win]=open(c,'PROFILES',`width=256,height=305`),console.log('Making',win,'in',name),console.log(window[win])
                                                ,console.log('writing defalt styles','to',win,name),
-                                               win_.document.write(`
+                                               window[win].document.write(`
 <!DOCTYPE html>
 <html>
 
@@ -6971,7 +6956,6 @@ function start_exe(){
         </ul>
     </div>
     <script>
-
     function myFunction() {
     //console.log(this); return
     var input, filter, ul, li, a, i, txtValue;
@@ -7000,7 +6984,7 @@ function start_exe(){
                           globalRoot[name].window.document.head.innerHTML='')}catch(err){}
                 globalRoot[name]=globalRoot[win];
                 console.log('complete win')
-                return win_
+                return globalRoot[name];
             }
             globalRoot.startwin_=startwin
             globalRoot.checkWin_=checkWin
@@ -7087,21 +7071,6 @@ function start_exe(){
                     "Basic Tank": {
                         "branch": "Basic Tank",
                         "_builds": [
-                            {
-                                "p": "Basic Tank",
-                                "name": "lol",
-                                "build": {
-                                    "regen": "0",
-                                    "health": "6",
-                                    "body": "0",
-                                    "bspeed": "2",
-                                    "pen": "5",
-                                    "dmg": "6",
-                                    "reloads": "6",
-                                    "speed": "6"
-                                },
-                                "desc": "Ultima"
-                            },
                             {
                                 "p": "Basic Tank",
                                 "name": "Ram Trolling",
@@ -12883,6 +12852,7 @@ function start_exe(){
                         ]
                     }
                 }
+
                 //Fix builds
                 function FixBuild(build={}){
                     let b=build;
@@ -12964,9 +12934,6 @@ function start_exe(){
                 }
                 function sleep(ms) { return new Promise(a => setTimeout(a, ms)) }
                 var loaded
-                _myWin=startwin("myWin_")
-                myWin_=(_myWin)
-                var myWin=_myWin.document.body
                 function loader() {
                     function noAds(){return setInterval(()=>{;[...document.getElementsByTagName('iframe')].forEach(e=>e.remove())},10)}
                     class _Player{
@@ -12982,8 +12949,11 @@ function start_exe(){
                     loaded=!loaded;
                     input=unsafeWindow.input;
                     var d=GM_getValue('data')||{};
+                    _myWin=startwin("myWin_")
+                    myWin_=(_myWin)
                     //var _win=window.myWin_
                     //_win.document.write()
+                    var myWin=_myWin.document.body
                     addEventListener("beforeunload",function(){window.myWin_.close()})
                     var divs=[]
                     /*
@@ -13088,7 +13058,7 @@ function start_exe(){
                     });
                     var loggedkk = false
                     var did_=false;
-                    var noads=false
+                    var noads=false;
                     setInterval(() => {
                         //document.querySelector('d-base').shadowRoot.children[0].tagName=="D-STATS"
                         info.stats = document.querySelector('d-base').shadowRoot.children[0].tagName=="D-STATS"
@@ -13156,10 +13126,9 @@ function start_exe(){
                             })
                             }
                     })
-                    MenuFix()
                 }
 
-                _loop=setInterval(()=>{unsafeWindow.input&&(clearInterval(_loop),delete _loop,loader())})
+                unsafeWindow.loop=setInterval(()=>{unsafeWindow.input&&(clearInterval(unsafeWindow.loop),delete unsafeWindow.loop,loader())})
                 //var firstPlay=false,isdead=false
                 function log(...d) { console.log(...d) }
                 function log_(title, body) { var l = new CustomLog(title); l.log(body) }
@@ -13182,36 +13151,21 @@ function start_exe(){
                         }
                     }
                     let element = function (a, b = {}) { return document.createElement(a, b) }
-                    var myMenu = _myWin.menu||_myWin.document.getElementById('menu')
-                    var fps_=false
-                    function fps_toggle(){input.set_convar('ren_fps', !fps_);}
+                    var myMenu = _myWin.document.getElementById('menu')
                     function FixGame() { var info = (function ({ gamemode, name }) { return { gamemode, name } })(localStorage); for (let i in localStorage) (localStorage.removeItem(i));localStorage.clear();for (let i in info) (localStorage.setItem(i, info[i])); location.href = location.href }
                     var rows = []
                     function newRow() { var row = document.createElement('div') }
-                    async function addButton(name, f, { desc, line, space, befors, afters }) {
-                        myMenu = _myWin.menu||_myWin.document.getElementById('menu')
-                        log('Appending',{name,f,desc,line,space})
-                        if(!myMenu)await new Promise(b=>{let a=setInterval(()=>{myMenu = _myWin.menu||_myWin.document.getElementById('menu');!!myMenu&&(clearInterval(a),b())})})
-                        log('Done',{name,f,desc,line,space})
+                    function addButton(name, f, { desc, line, space, befors, afters }) {
                         //for(let i=rows.length-1;i<line;i++){}
                         var button = document.createElement('button'); button.innerText = name; button.onclick = f;
                         var span = element('span'); span.innerText = desc || "No description."; span.className = 'menuDesc'
-                        if (line) (myMenu.append(document.createElement('br')),myMenu.append(document.createElement('br')));
+                        if (line) myMenu.append(document.createElement('br'));
                         myMenu.append(button)
                         myMenu.append(span)
 
                     }
-                    async function add(a,c){
-                        if(!myMenu)await new Promise(b=>{let a=setInterval(()=>{myMenu = _myWin.menu||_myWin.document.getElementById('menu');!!myMenu&&(clearInterval(a),b())})})
-                        const {type,text,value,default_,linstenFor}=a,{line,desc}=c
-                        var e=document.createElement('input');e.type=type,e.value=default_||text
-                        typeof line=='boolean'?(myMenu.append(document.createElement('br')),myMenu.append(document.createElement('br'))):console.warn('No new lines added')
-                        typeof linstenFor=='object'?Object.keys(linstenFor).forEach(e=>{e.addEventListener(e,linstenFor[e])}):console.warn('linstenFor','not found');myMenu.append(e)
-                        var span = element('span'); span.innerText = desc || "No description."; span.className = 'menuDesc';myMenu.append(span)
-                    }
                     addButton('Fix Game', FixGame, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
                     addButton('Remove-Ads', RemoveAds, {line:true, desc: 'Use to remove ads that may cause gae lag' })
-                    add({type:'checkbox',text:"Show fps",listenFor:{change:fps_toggle}},{line:true, desc: '' })
                     var allChecks = [];
                     const Tanks = new Object(); for (let i in Builds) {try{Builds[i]._builds.forEach(e => { var tank = e.p; const { name, desc, build } = e; if (!Tanks[tank]) Tanks[tank] = []; Tanks[tank].push({ name, desc, build }) }) }catch(err){}}
                     var Builds_M = window.myWin_.document.getElementById('myUL')
@@ -13222,12 +13176,13 @@ function start_exe(){
                             var button = element('span'); button.id = `dropDown_${b}`; button.className = "classBuild"
                                 button.innerText = b;
                                 var divid = `dropDown_${b.split(' ').join('_')}_div`
+                                button.onclick = function () { $(`#dropDown_${b.split(' ').join('_')}_div`).toggle(2000, "swing") }
                                 var div = element('div')
                                 div.id = divid;
-                                button.onclick = function () { _myWin.$(div).toggle(2000, "swing") }
                                 console.log({a,b})
                                 a.forEach(e => {
                                     var { name, build, desc } = e;
+
                                     var sect = element("div")
                                     var button = element('input')
                                     button.type = 'button'
@@ -13250,7 +13205,7 @@ function start_exe(){
                                 li.append(lid)
                                 li.append(div)
                                 Builds_M.append(li)
-                                _myWin.$(`#dropDown_${b.split(' ').join('_')}_div`).toggle()
+                                $(`#dropDown_${b.split(' ').join('_')}_div`).toggle()
                                 //for (let i = 0; i < NoL; i++)(Builds_M.append(element('br')))
                                }catch(err){}
                         }
@@ -13259,7 +13214,7 @@ function start_exe(){
                 document.onreadystatechange = function (e) {
                     log_("ReadyState", document.readyState)
                     console.log('Info:',GM_info)
-                    //MenuFix()
+                    MenuFix()
                     st=GM_info
                     if (document.readyState == "complete") {
                         var _ = setInterval(() => {
@@ -13270,8 +13225,7 @@ function start_exe(){
                                     if (t.style.width.length) {
                                         //Spawn();loader()
                                         //setTimeout(Spawn,500)
-                                        //_myWin.stop()
-                                        //setTimeout(loader, 500)
+                                        setTimeout(loader, 500)
                                         //setTimeout(AutoStatus,600)
                                         clearInterval(_)
                                     }
