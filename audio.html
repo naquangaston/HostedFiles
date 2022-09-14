@@ -1,0 +1,506 @@
+<style>
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.music-player {
+  background: #0e0929;
+  color: white;
+  position: relative;
+  top: 0%;
+  left: 0%;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  transition: 0.2s;
+  overflow: hidden;
+
+  .controls,
+  .vid {
+    font-size: 12px;
+    color: #ff002e;
+    cursor: pointer;
+    position: absolute;
+    z-index: 50;
+    padding: 10px 20px;
+    border: 1px solid white;
+    border-radius: 20px;
+    margin-left: 10px;
+  }
+
+  .vid {
+    top: 17%;
+  }
+
+  .controls {
+    top: 10%;
+    left: 1px;
+  }
+
+  .video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: -1;
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 1s linear;
+      opacity: 0;
+    }
+  }
+
+  .notes {
+    position: relative;
+    top: 80%;
+    left: 0;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  #myAudio {
+    position: relative;
+    z-index: 55;
+  }
+  #myCanvas {
+    position: absolute;
+    top: 48%;
+    left: 49.5%;
+    transform: translate(-50%, -50%);
+    transition: 0.2s;
+  }
+
+  .music-player-element {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .icon-circle-mid {
+    width: 556px;
+    height: 556px;
+
+    .music-name {
+      position: absolute;
+      top: 7%;
+      left: 58%;
+      font-family: monospace;
+      font-size: 17px;
+    }
+
+    .next-prev-arrows {
+      position: absolute;
+      top: 15%;
+      left: 70%;
+      display: flex;
+      width: 110px;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 11;
+
+      div {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .icon-play-pause {
+    width: 162px;
+    height: 162px;
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  .music-arrow-left,
+  .music-arrow-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+  }
+
+  .music-arrow-left {
+    left: 0;
+  }
+
+  .music-arrow-right {
+    right: 0;
+  }
+}
+
+.opacity-js {
+  opacity: 0;
+}
+
+.test {
+  font-size: 12px;
+  color: #ff002e;
+  cursor: pointer;
+  padding: 10px;
+  display: inline-block;
+
+  input {
+    display: block;
+  }
+}
+
+// Some basic responsive design -- too lazy for that
+@media only screen and (max-width: 850px) {
+  .music-arrow-left,
+  .music-arrow-right {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .music-player {
+    .icon-circle-mid {
+      img {
+        transform: scale(0.6);
+      }
+
+      .next-prev-arrows {
+        top: 32%;
+        left: 55%;
+      }
+
+      .music-name {
+        top: 24%;
+        left: 55%;
+        font-size: 13px;
+        width: 170px;
+      }
+    }
+  }
+}
+
+@media (min-width: 560px) and (max-height: 480px) and (orientation: landscape) {
+  .music-player {
+    .icon-circle-mid {
+      width: auto;
+      height: auto;
+
+      .music-name {
+        top: 8%;
+
+        p {
+          width: 280px;
+        }
+      }
+
+      .next-prev-arrows {
+        top: 22%;
+        left: 75%;
+      }
+    }
+
+    .music-arrow-left,
+    .music-arrow-right {
+      display: none;
+    }
+  }
+}
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+</style>
+<div class="music-player music-active-js">
+  <canvas class="opacity-js" id="myCanvas" width="800" height="400"></canvas>
+  <audio crossorigin="anonymous" id="myAudio" src=""></audio>
+  <div class="test">
+    <input type="file">
+  </div>
+
+  <div class="music-player-element icon-circle-mid">
+    <img src="https://i.ibb.co/dKbwbMV/circle.png" alt="">
+
+    <div class="music-name">
+
+    </div>
+
+    <div class="next-prev-arrows">
+      <div class="music-prev">
+        <img src="https://i.ibb.co/Svgdrz3/music-prev.png" alt="">
+      </div>
+      <div class="music-stop">
+        <img src="https://i.ibb.co/wYdY2jx/music-stop.png" alt="">
+      </div>
+      <div class="music-next">
+        <img src="https://i.ibb.co/Q6fXNGX/music-next.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="music-player-element icon-play-pause play">
+    <img src="https://i.ibb.co/MBFjvcj/play.png" alt="">
+  </div>
+
+  <div class="music-arrow-left">
+    <img src="https://i.ibb.co/pd4Jgcq/line-left.png" alt="">
+  </div>
+  <div class="music-arrow-right">
+    <img src="https://i.ibb.co/qBYnqf7/line-right.png" alt="">
+  </div>
+
+  <div class="controls"><p>**Download audio</p>
+      </div>
+
+  <div class="vid">
+    <p>**video</p>
+    <input type='number' max=1 min=0>
+  </div>
+
+  <div class="video-background">
+    <video muted loop>
+      <source src="https://archive.org/download/islands2119428x240/Islands%20-%202119_428x240.mp4">
+    </video>
+  </div>
+
+  <div class="notes">
+    <p id="myidY">*** Not developed sepenuhnya <br>
+     by Arman </p>
+  </div>
+</div>
+
+<!-- The reason behind this approach is because the original app was developed for a WP site, this field is a repeater field and I can easily use PHP to manipulate as much data as the user enters here  -->
+
+<div class="song-selection">
+  <!--p class="song-select" data-author="Author Name" data-name="Song Name" data-path="path"></p> -->
+     <p class="song-select" data-author="Solawat" data-name="♥️❤️♥️" data-path="https://archive.org/download/innal-habib/3-Sholawat_Nabi-Allah.mp3"></p>
+  <p class="song-select" data-author="Innalhabibal Mustofa" data-name="by arman" data-path="https://archive.org/download/innal-habib/1-Solawat_Innal-Habibal-Musthofa.mp3"></p>
+  <p class="song-select" data-author="by arman" data-name="Nabiku utamaku" data-path="https://archive.org/download/innal-habib/Nabiku%20Utamaku.mp3"></p>
+  <p class="song-select" data-author="Maulida
+" data-name="Allah Ghizna" data-path="https://archive.org/download/innal-habib/Nazwa%20Maulidia-Allah%20Allah%20Aghisna.mp3"></p>
+    
+</div>
+
+
+<!--
+source 
+https://codepen.io/AlexM91/details/MWbMNxN 
+Edited by 
+kucingkumuza.blogspot.com
+-->
+<script>
+  
+//Music application
+var oldH=0
+let canvas = document.getElementById("myCanvas");
+let sp = document.getElementById("myidY");
+let audio = document.getElementById("myAudio");
+
+audio.crossOrigin = "anonymous";
+
+// Audio source
+// Create audio context
+// let audioCtx = new AudioContext() || new webkitAudioContext(); -- for safari
+let audioCtx = new AudioContext();
+
+// Create audio node so that the analyser can work with
+let source = audioCtx.createMediaElementSource(audio);
+
+// Create analyser
+let analyser = audioCtx.createAnalyser();
+
+// Make 2d context
+let ctx = canvas.getContext("2d");
+
+// Make connections
+source.connect(analyser);
+source.connect(audioCtx.destination);
+
+// analyser.fftSize = 2048;
+analyser.smoothingTimeConstant = .6;
+analyser.fftSize = 4096;
+
+// Buffer length
+let bufferLength = analyser.frequencyBinCount;
+let data = new Uint8Array(bufferLength);
+
+// Draw function
+//  ** The canvas design ( this draw function), with the exception of some modifications done for the purposes of the app is based on this design: https://github.com/DavidLazic/audio-visualizer/blob/master/visualizer.js
+function draw(data) {
+ let gradient = ctx.createLinearGradient(0, 0, 0, 300);
+ gradient.addColorStop(1, "#ff0033");
+ ctx.fillStyle = gradient;
+ ctx.shadowBlur = 20;
+ ctx.shadowColor = "#ffffff";
+
+ let cx = canvas.width / 2;
+ let cy = canvas.height / 2;
+ let radius = 140;
+ let barWidth = 2;
+ let barHeight = 2;
+ let barSpacing = 7;
+ let maxBarNum = Math.floor((radius * 2 * Math.PI) / (barWidth + barSpacing));
+ let slicedPercent = Math.floor((maxBarNum * 25) / 100);
+ let barNum = maxBarNum - slicedPercent;
+ let freqJump = Math.floor(data.length / maxBarNum);
+var localMax=0
+ for (let i = 0; i < barNum; i++) {
+   let amplitude = data[i * freqJump];
+   let alfa = (i * 2 * Math.PI) / maxBarNum;
+   let beta = ((3 * 45 - barWidth) * Math.PI) / 280;
+   let x = 0;
+   let y = radius - (amplitude / 12 - barHeight);
+   let w = barWidth;
+   let h = amplitude / 6 + barHeight;
+   if(oldH<h){oldH=h}
+   if(i>(72/2)&&localMax<h&&h!=0){localMax=[h,i]}
+   sp.innerText=`max:${oldH}\nlocalMax:${localMax}`
+   ctx.save();
+   ctx.translate(cx + barSpacing, cy + barSpacing);
+   ctx.rotate(alfa - beta);
+   ctx.fillRect(x, y, w, h);
+   ctx.restore();
+ }
+}
+
+// Loop function
+function loopingFunction() {
+ requestAnimationFrame(loopingFunction);
+ analyser.getByteFrequencyData(data);
+ ctx.clearRect(0, 0, canvas.width, canvas.height);
+ draw(data);
+}
+
+loopingFunction();
+
+// Play music
+let play = document.querySelector(".play");
+let musicIcon = document.querySelector(".icon-play-pause img");
+
+function playMusic() {
+ audioCtx.resume();
+ canvas.classList.remove("opacity-js");
+
+ if (audio.paused) {
+   audio.play();
+   musicIcon.src = "https://i.ibb.co/2hWV9L6/pause.png";
+ } else {
+   audio.pause();
+   musicIcon.src = "https://i.ibb.co/MBFjvcj/play.png";
+ }
+}
+
+play.addEventListener("click", playMusic);
+
+// Stop music
+let stop = document.querySelector(".music-stop");
+function stopMusic() {
+ audio.pause();
+ audio.currentTime = 0;
+ musicIcon.src = "https://i.ibb.co/MBFjvcj/play.png";
+}
+
+stop.addEventListener("click", stopMusic);
+
+// Load track functionality
+let songs = document.querySelectorAll(".song-select");
+let songArr = [];
+
+songs.forEach(function (song) {
+ songArr.push({
+   songName: song.dataset.name,
+   songAuthor: song.dataset.author,
+   songPath: song.dataset.path
+ });
+});
+
+let musicName = document.querySelector(".music-name");
+let counter = 0;
+let maxSongs = songArr.length;
+
+function loadMusic(counter) {
+ audio.src = `${songArr[counter].songPath}`;
+ audio.load();
+ musicName.textContent = `${songArr[counter].songAuthor} - ${songArr[counter].songName}`;
+}
+
+loadMusic(counter);
+
+// Next and prev song
+let next = document.querySelector(".music-next");
+let prev = document.querySelector(".music-prev");
+next.addEventListener("click", function () {
+ if (counter < maxSongs - 1) {
+   counter++;
+   loadMusic(counter);
+ } else {
+   counter = 0;
+   loadMusic(counter);
+ }
+ playMusic();
+});
+
+prev.addEventListener("click", function () {
+ if (counter > 0) {
+   counter--;
+   loadMusic(counter);
+ } else {
+   if (counter === 0) counter = maxSongs;
+   counter--;
+   loadMusic(counter);
+ }
+ playMusic();
+});
+
+// Music ended
+audio.addEventListener("ended", function () {
+ audio.currentTime = 0;
+ musicIcon.src = "/images/play.png";
+});
+
+// If you want to add music of your own to test it out, however the functionallity is not fully developed -- it serves for your testing purposes only
+let input = document.querySelector("input");
+input.addEventListener("change", function (e) {
+ var files = this.files;
+ audio.src = URL.createObjectURL(files[0]);
+ audio.load();
+ musicName.textContent = input.value;
+ playMusic();
+});
+
+// Toggle controls
+let toggleControl = document.querySelector(".controls");
+
+toggleControl.addEventListener("click", () => {
+ if (audio.hasAttribute("controls")) {
+   audio.removeAttribute("controls");
+ } else {
+   audio.setAttribute("controls", "controls");
+ }
+});
+
+// Toggle video
+let vid = document.querySelector(".video-background video");
+let toggleVid = document.querySelector(".vid");
+
+toggleVid.addEventListener("click", function () {
+ if (vid.paused || vid.ended) {
+   vid.play();
+   vid.style.opacity = "0.15";
+ } else {
+   vid.style.opacity = "0";
+   vid.pause();
+ }
+});
+
+</script>
