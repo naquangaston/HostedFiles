@@ -2,6 +2,11 @@
 <html>
 
 <head>
+  <script type="module">
+  import {Octokit,App} from "https://cdn.skypack.dev/octokit";
+import {Base64} from 'https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.mjs';
+import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn.pika.dev/@octokit/plugin-create-or-update-text-file";
+  </script>
   <script>async function getBase64(){
     return await axios.get(url, { responseType: 'arraybuffer' })
         .then((response) => {
@@ -70,7 +75,7 @@
   <script src="particles.min.js"></script>
   <h2 class="bass-title">
     <span class="bass-blur logo-neon">
-      <span class="text-Logo pulse1">TestV24</span>
+      <span class="text-Logo pulse1">TestV25</span>
     </span>
   </h2>
   <hr>
