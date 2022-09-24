@@ -217,7 +217,7 @@ const octokit = new MyOctokit({
         map={}
         await forEachAsync(keys(done).map(e=>done[e]),async function(a){
             await new Promise(res=>{
-                if(!a.file.url||map[a.id])return;
+                if(!a.file.url||map[a.id]||!a.id)return;
                 var frame=open(`${a.file.url}#id=${a.id}`,a.id.toString(),'width=5,height=5')
                 fr.push(frame)
                 map[a.id]=function(){res();frame.close()}
