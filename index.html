@@ -26,7 +26,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
   <script type="module">
     import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
   </script>
-  <title>my site :>)</title>
+  <title>my site ):>)</title>
   <meta http-equiv="Content-Security-Policy"
     content="default-src * gap:; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src * data: blob: android-webview-video-poster:; style-src * 'unsafe-inline';  frame-ancestors 'none'; base-uri 'self';">
   <script src="index.js"></script>
@@ -272,9 +272,11 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
     var max = 10
     var done = {}
     var pls = {}
-    async function fet(...d){
-      var r=null;
-      try{r=await fetch(...d);return r}catch(err){return await fet(...d)}
+    var requestMax=5
+    async function fet(...d){requestMax 
+      if(requestMax>=5){await sleep(10000)}
+      requestMax++
+      var r=null;try{r=await fetch(...d);requestMax--;return r}catch(err){return await fet(...d)}
     }
     async function fimg(e) {
       if (!!e.pools.length) {
@@ -300,7 +302,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
               //const response_ = await fetch(`https://${e6.value}.net/posts/${id}.json`);
               //console.log({response_})
               var rp = (await (await fet(`https://${e6.value}.net/posts/${id}.json`)).json()).post
-              ;(!rp.file||!rp.file.url) ? console.warn('Skipped', rp.id) : (console.log('Name:', j.name, rp.id), _fimg(rp))
+              ;(!rp||!rp.file||!rp.file.url) ? console.warn('Skipped', rp.id) : (console.log('Name:', j.name, rp.id), _fimg(rp))
             }
           }, 6)
         }
