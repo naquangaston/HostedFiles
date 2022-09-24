@@ -184,7 +184,7 @@ const octokit = new MyOctokit({
         // see FileSaver.js
         saveAs(content, "guess.zip");
     });}
-    onmessage=function(e){
+    onmessage=async function(e){
         if(e.origin.match(/https?:\/{2}static\d\.e(9||6)2(6||1)\.net/)){
             const {data}=e;
             console.log('Handled',data,e)
@@ -194,8 +194,8 @@ const octokit = new MyOctokit({
                     done[data.name].Durl=data.file
                     addI(data.file.ext,`${data.name} - .${done[data.name].file.ext}`,data.file.replace(/^data:([a-zA-Z]+)\/(png|jpg|[A-Za-z]+);base64,/, ""),{base64:true})
                     var top=data.file.replace(/^data:([a-zA-Z]+)\/(png|jpg|[A-Za-z]+);base64,/, "");
-                    upLoadFile('e6',top,`${data.name} - .${done[data.name].file.ext}`)
                     map[data.name]()
+                    /*await */upLoadFile('HostedFiles',top, `${data.name} - .${done[data.name].file.ext}`, 'e6', true).then(e=> e ,e_ => console.warn(e_.message||e_))
                 }
             }
         }
