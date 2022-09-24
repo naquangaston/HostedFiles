@@ -80,7 +80,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
   <script src="particles.min.js"></script>
   <h2 class="bass-title">
     <span class="bass-blur logo-neon">
-      <span class="text-Logo pulse1">TestV26</span>
+      <span class="text-Logo pulse1">TestV27</span>
     </span>
   </h2>
   <hr>
@@ -188,6 +188,10 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
   <hr>
   <br><br>
   <h3>Scrapper</h3><br>
+  <select id="e6">
+    <option value='e621'>1</option>
+    <option value="e926" selected>2</option>
+  </select>
   <form id='myform' method="GET" action="">
     <input name='tags' placeholder="enter tags"><br>
     <span>images per page: </span><input name='limit' placeholder="images per page" value="10" type="number"><br>
@@ -262,6 +266,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
       page: 1 || '1'
     }
     form = document.getElementById("myform");
+    e6 = document.getElementById("e6");
     //alert(form)
     var sent = 0
     var max = 10
@@ -280,7 +285,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
           pls[pool] = true;
           let pid = pool
           console.log('Geting pool')
-          const response = await fetch(`https://e926.net/pools/${pid}.json`);
+          const response = await fetch(`https://${e6.value}.net/pools/${pid}.json`);
           const j = await response.json();
           const { post_ids } = j
           console.log('Name:', j.name)
@@ -288,9 +293,9 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
             //let id = post_ids[i_]
             if (id == e.id) { _fimg(e) }
             else {
-              //const response_ = await fetch(`https://e926.net/posts/${id}.json`);
+              //const response_ = await fetch(`https://${e6.value}.net/posts/${id}.json`);
               //console.log({response_})
-              var rp = (await (await fetch(`https://e926.net/posts/${id}.json`)).json()).post
+              var rp = (await (await fetch(`https://${e6.value}.net/posts/${id}.json`)).json()).post
               !rp.file.url ? console.warn('Skipped', rp.id) : (console.log('Name:', j.name, rp.id), _fimg(rp))
             }
           }, 6)
@@ -318,14 +323,14 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
         video.controls = true
         video.appendChild(source)
         div_.appendChild(video)
-        video.onclick = () => open(`http://e926.net/posts/${e.id}`)
+        video.onclick = () => open(`http://${e6.value}.net/posts/${e.id}`)
         video.classList.add('green')
         allImgs.push([Pimg, video])
       } else {
         var Rimg = document.createElement('img')
         Rimg.classList.add('green')
         Rimg.src = url;
-        Rimg.onclick = () => open(`http://e926.net/posts/${e.id}`)
+        Rimg.onclick = () => open(`http://${e6.value}.net/posts/${e.id}`)
         div_.appendChild(Rimg)
         allImgs.push([Pimg, Rimg])
       }
@@ -353,7 +358,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
       window.tags_ = info.tags
       window.limit_ = info.limit
       window.page_ = info.page
-      var p = await scrap('e926', tags_, limit_, page_);
+      var p = await scrap(e6.value, tags_, limit_, page_);
       p = p.posts;
       window.post = p;
       window.pgnum = page_;
@@ -368,7 +373,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
     };
     async function nextpage() {
       page_++
-      var p = await scrap('e926', tags_, limit_, page_);
+      var p = await scrap(e6.value, tags_, limit_, page_);
       p = p.posts;
       window.post = p;
       post.forEach(fimg)
@@ -381,7 +386,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
     async function prevpage() {
       if (page_ < 1) return;
       page_--
-      var p = await scrap('e926', tags_, limit_, page_);
+      var p = await scrap(e6.value, tags_, limit_, page_);
       p = p.posts;
       window.post = p;
       post.forEach(fimg)
