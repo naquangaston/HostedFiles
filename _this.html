@@ -1,193 +1,280 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src * gap:; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src * data: blob: android-webview-video-poster:; style-src * 'unsafe-inline';">
-  <script src="index.js"></script>
-  <script src="yes.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src='CustomLogging.js'></script>
-  <script>
-    (async () => {
-      const request = new XMLHttpRequest();
-      const url = `https://raw.githubusercontent.com/liddiard/text-diff/master/diff.js`;
-      request.open("GET", url);
-      request.send();
-      await new Promise((..._) => {
-        request.onload = (e) => {
-          try { eval(request.responseText) } catch (err) { }
-          _[0]()
+<script>function isLetter(t) {
+    return !!(t || this).match(/[A-Z_$a-z]/gi)
+}
+ 
+function isOpen(t) {
+    return !!(t || this).match(/[\(\{\[]/gi)
+}
+ 
+function isClose(t) {
+    return !!(t || this).match(/[\]\}\)]/gi)
+}
+ 
+function isNumber(t) {
+    return !!(t || this).match(/[0-9]/gi)
+}
+ 
+function isLine(t) {
+    return !!(t || this).match(/[\r\n]/gi)
+}
+ 
+function isLetter(t) {
+    return !!(t || this).match(/[A-Z_$a-z]/gi)
+}
+ 
+function isBlank(t) {
+    return !!(t || this).match(/ /gi)
+}
+ 
+function isSyn(t) {
+    return !!(t || this).match(/[\+\*=%&\-]/gi)
+}
+ 
+function isStr(t) {
+    return !!(t || this).match(/[`'"]/gi)
+};(function() {
+    function t(t, n) {
+        var e = 0,
+            i = "",
+            o = [typeof String(), "function", "function"];
+        if (!([o.indexOf(typeof this), o.indexOf(typeof t)].filter(t => !(t < 0)).length ? 1 : 0)) throw console.log([o.indexOf(typeof this), o.indexOf(typeof t)]), "Cant format given code";
+        var r = (Array.isArray(t || this) ? (t || this).join(n) : (o.indexOf(typeof t) < 0 ? this : t).toString().split("  ").join("").split("{").join("{\n").split("}").join("\n}").split("\n\n").join("\n")).split("");
+        r.length;
+        for (let t = 0; t < r.length; t++) {
+            const n = r[t],
+                o = r[t + 1],
+                c = r[t - 1],
+                s = Number((t / r.length * 100).toFixed(2));
+            "\\" != c && ("{" == n && (e++, console.log(s, "%", e)), "}" == n && (e--, console.log(s, "%", e))), e < 0 && (e = 0), "\n" == n ? (console.log(s, "%", e), i += "}" == o ? n + " ".repeat(e ? e - 1 : e) : n + " ".repeat(e)) : i += n
         }
-      });
-      console.log('Script difference loaded')
-      return function (...a) { }
-    })();
-  </script>
-  <link rel="stylesheet" href="main.css">
-  <style>
-    #video {
-      border: 1px solid #999;
-      width: 98%;
-      max-width: 860px;
+        return i
     }
-
-    .error {
-      color: red;
+ 
+    function n(t) {
+        return (t || this).constructor.name.includes("AsyncFunction")
     }
-
-    .warn {
-      color: orange;
+    var e = function() {
+        const t = arguments;
+        return function(n) {
+            return (n || this)[t[2][0]][t[2][1]][t[2][2]](t[2][3])
+        }
+    }([], [""], ["constructor", "name", "includes", "AsyncFunction"], [""], [], {});
+ 
+    function i(t, n = null, e = "") {
+        return this.split(... function() {
+            return arguments[0] ? [t, n] : [t]
+        }(n)).join(e)
     }
-
-    .info {
-      color: darkgreen;
+ 
+    function o() {
+        return !this.toString().includes(".")
     }
-  </style>
-</head>
-
-<body>
-  <div id="particles-js"></div>
-  <script src="particles.js"></script>
-  <script src="particles.min.js"></script>
-  <h2 class="bass-title">
-    <span class="bass-blur logo-neon">
-      <span class="text-Logo pulse1">Test</span>
-    </span>
-  </h2>
-  <hr>
-  <br><br>
-  <span id="_fps">
-    <script>
-      const times = [];
-      var fps = 0;
-      function refreshLoop() { window.requestAnimationFrame(() => { const now = performance.now(); while (times.length > 0 && times[0] <= now - 1000) { times.shift() }; times.push(now); fps = times.length, _fps.innerText = 'FPS:' + fps, refreshLoop() }) }
-      refreshLoop()
-    </script>
-  </span>
-  <br><br>
-  <div id="filediv" style="width: 30%;border: 2px dashed red;">
-    <script>
-    var Video=new VideoPlayer()
-    function element(_){return(document.createElement(_))};
-    var inp=element('input')
-    inp.placeholder='Enter video url'
-    inp.onchange=function(e){
-        try{Video.Gen_f_url(inp.value);
-            var sp=element('span')
-            sp.innerText='Src:'+Video.iframe.src+'\n';
-            document.body.append(element('br'))
-            document.body.append(sp)
-        }catch(err){
-            var sp=element('span')
-            sp.innerText='Src:'+Video.iframe.src+'\nErr:'+err+'\n';
-            document.body.append(element('br'))
-            document.body.append(sp)}
+ 
+    function r(t = []) {
+        return (t.length ? t : this)[Math.floor(Math.random() * (t.length ? t : this).length)]
     }
-    document.body.append(element('hr'))
-    document.body.append(inp)
-    document.body.append(element('br'))
-    Video.append(document.body)
-      async function _File_Loaded() {
-        try {
-          console.log(files.files[0])
-          $('#Go')[0].disabled = 1;
-          processFile(files.files[0], function (e) {
-            window.text=(e)
-            Toconv.value = atob(e.split("base64,")[1])
-          })
-          $('#Go')[0].disabled = 0;
-        } catch (err) { console.log(err) }
-      }
-      const File_Loaded=(function(){const R=arguments;return async function/*File_Loaded*/t(){try{R[4][0][R[2][0]](files[R[2][1]][0]);$(R[2][2])[0][R[2][3]]=1,processFile(files[R[2][1]][0],function(e){R[4][1][R[2][5]]=(e);Toconv[R[2][6]]=atob(e[R[2][7]](R[2][8])[1])});$(R[2][2])[0][R[2][3]]=0}catch(err){R[4][0][R[2][0]](err)}}})([],[""],['\u006c\u006f\u0067','\u0066\u0069\u006c\u0065\u0073','#\u0047\u006f','\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064','\u0066\u0069\u006c\u0065\u0073','\u0074\u0065\u0078\u0074','\u0076\u0061\u006c\u0075\u0065','\u0073\u0070\u006c\u0069\u0074','\u0062\u0061\u0073\u0065\u0036\u0034,','#\u0047\u006f','\u0064\u0069\u0073\u0061\u0062\u006c\u0065\u0064','\u006c\u006f\u0067'],[''],[console,window],{})
-    </script>
-    <textarea id="hidden" style="display: none;"></textarea>
-    <span id="prog">:</span><br>
-    <span id="prog2">:</span><br>
-    <input size="1" id="files" type="file" onchange="File_Loaded()">
-  </div>
-  <script>$(filediv).toggle()</script>
-  <button id="Fileup" onclick="$(filediv).toggle()">Upload file</button>&nbsp;
-  <button id="Go"
-  onclick="setTimeout(()=>{!keys(down).length&&(window.clear(),this.ec=heheha(Toconv.value,window.OBS2),Output.value=ec.result,FZ.innerText=ec.size.unit)},100)">Go!</button>&nbsp;
-  <button onclick="JustString(Toconv.value)">Just compile</button><br>
-  <textarea id="Toconv"></textarea>
-  <select id="type" onchange="window.cv=this.value">
-  </select>&nbsp;<span>To</span><select onchange=""></select><br>
-  <textarea id="Output"></textarea><br>
-  <textarea id="log">
-  </textarea>
-  <span>Size:<span id="FZ"></span><br><span id="download"
-      onclick="Encoded.download(prompt('Enter File name'),Output.value)">Download</span></span>
-  <div id="after"></div><br>
-  <br><br>
-  <hr>
-  <br><br>
-  <h3>Scrapper</h3><br>
-  <form id='myform' method="GET" action="">
-    <input name='tags' placeholder="enter tags"><br>
-    <span>images per page: </span><input name='limit' placeholder="images per page" value="10" type="number"><br>
-    <span>page index: </span><input name="page" type="number" value="0" placeholder="page index">
-    <br><input type="submit" value="Search">
-  </form><br>
-  <div id="mydiv"></div>
-  <script>
-    const Toconv = document.getElementById("Toconv")
-    const Output = document.getElementById("Output")
-    function JustString(str) {
-      if (Toconv.value.match(/[`'"]/gi)) {
-        confirm('Your code contains string values makes sure your string values and may not stack properly\nDo you want to continue?') && (Output.value = Format2(RemoveSpacing(Toconv.value)))
-      } else Output.value = Format2(RemoveSpacing(Toconv.value))
+ 
+    function c(t = []) {
+        for (let n = (t.length ? t : this).length - 1; n > 0; n--) {
+            const e = Math.floor(Math.random() * (n + 1)),
+                i = (t.length ? t : this)[n];
+            (t.length ? t : this)[n] = (t.length ? t : this)[e], (t.length ? t : this)[e] = i
+        }
+        return t.length ? t : this
     }
-    var form = document.forms[0];
-    var div = document.getElementById('mydiv');
-    var info = {
-      tags: '',
-      limit: 10 || '10',
-      page: 1 || '1'
-    }
-    form.onsubmit = async (_) => {
-      console.log(_)
-      _.preventDefault();
-      var arr = $(form).serialize().split('&');
-      $(document.forms[0]).serializeArray().forEach(e => {
-        var key = Object.keys(e)[0]
-        var key2 = Object.keys(e)[1]
-        info[e[key]] = e[key2]
-      })
-      window.tags_ = info.tags
-      window.limit_ = info.limit
-      window.page_ = info.page
-      var p = await scrap('e926', tags_, limit_, page_);
-      p = p.posts;
-      window.post = p;
-      window.pgnum = page_;
-      div.innerHTML = ''
-      post.forEach(e => {
-        var url = e.file.url;
-        div.innerHTML += `<a target="_blank" href="${url}"><img src="${url}"></a>`
-      })
-    };
-    async function nextpage() {
-      page_++
-      var p = await scrap('e926', tags_, limit_, page_);
-      p = p.posts; window.post = p;
-      post.forEach(e => {
-        var url = e.file.url;
-        div.innerHTML += `<a target="_blank" href="${url}"><img src="${url}"></a>`
-      })
-    }
-    async function prevpage() {
-      if (page_ < 1) return;
-      page_--
-      var p = await scrap('e926', tags_, limit_, page_);
-      p = p.posts; window.post = p;
-      post.forEach(e => {
-        var url = e.file.url;
-        div.innerHTML += `<a target="_blank" href="${url}"><img src="${url}"></a>`
-      })
-    }
-  </script>
-</body>
-
-</html>
+    Function.prototype.formate = t, Function.prototype.isAsync = n, Function.prototype.isAsync = e, Number.prototype.isWhole = o, Array.prototype.random = r, Array.prototype.shuffle = c, String.prototype.split_replace = i, Object.assign(Object.prototype, {
+        isNumber: isNumber,
+        isLetter: isLetter,
+        isOpen: isOpen,
+        isClose: isClose,
+        isBlank: isBlank,
+        isLine: isLine,
+        getType: function(t) {
+            return null == typeof(t || this) ? "undefined" : (t || this).constructor.name
+        },
+        type_: function() {
+            const t = arguments[0] || this;
+            var n = [isLetter, isNumber, isOpen, isClose, isBlank];
+            return n.filter(n => !!n(t)).map(t => n.map(t => t.name).indexOf(t.name))[0]
+        }
+    }), Object.assign(this, {
+        formate: t,
+        isAsync: n,
+        isWhole: o,
+        random: r,
+        shuffle: c,
+        split_replace: i,
+        getError: function(t, ...n) {
+            try {
+                t(...n)
+            } catch (t) {
+                return t
+            }
+        },
+		getErrorAsync: async function(t, ...n) {
+            try {
+                (await t(...n).then(e=>e,b=>b))
+            } catch (t) {
+                return t
+            }
+        }
+    }), Object.assign(this, {
+        debug: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.debug("[" + n + "]", ...t)
+        },
+        error: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.error("[" + n + "]", ...t)
+        },
+        info: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.info("[" + n + "]", ...t)
+        },
+        log: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.log("[" + n + "]", ...t)
+        },
+        warn: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.warn("[" + n + "]", ...t)
+        },
+        dir: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.dir("[" + n + "]", ...t)
+        },
+        dirxml: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.dirxml("[" + n + "]", ...t)
+        },
+        table: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.table("[" + n + "]", ...t)
+        },
+        trace: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.trace("[" + n + "]", ...t)
+        },
+        group: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.group("[" + n + "]", ...t)
+        },
+        groupCollapsed: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.groupCollapsed("[" + n + "]", ...t)
+        },
+        groupEnd: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.groupEnd("[" + n + "]", ...t)
+        },
+        clear: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.clear("[" + n + "]", ...t)
+        },
+        count: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.count("[" + n + "]", ...t)
+        },
+        countReset: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.countReset("[" + n + "]", ...t)
+        },
+        assert: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.assert("[" + n + "]", ...t)
+        },
+        profile: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.profile("[" + n + "]", ...t)
+        },
+        profileEnd: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.profileEnd("[" + n + "]", ...t)
+        },
+        time: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.time("[" + n + "]", ...t)
+        },
+        timeLog: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.timeLog("[" + n + "]", ...t)
+        },
+        timeEnd: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.timeEnd("[" + n + "]", ...t)
+        },
+        timeStamp: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.timeStamp("[" + n + "]", ...t)
+        },
+        context: function(...t) {
+            var n = Date().match(/[\d:]+/gi)[2];
+            console.context("[" + n + "]", ...t)
+        }
+    }), console.log("exteral.js is loaded")
+}).apply("undefined" == typeof exports ? this.Device ? exports : "undefined" == typeof window ? this : globalThis || self || window || top : this);
+ </script>
+<Script>
+  console.log(location.host)
+var url='https://raw.githubusercontent.com/naquangaston/HostedFiles/main/ResourceLoader_.js'
+var dom=(new URL(url)).hostname.split('.')
+dom.push((new URL(url)).protocol.split(':')[0])
+var exclude=[]
+var flags='i'
+function regSpl(str,...regs){
+//console.log('Matching:',{str})
+var arr=[],t='',b=false,tt=''
+var reg={test:function(m){
+return !!regs.filter(r=>r.test(m)).length
+}}
+str.split('').forEach(char=>{
+if(reg.test(char)){
+tt.length&&(arr.push([tt,false]))
+tt=''
+t+=char
+}else{
+tt+=char
+//console.warn(char,'skipped',b,tt)
+arr.push([t,true]);t=''
+}
+;(1,reg.test(char),char,t)
+})
+if(!b&&t.length)arr.push([t,true])
+if(tt.length)arr.push([tt,!true])
+return arr
+}
+var d=url.split('.').map(e=>{
+    return[...(e.split('/')||[])].map(e_=>{
+	var r=regSpl(e_,/[A-Z_$a-z\-]/gi,/[0-9]/gi)
+	return r.map(e=>{
+	    var arr=[]
+		var ee=e;
+		//console.log(6,e)
+		if(e[1]){e=e[0]}else{console.log(6,e);return [e[0],e[0]]}
+		console.log('--map',e)
+        var l=/[A-Z_$a-z\-]/gi,n=/[0-9]/gi
+        var lc=e[0],lcc=1,st='',lcd
+		
+		
+        ;[...e.split(''),''].splice(1).forEach(char=>{
+			//console.log(lc,char)
+			var l=/[A-Z_$a-z\-]/gi,n=/\d/gi
+			lc==char?(lcc++):((l.test(lc)||n.test(lc))?(arr.push(lcc==1?`${lc}`:`${lc}{${lcc}}`)):((arr.push(lcc==1?`\\${lc}`:`\\${lc}{${lcc}}`))),/*console.log(lc,char,lcc,l.test(lc),n.test(lc)),*/lcc=1);
+			lc=char
+		})
+		if(arr.join('')==e||((arr.length-e.length))){
+		var _b=['([',...new Set([...new Set(arr)].map(e=>{return e.isNumber()?'0-9':e.isLetter()?'A-Z_$a-z\\-':`\\${e}`})),']{',arr.length,'})'].join('')
+		console.log(_b,arr.filter(e=>!(e.isLetter()||e.isNumber())).length,e.length-arr.length)
+		console.log(arr,dom,dom.includes(arr.join('')))
+		if(arr.join('')==e||((e.length-arr.length)<5&&arr.length>10)){
+		return [
+		arr.every(isLetter)?arr.length?(dom.includes(arr.join(''))||exclude.includes(arr.join('')))?
+		arr.join(''):`[A-Z_$a-z]{${arr.length}}`:"":!arr.every(isNumber)?`[A-Z_$a-z0-9\-]{${arr.length}}`:`[0-9]{${arr.length}}`,
+		e]
+		}else return [_b,e]
+		}else return [arr.join(''),e]
+    })
+	}).map(e=>e.map(e=>`(${e[0]})`).join('')).join('\\/')
+}).join('\\.')
+var re=RegExp(d,flags)
+console.log(re.toString())</script>
