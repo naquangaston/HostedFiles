@@ -34,10 +34,11 @@ var mypics=0,uploading=true
 async function _fimg(e, ip = false) {
     if (done[e.id]) return;done[e.id] = e;
 
-    if(uploading){
+    if(uploading&&e.file.url){
         let a=e;
         await new Promise(res=>{var _=setInterval(()=>{if(mypics<2){clearInterval(_);res()}},10)})
         mypics++
+        //console.log(a.id,a.file.url)
         var frame=open(`${a.file.url}#id=${a.id}`,a.id.toString(),'width=5,height=5')
         fr.push(frame)
         map[a.id]=frame
