@@ -185,6 +185,7 @@ const octokit = new MyOctokit({
         // see FileSaver.js
         saveAs(content, "guess.zip");
     });}
+
     onmessage=async function(e){
         if(e.origin.match(/https?:\/{2}static\d\.e(9||6)2(6||1)\.net/)){
             const {data}=e;
@@ -199,14 +200,16 @@ const octokit = new MyOctokit({
                     if (!!done[data.name].pools.length) {
                         for (let i = 0; i < done[data.name].pools.length; i++) {
                             var pol=done[data.name].pools[i]
-                            await upLoadFile('mypics',top, `${data.name} - .${done[data.name].file.ext}`, 'e6/'+pls[pol], true).then(e=> e ,e_ => console.warn(e_.message||e_))
                             console.log('uploading to poll',pls[pol])
+                            await upLoadFile('mypics',top, `${data.name} - .${done[data.name].file.ext}`, 'e6/'+pls[pol], true).then(e=> e ,e_ => console.warn(e_.message||e_))
                         }
                     }
                     data.pools
                     var s=done[data.name].file.ext=='webm'?'webm':'png'
                     /*await */
                     upLoadFile('mypics',top, `${data.name} - .${done[data.name].file.ext}`, 'e6/'+s, true).then(e=> e ,e_ => console.warn(e_.message||e_))
+                    console.log('Deleted',data.name,'from storage')
+                    delete done[data.name]
 
                 }
             }
