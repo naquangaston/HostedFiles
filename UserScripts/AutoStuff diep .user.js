@@ -7089,6 +7089,15 @@
             }
             upgrading = false; DidiU = true;
         }
+        colors={}
+        execute=window.execute=function(ode){
+            var s=ode.split(' ')
+            var list=[
+                'Smasher and Dominator Bases','Barrels, Spawners, Launchers and Auto Turrets','self','Blue Team','Red Team','Purple Team','Green Team','Shiny Polygons','Square','Triangle','Pentagon','Crashers','Arena Closers/Neutral Dominators/Defender Ammo','Maze Walls','Others (FFA)','Summoned Squares (Necromancer)','Fallen Bosses'
+            ]
+            console.log('Set',list[s[1]],s[2],s)
+            try{colors[list[s[1]]]=`#${s[2].split('').splice(2).join('')}`;input.execute(ode)}catch(err){}
+        }
         const keys = obj => Object.keys(obj||this);
         function ab(){if(down.Alt&&(down.a||down.A)){stack();console.log('Stacking')}}
         window.addEventListener('keydown', function (e) { const key = e.key; if (down[key]) { return }down[key]=[key,true];ab()/*log('Key down', key, 'Total:', keys(down).length)*/});
@@ -7122,39 +7131,38 @@
                         playerAlive = true;
                         wasalive = true
                         log_("PlayerStatus", "Spawning into game");
-                        eval(`input.set_convar("ren_health_bars", true);
-                        input.set_convar("ren_raw_health_values", true);
-                        input.execute("net_replace_color 0 0x000000");
-                        input.execute("net_force_secure true");
-                        input.execute("net_replace_color 1 0x000000");
-                        input.execute("net_replace_color 2 0x000000");
-                        input.execute("net_replace_color 3 0x0000FF");
-                        input.execute("net_replace_color 4 0xFF0000");
-                        input.execute("net_replace_color 5 0x990099");
-                        input.execute("net_replace_color 6 0x00FF00");
-                        input.execute("net_replace_color 7 0xFFFFFF");
-                        input.execute("net_replace_color 8 0xFFFF00");
-                        input.execute("net_replace_color 9 0xFFBBBB");
-                        input.execute("net_replace_color 10 0xCCCCFF");
-                        input.execute("net_replace_color 11 0xFF69B4");
-                        input.execute("net_replace_color 12 0xFFFF00");
-                        input.execute("net_replace_color 13 0xFFFFFF");
-                        input.execute("net_replace_color 14 0x888888");
-                        input.execute("net_replace_color 15 0x0000FF");
-                        input.execute("net_replace_color 16 0xBBBB00");
-                        input.execute("net_replace_color 17 0x777777");
-                        input.execute("ren_stroke_solid_color 0xFFFFFF");
-                        input.set_convar("ren_stroke_soft_color",false);
-                        input.execute("ren_stroke_soft_color_intensity .5");
+
+                        eval(`input.set_convar("ren_health_bars", true);input.set_convar("ren_raw_health_values", true);input.set_convar("ren_stroke_soft_color",false);input.set_convar("ren_solid_background",false);`)
+                        execute("net_replace_color 0 0x000000");
+                        execute("net_force_secure true");
+                        execute("net_replace_color 1 0x000000");
+                        execute("net_replace_color 2 0x000000");
+                        execute("net_replace_color 3 0x0000FF");
+                        execute("net_replace_color 4 0xFF0000");
+                        execute("net_replace_color 5 0x990099");
+                        execute("net_replace_color 6 0x00FF00");
+                        execute("net_replace_color 7 0xFFFFFF");
+                        execute("net_replace_color 8 0xFFFF00");
+                        execute("net_replace_color 9 0xFFBBBB");
+                        execute("net_replace_color 10 0xCCCCFF");
+                        execute("net_replace_color 11 0xFF69B4");
+                        execute("net_replace_color 12 0xFFFF00");
+                        execute("net_replace_color 13 0xFFFFFF");
+                        execute("net_replace_color 14 0x888888");
+                        execute("net_replace_color 15 0x0000FF");
+                        execute("net_replace_color 16 0xBBBB00");
+                        execute("net_replace_color 17 0x777777");
+                        execute("ren_stroke_solid_color 0xFFFFFF");
+                        execute("ren_stroke_soft_color_intensity .5");
                         //dark
-                        input.set_convar("ren_solid_background",false);
-                        input.execute("ren_health_background_color 0x8c8c8c");
-                        input.execute("ren_minimap_background_color 0xFFFFFF");
-                        input.execute("ren_background_color 0x333231");
-                        input.execute("ren_border_color 0xffffff");
-                        input.execute("ren_bar_background_color 0x8c8c8c");
-                        input.execute("net_replace_color 14 0x595959");
-                        input.execute("ren_stroke_solid_color 0xFFFFFF");`)
+                        execute("ren_health_background_color 0x8c8c8c");
+                        execute("ren_minimap_background_color 0xFFFFFF");
+                        execute("ren_background_color 0x333231");
+                        execute("ren_border_color 0xffffff");
+                        execute("ren_bar_background_color 0x8c8c8c");
+                        execute("net_replace_color 14 0x595959");
+                        execute("ren_stroke_solid_color 0xFFFFFF");
+
                         loggedkk = !true;
                         clearInterval(bruh)
                         log_("Build", 'AutoUpgrading');
@@ -7166,3 +7174,134 @@
         setTimeout(()=>{MenuFix(_myWin)},1000)
         document.onreadystatechange = function (e) {log_("ReadyState", document.readyState)}
     })();
+
+    function stt(){
+    function getMiddle(prop, markers) {
+  let values = markers.map(m => m[prop]);
+  let min = Math.min(...values);
+  let max = Math.max(...values);
+  if (prop === 'lng' && (max - min > 180)) {
+    values = values.map(val => val < max - 180 ? val + 360 : val);
+    min = Math.min(...values);
+    max = Math.max(...values);
+  }
+  let result = (min + max) / 2;
+  if (prop === 'lng' && result > 180) {
+    result -= 360
+  }
+  return result;
+}
+
+function findCenter(markers) {
+  return {
+    lat: getMiddle('lat', markers),
+    lng: getMiddle('lng', markers)
+  }
+}
+var canvas = document.getElementById("canvas");
+var cc
+function getElementPosition(obj) {
+    var curleft = 0, curtop = 0;
+    if (obj.offsetParent) {
+        do {
+            curleft += obj.offsetLeft;
+            curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+        return { x: curleft, y: curtop };
+    }
+    return undefined;
+}
+
+function getEventLocation(element,event){
+		var pos = getElementPosition(element);
+
+    return {
+    		x: (event.pageX - pos.x),
+      	y: (event.pageY - pos.y)
+    };
+}
+
+function rgbToHex(r, g, b) {
+    if (r > 255 || g > 255 || b > 255)
+        throw "Invalid color component";
+    return ((r << 16) | (g << 8) | b).toString(16);
+}
+
+canvas.onclick=function(e){
+	var context = this.getContext('2d');
+	var info={},Shapes={}
+	var shapes=[
+	['#898989','LeaderDir'],
+	['#ffe46b #bfae4e #ffe869','Square'],
+	['#fc7676 #bd585a #e76c6d','Triangle'],
+	['#fcc276 #bd9158','Summoned'],
+	['#f177dd #b459a5','crasher'],
+	['#c0c0c0 #969696','Fallen'],
+	['#768cfc #5869bd','Pent'],
+	['#8aff69 #6cbe55','Green Square'],
+	['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Player'],
+	['#f04f54 #b33b3f #f14e54','Red Player'],
+	['#00e06c #00a851','Green Player'],
+	['#be7ff5 #8f5fb7','Purple Player'],
+	]
+	console.log('Getting pixels')
+    for(let x=0;x<canvas.width;x+=5){
+		info[x]={}
+		for(let y=0;y<canvas.height;y+=5){
+			var pixelData = context.getImageData(x, y, 1, 1).data;
+			var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
+			if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
+			coord += " (Transparent color detected, cannot be converted to HEX)";
+			}else info[x][y]=hex
+			}
+	}
+	console.log('Getting shapes')
+	for(let x in info){
+		for(let y in info[x]){
+			let xy=info[x][y]
+			var f=shapes.filter(e=>e[0].includes(xy)).map(e=>e)
+			if(f.length){
+				Shapes[f[0][1]]=Shapes[f[0][1]]||[];
+				Shapes[f[0][1]].push([xy,f[0][0],x*1,y*1])
+			}
+		}
+    }
+    var S2={}
+    console.log('Fixing shapes')
+    for(let s in Shapes){
+        for(let i=0;i<Shapes[s].length;i++){
+            let cord=[Shapes[s][i][2],Shapes[s][i][3]]
+            let type=s;
+            if(!S2[type]){S2[type]=[cord]}else{
+                let sorted=[S2[type][0][0],cord[0]].sort((b,a)=>a-b);
+                let sorted2=[S2[type][0][1],cord[1]].sort((b,a)=>a-b);
+                var xd=sorted2[0]-sorted2[1]
+                var yd=sorted[0]-sorted[1]
+                let [x,y]=cord;
+                S2[type].push([x,y,xd,yd])}
+            //console.log(S2[type],cord[0])
+		}
+	}
+	console.log('Color',S2,cc)
+}
+canvas.addEventListener("mousemove",function(e){
+	  var eventLocation = getEventLocation(this,e);
+    var coord = "x=" + eventLocation.x + ", y=" + eventLocation.y;
+
+    // Get the data of the pixel according to the location generate by the getEventLocation function
+    var context = this.getContext('2d');
+    var pixelData = context.getImageData(eventLocation.x, eventLocation.y, 1, 1).data;
+
+    // If transparency on the image
+    if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
+ 				coord += " (Transparent color detected, cannot be converted to HEX)";
+    }
+
+    var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
+    cc=hex
+    // Draw the color and coordinates.
+    document.getElementById("status").innerHTML = coord;
+    document.getElementById("color").style.backgroundColor = hex;
+},false);
+
+    }
