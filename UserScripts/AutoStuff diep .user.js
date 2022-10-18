@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AutoStuff diep
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.4
 // @description  [dark theme][auto build][music player][works with other mods][FPS counter]
 // @author       You
 // @match        https://diep.io/
@@ -29,7 +29,7 @@
                 color: "darkgrey",
                 size: "1rem"
             };
- 
+
             this.body = {
                 color: "#008f68",
                 size: "1rem"
@@ -38,12 +38,12 @@
         setTitleBody(title) {
             this.title.body = title
         }
- 
+
         setTitleStyle({ color, size }) {
             if (color !== undefined) this.title.color = color;
             if (size !== undefined) this.title.size = size;
         }
- 
+
         setBodyStyle({ color, size }) {
             if (color !== undefined) this.body.color = color;
             if (size !== undefined) this.body.size = size;
@@ -82,7 +82,7 @@
                     color: "darkgrey",
                     size: "1rem"
                 };
- 
+
                 this.body = {
                     color: "#008f68",
                     size: "1rem"
@@ -91,7 +91,7 @@
             setTitleBody(title) {
                 this.title.body = title
             }
- 
+
             setTitleStyle({
                 color,
                 size
@@ -99,7 +99,7 @@
                 if (color !== undefined) this.title.color = color;
                 if (size !== undefined) this.title.size = size;
             }
- 
+
             setBodyStyle({
                 color,
                 size
@@ -154,7 +154,7 @@
         function log(...d) {
             console.log(...d)
         }
- 
+
         function log_(body, title) {
             var l = new CustomLog(title || arguments.callee.name);
             l.log(body)
@@ -191,7 +191,7 @@
                     this.url = `https://www.youtube.com/embed/${this.id}?${search.join('&')}&autoplay=1&controls=1#ignore`;
                     this.iframe.src = this.url
                 }
- 
+
                 function Gen_f_url(url) {
                     var info = {};
                     var _ = new URL(url);
@@ -299,7 +299,7 @@
                         this.BuildPath += "3";
                         count++
                     }
- 
+
                 }
             }
         }
@@ -6100,7 +6100,7 @@
             skipped.forEach(key => {
                 b[key] = fixed
             })
- 
+
             used = 0;
             for (let i in b) {
                 if (!Number.isNaN((b[i] * 1))) {
@@ -6151,13 +6151,13 @@
                 }
             }
         })()
- 
+
         function element(e) {
             return document.createElement(e)
         }
         var papers = []
         var img_bg = element('img')
- 
+
         var scripts = "https://greasyfork.org/en/users/472665-gaston-1799.json"
         //var url = `https://greasyfork.org/en/scripts.json?page=${page}&q=${document.domain}}`
         fetch("https://greasyfork.org/en/users/472665-gaston-1799.json") .then((response) => response.json())
@@ -6192,7 +6192,7 @@
                         return arr.length;
                     }
                 });
- 
+
                 // a HTMLCollection is immutable
                 Object.freeze(this);
             }
@@ -6208,7 +6208,7 @@
                 return null;
             }
         }
- 
+
         /**
  *
  * @param {string} label the value of the attr
@@ -6245,7 +6245,7 @@
             let expires = "expires=" + d.toUTCString();
             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         }
- 
+
         function getCookie(cname) {
             let name = cname + "=";
             let ca = document.cookie.split(';');
@@ -6260,7 +6260,7 @@
             }
             return "";
         }
- 
+
         function checkCookie() {
             let user = getCookie("username");
             if (user != "") {
@@ -6425,53 +6425,53 @@
                 var context = new AudioContext();
                 var src = context.createMediaElementSource(audio);
                 var analyser = context.createAnalyser();
- 
+
                 var canvas = document.getElementById("canvas");
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
                 var ctx = canvas.getContext("2d");
- 
+
                 src.connect(analyser);
                 analyser.connect(context.destination);
- 
+
                 analyser.fftSize = 256;
- 
+
                 var bufferLength = analyser.frequencyBinCount;
                 console.log(bufferLength);
- 
+
                 var dataArray = new Uint8Array(bufferLength);
- 
+
                 var WIDTH = canvas.width;
                 var HEIGHT = canvas.height;
- 
+
                 var barWidth = (WIDTH / bufferLength) * 2.5;
                 var barHeight;
                 var x = 0;
- 
+
                 function renderFrame() {
                     requestAnimationFrame(renderFrame);
- 
+
                     x = 0;
- 
+
                     analyser.getByteFrequencyData(dataArray);
- 
+
                     ctx.fillStyle = "#000";
                     ctx.fillRect(0, 0, WIDTH, HEIGHT);
- 
+
                     for (var i = 0; i < bufferLength; i++) {
                         barHeight = dataArray[i];
- 
+
                         var r = (barHeight + (25 * (i / bufferLength))) - mhieght;
                         var g = 250 * (i / bufferLength);
                         var b = 50;
- 
+
                         ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
                         ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
- 
+
                         x += barWidth + 1;
                     }
                 }
- 
+
                 audio.play();
                 renderFrame()
             });
@@ -6568,7 +6568,7 @@
                                            win_.document.write(`
 <!DOCTYPE html>
 <html>
- 
+
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
@@ -6582,12 +6582,12 @@
             width: 10%;
 						transition:width 2s
         }
- 
+
         .stats {
             height: 10px;
             width: 50%;
         }
- 
+
         body {
             color: white;
             -ms-overflow-style: none;
@@ -6597,7 +6597,7 @@
             background-color: rgb(54, 57, 63);
             overflow-x: hidden;
         }
- 
+
         img,
         button,
         .menu {
@@ -6606,54 +6606,54 @@
             border-style: solid;
             border-width: medium;
         }
- 
+
         button {
             color: rgb(27, 51, 99)
         }
- 
+
         input {
             /*border-width: 1px;*/
             border: 2px dashed rgb(87, 167, 12);
             color: white;
             background: rgba(0, 0, 0, 0)
         }
- 
+
         .name {
             color: red
         }
- 
+
         .Status {
             color: blue
         }
- 
+
         .server_nick {
             color: white
         }
- 
+
         body::-webkit-scrollbar {
             display: none;
         }
- 
+
         .hidden {
             display: none;
         }
- 
+
         .dropdown {
             display: inline-block;
             position: relative;
         }
- 
+
         #Songs_2 {
             max-height: 444px;
         }
- 
+
         #thefile {
             position: fixed;
             top: 10px;
             left: 10px;
             z-index: 100;
         }
- 
+
         #canvas {
             position: fixed;
             left: 0;
@@ -6662,29 +6662,29 @@
             height: 100%;
             z-index: -1;
         }
- 
+
         audio {
             position: fixed;
             left: 10px;
             bottom: 10px;
             width: calc(100% - 20px);
         }
- 
+
         .center {
             width: 100%;
             color: red;
             align-items: center;
         }
- 
+
         input[type=button] {
             border: 2px solid rgb(255, 255, 255);
             color: white;
         }
- 
+
         * {
             box-sizing: border-box;
         }
- 
+
         #myInput {
             background-image: url('/css/searchicon.png');
             background-position: 10px 12px;
@@ -6695,13 +6695,13 @@
             border: 1px solid #ddd;
             margin-bottom: 12px;
         }
- 
+
         #myUL {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
- 
+
         #myUL li div {
             border: 1px solid #ddd;
             margin-top: -1px;
@@ -6714,7 +6714,7 @@
             color: black;
             display: block
         }
- 
+
         #myUL li a {
             border: 1px solid #ddd;
             margin-top: -1px;
@@ -6727,7 +6727,7 @@
             color: black;
             display: block
         }
- 
+
         #myUL li div {
             cursor: pointer;
             border: 1px solid #ddd;
@@ -6741,7 +6741,7 @@
             color: black;
             display: block
         }
- 
+
         #myUL li a:hover:not(.header) {
             background-color: rgb(238, 238, 238);
         }
@@ -6751,7 +6751,7 @@
         }
     </style>
 </head>
- 
+
 <body>
     <a> </a>
     <h2>play custom songs</h2>
@@ -6776,31 +6776,31 @@
             .regen {
                 background: #EEB690;
             }
- 
+
             .health {
                 background: #EC6CF0;
             }
- 
+
             .body {
                 background: #9A6CF0;
             }
- 
+
             .bspeed {
                 background: #6C96F0;
             }
- 
+
             .pen {
                 background: #F0D96C;
             }
- 
+
             .dmg {
                 background: #F06C6C;
             }
- 
+
             .reloads {
                 background: rgb(152, 240, 108)
             }
- 
+
             .speed {
                 background: #6CF0EC
             }
@@ -6854,7 +6854,7 @@
         </ul>
     </div>
     <script>
- 
+
     function myFunction() {
     //console.log(this); return
     var input, filter, ul, li, a, i, txtValue;
@@ -6876,7 +6876,7 @@
 };${Mysrc.toString()}
     </script>
 </body>
- 
+
 </html>
 `));
                 else (globalRoot[name]=open('','PROFILES',`width=256,height=305`),globalRoot[name].window.document.body.innerHTML='',
@@ -6917,7 +6917,7 @@
                     if (i < reg&&count<34) { this.BuildPath += "1"; count++ }
                     if (i < health&&count<34) { this.BuildPath += "2"; count++ }
                     if (i < bodydmg&&count<34) { this.BuildPath += "3"; count++ }
- 
+
                 }
             }
         }
@@ -6941,7 +6941,7 @@
             var left=maxB-used
             var fixed=Math.floor(left/skipped.length)
             skipped.forEach(key=>{b[key]=fixed})
- 
+
             used=0;
             for(let i in b){
                 if(!Number.isNaN((b[i]*1))){
@@ -6999,7 +6999,7 @@
                     try{
                         var l=parse.build[i]/7;l*=100
                         _myWin_.document.getElementsByClassName(`${i}_`)[0].innerText=parse.build[i]
- 
+
                         !(_myWin_.document.getElementsByClassName(i)[0].style.width=`${l}%`)
                     }catch(err){}
                 }
@@ -7016,7 +7016,7 @@
                 if (line) myMenu.append(document.createElement('br'));
                 myMenu.append(button)
                 myMenu.append(span)
- 
+
             }
             addButton('Fix Game', FixGame, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
             addButton('Remove-Ads', RemoveAds, {line:true, desc: 'Use to remove ads that may cause gae lag' })
@@ -7039,7 +7039,7 @@
                         console.log({a,b})
                         a.forEach(e => {
                             var { name, build, desc } = e;
- 
+
                             var sect = element("div")
                             var button = element('input')
                             button.type = 'button'
@@ -7096,7 +7096,7 @@
                 'Smasher and Dominator Bases','Barrels, Spawners, Launchers and Auto Turrets','self','Blue Team','Red Team','Purple Team','Green Team','Shiny Polygons','Square','Triangle','Pentagon','Crashers','Arena Closers/Neutral Dominators/Defender Ammo','Maze Walls','Others (FFA)','Summoned Squares (Necromancer)','Fallen Bosses'
             ]
             console.log('Set',list[s[1]],s[2],s)
-            try{colors[list[s[1]]]=`#${s[2].split('').splice(2).join('')}`;input.execute(ode)}catch(err){}
+            try{colors[list[s[1]]]=`#${s[2].split('').splice(2).join('')}`;input.execute(ode)}catch(err){if(s.length!=3)(input.execute(ode))}
         }
         const keys = obj => Object.keys(obj||this);
         function ab(){if(down.Alt&&(down.a||down.A)){stack();console.log('Stacking')}}
@@ -7176,132 +7176,142 @@
     })();
 
     function stt(){
-    function getMiddle(prop, markers) {
-  let values = markers.map(m => m[prop]);
-  let min = Math.min(...values);
-  let max = Math.max(...values);
-  if (prop === 'lng' && (max - min > 180)) {
-    values = values.map(val => val < max - 180 ? val + 360 : val);
-    min = Math.min(...values);
-    max = Math.max(...values);
-  }
-  let result = (min + max) / 2;
-  if (prop === 'lng' && result > 180) {
-    result -= 360
-  }
-  return result;
-}
+        function getMiddle(prop, markers) {
+            let values = markers.map(m => m[prop]);
+            let min = Math.min(...values);
+            let max = Math.max(...values);
+            if (prop === 'lng' && (max - min > 180)) {
+                values = values.map(val => val < max - 180 ? val + 360 : val);
+                min = Math.min(...values);
+                max = Math.max(...values);
+            }
+            let result = (min + max) / 2;
+            if (prop === 'lng' && result > 180) {
+                result -= 360
+            }
+            return result;
+        }
 
-function findCenter(markers) {
-  return {
-    lat: getMiddle('lat', markers),
-    lng: getMiddle('lng', markers)
-  }
-}
-var canvas = document.getElementById("canvas");
-var cc
-function getElementPosition(obj) {
-    var curleft = 0, curtop = 0;
-    if (obj.offsetParent) {
-        do {
-            curleft += obj.offsetLeft;
-            curtop += obj.offsetTop;
-        } while (obj = obj.offsetParent);
-        return { x: curleft, y: curtop };
-    }
-    return undefined;
-}
+        function findCenter(markers) {
+            return {
+                lat: getMiddle('lat', markers),
+                lng: getMiddle('lng', markers)
+            }
+        }
+        var canvas = document.getElementById("canvas");
+        var cc
+        function getElementPosition(obj) {
+            var curleft = 0, curtop = 0;
+            if (obj.offsetParent) {
+                do {
+                    curleft += obj.offsetLeft;
+                    curtop += obj.offsetTop;
+                } while (obj = obj.offsetParent);
+                return { x: curleft, y: curtop };
+            }
+            return undefined;
+        }
 
-function getEventLocation(element,event){
-		var pos = getElementPosition(element);
+        function getEventLocation(element,event){
+            var pos = getElementPosition(element);
 
-    return {
-    		x: (event.pageX - pos.x),
-      	y: (event.pageY - pos.y)
-    };
-}
+            return {
+                x: (event.pageX - pos.x),
+                y: (event.pageY - pos.y)
+            };
+        }
 
-function rgbToHex(r, g, b) {
-    if (r > 255 || g > 255 || b > 255)
-        throw "Invalid color component";
-    return ((r << 16) | (g << 8) | b).toString(16);
-}
+        function rgbToHex(r, g, b) {
+            if (r > 255 || g > 255 || b > 255)
+                throw "Invalid color component";
+            return ((r << 16) | (g << 8) | b).toString(16);
+        }
 
-canvas.onclick=function(e){
-	var context = this.getContext('2d');
-	var info={},Shapes={}
-	var shapes=[
-	['#898989','LeaderDir'],
-	['#ffe46b #bfae4e #ffe869','Square'],
-	['#fc7676 #bd585a #e76c6d','Triangle'],
-	['#fcc276 #bd9158','Summoned'],
-	['#f177dd #b459a5','crasher'],
-	['#c0c0c0 #969696','Fallen'],
-	['#768cfc #5869bd','Pent'],
-	['#8aff69 #6cbe55','Green Square'],
-	['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Player'],
-	['#f04f54 #b33b3f #f14e54','Red Player'],
-	['#00e06c #00a851','Green Player'],
-	['#be7ff5 #8f5fb7','Purple Player'],
-	]
-	console.log('Getting pixels')
-    for(let x=0;x<canvas.width;x+=5){
-		info[x]={}
-		for(let y=0;y<canvas.height;y+=5){
-			var pixelData = context.getImageData(x, y, 1, 1).data;
-			var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
-			if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
-			coord += " (Transparent color detected, cannot be converted to HEX)";
-			}else info[x][y]=hex
-			}
-	}
-	console.log('Getting shapes')
-	for(let x in info){
-		for(let y in info[x]){
-			let xy=info[x][y]
-			var f=shapes.filter(e=>e[0].includes(xy)).map(e=>e)
-			if(f.length){
-				Shapes[f[0][1]]=Shapes[f[0][1]]||[];
-				Shapes[f[0][1]].push([xy,f[0][0],x*1,y*1])
-			}
-		}
-    }
-    var S2={}
-    console.log('Fixing shapes')
-    for(let s in Shapes){
-        for(let i=0;i<Shapes[s].length;i++){
-            let cord=[Shapes[s][i][2],Shapes[s][i][3]]
-            let type=s;
-            if(!S2[type]){S2[type]=[cord]}else{
-                let sorted=[S2[type][0][0],cord[0]].sort((b,a)=>a-b);
-                let sorted2=[S2[type][0][1],cord[1]].sort((b,a)=>a-b);
-                var xd=sorted2[0]-sorted2[1]
-                var yd=sorted[0]-sorted[1]
-                let [x,y]=cord;
-                S2[type].push([x,y,xd,yd])}
-            //console.log(S2[type],cord[0])
-		}
-	}
-	console.log('Color',S2,cc)
-}
-canvas.addEventListener("mousemove",function(e){
-	  var eventLocation = getEventLocation(this,e);
-    var coord = "x=" + eventLocation.x + ", y=" + eventLocation.y;
+        function canClick(e){
+            var context = this.getContext('2d');
+            var info={},Shapes={}
+            var shapes=[
+                ['#898989','LeaderDir'],
+                ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
+                ['#fc7676 #bd585a #e76c6d','Triangle'],
+                ['#fcc276 #bd9158','Summoned'],
+                ['#f177dd #b459a5','crasher'],
+                ['#c0c0c0 #969696','Fallen'],
+                ['#768cfc #5869bd','Pent'],
+                ['#8aff69 #6cbe55','Green Square'],
+                ['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Player'],
+                ['#f04f54 #b33b3f #f14e54','Red Player'],
+                ['#00e06c #00a851','Green Player'],
+                ['#be7ff5 #8f5fb7','Purple Player'],
+                ...Object.keys(colors).map(e=>{
+                    return [colors[e],e]
+                })
+            ]
+            console.log('Getting pixels')
+            for(let x=0;x<canvas.width;x+=20){
+                info[x]={}
+                for(let y=0;y<canvas.height;y+=20){
+                    var pixelData = context.getImageData(x, y, 1, 1).data;
+                    var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
+                    if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
+                        coord += " (Transparent color detected, cannot be converted to HEX)";
+                    }else info[x][y]=hex
+                }
+            }
+            console.log('Getting shapes')
+            for(let x in info){
+                for(let y in info[x]){
+                    let xy=info[x][y]
+                    var f=shapes.filter(e=>e[0].includes(xy)).map(e=>e)
+                    if(f.length){
+                        Shapes[f[0][1]]=Shapes[f[0][1]]||[];
+                        Shapes[f[0][1]].push([xy,f[0][0],x*1,y*1])
+                    }
+                }
+            }
+            var S2={}
+            console.log('Fixing shapes')
+            for(let s in Shapes){
+                for(let i=0;i<Shapes[s].length;i++){
+                    let cord=[Shapes[s][i][2],Shapes[s][i][3]]
+                    let type=s;
+                    if(!S2[type]){S2[type]=[cord]}else{
+                        let sorted=[S2[type][0][0],cord[0]].sort((b,a)=>a-b);
+                        let sorted2=[S2[type][0][1],cord[1]].sort((b,a)=>a-b);
+                        var xd=sorted2[0]-sorted2[1]
+                        var yd=sorted[0]-sorted[1]
+                        let [x,y]=cord;
+                        S2[type].push([x,y,xd,yd])}
+                    //console.log(S2[type],cord[0])
+                }
+            }
+            console.log('Color',S2,cc)
+            return S2
+        }
+        var S2=canClick.apply(canvas);
+setTimeout(()=>{input.keyUp(32);},S2.Square.length*100)
+S2.Square.forEach((a,b)=>{
+    
+    setTimeout(()=>{input.keyDown(32);input.mouse(a[0],a[1])},b*100)
+})
+        canvas.addEventListener("mousemove",function(e){
+            var eventLocation = getEventLocation(this,e);
+            var coord = "x=" + eventLocation.x + ", y=" + eventLocation.y;
 
-    // Get the data of the pixel according to the location generate by the getEventLocation function
-    var context = this.getContext('2d');
-    var pixelData = context.getImageData(eventLocation.x, eventLocation.y, 1, 1).data;
+            // Get the data of the pixel according to the location generate by the getEventLocation function
+            var context = this.getContext('2d');
+            var pixelData = context.getImageData(eventLocation.x, eventLocation.y, 1, 1).data;
 
-    // If transparency on the image
-    if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
- 				coord += " (Transparent color detected, cannot be converted to HEX)";
-    }
+            // If transparency on the image
+            if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
+                coord += " (Transparent color detected, cannot be converted to HEX)";
+            }
 
-    var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
-    cc=hex
-    // Draw the color and coordinates.
-    document.getElementById("status").innerHTML = coord;
-    document.getElementById("color").style.backgroundColor = hex;
-},false);
+            var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
+            cc=hex
+            // Draw the color and coordinates.
+            //document.getElementById("status").innerHTML = coord;
+            //document.getElementById("color").style.backgroundColor = hex;
+        },false);
 
     }
