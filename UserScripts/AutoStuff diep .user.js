@@ -7191,7 +7191,12 @@
             }
             return result;
         }
-
+        var myLoop=setInterval(e=>{
+    var S2=canClick.apply(canvas);
+var list=[...(S2['enemy ffa']||[]),...(S2['Square']||[])];
+var target=list[0]
+    input.mouse(target[0],target[1])
+},500)
         function findCenter(markers) {
             return {
                 lat: getMiddle('lat', markers),
@@ -7231,7 +7236,7 @@
             var context = this.getContext('2d');
             var info={},Shapes={}
             var shapes=[
-                ['#898989','LeaderDir'],
+                ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
                 ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
                 ['#fc7676 #bd585a #e76c6d','Triangle'],
                 ['#fcc276 #bd9158','Summoned'],
@@ -7281,7 +7286,8 @@
                         var xd=sorted2[0]-sorted2[1]
                         var yd=sorted[0]-sorted[1]
                         let [x,y]=cord;
-                        S2[type].push([x,y,xd,yd])}
+                        if(xd<200||yd<500){}else S2[type].push([x,y,xd,yd]);
+                        }
                     //console.log(S2[type],cord[0])
                 }
             }
@@ -7289,11 +7295,11 @@
             return S2
         }
         var S2=canClick.apply(canvas);
-setTimeout(()=>{input.keyUp(32);},S2.Square.length*100)
-S2.Square.forEach((a,b)=>{
-    
-    setTimeout(()=>{input.keyDown(32);input.mouse(a[0],a[1])},b*100)
-})
+        var target=[];
+        setTimeout(()=>{input.keyUp(32);},S2.Square.length*100)
+        S2.Square.forEach((a,b)=>{
+            setTimeout(()=>{input.keyDown(32);input.mouse(a[0],a[1])},b*100)
+        })
         canvas.addEventListener("mousemove",function(e){
             var eventLocation = getEventLocation(this,e);
             var coord = "x=" + eventLocation.x + ", y=" + eventLocation.y;
