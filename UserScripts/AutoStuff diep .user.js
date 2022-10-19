@@ -884,7 +884,7 @@
                 var b = new Build()
                 b.buildSet(parse.build)
                 var txt = 'Tank:' + parse.p + '\n\nPath:' + b.BuildPath + '\n\nName:' + parse.name + '\nBuild:' + (Object.keys(parse.build).map(e_ => parse.build[e_]).join(' / ')) + '\n\nDesc:' + parse.desc;
-                upgrade = b.BuildPath;
+                upgrade=window.upgrade = b.BuildPath;
                 console.log(txt)
                 console.log(parse)
                 for(let i in parse.build){
@@ -1125,10 +1125,10 @@
         }
         function mouse(x,y){input.mouse(x,y)};
         var [w,a,s,d]=[
-            87,
-            65,
-            83,
-            68,
+            38,
+            37,
+            40,
+            39,
         ]
         var keyUp=input.keyUp
         function keyDown(key){
@@ -1145,15 +1145,16 @@
             ]
             var xd=[s[0][0][0]=s[0][1][0],s[0][0][1]]
             var yd=[s[1][0][0]=s[1][1][0],s[1][0][1]]
+            console.log(xd,yd)
             if(xd[0]>100){
-                console.log('Moving x')
+                console.log('Moving x',xd[1]?"right":"left")
                 keyDown(xd[1]?d:a)
             }else{
                 //keyDown(!xd[1]?d:a)
             }
-            if(yd[0]>100){
-                console.log('Moving y')
-                keyDown(yd[1]?s:w)
+            if(yd[0]>50){
+                console.log('Moving y',yd[1]?"down":"up")
+                keyDown(yd[1]?40:38)
             }else{
                 //keyDown(!yd[1]?s:w)
             }
@@ -1175,20 +1176,24 @@
             }
             if(yd[0]>100){
                 console.log('Moving y')
-                keyDown(!yd[1]?s:w)
+                keyDown(yd[1]?s:w)
             }else{
                 //keyDown(!yd[1]?s:w)
             }
             console.log({xd,yd})
         }
-        function aim(arr){
+        function aim(arr,em){
             var center=[innerWidth/2,innerHeight/2]
             var close=arr.map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
             console.log(close)
             mouse(...close)
             if(getDistance(center[0],center[1],close[0],close[1])>300){
                 moveToward(...close)
-            }else [w,a,s,d].forEach(keyUp)
+            }
+            else if(em&&getDistance(center[0],center[1],close[0],close[1])<300){
+            run(...close)
+            }
+            else [w,a,s,d].forEach(keyUp)
         }
         function canClick(e){
             var center=[innerWidth/2,innerHeight/2]
@@ -1250,12 +1255,13 @@
             console.log('Color',S2,cc)
             return S2
         }
+
         var myLoop=setInterval(e=>{
             var S2=canClick.apply(canvas);
             var target=[];
             var enemy=S2['enemy ffa']
-            var shps=S2['Green Square']||[...(S2['Pent']||[]),...(S2['crasher']||[])]||S2['Triangle']||S2['Square'];
-            if(enemy&&enemy.length){aim(enemy)}
+            var shps=[S2['Green Square'],[...(S2['Pent']||[]),...(S2['crasher']||[])],S2['Triangle'],S2['Square']].filter(e=>e&&e.length)[0]
+            if(enemy&&enemy.length){aim(enemy,true)}
             else if(shps&&shps.length){aim(shps)}
         },250)
         canvas.addEventListener("mousemove",function(e){
