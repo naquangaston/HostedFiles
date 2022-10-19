@@ -1123,16 +1123,76 @@
                 throw "Invalid color component";
             return ((r << 16) | (g << 8) | b).toString(16);
         }
-        function mouse(x,y){input.mouse(x,y)}
+        function mouse(x,y){input.mouse(x,y)};
+        var [w,a,s,d]=[
+            87,
+            65,
+            83,
+            68,
+        ]
+        var keyUp=input.keyUp
+        function keyDown(key){
+            if(key==a){input.keyDown(key);input.keyUp(d)}
+            if(key==w){input.keyDown(key);input.keyUp(s)}
+            if(key==s){input.keyDown(key);input.keyUp(w)}
+            if(key==d){input.keyDown(key);input.keyUp(a)}
+        }
+        function moveToward(x,y){
+            var center=[innerWidth/2,innerHeight/2]
+            var s=[
+                [[center[0],0],[x,1]].sort((b,a)=>a[0]-b[0]),
+                [[center[1],0],[y,1]].sort((b,a)=>a[0]-b[0]),
+            ]
+            var xd=[s[0][0][0]=s[0][1][0],s[0][0][1]]
+            var yd=[s[1][0][0]=s[1][1][0],s[1][0][1]]
+            if(xd[0]>100){
+                console.log('Moving x')
+                keyDown(xd[1]?d:a)
+            }else{
+                //keyDown(!xd[1]?d:a)
+            }
+            if(yd[0]>100){
+                console.log('Moving y')
+                keyDown(yd[1]?s:w)
+            }else{
+                //keyDown(!yd[1]?s:w)
+            }
+            console.log({xd,yd})
+        }
+        function run(x,y){
+            var center=[innerWidth/2,innerHeight/2]
+            var s=[
+                [[center[0],0],[x,1]].sort((b,a)=>a[0]-b[0]),
+                [[center[1],0],[y,1]].sort((b,a)=>a[0]-b[0]),
+            ]
+            var xd=[s[0][0][0]=s[0][1][0],s[0][0][1]]
+            var yd=[s[1][0][0]=s[1][1][0],s[1][0][1]]
+            if(xd[0]>100){
+                console.log('Moving x')
+                keyDown(!xd[1]?d:a)
+            }else{
+                //keyDown(!xd[1]?d:a)
+            }
+            if(yd[0]>100){
+                console.log('Moving y')
+                keyDown(!yd[1]?s:w)
+            }else{
+                //keyDown(!yd[1]?s:w)
+            }
+            console.log({xd,yd})
+        }
         function aim(arr){
             var center=[innerWidth/2,innerHeight/2]
             var close=arr.map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
             console.log(close)
             mouse(...close)
+            if(getDistance(center[0],center[1],close[0],close[1])>300){
+                moveToward(...close)
+            }else [w,a,s,d].forEach(keyUp)
         }
         function canClick(e){
             var center=[innerWidth/2,innerHeight/2]
-            var context = this.getContext('2d');
+            var context = canvas.getContext('2d');
             var info={},Shapes={}
             var shapes=[
                 ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
@@ -1152,24 +1212,21 @@
                 })
             ]
             console.log('Getting pixels')
-            for(let x=0;x<canvas.width;x+=canvas.width*.2){
+            for(let x=0;x<canvas.width;x+=canvas.width*.02){
                 info[x]={}
-                for(let y=0;y<canvas.height;y+=canvas.height*.2){
+                for(let y=0;y<canvas.height;y+=canvas.height*.02){
                     var pixelData = context.getImageData(x, y, 1, 1).data;
                     var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
                     if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
                         coord += " (Transparent color detected, cannot be converted to HEX)";
-                    }else info[x][y]=hex
-                }
-            }
-            console.log('Getting shapes')
-            for(let x in info){
-                for(let y in info[x]){
-                    let xy=info[x][y]
-                    var f=shapes.filter(e=>e[0].includes(xy)).map(e=>e)
-                    if(f.length){
-                        Shapes[f[0][1]]=Shapes[f[0][1]]||[];
-                        Shapes[f[0][1]].push([xy,f[0][0],x*1,y*1])
+                    }else {
+                        info[x][y]=hex;
+                        let xy=info[x][y]
+                        var f=shapes.filter(e=>e[0].includes(xy)).map(e=>e)
+                        if(f.length){
+                            Shapes[f[0][1]]=Shapes[f[0][1]]||[];
+                            Shapes[f[0][1]].push([xy,f[0][0],x*1,y*1])
+                        }
                     }
                 }
             }
