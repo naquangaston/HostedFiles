@@ -30,7 +30,7 @@ setInterval(async () => {
     });
 }, 1000);
 let pls = {}
-const { execSync, exec } = require('child_process');
+const { execSync } = require('child_process');
 // stderr is sent to stderr of parent process
 // you can set options.stdio if you want it to go elsewhere
 const http = require("http");
@@ -370,6 +370,8 @@ ptr.forEach(p => up_m(p, 0))
 up_m("D:/e6/gif", 1)
 console.log(moobj.length, 'Saved')
 ptr.forEach(removeDir)
+process.exit()
+return
 var tfiles = [];
 var dns = async (e, meta) => {
     if (e && e.forEach) {
@@ -471,7 +473,7 @@ var maxTs = 5, msend = 0
         login=dat.login
         owner='naquangaston'
         console.log("Hello, %s", login);
-        //maxPage = 21
+        maxPage = 21
         for (let i = 0; i < moobj.length; i++) {
             //await new Promise()
         }

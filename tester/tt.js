@@ -30,7 +30,7 @@ setInterval(async () => {
     });
 }, 1000);
 let pls = {}
-const { execSync, exec } = require('child_process');
+const { execSync, exec, execFile } = require('child_process');
 // stderr is sent to stderr of parent process
 // you can set options.stdio if you want it to go elsewhere
 const http = require("http");
@@ -147,7 +147,7 @@ var download = async function (obj, meta, id, other) {
         fs.mkdirSync(`D:/e6/gif/`)
         console.log('Created dir:', `D:/e6/gif/`)
     }
-    await getRemoteFile(path, url, meta, ext||'photo_gif', fn)
+    await getRemoteFile(path, url, meta, ext || 'photo_gif', fn)
     ext == 'gif' && (console.log('gif copyied'), await getRemoteFile(`D:/e6/gif/${fn}`, url, meta))
     moobj.push({ id: a.id, name: path })
     fs.writeFileSync(`D:/e6/obj.json`, JSON.stringify(moobj));
@@ -368,8 +368,26 @@ const up_mGit = function (path, or) {
 }
 ptr.forEach(p => up_m(p, 0))
 up_m("D:/e6/gif", 1)
-console.log(moobj.length, 'Saved')
-ptr.forEach(removeDir)
+console.log(moobj.length, 'Saved');
+console.log(moobj[0]);
+function sys(arr, int) {
+    var a = [], c = -1;
+    for (let i = 0; i < arr.length; i++) {
+        var item = arr[i];
+        if (!(i % int)) { c++ }; if (!a[c]) a[c] = [];
+        a[c].push(item)
+    }
+    return a;
+}
+var [gif, webm, photo] = [
+    moobj.filter(r => (r.path.includes('gif') && !r.path.includes('_'))),
+    moobj.filter(r => (r.path.includes('web'))),
+    moobj.filter(r => (r.path.includes('_'))),
+]
+gif = sys(gif, 10)
+webm = sys(webm, 2)
+photo = sys(photo, 10)
+
 var tfiles = [];
 var dns = async (e, meta) => {
     if (e && e.forEach) {
@@ -455,27 +473,36 @@ async function uoLoadFromUrl({ url, path, outname, log }) {
     //window.unsafewindow?(w('!',"")):(w(...(location.host!=u.host?["!",'tampermonkey not found. not using tampermonkey with the installed script will result in some domains blocking this request']:['!','tampermonkey not found']))
     //url tampermonkey stuff
 }
-async function upload(base64,path,name){
-    return await upLoadFile('e6',base64,name,path,true)
+async function upload(base64, path, name) {
+    return await upLoadFile('e6', base64, name, path, true)
 }
 var maxTs = 5, msend = 0
     ; (async () => {
-        var toe = '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'
-
-        octokit = new Octokit({
-            auth: toe
-        });
-
-        // Compare: https://docs.github.com/en/rest/reference/users#get-the-authenticated-user
-        var dat = (await octokit.rest.users.getAuthenticated()).data
-        login=dat.login
-        owner='naquangaston'
-        console.log("Hello, %s", login);
-        //maxPage = 21
-        for (let i = 0; i < moobj.length; i++) {
-            //await new Promise()
-        }
-        console.log(moobj[0]);
+        for (let i = 0; i < webm.length; i++) {
+            //console.log(((i / webm.length).toFixed(2) * 100));
+            await new Promise(a => {
+               let files = webm[i]; let code = `cd /d D:/e6 & git init & git config --global user.email "naquangaston@gmail.com" & git config --global user.name "naquangaston" & ${files.map(f => { return `git add "${f.name}"` }).join(' & ')} & git commit -m "pictues/videos" & git remote add origin https://github.com/naquangaston/e6.git & git remote -v & git push origin master & exit`.split(' & ').join('\n');
+               fs.writeFileSync('./p.cmd',code)
+               exec('start p', d=>{console.log('DonePage',i,[((i/webm.length).toFixed(2)*100),'%']);a()})
+           })
+           }
+           for (let i = 0; i < photo.length; i++) {
+            //console.log(((i / webm.length).toFixed(2) * 100));
+            await new Promise(a => {
+               let files = photo[i]; let code = `cd /d D:/e6 & git init & git config --global user.email "naquangaston@gmail.com" & git config --global user.name "naquangaston" & ${files.map(f => { return `git add "${f.name}"` }).join(' & ')} & git commit -m "pictues/videos" & git remote add origin https://github.com/naquangaston/e6.git & git remote -v & git push origin master & exit`.split(' & ').join('\n');
+               fs.writeFileSync('./p.cmd',code)
+               exec('start p', d=>{console.log('DonePage',i,[((i/photo.length).toFixed(2)*100),'%']);a()})
+           })
+           }
+           for (let i = 0; i < gif.length; i++) {
+            //console.log(((i / webm.length).toFixed(2) * 100));
+            await new Promise(a => {
+               let files = gif[i]; let code = `cd /d D:/e6 & git init & git config --global user.email "naquangaston@gmail.com" & git config --global user.name "naquangaston" & ${files.map(f => { return `git add "${f.name}"` }).join(' & ')} & git commit -m "pictues/videos" & git remote add origin https://github.com/naquangaston/e6.git & git remote -v & git push origin master & exit`.split(' & ').join('\n');
+               fs.writeFileSync('./p.cmd',code)
+               exec('start p', d=>{console.log('DonePage',i,[((i/gif.length).toFixed(2)*100),'%']);a()})
+           })
+           }
+        process.exit()
         var list = []
         await wait_();
         await done_()
