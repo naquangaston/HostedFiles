@@ -1068,6 +1068,7 @@
     })();
 
     function stt(){
+        var [redSide,floor,top,blueSide]=[6900,11320,-11320,-6900]
         settings={move:false,aim:true}
         function getMiddle(prop, markers) {
             let values = markers.map(m => m[prop]);
@@ -1131,12 +1132,15 @@
             39,
         ]
         var keyUp=input.keyUp
+        var keyShoot=32
         function keyDown(key){
             if(key==a){input.keyDown(key);input.keyUp(d)}
             if(key==w){input.keyDown(key);input.keyUp(s)}
             if(key==s){input.keyDown(key);input.keyUp(w)}
             if(key==d){input.keyDown(key);input.keyUp(a)}
         }
+        function Fire(v){(v?keyDown:keyUp)(keyShoot)}
+        enemySide={}
         function moveToward(x,y){
             var center=[innerWidth/2,innerHeight/2]
             var s=[
@@ -1160,12 +1164,12 @@
             }
             console.log({xd,yd})
         }
-        var player={}
+        var mYplayer={}
         player.GM=localStorage.gamemode
         if(player.GM=='teams'){
             var context = canvas.getContext('2d');
             var pixelData = context.getImageData(innerWidth/2, innerHeight/2, 1, 1).data;
-            player.team="#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6)=='#ff0000'?"Red Team":"Blue Team"
+            player.team='#ff0000 #f80808'.includes("#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6))?"Red Team":"Blue Team";enemySide.x=player.team=='Red Team'?blueSide:redSide
         }
         function run(x,y){
             var center=[innerWidth/2,innerHeight/2]
@@ -1194,7 +1198,7 @@
             var close=arr.map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
             console.log(close)
             let {move,aim}=window.settings
-            aim&&(mouse(...close));
+            aim&&(mouse(...close),Fire(true));
             if(move){
                 if(getDistance(center[0],center[1],close[0],close[1])>300){
                     moveToward(...close)
@@ -1202,7 +1206,7 @@
                 else if(em&&getDistance(center[0],center[1],close[0],close[1])<300){
                     run(...close)
                 }
-                else [w,a,s,d].forEach(keyUp)
+                else [[w,a,s,d].forEach(keyUp)]
             }
         }
         function canClick(e){
@@ -1265,20 +1269,27 @@
             console.log('Color',S2,cc)
             return S2
         }
-
+        var ran=false;
+        function dif(a,b){
+            var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
+        }
         var myLoop=setInterval(e=>{
+            if(typeof player!='undefined' && dif(player.x,enemySide.x)<100){return run(x,y)}
+            if(typeof player!='undefined' && dif(player.y,top)<100){return keyDown(39)}
+            if(typeof player!='undefined' && dif(player.y,floor)<100){return keyDown(38)}
             player.GM=localStorage.gamemode
             if(player.GM=='teams'){
                 let context = canvas.getContext('2d');
                 let pixelData = context.getImageData(innerWidth/2, innerHeight/2, 1, 1).data;
-                player.team="#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6)=='#ff0000'?"Red Team":"Blue Team"
+                player.team='#ff0000 #f80808'.includes("#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6))?"Red Team":"Blue Team"
+                enemySide.x=player.team=='Red Team'?blueSide:redSide
             }
             var S2=canClick.apply(canvas);
             var target=[];
             var enemy=Object.keys(S2).filter(key=>(key!=player.team&&key.includes('team'))||key.includes('enemy')).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
             var shps=[S2['Green Square'],[...(S2['Pent']||[]),...(S2['crasher']||[])],S2['Triangle'],S2['Square']].filter(e=>e&&e.length)[0]
-            if(enemy&&enemy.length){aim(enemy,true)}
-            else if(shps&&shps.length){aim(shps)}
+            if(enemy&&enemy.length){aim(enemy,true);Fire(true)}
+            else if(shps&&shps.length){aim(shps);Fire(true)}
         },250)
         canvas.addEventListener("mousemove",function(e){
             var eventLocation = getEventLocation(this,e);
