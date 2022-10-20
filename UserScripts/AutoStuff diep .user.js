@@ -64,7 +64,7 @@
         }
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging})})(globalRoot)
-;(function() {
+;(function(upgrade='',noAds=false) {
     //'use strict';
     console.log('Info:',GM_info)
     var setValue=GM_setValue
@@ -988,7 +988,7 @@
                 'Smasher and Dominator Bases','Barrels, Spawners, Launchers and Auto Turrets','self','Blue Team','Red Team','Purple Team','Green Team','Shiny Polygons','Square','Triangle','Pentagon','Crashers','Arena Closers/Neutral Dominators/Defender Ammo','Maze Walls','Others (FFA)','Summoned Squares (Necromancer)','Fallen Bosses'
             ]
             console.log('Set',list[s[1]],s[2],s)
-            try{colors[list[s[1]]]=`#${s[2].split('').splice(2).join('')}`;input.execute(ode)}catch(err){if(s.length!=3)(input.execute(ode))}
+            try{colors[list[s[1]]]=`#${s[2].split('').splice(2).join('')}`.toLowerCase();input.execute(ode)}catch(err){if(s.length!=3)(input.execute(ode))}
         }
         const keys = obj => Object.keys(obj||this);
         function ab(){if(down.Alt&&(down.a||down.A)){stack();console.log('Stacking')}}
@@ -1068,6 +1068,7 @@
     })();
 
     function stt(){
+        settings={move:false,aim:true}
         function getMiddle(prop, markers) {
             let values = markers.map(m => m[prop]);
             let min = Math.min(...values);
@@ -1117,7 +1118,6 @@
                 y: (event.pageY - pos.y)
             };
         }
-
         function rgbToHex(r, g, b) {
             if (r > 255 || g > 255 || b > 255)
                 throw "Invalid color component";
@@ -1160,6 +1160,13 @@
             }
             console.log({xd,yd})
         }
+        var player={}
+        player.GM=localStorage.gamemode
+        if(player.GM=='teams'){
+            var context = canvas.getContext('2d');
+            var pixelData = context.getImageData(innerWidth/2, innerHeight/2, 1, 1).data;
+            player.team="#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6)=='#ff0000'?"Red Team":"Blue Team"
+        }
         function run(x,y){
             var center=[innerWidth/2,innerHeight/2]
             var s=[
@@ -1186,14 +1193,17 @@
             var center=[innerWidth/2,innerHeight/2]
             var close=arr.map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
             console.log(close)
-            mouse(...close)
-            if(getDistance(center[0],center[1],close[0],close[1])>300){
-                moveToward(...close)
+            let {move,aim}=window.settings
+            aim&&(mouse(...close));
+            if(move){
+                if(getDistance(center[0],center[1],close[0],close[1])>300){
+                    moveToward(...close)
+                }
+                else if(em&&getDistance(center[0],center[1],close[0],close[1])<300){
+                    run(...close)
+                }
+                else [w,a,s,d].forEach(keyUp)
             }
-            else if(em&&getDistance(center[0],center[1],close[0],close[1])<300){
-            run(...close)
-            }
-            else [w,a,s,d].forEach(keyUp)
         }
         function canClick(e){
             var center=[innerWidth/2,innerHeight/2]
@@ -1208,10 +1218,10 @@
                 ['#c0c0c0 #969696','Fallen'],
                 ['#768cfc #5869bd #ccccff','Pent'],
                 ['#8aff69 #6cbe55','Green Square'],
-                ['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Player'],
-                ['#f04f54 #b33b3f #f14e54','Red Player'],
-                ['#00e06c #00a851','Green Player'],
-                ['#be7ff5 #8f5fb7','Purple Player'],
+                ['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Team'],
+                ['#f04f54 #b33b3f #f14e54','Red Team'],
+                ['#00e06c #00a851','Green Team'],
+                ['#be7ff5 #8f5fb7','Purple Team'],
                 ...Object.keys(colors).map(e=>{
                     return [colors[e],e]
                 })
@@ -1257,9 +1267,15 @@
         }
 
         var myLoop=setInterval(e=>{
+            player.GM=localStorage.gamemode
+            if(player.GM=='teams'){
+                let context = canvas.getContext('2d');
+                let pixelData = context.getImageData(innerWidth/2, innerHeight/2, 1, 1).data;
+                player.team="#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6)=='#ff0000'?"Red Team":"Blue Team"
+            }
             var S2=canClick.apply(canvas);
             var target=[];
-            var enemy=S2['enemy ffa']
+            var enemy=Object.keys(S2).filter(key=>(key!=player.team&&key.includes('team'))||key.includes('enemy')).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
             var shps=[S2['Green Square'],[...(S2['Pent']||[]),...(S2['crasher']||[])],S2['Triangle'],S2['Square']].filter(e=>e&&e.length)[0]
             if(enemy&&enemy.length){aim(enemy,true)}
             else if(shps&&shps.length){aim(shps)}
