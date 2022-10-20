@@ -1068,7 +1068,7 @@
     })();
 
     function stt(){
-        var [redSide,floor,top,blueSide]=[6900,11320,-11320,-6900]
+        var [redSide,floor,top,blueSide]=[6500,11320,-11320,-6900]
         settings={move:false,aim:true}
         function getMiddle(prop, markers) {
             let values = markers.map(m => m[prop]);
@@ -1169,7 +1169,7 @@
         if(player.GM=='teams'){
             var context = canvas.getContext('2d');
             var pixelData = context.getImageData(innerWidth/2, innerHeight/2, 1, 1).data;
-            player.team='#ff0000 #f80808'.includes("#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6))?"Red Team":"Blue Team";enemySide.x=player.team=='Red Team'?blueSide:redSide
+            player.team='#ff0000 #f80808'.includes("#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6))?"Red Team":"Blue Team";enemySide.x=player.team=='Red Team'?blueSide:redSide;player.TeamX=player.team=='Red Team'?redSide:blueSide
         }
         function run(x,y){
             var center=[innerWidth/2,innerHeight/2]
@@ -1274,9 +1274,9 @@
             var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
         }
         var myLoop=setInterval(e=>{
-            if(typeof player!='undefined' && dif(player.x,enemySide.x)<100){return run(x,y)}
-            if(typeof player!='undefined' && dif(player.y,top)<100){return keyDown(39)}
-            if(typeof player!='undefined' && dif(player.y,floor)<100){return keyDown(38)}
+            if(typeof player!='undefined' && dif(player.position.x,enemySide.x)<200){return run(player.TeamX,player.position.y)}
+            if(typeof player!='undefined' && dif(player.position.y,top)<100){return keyDown(39)}
+            if(typeof player!='undefined' && dif(player.position.y,floor)<100){return keyDown(38)}
             player.GM=localStorage.gamemode
             if(player.GM=='teams'){
                 let context = canvas.getContext('2d');
