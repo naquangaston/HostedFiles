@@ -1274,9 +1274,11 @@
             var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
         }
         var myLoop=setInterval(e=>{
+            //2teams
+            if(player.GM=='teams'){
             if(typeof player!='undefined' && dif(player.position.x,enemySide.x)<200){return run(player.TeamX,player.position.y)}
             if(typeof player!='undefined' && dif(player.position.y,top)<100){return keyDown(39)}
-            if(typeof player!='undefined' && dif(player.position.y,floor)<100){return keyDown(38)}
+            if(typeof player!='undefined' && dif(player.position.y,floor)<100){return keyDown(38)}}
             player.GM=localStorage.gamemode
             if(player.GM=='teams'){
                 let context = canvas.getContext('2d');
