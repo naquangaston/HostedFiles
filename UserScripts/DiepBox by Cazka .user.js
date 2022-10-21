@@ -797,8 +797,11 @@ class MultiboxStorage {
             case 'shield':
                 m = 2;
                 break;
-            case 'off':
+            case 'move':
                 m = 3;
+                break;
+            case 'off':
+                m = 4;
                 break;
             default:
                 throw new Error('unsupported clump mode', mode);
@@ -856,6 +859,9 @@ class MultiboxStorage {
                 mode = 'shield';
                 break;
             case 3:
+                mode = 'move';
+                break;
+            case 4:
                 mode = 'off';
                 break;
             default:
@@ -1142,6 +1148,10 @@ function onbtnToggleClump() {
             this.innerHTML = 'Clump: Shield';
             break;
         case 3:
+            storage.clumpMode = 'move'
+            this.innerHTML = 'Clump: New';
+            break;
+        case 3:
             storage.clumpMode = 'off';
             this.innerHTML = 'Clump: OFF';
             break;
@@ -1399,7 +1409,10 @@ function mainLoop() {
 
         if (storage.multibox) {
             player.moveTo(bestPosition.x, bestPosition.y);
-            player.lookAt(mouse.x, mouse.y);
+            if(clumpMode!='move')player.lookAt(mouse.x, mouse.y);
+            else {
+
+            }
             //player.spawn();
         }
 
