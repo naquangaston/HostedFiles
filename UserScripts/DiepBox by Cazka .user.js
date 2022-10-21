@@ -12,13 +12,12 @@
 // @license      MIT
 // @namespace    https://greasyfork.org/users/541070
 // ==/UserScript==
-'use strict';
 
 /*
  * Feel free to use some of my code for your own multiboxing script. make sure to give credits!
  */
 /*
- *   C L A S S E S
+ *   C L A S S E SQ
  */
 class Gui {
     constructor(title) {
@@ -1385,6 +1384,10 @@ function mainLoop() {
                 );
                 bestPosition = position;
                 break;
+            case 'move':
+                position = player.position;
+                bestPosition = position;
+                break;
             case 'off':
                 position = player.position;
                 bestPosition = position;
@@ -1420,7 +1423,7 @@ function mainLoop() {
  *   M A I N
  */
 const gui = new Gui('DiepBox by Cazka');
-const player = new Player();
+player = new Player();
 const storage = new MultiboxStorage();
 const chat = new Chat(player);
 
@@ -1462,8 +1465,8 @@ player.onmessage = (text) => {
 
 unsafeWindow.addEventListener('keydown', (e) => {
     if (!player.isMaster && e.keyCode == 13) {
-        const input = document.getElementById('textInput');
-        input.value = input.value.startsWith('\u0044\u0042') ? input.value : '\u0044\u0042 ' + input.value;
+        //const input = document.getElementById('textInput');
+        //input.value = input.value.startsWith('\u0044\u0042') ? input.value : '\u0044\u0042 ' + input.value;
     }
 });
 
@@ -1474,8 +1477,44 @@ const ctx = document.getElementById('canvas').getContext('2d');
 unsafeWindow.requestAnimationFrame = new Proxy(unsafeWindow.requestAnimationFrame, {
     apply: function (target, thisArg, args) {
         mainLoop();
-        drawZones();
+        player.isMaster&&(drawZones());
         if (player.isMaster) return Reflect.apply(target, thisArg, args);
         else setTimeout(() => Reflect.apply(target, thisArg, args), 1000 / 20);
     },
 });
+function sys(input){
+    input.set_convar("ren_health_bars", true);
+    input.set_convar("ren_raw_health_values", true);
+    input.execute("net_replace_color 0 0x000000");
+    input.execute("net_force_secure true");
+    input.execute("net_replace_color 1 0x000000");
+    input.execute("net_replace_color 2 0x000000");
+    input.execute("net_replace_color 3 0x0000FF");
+    input.execute("net_replace_color 4 0xFF0000");
+    input.execute("net_replace_color 5 0x990099");
+    input.execute("net_replace_color 6 0x00FF00");
+    input.execute("net_replace_color 7 0xFFFFFF");
+    input.execute("net_replace_color 8 0xFFFF00");
+    input.execute("net_replace_color 9 0xFFBBBB");
+    input.execute("net_replace_color 10 0xCCCCFF");
+    input.execute("net_replace_color 11 0xFF69B4");
+    input.execute("net_replace_color 12 0xFFFF00");
+    input.execute("net_replace_color 13 0xFFFFFF");
+    input.execute("net_replace_color 14 0x888888");
+    input.execute("net_replace_color 15 0x0000FF");
+    input.execute("net_replace_color 16 0xBBBB00");
+    input.execute("net_replace_color 17 0x777777");
+    input.execute("ren_stroke_solid_color 0xFFFFFF");
+    input.set_convar("ren_stroke_soft_color",false);
+    input.execute("ren_stroke_soft_color_intensity .5");
+    //dark
+    input.set_convar("ren_solid_background",false);
+    input.execute("ren_health_background_color 0x8c8c8c");
+    input.execute("ren_minimap_background_color 0xFFFFFF");
+    input.execute("ren_background_color 0x333231");
+    input.execute("ren_border_color 0xffffff");
+    input.execute("ren_bar_background_color 0x8c8c8c");
+    input.execute("net_replace_color 14 0x595959");
+    input.execute("ren_stroke_solid_color 0xFFFFFF");
+}
+//document.readyState=='complete'?sys(input):!function(){var _=addEventListener('load',function(){sys(input);removeEventListener(_)})}();
