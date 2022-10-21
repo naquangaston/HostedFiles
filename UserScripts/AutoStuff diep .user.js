@@ -1068,7 +1068,25 @@
     })();
 
     function stt(){
-        var [redSide,floor,top,blueSide]=[6500,11320,-11320,-6900]
+        var [redSide,floor,top,blueSide,right,left]=[6500,11300,-11300,-6500,-11000,11000]
+        function getCloseSide(){
+            let close=[]
+            if(player.position.y<top){close.push(top)}
+            if(player.position.y>floor){close.push(floor)}
+            if(player.position.x<right){close.push(right)}
+            if(player.position.x>left){close.push(left)}
+            if(player.gamemode=='teams'){
+                if(player.position.x<blueSide&&player.team=='Red Team'){close.push(blueSide)}else if(player.position.x>redSide){close.push(redSide)}
+            }
+            return close
+        }
+        function moveFromSide(){
+            var lc=getCloseSide()
+            if(lc.includes(floor)){keyDown(w)}
+            if(lc.includes(top)){keyDown(s)}
+            if(lc.includes(left)||lc.includes(redSide)){keyDown(a)}
+            if(lc.includes(right)||lc.includes(blueSide)){keyDown(d)}
+        }
         settings={move:false,aim:true}
         function getMiddle(prop, markers) {
             let values = markers.map(m => m[prop]);
@@ -1139,7 +1157,7 @@
             if(key==s){input.keyDown(key);input.keyUp(w)}
             if(key==d){input.keyDown(key);input.keyUp(a)}
         }
-        function Fire(v){(v?keyDown:keyUp)(keyShoot)}
+        function Fire(v){player._gamepad.leftMouse=v}
         enemySide={}
         function moveToward(x,y){
             var center=[innerWidth/2,innerHeight/2]
@@ -1201,10 +1219,10 @@
             aim&&(mouse(...close),Fire(true));
             if(move){
                 if(getDistance(center[0],center[1],close[0],close[1])>300){
-                    moveToward(...close)
+                    moveFromSide();moveToward(...close)
                 }
                 else if(em&&getDistance(center[0],center[1],close[0],close[1])<300){
-                    run(...close)
+                    moveFromSide();run(...close)
                 }
                 else [[w,a,s,d].forEach(keyUp)]
             }
@@ -1214,6 +1232,7 @@
             var context = canvas.getContext('2d');
             var info={},Shapes={}
             var shapes=[
+                ['##000000','TankBarrel'],
                 ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
                 ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
                 ['#fc7676 #bd585a #e76c6d #ffbbbb','Triangle'],
@@ -1290,8 +1309,9 @@
             var target=[];
             var enemy=Object.keys(S2).filter(key=>(key!=player.team&&key.includes('team'))||key.includes('enemy')).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
             var shps=[S2['Green Square'],[...(S2['Pent']||[]),...(S2['crasher']||[])],S2['Triangle'],S2['Square']].filter(e=>e&&e.length)[0]
-            if(enemy&&enemy.length){aim(enemy,true);Fire(true)}
+            if(enemy&&enemy.length&&[...S2.TankBarrel].filter(b=>30<getDistance(b[0],b[1],innerWidth/2,innerHeight/2)).length){aim(S2.TankBarrel||enemy,true);Fire(true)}
             else if(shps&&shps.length){aim(shps);Fire(true)}
+            else Fire(false);
         },250)
         canvas.addEventListener("mousemove",function(e){
             var eventLocation = getEventLocation(this,e);
