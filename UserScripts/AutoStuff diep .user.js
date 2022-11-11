@@ -64,9 +64,27 @@
         }
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging})})(globalRoot)
-;(function(upgrade='',noAds=false) {
+;(function(noads=false,noAds) {
+    upgrade=''
     //'use strict';
-
+    window.getElementByAttribute=function getElementByAttribute(label,item='aria-label',doc=document.body){
+        var res=[];
+        function part2(e){
+            if(e.getAttribute(item)==label){
+                res.push(e);
+            }else{
+                if(e.children.length||(e.shadowRoot&&e.shadowRoot.children.length)){
+                    e=(e.shadowRoot&&e.shadowRoot.children.length)?e.shadowRoot.children:e.children;
+                    e.forEach=[].forEach;
+                    e.forEach(e2=>{
+                        part2(e2);
+                    })
+                }
+            }
+        };
+        part2(doc);
+        return res.length==1?res[0]:res||false;
+    }
     //Socket
     realSend = window.WebSocket.prototype.send;
     ;(function () {
@@ -782,16 +800,6 @@ Mega Smasher Y = 74
 Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):? Y = (\d+)/i)[1],e.match(/([\w ]+):? Y = (\d+)/i)[2]]).forEach(e=>{info[e[0]]=e[1]})
     }
     WebSocket.prototype.oldSend = WebSocket.prototype.send;
-    WebSocket.prototype.send = function(m){
-
-        if (typeof ws=='undefined'){
-            document.ws = this;
-            console.log('Mspack',{m})
-            ws = this;
-            socketFound(this);
-        }
-        this.oldSend(m);
-    };
     function socketFound(socket){
         socket.addEventListener('message', function(message){
             handleMessage(message);
@@ -810,7 +818,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         let item = data[0];
         if(!data) {return};
-        console.log({item,data})
+        //console.log({item,data})
     }
     function doNewSend(sender){
         try{ ws.send(new Uint8Array(Array.from(msgpack5.encode(sender))));}catch(err){};
@@ -1608,7 +1616,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         !(function(){var[_0xm51se,_0xg09mv]=["\u006d\u0061\u0070","\u0062\u0075\u0069\u006c\u0064"];for(let _0xa86nc in Builds){var _0xw09fj=Builds[_0xa86nc];for(let _0xd58sm in _0xw09fj){if(typeof Builds[_0xa86nc][_0xd58sm]== 'object'){Builds[_0xa86nc][_0xd58sm]=Builds[_0xa86nc][_0xd58sm][_0xm51se](_0xk93gs=>{_0xk93gs[_0xg09mv]=FixBuild(_0xk93gs[_0xg09mv]);return _0xk93gs})}}}})()
         function element(e){return document.createElement(e)}
         function forEachObj({ obj, func = function () { } }) {if (!func) { throw "func must be property of object" }; for (let i in (obj || this)) func((obj || this)[i], i);}
-        function noAds(){return setInterval(()=>{;[...document.getElementsByTagName('iframe')].forEach(e=>e.remove())},10)}
         function log(...d) { console.log(...d) }
         function log_(title, body) { var l = new CustomLog(title); l.log(body) }
         function Spawn() { input.keyDown(13); input.keyUp(13) }
@@ -1638,6 +1645,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 upgrade=window.upgrade = b.BuildPath;
                 console.log(txt)
                 console.log(parse)
+                console.log(upgrade)
                 for(let i in parse.build){
                     try{
                         var l=parse.build[i]/7;l*=100
@@ -1716,20 +1724,24 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         function gF(){let g={};keys(document.getElementsByTagName('d-base')[0]).filter(e=>e.startsWith('__')).forEach(a=>{g[a]=document.getElementsByTagName('d-base')[0][a]});return(g)}
         async function AutoStatus(){
+            let oldBlur=window.onblur
+            window.onblur=function(e){e=e||window.event,window.input&&(window.input.blur(),window.input.keyDown(85))}
             input.keyUp(85)
-            if (upgrading) { return }upgrading = true;
+            if (upgrading||!upgrade||!upgrade.length) { return }upgrading = true;
             if (!DidiU) { return }
             var focus=document.hasFocus();
             await sleep(100)
             input.keyDown(85);
             var upgrades = upgrade.split('').map(e => e.charCodeAt(0))
             for (let i in upgrades) {
+                let k=upgrades[i]
                 if(focus!=document.hasFocus()){input.keyDown(85)}
                 input.keyDown(k)
                 input.keyUp(k)
                 await sleep(100)
                 focus=document.hasFocus()
             }
+            window.onblur=oldBlur
             upgrading = false; DidiU = true;
         }
         colors={}
@@ -1765,8 +1777,12 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 DidiU = false;
                 //now on spanw screen
                 log_("PlayerStatus", "On Spawn screen")
-                var pButton=base.renderRoot.children[0].renderRoot.children.username.children['username-row'].children[1]
-                !noads&&(noAds=noAds())
+                //var pButton=base.renderRoot.children[0].renderRoot.children.username.children['username-row'].children[1]
+                var userNamebox=getElementByAttribute('username-row','id')
+                let {x,y}=userNamebox.children[1].getBoundingClientRect()
+                input.mouse(x,y)
+
+                !noads&&(noads=noAds())
                 //if(!did_)(MenuFix(),didl_=true);
                 if(!!AutoSpawn){setTimeout(()=>{pButton.click()},500)}
                 var bruh = setInterval(() => {
@@ -1774,7 +1790,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         playerAlive = true;
                         wasalive = true
                         log_("PlayerStatus", "Spawning into game");
-
                         eval(`input.set_convar("ren_health_bars", true);input.set_convar("ren_raw_health_values", true);input.set_convar("ren_stroke_soft_color",false);input.set_convar("ren_solid_background",false);`)
                         execute("net_replace_color 0 0x000000");
                         execute("net_force_secure true");
@@ -1816,7 +1831,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         })
         setTimeout(()=>{MenuFix(_myWin)},1000)
         document.onreadystatechange = function (e) {log_("ReadyState", document.readyState)}
-    })();
+    })
+(false,function(){return setInterval(()=>{;[...document.getElementsByTagName('iframe')].forEach(e=>e.remove())},10)});
 
     function stt(){
         var [redSide,floor,top,blueSide,right,left]=[6500,11300,-11300,-6500,-11000,11000]
