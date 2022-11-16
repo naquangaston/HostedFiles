@@ -16,7 +16,10 @@
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_Formatter_.js
 // @run-at document-start
 // ==/UserScript==
-
+window.upDateTo=function(id){
+    open(`https://greasyfork.org/en/script_versions/new#`)
+    //postMessage({},'*')
+}
 ;(function(){
     class CustomLogging {
         /**
