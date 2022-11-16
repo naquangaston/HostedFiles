@@ -11,9 +11,67 @@
 // @grant        GM_info
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+// @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/ResourceLoader_.js
 // @run-at document-start
 // ==/UserScript==
 typeof(globalRoot)=='undefined'&&(globalRoot = (typeof exports == "undefined" ? !this.Device ? (typeof window == "undefined" ? this : (globalThis || self || window || top)) : exports : this));
+function getTag(str) {
+    return function(tagsReg, metaTag, getT) {
+        console.log({tagsReg,metaTag,getT})
+        return (function(info, str) {
+            console.log({info,str})
+            return str.forEach(tag => {
+                !info[tag[1]] && (info[tag[1]] = []), info[tag[1]].push(tag[2])
+            }), info
+        })({}, (console.log({m:str.match(/\/{2} ={2}UserScript={2}\n(\/{2}[ ]+@([\w\-_$]+)[ ]+([^\n]+)[\n ]+)+/gi)}),str.match(metaTag)[0].match(tagsReg).map(e => e.match(getT))))
+    }(/(\/{2}[ ]+@(\w+)[ ]+([^\n]+))/gi, /\/{2} ={2}UserScript={2}\n(\/{2}[ ]+@([\w\-_$]+)[ ]+([^\n]+)[\n ]+)+\/{2} ={2}\/UserScript={2}/gi, /\/{2}[ ]+@(\w+)[ ]+([^\n]+)/)
+}
+function log(t,i){document.getElementById(`log${i||1}`).innerText=t}
+class Fork {
+    #fet = async function(url, maxC=5, c = 0,err) {
+        if (c < maxC) {
+            return await fetch(url).then(a => a, async b => await this.#fet(url, maxC, c + 1,b))
+        } else throw err
+    }
+    #fetSearch = async function(obj) {
+        var q=Object.keys(obj).map(key=>`${key}=${obj[key]}`).join('&');
+        return await this.#fet(`https://greasyfork.org/en/scripts.json?${q}`).then(e=>e.json())
+    }
+    #fetScript=async function(id){
+        return await this.#fet(`https://greasyfork.org/en/scripts/${id}.json`).then(r=>r.json())
+    }
+    #fetUser = async function(id) {
+        return await this.#fet(`https://greasyfork.org/en/users/${id}.json`).then(r=>r.json())
+    };
+    #fetCode = async function(id) {
+        return await this.#fet(`https://greasyfork.org/en/scripts/${id}/code.user.js`).then(r=>r.blob()).then(r=>r.text())
+    }
+    constructor() {
+        var onload = null
+        Object.assign(this, {
+            get onload() {
+                return onload
+            },
+            set onload(f) {
+                onload = f
+            },
+        })
+    }
+    async script(id){return await this.#fetScript(id)}
+    async search(q) {
+        return await this.#fetSearch({q})
+    }
+    async user(id){return await this.#fetUser(id)}
+    async code(id){return await this.#fetCode(id)}
+}
+var f = new Fork()
+Array.prototype.async=async function(func,method){
+    var supported=['map','forEach','filter'];
+    if(!supported.includes(method))throw (`${method} is not supported:\n[${supported.join(' - ')}] are supported`);
+    if(method=='map'){var a=Array.from(this);for(let i=0;i<a.length;i++){a[i]=await func(a[i],i)}return a}
+    if(method=='forEach'){for(let i=0;i<this.length;i++){await func(this[i])}}
+    if(method=='filter'){let r=[];for(let i=0;i<this.length;i++){if(await func(this[i]))r.push(this[i])}return r}
+}
 setValue=GM_setValue
 getValue=GM_getValue;
 var step=getValue('step')||0
@@ -22,13 +80,15 @@ var info=JSON.parse(decodeURIComponent(location.hash.split('').splice(1).join(''
 if(isUpdate){
     if(info){
         if(info.id){
-
+            localStorage[info.id]
         }
         else console.warn('Cant update script with no script ID present :/.')
     }
     else console.warn('Cant update script with no info present :/.')
+    return
 }
 if(info.action=='getToken'){
+    const Gorigin=(new URL(opener.location.href)).origin
     console.log('Retrieving Token')
     async function useCode(_info){
         console.log(_info)
@@ -37,7 +97,16 @@ if(info.action=='getToken'){
         var {code,id}=_info
         status('Getting resources')
         var Loader=new ResourceLoader()
-        //await Loader.loadResource('https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_Formatter.js')
+        if(typeof js_beautify!='function'){
+            console.log('importing goods')
+
+            await Loader.loadResource('https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_Formatter.js')
+            console.log('Two')
+            await Loader.loadResource('https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_obf.js')
+            console.log('done')
+            js_beautify=globalRoot.js_beautify;
+            JavaScriptObfuscator=globalRoot.JavaScriptObfuscator;
+        }
         if(typeof js_beautify=='function'){
             console.log('Got js_')
             var{version}=await Loader.loadResource(`https://greasyfork.org/en/scripts/${id}.json`,true,false);
@@ -83,19 +152,19 @@ if(info.action=='getToken'){
         }
         }catch(err){console.log(err)}
     }
-    function status(s){opener.postMessage({status:s},'https://diep.io')}
+    function status(s){opener.postMessage({status:s},Gorigin)}
     function getToken_(){
         const token=[...document.getElementsByName('authenticity_token')].pop().value;
         onmessage=function(e){
-            if(e.origin=="https://diep.io"){
+            if(e.origin==Gorigin){
                 console.log('Hnadled',e.data,e)
-                e.data==true&&(opener.postMessage({token},'https://diep.io'))
+                e.data==true&&(opener.postMessage({token},Gorigin))
                 e.data.info&&e.data.info.code&&(status('Pending code'),useCode(e.data.info))
 
             }else console.log('Unhandled Post',e)
         }
         console.log({token})
-        opener.postMessage(true,'https://diep.io')
+        opener.postMessage(true,Gorigin)
         console.log('Posted')
     }
     function getToken(){
