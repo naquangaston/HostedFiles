@@ -294,7 +294,32 @@ var info = JSON.parse(
         } catch (err) {}
       }, 1);
     }
-    myFork.getScripts().then(console.log)
+	var oldThen=Promise.prototype.then
+	console.log('Fetching')
+	Promise.prototype.then=async function(..._){
+		console.log(_)
+		//console.log(this)
+		var isFulfilled,isPending,isRejected
+		//Object.assign(this,{isFulfilled,isPending,isRejected})
+		return oldThen.apply(this,[function(v) {
+            isFulfilled = true;
+            isPending = false;
+			console.log({isFulfilled,isPending,isRejected})
+			_[0]()
+            return v; 
+        }, 
+        function(e) {
+            isRejected = true;
+            isPending = false;
+			console.log({isFulfilled,isPending,isRejected})
+			_[1](e)
+			return e
+        }])
+		console.log(value)
+		//return oldThen.apply(this,_)
+		
+	}
+   console.log(myFork.getScripts().then(console.log))
     document.readyState == "complete" ? getToken() : (onload = getToken());
     return;
   }
