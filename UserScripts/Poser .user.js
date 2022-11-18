@@ -28,6 +28,10 @@ function getTag(str) {
         })({}, (console.log({m:str.match(/\/{2} ={2}UserScript={2}\n(\/{2}[ ]+@([\w\-_$]+)[ ]+([^\n]+)[\n ]+)+/gi)}),str.match(metaTag)[0].match(tagsReg).map(e => e.match(getT))))
     }(/(\/{2}[ ]+@(\w+)[ ]+([^\n]+))/gi, /\/{2} ={2}UserScript={2}\n(\/{2}[ ]+@([\w\-_$]+)[ ]+([^\n]+)[\n ]+)+\/{2} ={2}\/UserScript={2}/gi, /\/{2}[ ]+@(\w+)[ ]+([^\n]+)/)
 }
+function goTo(id){
+var hash=location.hash
+location.href=`https://greasyfork.org/en/scripts/381682${hash}/versions/new`
+}
 function log(t,i){document.getElementById(`log${i||1}`).innerText=t}
 class Fork {
     #fet = async function(url, maxC=5, c = 0,err) {
@@ -106,11 +110,16 @@ if(info.action=='getToken'){
             JavaScriptObfuscator=globalRoot.JavaScriptObfuscator;
         }
         if(typeof js_beautify=='function'){
+            if(id){
+                var parts=location.href.split('/')
+                if(!parts[5]&&parts[5].split('-')[0]!=id&&parts[7]!='new'){goTo(id)}
+                return
+            }
             console.log('Got js_')
             var{version}=await Loader.loadResource(`https://greasyfork.org/en/scripts/${id}.json`,true,false);
             var GMinfo = {
                 code
-            }
+            };
             status('Version:',version)
             let lines = code.split('\n')
             var cd = code.split('\n').splice(0, lines.indexOf("// ==/UserScript==") + 1).join('\n')
