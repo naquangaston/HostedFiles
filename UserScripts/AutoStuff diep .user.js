@@ -1838,6 +1838,28 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
 (false,function(){return setInterval(()=>{;[...document.getElementsByTagName('iframe')].forEach(e=>e.remove())},10)});
 
     function stt(){
+        var _mouse=input.mouse;
+        input.mouse=function(x,y){
+            spread?_mouse(gR(x-maxSpread,x+maxSpread),gR(y-maxSpread,y+maxSpread)):_mouse(x,y)
+        }
+        function gR(min = 0, max = 100) {
+
+            // find diff
+            let difference = max - min;
+
+            // generate random number
+            let rand = Math.random();
+
+            // multiply with difference
+            rand = Math.floor( rand * difference);
+
+            // add with min value
+            rand = rand + min;
+
+            return rand;
+        }
+        var spread=true;
+
         var [redSide,floor,top,blueSide,right,left]=[6500,11300,-11300,-6500,-11000,11000]
         function getCloseSide(){
             let close=[]
@@ -1857,7 +1879,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             if(lc.includes(left)||lc.includes(redSide)){keyDown(a)}
             if(lc.includes(right)||lc.includes(blueSide)){keyDown(d)}
         }
-        settings={move:false,aim:true}
+        settings={move:true,aim:true}
         function getMiddle(prop, markers) {
             let values = markers.map(m => m[prop]);
             let min = Math.min(...values);
@@ -1988,11 +2010,13 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             let {move,aim}=window.settings
             aim&&(mouse(...close),Fire(true));
             if(move){
-                if(getDistance(center[0],center[1],close[0],close[1])>300){
+                moveFromSide()
+                if(em){moveToward(...close)}
+                else if(getDistance(center[0],center[1],close[0],close[1])>300&&!em){
                     moveFromSide();moveToward(...close)
                 }
                 else if(em&&getDistance(center[0],center[1],close[0],close[1])<300){
-                    moveFromSide();run(...close)
+                    //moveFromSide();run(...close)
                 }
                 else [[w,a,s,d].forEach(keyUp)]
             }
