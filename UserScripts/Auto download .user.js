@@ -85,8 +85,9 @@
     function tF(f,{callback,int}){
         !callback&&(callback=function(){});!int&&(int=100)
         console.log({f,callback,int})
-        try{f();callback();return}catch(err){}
-        var _=setInterval(()=>{try{f();callback();clearInterval(_)}catch(err){}},int||100)
+        try{f();callback();return}catch(err){console.log(err)}
+        console.log('After')
+        var _=setInterval(()=>{try{f();callback();clearInterval(_)}catch(err){console.log(err)}},int||100)
         return _
     }
     function isHidden(el) {
@@ -213,7 +214,7 @@
     })
     }
     if(location.href.includes('onlymp3.to')){
-        ;(console.log('Getting MP3'),tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close}))
+        ;(console.log('Getting MP3'),tF(function(f=function(){}){var videoTitle=document.getElementById('videoTitle');var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};console.log('Got video details');(opener||window).postMessage(f,'*')},{callback:close,int:100}))
         //(console.log('Getting MP4'),tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close}))
         return
     }
@@ -223,7 +224,8 @@
         onload=function(){input.value=['https://www.youtube.com/watch?v=',location.hash.slice(1)].join('');submit.click()}
         if(videoTitle=='Please insert a YouTube video URL')throw 'e'
         var href=buttons.children[0].href
-        ;(console.log('Getting MP3'),tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close}))
+        //;(console.log('Getting MP3'),tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close}))
+        return
     }
     setInterval(e=>{
         document.getElementsByClassName("ytp-ad-button-icon")[0]&&!didmute&&(console.log('muted ad'),didmute=1,Mute());
