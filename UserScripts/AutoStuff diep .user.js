@@ -1638,7 +1638,15 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 input.keyDown(69);
             }, 2000);
         }
+        window.spreadToggle=typeof window.spreadToggle !="undefined"&&window.spreadToggle||!!window.spreadToggle
+        window.spread=window.spread||30;// in (px)
         function MenuFix(_myWin_=globalRoot._myWin) {
+            canvas.addEventListener("mousemove",function(e){
+                var {clientX,clientY}=e,[x,y]=[clientX,clientY];
+                var [ranX,ranY]=[ran(-window.spread,window.spread),ran(-window.spread,window.spread)]
+                var newMouse=[ranX+clientX,ranY+clientY]
+                window.spreadToggle&&(console.log(),input.mouse(...newMouse))
+            })
             var pt='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'
             console.log('win',_myWin_)
             function setBuild(parse) {
@@ -1672,9 +1680,14 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 myMenu.append(span)
 
             }
+            window
+            function AutoSpread(){}
             addButton('Fix Game', FixGame, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
             addButton('Remove-Ads', RemoveAds, {line:true, desc: 'Use to remove ads that may cause gae lag' })
             addButton('Stack', stack, {line:true, desc: 'stack preditor bullets max reload requried' })
+            addButton('AutoSpread', AutoSpread, {line:true, desc: 'auto spread bullets when your mouse is moving' })
+            myMenu.append(element('hr'))
+            var h2=element('h2')
             var allChecks = [];
             const Tanks = new Object(); for (let i in Builds) {try{Builds[i]._builds.forEach(e => { var tank = e.p; const { name, desc, build } = e; if (!Tanks[tank]) Tanks[tank] = []; Tanks[tank].push({ name, desc, build }) }) }catch(err){}}
             var Builds_M = window.myWin_.document.getElementById('myUL')
@@ -1836,7 +1849,9 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         document.onreadystatechange = function (e) {log_("ReadyState", document.readyState)}
     })
     (false,function(){return setInterval(()=>{;[...document.getElementsByTagName('iframe')].forEach(e=>e.remove())},10)});
-
+    function ran(min,max){
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
     function stt(){
         var [redSide,floor,top,blueSide,right,left]=[6500,11300,-11300,-6500,-11000,11000]
         function sys(count){
@@ -2137,6 +2152,14 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             else if(shps&&shps.length){aim(shps);Fire(true)}
             else Fire(false);
         }
+        canvas.addEventListener("mousemove",function(e){
+            window.spreadToggle=typeof window.spreadToggle !="undefined"&&window.spreadToggle||!!window.spreadToggle
+            window.spread=window.spread||10;
+            var {clientX,clientY}=e,[x,y]=[clientX,clientY];
+            var [ranX,ranY]=[ran(-window.spread,window.spread),ran(-window.spread,window.spread)]
+            var newMouse=[ranX+clientX,ranY+clientY]
+            window.spreadToggle&&(console.log(),input.mouse(...newMouse))
+        })
         canvas.addEventListener("mousemove",function(e){
             var eventLocation = getEventLocation(this,e);
             var coord = "x=" + eventLocation.x + ", y=" + eventLocation.y;
