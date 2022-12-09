@@ -1,0 +1,800 @@
+if(banana2=1)
+{
+send {2 down}{2 up}{click left down}{click left up}{e down}{e up}
+sleep 32
+}
+if(banana2=1)
+{
+send {1 down}{1 up}{2 down}{2 up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
+if(banana2=1)
+{
+send {q down}{q up}
+sleep 32
+}
