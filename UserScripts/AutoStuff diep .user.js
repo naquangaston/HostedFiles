@@ -1738,6 +1738,41 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
 
 
         }
+        function ran(min,max){
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        var x,y,Thisloop=0,spMouse
+        function SpreadOn(e){
+            window.spreadToggle_=typeof window.spreadToggle_ !="undefined"&&window.spreadToggle_||!!window.spreadToggle_
+            window.spread=window.spread||10;
+            var {clientX,clientY}=e;
+            x=clientX
+            y=clientY
+            var [ranX,ranY]=[ran(-window.spread,window.spread),ran(-window.spread,window.spread)]
+            var newMouse=[ranX+clientX,ranY+clientY]
+            window.spreadToggle_&&spMouse!=true&&(input.mouse(...newMouse))
+        }
+        function SpreadMouseD(e){
+            clearInterval(Thisloop)
+            spMouse=true
+            window.spreadToggle_=typeof window.spreadToggle_ !="undefined"&&window.spreadToggle_||!!window.spreadToggle_
+            window.spread=window.spread||10;
+            var {clientX,clientY}=e;[x,y]=[clientX,clientY]
+            Thisloop=setInterval(()=>{
+                var [ranX,ranY]=[ran(-window.spread,window.spread),ran(-window.spread,window.spread)]
+                var newMouse=[ranX+x,ranY+y]
+                window.spreadToggle_&&spMouse?(input.mouse(...newMouse)):(clearInterval(Thisloop))
+            },50)
+        }
+        function SpreadMouseU(e){
+            spMouse=false;
+            console.log('mouse Done')
+        }
+        canvas.addEventListener("mousemove",SpreadOn)
+        canvas.addEventListener("mousedown",SpreadMouseD)
+        canvas.addEventListener("mouseup",SpreadMouseU)
+        window.spreadToggle_=true
+        spread=30
         function gF(){let g={};keys(document.getElementsByTagName('d-base')[0]).filter(e=>e.startsWith('__')).forEach(a=>{g[a]=document.getElementsByTagName('d-base')[0][a]});return(g)}
         async function AutoStatus(){
             let oldBlur=window.onblur
