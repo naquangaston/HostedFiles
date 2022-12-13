@@ -80,7 +80,9 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
   <script src="particles.min.js"></script>
   <h2 class="bass-title">
     <span class="bass-blur logo-neon">
-      <span class="text-Logo pulse1">TestV27</span>
+      <span class="text-Logo pulse1">
+        V:28
+      </span>
     </span>
   </h2>
   <hr>
@@ -193,7 +195,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
     <option value="e926" selected>2</option>
   </select>
   <form id='myform' method="GET" action="">
-    <input name='tags' placeholder="enter tags"><br>
+    <input name='tags' onkeyup="this.value=this.value.split(' ').join('+')" placeholder="enter tags"><br>
     <span>images per page: </span><input name='limit' placeholder="images per page" value="10" type="number"><br>
     <span>page index: </span><input id="_cpage" name="page" type="number" width="auto" min="1" value="1"
       placeholder="page index">
