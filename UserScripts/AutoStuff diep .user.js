@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AutoStuff diep
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  [dark theme][auto build][music player][works with other mods][FPS counter]
 // @author       You
 // @match        https://diep.io/
@@ -1638,15 +1638,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 input.keyDown(69);
             }, 2000);
         }
-        window.spreadToggle=typeof window.spreadToggle !="undefined"&&window.spreadToggle||!!window.spreadToggle
-        window.spread=window.spread||30;// in (px)
         function MenuFix(_myWin_=globalRoot._myWin) {
-            canvas.addEventListener("mousemove",function(e){
-                var {clientX,clientY}=e,[x,y]=[clientX,clientY];
-                var [ranX,ranY]=[ran(-window.spread,window.spread),ran(-window.spread,window.spread)]
-                var newMouse=[ranX+clientX,ranY+clientY]
-                window.spreadToggle&&(console.log(),input.mouse(...newMouse))
-            })
             var pt='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'
             console.log('win',_myWin_)
             function setBuild(parse) {
@@ -1742,31 +1734,31 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
         var x,y,Thisloop=0,spMouse
+        spreadToggle_=typeof spreadToggle_ !="undefined"&&spreadToggle_||!!spreadToggle_
+        spread=spread||10;
         function SpreadOn(e){
-            window.spreadToggle_=typeof window.spreadToggle_ !="undefined"&&window.spreadToggle_||!!window.spreadToggle_
-            window.spread=window.spread||10;
             var {clientX,clientY}=e;
             x=clientX
             y=clientY
-            var [ranX,ranY]=[ran(-window.spread,window.spread),ran(-window.spread,window.spread)]
+            var [ranX,ranY]=[ran(-spread,spread),ran(-spread,spread)]
             var newMouse=[ranX+clientX,ranY+clientY]
-            window.spreadToggle_&&spMouse!=true&&(input.mouse(...newMouse))
+            spreadToggle_&&spMouse!=true&&(input.mouse(...newMouse))
         }
         function SpreadMouseD(e){
             clearInterval(Thisloop)
             spMouse=true
-            window.spreadToggle_=typeof window.spreadToggle_ !="undefined"&&window.spreadToggle_||!!window.spreadToggle_
-            window.spread=window.spread||10;
+            spreadToggle_=typeof spreadToggle_ !="undefined"&&spreadToggle_||!!spreadToggle_
+            spread=spread||10;
             var {clientX,clientY}=e;[x,y]=[clientX,clientY]
             Thisloop=setInterval(()=>{
-                var [ranX,ranY]=[ran(-window.spread,window.spread),ran(-window.spread,window.spread)]
+                var [ranX,ranY]=[ran(-spread,spread),ran(-spread,spread)]
                 var newMouse=[ranX+x,ranY+y]
-                window.spreadToggle_&&spMouse?(input.mouse(...newMouse)):(clearInterval(Thisloop))
+                spreadToggle_&&spMouse?(input.mouse(...newMouse)):(clearInterval(Thisloop))
             },50)
         }
         function SpreadMouseU(e){
             spMouse=false;
-            console.log('mouse Done')
+            spreadToggle_&&(console.log('mouse Done'))
         }
         canvas.addEventListener("mousemove",SpreadOn)
         canvas.addEventListener("mousedown",SpreadMouseD)
