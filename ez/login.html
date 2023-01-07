@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <meta charset="utf-8">
+        <title>Login</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <form class="box" action="test.php" method="GET">
+            <fieldset>
+            <h1>Login</h1>
+            <label for="name"></label>
+              <input type="text" id="name" name="name" placeholder="Username">
+              <label for="pword"></label>
+              <input type="password" id="password" name="password" placeholder="Password">
+              <input type="submit" value="Submit" onsubmit="(function(e){e=e.parentElement;Login(e.children[0].children[2].value,e.children[0].children[4].value,e.children[0].children[6].value)})(this)">
+            </fieldset><br>
+            <a href="signup.html">Create</a> a new account<br>
+            <span style="color: red;" onclick="history.back()">Go back</span>
+        </form><Br>
+            <span>
+            </span>
+          <script>
+              function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+var f=0;
+              location.search.length&&(window.s=decodeURIComponent(location.search).split('?').pop().split('&'),s.forEach(element => {
+                  let e=element;if(e.split('=')[0]=='inv'&&e.split('=')[1]=='1'){alert('Invalid login')}  
+                  if(e.split('=')[0]=='act'){localStorage.account=e.split('=')[1];f=1};
+              }));
+              try{if(f){
+                var name=localStorage.account.split(":")[1].split(',')[0].split("'").join('').split('}')[0]
+var ps=localStorage.account.split(":")[2].split(',')[0].split("'").join('').split('}')[0]
+var em=localStorage.account.split(":")[3].split(',')[0].split("'").join('').split('}')[0]
+setCookie('user',JSON.stringify({name,ps,em},1));
+              }}catch(err){f=0};
+              if(f&&localStorage.account.length){
+                delete localStorage.account;
+                  alert('Logged in');location.href="index.html"
+              }
+              else{if (location.search.length||location.hash.length){alert('Invalid username\\password');}}
+          </script>
+    </body>
+</html>

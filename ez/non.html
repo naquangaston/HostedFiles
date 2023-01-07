@@ -1,0 +1,464 @@
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Test</title>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+    <script src="Script1.js"></script>
+    <style>
+        .round{border-radius: 50%;}
+        a{
+            text-decoration: none;
+        }
+        .alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+        }
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .closebtn:hover {
+                color: black;
+            }
+            .slidecontainer {
+                width: 100%
+            }
+        body {
+            /*cursor: url(http://cur.cursors-4u.net/user/use-1/use153.cur), default;*/
+            text-align: center;
+        }
+        #myProgress {
+            transition: opacity 2s;
+        }
+        #myBar{justify-content:center}
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0);
+            color: black;
+            text-align: center;
+        }
+        divv{
+            justify-content:center;
+        }
+        main {
+            justify-content: center;
+            border: solid 5px;
+        }
+        #about{border: solid 5px;}
+        main div {
+                height: auto;
+                display: none;
+            }
+        body::-webkit-scrollbar {
+            display: none; /*Hide scroll bars but you can keep scrolling*/
+        }
+        body {
+            color: red;
+            background-color: black;
+        }
+        #items {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #items li {
+                display: flex;
+                justify-content: center;
+            }
+        #items li a {
+                    display: block;
+                    padding: 8px;
+                }
+        #myProgress {
+            padding-top:10%;
+            padding-bottom:10%;
+            width: 100%;
+            background-color: rgb(0, 0, 0);
+        }
+        audio {
+            width: 30%;
+            box-shadow: 5px 5px 20px rgba(0,0, 0, 0.4);
+            border-radius: 90px;
+        }
+        #myBar {
+            padding:50%;
+            width: 0%;
+            max-width: initial;
+            height: 50%;
+            background-color: #04AA6D;
+            transition: width 1s
+        }
+        nav ul li{
+            padding: 8px;
+            margin-bottom: 7px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-size: 200%;
+        }
+        #avatar{
+            width:100px;
+            height:100px;
+            object-fit:cover;
+            }
+            table {
+                clear: left;
+                border-collapse: collapse;
+                }
+                th {
+                    height: 70px;
+                    }
+                    table, td, th {
+                        border: 2px solid;
+                }
+                        td{left: 20px;}
+        table tr td{text-decoration: none;color: inherit;}
+        table tr{
+            padding: 100px; 
+        }
+        table td,table th{
+            font-size: 150%;
+        }
+        @media only screen and (max-width: 768px) {
+            #avatar{width:10%;height: 10%;}
+    body{
+        font-size: 200%;
+    }
+    .box {
+            border-radius:15px;
+        }
+
+}
+    </style>
+</head>
+<body>
+    <div id="myProgress">
+        <div id="myBar"></div>
+    </div>
+    <header id="header" style="height: 50px;display: block;">
+        <div><span>Welcome </span><span id="user"></span></div>
+        <div><img id="avatar" class="round" style="clear:both;"></div>
+    </header>
+    <div id="alerts" style="justify-content:center"></div>
+    <div id="all" style="display:none">
+        <p style="text-align:center"><br><br><a href="#home" style="text-decoration:none">Home</a></p>
+        <nav id="mynav">
+            <ul id="items">
+            </ul>
+        </nav>
+        <div id="none">Choose an option form above</div>
+        <hr />
+        <main id="main">
+            <div id="login">
+                <form>
+                    <fieldset>
+                      <legend>Login:</legend>
+                      <label for="Username">Username:</label>
+                      <input type="text" id="Username" name="Username"><br><br>
+                      <label for="pword">Password:</label>
+                      <input type="password" id="pword" name="pword"><br><br>
+                      <label for="email">Email:</label>
+                      <input type="email" id="email" name="email"><br><br>
+                      <input type="submit" value="Submit" onsubmit="(function(e){e=e.parentElement;Login(e.children[0].children[2].value,e.children[0].children[4].value,e.children[0].children[6].value)})(this)">
+                    </fieldset>
+                  </form>
+                  <form>
+                    <fieldset>
+                      <legend>Sign up:</legend>
+                      <label for="Username">Username:</label>
+                      <input type="text" id="Username" name="Username"><br><br>
+                      <label for="pword">Password:</label>
+                      <input type="password" id="pword" name="pword"><br><br>
+                      <label for="email">Email:</label>
+                      <input type="email" id="email" name="email"><br><br>
+                      <label for="icon">Profile Icon:</label>
+                      <input type="file" id="file" name="file"><br><br>
+                      <label for="birthday">Birthday:</label>
+                      <input type="date" id="birthday" name="birthday"><br><br>
+                      <input type="submit" value="Submit" onsubmit="(function(e){e=e.parentElement;signup(e.children[0].children[2].value,e.children[0].children[4].value,e.children[0].children[6].value,e.children[0].children[8].value)})(this)">
+                    </fieldset>
+                  </form><br><br><br><br>
+            </div>
+            <div id="links">
+                <span>Links</span>
+                <p>
+                    Check out my <a href="https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A" target="_blank">youtube channel</a><br />
+                    Here is my <a target="_blank" href="https://greasyfork.org/en/users/472665-gaston-1799">Greasyfork page</a> for my mods<br />
+                    If you have discord you can add me Gaston#1799
+                </p>
+            </div>
+            <div id="contact" style="text-align:center">
+                <span>Contact</span>
+                <span> Email:<a href="mailto:naquangaston@gmail.com">naquangaston@gmail.com</a></span><br />
+                <span>Phone:<a href="tel:6097468737">6097468737</a></span><br />
+            </div>
+            <div id="Games I like">
+                <h1>My Favorite Games</h1><br /><br />
+                <h1>VRChat</h1>
+                <p>
+                    One of my favorite games is VRChat. <a href="https://hello.vrchat.com/" target="_blank">VRChat</a> is a game where you can and explore different virtual worlds and talk to other people. Also, You dont need a vr to play this game.<br />
+                    Check out the <a href="https://www.youtube.com/c/VRChat/featured" target="_top">VRChat</a> youtube channel<br />
+                </p>
+                <video width="50%" title="VRChat 2019 trailer" src="VRChat  Create Share Play_1080p.mp4" controls preload="auto" loop></video>
+                <br />
+                <br />
+                <br />
+                <h1>Minecraft</h1>
+                <p>I also like playing minecraft. Im pretty sure most people know what minecraft is by now. If you dont, minecraft is a sandbox game where you can mine, build, craft, and fight monsters at night. You can also play online in other servers.</p><br />
+                <video width="50%" title="Offcial Minecraft Trailer 2009" src="Official Minecraft Trailer.mp4" preload="auto" loop controls></video>
+                <br /><br /><br /><br /><br /><br /><br /><br />
+            </div>
+            <div id="site setting">
+                <h1>Site settings</h1>
+                <span>main background Color:</span><input id="mainC_" type="color" onchange="bodyColor('mainC_','main','backgroundColor')" /><br /><br /><br />
+                <hr><br><h1>Music</h1>
+                <audio id="myaudio" preload="auto" loop tabindex="0" controls>
+                    <source src="Zelda & Chill.mp3">
+                </audio><Br>
+                        <label for="myvol">Volume:<span id="v2">100</span>%</label>
+                        <input type="range" name="myvol" id="myvol"  min="0" max="100" value="100">
+                    <br>
+                <a download="Zelda & Chill.mp3" href="Zelda & Chill.mp3">Download Zelda & Chill</a>
+                <hr /><br /><h3>Use custom audio music</h3>
+                <divv id="tdiv1" style="justify-content:center;">
+                    <input type="file" multiple id="musicfiles"><br /><span id="Cplaying"></span>
+                    <span id="Tsongs" style="color:blue"></span>
+                    <br><video style="display: none;" width="320" height="240" id="myVideo" controls></video><Br>
+                    <audio preload="auto" tabindex="0" controls autoplay id="myAudio" style="display:flex;"></audio>
+                </divv>
+                <button onclick="((target=tdiv1) => { target.style.display == 'none' ? target.style.display = 'block' : target.style.display = 'none'; })(myAudio)">Toggle player</button><span>  </span><button id="play7pause">Play</button>
+                <button id="toggle1">Loop:off</button>
+                <script>
+                    var TargetA = [{}, {}], loadedfiles = [];
+                    var $video = myVideo;
+                    var $audio = myAudio;
+                    var $Cplaying = Cplaying
+                    var $toggle = toggle1
+                    function Alert(msg, t=5000,type) {if(window.canalert){return}
+                        var box = document.createElement('div'), button = document.createElement('span'); button.onclick = (e) => { box.remove(); }
+                        setTimeout(() => {
+                            $(box).toggle(1000);
+                            setTimeout(() => { box.remove()},1100)
+                        }, t)
+                        button.className = 'closebtn';
+                        button.innerHTML = '&times;';
+                        box.className = 'alert'; box.innerHTML = `<span class="closebtn" onclick="this.parentElement.remove();">&times;</span> <strong>${type ? type : 'Notice'}</strong> ${msg}`;
+                        alerts.append(box);
+                    }
+                    window.Newplaying = {};
+                    $toggle.onclick = ((e, target = $audio) => { target.loop = !target.loop; e.target.innerText = `Loop:${target.loop ? 'on' : 'off'}` });
+                    play7pause.onclick = (() => { TargetA[0].style.display == 'block' ? TargetA[0].paused ? ($('#musicfiles').toggle(), TargetA[0].play(), play7pause.innerText = 'Pause') : ($('#musicfiles').toggle(),TargetA[0].pause(), play7pause.innerText = 'Play') : TargetA[0].paused ? (TargetA[0].play(), play7pause.innerText = 'Pause') : (TargetA[0].pause(), play7pause.innerText = 'Play') });
+                    var ended, change, n = 0;
+                    $(tdiv1.children[0]).on('change', async function (e) {
+                        change = 1;
+                        var songsloaded = 0;
+                        var target = e.currentTarget;
+                        target.files.sort = [].sort;
+                        var files = target.files;
+                        Tsongs.innerText = files.length;
+                        console.log($audio[0]);
+                        if (target.files && files) {
+                            var oldl = 0;
+                            var dif = 0;
+                            var time2 = {};
+                            let loop = setInterval(() => {
+                                var newl = loadedfiles.length;
+                                if (newl != oldl) {
+                                    dif = newl - oldl;
+                                    time2 = time(((files.length - loadedfiles.length) / dif));
+                                }
+                                oldl = newl;
+                            }, 1000)
+                            for (let i = 0; i < files.length; i++) {
+                                var file = files[i];
+                                await new Promise((res, ref) => {
+                                    myAudio.onended = function () { setTimeout(() => { ended = 1; }, 200) };
+                                    myVideo.onended = function () { setTimeout(() => { ended = 1; }, 200) };
+                                    var reader = new FileReader();
+                                    var mp4 = file.type.includes("video");
+                                    reader.onload = function (e) {
+                                        loadedfiles.push({ src: e.target.result, name: file.name, video: mp4 });
+                                        console.log('loaded ', loadedfiles[loadedfiles.length - 1]);
+                                        Tsongs.innerText = `Songs loaded:${songsloaded}\n Songs downloaded/s:${dif}\nFinishing in:${time2.h + ":" + time2.m + ":" + time2.s+'.'+time2.ms}`;
+                                        res();
+                                    }
+                                    console.log(file.name, i, file);
+                                    if (!file.type.includes("audio")) { console.log('Cannot play:' + file.type); res(); songsloaded--; }
+                                    else (reader.readAsDataURL(file), songsloaded++);
+                                    reader = null;
+                                })
+                            }
+                            loadedfiles = loadedfiles.sort((a, b) => 0.5 - Math.random());
+                            var fin = 0;
+                            clearInterval(loop);
+                            for (let i = 0; i < loadedfiles.length; i++) {
+                                await new Promise((r, f) => {
+                                    let e = loadedfiles[i];
+                                    TargetA = e.video ? [myVideo, myAudio] : [myAudio, myVideo];
+
+                                    e.name.split(' ')[0].includes('.com') && (e.name = e.name.split(e.name.split(' ')[0] + ' -').join(''))
+                                    $Cplaying.innerText = `Now playing: ` + e.name;
+                                    TargetA[0]['src'] = e.src;
+                                    TargetA[0].play();
+                                    document.title = e.name;
+                                    TargetA[1].style.display = 'none';
+                                    TargetA[0].style.display = 'block';
+                                    try {
+                                        var name, artist;
+                                        e.name.lastIndexOf(' - ') < [e.name.lastIndexOf('('), e.name.lastIndexOf('['), e.name.lastIndexOf('{')].sort().pop() ? (artist = e.name.split(' - ')[0], name = e.name.split('(')[0].split('[')[0].split('{')[0].split(' - ')[1]) : ((!e.name.includes('(') && !e.name.includes('[') && !e.name.includes('{')) && (name = e.name.split('-')[1], artist = e.split(' - ')[0]));
+                                        Newplaying.artist = artist;
+                                        Newplaying.name2 = name;
+                                    } catch (err) {
+                                        Newplaying.name2 = e.name.split('.mp3')[0];
+                                    };
+                                    try {
+                                        Newplaying.artist = e.name.split(' - ')[0];
+                                        Newplaying.name = e.name.split(' - ')[1];
+                                        Newplaying.name2 = Newplaying.name.split('(')[0].split('[')[0].split('{')[0]
+                                    } catch (err) { };
+
+                                    console.log('loaded')
+                                    let c = setInterval(() => {
+                                        if (change) { change = 0; fin = 1; TargetA[0].pause() };
+                                        var hours, minutes, seconds, time1 = time(TargetA[0].currentTime);
+                                        hours = time1.h;
+                                        minutes = time1.m;
+                                        seconds = time1.s;
+                                        Tsongs.innerText = `${hours}:${minutes}:${seconds}`;
+                                        document.hasFocus() ? null : document.title = Tsongs.innerText + ' ' + Newplaying.name2 || Newplaying.artist;
+                                        ended && (ended = 0, clearInterval(c), r(), 500);
+                                    });
+                                    //if (change) { change = 0; break };
+                                })
+                            }
+                        }
+                    });
+                    function time(s) {
+                        var time = s;
+                        var minutes = Math.floor(time / 60);
+                        var seconds; (seconds = Math.floor(time - minutes * 60), seconds < 10 ? seconds = `0${seconds}` : seconds);
+                        var hours = Math.floor(time / 3600);
+                        time = time - hours * 3600;
+                        return { h: hours, m: minutes, s: seconds, t: time}
+                    }
+                </script>
+            </div>
+        </main>
+        <hr>
+        <br><br>
+        <div id="about" style="text-align:center">
+            <h1>About Me</h1>
+            <img width="20%" src="IMG_3291.jpg" /><br />
+
+            <p>
+                My name is Naquan Gaston, Im 15 and I like doing html, javascript, and making mods for games. I also play alot of flash and vr games.
+            </p>
+            <hr /><br />
+            <h1>My mods</h1><br />
+            <p>I make mods for site mostly games but here I made one for youtube that includes mp3 and mp4 download and a mod menu for it.</p>
+            <img width="30%" title="Before" src="https://cdn.discordapp.com/attachments/821779252428406784/853042631776796702/unknown.png" /><br /><br /><img width="30%" title="After" alt="After" src="https://cdn.discordapp.com/attachments/821779252428406784/853043470612955136/unknown.png" />
+            <br>
+            <p>I learned how to make mods using w3school and from just changing little thing in other public mods here are some more screen shot of site with and without mods</p>
+            <img>
+            <hr />
+            <h1>Mod info</h1>
+            <table>
+                <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date created</th>
+                </tr>
+                <tr>
+                <td>
+                <a href="https://greasyfork.org/en/scripts/404908-new-music-player-fixed">New music player (Fixed)</a>
+                </td>
+                <td>adds a youtube music player for io flash games</td>
+                <td>6/7/2020</td>
+                </tr>
+                <tr>
+                <td>
+                <a href="https://greasyfork.org/en/scripts/411490-discord-profile-ripper">.Discord profile ripper</a>
+                </td>
+                <td>Allows user to see profile icons of people in dicord server much more clearly. This mod will also resend failed attachments. Only work on the web version of discord</td>
+                <td>9/17/2020</td>
+                </tr>
+                <tr>
+                <td>
+                <a href="https://greasyfork.org/en/scripts/404079-new-cookie-clicker-autoplay">New cookie clicker autoplay</a>
+                </td>
+                <td>A cookie clicker mod that auto clicks the cooke and auto upgrades</td>
+                <td>5/25/2020</td>
+                </tr>
+                <tr>
+                <td>
+                <a href="https://greasyfork.org/en/scripts/416006-zoom-autoclose">Zoom autoclose</a>
+                </td>
+                <td>Autoclose the zoom page when zoom opens</td>
+                <td>11/12/2020</td>
+                </tr>
+                <tr>
+                <td>
+                <a href="https://greasyfork.org/en/scripts/418576-2020-2021-music-player-for-io-games-discord-profile-ripper-youtube-download-free">2020-2021 Music player for io games &amp; Discord profile ripper&amp; youtube download free</a>
+                </td>
+                <td>this mod is a combonation of the music player mod, discord mod, and my youtube mod all as one. my youtube mod includes theme toggle and playlist downlaoding auto downlaod certail videos etc. its all on the mod menu</td>
+                <td>12/12/2020</td>
+                </tr>
+                <tr>
+                <td>
+                <a href="https://greasyfork.org/en/scripts/404154-auto-quizzez-ai-bot-10ms-delay-auto-retry-untill-100-awnser-saver">Auto quizzez AI bot 10ms delay [auto retry untill 100% awnser saver]</a>
+                </td>
+                <td>this is a quizzez bot saves all questions it gets right and saves them that way the bot doesnt not have to get that same question wrong. it will auto use power ups. this mod only work on quizzes with streak enabled</td>
+                <td>5/26/2020</td>
+                </tr>
+                <tr>
+                <td>
+                <a href="https://greasyfork.org/en/scripts/404078-new-pizzapresser-autoplay">New pizzapresser autoplay</a>
+                </td>
+                <td>This mod and game is basicly the same at cookie clicker mod. auto clicks pizza auto upgrade and auto buying.</td>
+                <td>5/25/2020</td>
+                </tr>
+            </table>
+            <br>
+            <br>
+            <br>
+        </div>
+        <script>
+            document.elems = {};
+            for (let _ in document.getElementById('main').children) {
+                let a_ = document.getElementById('main').children[_];
+                if (a_.id && !document.getElementById('items').innerHTML.toLowerCase().includes((a_.id + '').toLowerCase())) {
+                    console.log('#' + a_.id, a_)
+                    let __ = document.createElement('a'), ___ = document.createElement('li'), ____ = a_.id.split(' '), _____ = [], b2 = document.createElement('div'); b2.className = 'box';
+                    for (let ______ in ____) { var b = ____[______][0]; var dd = ____[______][0].toUpperCase(); _____.push(____[______].replace(b,dd)); }
+                    a_.id = _____.join(' ');
+                    //console.log(_____)
+                    __.href = '#' + _____.join(' '); __.innerText = a_.id;
+                    ___.className='box'
+                    console.log(__.getBoundingClientRect().width)
+                    document.elems[a_.id]=___
+                    ___.append(__); b2.append(___); items.append(___);
+                }
+            }
+        </script>
+        <div class="footer">
+            <p><a href="#home" style="text-decoration:none">Home</a></p>
+        </div>
+    </div>
+</body>

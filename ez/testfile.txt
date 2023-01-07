@@ -1,0 +1,5 @@
+{'name':'SGjW3_c9ZJ','password':'lgtw3CUCFMF9X3e','email':'@idk.net'}
+{'name':'xpbEWEn45t','password':'N0Jd7DuduEH3-2I','email':'@yahoo.com'}
+{'name':'zawUV6AZxZ','password':'bQXQX0ZcmUj3-b1','email':'@fake.org'}
+{'name':'PCpu1CWU1A','password':'Vad1L0eKmrxCss6','email':'@gmail.com'}
+{'name':'Wolf Gaming','password':'Dragon.ball_!','email':'naquangaston@gmail.com'}

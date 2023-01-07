@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Settings page</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <h4>The Nav</h4>
+        </div>
+        <img id="avatar" class="round" style="clear:both;">
+        <ul class="nav-links">
+            <script src="pload.js"></script>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+    <script src="mysrc.js"></script>
+    <main>
+        <div id="site setting2" style="text-align: center;">
+            <h1 >Site settings</h1>
+            <hr>
+            <div style="justify-content: center;">
+            <h1>Profile</h1><Br>
+            <span>Set icon</span>
+            <input type="file" multiple id="myicon"><br>
+            <button onclick="confirm('Are you sure you want be signed out')&&(setCookie('user','',0),location.reload())">Log out</button>
+            </div>
+            <hr><br><h1>Music</h1>
+            <span>Your can insert your custom audio files that will play when you log onto this site</span>
+            <input type="file" multiple id="myaudios"><br>
+            <br><br>
+            <button onclick="setCookie('usersongs','https://cdn.discordapp.com/attachments/821779252428406784/863475301186142228/Zelda__Chill.mp3',5);alert('Default song set')" >Use default audio</button><Br><br>
+                <audio autoplay id="myaudio" preload="auto" loop tabindex="0" controls>
+                    <source src="https://cdn.discordapp.com/attachments/821779252428406784/863475301186142228/Zelda__Chill.mp3">
+                </audio>
+            <script>
+                myicon.onchange=function(){ConvettoData(myicon.files[0]).then(e=>{return $.post("test.php",`Icon=${e}&email=${JSON.parse(getCookie("user")).em.split('@').join('_')}`);}).then(e=>{avatar.src=e.split(' ').join('+')})};
+                var audio=document.querySelector("#myaudios");
+                audio.addEventListener('change', async function (e) {
+                    change = 1;
+                    var songsloaded = 0;
+                    var target = e.currentTarget;
+                    target.files.sort = [].sort;
+                    var files = target.files;
+                    var songs={};
+                    var name='';
+                    var data='';
+                    for(let i in files)(
+                        (typeof files[i] != typeof Cp&&typeof files[i] != typeof 1)&&(
+                        files[i].type.includes('audio')&&(
+                            data=await ConvettoData(files[i]),
+                            songs[files[i].name]=data
+                            )));
+                            console.log(songs)
+                            window.songs=songs;
+                            //localStorage.songs=JSON.stringify(songs);
+                    setCookie('usersongs',JSON.stringify(songs),1);
+                    alert('Your custom songs have been saved')
+                })
+            </script>
+        </div>
+    </main>
+</body>
+</html>

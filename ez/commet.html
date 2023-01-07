@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Send review</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <form class="box" action="review.php" method="POST">
+            <fieldset>
+            <h1>Send review</h1>
+              <input required type="text" id="subject" name="subject" placeholder="Subject">
+              <textarea required style="width:90%" name="message" id="msg" placeholder="Message"></textarea>
+              <input type="submit" name="submit" value="Send message">
+            </fieldset>
+        </form>
+        <script>
+            function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+var user=JSON.parse(getCookie('user'))
+            var form=document.querySelector('form');
+              form.addEventListener('submit',e=>{
+                  e.preventDefault();
+                  $("input")[1].onclick=function(){
+                      $.post("review.php",[
+                          ["name",user.name].join('='),
+                          ["submit","true"].join('='),
+                          ["email",user.email].join('='),
+                          ["subject",subject.value].join('='),
+                          ["message",msg.value].join('=')
+                      ].join('&')).then(e=>{e=="yes"?alert("Mail was Sent"):alert("Mail failed to send");console.log(e)});
+                    }
+                });
+                //location.hash=='#mailsent'&&(alert("Comment was sent"));
+        </script>
+    </body>
+</html>

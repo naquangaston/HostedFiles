@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Sign up</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="alerts"></div>
+        <form class="box" action="test.php" method="POST">
+            <fieldset>
+            <h1>Signup</h1>
+            <label for="name"></label>
+              <input type="text" id="name" name="name" placeholder="Username">
+              <label for="pword"></label>
+              <input type="password" id="password" name="password" placeholder="Password">
+              <label for="email"></label>
+              <input type="email" id="email" name="email" placeholder="Email">
+              <input type="submit" value="Submit" onsubmit="(function(e){e=e.parentElement;Login(e.children[0].children[2].value,e.children[0].children[4].value,e.children[0].children[6].value)})(this)">
+            </fieldset><Br>
+            already made an account? <a href="login.html">login</a>
+            <span style="color: red;" onclick="history.back()">Go back</span>
+        </form>
+          <script>
+              function Alert(msg, t=5000,type) {if(window.canalert){return}
+                        var box = document.createElement('div'), button = document.createElement('span'); button.onclick = (e) => { box.remove(); }
+                        setTimeout(() => {
+                            $(box).toggle(1000);
+                            setTimeout(() => { box.remove()},1100)
+                        }, t)
+                        button.className = 'closebtn';
+                        button.innerHTML = '&times;';
+                        box.className = 'alert'; box.innerHTML = `<span class="closebtn" onclick="this.parentElement.remove();">&times;</span> <strong>${type ? type : 'Notice'}</strong> ${msg}`;
+                        alerts.append(box);
+                    }
+              function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+var f=0;
+              location.search.length&&(window.s=decodeURIComponent(location.search).split('?').pop().split('&'),s.forEach(element => {
+                  let e=element;if(e.split('=')[0]=='inv'&&e.split('=')[1]=='1'){alert('Invalid login')} 
+                  if(e.split('=')[0]=='msg'){Alert(e.split('=')[1])} 
+                  if(e.split('=')[0]=='act'){localStorage.account=e.split('=')[1];f=1};
+              }));
+              if(f){
+                var name=localStorage.account.split(":")[1].split(',')[0].split("'").join('').split('}')[0]
+var ps=localStorage.account.split(":")[2].split(',')[0].split("'").join('').split('}')[0]
+var em=localStorage.account.split(":")[3].split(',')[0].split("'").join('').split('}')[0]
+setCookie('user',JSON.stringify({name,ps,em},1));delete localStorage.account;
+location.href="index.html"
+              }
+              var form=document.querySelector('form');
+              /*form.addEventListener('submit',e=>{
+                  e.preventDefault();
+                  var fd= new FormData();
+                  var fd2={}
+                  fd2[form.children[0].children[2].name]=form.children[0].children[2].value;
+                  fd2[form.children[0].children[4].name]=form.children[0].children[4].value;
+                  fd2[form.children[0].children[6].name]=form.children[0].children[6].value;
+                  fd.append(form.children[0].children[2].name,form.children[0].children[2].value)
+                  fd.append(form.children[0].children[4].name,form.children[0].children[4].value)
+                  fd.append(form.children[0].children[6].name,form.children[0].children[6].value)
+                  console.log(fd,fd2)
+                  window.fd2=fd2;
+                })*/;
+          </script>
+    </body>
+</html>
