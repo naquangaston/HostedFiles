@@ -1,2 +1,1 @@
-alert('This page does not exist')
-history.back()
+console.log('Empty file')
