@@ -20,3 +20,6 @@ const [nil] = [(function () {
         NavMenu[_0xf11de](_0xr78iw)
     })
 })()]
+onresize=function(e){
+    var [SizeX,SizeY]=[innerWidth,innerHeight];SizeX>768&&document.querySelector('.nav-links').classList.contains('nav-active')?(console.log('Nav Reset'),document.querySelector('.nav-links').classList.toggle('nav-active')):null
+}
