@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AutoStuff diep
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.4
 // @description  [dark theme][auto build][music player][works with other mods][FPS counter]
 // @author       You
 // @match        https://diep.io/
@@ -16,10 +16,7 @@
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_Formatter_.js
 // @run-at document-start
 // ==/UserScript==
-window.upDateTo=function(id){
-    open(`https://greasyfork.org/en/script_versions/new#`)
-    //postMessage({},'*')
-}
+
 ;(function(){
     class CustomLogging {
         /**
@@ -67,585 +64,568 @@ window.upDateTo=function(id){
         }
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging})})(globalRoot)
-;(function(noads=false,noAds) {
+;(function(noads=false) {
     upgrade=''
     //'use strict';
-    window.getElementByAttribute=function getElementByAttribute(label,item='aria-label',doc=document.body){
-        var res=[];
-        function part2(e){
-            if(e.getAttribute(item)==label){
-                res.push(e);
-            }else{
-                if(e.children.length||(e.shadowRoot&&e.shadowRoot.children.length)){
-                    e=(e.shadowRoot&&e.shadowRoot.children.length)?e.shadowRoot.children:e.children;
-                    e.forEach=[].forEach;
-                    e.forEach(e2=>{
-                        part2(e2);
-                    })
-                }
-            }
-        };
-        part2(doc);
-        return res.length==1?res[0]:res||false;
-    }
+
     //Socket
     realSend = window.WebSocket.prototype.send;
     ;(function () {
-        "use strict";
+    "use strict";
 
-        // Serializes a value to a MessagePack byte array.
-        //
-        // data: The value to serialize. This can be a scalar, array or object.
-        // options: An object that defined additional options.
-        // - multiple: Indicates whether multiple values in data are concatenated to multiple MessagePack arrays.
-        // - invalidTypeReplacement: The value that is used to replace values of unsupported types, or a function that returnsa such a value, given the original value as parameter.
-        function serialize(data, options) {
-            if (options && options.multiple && !Array.isArray(data)) {
-                throw new Error("Invalid argument type: Expected an Array to serialize multiple values.");
+    // Serializes a value to a MessagePack byte array.
+    //
+    // data: The value to serialize. This can be a scalar, array or object.
+    // options: An object that defined additional options.
+    // - multiple: Indicates whether multiple values in data are concatenated to multiple MessagePack arrays.
+    // - invalidTypeReplacement: The value that is used to replace values of unsupported types, or a function that returnsa such a value, given the original value as parameter.
+    function serialize(data, options) {
+        if (options && options.multiple && !Array.isArray(data)) {
+            throw new Error("Invalid argument type: Expected an Array to serialize multiple values.");
+        }
+        const pow32 = 0x100000000;   // 2^32
+        let floatBuffer, floatView;
+        let array = new Uint8Array(128);
+        let length = 0;
+        if (options && options.multiple) {
+            for (let i = 0; i < data.length; i++) {
+                append(data[i]);
             }
-            const pow32 = 0x100000000;   // 2^32
-            let floatBuffer, floatView;
-            let array = new Uint8Array(128);
-            let length = 0;
-            if (options && options.multiple) {
-                for (let i = 0; i < data.length; i++) {
-                    append(data[i]);
-                }
-            }
-            else {
-                append(data);
-            }
-            return array.subarray(0, length);
+        }
+        else {
+            append(data);
+        }
+        return array.subarray(0, length);
 
-            function append(data, isReplacement) {
-                switch (typeof data) {
-                    case "undefined":
+        function append(data, isReplacement) {
+            switch (typeof data) {
+                case "undefined":
+                    appendNull(data);
+                    break;
+                case "boolean":
+                    appendBoolean(data);
+                    break;
+                case "number":
+                    appendNumber(data);
+                    break;
+                case "string":
+                    appendString(data);
+                    break;
+                case "object":
+                    if (data === null)
                         appendNull(data);
-                        break;
-                    case "boolean":
-                        appendBoolean(data);
-                        break;
-                    case "number":
-                        appendNumber(data);
-                        break;
-                    case "string":
-                        appendString(data);
-                        break;
-                    case "object":
-                        if (data === null)
-                            appendNull(data);
-                        else if (data instanceof Date)
-                            appendDate(data);
-                        else if (Array.isArray(data))
-                            appendArray(data);
-                        else if (data instanceof Uint8Array || data instanceof Uint8ClampedArray)
-                            appendBinArray(data);
-                        else if (data instanceof Int8Array || data instanceof Int16Array || data instanceof Uint16Array ||
-                                 data instanceof Int32Array || data instanceof Uint32Array ||
-                                 data instanceof Float32Array || data instanceof Float64Array)
-                            appendArray(data);
+                    else if (data instanceof Date)
+                        appendDate(data);
+                    else if (Array.isArray(data))
+                        appendArray(data);
+                    else if (data instanceof Uint8Array || data instanceof Uint8ClampedArray)
+                        appendBinArray(data);
+                    else if (data instanceof Int8Array || data instanceof Int16Array || data instanceof Uint16Array ||
+                             data instanceof Int32Array || data instanceof Uint32Array ||
+                             data instanceof Float32Array || data instanceof Float64Array)
+                        appendArray(data);
+                    else
+                        appendObject(data);
+                    break;
+                default:
+                    if (!isReplacement && options && options.invalidTypeReplacement) {
+                        if (typeof options.invalidTypeReplacement === "function")
+                            append(options.invalidTypeReplacement(data), true);
                         else
-                            appendObject(data);
-                        break;
-                    default:
-                        if (!isReplacement && options && options.invalidTypeReplacement) {
-                            if (typeof options.invalidTypeReplacement === "function")
-                                append(options.invalidTypeReplacement(data), true);
-                            else
-                                append(options.invalidTypeReplacement, true);
-                        }
-                        else {
-                            throw new Error("Invalid argument type: The type '" + (typeof data) + "' cannot be serialized.");
-                        }
-                }
-            }
-
-            function appendNull(data) {
-                appendByte(0xc0);
-            }
-
-            function appendBoolean(data) {
-                appendByte(data ? 0xc3 : 0xc2);
-            }
-
-            function appendNumber(data) {
-                if (isFinite(data) && Math.floor(data) === data) {
-                    // Integer
-                    if (data >= 0 && data <= 0x7f) {
-                        appendByte(data);
+                            append(options.invalidTypeReplacement, true);
                     }
-                    else if (data < 0 && data >= -0x20) {
-                        appendByte(data);
+                    else {
+                        throw new Error("Invalid argument type: The type '" + (typeof data) + "' cannot be serialized.");
                     }
-                    else if (data > 0 && data <= 0xff) {   // uint8
-                        appendBytes([0xcc, data]);
-                    }
-                    else if (data >= -0x80 && data <= 0x7f) {   // int8
-                        appendBytes([0xd0, data]);
-                    }
-                    else if (data > 0 && data <= 0xffff) {   // uint16
-                        appendBytes([0xcd, data >>> 8, data]);
-                    }
-                    else if (data >= -0x8000 && data <= 0x7fff) {   // int16
-                        appendBytes([0xd1, data >>> 8, data]);
-                    }
-                    else if (data > 0 && data <= 0xffffffff) {   // uint32
-                        appendBytes([0xce, data >>> 24, data >>> 16, data >>> 8, data]);
-                    }
-                    else if (data >= -0x80000000 && data <= 0x7fffffff) {   // int32
-                        appendBytes([0xd2, data >>> 24, data >>> 16, data >>> 8, data]);
-                    }
-                    else if (data > 0 && data <= 0xffffffffffffffff) {   // uint64
-                        // Split 64 bit number into two 32 bit numbers because JavaScript only regards
-                        // 32 bits for bitwise operations.
-                        let hi = data / pow32;
-                        let lo = data % pow32;
-                        appendBytes([0xd3, hi >>> 24, hi >>> 16, hi >>> 8, hi, lo >>> 24, lo >>> 16, lo >>> 8, lo]);
-                    }
-                    else if (data >= -0x8000000000000000 && data <= 0x7fffffffffffffff) {   // int64
-                        appendByte(0xd3);
-                        appendInt64(data);
-                    }
-                    else if (data < 0) {   // below int64
-                        appendBytes([0xd3, 0x80, 0, 0, 0, 0, 0, 0, 0]);
-                    }
-                    else {   // above uint64
-                        appendBytes([0xcf, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]);
-                    }
-                }
-                else {
-                    // Float
-                    if (!floatView) {
-                        floatBuffer = new ArrayBuffer(8);
-                        floatView = new DataView(floatBuffer);
-                    }
-                    floatView.setFloat64(0, data);
-                    appendByte(0xcb);
-                    appendBytes(new Uint8Array(floatBuffer));
-                }
-            }
-
-            function appendString(data) {
-                let bytes = encodeUtf8(data);
-                let length = bytes.length;
-
-                if (length <= 0x1f)
-                    appendByte(0xa0 + length);
-                else if (length <= 0xff)
-                    appendBytes([0xd9, length]);
-                else if (length <= 0xffff)
-                    appendBytes([0xda, length >>> 8, length]);
-                else
-                    appendBytes([0xdb, length >>> 24, length >>> 16, length >>> 8, length]);
-
-                appendBytes(bytes);
-            }
-
-            function appendArray(data) {
-                let length = data.length;
-
-                if (length <= 0xf)
-                    appendByte(0x90 + length);
-                else if (length <= 0xffff)
-                    appendBytes([0xdc, length >>> 8, length]);
-                else
-                    appendBytes([0xdd, length >>> 24, length >>> 16, length >>> 8, length]);
-
-                for (let index = 0; index < length; index++) {
-                    append(data[index]);
-                }
-            }
-
-            function appendBinArray(data) {
-                let length = data.length;
-
-                if (length <= 0xf)
-                    appendBytes([0xc4, length]);
-                else if (length <= 0xffff)
-                    appendBytes([0xc5, length >>> 8, length]);
-                else
-                    appendBytes([0xc6, length >>> 24, length >>> 16, length >>> 8, length]);
-
-                appendBytes(data);
-            }
-
-            function appendObject(data) {
-                let length = 0;
-                for (let key in data) {
-                    if (data[key] !== undefined) {
-                        length++;
-                    }
-                }
-
-                if (length <= 0xf)
-                    appendByte(0x80 + length);
-                else if (length <= 0xffff)
-                    appendBytes([0xde, length >>> 8, length]);
-                else
-                    appendBytes([0xdf, length >>> 24, length >>> 16, length >>> 8, length]);
-
-                for (let key in data) {
-                    let value = data[key];
-                    if (value !== undefined) {
-                        append(key);
-                        append(value);
-                    }
-                }
-            }
-
-            function appendDate(data) {
-                let sec = data.getTime() / 1000;
-                if (data.getMilliseconds() === 0 && sec >= 0 && sec < 0x100000000) {   // 32 bit seconds
-                    appendBytes([0xd6, 0xff, sec >>> 24, sec >>> 16, sec >>> 8, sec]);
-                }
-                else if (sec >= 0 && sec < 0x400000000) {   // 30 bit nanoseconds, 34 bit seconds
-                    let ns = data.getMilliseconds() * 1000000;
-                    appendBytes([0xd7, 0xff, ns >>> 22, ns >>> 14, ns >>> 6, ((ns << 2) >>> 0) | (sec / pow32), sec >>> 24, sec >>> 16, sec >>> 8, sec]);
-                }
-                else {   // 32 bit nanoseconds, 64 bit seconds, negative values allowed
-                    let ns = data.getMilliseconds() * 1000000;
-                    appendBytes([0xc7, 12, 0xff, ns >>> 24, ns >>> 16, ns >>> 8, ns]);
-                    appendInt64(sec);
-                }
-            }
-
-            function appendByte(byte) {
-                if (array.length < length + 1) {
-                    let newLength = array.length * 2;
-                    while (newLength < length + 1)
-                        newLength *= 2;
-                    let newArray = new Uint8Array(newLength);
-                    newArray.set(array);
-                    array = newArray;
-                }
-                array[length] = byte;
-                length++;
-            }
-
-            function appendBytes(bytes) {
-                if (array.length < length + bytes.length) {
-                    let newLength = array.length * 2;
-                    while (newLength < length + bytes.length)
-                        newLength *= 2;
-                    let newArray = new Uint8Array(newLength);
-                    newArray.set(array);
-                    array = newArray;
-                }
-                array.set(bytes, length);
-                length += bytes.length;
-            }
-
-            function appendInt64(value) {
-                // Split 64 bit number into two 32 bit numbers because JavaScript only regards 32 bits for
-                // bitwise operations.
-                let hi, lo;
-                if (value >= 0) {
-                    // Same as uint64
-                    hi = value / pow32;
-                    lo = value % pow32;
-                }
-                else {
-                    // Split absolute value to high and low, then NOT and ADD(1) to restore negativity
-                    value++;
-                    hi = Math.abs(value) / pow32;
-                    lo = Math.abs(value) % pow32;
-                    hi = ~hi;
-                    lo = ~lo;
-                }
-                appendBytes([hi >>> 24, hi >>> 16, hi >>> 8, hi, lo >>> 24, lo >>> 16, lo >>> 8, lo]);
             }
         }
 
-        // Deserializes a MessagePack byte array to a value.
-        //
-        // array: The MessagePack byte array to deserialize. This must be an Array or Uint8Array containing bytes, not a string.
-        // options: An object that defined additional options.
-        // - multiple: Indicates whether multiple concatenated MessagePack arrays are returned as an array.
-        function deserialize(array, options) {
-            const pow32 = 0x100000000;   // 2^32
-            let pos = 0;
-            if (array instanceof ArrayBuffer) {
-                array = new Uint8Array(array);
-            }
-            if (typeof array !== "object" || typeof array.length === "undefined") {
-                throw new Error("Invalid argument type: Expected a byte array (Array or Uint8Array) to deserialize.");
-            }
-            if (!array.length) {
-                throw new Error("Invalid argument: The byte array to deserialize is empty.");
-            }
-            if (!(array instanceof Uint8Array)) {
-                array = new Uint8Array(array);
-            }
-            let data;
-            if (options && options.multiple) {
-                // Read as many messages as are available
-                data = [];
-                while (pos < array.length) {
-                    data.push(read());
+        function appendNull(data) {
+            appendByte(0xc0);
+        }
+
+        function appendBoolean(data) {
+            appendByte(data ? 0xc3 : 0xc2);
+        }
+
+        function appendNumber(data) {
+            if (isFinite(data) && Math.floor(data) === data) {
+                // Integer
+                if (data >= 0 && data <= 0x7f) {
+                    appendByte(data);
+                }
+                else if (data < 0 && data >= -0x20) {
+                    appendByte(data);
+                }
+                else if (data > 0 && data <= 0xff) {   // uint8
+                    appendBytes([0xcc, data]);
+                }
+                else if (data >= -0x80 && data <= 0x7f) {   // int8
+                    appendBytes([0xd0, data]);
+                }
+                else if (data > 0 && data <= 0xffff) {   // uint16
+                    appendBytes([0xcd, data >>> 8, data]);
+                }
+                else if (data >= -0x8000 && data <= 0x7fff) {   // int16
+                    appendBytes([0xd1, data >>> 8, data]);
+                }
+                else if (data > 0 && data <= 0xffffffff) {   // uint32
+                    appendBytes([0xce, data >>> 24, data >>> 16, data >>> 8, data]);
+                }
+                else if (data >= -0x80000000 && data <= 0x7fffffff) {   // int32
+                    appendBytes([0xd2, data >>> 24, data >>> 16, data >>> 8, data]);
+                }
+                else if (data > 0 && data <= 0xffffffffffffffff) {   // uint64
+                    // Split 64 bit number into two 32 bit numbers because JavaScript only regards
+                    // 32 bits for bitwise operations.
+                    let hi = data / pow32;
+                    let lo = data % pow32;
+                    appendBytes([0xd3, hi >>> 24, hi >>> 16, hi >>> 8, hi, lo >>> 24, lo >>> 16, lo >>> 8, lo]);
+                }
+                else if (data >= -0x8000000000000000 && data <= 0x7fffffffffffffff) {   // int64
+                    appendByte(0xd3);
+                    appendInt64(data);
+                }
+                else if (data < 0) {   // below int64
+                    appendBytes([0xd3, 0x80, 0, 0, 0, 0, 0, 0, 0]);
+                }
+                else {   // above uint64
+                    appendBytes([0xcf, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]);
                 }
             }
             else {
-                // Read only one message and ignore additional data
-                data = read();
-            }
-            return data;
-
-            function read() {
-                const byte = array[pos++];
-                if (byte >= 0x00 && byte <= 0x7f) return byte;   // positive fixint
-                if (byte >= 0x80 && byte <= 0x8f) return readMap(byte - 0x80);   // fixmap
-                if (byte >= 0x90 && byte <= 0x9f) return readArray(byte - 0x90);   // fixarray
-                if (byte >= 0xa0 && byte <= 0xbf) return readStr(byte - 0xa0);   // fixstr
-                if (byte === 0xc0) return null;   // nil
-                if (byte === 0xc1) throw new Error("Invalid byte code 0xc1 found.");   // never used
-                if (byte === 0xc2) return false;   // false
-                if (byte === 0xc3) return true;   // true
-                if (byte === 0xc4) return readBin(-1, 1);   // bin 8
-                if (byte === 0xc5) return readBin(-1, 2);   // bin 16
-                if (byte === 0xc6) return readBin(-1, 4);   // bin 32
-                if (byte === 0xc7) return readExt(-1, 1);   // ext 8
-                if (byte === 0xc8) return readExt(-1, 2);   // ext 16
-                if (byte === 0xc9) return readExt(-1, 4);   // ext 32
-                if (byte === 0xca) return readFloat(4);   // float 32
-                if (byte === 0xcb) return readFloat(8);   // float 64
-                if (byte === 0xcc) return readUInt(1);   // uint 8
-                if (byte === 0xcd) return readUInt(2);   // uint 16
-                if (byte === 0xce) return readUInt(4);   // uint 32
-                if (byte === 0xcf) return readUInt(8);   // uint 64
-                if (byte === 0xd0) return readInt(1);   // int 8
-                if (byte === 0xd1) return readInt(2);   // int 16
-                if (byte === 0xd2) return readInt(4);   // int 32
-                if (byte === 0xd3) return readInt(8);   // int 64
-                if (byte === 0xd4) return readExt(1);   // fixext 1
-                if (byte === 0xd5) return readExt(2);   // fixext 2
-                if (byte === 0xd6) return readExt(4);   // fixext 4
-                if (byte === 0xd7) return readExt(8);   // fixext 8
-                if (byte === 0xd8) return readExt(16);   // fixext 16
-                if (byte === 0xd9) return readStr(-1, 1);   // str 8
-                if (byte === 0xda) return readStr(-1, 2);   // str 16
-                if (byte === 0xdb) return readStr(-1, 4);   // str 32
-                if (byte === 0xdc) return readArray(-1, 2);   // array 16
-                if (byte === 0xdd) return readArray(-1, 4);   // array 32
-                if (byte === 0xde) return readMap(-1, 2);   // map 16
-                if (byte === 0xdf) return readMap(-1, 4);   // map 32
-                if (byte >= 0xe0 && byte <= 0xff) return byte - 256;   // negative fixint
-                console.debug("msgpack array:", array);
-                throw new Error("Invalid byte value '" + byte + "' at index " + (pos - 1) + " in the MessagePack binary data (length " + array.length + "): Expecting a range of 0 to 255. This is not a byte array.");
-            }
-
-            function readInt(size) {
-                let value = 0;
-                let first = true;
-                while (size-- > 0) {
-                    if (first) {
-                        let byte = array[pos++];
-                        value += byte & 0x7f;
-                        if (byte & 0x80) {
-                            value -= 0x80;   // Treat most-significant bit as -2^i instead of 2^i
-                        }
-                        first = false;
-                    }
-                    else {
-                        value *= 256;
-                        value += array[pos++];
-                    }
+                // Float
+                if (!floatView) {
+                    floatBuffer = new ArrayBuffer(8);
+                    floatView = new DataView(floatBuffer);
                 }
-                return value;
+                floatView.setFloat64(0, data);
+                appendByte(0xcb);
+                appendBytes(new Uint8Array(floatBuffer));
+            }
+        }
+
+        function appendString(data) {
+            let bytes = encodeUtf8(data);
+            let length = bytes.length;
+
+            if (length <= 0x1f)
+                appendByte(0xa0 + length);
+            else if (length <= 0xff)
+                appendBytes([0xd9, length]);
+            else if (length <= 0xffff)
+                appendBytes([0xda, length >>> 8, length]);
+            else
+                appendBytes([0xdb, length >>> 24, length >>> 16, length >>> 8, length]);
+
+            appendBytes(bytes);
+        }
+
+        function appendArray(data) {
+            let length = data.length;
+
+            if (length <= 0xf)
+                appendByte(0x90 + length);
+            else if (length <= 0xffff)
+                appendBytes([0xdc, length >>> 8, length]);
+            else
+                appendBytes([0xdd, length >>> 24, length >>> 16, length >>> 8, length]);
+
+            for (let index = 0; index < length; index++) {
+                append(data[index]);
+            }
+        }
+
+        function appendBinArray(data) {
+            let length = data.length;
+
+            if (length <= 0xf)
+                appendBytes([0xc4, length]);
+            else if (length <= 0xffff)
+                appendBytes([0xc5, length >>> 8, length]);
+            else
+                appendBytes([0xc6, length >>> 24, length >>> 16, length >>> 8, length]);
+
+            appendBytes(data);
+        }
+
+        function appendObject(data) {
+            let length = 0;
+            for (let key in data) {
+                if (data[key] !== undefined) {
+                    length++;
+                }
             }
 
-            function readUInt(size) {
-                let value = 0;
-                while (size-- > 0) {
+            if (length <= 0xf)
+                appendByte(0x80 + length);
+            else if (length <= 0xffff)
+                appendBytes([0xde, length >>> 8, length]);
+            else
+                appendBytes([0xdf, length >>> 24, length >>> 16, length >>> 8, length]);
+
+            for (let key in data) {
+                let value = data[key];
+                if (value !== undefined) {
+                    append(key);
+                    append(value);
+                }
+            }
+        }
+
+        function appendDate(data) {
+            let sec = data.getTime() / 1000;
+            if (data.getMilliseconds() === 0 && sec >= 0 && sec < 0x100000000) {   // 32 bit seconds
+                appendBytes([0xd6, 0xff, sec >>> 24, sec >>> 16, sec >>> 8, sec]);
+            }
+            else if (sec >= 0 && sec < 0x400000000) {   // 30 bit nanoseconds, 34 bit seconds
+                let ns = data.getMilliseconds() * 1000000;
+                appendBytes([0xd7, 0xff, ns >>> 22, ns >>> 14, ns >>> 6, ((ns << 2) >>> 0) | (sec / pow32), sec >>> 24, sec >>> 16, sec >>> 8, sec]);
+            }
+            else {   // 32 bit nanoseconds, 64 bit seconds, negative values allowed
+                let ns = data.getMilliseconds() * 1000000;
+                appendBytes([0xc7, 12, 0xff, ns >>> 24, ns >>> 16, ns >>> 8, ns]);
+                appendInt64(sec);
+            }
+        }
+
+        function appendByte(byte) {
+            if (array.length < length + 1) {
+                let newLength = array.length * 2;
+                while (newLength < length + 1)
+                    newLength *= 2;
+                let newArray = new Uint8Array(newLength);
+                newArray.set(array);
+                array = newArray;
+            }
+            array[length] = byte;
+            length++;
+        }
+
+        function appendBytes(bytes) {
+            if (array.length < length + bytes.length) {
+                let newLength = array.length * 2;
+                while (newLength < length + bytes.length)
+                    newLength *= 2;
+                let newArray = new Uint8Array(newLength);
+                newArray.set(array);
+                array = newArray;
+            }
+            array.set(bytes, length);
+            length += bytes.length;
+        }
+
+        function appendInt64(value) {
+            // Split 64 bit number into two 32 bit numbers because JavaScript only regards 32 bits for
+            // bitwise operations.
+            let hi, lo;
+            if (value >= 0) {
+                // Same as uint64
+                hi = value / pow32;
+                lo = value % pow32;
+            }
+            else {
+                // Split absolute value to high and low, then NOT and ADD(1) to restore negativity
+                value++;
+                hi = Math.abs(value) / pow32;
+                lo = Math.abs(value) % pow32;
+                hi = ~hi;
+                lo = ~lo;
+            }
+            appendBytes([hi >>> 24, hi >>> 16, hi >>> 8, hi, lo >>> 24, lo >>> 16, lo >>> 8, lo]);
+        }
+    }
+
+    // Deserializes a MessagePack byte array to a value.
+    //
+    // array: The MessagePack byte array to deserialize. This must be an Array or Uint8Array containing bytes, not a string.
+    // options: An object that defined additional options.
+    // - multiple: Indicates whether multiple concatenated MessagePack arrays are returned as an array.
+    function deserialize(array, options) {
+        const pow32 = 0x100000000;   // 2^32
+        let pos = 0;
+        if (array instanceof ArrayBuffer) {
+            array = new Uint8Array(array);
+        }
+        if (typeof array !== "object" || typeof array.length === "undefined") {
+            throw new Error("Invalid argument type: Expected a byte array (Array or Uint8Array) to deserialize.");
+        }
+        if (!array.length) {
+            throw new Error("Invalid argument: The byte array to deserialize is empty.");
+        }
+        if (!(array instanceof Uint8Array)) {
+            array = new Uint8Array(array);
+        }
+        let data;
+        if (options && options.multiple) {
+            // Read as many messages as are available
+            data = [];
+            while (pos < array.length) {
+                data.push(read());
+            }
+        }
+        else {
+            // Read only one message and ignore additional data
+            data = read();
+        }
+        return data;
+
+        function read() {
+            const byte = array[pos++];
+            if (byte >= 0x00 && byte <= 0x7f) return byte;   // positive fixint
+            if (byte >= 0x80 && byte <= 0x8f) return readMap(byte - 0x80);   // fixmap
+            if (byte >= 0x90 && byte <= 0x9f) return readArray(byte - 0x90);   // fixarray
+            if (byte >= 0xa0 && byte <= 0xbf) return readStr(byte - 0xa0);   // fixstr
+            if (byte === 0xc0) return null;   // nil
+            if (byte === 0xc1) throw new Error("Invalid byte code 0xc1 found.");   // never used
+            if (byte === 0xc2) return false;   // false
+            if (byte === 0xc3) return true;   // true
+            if (byte === 0xc4) return readBin(-1, 1);   // bin 8
+            if (byte === 0xc5) return readBin(-1, 2);   // bin 16
+            if (byte === 0xc6) return readBin(-1, 4);   // bin 32
+            if (byte === 0xc7) return readExt(-1, 1);   // ext 8
+            if (byte === 0xc8) return readExt(-1, 2);   // ext 16
+            if (byte === 0xc9) return readExt(-1, 4);   // ext 32
+            if (byte === 0xca) return readFloat(4);   // float 32
+            if (byte === 0xcb) return readFloat(8);   // float 64
+            if (byte === 0xcc) return readUInt(1);   // uint 8
+            if (byte === 0xcd) return readUInt(2);   // uint 16
+            if (byte === 0xce) return readUInt(4);   // uint 32
+            if (byte === 0xcf) return readUInt(8);   // uint 64
+            if (byte === 0xd0) return readInt(1);   // int 8
+            if (byte === 0xd1) return readInt(2);   // int 16
+            if (byte === 0xd2) return readInt(4);   // int 32
+            if (byte === 0xd3) return readInt(8);   // int 64
+            if (byte === 0xd4) return readExt(1);   // fixext 1
+            if (byte === 0xd5) return readExt(2);   // fixext 2
+            if (byte === 0xd6) return readExt(4);   // fixext 4
+            if (byte === 0xd7) return readExt(8);   // fixext 8
+            if (byte === 0xd8) return readExt(16);   // fixext 16
+            if (byte === 0xd9) return readStr(-1, 1);   // str 8
+            if (byte === 0xda) return readStr(-1, 2);   // str 16
+            if (byte === 0xdb) return readStr(-1, 4);   // str 32
+            if (byte === 0xdc) return readArray(-1, 2);   // array 16
+            if (byte === 0xdd) return readArray(-1, 4);   // array 32
+            if (byte === 0xde) return readMap(-1, 2);   // map 16
+            if (byte === 0xdf) return readMap(-1, 4);   // map 32
+            if (byte >= 0xe0 && byte <= 0xff) return byte - 256;   // negative fixint
+            console.debug("msgpack array:", array);
+            throw new Error("Invalid byte value '" + byte + "' at index " + (pos - 1) + " in the MessagePack binary data (length " + array.length + "): Expecting a range of 0 to 255. This is not a byte array.");
+        }
+
+        function readInt(size) {
+            let value = 0;
+            let first = true;
+            while (size-- > 0) {
+                if (first) {
+                    let byte = array[pos++];
+                    value += byte & 0x7f;
+                    if (byte & 0x80) {
+                        value -= 0x80;   // Treat most-significant bit as -2^i instead of 2^i
+                    }
+                    first = false;
+                }
+                else {
                     value *= 256;
                     value += array[pos++];
                 }
-                return value;
             }
+            return value;
+        }
 
-            function readFloat(size) {
-                let view = new DataView(array.buffer, pos + array.byteOffset, size);
-                pos += size;
-                if (size === 4)
-                    return view.getFloat32(0, false);
-                if (size === 8)
-                    return view.getFloat64(0, false);
+        function readUInt(size) {
+            let value = 0;
+            while (size-- > 0) {
+                value *= 256;
+                value += array[pos++];
             }
+            return value;
+        }
 
-            function readBin(size, lengthSize) {
-                if (size < 0) size = readUInt(lengthSize);
-                let data = array.subarray(pos, pos + size);
-                pos += size;
-                return data;
+        function readFloat(size) {
+            let view = new DataView(array.buffer, pos + array.byteOffset, size);
+            pos += size;
+            if (size === 4)
+                return view.getFloat32(0, false);
+            if (size === 8)
+                return view.getFloat64(0, false);
+        }
+
+        function readBin(size, lengthSize) {
+            if (size < 0) size = readUInt(lengthSize);
+            let data = array.subarray(pos, pos + size);
+            pos += size;
+            return data;
+        }
+
+        function readMap(size, lengthSize) {
+            if (size < 0) size = readUInt(lengthSize);
+            let data = {};
+            while (size-- > 0) {
+                let key = read();
+                data[key] = read();
             }
+            return data;
+        }
 
-            function readMap(size, lengthSize) {
-                if (size < 0) size = readUInt(lengthSize);
-                let data = {};
-                while (size-- > 0) {
-                    let key = read();
-                    data[key] = read();
-                }
-                return data;
+        function readArray(size, lengthSize) {
+            if (size < 0) size = readUInt(lengthSize);
+            let data = [];
+            while (size-- > 0) {
+                data.push(read());
             }
+            return data;
+        }
 
-            function readArray(size, lengthSize) {
-                if (size < 0) size = readUInt(lengthSize);
-                let data = [];
-                while (size-- > 0) {
-                    data.push(read());
-                }
-                return data;
+        function readStr(size, lengthSize) {
+            if (size < 0) size = readUInt(lengthSize);
+            let start = pos;
+            pos += size;
+            return decodeUtf8(array, start, size);
+        }
+
+        function readExt(size, lengthSize) {
+            if (size < 0) size = readUInt(lengthSize);
+            let type = readUInt(1);
+            let data = readBin(size);
+            switch (type) {
+                case 255:
+                    return readExtDate(data);
             }
+            return { type: type, data: data };
+        }
 
-            function readStr(size, lengthSize) {
-                if (size < 0) size = readUInt(lengthSize);
-                let start = pos;
-                pos += size;
-                return decodeUtf8(array, start, size);
+        function readExtDate(data) {
+            if (data.length === 4) {
+                let sec = ((data[0] << 24) >>> 0) +
+                    ((data[1] << 16) >>> 0) +
+                    ((data[2] << 8) >>> 0) +
+                    data[3];
+                return new Date(sec * 1000);
             }
-
-            function readExt(size, lengthSize) {
-                if (size < 0) size = readUInt(lengthSize);
-                let type = readUInt(1);
-                let data = readBin(size);
-                switch (type) {
-                    case 255:
-                        return readExtDate(data);
-                }
-                return { type: type, data: data };
+            if (data.length === 8) {
+                let ns = ((data[0] << 22) >>> 0) +
+                    ((data[1] << 14) >>> 0) +
+                    ((data[2] << 6) >>> 0) +
+                    (data[3] >>> 2);
+                let sec = ((data[3] & 0x3) * pow32) +
+                    ((data[4] << 24) >>> 0) +
+                    ((data[5] << 16) >>> 0) +
+                    ((data[6] << 8) >>> 0) +
+                    data[7];
+                return new Date(sec * 1000 + ns / 1000000);
             }
+            if (data.length === 12) {
+                let ns = ((data[0] << 24) >>> 0) +
+                    ((data[1] << 16) >>> 0) +
+                    ((data[2] << 8) >>> 0) +
+                    data[3];
+                pos -= 8;
+                let sec = readInt(8);
+                return new Date(sec * 1000 + ns / 1000000);
+            }
+            throw new Error("Invalid data length for a date value.");
+        }
+    }
 
-            function readExtDate(data) {
-                if (data.length === 4) {
-                    let sec = ((data[0] << 24) >>> 0) +
-                        ((data[1] << 16) >>> 0) +
-                        ((data[2] << 8) >>> 0) +
-                        data[3];
-                    return new Date(sec * 1000);
-                }
-                if (data.length === 8) {
-                    let ns = ((data[0] << 22) >>> 0) +
-                        ((data[1] << 14) >>> 0) +
-                        ((data[2] << 6) >>> 0) +
-                        (data[3] >>> 2);
-                    let sec = ((data[3] & 0x3) * pow32) +
-                        ((data[4] << 24) >>> 0) +
-                        ((data[5] << 16) >>> 0) +
-                        ((data[6] << 8) >>> 0) +
-                        data[7];
-                    return new Date(sec * 1000 + ns / 1000000);
-                }
-                if (data.length === 12) {
-                    let ns = ((data[0] << 24) >>> 0) +
-                        ((data[1] << 16) >>> 0) +
-                        ((data[2] << 8) >>> 0) +
-                        data[3];
-                    pos -= 8;
-                    let sec = readInt(8);
-                    return new Date(sec * 1000 + ns / 1000000);
-                }
-                throw new Error("Invalid data length for a date value.");
+    // Encodes a string to UTF-8 bytes.
+    function encodeUtf8(str) {
+        // Prevent excessive array allocation and slicing for all 7-bit characters
+        let ascii = true, length = str.length;
+        for (let x = 0; x < length; x++) {
+            if (str.charCodeAt(x) > 127) {
+                ascii = false;
+                break;
             }
         }
 
-        // Encodes a string to UTF-8 bytes.
-        function encodeUtf8(str) {
-            // Prevent excessive array allocation and slicing for all 7-bit characters
-            let ascii = true, length = str.length;
-            for (let x = 0; x < length; x++) {
-                if (str.charCodeAt(x) > 127) {
-                    ascii = false;
-                    break;
-                }
+        // Based on: https://gist.github.com/pascaldekloe/62546103a1576803dade9269ccf76330
+        let i = 0, bytes = new Uint8Array(str.length * (ascii ? 1 : 4));
+        for (let ci = 0; ci !== length; ci++) {
+            let c = str.charCodeAt(ci);
+            if (c < 128) {
+                bytes[i++] = c;
+                continue;
             }
-
-            // Based on: https://gist.github.com/pascaldekloe/62546103a1576803dade9269ccf76330
-            let i = 0, bytes = new Uint8Array(str.length * (ascii ? 1 : 4));
-            for (let ci = 0; ci !== length; ci++) {
-                let c = str.charCodeAt(ci);
-                if (c < 128) {
-                    bytes[i++] = c;
-                    continue;
-                }
-                if (c < 2048) {
-                    bytes[i++] = c >> 6 | 192;
-                }
-                else {
-                    if (c > 0xd7ff && c < 0xdc00) {
-                        if (++ci >= length)
-                            throw new Error("UTF-8 encode: incomplete surrogate pair");
-                        let c2 = str.charCodeAt(ci);
-                        if (c2 < 0xdc00 || c2 > 0xdfff)
-                            throw new Error("UTF-8 encode: second surrogate character 0x" + c2.toString(16) + " at index " + ci + " out of range");
-                        c = 0x10000 + ((c & 0x03ff) << 10) + (c2 & 0x03ff);
-                        bytes[i++] = c >> 18 | 240;
-                        bytes[i++] = c >> 12 & 63 | 128;
-                    }
-                    else bytes[i++] = c >> 12 | 224;
-                    bytes[i++] = c >> 6 & 63 | 128;
-                }
-                bytes[i++] = c & 63 | 128;
+            if (c < 2048) {
+                bytes[i++] = c >> 6 | 192;
             }
-            return ascii ? bytes : bytes.subarray(0, i);
-        }
-
-        // Decodes a string from UTF-8 bytes.
-        function decodeUtf8(bytes, start, length) {
-            // Based on: https://gist.github.com/pascaldekloe/62546103a1576803dade9269ccf76330
-            let i = start, str = "";
-            length += start;
-            while (i < length) {
-                let c = bytes[i++];
-                if (c > 127) {
-                    if (c > 191 && c < 224) {
-                        if (i >= length)
-                            throw new Error("UTF-8 decode: incomplete 2-byte sequence");
-                        c = (c & 31) << 6 | bytes[i++] & 63;
-                    }
-                    else if (c > 223 && c < 240) {
-                        if (i + 1 >= length)
-                            throw new Error("UTF-8 decode: incomplete 3-byte sequence");
-                        c = (c & 15) << 12 | (bytes[i++] & 63) << 6 | bytes[i++] & 63;
-                    }
-                    else if (c > 239 && c < 248) {
-                        if (i + 2 >= length)
-                            throw new Error("UTF-8 decode: incomplete 4-byte sequence");
-                        c = (c & 7) << 18 | (bytes[i++] & 63) << 12 | (bytes[i++] & 63) << 6 | bytes[i++] & 63;
-                    }
-                    else throw new Error("UTF-8 decode: unknown multibyte start 0x" + c.toString(16) + " at index " + (i - 1));
+            else {
+                if (c > 0xd7ff && c < 0xdc00) {
+                    if (++ci >= length)
+                        throw new Error("UTF-8 encode: incomplete surrogate pair");
+                    let c2 = str.charCodeAt(ci);
+                    if (c2 < 0xdc00 || c2 > 0xdfff)
+                        throw new Error("UTF-8 encode: second surrogate character 0x" + c2.toString(16) + " at index " + ci + " out of range");
+                    c = 0x10000 + ((c & 0x03ff) << 10) + (c2 & 0x03ff);
+                    bytes[i++] = c >> 18 | 240;
+                    bytes[i++] = c >> 12 & 63 | 128;
                 }
-                if (c <= 0xffff) str += String.fromCharCode(c);
-                else if (c <= 0x10ffff) {
-                    c -= 0x10000;
-                    str += String.fromCharCode(c >> 10 | 0xd800)
-                    str += String.fromCharCode(c & 0x3FF | 0xdc00)
-                }
-                else throw new Error("UTF-8 decode: code point 0x" + c.toString(16) + " exceeds UTF-16 reach");
+                else bytes[i++] = c >> 12 | 224;
+                bytes[i++] = c >> 6 & 63 | 128;
             }
-            return str;
+            bytes[i++] = c & 63 | 128;
         }
+        return ascii ? bytes : bytes.subarray(0, i);
+    }
 
-        // The exported functions
-        let msgpack = {
-            serialize: serialize,
-            deserialize: deserialize,
-
-            // Compatibility with other libraries
-            encode: serialize,
-            decode: deserialize
-        };
-
-        // Environment detection
-        if (typeof module === "object" && module && typeof module.exports === "object") {
-            // Node.js
-            module.exports = msgpack;
+    // Decodes a string from UTF-8 bytes.
+    function decodeUtf8(bytes, start, length) {
+        // Based on: https://gist.github.com/pascaldekloe/62546103a1576803dade9269ccf76330
+        let i = start, str = "";
+        length += start;
+        while (i < length) {
+            let c = bytes[i++];
+            if (c > 127) {
+                if (c > 191 && c < 224) {
+                    if (i >= length)
+                        throw new Error("UTF-8 decode: incomplete 2-byte sequence");
+                    c = (c & 31) << 6 | bytes[i++] & 63;
+                }
+                else if (c > 223 && c < 240) {
+                    if (i + 1 >= length)
+                        throw new Error("UTF-8 decode: incomplete 3-byte sequence");
+                    c = (c & 15) << 12 | (bytes[i++] & 63) << 6 | bytes[i++] & 63;
+                }
+                else if (c > 239 && c < 248) {
+                    if (i + 2 >= length)
+                        throw new Error("UTF-8 decode: incomplete 4-byte sequence");
+                    c = (c & 7) << 18 | (bytes[i++] & 63) << 12 | (bytes[i++] & 63) << 6 | bytes[i++] & 63;
+                }
+                else throw new Error("UTF-8 decode: unknown multibyte start 0x" + c.toString(16) + " at index " + (i - 1));
+            }
+            if (c <= 0xffff) str += String.fromCharCode(c);
+            else if (c <= 0x10ffff) {
+                c -= 0x10000;
+                str += String.fromCharCode(c >> 10 | 0xd800)
+                str += String.fromCharCode(c & 0x3FF | 0xdc00)
+            }
+            else throw new Error("UTF-8 decode: code point 0x" + c.toString(16) + " exceeds UTF-16 reach");
         }
-        else {
-            // Global object
-            window[window.msgpackJsName || "msgpack"] = msgpack;
-        }
+        return str;
+    }
 
-    })();
+    // The exported functions
+    let msgpack = {
+        serialize: serialize,
+        deserialize: deserialize,
+
+        // Compatibility with other libraries
+        encode: serialize,
+        decode: deserialize
+    };
+
+    // Environment detection
+    if (typeof module === "object" && module && typeof module.exports === "object") {
+        // Node.js
+        module.exports = msgpack;
+    }
+    else {
+        // Global object
+        window[window.msgpackJsName || "msgpack"] = msgpack;
+    }
+
+})();
     document.msgpack = msgpack;
     function n(){
         this.buffer = new Uint8Array([0]);
@@ -803,6 +783,16 @@ Mega Smasher Y = 74
 Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):? Y = (\d+)/i)[1],e.match(/([\w ]+):? Y = (\d+)/i)[2]]).forEach(e=>{info[e[0]]=e[1]})
     }
     WebSocket.prototype.oldSend = WebSocket.prototype.send;
+    WebSocket.prototype.send = function(m){
+
+        if (typeof ws=='undefined'){
+            document.ws = this;
+            console.log('Mspack',{m})
+            ws = this;
+            //socketFound(this);
+        }
+        this.oldSend(m);
+    };
     function socketFound(socket){
         socket.addEventListener('message', function(message){
             handleMessage(message);
@@ -1140,7 +1130,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             });
         }
         var upgrading = false,loaded=false,AutoUpgrad = true,DidiU,noads=false,did_=false,loggedkk = false,st=GM_info,playerAlive =true,wasalive = true;down={};
-        globalRoot.AutoSpawn = true
+        AutoSpawn = true
         unsafeWindow.unsafeWindow=unsafeWindow
         function ad(listener,f,autoDelete=false,cap){
             var _=addEventListener(listener,(...__)=>{f(...__);if(autoDelete)removeEventListener(_)},!!cap)
@@ -1619,6 +1609,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         !(function(){var[_0xm51se,_0xg09mv]=["\u006d\u0061\u0070","\u0062\u0075\u0069\u006c\u0064"];for(let _0xa86nc in Builds){var _0xw09fj=Builds[_0xa86nc];for(let _0xd58sm in _0xw09fj){if(typeof Builds[_0xa86nc][_0xd58sm]== 'object'){Builds[_0xa86nc][_0xd58sm]=Builds[_0xa86nc][_0xd58sm][_0xm51se](_0xk93gs=>{_0xk93gs[_0xg09mv]=FixBuild(_0xk93gs[_0xg09mv]);return _0xk93gs})}}}})()
         function element(e){return document.createElement(e)}
         function forEachObj({ obj, func = function () { } }) {if (!func) { throw "func must be property of object" }; for (let i in (obj || this)) func((obj || this)[i], i);}
+        function noAds(){return setInterval(()=>{;[...document.getElementsByTagName('iframe')].forEach(e=>e.remove())},10)}
         function log(...d) { console.log(...d) }
         function log_(title, body) { var l = new CustomLog(title); l.log(body) }
         function Spawn() { input.keyDown(13); input.keyUp(13) }
@@ -1646,9 +1637,10 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 b.buildSet(parse.build)
                 var txt = 'Tank:' + parse.p + '\n\nPath:' + b.BuildPath + '\n\nName:' + parse.name + '\nBuild:' + (Object.keys(parse.build).map(e_ => parse.build[e_]).join(' / ')) + '\n\nDesc:' + parse.desc;
                 upgrade=window.upgrade = b.BuildPath;
+                _upgrade=b.BuildPath
                 console.log(txt)
                 console.log(parse)
-                console.log(upgrade)
+                console.log({_upgrade,upgrade})
                 for(let i in parse.build){
                     try{
                         var l=parse.build[i]/7;l*=100
@@ -1672,14 +1664,9 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 myMenu.append(span)
 
             }
-            window
-            function AutoSpread(){}
             addButton('Fix Game', FixGame, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
             addButton('Remove-Ads', RemoveAds, {line:true, desc: 'Use to remove ads that may cause gae lag' })
             addButton('Stack', stack, {line:true, desc: 'stack preditor bullets max reload requried' })
-            addButton('AutoSpread', AutoSpread, {line:true, desc: 'auto spread bullets when your mouse is moving' })
-            myMenu.append(element('hr'))
-            var h2=element('h2')
             var allChecks = [];
             const Tanks = new Object(); for (let i in Builds) {try{Builds[i]._builds.forEach(e => { var tank = e.p; const { name, desc, build } = e; if (!Tanks[tank]) Tanks[tank] = []; Tanks[tank].push({ name, desc, build }) }) }catch(err){}}
             var Builds_M = window.myWin_.document.getElementById('myUL')
@@ -1730,64 +1717,29 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
 
 
         }
-        function ran(min,max){
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-        var x,y,Thisloop=0,spMouse
-        spreadToggle_=typeof spreadToggle_ !="undefined"&&spreadToggle_||!!spreadToggle_
-        spread=spread||10;
-        function SpreadOn(e){
-            var {clientX,clientY}=e;
-            x=clientX
-            y=clientY
-            var [ranX,ranY]=[ran(-spread,spread),ran(-spread,spread)]
-            var newMouse=[ranX+clientX,ranY+clientY]
-            spreadToggle_&&spMouse!=true&&(input.mouse(...newMouse))
-        }
-        function SpreadMouseD(e){
-            clearInterval(Thisloop)
-            spMouse=true
-            spreadToggle_=typeof spreadToggle_ !="undefined"&&spreadToggle_||!!spreadToggle_
-            spread=spread||10;
-            var {clientX,clientY}=e;[x,y]=[clientX,clientY]
-            Thisloop=setInterval(()=>{
-                var [ranX,ranY]=[ran(-spread,spread),ran(-spread,spread)]
-                var newMouse=[ranX+x,ranY+y]
-                spreadToggle_&&spMouse?(input.mouse(...newMouse)):(clearInterval(Thisloop))
-            },50)
-        }
-        function SpreadMouseU(e){
-            spMouse=false;
-            spreadToggle_&&(console.log('mouse Done'))
-        }
-        canvas.addEventListener("mousemove",SpreadOn)
-        canvas.addEventListener("mousedown",SpreadMouseD)
-        canvas.addEventListener("mouseup",SpreadMouseU)
-        window.spreadToggle_=true
-        spread=30
         function gF(){let g={};keys(document.getElementsByTagName('d-base')[0]).filter(e=>e.startsWith('__')).forEach(a=>{g[a]=document.getElementsByTagName('d-base')[0][a]});return(g)}
         async function AutoStatus(){
-            let oldBlur=window.onblur
-            window.onblur=function(e){e=e||window.event,window.input&&(window.input.blur(),window.input.keyDown(85))}
             input.keyUp(85)
             if (upgrading||!upgrade||!upgrade.length) { return }upgrading = true;
             if (!DidiU) { return }
             var focus=document.hasFocus();
             await sleep(100)
             input.keyDown(85);
-            var upgrades = upgrade.split('').map(e => e.charCodeAt(0))
+            var upgrades = _upgrade.split('').map(e => e.charCodeAt(0))
             for (let i in upgrades) {
-                let k=upgrades[i]
                 if(focus!=document.hasFocus()){input.keyDown(85)}
+                let k=upgrades[i]
                 input.keyDown(k)
                 input.keyUp(k)
                 await sleep(100)
                 focus=document.hasFocus()
             }
-            window.onblur=oldBlur
             upgrading = false; DidiU = true;
         }
         colors={}
+        set_convar=window.set_convar=function(a,b){
+
+        }
         execute=window.execute=function(ode){
             var s=ode.split(' ')
             var list=[
@@ -1803,7 +1755,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         var info={}
         var base=document.getElementsByTagName('d-base')[0];
         setInterval(() => {
-            base=document.getElementsByTagName('d-base')[0];
+            //base=document.getElementsByTagName('d-base')[0];
             //document.querySelector('d-base').shadowRoot.children[0].tagName=="D-STATS"
             info.stats = document.querySelector('d-base').shadowRoot.children[0].tagName=="D-STATS"
             info.main = document.querySelector('d-base').shadowRoot.children[0].tagName=="D-HOME"
@@ -1815,25 +1767,21 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 log_("PlayerStatus", "Died")
                 playerAlive = false; wasalive = false;
             }
-            if (info.main && !loggedkk) {
+            if (info.main && (!loggedkk)) {
                 loggedkk = !false;
                 DidiU = false;
                 //now on spanw screen
                 log_("PlayerStatus", "On Spawn screen")
                 //var pButton=base.renderRoot.children[0].renderRoot.children.username.children['username-row'].children[1]
-                var userNamebox=getElementByAttribute('username-row','id')
-                let {x,y}=userNamebox.children[1].getBoundingClientRect()
-                input.mouse(x,y)
-
-                !noads&&(noads=noAds())
+                !noads&&((typeof noAds)=='function'&&(noAds=noAds()))
                 //if(!did_)(MenuFix(),didl_=true);
-                if(!!AutoSpawn){setTimeout(()=>{pButton.click()},500)}
+                if(!!AutoSpawn){let tm=5000;setTimeout(()=>{input.trySpawn(document.getElementsByClassName('diep-native')[8].shadowRoot.children[0].shadowRoot.children[4].children['username-row'].children['username-input'].value)},tm)}
                 var bruh = setInterval(() => {
                     if (!(info.main || info.stats)) {
                         playerAlive = true;
                         wasalive = true
-                        log_("PlayerStatus", "Spawning into game");
-                        eval(`input.set_convar("ren_health_bars", true);input.set_convar("ren_raw_health_values", true);input.set_convar("ren_stroke_soft_color",false);input.set_convar("ren_solid_background",false);`)
+                        function ls(){
+                            eval(`input.set_convar("ren_health_bars", true);input.set_convar("ren_raw_health_values", true);input.set_convar("ren_stroke_soft_color",false);input.set_convar("ren_solid_background",false);`)
                         execute("net_replace_color 0 0x000000");
                         execute("net_force_secure true");
                         execute("net_replace_color 1 0x000000");
@@ -1863,6 +1811,12 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         execute("ren_bar_background_color 0x8c8c8c");
                         execute("net_replace_color 14 0x595959");
                         execute("ren_stroke_solid_color 0xFFFFFF");
+                        }
+                        player.isMaster&&(ls())
+                        input.keyDown(69);
+                        input.keyUp(69);
+                        log_("PlayerStatus", "Spawning into game");
+
 
                         loggedkk = !true;
                         clearInterval(bruh)
@@ -1874,25 +1828,10 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         })
         setTimeout(()=>{MenuFix(_myWin)},1000)
         document.onreadystatechange = function (e) {log_("ReadyState", document.readyState)}
-    })
-    (false,function(){return setInterval(()=>{;[...document.getElementsByTagName('iframe')].forEach(e=>e.remove())},10)});
-    function ran(min,max){
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    })();
+
     function stt(){
         var [redSide,floor,top,blueSide,right,left]=[6500,11300,-11300,-6500,-11000,11000]
-        function sys(count){
-            if(!Array.isArray(this))throw `"this" must be and array not ${this.constructor.name}`
-            var arr=[],aind=-1
-            this.forEach((a,ind)=>{
-                if(!(ind%count)){
-                    aind+=1
-                    arr[aind]=[]
-                }
-                arr[aind].push(a)
-            })
-            return arr;
-        }
         function getCloseSide(){
             let close=[]
             if(player.position.y<top){close.push(top)}
@@ -1911,7 +1850,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             if(lc.includes(left)||lc.includes(redSide)){keyDown(a)}
             if(lc.includes(right)||lc.includes(blueSide)){keyDown(d)}
         }
-        settings={move:false,aim:true}
+        settings={move:true,aim:true}
         function getMiddle(prop, markers) {
             let values = markers.map(m => m[prop]);
             let min = Math.min(...values);
@@ -2039,7 +1978,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             var center=[innerWidth/2,innerHeight/2]
             var close=arr.map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
             console.log(close)
-            let {move,aim}=window.settings
+            let {move,aim}=settings
             aim&&(mouse(...close),Fire(true));
             if(move){
                 if(getDistance(center[0],center[1],close[0],close[1])>300){
@@ -2074,16 +2013,10 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 })
             ]
             console.log('Getting pixels')
-            function getPos(array, x, y, width) {
-                var p = 4 * (x + y * width);
-                return array.slice(p, p + 4);
-            }
-            var pixelArray=context.getImageData(0,0,canvas.width,canvas.height).data
-            //var pixelArray_=sys.call(pixelArray).map(pixelData=>{let hex=(pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)?"#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6):null;})
             for(let x=0;x<canvas.width;x+=canvas.width*.02){
                 info[x]={}
                 for(let y=0;y<canvas.height;y+=canvas.height*.02){
-                    let pixelData=getPos([...pixelArray],x,y,canvas.width)
+                    var pixelData = context.getImageData(x, y, 1, 1).data;
                     var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
                     if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
                         coord += " (Transparent color detected, cannot be converted to HEX)";
@@ -2092,29 +2025,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         let xy=info[x][y]
                         var f=shapes.filter(e=>e[0].includes(xy)).map(e=>e)
                         if(f.length){
-                            //await sleep(0)
-                            Shapes[f[0][1]]=Shapes[f[0][1]]||[];
-                            Shapes[f[0][1]].push([xy,f[0][0],x*1,y*1])
-                        }
-                    }
-                }
-            }
-            //var pixelData=
-            //console.log(pixelData)
-
-            for(let x=0;x<canvas.width;x+=canvas.width*.02){
-                info[x]={}
-                for(let y=0;y<canvas.height;y+=canvas.height*.02){
-                    pixelData = context.getImageData(x, y, 1, 1).data;
-                    var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
-                    if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
-                        coord += " (Transparent color detected, cannot be converted to HEX)";
-                    }else {
-                        info[x][y]=hex;
-                        let xy=info[x][y]
-                        var f=shapes.filter(e=>e[0].includes(xy)).map(e=>e)
-                        if(f.length){
-                            //await sleep(0)
                             Shapes[f[0][1]]=Shapes[f[0][1]]||[];
                             Shapes[f[0][1]].push([xy,f[0][0],x*1,y*1])
                         }
@@ -2133,21 +2043,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         var xd=sorted2[0]-sorted2[1]
                         var yd=sorted[0]-sorted[1]
                         let [x,y]=cord;
-                        if(xd<200||yd<500){}else {
-                            S2[type].push([x,y,xd,yd])
-                            //let ctx = canvas.getContext('2d');
-
-                            // set line stroke and line width
-                            ///ctx.strokeStyle = 'red';
-                            //ctx.lineWidth = 5;
-
-                            // draw a red line
-                            //ctx.beginPath();
-//                            ctx.moveTo(100, 100);
-  //                          ctx.lineTo(300, 100);
-    //                        ctx.stroke();
+                        if(xd<200||yd<500){}else S2[type].push([x,y,xd,yd]);
                         }
-                    }
                     //console.log(S2[type],cord[0])
                 }
             }
@@ -2158,12 +2055,12 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         function dif(a,b){
             var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
         }
-        var myLoop=async function(){
+        var myLoop=setInterval(e=>{
+            //2teams
             if(player.GM=='teams'){
-                if(typeof player!='undefined' && dif(player.position.x,enemySide.x)<200){return run(player.TeamX,player.position.y)}
-                if(typeof player!='undefined' && dif(player.position.y,top)<100){return keyDown(39)}
-                if(typeof player!='undefined' && dif(player.position.y,floor)<100){return keyDown(38)}
-            }
+            if(typeof player!='undefined' && dif(player.position.x,enemySide.x)<200){return run(player.TeamX,player.position.y)}
+            if(typeof player!='undefined' && dif(player.position.y,top)<100){return keyDown(39)}
+            if(typeof player!='undefined' && dif(player.position.y,floor)<100){return keyDown(38)}}
             player.GM=localStorage.gamemode
             if(player.GM=='teams'){
                 let context = canvas.getContext('2d');
@@ -2171,40 +2068,18 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 player.team='#ff0000 #f80808'.includes("#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6))?"Red Team":"Blue Team"
                 enemySide.x=player.team=='Red Team'?blueSide:redSide
             }
-            var S2=await canClick.apply(canvas);
+            var S2=canClick.apply(canvas);
             var target=[];
-            var enemy=Object.keys(S2).filter(key=>(key!=player.team&&key.includes('team'))||key.includes('enemy')).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
+            var enemy=Object.keys(S2).filter(key=>(
+                key!=player.team&&key.includes('team'))
+                                             ||
+                                             (player.GM!='teams'?key.includes('ffa'):!key.includes('ffa')&&key.includes('enemy'))
+                                            ).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
             var shps=[S2['Green Square'],[...(S2['Pent']||[]),...(S2['crasher']||[])],S2['Triangle'],S2['Square']].filter(e=>e&&e.length)[0]
-            if(enemy&&enemy.length&&[...S2.TankBarrel].filter(b=>30<getDistance(b[0],b[1],innerWidth/2,innerHeight/2)).length){aim(S2.TankBarrel,true);Fire(true)}
+            if(enemy&&enemy.length&&[...(S2.TankBarrel||[])].filter(b=>30<getDistance(b[0],b[1],innerWidth/2,innerHeight/2)).length){aim(S2.TankBarrel,true);Fire(true)}
             else if(shps&&shps.length){aim(shps);Fire(true)}
             else Fire(false);
-        }
-        canvas.addEventListener("mousemove",function(e){
-            window.spreadToggle=typeof window.spreadToggle !="undefined"&&window.spreadToggle||!!window.spreadToggle
-            window.spread=window.spread||10;
-            var {clientX,clientY}=e,[x,y]=[clientX,clientY];
-            var [ranX,ranY]=[ran(-window.spread,window.spread),ran(-window.spread,window.spread)]
-            var newMouse=[ranX+clientX,ranY+clientY]
-            window.spreadToggle&&(console.log(),input.mouse(...newMouse))
-        })
-        canvas.addEventListener("mousemove",function(e){
-            var eventLocation = getEventLocation(this,e);
-            var coord = "x=" + eventLocation.x + ", y=" + eventLocation.y;
-
-            // Get the data of the pixel according to the location generate by the getEventLocation function
-            var context = this.getContext('2d');
-            var pixelData = context.getImageData(eventLocation.x, eventLocation.y, 1, 1).data;
-
-            // If transparency on the image
-            if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
-                coord += " (Transparent color detected, cannot be converted to HEX)";
-            }
-
-            var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
-            cc=hex
-            // Draw the color and coordinates.
-            //document.getElementById("status").innerHTML = coord;
-            //document.getElementById("color").style.backgroundColor = hex;
-        },false);
+        },250)
 
     }
+    _stt=stt
