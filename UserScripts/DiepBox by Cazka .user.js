@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DiepBox by Cazka
 // @description  made with much love
-// @version      0.1.29
+// @version      0.1.31
 // @author       Cazka#1820
 // @match        *://diep.io/*
 // @grant        GM_addStyle
@@ -12,12 +12,13 @@
 // @license      MIT
 // @namespace    https://greasyfork.org/users/541070
 // ==/UserScript==
+//'use strict';
 
 /*
  * Feel free to use some of my code for your own multiboxing script. make sure to give credits!
  */
 /*
- *   C L A S S E SQ
+ *   C L A S S E S
  */
 class Gui {
     constructor(title) {
@@ -458,7 +459,6 @@ class Player {
             right: false,
         };
         this._dead = true;
-
         unsafeWindow.addEventListener('mousemove', (e) => this._onmousemove(e));
         unsafeWindow.addEventListener('mousedown', (e) => this._onmousedown(e));
         unsafeWindow.addEventListener('mouseup', (e) => this._onmouseup(e));
@@ -541,47 +541,32 @@ class Player {
         }, 300);
     }
     toScreenPos(x, y) {
-        const unscale = Arena.unscale(x, y);
-        x = unscale.x;
-        y = unscale.y;
+        const position = this.position;
 
-        let position = this.position;
-        position = Arena.unscale(position.x, position.y);
-        const scale = this._minimap.scale;
+        const directionX = x - position.x;
+        const directionY = y - position.y;
 
-        const a = window.innerHeight / 1080;
-        const b = window.innerWidth / 1920;
-        const c = b < a ? a : b;
-        const unknown = this._minimap.fov * c;
+        const scaledX = Math.round(directionX * this._minimap.fov);
+        const scaledY = Math.round(directionY * this._minimap.fov);
 
-        x -= position.x;
-        x /= scale.x;
-        x += 0.5;
-        x *= unsafeWindow.innerWidth;
+        const screenX = scaledX + window.innerWidth / 2;
+        const screenY = scaledY + window.innerHeight / 2;
 
-        y -= position.y;
-        y /= scale.y;
-        y += 0.5;
-        y *= unsafeWindow.innerHeight;
-
-        return { x, y };
+        return { x: screenX, y: screenY };
     }
     toArenaPos(x, y) {
-        let position = this.position;
-        position = Arena.unscale(position.x, position.y);
-        const scale = this._minimap.scale;
+        const position = this.position;
 
-        x /= unsafeWindow.innerWidth;
-        x -= 0.5;
-        x *= scale.x;
-        x += position.x;
+        const directionX = x - window.innerWidth / 2;
+        const directionY = y - window.innerHeight / 2;
 
-        y /= unsafeWindow.innerHeight;
-        y -= 0.5;
-        y *= scale.y;
-        y += position.y;
+        const scaledX = Math.round(directionX * 1/this._minimap.fov);
+        const scaledY = Math.round(directionY * 1/this._minimap.fov);
 
-        return Arena.scale(x, y);
+        const arenaX = scaledX + position.x;
+        const arenaY = scaledY + position.y;
+
+        return { x: arenaX, y: arenaY };
     }
     moveTo(x, y) {
         const position = this.position;
@@ -797,11 +782,8 @@ class MultiboxStorage {
             case 'shield':
                 m = 2;
                 break;
-            case 'move':
-                m = 3;
-                break;
             case 'off':
-                m = 4;
+                m = 3;
                 break;
             default:
                 throw new Error('unsupported clump mode', mode);
@@ -859,9 +841,6 @@ class MultiboxStorage {
                 mode = 'shield';
                 break;
             case 3:
-                mode = 'move';
-                break;
-            case 4:
                 mode = 'off';
                 break;
             default:
@@ -1148,10 +1127,6 @@ function onbtnToggleClump() {
             this.innerHTML = 'Clump: Shield';
             break;
         case 3:
-            storage.clumpMode = 'move'
-            this.innerHTML = 'Clump: New';
-            break;
-        case 3:
             storage.clumpMode = 'off';
             this.innerHTML = 'Clump: OFF';
             break;
@@ -1191,101 +1166,11 @@ function onbtnRepelOverlord() {
 function onbtnDiscord() {
     window.open('https://discord.gg/5q2E3Sx');
 }
-function drawZones() {
-    if (player.dead) return;
-
-    ctx.save();
-
-    ctx.globalAlpha = 0.08;
-
-    if (player.gamemode === '4teams') {
-        let center;
-        let radius;
-
-        //blue
-        center = player.toScreenPos(-11150 + 1675, -11150 + 1675);
-        radius = player.toScreenPos(-11150 + 1675, -11150 + 1675 + 5250).y - center.y;
-        ctx.fillStyle = '#006480';
-        ctx.beginPath();
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-        radius = player.toScreenPos(-11150 + 1675, -11150 + 1675 + 3800).y - center.y;
-        ctx.fillStyle = '#ff6480';
-        ctx.beginPath();
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-
-        //purple
-        center = player.toScreenPos(11150 - 1675, -11150 + 1675);
-        radius = player.toScreenPos(11150 - 1675, -11150 + 1675 + 5250).y - center.y;
-        ctx.fillStyle = '#644280';
-        ctx.beginPath();
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-        radius = player.toScreenPos(-11150 + 1675, -11150 + 1675 + 3800).y - center.y;
-        ctx.fillStyle = '#ff4280';
-        ctx.beginPath();
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-
-        //green
-        center = player.toScreenPos(-11150 + 1675, 11150 - 1675);
-        radius = player.toScreenPos(-11150 + 1675, 11150 - 1675 + 5250).y - center.y;
-        ctx.fillStyle = '#00803e';
-        ctx.beginPath();
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-        radius = player.toScreenPos(-11150 + 1675, 11150 - 1675 + 3800).y - center.y;
-        ctx.fillStyle = '#ff803e';
-        ctx.beginPath();
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-
-        //red
-        center = player.toScreenPos(11150 - 1675, 11150 - 1675);
-        radius = player.toScreenPos(11150 - 1675, 11150 - 1675 + 5250).y - center.y;
-        ctx.fillStyle = '#963033';
-        ctx.beginPath();
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-        radius = player.toScreenPos(11150 - 1675, 11150 - 1675 + 3800).y - center.y;
-        ctx.fillStyle = '#ff3033';
-        ctx.beginPath();
-        ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-    } else if (player.gamemode === 'teams') {
-        let coords1;
-        let coords2;
-
-        //blue
-        coords1 = player.toScreenPos(-11150, -11150);
-        coords2 = player.toScreenPos(-11150 + 5500, 11150);
-        ctx.fillStyle = '#006480';
-        ctx.fillRect(coords1.x, coords1.y, coords2.x - coords1.x, coords2.y - coords1.y);
-        coords2 = player.toScreenPos(-11150 + 4150, 11150);
-        ctx.fillStyle = '#ff6480';
-        ctx.fillRect(coords1.x, coords1.y, coords2.x - coords1.x, coords2.y - coords1.y);
-
-        //red
-        coords1 = player.toScreenPos(11150, -11150);
-        coords2 = player.toScreenPos(11150 - 5500, 11150);
-        ctx.fillStyle = '#963033';
-        ctx.fillRect(coords1.x, coords1.y, coords2.x - coords1.x, coords2.y - coords1.y);
-        coords2 = player.toScreenPos(11150 - 4150, 11150);
-        ctx.fillStyle = '#ff3033';
-        ctx.fillRect(coords1.x, coords1.y, coords2.x - coords1.x, coords2.y - coords1.y);
-    }
-    //pentagon nest
-    let coords1;
-    let coords2;
-
-    coords1 = player.toScreenPos(-1500, -1500);
-    coords2 = player.toScreenPos(1500, 1500);
-    ctx.fillStyle = '#8aff69';
-    ctx.fillRect(coords1.x, coords1.y, coords2.x - coords1.x, coords2.y - coords1.y);
-
-    ctx.restore();
+function onbtnSaveAccountToken() {
+    localStorage["backup_accountToken"] = AccountToken;
+    gui.removeButton(this);
 }
+
 function smallBoi() {
     player.isMaster = false;
     player.useGamepad = storage.multibox;
@@ -1354,6 +1239,10 @@ function bigBoi() {
     btnRepelNecro = gui.addButton('Repel Necro: OFF', onbtnRepelNecro);
     btnRepelNecro = gui.addButton('Repel Overlord: OFF', onbtnRepelOverlord);
     btnDiscord = gui.addButton('Discord', onbtnDiscord);
+
+    if(AccountToken != localStorage["backup_accountToken"]) {
+        gui.addButton("Save Account Token", onbtnSaveAccountToken);
+    }
 }
 function mainLoop() {
     if (!unsafeWindow.input) return;
@@ -1394,10 +1283,6 @@ function mainLoop() {
                 );
                 bestPosition = position;
                 break;
-            case 'move':
-                position = player.position;
-                bestPosition = position;
-                break;
             case 'off':
                 position = player.position;
                 bestPosition = position;
@@ -1409,10 +1294,7 @@ function mainLoop() {
 
         if (storage.multibox) {
             player.moveTo(bestPosition.x, bestPosition.y);
-            if(clumpMode!='move')player.lookAt(mouse.x, mouse.y);
-            else {
-
-            }
+            player.lookAt(mouse.x||otx, mouse.y||oty);
             //player.spawn();
         }
 
@@ -1439,6 +1321,7 @@ const gui = new Gui('DiepBox by Cazka');
 player = new Player();
 const storage = new MultiboxStorage();
 const chat = new Chat(player);
+let AccountToken = "";
 
 let btnForceMaster;
 let btnMultibox;
@@ -1448,8 +1331,25 @@ let btnRepelNecro;
 let btnRepelOverlord;
 let btnDiscord;
 
-if (storage.mutex) smallBoi();
-else bigBoi();
+if (storage.mutex) {
+    if(localStorage["rivet:token"] != "") {
+        localStorage["rivet:token"] = "";
+        window.location.reload();
+    }
+    smallBoi();
+}
+else {
+    if(localStorage["backup_accountToken"] == null) {
+        localStorage["backup_accountToken"] = localStorage["rivet:token"];
+    }
+
+    if(localStorage["rivet:token"] != localStorage["backup_accountToken"]) {
+        localStorage["rivet:token"] = localStorage["backup_accountToken"];
+        window.location.reload();
+    }
+    AccountToken = localStorage["rivet:token"];
+    bigBoi();
+}
 
 unsafeWindow.addEventListener('unload', () => {
     if (player.isMaster) {
@@ -1478,8 +1378,8 @@ player.onmessage = (text) => {
 
 unsafeWindow.addEventListener('keydown', (e) => {
     if (!player.isMaster && e.keyCode == 13) {
-        //const input = document.getElementById('textInput');
-        //input.value = input.value.startsWith('\u0044\u0042') ? input.value : '\u0044\u0042 ' + input.value;
+        const input = document.getElementById('textInput');
+        input.value = input.value.startsWith('\u0044\u0042') ? input.value : '\u0044\u0042 ' + input.value;
     }
 });
 
@@ -1490,44 +1390,7 @@ const ctx = document.getElementById('canvas').getContext('2d');
 unsafeWindow.requestAnimationFrame = new Proxy(unsafeWindow.requestAnimationFrame, {
     apply: function (target, thisArg, args) {
         mainLoop();
-        player.isMaster&&(drawZones());
         if (player.isMaster) return Reflect.apply(target, thisArg, args);
         else setTimeout(() => Reflect.apply(target, thisArg, args), 1000 / 20);
     },
 });
-function sys(input){
-    input.set_convar("ren_health_bars", true);
-    input.set_convar("ren_raw_health_values", true);
-    input.execute("net_replace_color 0 0x000000");
-    input.execute("net_force_secure true");
-    input.execute("net_replace_color 1 0x000000");
-    input.execute("net_replace_color 2 0x000000");
-    input.execute("net_replace_color 3 0x0000FF");
-    input.execute("net_replace_color 4 0xFF0000");
-    input.execute("net_replace_color 5 0x990099");
-    input.execute("net_replace_color 6 0x00FF00");
-    input.execute("net_replace_color 7 0xFFFFFF");
-    input.execute("net_replace_color 8 0xFFFF00");
-    input.execute("net_replace_color 9 0xFFBBBB");
-    input.execute("net_replace_color 10 0xCCCCFF");
-    input.execute("net_replace_color 11 0xFF69B4");
-    input.execute("net_replace_color 12 0xFFFF00");
-    input.execute("net_replace_color 13 0xFFFFFF");
-    input.execute("net_replace_color 14 0x888888");
-    input.execute("net_replace_color 15 0x0000FF");
-    input.execute("net_replace_color 16 0xBBBB00");
-    input.execute("net_replace_color 17 0x777777");
-    input.execute("ren_stroke_solid_color 0xFFFFFF");
-    input.set_convar("ren_stroke_soft_color",false);
-    input.execute("ren_stroke_soft_color_intensity .5");
-    //dark
-    input.set_convar("ren_solid_background",false);
-    input.execute("ren_health_background_color 0x8c8c8c");
-    input.execute("ren_minimap_background_color 0xFFFFFF");
-    input.execute("ren_background_color 0x333231");
-    input.execute("ren_border_color 0xffffff");
-    input.execute("ren_bar_background_color 0x8c8c8c");
-    input.execute("net_replace_color 14 0x595959");
-    input.execute("ren_stroke_solid_color 0xFFFFFF");
-}
-//document.readyState=='complete'?sys(input):!function(){var _=addEventListener('load',function(){sys(input);removeEventListener(_)})}();
