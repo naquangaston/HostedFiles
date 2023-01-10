@@ -64,6 +64,7 @@
         }
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging})})(globalRoot)
+var fireing=false;
 ;(function(noads=false) {
     upgrade=''
     //'use strict';
@@ -1813,11 +1814,9 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         execute("ren_stroke_solid_color 0xFFFFFF");
                         }
                         player.isMaster&&(ls())
-                        input.keyDown(69);
-                        input.keyUp(69);
                         log_("PlayerStatus", "Spawning into game");
 
-
+                        fireing=false;
                         loggedkk = !true;
                         clearInterval(bruh)
                         log_("Build", 'AutoUpgrading');
@@ -1827,7 +1826,23 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 }
         })
         setTimeout(()=>{MenuFix(_myWin)},1000)
-        document.onreadystatechange = function (e) {log_("ReadyState", document.readyState)}
+        document.onreadystatechange = function (e) {
+            window.input&&
+                input.mouse&&
+                (oldInput=input.mouse,
+                 input.mouse=function(clientX,clientY){player._onmousemove({clientX,clientY});oldInput(clientX,clientY)}
+                )
+            window.input&&
+                input.keyUp&&
+                (oldInputkeyUp=input.keyUp,
+                 input.keyUp=function(e){player._onkeyup({keyCode:e});oldInputkeyUp(e)}
+                )
+            window.input&&
+                input.keyDown&&
+                (oldInputkeyDown=input.keyDown,
+                 input.keyDown=function(e){player._onkeydown({keyCode:e});oldInputkeyDown(e)}
+                )
+            log_("ReadyState", document.readyState)}
     })();
 
     function stt(){
@@ -1905,7 +1920,9 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 throw "Invalid color component";
             return ((r << 16) | (g << 8) | b).toString(16);
         }
-        function mouse(x,y){input.mouse(x,y)};
+        function mouse(x,y){
+            otx=x,oty=y;
+            input.mouse(x,y)};
         var [w,a,s,d]=[
             38,
             37,
@@ -1920,7 +1937,11 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             if(key==s){input.keyDown(key);input.keyUp(w)}
             if(key==d){input.keyDown(key);input.keyUp(a)}
         }
-        function Fire(v){player._gamepad.leftMouse=v}
+        fireing=false
+        function Fire(v){
+            fireing!=v&&(input.keyDown(69),input.keyUp(69))
+                fireing=v
+        }
         enemySide={}
         function moveToward(x,y){
             var center=[innerWidth/2,innerHeight/2]
@@ -2055,7 +2076,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         function dif(a,b){
             var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
         }
-        var myLoop=setInterval(e=>{
+        myLoop=setInterval(e=>{
             //2teams
             if(player.GM=='teams'){
             if(typeof player!='undefined' && dif(player.position.x,enemySide.x)<200){return run(player.TeamX,player.position.y)}
