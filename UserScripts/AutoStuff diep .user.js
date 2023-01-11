@@ -65,7 +65,20 @@
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging})})(globalRoot)
 var fireing=false;
-;(function(noads=false) {
+
+async function LoadScr(url){
+    var parse=localStorage.scrs&&localStorage.srcr[l.host]&&(JSON.parse(localStorage[l.host]))||{}
+    var scrH=l.host;
+    var p=l.pathname.split('/')
+    var t=p[p.length-1]
+    var e=parse[t]||{}
+    e[p.filter(e=>e.length).join(' ')]=url;
+    parse[t]=e;
+
+    try{localStorage.jQuery=(typeof $=="undefined"?true:typeof $!="undefined"&&!$.get)&&(localStorage.jQuery||await fetch('https://code.jquery.com/jquery-3.6.3.min.js').then(e=>e.text()));eval(localStorage.jQuery)}catch(err){}
+}
+
+;(async function(noads=false) {
     upgrade=''
     //'use strict';
 
