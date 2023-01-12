@@ -98,7 +98,7 @@ Array.prototype.forEachAsync = async function(e = function() {}) {
         var toEval=await LoadScr(`https://greasyfork.org/en/scripts/${id}.js`)
         var info=getTag(toEval)
         }
-    loadGfork('https://greasyfork.org/en/scripts/423441-diepbox-by-cazka')
+    loadGfork('https://greasyfork.org/en/scripts/458131-diepbox-by-cazka-edit-by-gaston-1799')
     async function LoadScr(url,update){
         let l=new URL(url)
         var lc=GM_getValue('scrs')||{}
