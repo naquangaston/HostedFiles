@@ -1,8 +1,9 @@
 // ==UserScript==
-// @name         DiepBox by Cazka
+// @name         DiepBox by Cazka edit by Gaston#1799
 // @description  made with much love
 // @version      0.1.31
 // @author       Cazka#1820
+// @author       Gaston#1820
 // @match        *://diep.io/*
 // @grant        GM_addStyle
 // @grant        GM_getValue
@@ -10,7 +11,6 @@
 // @grant        GM_addValueChangeListener
 // @grant        GM_removeValueChangeListener
 // @license      MIT
-// @namespace    https://greasyfork.org/users/541070
 // ==/UserScript==
 //'use strict';
 
@@ -1326,7 +1326,7 @@ function mainLoop() {
 /*
  *   M A I N
  */
-const gui = new Gui('DiepBox by Cazka');
+const gui = new Gui('Cazka edit by Gaston');
 player = new Player();
 storage = new MultiboxStorage();
 const chat = new Chat(player);
