@@ -9,6 +9,9 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_info
+// @grant GM_addStyle
+// @grant GM_addValueChangeListener
+// @grant GM_removeValueChangeListener
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_obf.js
@@ -65,6 +68,9 @@
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging})})(globalRoot)
 var fireing=false;
+unsafeWindow.GM_getValue=GM_getValue
+unsafeWindow.GM_setValue=GM_setValue
+unsafeWindow.GM_info = GM_info
 Array.prototype.forEachAsync = async function(e = function() {}) {
     for (let a = 0; a < this.length; a++) await e(this[a], a, this.length);
     return null
@@ -72,47 +78,43 @@ Array.prototype.forEachAsync = async function(e = function() {}) {
     for (let a = 0; a < this.length; a++) this[a] = await e(this[a], a, this.length);
     return this
 };
-st = GM_info
-function getTag(str) {
-    return function(tagsReg, metaTag, getT) {
-        console.log({tagsReg,metaTag,getT})
-        return (function(info, str) {
-            console.log({info,str})
-            return str.forEach(tag => {
-                !info[tag[1]] && (info[tag[1]] = []), info[tag[1]].push(tag[2])
-            }), info
-        })({}, (console.log({m:str.match(/\/{2} ={2}UserScript={2}\n(\/{2}[ ]+@([\w\-_$]+)[ ]+([^\n]+)[\n ]+)+/gi)}),str.match(metaTag)[0].match(tagsReg).map(e => e.match(getT))))
-    }(/(\/{2}[ ]+@(\w+)[ ]+([^\n]+))/gi, /\/{2} ={2}UserScript={2}\n(\/{2}[ ]+@([\w\-_$]+)[ ]+([^\n]+)[\n ]+)+\/{2} ={2}\/UserScript={2}/gi, /\/{2}[ ]+@(\w+)[ ]+([^\n]+)/)
-}
-async function loadGfork(url){
-    var id=(url.match(/\d+/gi)||[])[0]
-    if(!id.length) throw "Invalid script id/url"
-    var toEval=await LoadScr(`https://greasyfork.org/en/scripts/${id}.js`)
-    var info=getTag(toEval)
-}
-loadGfork('https://greasyfork.org/en/scripts/423441-diepbox-by-cazka')
-async function LoadScr(url,update){
-    let l=new URL(url)
-    var lc=GM_getValue('scrs')||{}
-    var parse=lc.scrs&&lc.srcr[l.host]&&(lc)||{}
-    var scrH=l.host;
-    var p=l.pathname.split('/')
-    var t=p[p.length-1]
-    //fetch(url).then(e=>e.text()).then(code=>{})
-    var e=parse[t]
-    if(!e||update){
-        e={};e[p.filter(e=>e.length).join(' ')]={url,code:await fetch(url).then(e=>e.text())}
-    }
-    parse[t]=e;
-    GM_setValue('scrs',parse)
-    return e
-}
-unsafeWindow.GM_getValue=GM_getValue
-unsafeWindow.GM_setValue=GM_setValue
 ;(async function(noads=false) {
     upgrade=''
     //'use strict';
-
+    function getTag(str) {
+        return function(tagsReg, metaTag, getT) {
+            console.log({tagsReg,metaTag,getT})
+            return (function(info, str) {
+                console.log({info,str})
+                return str.forEach(tag => {
+                    !info[tag[1]] && (info[tag[1]] = []), info[tag[1]].push(tag[2])
+                }), info
+            })({}, (console.log({m:str.match(/\/{2} ={2}UserScript={2}\n(\/{2}[ ]+@([\w\-_$]+)[ ]+([^\n]+)[\n ]+)+/gi)}),str.match(metaTag)[0].match(tagsReg).map(e => e.match(getT))))
+        }(/(\/{2}[ ]+@(\w+)[ ]+([^\n]+))/gi, /\/{2} ={2}UserScript={2}\n(\/{2}[ ]+@([\w\-_$]+)[ ]+([^\n]+)[\n ]+)+\/{2} ={2}\/UserScript={2}/gi, /\/{2}[ ]+@(\w+)[ ]+([^\n]+)/)
+    }
+    async function loadGfork(url){
+        var id=(url.match(/\d+/gi)||[])[0]
+        if(!id.length) throw "Invalid script id/url"
+        var toEval=await LoadScr(`https://greasyfork.org/en/scripts/${id}.js`)
+        var info=getTag(toEval)
+        }
+    loadGfork('https://greasyfork.org/en/scripts/423441-diepbox-by-cazka')
+    async function LoadScr(url,update){
+        let l=new URL(url)
+        var lc=GM_getValue('scrs')||{}
+        var parse=lc.scrs&&lc.srcr[l.host]&&(lc)||{}
+        var scrH=l.host;
+        var p=l.pathname.split('/')
+        var t=p[p.length-1]
+        //fetch(url).then(e=>e.text()).then(code=>{})
+        var e=parse[t]
+        if(!e||update){
+            e={};e[p.filter(e=>e.length).join(' ')]={url,code:await fetch(url).then(e=>e.text())}
+        }
+        parse[t]=e;
+        GM_setValue('scrs',parse)
+        return e
+    }
     //Socket
     realSend = window.WebSocket.prototype.send;
     ;(function () {
@@ -862,7 +864,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         try{ ws.send(new Uint8Array(Array.from(msgpack5.encode(sender))));}catch(err){};
     }
     window.doNewSend = doNewSend
-
     console.log('Info:',GM_info)
     var setValue=GM_setValue
     var getValue=GM_getValue
@@ -2133,6 +2134,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 player.team='#ff0000 #f80808'.includes("#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6))?"Red Team":"Blue Team"
                 enemySide.x=player.team=='Red Team'?blueSide:redSide
             }
+            if(player.isMaster||storage.multibox)return;
             var S2=canClick.apply(canvas);
             var target=[];
             var enemy=Object.keys(S2).filter(key=>(
