@@ -662,6 +662,8 @@ class Player {
         this.onkeyUp && this.onkeyUp(e.which);
     }
     _onkeydown(e) {
+        let {which}=e;if(player.isMaster&&which==82){localStorage.autoFarm=localStorage.autoFarm&&localStorage.autoFarm.length?!JSON.parse(localStorage.autoFarm):true}
+        console.log(which)
         switch (e.keyCode) {
             case 37:
             case 65:
@@ -739,6 +741,7 @@ class MultiboxStorage {
         try {
             this.position;
             this.mouse;
+            this.autoFarm=false;
             this.multibox;
             this.mutex;
             this.keyDown;
@@ -1056,7 +1059,7 @@ class Chat {
 /*
  *   D E B U G G E R
  */
-const DEBUG = false;
+var DEBUG = false;
 const debugger_mouse = document.body.appendChild(document.createElement('div'));
 function DEBUG_MousePosition(x, y, info = '') {
     if (!DEBUG) return;
@@ -1070,6 +1073,7 @@ function DEBUG_MousePosition(x, y, info = '') {
 const debugger_pos = document.body.appendChild(document.createElement('div'));
 const debugger_pos_prediction = document.body.appendChild(document.createElement('div'));
 function DEBUG_PlayerPosition(x = -100, y = -100, x_prediction = -100, y_prediction = -100, info = '') {
+    DEBUG=false==player.isMaster
     if (!DEBUG) return;
     debugger_pos.style.pointerEvents = 'none';
     debugger_pos.style.position = 'absolute';
@@ -1294,7 +1298,12 @@ function mainLoop() {
 
         if (storage.multibox) {
             player.moveTo(bestPosition.x, bestPosition.y);
-            player.lookAt(mouse.x||otx, mouse.y||oty);
+
+            var{x,y}=mouse
+            var{otx,oty}=unsafeWindow
+            var auto=localStorage.autoFarm&&localStorage.autoFarm.length?!JSON.parse(localStorage.autoFarm):false
+            ;[x,y]=auto?[otx,oty]:[x,y]
+            player.lookAt(x, y);
             //player.spawn();
         }
 
@@ -1319,7 +1328,7 @@ function mainLoop() {
  */
 const gui = new Gui('DiepBox by Cazka');
 player = new Player();
-const storage = new MultiboxStorage();
+storage = new MultiboxStorage();
 const chat = new Chat(player);
 let AccountToken = "";
 
