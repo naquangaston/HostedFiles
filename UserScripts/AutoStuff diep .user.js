@@ -20,6 +20,7 @@
 // @require http://code.createjs.com/easeljs-0.5.0.min.js
 // @run-at document-start
 // ==/UserScript==
+var brun=false;
 isRightMB=false;
 fighterMode=false;
 ;(function(){
@@ -1692,14 +1693,36 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }, 2000);
         }
         var canGo_=true
+        async function _canGo_(){
+            if(canGo_)return canGo_
+            else return await _canGo_()
+        }
+        async function RealBooster_(_=180){
+            if(!canGo_)return;canGo_=false;
+            var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=player._mouse,b=rotatePoint(a,c,_)
+            Fire(true)
+            while(isRightMB){
+                input.mouse(b.x,b.y)
+                await sleep(time+70)
+                input.mouse(a.x,a.y)
+                await sleep(time+100)
+            }
+            input.mouse(a.x,a.y);
+            await sleep(time);
+            Fire(false)
+            await sleep(time);
+            canGo_=true
+        }
         async function RealBooster(_=140){
             if(!canGo_)return;canGo_=false;
             var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=player._mouse,b=rotatePoint(a,c,_)
             Fire(true)
-            input.mouse(a.x,a.y)
-            await sleep(time+70)
-            input.mouse(b.x,b.y)
-            await sleep(time+100)
+            while(isRightMB){
+                input.mouse(a.x,a.y)
+                await sleep(time+70)
+                input.mouse(b.x,b.y)
+                await sleep(time+100)
+            }
             input.mouse(a.x,a.y);
             await sleep(time);
             Fire(false)
@@ -1763,10 +1786,15 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 fighterMode=!fighterMode
                 console.log({fighterMode})
             }
+            function boostModeToggle(){
+                brun=!brun
+                console.log({brun})
+            }
             addButton('Fix Game', FixGame, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
             addButton('Remove-Ads', RemoveAds, {line:true, desc: 'Use to remove ads that may cause gae lag' })
             addButton('Stack', stack, {line:true, desc: 'stack preditor bullets max reload requried' })
             addToggle('Fighter Mode', fighterModeToggle, {defaut:false,line:true, desc: 'autoAim rear bullets (with booster/fighter)' })
+            addToggle('Faster Booster', boostModeToggle, {defaut:false,line:true, desc: 'autoAim rear bullets for more speed(with booster/fighter)' })
             var allChecks = [];
             const Tanks = new Object(); for (let i in Builds) {try{Builds[i]._builds.forEach(e => { var tank = e.p; const { name, desc, build } = e; if (!Tanks[tank]) Tanks[tank] = []; Tanks[tank].push({ name, desc, build }) }) }catch(err){}}
             var Builds_M = window.myWin_.document.getElementById('myUL')
@@ -1854,12 +1882,18 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         window.addEventListener('keyup', function (e) { const key = e.key; if (down[key]) { return } down[key] = [key,false]; /*log('Key down', key, 'Total:', keys(down).length)*/ });
         var info={}
         var base=document.getElementsByTagName('d-base')[0];
-        var notloop=true
-        async function loopD(){
-            notloop&&=false;
-            while(!notloop){
-                await RealBooster()
-            }
+        var canloop=true
+        var looping_=false;
+        async function loopD(l){
+            var shouldReturn=isRightMB==false//||looping_&&!l
+            if(shouldReturn)return looping_=false;
+            looping_=true
+            var f=brun?RealBooster_:RealBooster;
+            await f()
+            //await _canGo_()
+            if(looping_){
+                return await loopD(looping_)
+            }else return true
         }
         onmousedown=function (e) {
             //var isRightMB;
@@ -1870,7 +1904,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             else if ("button" in e)  // IE, Opera
                 isRightMB = e.button == 2;
             console.log(isRightMB,'down')
-            isRightMB&&fighterMode&&notloop&&(loopD())
+            isRightMB&&fighterMode&&!looping_&&(loopD().then(console.log,console.warn))
         }
         onmouseup=function (e) {
             //var isRightMB;
@@ -1881,7 +1915,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             else if ("button" in e)  // IE, Opera
                 isRightMB = e.button == 2;
             console.log(isRightMB,'up')
-            isRightMB&&=!(notloop=true)
+            isRightMB&&=!(canloop=true)
         }
         setInterval(() => {
             //base=document.getElementsByTagName('d-base')[0];
