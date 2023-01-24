@@ -1701,32 +1701,34 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             if(!canGo_)return;canGo_=false;
             var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=player._mouse,b=rotatePoint(a,c,_)
             Fire(true)
-            while(isRightMB){
-                input.mouse(b.x,b.y)
-                await sleep(time+70)
-                input.mouse(a.x,a.y)
-                await sleep(time+100)
-            }
+            //while(isRightMB){
+            input.mouse(b.x,b.y)
+            await sleep(time+70)
+            input.mouse(a.x,a.y)
+            var __=setInterval(()=>{input.mouse(a.x,a.y)},1)
+            await sleep(time+100)
+            clearInterval(__)
+            // }
             input.mouse(a.x,a.y);
             await sleep(time);
             Fire(false)
             await sleep(time);
             canGo_=true
         }
-        async function RealBooster(_=140){
+        async function RealBooster(_=140,fighter=false){
             if(!canGo_)return;canGo_=false;
-            var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=player._mouse,b=rotatePoint(a,c,_)
+            var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=fighter?rotatePoint(player._mouse,c,90):player._mouse,b=rotatePoint(a,c,_)
             Fire(true)
-            while(isRightMB){
-                input.mouse(a.x,a.y)
-                await sleep(time+70)
-                input.mouse(b.x,b.y)
-                await sleep(time+100)
-            }
-            input.mouse(a.x,a.y);
-            await sleep(time);
-            Fire(false)
-            await sleep(time);
+            //while(isRightMB){
+            input.mouse(a.x,a.y)
+            await sleep(time+70)
+            input.mouse(b.x,b.y)
+            var __=setInterval(()=>{input.mouse(b.x,b.y)},0)
+            await sleep((time*2)+140)
+            clearInterval(__)
+            //}
+            await sleep(time);input.mouse(a.x,a.y);
+            await sleep(time+(time/2)+100);
             canGo_=true
         }
         onkeydown=function({keyCode}){
@@ -1890,6 +1892,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             looping_=true
             var f=brun?RealBooster_:RealBooster;
             await f()
+            if(!isRightMB)Fire(false);
             //await _canGo_()
             if(looping_){
                 return await loopD(looping_)
