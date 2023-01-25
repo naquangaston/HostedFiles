@@ -20,7 +20,7 @@
 // @require http://code.createjs.com/easeljs-0.5.0.min.js
 // @run-at document-start
 // ==/UserScript==
-var brun=false;
+var brun=false;_upgrade=''
 isRightMB=false;
 fighterMode=false;
 ;(function(){
@@ -1697,6 +1697,13 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             if(canGo_)return canGo_
             else return await _canGo_()
         }
+        var autoA=false;
+        var cords={x:0,y:0}
+        async function autoAim(){
+            await sleep();
+             (autoA?(input.mouse(cords.x,cords.y)):null,await autoAim());
+        }
+        autoAim()
         async function RealBooster_(_=180){
             if(!canGo_)return;canGo_=false;
             var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=player._mouse,b=rotatePoint(a,c,_)
@@ -1717,18 +1724,30 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         async function RealBooster(_=140,fighter=false){
             if(!canGo_)return;canGo_=false;
-            var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=fighter?rotatePoint(player._mouse,c,90):player._mouse,b=rotatePoint(a,c,_)
             Fire(true)
-            //while(isRightMB){
+            autoA=1
+            _=135
+            var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=fighter?rotatePoint(player._mouse,c,90):player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,15);time+=50
+
+            cords=a;
+            await sleep(time)
+            c=center,a=fighter?rotatePoint(player._mouse,c,90):player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,15)
+            cords=b2;
+            //await sleep(time)
+            //input.mouse(b2.x,b2.y)
+            await sleep(time+(time/5))
+            c=center,a=fighter?rotatePoint(player._mouse,c,90):player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,15)
+            cords=b;
+            //input.mouse(b.x,b.y)
+            await sleep(time*3)
+            c=center,a=fighter?rotatePoint(player._mouse,c,90):player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,15)
+            cords=a;
+            await sleep(time)
+            c=center,a=fighter?rotatePoint(player._mouse,c,90):player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,15)
+            autoA=0
             input.mouse(a.x,a.y)
-            await sleep(time+70)
-            input.mouse(b.x,b.y)
-            var __=setInterval(()=>{input.mouse(b.x,b.y)},0)
-            await sleep((time*2)+140)
-            clearInterval(__)
-            //}
-            await sleep(time);input.mouse(a.x,a.y);
-            await sleep(time+(time/2)+100);
+            Fire(false)
+            await sleep(time*2)
             canGo_=true
         }
         onkeydown=function({keyCode}){
