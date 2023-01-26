@@ -6,13 +6,34 @@
 // @author       You
 // @match         *://www.youtube.com/*
 // @match         *://onlymp3.to/*
-// @match         *://ytmp3.plus/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
-// @grant        none
+// @grant GM_addStyle
+// @grant GM_addElement
+// @grant GM_deleteValue
+// @grant GM_listValues
+// @grant GM_addValueChangeListener
+// @grant GM_removeValueChangeListener
+// @grant GM_setValue
+// @grant GM_getValue
+// @grant GM_log
+// @grant GM_getResourceText
+// @grant GM_getResourceURL
+// @grant GM_registerMenuCommand
+// @grant GM_unregisterMenuCommand
+// @grant GM_openInTab
+// @grant GM_xmlhttpRequest
+// @grant GM_download
+// @grant GM_getTab
+// @grant GM_saveTab
+// @grant GM_getTabs
+// @grant GM_notification
+// @grant GM_setClipboard
+// @grant GM_info
 // @run-at document-start
 // ==/UserScript==
 
+stuff=Object.assign({},{GM_info,GM});
 (function() {
     //'use strict';
 
@@ -29,8 +50,8 @@
             if(e.getAttribute(item)==label){
                 res.push(e);
             }else{
-                if(e.children.length){
-                    e=e.children;
+                if(e.children.length||(e.shadowRoot&&e.shadowRoot.children.length)){
+                    e=(e.shadowRoot&&e.shadowRoot.children.length)?e.shadowRoot.children:e.children;
                     e.forEach=[].forEach;
                     e.forEach(e2=>{
                         part2(e2);
@@ -85,9 +106,8 @@
     function tF(f,{callback,int}){
         !callback&&(callback=function(){});!int&&(int=100)
         console.log({f,callback,int})
-        try{f();callback();return}catch(err){console.log(err)}
-        console.log('After')
-        var _=setInterval(()=>{try{f();callback();clearInterval(_)}catch(err){console.log(err)}},int||100)
+        try{f();callback();return}catch(err){}
+        var _=setInterval(()=>{try{f();callback();clearInterval(_)}catch(err){}},int||100)
         return _
     }
     function isHidden(el) {
@@ -130,13 +150,13 @@
     }
     _getIds=getIds
     info={}
-    downloadT=async function(id,force=false,type=1){
+    downloadT=function(id,force=false){
         if((info[id]||localStorage[id])&&!force)return;
         var video={}
         var hash=`#url=https://www.youtube.com/watch?v=${id}`
         ad('unload',function(){info[id].close()},true)
         onmessage=function(e){
-            if(e.origin==Porigin||e.origin.match(/https?:\/{2}onlymp3\.to/)||e.origin=='https://ytmp3.plus'){
+            if(e.origin==Porigin||e.origin.match(/https?:\/{2}onlymp3\.to/)){
                 const {data:{href,title,length,id}}=e
                 console.log('Handled',{href,title,length,id},e)
                 //info[id].close()
@@ -148,7 +168,7 @@
         var o=new URL(location.href)
         o.host=o.host.replace('.com','mz.com');
         //open([o.protocol,'//',o.host,o.pathname,'?v=',setElement(location.href)].join(''))
-        return info[id]=type?open([o.protocol,'//',o.host,o.pathname,'?v=',id,type?'#getmp3':'#getmp4'].join(''),id,`width=400,height=500`):open(['https://ytmp3.plus/103-youtube-to-mp4/#',id].join(''),id,`width=400,height=500`)
+        return info[id]=open([o.protocol,'//',o.host,o.pathname,'?v=',id].join(''),id,`width=400,height=500`)
     }
     function abc(label, item = 'aria-label', doc = document.body) {
         var res = [];
@@ -197,34 +217,65 @@
     M=Mute
     Um=Unmute
     var didmute=0
-    function WIP(type){
+    function ch3(i){
+        if(!i){
+            return false
+        }else{
+            if(!i.closed){
+                return true
+            }else{
+                return false
+            }
+        }
+    }
+    window.ch3=ch3;
+    async function getWin(list=[
+        ['w1','win1'],
+        ['w2','win2'],
+        ['w3','win3'],
+        ['w4','win4']
+    ]){
+        var e=false;
+        var f
+        await new Promise((g,h)=>{
+            var i=setInterval(j=>{
+                list.forEach(k=>{
+                    this[k[0]]=ch3(window[k[1]])
+                    if(!window[k[1]]&&!e){e=true;f=k[1];console.log(k)}
+                })
+                if(f){
+                    g(f);
+                    clearInterval(i)
+                }
+            },500);
+        });
+        return f
+    };
+    window.getWin=getWin
+    function WIP(hmpd){
+    var ids=_getIds()
     var list=[]
     for(let i=0;i<hmpd;i++){
         list.push(['w'+i,'win'+i])
     }
-    getWin(
-        list
-    ).then(b=>{
-        console.log('download',tittle,vid,a.index)
-        window[b]=downloadT(id,0,type)
-        window.addEventListener('unload',function(e){window[b].close()})
-        var rr=setInterval(e=>{
-            if(window[b].closed){window[b]=null;clearInterval(rr);console.log(b,'isclosed')}
-        },300);
+        ids.forEach(({id},index)=>{
+            getWin(
+                list
+            ).then(b=>{
+                if((info[id]||localStorage[id])&&!force)return;
+                console.log('download',id,index)
+                window[b]=downloadT(id)
+                window.addEventListener('unload',function(e){window[b].close()})
+                var rr=setInterval(e=>{
+                    if(window[b].closed){window[b]=null;clearInterval(rr);console.log(b,'isclosed')}
+                },300);
+            })
     })
     }
+    window.WIP=WIP
     if(location.href.includes('onlymp3.to')){
-        ;(console.log('Getting MP3'),tF(function(f=function(){}){var videoTitle=document.getElementById('videoTitle');var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};console.log('Got video details');(opener||window).postMessage(f,'*')},{callback:close,int:100}))
-        //(console.log('Getting MP4'),tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close}))
-        return
-    }
-    else if(location.href.includes('ytmp3.plus')){
-        console.log('Getting MP4')
-        var videoTitle=title.innerText
-        onload=function(){input.value=['https://www.youtube.com/watch?v=',location.hash.slice(1)].join('');submit.click()}
-        if(videoTitle=='Please insert a YouTube video URL')throw 'e'
-        var href=buttons.children[0].href
-        //;(console.log('Getting MP3'),tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close}))
+        console.log('Getting MP3')
+        tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close});
         return
     }
     setInterval(e=>{
@@ -234,4 +285,8 @@
         document.getElementsByClassName('ytp-ad-overlay-close-button')[2]&&(document.getElementsByClassName('ytp-ad-overlay-close-button')[2].click(),console.log('Close ad card'))
         // ad skipping ^^
     },10)
+    tF(function(){
+        var actions=document.querySelector("#actions")
+        if(!actions)throw ""
+    })
 })();
