@@ -20,7 +20,7 @@
 // @require http://code.createjs.com/easeljs-0.5.0.min.js
 // @run-at document-start
 // ==/UserScript==
-var brun=false;_upgrade=''
+var brun=false;_upgrade='';keysDown={}
 isRightMB=false;
 fighterMode=false;
 ;(function(){
@@ -1704,22 +1704,32 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
              (autoA?(input.mouse(cords.x,cords.y)):null,await autoAim());
         }
         autoAim()
-        async function RealBooster_(_=180){
+        async function RealBooster_(fromPos,fighter){
+            var _=180
             if(!canGo_)return;canGo_=false;
-            var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=player._mouse,b=rotatePoint(a,c,_)
             Fire(true)
-            //while(isRightMB){
-            input.mouse(b.x,b.y)
-            await sleep(time+70)
+            autoA=1
+            var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,15);time+=50
+
+            cords=a;
+            await sleep(time)
+            c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,0)
+            cords=b2;
+            //await sleep(time)
+            //input.mouse(b2.x,b2.y)
+            await sleep(time+(time/5))
+            c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,0)
+            cords=b;
+            //input.mouse(b.x,b.y)
+            await sleep(time*3)
+            c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,0)
+            cords=a;
+            await sleep(time)
+            c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,0)
+            autoA=0
             input.mouse(a.x,a.y)
-            var __=setInterval(()=>{input.mouse(a.x,a.y)},1)
-            await sleep(time+100)
-            clearInterval(__)
-            // }
-            input.mouse(a.x,a.y);
-            await sleep(time);
             Fire(false)
-            await sleep(time);
+            await sleep(time*2)
             canGo_=true
         }
         async function RealBooster(_=140,fighter=false){
@@ -1899,8 +1909,23 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         const keys = obj => Object.keys(obj||this);
         function ab(){if(down.Alt&&(down.a||down.A)){stack();console.log('Stacking')}}
-        window.addEventListener('keydown', function (e) { const key = e.key; if (down[key]) { return }down[key]=[key,true];ab()/*log('Key down', key, 'Total:', keys(down).length)*/});
-        window.addEventListener('keyup', function (e) { const key = e.key; if (down[key]) { return } down[key] = [key,false]; /*log('Key down', key, 'Total:', keys(down).length)*/ });
+        window.addEventListener('keydown', function (e) { const {key,keyCode} = e; if (down[key]) { return }down[key]=[key,true];ab()/*log('Key down', key, 'Total:', keys(down).length)*/;keysDown[keyCode]=true
+                                                         if(brun&&keyCode==16&&(keysDown[65]||keysDown[37]||keysDown[68]||keysDown[39]||keysDown[87]||keysDown[38]||keysDown[83]||keysDown[40])){
+                                                             var a={x:innerWidth,y:innerHeight/2}
+                                                             var b={x:innerWidth/2,y:innerHeight/2}
+                                                             //a left and d right
+                                                             var angle1=keysDown[65]||keysDown[37]&&(180) || keysDown[68]||keysDown[39]&&(0)
+                                                             ///w up and s down
+                                                             var angle2=keysDown[87]||keysDown[38]&&(270) || keysDown[83]||keysDown[40]&&(90)
+                                                             var angles=[angle1,angle2].sort((a,b)=>a-b) //[1,2,3,4,5] sort
+                                                             var direction=angles[1]-((angles[1]-angles[2])/2);
+                                                             var newPoint=rotatePoint(a,b,direction)
+                                                             RealBooster_(newPoint)
+
+                                                         }
+                                                        });
+        window.addEventListener('keyup', function (e) { const {key,keyCode} = e; keysDown[keyCode]=false;if (down[key]) { return } down[key] = [key,false]; /*log('Key down', key, 'Total:', keys(down).length)*/
+                                                      });
         var info={}
         var base=document.getElementsByTagName('d-base')[0];
         var canloop=true
