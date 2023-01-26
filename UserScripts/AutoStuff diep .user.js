@@ -70,7 +70,13 @@ fighterMode=false;
         }
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging})})(globalRoot)
-var fireing=false;
+fireing=false;
+function Fire_(v){
+    fireing!=v&&(input.keyDown(69),input.keyUp(69))
+    fireing=v
+}
+Fire=Fire_
+var Fire=Fire;
 unsafeWindow.GM_getValue=GM_getValue
 unsafeWindow.GM_setValue=GM_setValue
 unsafeWindow.GM_info = GM_info
@@ -83,13 +89,14 @@ Array.prototype.forEachAsync = async function(e = function() {}) {
 };
 
 var stats={7:-.4}
-function rotatePoint(point, center, angle){
+function rotatePoint_(point, center, angle){
             angle = (angle ) * (Math.PI/180); // Convert to radians
             var rotatedX = Math.cos(angle) * (point.x - center.x) - Math.sin(angle) * (point.y-center.y) + center.x;
             var rotatedY = Math.sin(angle) * (point.x - center.x) + Math.cos(angle) * (point.y - center.y) + center.y;
             return new createjs.Point(rotatedX,rotatedY);
         }
-
+rotatePoint=rotatePoint_
+var rotatePoint=rotatePoint
 ;(async function(noads=false) {
     upgrade=''
     //'use strict';
@@ -1680,10 +1687,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 input.keyUp(32);
             }, t * 1000 + w);
         }
-        function Fire(v){
-            fireing!=v&&(input.keyDown(69),input.keyUp(69))
-                fireing=v
-        }
         function stack(){
             fire(0, 100);
             fire(0.75, 200);
@@ -1705,29 +1708,35 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         autoAim()
         async function RealBooster_(fromPos,fighter){
-            var _=180
             if(!canGo_)return;canGo_=false;
             Fire(true)
             autoA=1
-            var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,15);time+=50
-
-            cords=a;
-            await sleep(time)
-            c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,0)
+            var _=180,__=0,___=0
+            var center={x:innerWidth/2,y:innerHeight/2},stats={7:-.04},count=_upgrade&&(_upgrade.match(/7/gi).length)||0,time=(0.6+(count*stats[7])),c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,0):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,0);time+=50
+            var up=()=>{
+                c=center
+                a=rotatePoint(fromPos||player._mouse,c,_)
+                b=rotatePoint(a,c,_)
+                b2=b
+            };
             cords=b2;
+            await sleep(time)
+            up()
+            cords=b;
             //await sleep(time)
             //input.mouse(b2.x,b2.y)
             await sleep(time+(time/5))
-            c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,0)
+            up()
             cords=b;
             //input.mouse(b.x,b.y)
             await sleep(time*3)
-            c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,0)
-            cords=a;
+            up()
+            cords=rotatePoint(a,c,_);
             await sleep(time)
-            c=center,a=fighter?rotatePoint(fromPos||player._mouse,c,90):fromPos||player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,0)
+            up()
+            cords=rotatePoint(a,c,_)
             autoA=0
-            input.mouse(a.x,a.y)
+            input.mouse(cords.x,cords.y)
             Fire(false)
             await sleep(time*2)
             canGo_=true
@@ -1749,7 +1758,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             c=center,a=fighter?rotatePoint(player._mouse,c,90):player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,15)
             cords=b;
             //input.mouse(b.x,b.y)
-            await sleep(time*3)
+            await sleep(time*2)
             c=center,a=fighter?rotatePoint(player._mouse,c,90):player._mouse,b=rotatePoint(a,c,_),b2=rotatePoint(b,c,15)
             cords=a;
             await sleep(time)
@@ -1909,20 +1918,30 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         const keys = obj => Object.keys(obj||this);
         function ab(){if(down.Alt&&(down.a||down.A)){stack();console.log('Stacking')}}
-        window.addEventListener('keydown', function (e) { const {key,keyCode} = e; if (down[key]) { return }down[key]=[key,true];ab()/*log('Key down', key, 'Total:', keys(down).length)*/;keysDown[keyCode]=true
-                                                         if(brun&&keyCode==16&&(keysDown[65]||keysDown[37]||keysDown[68]||keysDown[39]||keysDown[87]||keysDown[38]||keysDown[83]||keysDown[40])){
+        window.addEventListener('keydown', function (e) { const {key,keyCode} = e;/*log('Key down', key, 'Total:', keys(down).length)*/;keysDown[keyCode]=true
+                                                         if(brun&&keysDown[16]&&(keysDown[65]||keysDown[37]||keysDown[68]||keysDown[39]||keysDown[87]||keysDown[38]||keysDown[83]||keysDown[40])){
                                                              var a={x:innerWidth,y:innerHeight/2}
+                                                             console.log('Found',keysDown)
                                                              var b={x:innerWidth/2,y:innerHeight/2}
                                                              //a left and d right
-                                                             var angle1=keysDown[65]||keysDown[37]&&(180) || keysDown[68]||keysDown[39]&&(0)
+                                                             var angle1=(keysDown[65]||keysDown[37])&&(180) || (keysDown[68]||keysDown[39])&&(0)
                                                              ///w up and s down
-                                                             var angle2=keysDown[87]||keysDown[38]&&(270) || keysDown[83]||keysDown[40]&&(90)
-                                                             var angles=[angle1,angle2].sort((a,b)=>a-b) //[1,2,3,4,5] sort
-                                                             var direction=angles[1]-((angles[1]-angles[2])/2);
+                                                             var angle2=(keysDown[87]||keysDown[38])&&(270) || ((keysDown[83]||keysDown[40])&&(90))
+
+                                                             var angles=[angle1,angle2]//.sort((a,b)=>a-b) //[1,2,3,4,5] sort
+                                                             var f=(a,b)=>typeof a=='number'&&typeof b=='number'?b-(b-a)/2:[a,b].filter(n=>typeof n=='number')[0];
+                                                             var direction=f(angle1,angle2)
                                                              var newPoint=rotatePoint(a,b,direction)
+                                                             var d=['','']
+                                                             if([180,37].includes(angle1)){d[0]='left'}
+                                                             if([0,39].includes(angle1)){d[0]='right'}
+                                                             if([270,38].includes(angle2)){d[1]='up'}
+                                                             if([90,83].includes(angle2)){d[1]='down'}
+                                                             console.log(d,{angle1,angle2,direction},angles)
                                                              RealBooster_(newPoint)
 
                                                          }
+                                                         if (down[key]) { return }down[key]=[key,true];ab()
                                                         });
         window.addEventListener('keyup', function (e) { const {key,keyCode} = e; keysDown[keyCode]=false;if (down[key]) { return } down[key] = [key,false]; /*log('Key down', key, 'Total:', keys(down).length)*/
                                                       });
@@ -1934,7 +1953,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             var shouldReturn=isRightMB==false//||looping_&&!l
             if(shouldReturn)return looping_=false;
             looping_=true
-            var f=brun?RealBooster_:RealBooster;
+            var f=RealBooster
             await f()
             if(!isRightMB)Fire(false);
             //await _canGo_()
