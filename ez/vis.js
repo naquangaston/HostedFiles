@@ -1,6 +1,55 @@
+var _maxH_=256
+console.log(
+(((_maxH_+_maxH_+240)/3)/_maxH_)
+)
+var _avg_=0
+function something(){
+	var bass=json.bassCounts
+var lt=0;
+var cSharp=bass.map(e=>{
+    var waitTime=e.currentTime-(lt||e.currentTime);lt=e.currentTime
+    const {bassArray,bassTimeAvg}=e;
+    if(bassArray.length){
+        var wt=bassArray[0].currentTime,lt_=bassArray[0].currentTime;
+        console.log(bassArray)
+        return bassArray.map(f=>{
+            lt=0
+            wt=f.currentTime-(lt_||f.currentTime);lt_=f.currentTime
+            return `//longBass=true;\nif(active){\ntransform.localScale = Vector3.Lerp(transform.localScale, transform.localScale+(transform.localScale*${bassTimeAvg}));Task.Deley(${wt.toFixed(3)});\n}`
+        }).join('\n')+'//longBass=false;'
+        lt_=0
+    }else return`if(active){\ntransform.localScale = Vector3.Lerp(transform.localScale, transform.localScale+(transform.localScale*${bassTimeAvg}));Task.Deley(${waitTime.toFixed(3)});\n}\n`
+}).join('\n')
+_download('_test_.cs',cSharp)
+}
 //'https://jsfiddle.net/Laoct5fm/'
+var mt=false;
+var lastH=0;
+var _last=0
+function msToTime(s) {
+
+  // Pad to 2 or 3 digits, default is 2
+  function pad(n, z) {
+    z = z || 2;
+    return ('00' + n).slice(-z);
+  }
+
+  var ms = s % 1000;
+  s = (s - ms) / 1000;
+  var secs = s % 60;
+  s = (s - secs) / 60;
+  var mins = s % 60;
+  var hrs = (s - mins) / 60;
+
+  return pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3);
+}
+
+
+
+var _arr=[]
 let _0x='trans'
 var _1x,_3x=50
+var _max=false;
 var Tout
 var canT
 var Iscr
@@ -1245,12 +1294,14 @@ function rgbToHex(r, g, b) {
   })
   function n(e, a, s = audio) {
 		_download(`JSON - ${window.nowPlaying} - JSON.txt`,JSON.stringify({bassCounts}))
+		_download(`JSON-Array - ${window.nowPlaying} - JSON.txt`,JSON.stringify({_arr}))
         let b;
+		_arr=[]
 		currentBassTime=0
 		window.nowPlaying=e.name
         console.log(document.title="Now playing:", e.name);
 				bassCounts=[];bassArray=[];
-        (s.src = URL.createObjectURL(e)),
+        (s.src.length?URL.revokeObjectURL(s.src):null,s.src = URL.createObjectURL(e)),
           s.load(),
           a &&
             (localF.f=function(...c){a(...c)});
@@ -1445,18 +1496,12 @@ function rgbToHex(r, g, b) {
       var sliceWidth = (WIDTH * 1.0) / bufferLength;
 
       var x = 0;
+			var maxH=0;
       var scale = Math.log(frequencyBins - 1) / WIDTH;
 
       ctx.fillStyle = "rgba(0,0,0,0)";
       ctx.fillRect(0, 0, WIDTH, HEIGHT);
-
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "#fff";
-      ctx.beginPath();
-      ctx.moveTo(mouseX, 0);
-      ctx.lineTo(mouseX, HEIGHT);
-      ctx.stroke();
-      ctx.closePath();
+			lastH=0
 
       let mouseHz =
         -10 / Math.log(mouseX / WIDTH) / (Math.log(441000 / 2 - 1) / WIDTH);
@@ -1468,11 +1513,33 @@ function rgbToHex(r, g, b) {
       if (select.value == "bar-graph") {
         analyser.getByteFrequencyData(dataArray);
         myarr = [...dataArray].splice(0, 10);
+				lgn=bufferLength;
         for (var i = 0; i < bufferLength; i++) {
           let x = Math.floor(Math.log(i) / scale);
           barHeight = dataArray[i];
+					maxH=[barHeight,maxH].sort((a,b)=>a-b).pop()
           avg += barHeight;
+					let bh=barHeight
+			let bha=barHeight>=((_avg_/100)*_maxH_)
+			
           barHeight /= 2;
+					if(lastH<=bh){lastH=bh}
+					else if(bha){
+						lastH=0;
+						ctx.fillStyle = "rgba(0,0,0,0)";
+						ctx.fillRect(0, 0, WIDTH, HEIGHT);
+						ctx.lineWidth = 1;
+						ctx.strokeStyle = "#fff";
+						ctx.beginPath();
+						ctx.moveTo(x, 0);
+						ctx.lineTo(x, HEIGHT);
+						ctx.stroke();
+						ctx.closePath();
+						ctx.fillText(`${bh} H\n${i} In`,
+                x,
+                HEIGHT/2
+            );
+					}
           /* var r = barHeight + (25 * (i/bufferLength));
                              var g = 250 * (i/bufferLength);
                              var b = 50; */
@@ -1489,7 +1556,8 @@ function rgbToHex(r, g, b) {
             HEIGHT
           );
         }
-      } else if (select.value == "waveform") {
+      } 
+			else if (select.value == "waveform") {
         analyser.getByteFrequencyData(dataArray);
         let start = 0; //dataArray.find(a=> Math.max.apply('',dataArray));
         analyser.getByteTimeDomainData(dataArray);
@@ -1512,7 +1580,8 @@ function rgbToHex(r, g, b) {
         }
         ctx.lineTo(WIDTH, ((dataArray[0] / 128.0) * HEIGHT) / 2);
         ctx.stroke();
-      } else if (select.value == "rgb-bar-graph") {
+      } 
+			else if (select.value == "rgb-bar-graph") {
         //ctx.globalCompositeOperation = "hue";
         analyser.getByteFrequencyData(dataArray);
         var imgData = ctx.createImageData(WIDTH, HEIGHT);
@@ -1545,7 +1614,8 @@ function rgbToHex(r, g, b) {
         // ctx.fillStyle = "rgb(" + 0 + "," + 0 + "," + b + ")";
         // ctx.fillRect(x, HEIGHT - (b * HEIGHT / 255), 1, HEIGHT);
         // }
-      } else {
+      } 
+			else {
         if (typeof a) {
           analyser.getByteFrequencyData(dataArray);
           if (window.it % 2 == 0)
@@ -1580,6 +1650,7 @@ function rgbToHex(r, g, b) {
           }
         }
       }
+			let totale_=avg;
       avg /= lgn;
       ctx.textBaseline = "bottom";
       ctx.textAlign = "left";
@@ -1615,6 +1686,7 @@ function rgbToHex(r, g, b) {
             }s ease 0s infinite normal none running shakee`;*/
 			
       if (true) {
+				Iimg.style.opacity=avg/100
         var numberOfItems = 256;
         var rainbow = new Rainbow();
         rainbow.setNumberRange(1, numberOfItems);
@@ -1625,7 +1697,7 @@ function rgbToHex(r, g, b) {
         var hexColour =
           "#" + rainbow.colourAt((num+num10).toFixed(0));
 
-        document.body.style.backgroundColor = hexColour;
+        Iimg.src?document.body.style.backgroundColor='black':document.body.style.backgroundColor = hexColour;
 				//Iimg.src=null
         if (avg3 > 240) {
          if(!canT){
@@ -1639,7 +1711,7 @@ function rgbToHex(r, g, b) {
                         clearTimeout(_1x);([...Iimg.classList]).includes(_0x)?_1x=setTimeout(()=>{Iimg.classList.toggle(_0x)},5):(Iimg.classList.toggle(_0x),_1x=setTimeout(()=>{Iimg.classList.toggle(_0x)},_3x))
 						Iscr=Idex.next().value?(Idex.next().value):null;
 						currentBassTime=source.currentTime;bassTimeAvg=avg2.toFixed(3),bassTime.start()}
-          document.body.style.backgroundColor = "blue";Iimg.src=Iscr
+          Iimg.src?null:document.body.style.backgroundColor = "blue";Iimg.src=Iscr
 					dif=[time.stamp,lastSt].sort((a,b)=>b-a)
 					if((dif[0]-dif[1])<100||lastSt>=time.stamp){
 						bassArray.push({
@@ -1665,9 +1737,34 @@ function rgbToHex(r, g, b) {
 					bassCount++;
 					time.start()
         }
+				var dif=parseInt(avg.toFixed(0))-_last
+				if(dif>10){
+					mt=true,
+					_frame=source.currentTime
+					_avg=avg
+					_avg2=avg2
+					_mst=msToTime(source.currentTime)
+					_last=parseInt(avg.toFixed(0))
+				}
+				if(dif<0){
+					_last=parseInt(avg.toFixed(0))
+					if(mt){
+						_arr.push([
+						parseInt(_avg.toFixed(0)),
+						_frame*60,
+						_mst,
+						_avg,
+						_avg2
+					]);
+						mt=false;
+					}
+				}
         myText.innerText = (window.nowPlaying?
 														[
-					window.nowPlaying,
+					`avg%:${avg.toFixed(0)}`,
+					`T:${((_avg_/100)*_maxH_).toFixed(0)}`,
+					`avg2:${avg2.toFixed(2)}`,
+					window.nowPlaying,maxH,
 					[
 						currentBassTime.toFixed(3),
 					  source.currentTime&&(source.currentTime.toFixed(3))||'nah'
@@ -1691,6 +1788,7 @@ function rgbToHex(r, g, b) {
 					html,
 					hexColour
 				].join('\n');
+				_avg_=avg
       }
       /*ctx.fillText(`${mouseHz} Hz`,
                 mouseX,
