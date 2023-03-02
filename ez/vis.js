@@ -1653,6 +1653,7 @@ function rgbToHex(r, g, b) {
       }
 			let totale_=avg;
       avg /= lgn;
+	    var hasSrc=MyImg.src.replace((function(s){return function(){return[s.origin,s.pathname.split('/').reverse().splice(1).reverse().join('/'),'/'].join('')}}((new URL(location.href))))(),'')=='null'
       ctx.textBaseline = "bottom";
       ctx.textAlign = "left";
       ctx.font = "16px Courier";
@@ -1698,7 +1699,7 @@ function rgbToHex(r, g, b) {
         var hexColour =
           "#" + rainbow.colourAt((num+num10).toFixed(0));
 
-        Iimg.src&&Iimg.src.length?document.body.style.backgroundColor='black':document.body.style.backgroundColor = hexColour;
+        hasSrc?document.body.style.backgroundColor='black':document.body.style.backgroundColor = hexColour;
 				//Iimg.src=null
         if (avg3 > 240) {
          if(!canT){
@@ -1712,7 +1713,7 @@ function rgbToHex(r, g, b) {
                         clearTimeout(_1x);([...Iimg.classList]).includes(_0x)?_1x=setTimeout(()=>{Iimg.classList.toggle(_0x)},5):(Iimg.classList.toggle(_0x),_1x=setTimeout(()=>{Iimg.classList.toggle(_0x)},_3x))
 						Iscr=Idex.next().value?(Idex.next().value):null;
 						currentBassTime=source.currentTime;bassTimeAvg=avg2.toFixed(3),bassTime.start()}
-          Iimg.src&&Iimg.src.length?null:document.body.style.backgroundColor = "blue";Iimg.src=Iscr
+          hasSrc?null:document.body.style.backgroundColor = "blue";Iimg.src=Iscr
 					dif=[time.stamp,lastSt].sort((a,b)=>b-a)
 					if((dif[0]-dif[1])<100||lastSt>=time.stamp){
 						bassArray.push({
