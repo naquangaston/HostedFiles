@@ -1653,7 +1653,7 @@ function rgbToHex(r, g, b) {
       }
 			let totale_=avg;
       avg /= lgn;
-	    var hasSrc=MyImg.src.replace((function(s){return function(){return[s.origin,s.pathname.split('/').reverse().splice(1).reverse().join('/'),'/'].join('')}}((new URL(location.href))))(),'')=='null'
+	    var hasSrc=MyImg.src.replace((function(s){return function(){return[s.origin,s.pathname.split('/').reverse().splice(1).reverse().join('/'),'/'].join('')}}((new URL(location.href))))(),'')!='null'
       ctx.textBaseline = "bottom";
       ctx.textAlign = "left";
       ctx.font = "16px Courier";
