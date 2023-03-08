@@ -1,373 +1,525 @@
+
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Some video thing</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<title>Some video thing</title>
+		<meta name='viewport' content='width=device-width, initial-scale=1'>
+		<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
 
-        video {
-            border: none;
-            position: relative;
-            max-width: 100%;
-        }
+			video {
+				border: none;
+				position: relative;
+				max-width: 100%;
+			}
 
-        body {
-            color: white;
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
-            background-color: rgb(54, 57, 63);
-            overflow-x: hidden;
-        }
+			body {
+				color: white;
+				-ms-overflow-style: none;
+				/* IE and Edge */
+				scrollbar-width: none;
+				/* Firefox */
+				background-color: rgb(54, 57, 63);
+				overflow-x: hidden;
+			}
 
-        img,
-        button,
-        .menu {
-            border: 2px solid red;
-            border-radius: 8px;
-            border-style: solid;
-            border-width: medium;
-        }
+			img,
+			button,
+			.menu {
+				border: 2px solid red;
+				border-radius: 8px;
+				border-style: solid;
+				border-width: medium;
+			}
+      .green{
+        border: 2px solid red;
+      }
+			button {
+				color: rgb(27, 51, 99)
+			}
 
-        button {
-            color: rgb(27, 51, 99)
-        }
+			input {
+				/*border-width: 1px;*/
+				border: 2px dashed rgb(87, 167, 12);
+				color: white;
+				background: rgba(0, 0, 0, 0)
+			}
 
-        input {
-            /*border-width: 1px;*/
-            border: 2px dashed rgb(87, 167, 12);
-            color: white;
-            background: rgba(0, 0, 0, 0)
-        }
+			body::-webkit-scrollbar {
+				display: none;
+			}
 
-        body::-webkit-scrollbar {
-            display: none;
-        }
+			input[type=button] {
+				border: 2px solid rgb(255, 255, 255);
+				color: white;
+			}
+			#videos{
+				display:block;
+			}
+			.inlineblock{
+				display:inline-block;
+			}
+		</style>
+	</head>
 
-        input[type=button] {
-            border: 2px solid rgb(255, 255, 255);
-            color: white;
-        }
-    </style>
-</head>
+	<body>
+		<h2>
+			Upload here
+		</h2>
+		<input type='file' id='myV' multiple accept=".mp4,.mkv,.mov,.WMV,.AVI,.AVCHD,.FLV, .F4V,.SWF,.MKV,.WEBM">
+		<hr>
+		<h2>Settings</h2>
+		<form id='thisForm' action="">
+			<label for="autoPlay">Auto play video</label><input type="checkbox" name="autoPlay"><br>
+			<label for="autoSave">Auto save video</label><input type="checkbox" name="autoSave"><br>
+			<label for="autoFull">Auto Fullscreen video</label><input type="checkbox" name="autoFull"><br>
+			<label for="AutoSelect">Auto select video</label><input type="checkbox" name="AutoSelect"><br>
+			<input type='submit' value='Save'>
+		</form>
+		<hr>
+		<h2>
+			Choose Video
+		</h2>
+		<select id='MySelec'>
 
-<body>
-    <h2>
-        Upload here
-    </h2>
-    <input type='file' id='myV' multiple accept=".mp4,.mkv,.mov,.WMV,.AVI,.AVCHD,.FLV, .F4V,.SWF,.MKV,.WEBM">
-    <hr>
-    <h2>Settings</h2>
-    <form id='thisForm' action="">
-        <label for="autoPlay">Auto play video</label><input type="checkbox" name="autoPlay"><br>
-        <label for="autoSave">Auto save video</label><input type="checkbox" name="autoSave"><br>
-				<label for="autoFull">Auto Fullscreen video</label><input type="checkbox" name="autoFull"><br>
-        <label for="AutoSelect">Auto select video</label><input type="checkbox" name="AutoSelect"><br>
-        <input type='submit' value='Save'>
-    </form>
-    <hr>
-    <h2>
-        Choose Video
-    </h2>
-    <select id='MySelec'>
-
-    </select>
-    <hr>
+		</select>
+		<div id='videos'>
+		
+		</div>
+		<hr>
 		<video controls='1' width='auto' height='auto' preload='true' id='player'></video>
-    <script>
-        //localStorage.videoData='{}'
-				
-				//for auto thumbnails (WIP)
-        function capture() {
-            var canvas = document.getElementById('canvas');
-            var video = document.getElementById('video');
-            canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+		<script>
+			//localStorage.videoData='{}'
+
+			//for auto thumbnails (WIP)
+			class Listener_{
+				#target=null
+				constructor(target,a,b,c){
+					target.addEventListener(a,b,c)
+					this.Listener=a
+					this.callback=b
+					this.opt=c;
+					this.#target=target
+				}
+				removeListener(){
+					return this.#target.removeEventListener(this.Listener,this.callback,this.opt)
+				}
+			}
+			class Element_{
+				#Listeners=[]
+				#node=null
+				constructor(element,atr){
+					this.#node=element.doctype?element:document.createElement(element)
+					function a(b,c){
+						for(let i in b){
+							try{if(typeof b[i]=='object')a(b[i],c[i]);else c[i]=b[i];}catch(err){}
+						}
+					}
+					a(this.#node,atr)
+				}
+				on(listener,f,opt){
+					const l=new Listener_(this.#node,listener,f,opt)
+					return (this.#Listeners.push(l),l)
+				}
+				get node(){return this.#node}
+				get Listeners(){return this.#Listeners}
+			}
+			function getP(file,ScaleFactor=.25){
+				return new Promise(a=>{
+					var video=new Element_('video')
+					const videoNode=video.node
+					videoNode.volume=0
+					video.node.src=URL.createObjectURL(file)
+					document.body.append(video.node)
+					var cp=video.on('canplaythrough',function(_){
+						cp.removeListener()
+						videoNode.play()
+					})
+					var tp=video.on('timeupdate',function(_) {
+						tp.removeListener();
+						videoNode.pause()
+						let w = videoNode.videoWidth * ScaleFactor;
+						let h = videoNode.videoHeight * ScaleFactor;
+						let canvas = document.createElement('canvas');
+						canvas.width = w;
+						canvas.height = h;
+						let ctx = canvas.getContext('2d');
+						ctx.drawImage(videoNode, 0, 0, w, h);
+						let dataURI = canvas.toDataURL('image/jpeg');
+						// let a = 
+						function dataURLtoFile(dataurl, filename) {
+							var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+									bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+							while (n--) {
+								u8arr[n] = bstr.charCodeAt(n);
+							}
+							return new File([u8arr], filename, { type: mime });
+						}
+
+						let boj={
+							canvas:canvas,
+							file:dataURLtoFile(dataURI, `${+new Date()}.jpg`),
+							base64:dataURI,w,h
+						}
+						video.capture=video
+						a(boj)
+						URL.revokeObjectURL(file)
+						videoNode.remove()
+						return boj;
+					})
+					})
+			}
+			function capture() {
+				var canvas = document.getElementById('canvas');
+				var video = document.getElementById('video');
+				canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+			}
+			function enterFullScreen(element) {
+				var fs=(
+					element.requestFullscreen/*default*/||
+					element.mozRequestFullScreen/*Firefox*/||
+					element.webkitRequestFullscreen/*Safari*/||
+					element.msRequestFullscreen/*IE/Edge*/
+				)
+				fs&&(fs(),true)||alert('cannot fullscreen video')
+			};
+			var inputs={}
+      var allImgs = []
+      onscroll = async function () {
+      for (let i = 0; i < allImgs.length; i++) {
+        var prev = allImgs[i][0]
+        var real = allImgs[i][1]
+        if (isElementInViewport(prev)) {
+          real.style.display = 'inline-block'
+          prev.style.display = 'none'
         }
-				function enterFullScreen(element) {
-          var fs=(
-            element.requestFullscreen/*default*/||
-            element.mozRequestFullScreen/*Firefox*/||
-            element.webkitRequestFullscreen/*Safari*/||
-            element.msRequestFullscreen/*IE/Edge*/
-          )
-          fs&&(fs(),true)||alert('cannot fullscreen video')
-};
-				var inputs={}
-        var currentFile = {}
-        var findhref = function (a, b) {
-            var res = [];
-
-            function part2(e) {
-                if (e.tagName.toLowerCase() == (b || 'a')) {
-                    res.push(e);
-                } else {
-                    if (e.children.length) {
-                        e = e.children;
-                        e.forEach = [].forEach;
-                        e.forEach(e2 => {
-                            part2(e2);
-                        })
-                    }
-                }
-            };
-            part2(a);
-            return res
+        if (!(isElementInViewport(real))) {
+          real.style.display = 'none'
+          prev.style.display = 'inline-block'
         }
-        Object.prototype.add_Property = function (obj, writable = false) {
-            if (this.constructor.name != globalThis.constructor.name) {
-                const {
-                    name
-                } = obj;
-                if (!name) throw "obj name must be defined";
-                else return Object.defineProperty(this, name, {
-                    value: obj,
-                    writable
-                })
-            } else {
-                throw "This function ment to be used as a global method not an regular funcion"
-            }
-        }
-        Object.prototype.Define_Property = function (name, obj) {
-            if (this.constructor.name != globalThis.constructor.name) return Object.defineProperty(this, name, obj);
-            else {
-                throw "This function ment to be used as a global method not an regular funcion"
-            }
-        }
-        class videoData extends Object {
-            constructor(data) {
-                data = data.constructor.name == 'String' && (JSON.parse(data)) || data
-                super();
-                this.videoData = {}
-                for (let a in data) {
-                    this[a] = data[a]
-                }
-                this.videos = this.videos || {}
-                this.videos.add = function (o) {
-								var d = (new Date().toString()).split(' ').splice(0, 5).join(' ')
-                    var { title,_date, _title, _finished, _duration, _progress } = o;
-                    title = title || _title || o
-                    if (this[title]) return;
+      }
+    }
+    function isElementInViewport(el) {
 
-                    class t extends Object {
-                        set title(t) { this._title = t }
-                        get title() { return this._title }
-												set date(t) { this._date = t }
-                        get date() { return this._date }
-                        set duration(t) { this._duration = t }
-                        get duration() { return this._duration }
-                        set progress(t) { this._progress = t }
-                        get progress() { return this._progress }
-                        set finished(t) { this._finished = t }
-                        get finished() { return this._finished }
-                        constructor(title) {
-                            super()
-                            this.title = _title || title; this.date = _date||d; this.finished = !!_finished; this.progress = _progress || 0; this.duration = _duration || 0;
-                        }
-                    }
+      // Special bonus for those using jQuery
+      if (typeof jQuery === "function" && el instanceof jQuery) {
+        el = el[0];
+      }
 
-                    this[title] = new t(title)
-                }
-            }
-        }
+      var rect = el.getBoundingClientRect();
 
-        function testObj(data) {
-            try { data = data.constructor.name == 'String' && (JSON.parse(data)) || data; return data } catch (err) { return null }
-        }
+      return (
+        rect.top >= 0 - (((window.innerHeight || document.documentElement.clientHeight) / 2)) &&
+        rect.left >= 0 &&
+        rect.bottom <= ((window.innerHeight || document.documentElement.clientHeight) + ((window.innerHeight || document.documentElement.clientHeight) / 2)) && /* or $(window).height() */
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+      );
+    }
+			var currentFile = {}
+			var findhref = function (a, b) {
+				var res = [];
 
-        const info = new videoData(localStorage.videoData || {})
-        info.formData = testObj(info.formData) || {
-            autoPlay: 'off',
-            AutoSelect: 'off',
-            AutoSave: "off"
-        }
-        console.log(info)
-        var _ = document.getElementById('thisForm')
-        var __ = document.getElementById('player')
-        var ___ = document.getElementById('myV')
-        var Myselec = document.getElementById('Myselec')
-        __.classList.toggle('hidden')
-        function formSub(form) {
-            info.formData = {}
-            const _this = (form || this) instanceof (HTMLFormElement) && (form || this) || null
-            if (_this == null) throw "HTMLFormElement not found";
-            const formData = $(_this).serializeArray()
-            formData.forEach(({
-                name,
-                value
-            }) => {
-                console.log(name, value)
-                info.formData[name] = value
-            })
-            console.log(info)
-            //new FormData(_this);for (const [key, value] of formData) {console.log([key,value])}
-        }
-
-
-
-        function addELog(target, name, cb) {
-            cb = (cb) instanceof (Function) && (cb) || function () { };
-
-            function EventLog(e) {
-                const caller = EventLog.caller
-                const {
-                    type,
-                    target,
-                    target: {
-                        constructor: {
-                            name
-                        }
-                    },
-                    options
-                } = e
-                console.log({
-                    caller,
-                    type,
-                    name,
-                    options
-                })
-                cb.call(target, e)
-            }
-            addEventListener(name, EventLog, true)
-        }
-
-        addELog(_, 'submit', function (e) {
-            e.preventDefault()
-            formSub(this)
-        })
-
-        addELog(__, 'load', function (e) { })
-        addELog(__, 'canplaythrough', function (e) {
-            info.videos[currentFile.name].duration = __.duration
-            console.log(__.duration);
-            var {
-                width
-            } = this.getBoundingClientRect()
-            var totalCenter = innerWidth / ((innerWidth / 2) - width / 2);
-            this.style.left = `${totalCenter}%`
-            info.formData.autoPlay && (setTimeout(() => { __.play();info.formData.autoFull&&(fullscreen(__)) }, 100));
-						!stamped&&(stamped=true,this.currentTime=info.videos[currentFile.name].progress)
-            __.pause();
-        })
-        addELog(__, 'ended', function (e) {
-            info.videos[currentFile.name].finished = (true)
-        })
-        addELog(__, 'pause', function (e) { })
-        addELog(__, 'play', function (e) {
-            info.videos[currentFile.name].finished = false;
-            info.videos[currentFile.name].duration = __.duration
+				function part2(e) {
+					if (e.tagName.toLowerCase() == (b || 'a')) {
+						res.push(e);
+					} else {
+						if (e.children.length) {
+							e = e.children;
+							e.forEach = [].forEach;
+							e.forEach(e2 => {
+								part2(e2);
+							})
+						}
+					}
+				};
+				part2(a);
+				return res
+			}
+			Object.prototype.add_Property = function (obj, writable = false) {
+				if (this.constructor.name != globalThis.constructor.name) {
+					const {
+						name
+					} = obj;
+					if (!name) throw "obj name must be defined";
+					else return Object.defineProperty(this, name, {
+						value: obj,
+						writable
+					})
+				} else {
+					throw "This function ment to be used as a global method not an regular funcion"
+				}
+			}
+			Object.prototype.Define_Property = function (name, obj) {
+				if (this.constructor.name != globalThis.constructor.name) return Object.defineProperty(this, name, obj);
+				else {
+					throw "This function ment to be used as a global method not an regular funcion"
+				}
+			}
+			class videoData extends Object {
+				constructor(data) {
+					data = data.constructor.name == 'String' && (JSON.parse(data)) || data
+					super();
+					this.videoData = {}
+					for (let a in data) {
+						this[a] = data[a]
+					}
+					this.videos = this.videos || {}
+					this.videos.add = function (o) {
 						var d = (new Date().toString()).split(' ').splice(0, 5).join(' ')
-						info.videos[currentFile.name].date=d;
-        })
-        addELog(__, 'timeupdate', function (e) {
-            info.formData.LastPlayed = this.currentTime
-            info.videos.add(currentFile.name)
-            info.videos[currentFile.name].progress = (this.currentTime)
+						var { title,_date, _title, _finished, _duration, _progress } = o;
+						title = title || _title || o
+						if (this[title]) return;
+
+						class t extends Object {
+							set title(t) { this._title = t }
+							get title() { return this._title }
+							set date(t) { this._date = t }
+							get date() { return this._date }
+							set duration(t) { this._duration = t }
+							get duration() { return this._duration }
+							set progress(t) { this._progress = t }
+							get progress() { return this._progress }
+							set finished(t) { this._finished = t }
+							get finished() { return this._finished }
+							constructor(title) {
+								super()
+								this.title = _title || title; this.date = _date||d; this.finished = !!_finished; this.progress = _progress || 0; this.duration = _duration || 0;
+							}
+						}
+
+						this[title] = new t(title)
+					}
+				}
+			}
+
+			function testObj(data) {
+				try { data = data.constructor.name == 'String' && (JSON.parse(data)) || data; return data } catch (err) { return null }
+			}
+
+			const info = new videoData(localStorage.videoData || {})
+			info.formData = testObj(info.formData) || {
+				autoPlay: 'off',
+				AutoSelect: 'off',
+				AutoSave: "off"
+			}
+			console.log(info)
+			var _ = document.getElementById('thisForm')
+			var __ = document.getElementById('player')
+			var ___ = document.getElementById('myV')
+			var ____ = document.getElementById('videos')
+			var Myselec = document.getElementById('Myselec')
+			__.classList.toggle('hidden')
+			function formSub(form) {
+				info.formData = {}
+				const _this = (form || this) instanceof (HTMLFormElement) && (form || this) || null
+				if (_this == null) throw "HTMLFormElement not found";
+				const formData = $(_this).serializeArray()
+				formData.forEach(({
+					name,
+					value
+				}) => {
+					console.log(name, value)
+					info.formData[name] = value
+				})
+				console.log(info)
+				//new FormData(_this);for (const [key, value] of formData) {console.log([key,value])}
+			}
 
 
-        })
-        addELog(__, 'volumechange', function (e) {
-            info.formData.volume = this.volume
-        })
 
-        onresize = function (e) {
-            var {
-                width
-            } = __.getBoundingClientRect()
-            var sub=(innerWidth / 2) - (width / 2)
-            if(!sub)return;
-            var totalCenter = (sub / innerWidth) * 100;
-            console.log(`${totalCenter}%`)
-            __.style.left = `${totalCenter}%`
-        }
-        onload = function () {
-            var t = {
-                number(e) {
-                    let { name } = e; return info.formData[name] = e.value = Number(info.formData[name] || 0)
-                },
-                text(e) {
-                    let { name } = e; return info.formData[name] = e.value = String(info.formData[name] || '')
-                },
-                checkbox(e) {
-                    let { name } = e;
-                    var d = info.formData[name] || 'off';
-                    e.valued = d
-                    return (e.checked = Boolean(d === 'on'), console.log(e.checked, d, info.formData[name]), info.formData[name] = e.checked)
-                },
-                submit(e) { return }
-            }
-            findhref(_, 'input').forEach(e => {
-                console.log(e.name, e.type)
-                if (t[e.type]) t[e.type](e)
-                else console.warn(e.type, 'Not found')
+			function addELog(target, name, cb) {
+				cb = (cb) instanceof (Function) && (cb) || function () { };
 
-            })
-          var array=[]
-            for (let video in info.videos) {
-                var [_name, _type, _video] = [];
-                (
-                    [_name, _type] = [...(video.match(/^[^\\\/\:\*\?\"\<\>\|\.]+(\.[^\\\/\:\*\?\"\<\>\|\.]+)+$/) || [])], _type && (
-                        _video = info.videos[_name],
-                        console.log(_type, 'video Found', _name, _video.constructor.name),
-                        _video.constructor.name != 't' && (delete info.videos[_name]) ? (info.videos.add(_video),array.push(info.videos[_name])) : console.warn('Failed to delete video', _video)
-                    )
-                )
-            }
-            info.lastVideo=array.filter(a=>!!a.date).sort(function(a,b){
-  // Turn your strings into dates, and then subtract them
-  // to get a value that is either negative, positive, or zero.
- return new Date(b.date) - new Date(a.date);
-})[0];
+				function EventLog(e) {
+					const caller = EventLog.caller
+					const {
+						type,
+						target,
+						target: {
+							constructor: {
+								name
+							}
+						},
+						options
+					} = e
+					console.log({
+						caller,
+						type,
+						name,
+						options
+					})
+					cb.call(target, e)
+				}
+				target.addEventListener(name, EventLog, true)
+			}
 
-        }
-        ___.onchange = function (e) {
-            [...__.classList].includes('hidden') &&
-                (__.classList.toggle('hidden'))
-            var files = this.files
-            files.forEach = [].forEach;
-            MySelec.innerHTML = '';
-            var def = document.createElement('option'); def.innerText = 'none';
-            def.disabled = true
-            MySelec.append(def)
-            def.selected = true;
-						MySelec.onchange = function (e) {
-								stamped=false
-                var { value } = this.selectedOptions[0]
-                console.log('Loading', value)
-                currentFile = files[value]
-                info.videoData.LastName = currentFile.name
-                info.videos.add(currentFile.name)
-                info.videos[currentFile.name].title = currentFile.name
-                __.src = URL.createObjectURL(files[value])
-            };
-            [...files].forEach((e, i) => {
-                const { name } = e;
-                var opt = document.createElement('option')
-                opt.value = i;
-                opt.innerText = name
-                MySelec.append(opt)
-                console.log('Added', name, i)
-								if(info.formData.AutoSelect&&name==info.lastVideo._title){console.log('Found');opt.selected=true;MySelec.onchange()}
-            });
-        }
-        onbeforeunload = function (e) {
-						formSub(_)
-            localStorage.videoData = JSON.stringify(info)
-        }
-    </script>
-</body>
+			addELog(_, 'submit', function (e) {
+				e.preventDefault()
+				formSub(this)
+			})
+
+			addELog(__, 'load', function (e) { })
+			addELog(__, 'canplaythrough', function (e) {
+				info.videos[currentFile.name].duration = __.duration
+				console.log(__.duration);
+				var {
+					width
+				} = this.getBoundingClientRect()
+				var totalCenter = innerWidth / ((innerWidth / 2) - width / 2);
+				this.style.left = `${totalCenter}%`
+				info.formData.autoPlay && (setTimeout(() => { __.play();info.formData.autoFull&&(fullscreen(__)) }, 100));
+				!stamped&&(stamped=true,this.currentTime=info.videos[currentFile.name].progress)
+				__.pause();
+			})
+			addELog(__, 'ended', function (e) {
+				info.videos[currentFile.name].finished = (true)
+			})
+			addELog(__, 'pause', function (e) { })
+			addELog(__, 'play', function (e) {
+				__.scrollIntoView(true);
+        setTimeout(onresize,200)
+        setTimeout(()=>{__.scrollIntoView(true)},250)
+				info.videos[currentFile.name].finished = false;
+				info.videos[currentFile.name].duration = __.duration
+				var d = (new Date().toString()).split(' ').splice(0, 5).join(' ')
+				info.videos[currentFile.name].date=d;
+			})
+			addELog(__, 'timeupdate', function (e) {
+				info.formData.LastPlayed = this.currentTime
+				info.videos.add(currentFile.name)
+				info.videos[currentFile.name].progress = (this.currentTime)
+
+
+			})
+			addELog(__, 'volumechange', function (e) {
+				info.formData.volume = this.volume
+			})
+
+			onresize = function (e) {
+				var {
+					width
+				} = __.getBoundingClientRect()
+				var sub=(innerWidth / 2) - (width / 2)
+				if(!sub)return;
+				var totalCenter = (sub / innerWidth) * 100;
+				console.log(`${totalCenter}%`)
+				__.style.left = `${totalCenter}%`
+			}
+			onload = function () {
+				var t = {
+					number(e) {
+						let { name } = e; return info.formData[name] = e.value = Number(info.formData[name] || 0)
+					},
+					text(e) {
+						let { name } = e; return info.formData[name] = e.value = String(info.formData[name] || '')
+					},
+					checkbox(e) {
+						let { name } = e;
+						var d = info.formData[name] || 'off';
+						e.valued = d
+						return (e.checked = Boolean(d === 'on'), console.log(e.checked, d, info.formData[name]), info.formData[name] = e.checked)
+					},
+					submit(e) { return }
+				}
+				findhref(_, 'input').forEach(e => {
+					console.log(e.name, e.type)
+					if (t[e.type]) t[e.type](e)
+					else console.warn(e.type, 'Not found')
+
+				})
+				var array=[]
+				for (let video in info.videos) {
+					var [_name, _type, _video] = [];
+					(
+						[_name, _type] = [...(video.match(/^[^\\\/\:\*\?\"\<\>\|\.]+(\.[^\\\/\:\*\?\"\<\>\|\.]+)+$/) || [])], _type && (
+							_video = info.videos[_name],
+							console.log(_type, 'video Found', _name, _video.constructor.name),
+							_video.constructor.name != 't' && (delete info.videos[_name]) ? (info.videos.add(_video),array.push(info.videos[_name])) : console.warn('Failed to delete video', _video)
+						)
+					)
+				}
+				info.lastVideo=array.filter(a=>!!a.date).sort(function(a,b){
+					// Turn your strings into dates, and then subtract them
+					// to get a value that is either negative, positive, or zero.
+					return new Date(b.date) - new Date(a.date);
+				})[0];
+
+			}
+			___.onchange = function (e) {
+        allImgs=[];____.innerHTML='';
+				[...__.classList].includes('hidden') &&
+					(__.classList.toggle('hidden'))
+				var files = this.files
+				files.forEach = [].forEach;
+				MySelec.innerHTML = '';
+				var def = document.createElement('option'); def.innerText = 'none';
+				def.disabled = true
+				MySelec.append(def)
+				def.selected = true;
+				MySelec.onchange = function (e) {
+					stamped=false
+					var { value } = this.selectedOptions[0]
+					console.log('Loading', value)
+					currentFile = files[value]
+					info.videoData.LastName = currentFile.name
+					info.videos.add(currentFile.name)
+					info.videos[currentFile.name].title = currentFile.name
+					__.src = URL.createObjectURL(files[value])
+				};
+				[...files].forEach((e, i) => {
+					const { name } = e;
+					var img=new Element_('img',{
+						id:name,
+						className:'inlineblock'
+					})
+          var img_=new Element_('img')
+          var imgNode_=img_.node;
+					img.index=i
+					img.on('click',function(e){
+						MySelec.children[img.index+1].selected=true
+						MySelec.onchange()
+            onresize();
+						//__.focus()
+						//__.select()
+					})
+					var imgNode=img.node;
+          imgNode_.style.display='none'
+					imgNode.style.width='29%'
+					imgNode_.style.width='29%'
+          imgNode_.classList.add('green')
+					____.append(imgNode)
+          ____.append(imgNode_)
+          allImgs.push([imgNode_,imgNode])
+					getP(e).then(({base64,w,h})=>(imgNode.src=base64,
+                                        imgNode_.width=w,
+                                        imgNode_.height=h,
+                                        imgNode.width=w,
+                                        imgNode.height=h))
+					var opt = document.createElement('option')
+					opt.value = i;
+					opt.innerText = name
+					MySelec.append(opt)
+					console.log('Added', name, i)
+					if(info.formData.AutoSelect&&name==info.lastVideo._title){console.log('Found');opt.selected=true;MySelec.onchange()}
+				});
+			}
+			onbeforeunload = function (e) {
+				formSub(_)
+				localStorage.videoData = JSON.stringify(info)
+			}
+		</script>
+	</body>
 
 </html>
