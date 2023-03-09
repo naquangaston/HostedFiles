@@ -5,7 +5,7 @@
 	<head>
 		<meta charset='utf-8'>
 		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-		<title>Some video thing</title>
+		<title>Video Saver</title>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -43,9 +43,9 @@
 				border-style: solid;
 				border-width: medium;
 			}
-      .green{
-        border: 2px solid red;
-      }
+			.green{
+				border: 2px solid red;
+			}
 			button {
 				color: rgb(27, 51, 99)
 			}
@@ -96,14 +96,83 @@
 
 		</select>
 		<div id='videos'>
-		
+
 		</div>
 		<hr>
-		<video controls='1' width='auto' height='auto' preload='true' id='player'></video>
+		<center><video controls='1' width='auto' height='auto' preload='true' id='player'></video></center>
 		<script>
 			//localStorage.videoData='{}'
 
 			//for auto thumbnails (WIP)
+
+			!function(){
+				Object.assign(Function.prototype,{
+					get isAsync(){return this.constructor.name=='AsyncFunction'}
+				})
+				var forEach=Array.prototype.forEach;
+				var map=Array.prototype.map;
+				var filter=Array.prototype.filter;
+				var sort=Array.prototype.sort;
+				var [forEachAsync,mapAsync,filterAsync]=[
+					async function(f){
+						var _this=[...this]
+						for(let i=0;i<_this.length;i++){
+							await f(_this[i],i)
+						}
+					},
+					async function(f){
+						var _this=[...this]
+						for(let i=0;i<_this.length;i++){
+							_this[i]=await f(_this[i])
+						}
+						return _this;
+					},
+					async function(f){
+						var _this=[...this]
+						const r=[]
+						for(let i=0;i<_this.length;i++){
+							await f(_this[i])&&(r.push(_this[i]))
+						}
+						return r;
+					}
+				];
+				var [map_,forEach_,filter_]=[
+					function a(f){
+						if (a.caller === null) {
+							console.log("a function was called from the top!");
+						} else {
+							console.log(`a function's caller was ${a.calle.namer}`);
+						}
+						return f.isAsync?mapAsync.apply(this,[f]):map.apply(this,[f])
+					},
+					function b(f){
+						if (b.caller === null) {
+							 console.log("b function was called from the top!");
+						} else {
+							console.log(`b function's caller was ${b.caller.name}`);
+						}
+						console.log({forEach,forEachAsync:this.forEachAsync})
+						return f.isAsync?forEachAsync.apply(this,[f]):forEach.apply(this,[f])
+					},
+					function c(f){
+						if (c.caller === null) {
+							console.log("c function was called from the top!");
+						} else {
+							console.log(`c function's caller was ${c.caller.name}`);
+						}
+						return f.isAsync?filterAsync.apply(this,[f]):filter.apply(this,[f])
+					}
+				]
+				Object.assign(Array.prototype,{
+					forEachAsync,
+					mapAsync,
+					filterAsync,
+					map:map_,
+					forEach:forEach_,
+					filter:filter_,
+				})
+			}()
+
 			class Listener_{
 				#target=null
 				constructor(target,a,b,c){
@@ -196,37 +265,37 @@
 				fs&&(fs(),true)||alert('cannot fullscreen video')
 			};
 			var inputs={}
-      var allImgs = []
-      onscroll = async function () {
-      for (let i = 0; i < allImgs.length; i++) {
-        var prev = allImgs[i][0]
-        var real = allImgs[i][1]
-        if (isElementInViewport(prev)) {
-          real.style.display = 'inline-block'
-          prev.style.display = 'none'
-        }
-        if (!(isElementInViewport(real))) {
-          real.style.display = 'none'
-          prev.style.display = 'inline-block'
-        }
-      }
-    }
-    function isElementInViewport(el) {
+			var allImgs = []
+			onscroll = async function () {
+				for (let i = 0; i < allImgs.length; i++) {
+					var prev = allImgs[i][0]
+					var real = allImgs[i][1]
+					if (isElementInViewport(prev)) {
+						real.style.display = 'inline-block'
+						prev.style.display = 'none'
+					}
+					if (!(isElementInViewport(real))) {
+						real.style.display = 'none'
+						prev.style.display = 'inline-block'
+					}
+				}
+			}
+			function isElementInViewport(el) {
 
-      // Special bonus for those using jQuery
-      if (typeof jQuery === "function" && el instanceof jQuery) {
-        el = el[0];
-      }
+				// Special bonus for those using jQuery
+				if (typeof jQuery === "function" && el instanceof jQuery) {
+					el = el[0];
+				}
 
-      var rect = el.getBoundingClientRect();
+				var rect = el.getBoundingClientRect();
 
-      return (
-        rect.top >= 0 - (((window.innerHeight || document.documentElement.clientHeight) / 2)) &&
-        rect.left >= 0 &&
-        rect.bottom <= ((window.innerHeight || document.documentElement.clientHeight) + ((window.innerHeight || document.documentElement.clientHeight) / 2)) && /* or $(window).height() */
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
-      );
-    }
+				return (
+					rect.top >= 0 - (((window.innerHeight || document.documentElement.clientHeight) / 2)) &&
+					rect.left >= 0 &&
+					rect.bottom <= ((window.innerHeight || document.documentElement.clientHeight) + ((window.innerHeight || document.documentElement.clientHeight) / 2)) && /* or $(window).height() */
+					rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+				);
+			}
 			var currentFile = {}
 			var findhref = function (a, b) {
 				var res = [];
@@ -388,9 +457,10 @@
 			})
 			addELog(__, 'pause', function (e) { })
 			addELog(__, 'play', function (e) {
-				__.scrollIntoView(true);
-        setTimeout(onresize,200)
-        setTimeout(()=>{__.scrollIntoView(true)},250)
+				setTimeout(onresize,200)
+				setTimeout(()=>{
+					__.scrollIntoView()
+				},250)
 				info.videos[currentFile.name].finished = false;
 				info.videos[currentFile.name].duration = __.duration
 				var d = (new Date().toString()).split(' ').splice(0, 5).join(' ')
@@ -408,14 +478,14 @@
 			})
 
 			onresize = function (e) {
-				var {
+				/*var {
 					width
 				} = __.getBoundingClientRect()
 				var sub=(innerWidth / 2) - (width / 2)
 				if(!sub)return;
 				var totalCenter = (sub / innerWidth) * 100;
 				console.log(`${totalCenter}%`)
-				__.style.left = `${totalCenter}%`
+				__.style.left = `${totalCenter}%`*/
 			}
 			onload = function () {
 				var t = {
@@ -458,7 +528,7 @@
 
 			}
 			___.onchange = function (e) {
-        allImgs=[];____.innerHTML='';
+				allImgs=[];____.innerHTML='';
 				[...__.classList].includes('hidden') &&
 					(__.classList.toggle('hidden'))
 				var files = this.files
@@ -478,35 +548,32 @@
 					info.videos[currentFile.name].title = currentFile.name
 					__.src = URL.createObjectURL(files[value])
 				};
-				[...files].forEach((e, i) => {
+				[...files].forEach(async(e, i) => {
 					const { name } = e;
-					var img=new Element_('img',{
-						id:name,
-						className:'inlineblock'
-					})
-          var img_=new Element_('img')
-          var imgNode_=img_.node;
+					var img=new Element_('img',{id:name,className:'inlineblock'})
+					var img_=new Element_('img')
+					var imgNode_=img_.node;
 					img.index=i
 					img.on('click',function(e){
 						MySelec.children[img.index+1].selected=true
 						MySelec.onchange()
-            onresize();
+						onresize();
 						//__.focus()
 						//__.select()
 					})
 					var imgNode=img.node;
-          imgNode_.style.display='none'
+					imgNode_.style.display='none'
 					imgNode.style.width='29%'
 					imgNode_.style.width='29%'
-          imgNode_.classList.add('green')
+					imgNode_.classList.add('green')
 					____.append(imgNode)
-          ____.append(imgNode_)
-          allImgs.push([imgNode_,imgNode])
-					getP(e).then(({base64,w,h})=>(imgNode.src=base64,
-                                        imgNode_.width=w,
-                                        imgNode_.height=h,
-                                        imgNode.width=w,
-                                        imgNode.height=h))
+					____.append(imgNode_)
+					allImgs.push([imgNode_,imgNode])
+					await getP(e).then(({base64,w,h})=>(imgNode.src=base64,
+																				imgNode_.width=w,
+																				imgNode_.height=h,
+																				imgNode.width=w,
+																				imgNode.height=h))
 					var opt = document.createElement('option')
 					opt.value = i;
 					opt.innerText = name
