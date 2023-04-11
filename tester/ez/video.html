@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Some video thing</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        video {
+            border: none;
+            position: relative;
+            max-width: 100%;
+        }
+
+        body {
+            color: white;
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+            background-color: rgb(54, 57, 63);
+            overflow-x: hidden;
+        }
+
+        img,
+        button,
+        .menu {
+            border: 2px solid red;
+            border-radius: 8px;
+            border-style: solid;
+            border-width: medium;
+        }
+
+        button {
+            color: rgb(27, 51, 99)
+        }
+
+        input {
+            /*border-width: 1px;*/
+            border: 2px dashed rgb(87, 167, 12);
+            color: white;
+            background: rgba(0, 0, 0, 0)
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        input[type=button] {
+            border: 2px solid rgb(255, 255, 255);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>
+        Upload here
+    </h2>
+    <input type='file' id='myV' multiple accept=".mp4,.m4a,.mkv,.mov,.WMV,.AVI,.AVCHD,.FLV, .F4V,.SWF,.MKV,.WEBM">
+    <hr>
+    <h2>Settings</h2>
+    <form id='thisForm' action="">
+        <input name='LastPlayed' type='number'><br>
+        <input name='LastName'><br>
+        <label for="autoPlay">Auto play video</label><input type="checkbox" name="autoPlay"><br>
+        <label for="autoSave">Auto save video</label><input type="checkbox" name="autoSave"><br>
+        <label for="AutoSelect">Auto select video</label><input type="checkbox" name="AutoSelect"><br>
+        <input type='submit' value='Save'>
+    </form>
+    <hr>
+    <h2>
+        Choose Video
+    </h2>
+    <select id='MySelec'>
+
+    </select>
+    <hr>
+    <video controls='1' width='auto' height='auto' preload='true' id='player'>
+
+    </video>
+    <script>
+        //localStorage.videoData='{}'
+        var currentFile={}
+        var findhref = function (a, b) {
+            var res = [];
+
+            function part2(e) {
+                if (e.tagName.toLowerCase() == (b || 'a')) {
+                    res.push(e);
+                } else {
+                    if (e.children.length) {
+                        e = e.children;
+                        e.forEach = [].forEach;
+                        e.forEach(e2 => {
+                            part2(e2);
+                        })
+                    }
+                }
+            };
+            part2(a);
+            return res
+        }
+        Object.prototype.add_Property = function (obj, writable = false) {
+            if (this.constructor.name != globalThis.constructor.name) {
+                const {
+                    name
+                } = obj;
+                if (!name) throw "obj name must be defined";
+                else return Object.defineProperty(this, name, {
+                    value: obj,
+                    writable
+                })
+            } else {
+                throw "This function ment to be used as a global method not an regular funcion"
+            }
+        }
+        Object.prototype.Define_Property = function (name, obj) {
+            if (this.constructor.name != globalThis.constructor.name) return Object.defineProperty(this, name, obj);
+            else {
+                throw "This function ment to be used as a global method not an regular funcion"
+            }
+        }
+        class videoData extends Object {
+            constructor(data) {
+                data = data.constructor.name == 'String' && (JSON.parse(data)) || data
+                super();
+                this.videoData = {}
+                for (let a in data) {
+                    this[a] = data[a]
+                }
+                this.videos=this.videos||{}
+                this.videos.add=function({title,_title,_finished,_duration,_progress}){
+                    if(this[title])return;
+
+                    class t extends Object{
+                        set title(t){this._title=t}
+                        get title(){return this._title}
+                        set duration(t){this._duration=t}
+                        get duration(){return this._duration}
+                        set progress(t){this._progress=t}
+                        get progress(){return this._progress}
+                        set progress(t){this._finished=t}
+                        get progress(){return this._finished}
+                        constructor(title){
+                            super()
+                            this.title=_title||title;this.finished=!!_finished;this.progress=_progress||0;this.duration=_duration||0;
+                        }
+                    }
+
+                    this[title]=new t(title)
+                }
+            }
+        }
+
+        function testObj(data) {
+            try { data = data.constructor.name == 'String' && (JSON.parse(data)) || data; return data } catch (err) { return null }
+        }
+
+        const info = new videoData(localStorage.videoData || {})
+        info.formData = testObj(info.formData) || {
+            autoPlay: 'off',
+            AutoSelect: 'off',
+            AutoSave: "off"
+        }
+        console.log(info)
+        var _ = document.getElementById('thisForm')
+        var __ = document.getElementById('player')
+        var ___ = document.getElementById('myV')
+        var Myselec = document.getElementById('Myselec')
+        __.classList.toggle('hidden')
+        function formSub(form) {
+            info.formData = {}
+            const _this = (form || this) instanceof (HTMLFormElement) && (form || this) || null
+            if (_this == null) throw "HTMLFormElement not found";
+            const formData = $(_this).serializeArray()
+            formData.forEach(({
+                name,
+                value
+            }) => {
+                console.log(name, value)
+                info.formData[name] = value
+            })
+            console.log(info)
+            //new FormData(_this);for (const [key, value] of formData) {console.log([key,value])}
+        }
+
+
+
+        function addELog(target, name, cb) {
+            cb = (cb) instanceof (Function) && (cb) || function () { };
+
+            function EventLog(e) {
+                const caller = EventLog.caller
+                const {
+                    type,
+                    target,
+                    target: {
+                        constructor: {
+                            name
+                        }
+                    },
+                    options
+                } = e
+                console.log({
+                    caller,
+                    type,
+                    name,
+                    options
+                })
+                cb.call(target, e)
+            }
+            addEventListener(name, EventLog, true)
+        }
+
+        addELog(_, 'submit', function (e) {
+            e.preventDefault()
+            formSub(this)
+        })
+
+        addELog(__, 'load', function (e) { })
+        addELog(__, 'canplaythrough', function (e) {
+            var {
+                width
+            } = this.getBoundingClientRect()
+            var totalCenter = innerWidth / ((innerWidth / 2) - width / 2);
+            this.style.left = `${totalCenter}%`
+            info.formData.autoPlay && (setTimeout(()=>{this.play()},100));
+        })
+        addELog(__, 'ended', function (e) {
+            info.videos[currentFile.name].finished=(true)
+        })
+        addELog(__, 'pause', function (e) { })
+        addELog(__, 'play', function (e) {info.videos[currentFile.name].finished=false;})
+        addELog(__, 'timeupdate', function (e) {
+            info.formData.LastPlayed = this.currentTime
+            info.videos.add(currentFile.name)
+            info.videos[currentFile.name].progress=(this.currentTime)
+
+        })
+        addELog(__, 'volumechange', function (e) {
+            info.formData.volume = this.volume
+        })
+
+        onresize = function (e) {
+            var {
+                width
+            } = __.getBoundingClientRect()
+            var totalCenter = (((innerWidth / 2) - (width / 2)) / innerWidth) * 100;
+            console.log(`${totalCenter}%`)
+            __.style.left = `${totalCenter}%`
+        }
+        onload = function () {
+            var t = {
+                number(e) {
+                    let { name } = e; return info.formData[name]= e.value = Number(info.formData[name] || 0)
+                },
+                text(e) {
+                    let { name } = e; return info.formData[name]= e.value = String(info.formData[name] || '')
+                },
+                checkbox(e) {
+                    let { name } = e;
+                    var d = info.formData[name] || 'off';
+                    e.valued = d
+                    return (e.checked = Boolean(d === 'on'), console.log(e.checked, d, info.formData[name]), info.formData[name]=e.checked)
+                },
+                submit(e) { return }
+            }
+            findhref(_, 'input').forEach(e => {
+                console.log(e.name, e.type)
+                if (t[e.type]) t[e.type](e)
+                else console.warn(e.type, 'Not found')
+
+            })
+        }
+        ___.onchange = function (e) {
+            [...__.classList].includes('hidden') &&
+                (__.classList.toggle('hidden'))
+            var files = this.files
+            files.forEach = [].forEach;
+            MySelec.innerHTML = '';
+            var def = document.createElement('option'); def.innerText = 'none';
+            def.disabled = true
+            MySelec.append(def)
+            def.selected = true;
+            [...files].forEach((e, i) => {
+                const { name } = e;
+                var opt = document.createElement('option')
+                opt.value = i;
+                opt.innerText = name
+                MySelec.append(opt)
+                console.log('Added', name, i)
+            });
+            MySelec.onchange = function (e) {
+                var { value } = this.selectedOptions[0]
+                console.log('Loading', value)
+                currentFile=files[value]
+                info.videoData.LastName=currentFile.name
+                info.videos.add(currentFile.name)
+                info.videos[currentFile.name].title=currentFile.name
+                __.src = URL.createObjectURL(files[value])
+            }
+        }
+        onbeforeunload = function (e) {
+            localStorage.videoData = JSON.stringify(info)
+        }
+    </script>
+</body>
+
+</html>

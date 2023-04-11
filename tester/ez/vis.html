@@ -1,0 +1,41 @@
+<head>
+
+    <link href="https://fonts.googleapis.com/css?family=IM+Fell+English|Playfair+Display:900" rel="stylesheet">
+    <link href="vis.css" rel="stylesheet">
+</head>
+<script src='https://cdn.jsdelivr.net/gh/anomal/RainbowVis-JS/rainbowvis.js'></script>
+<script type="module">
+    console.log('importing')
+    import { Octokit, App } from "https://cdn.skypack.dev/octokit";
+    window.Kit_ = { Octokit, App }
+</script>
+
+<div id="content">
+    <!--input type="file" id="file" accept="audio/*"!-->
+    <video id="video" width="240px" height="135px" autoplay></video>
+    <div id="top-toolbar">
+        <div id="file">Select a file...</div>
+        <div id="capture" style="display:none">Capture Audio</div>
+        <div class="mic-cbx">
+            <label for="cbx">Microphone</label>
+            <input type="checkbox" id="cbx" style="display:none" checked=true />
+            <label for="cbx" class="toggle"><span></span></label>
+        </div>
+        <select id="mode">
+            <option value="waveform">Waveform</option>
+            <option value="bar-graph">Bar Graph</option>
+            <option value="rgb-bar-graph">RGB Bar Graph</option>
+            <option value="spectrogram">Spectogarm</option>
+        </select>
+        <div id="file2">Select a png...</div>
+        <span>Now Plaing:<select id='MySelec'></select><span>&nbsp;<button style='display:none' id="UploadSave">Save
+                    songs</button>
+                <button id="Shuffle">Shuffle</button>
+                <br>
+    </div>
+    <img id='MyImg'>
+    <canvas id="canvas" style="opacity:50%"></canvas>
+    <audio id="audio" controls></audio>
+    <center id='myText' class='center'>test</center>
+</div>
+<script src="vis.js"></script>
