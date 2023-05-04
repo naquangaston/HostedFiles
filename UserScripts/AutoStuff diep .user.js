@@ -20,6 +20,123 @@
 // @require http://code.createjs.com/easeljs-0.5.0.min.js
 // @run-at document-start
 // ==/UserScript==
+Settings = GM_getValue("Settings") || {};
+
+var setting=function(){
+    const _z = [
+                    ["\"on\"", "\"on\""],
+                    []
+                ]
+                const _K = ["\u0062\u0072", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u0066\u0072\u0065\u0065\u007a\u0065", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u006e\u0061\u006d\u0065", "\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0061\u0070\u0070\u0065\u006e\u0064", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0073\u0065\u0074\u0041\u0074\u0074\u0072\u0069\u0062\u0075\u0074\u0065", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0064\u0065\u0066\u0069\u006e\u0065\u0050\u0072\u006f\u0070\u0065\u0072\u0074\u0079", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0069\u0064", "\u006c\u0065\u006e\u0067\u0074\u0068"];
+                class element {
+                    static get br() {
+                        return new element(_K[0x0000])
+                    }
+                    constructor(name, obj) {
+                        this[_K[0x000F]] = (function() {
+                            for (let _P in arguments[0x0001]) {
+                                arguments[0x0000][_K[0x000B]](_P, arguments[0x0001][_P])
+                            }
+                            return arguments[0x0000]
+                        })(document[_K[0x0005]](arguments[0x0000]), arguments[0x0001])
+                    }
+                    style(obj) {
+                        for (let __ in obj) {
+                            this[_K[0x000A]].style[__] = obj[__]
+                        }
+                        return this
+                    }
+                    append(target) {
+                        this[_K[0x0010]].append(target[_K[0x000F]] || target);
+                        return this
+                    }
+                    appendTo(target) {
+                        (target[_K[0x000C]] || target)[_K[0x0009]](this[_K[0x000D]]);
+                        return this
+                    }
+                    on(event, a) {
+                        this[_K[0x000F]][_z[0x0000][0] + _z[0x0000][1] + event + String()] = a;
+                        return this
+                    }
+                    set(prop, value) {
+                        this.element[prop] = value;
+                        return this
+                    }
+                    remove() {
+                        this.element.remove();
+                        return this
+                    }
+                    get() {
+                        return this.element[arguments[0x0000]]
+                    }
+                    get children() {
+                        return new(class $ {
+                            constructor(arr) {
+                                for (var i = 0x0000; i < arr[_K[0x0012]]; i += 0x0001) {
+                                    this[i] = arr[i]
+                                }
+                                Object[_K[0x000E]](this, _K[0x0001], {
+                                    get: function() {
+                                        return arr[_K[0x0012]]
+                                    },
+                                })
+                                Object[_K[0x0002]](this)
+                            }
+                            item(i) {
+                                return this[i] != null ? this[i] : null
+                            }
+                            namedItem(name) {
+                                for (var i = 0x0000; i < this[_K[0x0001]]; i += 0x0001) {
+                                    if (this[i][_K[0x0011]] === name || this[i][_K[0x0004]] === name) {
+                                        return this[i]
+                                    }
+                                }
+                                return null
+                            }
+                            get toArray() {
+                                return [...this]
+                            }
+                        })([...this.element.children])
+                    }
+                }
+    return class setting {
+        constructor({
+            type,
+            default_,
+            name,
+            command
+        }) {
+            default_ = Settings[name] || default_
+            var type_ = ""
+            switch (type) {
+                case 'toggle':
+                    type_ = "checkbox";
+                    break;
+                case "color":
+                    type_ = "color";
+                    break;
+            }
+            var label = (new element("label")).set('for', name).set('innerText', name + ': ')
+            var input_ = new element("input", {
+                type: type_,
+                id: name,
+                name: command
+            }).set('onchange', function(e) {
+                var value = e.target.value
+                Settings[name] = {
+                    value
+                }
+                input.execute(`${command} ${value}`)
+            })
+            if (default_) {
+                input_.set('value', default_)
+            }
+            this.input = input_;
+            this.label = label;
+        }
+    }
+}()
+
 var brun=false;_upgrade='';keysDown={}
 isRightMB=false;
 fighterMode=false;
@@ -1704,7 +1821,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         var cords={x:0,y:0}
         async function autoAim(){
             await sleep();
-             (autoA?(input.mouse(cords.x,cords.y)):null,await autoAim());
+             (autoA?(input.mouse_(cords.x,cords.y)):null,await autoAim());
         }
         autoAim()
         async function RealBooster_(fromPos,fighter){
@@ -1736,7 +1853,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             up()
             cords=rotatePoint(a,c,_)
             autoA=0
-            input.mouse(cords.x,cords.y)
+            input.mouse_(cords.x,cords.y)
             Fire(false)
             await sleep(time*2)
             canGo_=true
@@ -1774,6 +1891,14 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 RealBooster()
             }
         }
+        input.mouse_=input.mouse
+        input.mouse__=function(...a){}
+        input.mouse=function(...a){
+            if(autoA){
+                return
+            }
+            return input.mouse_(...a)
+        }
         function MenuFix(_myWin_=globalRoot._myWin) {
             var pt='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'
             console.log('win',_myWin_)
@@ -1797,6 +1922,132 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
             let element = function (a, b = {}) { return document.createElement(a, b) }
             var myMenu = _myWin_.window.document.getElementById('menu')
+            !function(){
+                const _z = [
+                    ["\"on\"", "\"on\""],
+                    []
+                ]
+                const _K = ["\u0062\u0072", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u0066\u0072\u0065\u0065\u007a\u0065", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u006e\u0061\u006d\u0065", "\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0061\u0070\u0070\u0065\u006e\u0064", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0073\u0065\u0074\u0041\u0074\u0074\u0072\u0069\u0062\u0075\u0074\u0065", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0064\u0065\u0066\u0069\u006e\u0065\u0050\u0072\u006f\u0070\u0065\u0072\u0074\u0079", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0069\u0064", "\u006c\u0065\u006e\u0067\u0074\u0068"];
+                class element {
+                    static get br() {
+                        return new element(_K[0x0000])
+                    }
+                    constructor(name, obj) {
+                        this[_K[0x000F]] = (function() {
+                            for (let _P in arguments[0x0001]) {
+                                arguments[0x0000][_K[0x000B]](_P, arguments[0x0001][_P])
+                            }
+                            return arguments[0x0000]
+                        })(document[_K[0x0005]](arguments[0x0000]), arguments[0x0001])
+                    }
+                    style(obj) {
+                        for (let __ in obj) {
+                            this[_K[0x000A]].style[__] = obj[__]
+                        }
+                        return this
+                    }
+                    append(target) {
+                        this[_K[0x0010]].append(target[_K[0x000F]] || target);
+                        return this
+                    }
+                    appendTo(target) {
+                        (target[_K[0x000C]] || target)[_K[0x0009]](this[_K[0x000D]]);
+                        return this
+                    }
+                    on(event, a) {
+                        this[_K[0x000F]][_z[0x0000][0] + _z[0x0000][1] + event + String()] = a;
+                        return this
+                    }
+                    set(prop, value) {
+                        this.element[prop] = value;
+                        return this
+                    }
+                    remove() {
+                        this.element.remove();
+                        return this
+                    }
+                    get() {
+                        return this.element[arguments[0x0000]]
+                    }
+                    get children() {
+                        return new(class $ {
+                            constructor(arr) {
+                                for (var i = 0x0000; i < arr[_K[0x0012]]; i += 0x0001) {
+                                    this[i] = arr[i]
+                                }
+                                Object[_K[0x000E]](this, _K[0x0001], {
+                                    get: function() {
+                                        return arr[_K[0x0012]]
+                                    },
+                                })
+                                Object[_K[0x0002]](this)
+                            }
+                            item(i) {
+                                return this[i] != null ? this[i] : null
+                            }
+                            namedItem(name) {
+                                for (var i = 0x0000; i < this[_K[0x0001]]; i += 0x0001) {
+                                    if (this[i][_K[0x0011]] === name || this[i][_K[0x0004]] === name) {
+                                        return this[i]
+                                    }
+                                }
+                                return null
+                            }
+                            get toArray() {
+                                return [...this]
+                            }
+                        })([...this.element.children])
+                    }
+                }
+
+                function map_(f) {
+                    const _n = []
+                    const _a = ['\u006c\u0065\u006e\u0067\u0074\u0068'];
+                    const local = this;
+                    for (let _J = 0x0000; _J < this[_a[0x0000]]; _J++) {
+                        local[_J] = f(this[_J], _J)
+                    }
+                    return local
+                }
+                Array.prototype.map_ = map_
+
+                var list = [
+                    'Smasher and Dominator Bases', 'Barrels, Spawners, Launchers and Auto Turrets', 'self', 'Blue Team', 'Red Team', 'Purple Team', 'Green Team', 'Shiny Polygons', 'Square', 'Triangle', 'Pentagon', 'Crashers', 'Arena Closers/Neutral Dominators/Defender Ammo', 'Maze Walls', 'Others (FFA)', 'Summoned Squares (Necromancer)', 'Fallen Bosses'
+                ]
+                addEventListener('beforeunload', function() {
+                    GM_setValue("Settings", Settings)
+                })
+                var toggles=new element("div",{id:"toggles"}).append((new element('h1')).set('innerText','Toggles')).append(element.br)
+                var list_=[
+                    ['net_predict_movement',true],
+                    ['ren_background',true],
+                    ['ren_raw_health_values',true],
+                    ['ren_health_bars',true],
+                    ['ren_stroke_soft_color',true],
+                    ['ren_solid_background',true]
+                ]
+                var colors = new element("div", {
+                    id: "colors"
+                }).append((new element('h1')).set('innerText','Styles')).append(element.br)
+                list.map_((name, b) => (new setting({
+                    name,
+                    type: "toggle",
+                    command: `net_replace_color ${b}`
+                }))).forEach(e => {
+                    colors.append(e.label).append(e.input).append(element.br)
+                })
+                list_.map_(([name,value], b) => (new setting({
+                    name,
+                    type: "color",
+                    default_:value,
+                    command: `${name}`
+                }))).forEach(e => {
+                    toggles.append(e.label).append(e.input).append(element.br)
+                })
+                toggles.appendTo(myMenu)
+                colors.appendTo(myMenu)
+
+            }()
             function FixGame() { var info = (function ({ gamemode, name }) { return { gamemode, name } })(localStorage); for (let i in localStorage) (localStorage.removeItem(i));localStorage.clear();for (let i in info) (localStorage.setItem(i, info[i])); location.href = location.href }
             var rows = []
             function newRow() { var row = document.createElement('div') }
@@ -1906,7 +2157,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         colors={}
         set_convar=window.set_convar=function(a,b){
-
+            console.log('Set',a,b)
+            input.set_convar(a,b)
         }
         execute=window.execute=function(ode){
             var s=ode.split(' ')
@@ -1914,7 +2166,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 'Smasher and Dominator Bases','Barrels, Spawners, Launchers and Auto Turrets','self','Blue Team','Red Team','Purple Team','Green Team','Shiny Polygons','Square','Triangle','Pentagon','Crashers','Arena Closers/Neutral Dominators/Defender Ammo','Maze Walls','Others (FFA)','Summoned Squares (Necromancer)','Fallen Bosses'
             ]
             console.log('Set',list[s[1]],s[2],s)
-            try{colors[list[s[1]]]=`#${s[2].split('').splice(2).join('')}`.toLowerCase();input.execute(ode)}catch(err){if(s.length!=3)(input.execute(ode))}
+            try{colors[list[s[1]]]=`#${s[2].split('').splice(2).join('')}`.toLowerCase();input.execute(ode);Settings[list[s[1]]]={value:s[2]}}catch(err){if(s.length!=3)(input.execute(ode))}
         }
         const keys = obj => Object.keys(obj||this);
         function ab(){if(down.Alt&&(down.a||down.A)){stack();console.log('Stacking')}}
@@ -1943,7 +2195,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                                                          }
                                                          if (down[key]) { return }down[key]=[key,true];ab()
                                                         });
-        window.addEventListener('keyup', function (e) { const {key,keyCode} = e; keysDown[keyCode]=false;if (down[key]) { return } down[key] = [key,false]; /*log('Key down', key, 'Total:', keys(down).length)*/
+        window.addEventListener('keyup', function (e) { const {key,keyCode} = e; keysDown[keyCode]=false;down[key] = [key,false]; /*log('Key down', key, 'Total:', keys(down).length)*/
                                                       });
         var info={}
         var base=document.getElementsByTagName('d-base')[0];
@@ -1969,7 +2221,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 isRightMB = e.which == 3;
             else if ("button" in e)  // IE, Opera
                 isRightMB = e.button == 2;
-            console.log(isRightMB,'down')
+            console.log(isRightMB,'down',e.button)
             isRightMB&&fighterMode&&!looping_&&(loopD().then(console.log,console.warn))
         }
         onmouseup=function (e) {
@@ -1980,7 +2232,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 isRightMB = e.which == 3;
             else if ("button" in e)  // IE, Opera
                 isRightMB = e.button == 2;
-            console.log(isRightMB,'up')
+            console.log(isRightMB,'up',e.button)
             isRightMB&&=!(canloop=true)
         }
         setInterval(() => {
@@ -2010,6 +2262,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         playerAlive = true;
                         wasalive = true
                         function ls(){
+
                             eval(`input.set_convar("ren_health_bars", true);input.set_convar("ren_raw_health_values", true);input.set_convar("ren_stroke_soft_color",false);input.set_convar("ren_solid_background",false);`)
                         execute("net_replace_color 0 0x000000");
                         execute("net_force_secure true");
@@ -2151,7 +2404,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         function mouse(x,y){
             otx=x,oty=y;
-            input.mouse(x,y)};
+            input.mouse_(x,y)};
         var [w,a,s,d]=[
             38,
             37,
