@@ -2667,7 +2667,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     ctx.stroke();
                     ctx.custom=false;
                 }
-                gogogo()
                 return this.moveTo_(...a)
             }
             //Creates a path from the current point back to the starting point
@@ -2880,12 +2879,11 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                             break
                         }
                     }
-                    gogogo()
                     return this.stroke_(...a)
                 }
             }
         }.apply(CanvasRenderingContext2D.prototype)
-        function gogogo(){
+        myLoop=setInterval(e=>{
             shapes=[
                 //['#85E37D','HP bar'],
                 ['##000000','TankBarrel'],
@@ -2933,7 +2931,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     else Fire(false);
                 }
             }
-        }
+        },1)
 
     }
     _stt=stt
