@@ -129,7 +129,7 @@ var setting=function(){
                 input.execute(`${command} ${value}`)
             })
             if (default_) {
-                input_.set('value', default_)
+                input_.set('value', default_.value)
             }
             this.input = input_;
             this.label = label;
@@ -1891,14 +1891,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 RealBooster()
             }
         }
-        input.mouse_=input.mouse
-        input.mouse__=function(...a){}
-        input.mouse=function(...a){
-            if(autoA){
-                return
-            }
-            return input.mouse_(...a)
-        }
         function MenuFix(_myWin_=globalRoot._myWin) {
             var pt='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'
             console.log('win',_myWin_)
@@ -2235,6 +2227,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             console.log(isRightMB,'up',e.button)
             isRightMB&&=!(canloop=true)
         }
+        var setStuff=false;
         setInterval(() => {
             //base=document.getElementsByTagName('d-base')[0];
             //document.querySelector('d-base').shadowRoot.children[0].tagName=="D-STATS"
@@ -2253,6 +2246,17 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 DidiU = false;
                 //now on spanw screen
                 log_("PlayerStatus", "On Spawn screen")
+                if(!setStuff){
+                    setStuff=true;
+                    input.mouse_=input.mouse
+                    input.mouse__=function(...a){}
+                    input.mouse=function(...a){
+                        if(autoA){
+                            return
+                        }
+                        return input.mouse_(...a)
+                    }
+                }
                 //var pButton=base.renderRoot.children[0].renderRoot.children.username.children['username-row'].children[1]
                 !noads&&((typeof noAds)=='function'&&(noAds=noAds()))
                 //if(!did_)(MenuFix(),didl_=true);
@@ -2479,7 +2483,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         function aim(arr,em){
             var center=[innerWidth/2,innerHeight/2]
-            var close=arr.map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
+            var close=arr.map(item=>([...item._moveTo])).map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
             console.log(close)
             let {move,aim}=settings
             aim&&(mouse(...close),Fire(true));
@@ -2493,15 +2497,239 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 else [[w,a,s,d].forEach(keyUp)]
             }
         }
+        var shapes=[
+            ['##000000','TankBarrel'],
+            ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
+            ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
+            ['#fc7676 #bd585a #e76c6d #ffbbbb','Triangle'],
+            ['#fcc276 #bd9158','Summoned'],
+            ['#f177dd #b459a5','crasher'],
+            ['#c0c0c0 #969696','Fallen'],
+            ['#768cfc #5869bd #ccccff','Pent'],
+            ['#8aff69 #6cbe55','Green Square'],
+            ['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Team'],
+            ['#f04f54 #b33b3f #f14e54','Red Team'],
+            ['#00e06c #00a851','Green Team'],
+            ['#be7ff5 #8f5fb7','Purple Team'],
+            ...Object.keys(colors).map(e=>{
+                return [colors[e],e]
+            })
+        ]
         letFill=true
         var infothingy={}
-
+        var inf={}
         !function(){
             this.set_=this.set_||false
             if(this.set_)return this.beginPath_(...a);
             this.set_=true;
             this.startpos;
             this.shape;
+            //Creates a linear gradient (to use on canvas content)
+            this.createLinearGradient_=this.createLinearGradient;
+            this.createLinearGradient=function(...a){
+                this._createLinearGradient=a
+                return this.createLinearGradient_(...a)
+            }
+            //Repeats a specified element in the specified direction
+            this.createPattern_=this.createPattern;
+            this.createPattern=function(...a){
+                this._createPattern=a
+                return this.createPattern_(...a)
+            }
+            //Creates a radial/circular gradient (to use on canvas content)
+            this.createRadialGradient_=this.createRadialGradient;
+            this.createRadialGradient=function(...a){
+                this._createRadialGradient=a
+                return this.createRadialGradient_(...a)
+            }
+            //Specifies the colors and stop positions in a gradient object
+            this.addColorStop_=this.addColorStop;
+            this.addColorStop=function(...a){
+                this._addColorStop=a
+                return this.addColorStop_(...a)
+            }
+            //Draws a "filled" rectangle
+            this.fillRect_=this.fillRect;
+            this.fillRect=function(...a){
+                this._fillRect=a
+                return this.fillRect_(...a)
+            }
+            //Draws a rectangle (no fill)
+            this.strokeRect_=this.strokeRect;
+            this.strokeRect=function(...a){
+                this._strokeRect=a
+                return this.strokeRect_(...a)
+            }
+            //Clears the specified pixels within a given rectangle
+            this.clearRect_=this.clearRect;
+            this.clearRect=function(...a){
+                var[x,y,w,h]=a;
+                this._clearRect={x,y,w,h};
+                return (this.clearRect_(...a),w==canvas.width&&h==canvas.height&&(inf=infothingy,infothingy={}))
+            }
+            //Begins a path, or resets the current path
+            this.beginPath_=this.beginPath;
+            this.beginPath=function(...a){
+                this._beginPath=a
+                return this.beginPath_(...a)
+            }
+            //Moves the path to the specified point in the canvas, without creating a line
+            this.moveTo_=this.moveTo;
+            this.moveTo=function(...a){
+                this._moveTo=a
+                if(this.shape&&this.shape!='undefined'&&!a[2]){
+                    var ctx = canvas.getContext('2d');
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width/2, canvas.height/2,true);
+                    ctx.lineTo(...a);
+                    ctx.stroke();
+                }
+                return this.moveTo_(...a)
+            }
+            //Creates a path from the current point back to the starting point
+            this.closePath_=this.closePath;
+            this.closePath=function(...a){
+                this._closePath=a
+                return this.closePath_(...a)
+            }
+            //Adds a new point and creates a line to that point from the last specified point in the canvas
+            this.lineTo_=this.lineTo;
+            this.lineTo=function(...a){
+                this._lineTo=a
+                return this.lineTo_(...a)
+            }
+            //Clips a region of any shape and size from the original canvas
+            this.clip_=this.clip;
+            this.clip=function(...a){
+                this._clip=a
+                return this.clip_(...a)
+            }
+            //Creates a quadratic Bézier curve
+            this.quadraticCurveTo_=this.quadraticCurveTo;
+            this.quadraticCurveTo=function(...a){
+                this._quadraticCurveTo=a
+                return this.quadraticCurveTo_(...a)
+            }
+            //Creates a cubic Bézier curve
+            this.bezierCurveTo_=this.bezierCurveTo;
+            this.bezierCurveTo=function(...a){
+                this._bezierCurveTo=a
+                return this.bezierCurveTo_(...a)
+            }
+            //Creates an arc/curve (used to create circles, or parts of circles)
+            this.arc_=this.arc;
+            this.arc=function(...a){
+                this._arc=a
+                return this.arc_(...a)
+            }
+            //Creates an arc/curve between two tangents
+            this.arcTo_=this.arcTo;
+            this.arcTo=function(...a){
+                this._arcTo=a
+                return this.arcTo_(...a)
+            }
+            //Returns true if the specified point is in the current path, otherwise false
+            this.isPointInPath_=this.isPointInPath;
+            this.isPointInPath=function(...a){
+                this._isPointInPath=a
+                return this.isPointInPath_(...a)
+            }
+            //Rotates the current drawing
+            this.rotate_=this.rotate;
+            this.rotate=function(...a){
+                this._rotate=a
+                return this.rotate_(...a)
+            }
+            //Remaps the (0,0) position on the canvas
+            this.translate_=this.translate;
+            this.translate=function(...a){
+                this._translate=a
+                return this.translate_(...a)
+            }
+            //Replaces the current transformation matrix for the drawing
+            this.transform_=this.transform;
+            this.transform=function(...a){
+                this._transform=a
+                return this.transform_(...a)
+            }
+            //Resets the current transform to the identity matrix. Then runs transform()
+            this.setTransform_=this.setTransform;
+            this.setTransform=function(...a){
+                this._setTransform=a
+                return this.setTransform_(...a)
+            }
+            //Draws "filled" text on the canvas
+            this.fillText_=this.fillText;
+            this.fillText=function(...a){
+                this._fillText=a
+                return this.fillText_(...a)
+            }
+            //Draws text on the canvas (no fill)
+            this.strokeText_=this.strokeText;
+            this.strokeText=function(...a){
+                this._strokeText=a
+                return this.strokeText_(...a)
+            }
+            //Returns an object that contains the width of the specified text
+            this.measureText_=this.measureText;
+            this.measureText=function(...a){
+                this._measureText=a
+                return this.measureText_(...a)
+            }
+            //Draws an image, canvas, or video onto the canvas
+            this.drawImage_=this.drawImage;
+            this.drawImage=function(...a){
+                this._drawImage=a
+                return this.drawImage_(...a)
+            }
+            //Creates a new, blank ImageData object
+            this.createImageData_=this.createImageData;
+            this.createImageData=function(...a){
+                this._createImageData=a
+                return this.createImageData_(...a)
+            }
+            //Returns an ImageData object that copies the pixel data for the specified rectangle on a canvas
+            this.getImageData_=this.getImageData;
+            this.getImageData=function(...a){
+                this._getImageData=a
+                return this.getImageData_(...a)
+            }
+            //Puts the image data (from a specified ImageData object) back onto the canvas
+            this.putImageData_=this.putImageData;
+            this.putImageData=function(...a){
+                this._putImageData=a
+                return this.putImageData_(...a)
+            }
+            //Saves the state of the current context
+            this.save_=this.save;
+            this.save=function(...a){
+                this._save=a
+                return this.save_(...a)
+            }
+            //Returns previously saved path state and attributes
+            this.restore_=this.restore;
+            this.restore=function(...a){
+                this._restore=a
+                return this.restore_(...a)
+            }
+            //
+            this.createEvent_=this.createEvent;
+            this.createEvent=function(...a){
+                this._createEvent=a
+                return this.createEvent_(...a)
+            }
+            //
+            this.getContext_=this.getContext;
+            this.getContext=function(...a){
+                this._getContext=a
+                return this.getContext_(...a)
+            }
+            //
+            this.toDataURL_=this.toDataURL;
+            this.toDataURL=function(...a){
+                this._toDataURL=a
+                return this.toDataURL_(...a)
+            }
             this.fill_=this.fill
             this.fill=function(...a){
                 for(let i=0;i<shapes.length;i++){
@@ -2513,7 +2741,12 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 }
                 return this.fill_(...a)
             }
-
+            this.scale_=this.scale
+            this.scale=function(...a){
+                var[x,y]=a;
+                this._scale={x,y}
+                return this.scale_(...a)
+            }
             this.MoveTo=this.MoveTo;
             this.MoveTo=function(...a){
                 if(!this.startpos){
@@ -2521,13 +2754,24 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 }
                 return this.MoveTo_(...a)
             }
-
+            this.rect_=this.rect
+            this.rect=function(...a){
+                var[x,y,width,height]=a;
+                this.pos={x,y,width,height};
+                return this.rect_(...a)
+            }
             this.stroke_=this.stroke;
             this.stroke=function(...a){
                 if(letFill){
                     for(let i=0;i<shapes.length;i++){
-                        if(shapes[i][0].includes(this.strokeStyle)){
-                            infothingy[this.shape]={...this}
+                        if(shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())){
+                            if(!infothingy[this.shape])infothingy[this.shape]=[];
+                            infothingy[this.shape].push({...this})
+                            var shape_=this.shape
+                            clearTimeout(this.timeOut)
+                            this.timeOut=setTimeout(()=>{
+                                delete infothingy[this.shape]
+                            },100)
                             //if(this.shape!="TankBarrel")console.log('stroke Found',this);
                             break
                         }
@@ -2602,6 +2846,25 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
         }
         myLoop=setInterval(e=>{
+            shapes=[
+                //['#85E37D','HP bar'],
+                ['##000000','TankBarrel'],
+                ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
+                ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
+                ['#fc7676 #bd585a #e76c6d #ffbbbb','Triangle'],
+                ['#fcc276 #bd9158','Summoned'],
+                ['#f177dd #b459a5','crasher'],
+                ['#c0c0c0 #969696','Fallen'],
+                ['#768cfc #5869bd #ccccff','Pent'],
+                ['#8aff69 #6cbe55','Green Square'],
+                ['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Team'],
+                ['#f04f54 #b33b3f #f14e54','Red Team'],
+                ['#00e06c #00a851','Green Team'],
+                ['#be7ff5 #8f5fb7','Purple Team'],
+                ...Object.keys(colors).map(e=>{
+                    return [colors[e],e]
+                })
+            ]
             //2teams
             if(player.GM=='teams'){
                 if(typeof player!='undefined' && dif(player.position.x,enemySide.x)<200){return run(player.TeamX,player.position.y)}
@@ -2616,7 +2879,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
             var auto=localStorage.autoFarm&&localStorage.autoFarm.length?!!JSON.parse(localStorage.autoFarm):false
             if((player.isMaster||storage.multibox||!auto))return;
-            var S2=canClick.apply(canvas);
+            var S2=inf
             var target=[];
             var enemy=Object.keys(S2).filter(key=>(
                 key!=player.team&&key.includes('team'))
@@ -2624,10 +2887,10 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                                              (player.GM!='teams'?key.includes('ffa'):!key.includes('ffa')&&key.includes('enemy'))
                                             ).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
             var shps=[S2['Green Square'],[...(S2['Pent']||[]),...(S2['crasher']||[])],S2['Triangle'],S2['Square']].filter(e=>e&&e.length)[0]
-            if(enemy&&enemy.length&&[...(S2.TankBarrel||[])].filter(b=>30<getDistance(b[0],b[1],innerWidth/2,innerHeight/2)).length){aim(S2.TankBarrel,true);Fire(true)}
+            if(enemy&&enemy.length&&[...(S2.TankBarrel||[])].filter(b=>30<getDistance(...b._moveTo,innerWidth/2,innerHeight/2)).length){aim(S2.TankBarrel,true);Fire(true)}
             else if(shps&&shps.length){aim(shps);Fire(true)}
             else Fire(false);
-        },250)
+        },100)
 
     }
     _stt=stt
