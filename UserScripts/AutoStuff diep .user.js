@@ -21,7 +21,9 @@
 // @run-at document-start
 // ==/UserScript==
 Settings = GM_getValue("Settings") || {};
-
+letFill=true
+infothingy={}
+inf={}
 var setting=function(){
     const _z = [
         ["\"on\"", "\"on\""],
@@ -2192,8 +2194,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         var info={}
         var base=document.getElementsByTagName('d-base')[0];
         var canloop=true
-        var looping_=false;
-        async function loopD(l){
+        looping_=false;
+        loopD=async function (l){
             var shouldReturn=isRightMB==false//||looping_&&!l
             if(shouldReturn)return looping_=false;
             looping_=true
@@ -2270,8 +2272,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                             eval(`input.set_convar("ren_health_bars", true);input.set_convar("ren_raw_health_values", true);input.set_convar("ren_stroke_soft_color",false);input.set_convar("ren_solid_background",false);`)
                             execute("net_replace_color 0 0x000000");
                             execute("net_force_secure true");
-                            execute("net_replace_color 1 0x000000");
-                            execute("net_replace_color 2 0x000000");
+                            execute("net_replace_color 1 0x999999");
+                            execute("net_replace_color 2 0x050505");
                             execute("net_replace_color 3 0x0000FF");
                             execute("net_replace_color 4 0xFF0000");
                             execute("net_replace_color 5 0x990099");
@@ -2437,20 +2439,20 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             ]
             var xd=[s[0][0][0]=s[0][1][0],s[0][0][1]]
             var yd=[s[1][0][0]=s[1][1][0],s[1][0][1]]
-            console.log(xd,yd)
+            //console.log(xd,yd)
             if(xd[0]>100){
-                console.log('Moving x',xd[1]?"right":"left")
+                //console.log('Moving x',xd[1]?"right":"left")
                 keyDown(xd[1]?d:a)
             }else{
                 //keyDown(!xd[1]?d:a)
             }
             if(yd[0]>50){
-                console.log('Moving y',yd[1]?"down":"up")
+                //console.log('Moving y',yd[1]?"down":"up")
                 keyDown(yd[1]?40:38)
             }else{
                 //keyDown(!yd[1]?s:w)
             }
-            console.log({xd,yd})
+            //console.log({xd,yd})
         }
         var mYplayer={}
         player.GM=localStorage.gamemode
@@ -2468,23 +2470,23 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             var xd=[s[0][0][0]=s[0][1][0],s[0][0][1]]
             var yd=[s[1][0][0]=s[1][1][0],s[1][0][1]]
             if(xd[0]>100){
-                console.log('Moving x')
+                //console.log('Moving x')
                 keyDown(!xd[1]?d:a)
             }else{
                 //keyDown(!xd[1]?d:a)
             }
             if(yd[0]>100){
-                console.log('Moving y')
+                //console.log('Moving y')
                 keyDown(yd[1]?s:w)
             }else{
                 //keyDown(!yd[1]?s:w)
             }
-            console.log({xd,yd})
+            //console.log({xd,yd})
         }
         function aim(arr,em){
             var center=[innerWidth/2,innerHeight/2]
-            var close=arr.map(item=>([...item._moveTo])).map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
-            console.log(close)
+            var close=arr.map(item=>([...item._lineTo])).map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
+            //console.log(close)
             let {move,aim}=settings
             aim&&(mouse(...close),Fire(true));
             if(move){
@@ -2492,6 +2494,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     moveFromSide();moveToward(...close)
                 }
                 else if(em&&getDistance(center[0],center[1],close[0],close[1])<300){
+                    closeEn={dist:getDistance(center[0],center[1],close[0],close[1]),close}
+                    console.log('runing',closeEn)
                     moveFromSide();run(...close)
                 }
                 else [[w,a,s,d].forEach(keyUp)]
@@ -2515,9 +2519,71 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 return [colors[e],e]
             })
         ]
-        letFill=true
-        var infothingy={}
-        var inf={}
+        function canClick(e){
+            var center=[innerWidth/2,innerHeight/2]
+            var context = canvas.getContext('2d');
+            var info={},Shapes={}
+            var shapes=[
+                ['##000000','TankBarrel'],
+                ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
+                ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
+                ['#fc7676 #bd585a #e76c6d #ffbbbb','Triangle'],
+                ['#fcc276 #bd9158','Summoned'],
+                ['#f177dd #b459a5','crasher'],
+                ['#c0c0c0 #969696','Fallen'],
+                ['#768cfc #5869bd #ccccff','Pent'],
+                ['#8aff69 #6cbe55','Green Square'],
+                ['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Team'],
+                ['#f04f54 #b33b3f #f14e54','Red Team'],
+                ['#00e06c #00a851','Green Team'],
+                ['#be7ff5 #8f5fb7','Purple Team'],
+                ...Object.keys(colors).map(e=>{
+                    return [colors[e],e]
+                })
+            ]
+            console.log('Getting pixels')
+            for(let x=0;x<canvas.width;x+=canvas.width*.02){
+                info[x]={}
+                for(let y=0;y<canvas.height;y+=canvas.height*.02){
+                    var pixelData = context.getImageData(x, y, 1, 1).data;
+                    var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
+                    if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
+                        coord += " (Transparent color detected, cannot be converted to HEX)";
+                    }else {
+                        info[x][y]=hex;
+                        let xy=info[x][y]
+                        var f=shapes.filter(e=>e[0].includes(xy)).map(e=>e)
+                        if(f.length){
+                            Shapes[f[0][1]]=Shapes[f[0][1]]||[];
+                            Shapes[f[0][1]].push([xy,f[0][0],x*1,y*1])
+                        }
+                    }
+                }
+            }
+            var S2={}
+            console.log('Fixing shapes')
+            for(let s in Shapes){
+                for(let i=0;i<Shapes[s].length;i++){
+                    let cord=[Shapes[s][i][2],Shapes[s][i][3]]
+                    let type=s;
+                    if(!S2[type]){S2[type]=[cord]}else{
+                        let sorted=[S2[type][0][0],cord[0]].sort((b,a)=>a-b);
+                        let sorted2=[S2[type][0][1],cord[1]].sort((b,a)=>a-b);
+                        var xd=sorted2[0]-sorted2[1]
+                        var yd=sorted[0]-sorted[1]
+                        let [x,y]=cord;
+                        if(xd<200||yd<500){}else S2[type].push([x,y,xd,yd]);
+                    }
+                    //console.log(S2[type],cord[0])
+                }
+            }
+            console.log('Color',S2,cc)
+            return S2
+        }
+        var ran=false;
+        function dif(a,b){
+            var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
+        }
         !function(){
             this.set_=this.set_||false
             if(this.set_)return this.beginPath_(...a);
@@ -2552,6 +2618,21 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.fillRect_=this.fillRect;
             this.fillRect=function(...a){
                 this._fillRect=a
+                if(letFill&&typeof this.fillStyle=='string'){
+                    for(let i=0;i<shapes.length;i++){
+                        if(shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())){
+                            if(!infothingy[this.shape])infothingy[this.shape]=[];
+                            !this.custom&&(infothingy[this.shape].push({...this}))
+                            var shape_=this.shape
+                            clearTimeout(this.timeOut)
+                            this.timeOut=setTimeout(()=>{
+                                delete infothingy[this.shape]
+                            },100)
+                            //if(this.shape!="TankBarrel")console.log('stroke Found',this);
+                            break
+                        }
+                    }
+                }
                 return this.fillRect_(...a)
             }
             //Draws a rectangle (no fill)
@@ -2577,13 +2658,16 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.moveTo_=this.moveTo;
             this.moveTo=function(...a){
                 this._moveTo=a
-                if(this.shape&&this.shape!='undefined'&&!a[2]){
+                if(this.shape&&this.shape!='undefined'&&!this.custom){
                     var ctx = canvas.getContext('2d');
                     ctx.beginPath();
-                    ctx.moveTo(canvas.width/2, canvas.height/2,true);
+                    ctx.custom=true
+                    ctx.moveTo(canvas.width/2, canvas.height/2);
                     ctx.lineTo(...a);
                     ctx.stroke();
+                    ctx.custom=false;
                 }
+                gogogo()
                 return this.moveTo_(...a)
             }
             //Creates a path from the current point back to the starting point
@@ -2662,12 +2746,32 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.fillText_=this.fillText;
             this.fillText=function(...a){
                 this._fillText=a
+                var[text,x,y]=a;
+                if(this.shape&&this.shape!='undefined'&&!this.custom){
+                    var ctx = canvas.getContext('2d');
+                    ctx.beginPath();
+                    ctx.custom=true
+                    ctx.moveTo(canvas.width/2, canvas.height/2);
+                    ctx.lineTo(x,y);
+                    ctx.stroke();
+                    ctx.custom=false;
+                }
                 return this.fillText_(...a)
             }
             //Draws text on the canvas (no fill)
             this.strokeText_=this.strokeText;
             this.strokeText=function(...a){
                 this._strokeText=a
+                var[text,x,y]=a;
+                if(this.shape&&this.shape!='undefined'&&!this.custom){
+                    var ctx = canvas.getContext('2d');
+                    ctx.beginPath();
+                    ctx.custom=true
+                    ctx.moveTo(canvas.width/2, canvas.height/2);
+                    ctx.lineTo(x,y);
+                    ctx.stroke();
+                    ctx.custom=false;
+                }
                 return this.strokeText_(...a)
             }
             //Returns an object that contains the width of the specified text
@@ -2766,7 +2870,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     for(let i=0;i<shapes.length;i++){
                         if(shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())){
                             if(!infothingy[this.shape])infothingy[this.shape]=[];
-                            infothingy[this.shape].push({...this})
+                            !this.custom&&(infothingy[this.shape].push({...this}))
                             var shape_=this.shape
                             clearTimeout(this.timeOut)
                             this.timeOut=setTimeout(()=>{
@@ -2776,76 +2880,12 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                             break
                         }
                     }
+                    gogogo()
                     return this.stroke_(...a)
                 }
             }
         }.apply(CanvasRenderingContext2D.prototype)
-        function canClick(e){
-            var center=[innerWidth/2,innerHeight/2]
-            var context = canvas.getContext('2d');
-            var info={},Shapes={}
-            var shapes=[
-                ['##000000','TankBarrel'],
-                ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
-                ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
-                ['#fc7676 #bd585a #e76c6d #ffbbbb','Triangle'],
-                ['#fcc276 #bd9158','Summoned'],
-                ['#f177dd #b459a5','crasher'],
-                ['#c0c0c0 #969696','Fallen'],
-                ['#768cfc #5869bd #ccccff','Pent'],
-                ['#8aff69 #6cbe55','Green Square'],
-                ['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Team'],
-                ['#f04f54 #b33b3f #f14e54','Red Team'],
-                ['#00e06c #00a851','Green Team'],
-                ['#be7ff5 #8f5fb7','Purple Team'],
-                ...Object.keys(colors).map(e=>{
-                    return [colors[e],e]
-                })
-            ]
-            console.log('Getting pixels')
-            for(let x=0;x<canvas.width;x+=canvas.width*.02){
-                info[x]={}
-                for(let y=0;y<canvas.height;y+=canvas.height*.02){
-                    var pixelData = context.getImageData(x, y, 1, 1).data;
-                    var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
-                    if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
-                        coord += " (Transparent color detected, cannot be converted to HEX)";
-                    }else {
-                        info[x][y]=hex;
-                        let xy=info[x][y]
-                        var f=shapes.filter(e=>e[0].includes(xy)).map(e=>e)
-                        if(f.length){
-                            Shapes[f[0][1]]=Shapes[f[0][1]]||[];
-                            Shapes[f[0][1]].push([xy,f[0][0],x*1,y*1])
-                        }
-                    }
-                }
-            }
-            var S2={}
-            console.log('Fixing shapes')
-            for(let s in Shapes){
-                for(let i=0;i<Shapes[s].length;i++){
-                    let cord=[Shapes[s][i][2],Shapes[s][i][3]]
-                    let type=s;
-                    if(!S2[type]){S2[type]=[cord]}else{
-                        let sorted=[S2[type][0][0],cord[0]].sort((b,a)=>a-b);
-                        let sorted2=[S2[type][0][1],cord[1]].sort((b,a)=>a-b);
-                        var xd=sorted2[0]-sorted2[1]
-                        var yd=sorted[0]-sorted[1]
-                        let [x,y]=cord;
-                        if(xd<200||yd<500){}else S2[type].push([x,y,xd,yd]);
-                    }
-                    //console.log(S2[type],cord[0])
-                }
-            }
-            console.log('Color',S2,cc)
-            return S2
-        }
-        var ran=false;
-        function dif(a,b){
-            var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
-        }
-        myLoop=setInterval(e=>{
+        function gogogo(){
             shapes=[
                 //['#85E37D','HP bar'],
                 ['##000000','TankBarrel'],
@@ -2866,31 +2906,34 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 })
             ]
             //2teams
-            if(player.GM=='teams'){
-                if(typeof player!='undefined' && dif(player.position.x,enemySide.x)<200){return run(player.TeamX,player.position.y)}
-                if(typeof player!='undefined' && dif(player.position.y,top)<100){return keyDown(39)}
-                if(typeof player!='undefined' && dif(player.position.y,floor)<100){return keyDown(38)}}
-            player.GM=localStorage.gamemode
-            if(player.GM=='teams'){
-                let context = canvas.getContext('2d');
-                let pixelData = context.getImageData(innerWidth/2, innerHeight/2, 1, 1).data;
-                player.team='#ff0000 #f80808'.includes("#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6))?"Red Team":"Blue Team"
-                enemySide.x=player.team=='Red Team'?blueSide:redSide
+            if(player.GM=='teams'&&typeof player!='undefined' && dif(player.position.x,enemySide.x)<200){run(player.TeamX,player.position.y)}
+            else if(player.GM=='teams'&&typeof player!='undefined' && dif(player.position.y,top)<100){keyDown(39)}
+            else if(player.GM=='teams'&&typeof player!='undefined' && dif(player.position.y,floor)<100){keyDown(38)}
+            else{
+                player.GM=localStorage.gamemode
+                if(player.GM=='teams'){
+                    let context = canvas.getContext('2d');
+                    let pixelData = context.getImageData(innerWidth/2, innerHeight/2, 1, 1).data;
+                    player.team='#ff0000 #f80808'.includes("#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6))?"Red Team":"Blue Team"
+                    enemySide.x=player.team=='Red Team'?blueSide:redSide
+                }
+                var auto=localStorage.autoFarm&&localStorage.autoFarm.length?!!JSON.parse(localStorage.autoFarm):false
+                var yes_=auto||player.isMaster||(!storage.multibox)
+                if(yes_){
+                    var S2=inf
+                    var target=[];
+                    var enemy=Object.keys(S2).filter(key=>(
+                        key!=player.team&&key.includes('team'))
+                                                     ||
+                                                     (player.GM!='teams'?key.includes('ffa'):!key.includes('ffa')&&key.includes('enemy'))
+                                                    ).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
+                    var shps=[S2['Green Square'],[...(S2['Pent']||[]),...(S2['crasher']||[])],S2['Triangle'],S2['Square']].filter(e=>e&&e.length)[0]
+                    if(enemy&&enemy.length&&[...(S2.TankBarrel||[])].filter(b=>30<getDistance(...b._lineTo,innerWidth/2,innerHeight/2)).length){aim(S2.TankBarrel,true);Fire(true)}
+                    else if(shps&&shps.length){aim(shps);Fire(true)}
+                    else Fire(false);
+                }
             }
-            var auto=localStorage.autoFarm&&localStorage.autoFarm.length?!!JSON.parse(localStorage.autoFarm):false
-            if((player.isMaster||storage.multibox||!auto))return;
-            var S2=inf
-            var target=[];
-            var enemy=Object.keys(S2).filter(key=>(
-                key!=player.team&&key.includes('team'))
-                                             ||
-                                             (player.GM!='teams'?key.includes('ffa'):!key.includes('ffa')&&key.includes('enemy'))
-                                            ).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
-            var shps=[S2['Green Square'],[...(S2['Pent']||[]),...(S2['crasher']||[])],S2['Triangle'],S2['Square']].filter(e=>e&&e.length)[0]
-            if(enemy&&enemy.length&&[...(S2.TankBarrel||[])].filter(b=>30<getDistance(...b._moveTo,innerWidth/2,innerHeight/2)).length){aim(S2.TankBarrel,true);Fire(true)}
-            else if(shps&&shps.length){aim(shps);Fire(true)}
-            else Fire(false);
-        },100)
+        }
 
     }
     _stt=stt
