@@ -1888,6 +1888,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             await sleep(time*2)
             canGo_=true
         }
+        _RealBooster=RealBooster
+        _RealBooster_=RealBooster_;
         onkeydown=function({keyCode}){
             if(keyCode==82){
                 RealBooster()
@@ -1999,7 +2001,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     const _a = ['\u006c\u0065\u006e\u0067\u0074\u0068'];
                     const local = this;
                     for (let _J = 0x0000; _J < this[_a[0x0000]]; _J++) {
-                        local[_J] = f(this[_J], _J)
+                        locaal[_J] = f(this[_J], _J)
                     }
                     return local
                 }
@@ -2333,7 +2335,15 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
     })();
 
     function stt(){
-
+        var thisLoop=false;
+        async function someLoop(){
+            thisLoop=true
+            while(thisLoop){
+                var f=_RealBooster
+                await f()
+                if(!thisLoop)Fire(false);
+            }
+        }
         var [redSide,floor,top,blueSide,right,left]=[6500,11300,-11300,-6500,-11000,11000]
         function getCloseSide(){
             let close=[]
@@ -2677,8 +2687,9 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
             //Adds a new point and creates a line to that point from the last specified point in the canvas
             this.lineTo_=this.lineTo;
+            this._lineTo=[];
             this.lineTo=function(...a){
-                this._lineTo=a
+                this._lineTo.push(a)
                 return this.lineTo_(...a)
             }
             //Clips a region of any shape and size from the original canvas
@@ -2918,7 +2929,14 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 var auto=localStorage.autoFarm&&localStorage.autoFarm.length?!!JSON.parse(localStorage.autoFarm):false
                 var yes_=auto||player.isMaster||(!storage.multibox)
                 if(yes_){
-                    var S2=inf
+                    var next={}
+                    for(let i in  inf){
+                        if(!next[i])next[i]=[];
+                        inf[i].forEach(e=>{
+                            if(!next[i].filter(b=>b._lineTo.join(' ')==e._lineTo.join(' ')).length){next[i].push(e)}
+                        })
+                    }
+                    var S2=next
                     var target=[];
                     var enemy=Object.keys(S2).filter(key=>(
                         key!=player.team&&key.includes('team'))
