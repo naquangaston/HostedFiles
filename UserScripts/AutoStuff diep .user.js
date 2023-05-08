@@ -2302,7 +2302,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                             execute("net_replace_color 14 0x595959");
                             execute("ren_stroke_solid_color 0xFFFFFF");
                         }
-                        player.isMaster&&(ls())
+                        ls()
                         log_("PlayerStatus", "Spawning into game");
 
                         fireing=false;
@@ -2628,6 +2628,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.fillRect_=this.fillRect;
             this.fillRect=function(...a){
                 this._fillRect=a
+                this.lineCount_=this.lineCount
+                this.lineCount=1;
                 if(letFill&&typeof this.fillStyle=='string'){
                     for(let i=0;i<shapes.length;i++){
                         if(shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())){
@@ -2656,7 +2658,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.clearRect=function(...a){
                 var[x,y,w,h]=a;
                 this._clearRect={x,y,w,h};
-                return (this.clearRect_(...a),w==canvas.width&&h==canvas.height&&(inf=infothingy,infothingy={}))
+                return (this.clearRect_(...a),w==canvas.width&&h==canvas.height&&(inf=infothingy,infothingy={text:[]}))
             }
             //Begins a path, or resets the current path
             this.beginPath_=this.beginPath;
@@ -2685,11 +2687,13 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 this._closePath=a
                 return this.closePath_(...a)
             }
+            this.lineCount=1
             //Adds a new point and creates a line to that point from the last specified point in the canvas
             this.lineTo_=this.lineTo;
-            this._lineTo=[];
+            //this._lineTo=[];
             this.lineTo=function(...a){
-                this._lineTo.push(a)
+                this.lineCount++;
+                this._lineTo=a//.push(a)
                 return this.lineTo_(...a)
             }
             //Clips a region of any shape and size from the original canvas
@@ -2751,22 +2755,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.setTransform=function(...a){
                 this._setTransform=a
                 return this.setTransform_(...a)
-            }
-            //Draws "filled" text on the canvas
-            this.fillText_=this.fillText;
-            this.fillText=function(...a){
-                this._fillText=a
-                var[text,x,y]=a;
-                if(this.shape&&this.shape!='undefined'&&!this.custom){
-                    var ctx = canvas.getContext('2d');
-                    ctx.beginPath();
-                    ctx.custom=true
-                    ctx.moveTo(canvas.width/2, canvas.height/2);
-                    ctx.lineTo(x,y);
-                    ctx.stroke();
-                    ctx.custom=false;
-                }
-                return this.fillText_(...a)
             }
             //Draws text on the canvas (no fill)
             this.strokeText_=this.strokeText;
@@ -2876,6 +2864,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
             this.stroke_=this.stroke;
             this.stroke=function(...a){
+                this.lineCount_=this.lineCount
+                this.lineCount=1;
                 if(letFill){
                     for(let i=0;i<shapes.length;i++){
                         if(shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())){
@@ -2894,17 +2884,31 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 }
             }
         }.apply(CanvasRenderingContext2D.prototype)
+        CanvasRenderingContext2D.prototype.fillText = new Proxy(CanvasRenderingContext2D.prototype.fillText, {
+
+            apply(fillRect, ctx, [text, x, y, ...blah]) {
+
+
+                if (text.startsWith('Lvl ')){ currentTank = text.split(' ').splice(2)}
+                else infothingy.text.push({arguments});
+
+
+                fillRect.call(ctx, text, x, y, ...blah);
+
+            }
+
+        });
         myLoop=setInterval(e=>{
             shapes=[
                 //['#85E37D','HP bar'],
                 ['##000000','TankBarrel'],
                 ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
                 ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
-                ['#fc7676 #bd585a #e76c6d #ffbbbb','Triangle'],
+                ['#fc7676 #bd585a #e76c6d #ffbbbb','#fc7677','#bd5859','Triangle'],
                 ['#fcc276 #bd9158','Summoned'],
                 ['#f177dd #b459a5','crasher'],
                 ['#c0c0c0 #969696','Fallen'],
-                ['#768cfc #5869bd #ccccff','Pent'],
+                ['#768cfc #5869bd #ccccff','#768dfc','Pent'],
                 ['#8aff69 #6cbe55','Green Square'],
                 ['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Team'],
                 ['#f04f54 #b33b3f #f14e54','Red Team'],
@@ -2930,21 +2934,19 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 var yes_=auto||player.isMaster||(!storage.multibox)
                 if(yes_){
                     var next={}
-                    for(let i in  inf){
+                    try{for(let i in  inf){
                         if(!next[i])next[i]=[];
                         inf[i].forEach(e=>{
                             if(!next[i].filter(b=>b._lineTo.join(' ')==e._lineTo.join(' ')).length){next[i].push(e)}
                         })
-                    }
+                    }}catch(err){}
                     var S2=next
                     var target=[];
-                    var enemy=Object.keys(S2).filter(key=>(
-                        key!=player.team&&key.includes('team'))
-                                                     ||
-                                                     (player.GM!='teams'?key.includes('ffa'):!key.includes('ffa')&&key.includes('enemy'))
-                                                    ).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
-                    var shps=[S2['Green Square'],[...(S2['Pent']||[]),...(S2['crasher']||[])],S2['Triangle'],S2['Square']].filter(e=>e&&e.length)[0]
-                    if(enemy&&enemy.length&&[...(S2.TankBarrel||[])].filter(b=>30<getDistance(...b._lineTo,innerWidth/2,innerHeight/2)).length){aim(S2.TankBarrel,true);Fire(true)}
+                    var enemy=[S2['enemy ffa'],S2['Barrels, Spawners, Launchers and Auto Turrets']].filter(e=>e&&e.filter(b=>30<getDistance(...b._moveTo,innerWidth/2,innerHeight/2)).length)[0]
+                        //Object.keys(S2).filter(key=>(key!=player.team&&key.includes('team'))||(player.GM!='teams'?key.includes('ffa'):!key.includes('ffa')&&key.includes('enemy'))).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
+                    inf['Barrels, Spawners, Launchers and Auto Turrets']
+                    var shps=[S2['crasher'],S2['Pent'],(S2.Triangle||S2['#768dfc']),S2['Square']].filter(e=>e&&e.length)[0];
+                    if(enemy&&enemy.length){aim(enemy,true);Fire(true)}
                     else if(shps&&shps.length){aim(shps);Fire(true)}
                     else Fire(false);
                 }
