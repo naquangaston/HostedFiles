@@ -2595,6 +2595,54 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
         }
         !function(){
+            function draw(_this,...a){
+                if(_this.shape&&_this.shape!='undefined'&&!_this.custom){
+                    /*if(this.shape=='TankBarrel'){
+                        let ctx_ = canvas.getContext("2d");
+                        ctx_.beginPath();
+                        ctx_.custom=true
+                        ctx_.strokeStyle = "#FF0000";
+                        ctx_.arc(...a, 50, 0, 2 * Math.PI);
+                        ctx_.stroke();
+                        ctx_.custom=false;
+                    }*/
+                    if(_this.shape.includes('Barrels')||_this.shape.includes('enemy')){
+                        let ctx_ = canvas.getContext("2d");
+                        ctx_.beginPath();
+                        ctx_.custom=true
+                        var gradient = ctx_.createLinearGradient(0, 0, 170, 0);
+                        gradient.addColorStop("0", "magenta");
+                        gradient.addColorStop("0.5" ,"blue");
+                        gradient.addColorStop("1.0", "red");
+                        // Fill with gradient
+                        ctx_.strokeStyle = gradient;
+                        ctx_.lineWidth = 5;
+                        ctx_.arc(a[0],a[1], 50, 0, 2 * Math.PI);
+                        ctx_.stroke();
+                        ctx_.custom=false;
+                    }
+                }
+            }
+            Object.defineProperty(this,'fillStyle',{
+                get fillStyle(){
+                    return this._fillStyle
+                },
+                set fillStyle(a){
+                    infothingy.styles[this._fillStyle]=infothingy.styles[this._fillStyle]||[]
+                    infothingy.styles[this._fillStyle].push(this)
+                    this._fillStyle=a;
+                }
+            })
+            Object.defineProperty(this,'strokeStyle',{
+                get strokeStyle(){
+                    return this._strokeStyle
+                },
+                set strokeStyle(a){
+                    infothingy.styles[this._strokeStyle]=infothingy.styles[this._strokeStyle]||[]
+                    infothingy.styles[this._strokeStyle].push(this)
+                    this._strokeStyle=a;
+                }
+            })
             this.set_=this.set_||false
             if(this.set_)return this.beginPath_(...a);
             this.set_=true;
@@ -2646,6 +2694,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     }
                 }
                 return this.fillRect_(...a)
+                //draw(this,...a)
             }
             //Draws a rectangle (no fill)
             this.strokeRect_=this.strokeRect;
@@ -2658,7 +2707,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.clearRect=function(...a){
                 var[x,y,w,h]=a;
                 this._clearRect={x,y,w,h};
-                return (this.clearRect_(...a),w==canvas.width&&h==canvas.height&&(inf=infothingy,infothingy={text:[]}))
+                return (this.clearRect_(...a),w==canvas.width&&h==canvas.height&&(inf=infothingy,infothingy={styles:{},text:[]}))
             }
             //Begins a path, or resets the current path
             this.beginPath_=this.beginPath;
@@ -2670,8 +2719,9 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.moveTo_=this.moveTo;
             this.moveTo=function(...a){
                 this._moveTo=a
+                //draw(this,...a)
                 if(this.shape&&this.shape!='undefined'&&!this.custom){
-                    var ctx = canvas.getContext('2d');
+                    let ctx = canvas.getContext('2d');
                     ctx.beginPath();
                     ctx.custom=true
                     ctx.moveTo(canvas.width/2, canvas.height/2);
@@ -2694,7 +2744,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.lineTo=function(...a){
                 this.lineCount++;
                 this._lineTo=a//.push(a)
-                return this.lineTo_(...a)
+                this.lineTo_(...a)
             }
             //Clips a region of any shape and size from the original canvas
             this.clip_=this.clip;
@@ -2718,7 +2768,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.arc_=this.arc;
             this.arc=function(...a){
                 this._arc=a
-                return this.arc_(...a)
+                this.arc_(...a)
+                infothingy[this.strokeStyle]=this
             }
             //Creates an arc/curve between two tangents
             this.arcTo_=this.arcTo;
@@ -2841,7 +2892,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         break
                     }
                 }
-                return this.fill_(...a)
+                this.fill_(...a)
+                //draw(this,...a)
             }
             this.scale_=this.scale
             this.scale=function(...a){
@@ -2866,7 +2918,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.stroke=function(...a){
                 this.lineCount_=this.lineCount
                 this.lineCount=1;
-                if(letFill){
+                if(letFill&&this.strokeStyle.toUpperCase){
                     for(let i=0;i<shapes.length;i++){
                         if(shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())){
                             if(!infothingy[this.shape])infothingy[this.shape]=[];
@@ -2880,8 +2932,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                             break
                         }
                     }
-                    return this.stroke_(...a)
                 }
+                this.stroke_(...a)
             }
         }.apply(CanvasRenderingContext2D.prototype)
         CanvasRenderingContext2D.prototype.fillText = new Proxy(CanvasRenderingContext2D.prototype.fillText, {
@@ -2942,11 +2994,11 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     }}catch(err){}
                     var S2=next
                     var target=[];
-                    var enemy=[S2['enemy ffa'],S2['Barrels, Spawners, Launchers and Auto Turrets']].filter(e=>e&&e.filter(b=>30<getDistance(...b._moveTo,innerWidth/2,innerHeight/2)).length)[0]
+                    var enemy=[S2['enemy ffa'],S2['Barrels, Spawners, Launchers and Auto Turrets']].filter(e=>e&&e.length)[0];
                         //Object.keys(S2).filter(key=>(key!=player.team&&key.includes('team'))||(player.GM!='teams'?key.includes('ffa'):!key.includes('ffa')&&key.includes('enemy'))).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
                     inf['Barrels, Spawners, Launchers and Auto Turrets']
                     var shps=[S2['crasher'],S2['Pent'],(S2.Triangle||S2['#768dfc']),S2['Square']].filter(e=>e&&e.length)[0];
-                    if(enemy&&enemy.length){aim(enemy,true);Fire(true)}
+                    if(enemy&&enemy.length&&[...(S2.TankBarrel||[])].filter(b=>30<getDistance(...b._lineTo,innerWidth/2,innerHeight/2)).length){aim(enemy,true);Fire(true)}
                     else if(shps&&shps.length){aim(shps);Fire(true)}
                     else Fire(false);
                 }
