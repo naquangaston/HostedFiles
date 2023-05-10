@@ -2769,7 +2769,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.arc=function(...a){
                 this._arc=a;
                 infothingy.styles[this.strokeStyle]=infothingy.styles[this.strokeStyle]||[]
-                infothingy.styles[this.strokeStyle].push(a)
+                infothingy.styles[this.strokeStyle].push([...a,this.strokeStyle])
                 this.arc_(...a);
             }
             //Creates an arc/curve between two tangents
