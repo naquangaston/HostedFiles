@@ -2503,7 +2503,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 if(getDistance(center[0],center[1],close[0],close[1])>300){
                     moveFromSide();moveToward(...close)
                 }
-                else if(em&&getDistance(center[0],center[1],close[0],close[1])<300){
+                else if(em&&getDistance(center[0],center[1],close[0],close[1])<700){
                     closeEn={dist:getDistance(center[0],center[1],close[0],close[1]),close}
                     console.log('runing',closeEn)
                     moveFromSide();run(...close)
@@ -2512,7 +2512,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
         }
         var shapes=[
-            ['##000000','TankBarrel'],
+            ['TankBarrel'],
             ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
             ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
             ['#fc7676 #bd585a #e76c6d #ffbbbb','Triangle'],
@@ -2766,16 +2766,19 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
             //Creates an arc/curve (used to create circles, or parts of circles)
             this.arc_=this.arc;
+            this.arcs=0
             this.arc=function(...a){
                 this._arc=a;
+                this.arcs++;
                 infothingy.styles[this.strokeStyle]=infothingy.styles[this.strokeStyle]||[]
-                infothingy.styles[this.strokeStyle].push([...a,this.strokeStyle])
+                infothingy.styles[this.strokeStyle].push([...a,this])
                 this.arc_(...a);
             }
             //Creates an arc/curve between two tangents
             this.arcTo_=this.arcTo;
             this.arcTo=function(...a){
                 this._arcTo=a
+                this.arcs++;
                 return this.arcTo_(...a)
             }
             //Returns true if the specified point is in the current path, otherwise false
@@ -2919,10 +2922,11 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.stroke=function(...a){
                 this.lineCount_=this.lineCount
                 this.lineCount=1;
-                if(letFill&&this.strokeStyle.toUpperCase){
+                if(letFill&&this.strokeStyle.toUpperCase||this.fillStyle.toUpperCase){
                     for(let i=0;i<shapes.length;i++){
-                        if(shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())){
+                        if(shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())){
                             if(!infothingy[this.shape])infothingy[this.shape]=[];
+                            this._fillStyle=this.fillStyle
                             !this.custom&&(infothingy[this.shape].push({...this}))
                             var shape_=this.shape
                             clearTimeout(this.timeOut)
@@ -2951,17 +2955,21 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
 
         });
-        myLoop=setInterval(e=>{
+        function getClose(arr){
+            return arr.map(e=>{  e.dist=getDistance(...e._lineTo,canvas.width/2,canvas.height/2);return e;
+                              }).sort((a,b)=>a.dist-b.dist)[0]
+        }
+       myLoop=setInterval(e=>{
             shapes=[
                 //['#85E37D','HP bar'],
                 ['##000000','TankBarrel'],
                 ['#898989','LeaderDir'],['#0000ff','enemy ffa'],
                 ['#ffe46b #bfae4e #ffe869 #ffff00 #ccf #fbb','Square'],
-                ['#fc7676 #bd585a #e76c6d #ffbbbb','#fc7677','#bd5859','Triangle'],
+                ['#fc7676 #bd585a #e76c6d #ffbbbb #fc7677 #bd5859','Triangle'],
                 ['#fcc276 #bd9158','Summoned'],
                 ['#f177dd #b459a5','crasher'],
                 ['#c0c0c0 #969696','Fallen'],
-                ['#768cfc #5869bd #ccccff','#768dfc','Pent'],
+                ['#768cfc #5869bd #ccccff #768dfc #ccccff','Pent'],
                 ['#8aff69 #6cbe55','Green Square'],
                 ['#00b0e1 #0083a8 #29aacc #4cc9ea #33afd0','Blue Team'],
                 ['#f04f54 #b33b3f #f14e54','Red Team'],
@@ -2986,22 +2994,32 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 var auto=localStorage.autoFarm&&localStorage.autoFarm.length?!!JSON.parse(localStorage.autoFarm):false
                 var yes_=auto||player.isMaster||(!storage.multibox)
                 if(yes_){
-                    var next={}
-                    try{for(let i in  inf){
-                        if(!next[i])next[i]=[];
-                        inf[i].forEach(e=>{
-                            if(!next[i].filter(b=>b._lineTo.join(' ')==e._lineTo.join(' ')).length){next[i].push(e)}
-                        })
-                    }}catch(err){}
-                    var S2=next
+                    var ab={};
+                    for(let item in inf){
+                        ab[item]=ab[item]||{}
+                        let arr=inf[item]
+                        for(let i=0;i<arr.length;i++){
+                            if(!ab[item][arr[i].lineCount_]){
+                                ab[item][arr[i].lineCount_]=[]
+                            }
+                            ab[item][arr[i].lineCount_].push(arr[i])
+                        }
+                    }
+                    var S2=ab
+                    for(let i in S2['enemy ffa']){
+                        S2['enemy ffa'][i]=S2['enemy ffa'][i].filter(e=>e._fillStyle!='#000000')
+                    }
                     var target=[];
-                    var enemy=[S2['enemy ffa'],S2['Barrels, Spawners, Launchers and Auto Turrets']].filter(e=>e&&e.length)[0];
-                        //Object.keys(S2).filter(key=>(key!=player.team&&key.includes('team'))||(player.GM!='teams'?key.includes('ffa'):!key.includes('ffa')&&key.includes('enemy'))).map(e=>((S2[e]&&S2[e].length&&S2[e])||[]))[0]
-                    inf['Barrels, Spawners, Launchers and Auto Turrets']
-                    var shps=[S2['crasher'],S2['Pent'],(S2.Triangle||S2['#768dfc']),S2['Square']].filter(e=>e&&e.length)[0];
-                    if(enemy&&enemy.length&&[...(S2.TankBarrel||[])].filter(b=>30<getDistance(...b._lineTo,innerWidth/2,innerHeight/2)).length){aim(enemy,true);Fire(true)}
-                    else if(shps&&shps.length){aim(shps);Fire(true)}
-                    else Fire(false);
+                    var drones=S2['enemy ffa']&&(S2['enemy ffa'][3])||S2["Fallen Bosses"]&&(S2["Fallen Bosses"][4])
+                    var enemies=S2['enemy ffa']&&(S2['enemy ffa'][1]||S2['enemy ffa'][4])
+                    var Square=S2['Square']&&(S2['Square'][4])
+                    var Crasher=S2['crasher']&&(S2['crasher'][3])
+                    var Pent=S2['Pent']&&(S2['Pent'][5])
+                    var Triangle=S2['Triangle']&&(S2['Triangle'][3])
+                    var closeEnemy=getClose(enemies||[])
+                    var closeDrone=drones&&(getClose(drones))
+                    var closeShape=getClose(Crasher||Pent||Triangle||Square||[])
+                    closeDrone&&closeDrone.dist<2000?(aim([closeDrone],true)):closeEnemy?aim([closeEnemy],true):closeShape?aim([closeShape]):Fire(false)
                 }
             }
         },1)
