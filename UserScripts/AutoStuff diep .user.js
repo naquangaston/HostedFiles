@@ -1750,6 +1750,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
         }
         console.log('Loading builds')
+        var otherStuff={"toggles":[{"name":"net_predict_movement","bool":"true","for":"Enable clientside prediction for movement"},{"name":"ren_achievements","bool":"true","for":"Render achievements"},{"name":"ren_background","bool":"true","for":"Render background[6]"},{"name":"ren_cache_grid","bool":"true","for":"Cache grid on separate canvas"},{"name":"ren_context_reinitialization","bool":"true","for":"Reinitialize contexts if FPS is too low[7]"},{"name":"ren_debug_collisions","bool":"false","for":"Render collidable debug info[8]"},{"name":"ren_debug_info","bool":"false","for":"Render some debug info on the server stats test"},{"name":"ren_fps","bool":"false","for":"Render FPS"},{"name":"ren_health_bars","bool":"true","for":"Render health bars"},{"name":"ren_names","bool":"true","for":"Render names"},{"name":"ren_pattern_grid","bool":"true","for":"Use canvas createPattern for grid, it's faster but looks slightly worse"},{"name":"ren_raw_health_values","bool":"false","for":"Render raw health bar values"},{"name":"ren_scoreboard","bool":"true","for":"Render scoreboard"},{"name":"ren_scoreboard_names","bool":"true","for":"Render scoreboard names"},{"name":"ren_solid_background","bool":"true","for":"Render background as solid color, without the grid"},{"name":"ren_stats","bool":"true","for":"Render stat upgrades"},{"name":"ren_stroke_soft_color","bool":"true","for":"Renders strokes as a darker shade of fill color"},{"name":"ren_ui","bool":"true","for":"Render UI layer"},{"name":"ren_upgrades","bool":"true","for":"Render class upgrades"},{"name":"ui_prevent_right_click","bool":"true","for":"Prevent right click from triggering context menu"}],"colors":[{"name":"net_replace_color","index":"0","default":"0x555555","for":"Smasher and Dominator Bases"},{"name":"net_replace_color","index":"1","default":"0x999999","for":"Barrels, Spawners, Launchers and Auto Turrets"},{"name":"net_replace_color","index":"2","default":"0x00B1DE","for":"Body (You)"},{"name":"net_replace_color","index":"3","default":"0x00B1DE","for":"Blue Team"},{"name":"net_replace_color","index":"4","default":"0xF14E54","for":"Red Team"},{"name":"net_replace_color","index":"5","default":"0xBE7FF5","for":"Purple Team"},{"name":"net_replace_color","index":"6","default":"0x00F46C","for":"Green Team"},{"name":"net_replace_color","index":"6","default":"0xD68163","for":"Green Team (Making Green Team Brown, like it was formerly)"},{"name":"net_replace_color","index":"7","default":"0x89FF69","for":"Shiny Polygons (Green Square, Green Triangle, Green Pentagon)"},{"name":"net_replace_color","index":"8","default":"0xFFE869","for":"Square"},{"name":"net_replace_color","index":"9","default":"0xFC7677","for":"Triangle"},{"name":"net_replace_color","index":"10","default":"0x768DFC","for":"Pentagon"},{"name":"net_replace_color","index":"11","default":"0xFF77DC","for":"Crashers"},{"name":"net_replace_color","index":"12","default":"0xFFE869","for":"Arena Closers/Neutral Dominators/Defender Ammo"},{"name":"net_replace_color","index":"13","default":"0x44FFA0","for":"Scoreboard"},{"name":"net_replace_color","index":"14","default":"0xBBBBBB","for":"Maze Walls"},{"name":"net_replace_color","index":"15","default":"0xF14E54","for":"Others (FFA)"},{"name":"net_replace_color","index":"16","default":"0xFBC477","for":"Summoned Squares (Necromancer)"},{"name":"net_replace_color","index":"17","default":"0xC0C0C0","for":"Fallen Bosses"},{"name":"ren_background_color","default":"0xCDCDCD","for":"Base color for the background"},{"name":"ren_border_color","default":"0x000000","for":"The area outside the map (overlayed on top of the inside the map color, semi-transparent)"},{"name":"ren_minimap_background_color","default":"0xCDCDCD","for":"Minimap"},{"name":"ren_minimap_border_color","default":"0x555555","for":"Minimap Border"},{"name":"ren_health_fill_color","default":"0x85E37D","for":"Health Bar"},{"name":"ren_health_background_color","default":"0x555555","for":"Health Bar Background"},{"name":"ren_xp_bar_fill_color","default":"0xFFDE43","for":"EXP Bar"},{"name":"ren_score_bar_fill_color","default":"0x43FF91","for":"Score Bar"},{"name":"ren_bar_background_color","default":"0x000000","for":"EXP/Score Bar/Scoreboard Background"},{"name":"ren_stroke_solid_color","default":"0x555555","for":"Outlines (For ren_stroke_soft_color false)"},{"name":"ren_grid_color","default":"0x000000","for":"Grid Lines (Note: Actual Results Vary, seeing as the border is different for each section)"}]}
         const Builds=await fetch('https://raw.githubusercontent.com/naquangaston/HostedFiles/main/builds.json').then(e=>e.json())
         const BuildsName=Object.keys(Builds).map(s=>{
             return [...new Set(Object.keys(Builds[s]._builds).map(b=>Builds[s]._builds[b].p))]
@@ -2001,7 +2002,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     const _a = ['\u006c\u0065\u006e\u0067\u0074\u0068'];
                     const local = this;
                     for (let _J = 0x0000; _J < this[_a[0x0000]]; _J++) {
-                        locaal[_J] = f(this[_J], _J)
+                        local[_J] = f(this[_J], _J)
                     }
                     return local
                 }
@@ -2152,16 +2153,33 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             upgrading = false; DidiU = true;
         }
         colors={}
+        function findColor(group){
+            const _index=group.index;
+            const _name=group.name;
+            for(let i=0;i<otherStuff.colors.length;i++){
+                let {index,name}=otherStuff.colors[i];
+                if(index==_index&&_name==name){
+                    return i;
+                }
+            }
+        }
         set_convar=window.set_convar=function(a,b){
             console.log('Set',a,b)
             input.set_convar(a,b)
         }
         execute=window.execute=function(ode){
+            var res=(ode.match(/(?<name>[\w_]+) ?(?<index>[0-9]+)? ?(?<value>0x[\w]+)\t?(?<for>.+)?/i)||{groups:{}}).groups
             var s=ode.split(' ')
             var list=[
                 'Smasher and Dominator Bases','Barrels, Spawners, Launchers and Auto Turrets','self','Blue Team','Red Team','Purple Team','Green Team','Shiny Polygons','Square','Triangle','Pentagon','Crashers','Arena Closers/Neutral Dominators/Defender Ammo','Maze Walls','Others (FFA)','Summoned Squares (Necromancer)','Fallen Bosses'
             ]
-            console.log('Set',list[s[1]],s[2],s)
+            var found=findColor(res)
+            console.log('Set',list[s[1]],s[2],s,{found,res})
+            if(found!=null){
+                let item=otherStuff.colors[found]
+                colors[item.for]=res.value
+                otherStuff.colors[found].custom=res.value.toUpperCase();
+            }
             try{colors[list[s[1]]]=`#${s[2].split('').splice(2).join('')}`.toLowerCase();input.execute(ode);Settings[list[s[1]]]={value:s[2]}}catch(err){if(s.length!=3)(input.execute(ode))}
         }
         const keys = obj => Object.keys(obj||this);
@@ -3013,7 +3031,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     var drones=S2['enemy ffa']&&(S2['enemy ffa'][3])||S2["Fallen Bosses"]&&(S2["Fallen Bosses"][4])
                     var enemies=S2['enemy ffa']&&(S2['enemy ffa'][1]||S2['enemy ffa'][4])
                     var Square=S2['Square']&&(S2['Square'][4])
-                    var Crasher=S2['crasher']&&(S2['crasher'][3])
+                    var Crasher=S2['crasher']&&(S2['crasher'][Object.keys(S2['crasher'])[0]])
                     var Pent=S2['Pent']&&(S2['Pent'][5])
                     var Triangle=S2['Triangle']&&(S2['Triangle'][3])
                     var closeEnemy=getClose(enemies||[])
