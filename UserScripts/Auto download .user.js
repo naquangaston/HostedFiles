@@ -6,37 +6,92 @@
 // @author       You
 // @match         *://www.youtube.com/*
 // @match         *://onlymp3.to/*
+// @match         *://en.onlymp3.to/*
+// @match         *://www.yt2conv.com/*
+// @match         *://en1.onlinevideoconverter.pro/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
-// @grant GM_addStyle
-// @grant GM_addElement
-// @grant GM_deleteValue
-// @grant GM_listValues
-// @grant GM_addValueChangeListener
-// @grant GM_removeValueChangeListener
-// @grant GM_setValue
-// @grant GM_getValue
-// @grant GM_log
-// @grant GM_getResourceText
-// @grant GM_getResourceURL
-// @grant GM_registerMenuCommand
-// @grant GM_unregisterMenuCommand
-// @grant GM_openInTab
-// @grant GM_xmlhttpRequest
-// @grant GM_download
-// @grant GM_getTab
-// @grant GM_saveTab
-// @grant GM_getTabs
-// @grant GM_notification
-// @grant GM_setClipboard
-// @grant GM_info
+// @grant        none
 // @run-at document-start
 // ==/UserScript==
 
-stuff=Object.assign({},{GM_info,GM});
 (function() {
     //'use strict';
+    class element {
+        static get br() {
+            return new element("br");
+        }
+        constructor(name, obj) {
+            this.element = (function () {
+                for (let i in arguments[1]) {
+                    arguments[0].setAttribute(i, arguments[1][i]);
+                }
+                return arguments[0];
+            })(document.createElement(arguments[0]), arguments[1]);
+        }
+        style(obj) {
+            for (let i in obj) {
+                this.element.style[i] = obj[i];
+            }
+            return this;
+        }
+        append(target) {
+            this.element.append(target.element || target);
+            return this;
+        }
+        appendTo(target) {
+            (target.element || target).append(this.element);
+            return this;
+        }
+        on(event, a) {
+            this.element[`on${event}`] = a;
+            return this;
+        }
+        set(prop, value) {
+            this.element[prop] = value;
+            return this;
+        }
+        remove() {
+            this.element.remove();
+            return this;
+        }
+        get() {
+            return this.element[arguments[0]];
+        }
+        get children() {
+            return new (class $ {
+                constructor(arr) {
+                    for (var i = 0; i < arr.length; i += 1) {
+                        this[i] = arr[i];
+                    }
 
+                    // length is readonly
+                    Object.defineProperty(this, "length", {
+                        get: function () {
+                            return arr.length;
+                        }
+                    });
+
+                    // a HTMLCollection is immutable
+                    Object.freeze(this);
+                }
+                item(i) {
+                    return this[i] != null ? this[i] : null;
+                }
+                namedItem(name) {
+                    for (var i = 0; i < this.length; i += 1) {
+                        if (this[i].id === name || this[i].name === name) {
+                            return this[i];
+                        }
+                    }
+                    return null;
+                }
+                get toArray() {
+                    return [...this];
+                }
+            })([...this.element.children]);
+        }
+    }
     function sk(){
         get_aria_label('Why this ad?').click();
         setTimeout(()=>{
@@ -50,8 +105,8 @@ stuff=Object.assign({},{GM_info,GM});
             if(e.getAttribute(item)==label){
                 res.push(e);
             }else{
-                if(e.children.length||(e.shadowRoot&&e.shadowRoot.children.length)){
-                    e=(e.shadowRoot&&e.shadowRoot.children.length)?e.shadowRoot.children:e.children;
+                if(e.children.length){
+                    e=e.children;
                     e.forEach=[].forEach;
                     e.forEach(e2=>{
                         part2(e2);
@@ -114,7 +169,7 @@ stuff=Object.assign({},{GM_info,GM});
         return (el.offsetParent === null)
     }
     setElement = function(url) {
-        return (String(url).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/)&&String(url).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/)[7].length==11)? String(url).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/)[7]: false;
+        return (String(url).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)&&String(url).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length==11)? String(url).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8]: false;
     };
     findhref2=function (a,b){
         var res=[];
@@ -150,17 +205,25 @@ stuff=Object.assign({},{GM_info,GM});
     }
     _getIds=getIds
     info={}
-    downloadT=function(id,force=false){
+    downloadT=function(id,force=false,useT=false,mp4=false){
         if((info[id]||localStorage[id])&&!force)return;
         var video={}
         var hash=`#url=https://www.youtube.com/watch?v=${id}`
         ad('unload',function(){info[id].close()},true)
         onmessage=function(e){
-            if(e.origin==Porigin||e.origin.match(/https?:\/{2}onlymp3\.to/)){
+            if(e.origin==Porigin||e.origin.match(/https?:\/{2}onlymp3\.to/)||e.origin.match(/https?:\/{2}en\.onlymp3\.to/)||e.origin.match(/https?:\/{2}en1\.onlinevideoconverter\.pro/)){
                 const {data:{href,title,length,id}}=e
                 console.log('Handled',{href,title,length,id},e)
                 //info[id].close()
-                open(href)
+                if(useT){
+                    var a=document.createElement('a')
+                    a.download=title+'.mp4'
+                    a.href=href
+                    document.body.appendChild(a)
+                    a.click()
+                    a.remove();
+                }
+                else open(href);
                 localStorage[id]=href
             }else console.log('Unhandled Post',e)
         }
@@ -168,7 +231,9 @@ stuff=Object.assign({},{GM_info,GM});
         var o=new URL(location.href)
         o.host=o.host.replace('.com','mz.com');
         //open([o.protocol,'//',o.host,o.pathname,'?v=',setElement(location.href)].join(''))
-        return info[id]=open([o.protocol,'//',o.host,o.pathname,'?v=',id].join(''),id,`width=400,height=500`)
+        return info[id]=mp4?
+            open('https://en1.onlinevideoconverter.pro/26/youtube-downloader-mp4',[id,location.pathname.startsWith('/shorts/')?1:0],`width=400,height=500`)
+        :open([o.protocol,'//',o.host,o.pathname,'?v=',id].join(''),[id,location.pathname.startsWith('/shorts/')?1:0],`width=400,height=500`)
     }
     function abc(label, item = 'aria-label', doc = document.body) {
         var res = [];
@@ -253,11 +318,11 @@ stuff=Object.assign({},{GM_info,GM});
     };
     window.getWin=getWin
     function WIP(hmpd){
-    var ids=_getIds()
-    var list=[]
-    for(let i=0;i<hmpd;i++){
-        list.push(['w'+i,'win'+i])
-    }
+        var ids=_getIds()
+        var list=[]
+        for(let i=0;i<hmpd;i++){
+            list.push(['w'+i,'win'+i])
+        }
         ids.forEach(({id},index)=>{
             getWin(
                 list
@@ -270,13 +335,70 @@ stuff=Object.assign({},{GM_info,GM});
                     if(window[b].closed){window[b]=null;clearInterval(rr);console.log(b,'isclosed')}
                 },300);
             })
-    })
+        })
     }
     window.WIP=WIP
+    var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),false,true)});
+    var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),false,true,true)});
     if(location.href.includes('onlymp3.to')){
         console.log('Getting MP3')
+        tF(function(f=function(){}){
+            var [id,shorts]=name.split(',')
+            txtUrl.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}/${id}`
+            getListFormats();
+        },{callback:function(){}})
         tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close});
         return
+    }
+    if(location.href.includes("www.yt2conv.com")){
+        console.log('Getting MP4')
+        let [id,shorts]=name.split(',')
+        tF(function(f=function(){}){
+            var input=document.getElementById('search_txt')
+            input.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+            document.getElementById('btn-submit').click()
+            console.log(id,shorts)
+        },{callback:function(){}})
+        tF(function(f=function(){}){
+            console.log(result.children.length)
+            if(!result.children.length){document.getElementById('btn-submit').click();throw "no there"}
+        },{int:1000,callback:function(){}})
+        tF(function(){
+            document.getElementById('btn-download').click()
+        },{callback:function(){}})
+        tF(function(){
+            var title=$('.media-heading')[0].innerText
+            var href=downloadbtn.href
+            var f={id,href,title,length:{}};
+            console.log('Posted')
+            ;(opener||window).postMessage(f,'*')
+        },{callback:close})
+    }
+    if(location.href.includes("en1.onlinevideoconverter.pro")){
+        let [id,shorts]=name.split(',')
+        let callback=function(){};
+        tF(function(f=function(){}){
+            var input=document.getElementById('texturl')
+            input.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+            document.getElementById('convert1').click()
+            console.log('Searched')
+        },{callback})
+        tF(function(){
+            if(stepProcess.style.display=='none'){
+                document.getElementById('convert1').click()
+                throw "this"
+            }
+            console.log('Searching')
+        },{callback})
+        tF(function(){
+            if(document.getElementById('form-app-root').children.length==0)throw ""
+            console.log('loaded')
+            var{title,href}=$('#download-720-MP4')[0]
+            var f={id,href,title,length:{}};
+            console.log('Posted')
+            ;(opener||window).postMessage(f,'*')
+        },{callback:close})
+
     }
     setInterval(e=>{
         document.getElementsByClassName("ytp-ad-button-icon")[0]&&!didmute&&(console.log('muted ad'),didmute=1,Mute());
@@ -285,8 +407,4 @@ stuff=Object.assign({},{GM_info,GM});
         document.getElementsByClassName('ytp-ad-overlay-close-button')[2]&&(document.getElementsByClassName('ytp-ad-overlay-close-button')[2].click(),console.log('Close ad card'))
         // ad skipping ^^
     },10)
-    tF(function(){
-        var actions=document.querySelector("#actions")
-        if(!actions)throw ""
-    })
 })();
