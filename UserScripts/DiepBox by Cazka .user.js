@@ -1391,7 +1391,10 @@ unsafeWindow.addEventListener('keydown', (e) => {
         input.value = input.value.startsWith('\u0044\u0042') ? input.value : '\u0044\u0042 ' + input.value;
     }
 });
-
+addEventListener('load',function(){
+    document.getElementById("player").remove()
+    window.player=player;
+})
 //setup canvas
 const ctx = document.getElementById('canvas').getContext('2d');
 
