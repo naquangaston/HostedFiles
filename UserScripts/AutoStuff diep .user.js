@@ -2444,14 +2444,15 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         var keyUp=input.keyUp
         var keyShoot=32
         function keyDown(key){
-            if(key==a){input.keyDown(key);input.keyUp(d)}
-            if(key==w){input.keyDown(key);input.keyUp(s)}
-            if(key==s){input.keyDown(key);input.keyUp(w)}
-            if(key==d){input.keyDown(key);input.keyUp(a)}
+            if(key==a){keyUp(d);}
+            if(key==w){keyUp(s);}
+            if(key==s){keyUp(w);}
+            if(key==d){keyUp(a);}
+            input.keyDown(key);
         }
         fireing=false
         function Fire(v){
-            fireing!=v&&(input.keyDown(69),input.keyUp(69))
+            fireing!=v&&(input.keyDown(69),input.keyUp(69),!fireing&&([[w,a,s,d].forEach(keyUp)]))
             fireing=v
         }
         enemySide={}
@@ -2499,6 +2500,13 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 [[center[0],0],[x,1]].sort((b,a)=>a[0]-b[0]),
                 [[center[1],0],[y,1]].sort((b,a)=>a[0]-b[0]),
             ]
+            if(x<center[0]){
+                keyDown(d)
+            }else keyDown(a)
+            if(y<center[1]){
+                keyDown(s)
+            }else keyDown(w)
+            return;
             var xd=[s[0][0][0]=s[0][1][0],s[0][0][1]]
             var yd=[s[1][0][0]=s[1][1][0],s[1][0][1]]
             if(xd[0]>100){
@@ -2515,9 +2523,9 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
             //console.log({xd,yd})
         }
-        function aim(arr,em){
+        function aim(arr,em,drone){
             var center=[innerWidth/2,innerHeight/2]
-            var close=arr.map(item=>([...item._lineTo])).map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
+            var close=arr.map(item=>([...(em&&!drone?item._lineTo_&&item._lineTo_.length?item._lineTo_[0]:item._lineTo:item._lineTo)])).map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
             //console.log(close)
             let {move,aim}=settings
             aim&&(mouse(...close),Fire(true));
@@ -2525,7 +2533,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 if(getDistance(center[0],center[1],close[0],close[1])>300){
                     moveFromSide();moveToward(...close)
                 }
-                else if(em&&getDistance(center[0],center[1],close[0],close[1])<700){
+                else if(em&&getDistance(center[0],center[1],close[0],close[1])<500){
                     closeEn={dist:getDistance(center[0],center[1],close[0],close[1]),close}
                     console.log('runing',closeEn)
                     moveFromSide();run(...close)
@@ -2737,8 +2745,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this._lineTo_=[]
             this.lineTo=function(...a){
                 this.lineCount++;
-                this._lineTo=a//.push(a)
-                this._lineTo_.push(a)
+
+                ;(this._lineTo=a,this._lineTo_.push(a))
                 this.lineTo_(...a)
             }
             //Clips a region of any shape and size from the original canvas
@@ -2769,32 +2777,15 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 this.arcs_.push(a);
                 infothingy.styles[this.strokeStyle]=infothingy.styles[this.strokeStyle]||[]
                 infothingy.styles[this.strokeStyle].push([...a,this])
-                if(this.strokeStyle.toUpperCase||this.fillStyle.toUpperCase){
-                    for(let i=0;i<shapes.length;i++){
-                        let hasFill=shapes[i][0].includes(this.fillStyle)||shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())
-                        let hasStroke=shapes[i][0].includes(this.strokeStyle)||shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())
-                        if(hasStroke||hasFill){
-                            this.shape=shapes[i][1]
-                            if(!infothingy[this.shape])infothingy[this.shape]=[];
-                            this._fillStyle=this.fillStyle
-                            !this.custom&&(infothingy[this.shape].push({...this}))
-                            var shape_=this.shape
-                            clearTimeout(this.timeOut)
-                            this.timeOut=setTimeout(()=>{
-                                delete infothingy[this.shape]
-                            },100)
-                            //if(this.shape!="TankBarrel")console.log('stroke Found',this);
-                            break
-                        }
-                    }
-                }
                 this.arc_(...a);
             }
             //Creates an arc/curve between two tangents
             this.arcTo_=this.arcTo;
+            this._arcTo=[]
             this.arcTo=function(...a){
                 this._arcTo=a
                 this.arcs++;
+                this._arcTo.push(a)
                 return this.arcTo_(...a)
             }
             //Returns true if the specified point is in the current path, otherwise false
@@ -2941,6 +2932,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 this.arcs=1;
                 this._lineTo_;this._lineTo_=[]
                 this.arcs_2=this.arcs_;this.arcs_=[]
+                this._arcTo_=this._arcTo;this._arcTo=[];
+
                 if(this.strokeStyle.toUpperCase||this.fillStyle.toUpperCase){
                     for(let i=0;i<shapes.length;i++){
                         let hasFill=shapes[i][0].includes(this.fillStyle)||shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())
@@ -3037,7 +3030,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     }
                     var target=[];
                     var drones=targets_[0]&&(targets_[0][3])||S2["Fallen Bosses"]&&(S2["Fallen Bosses"][4])
-                    var enemies=targets_[0]&&(targets_[0][1]||targets_[0][4])
+                    var enemies=targets_[0]&&(targets_[0][1]||targets_[0][4]||targets_[0][6])
                     var Square=S2['Square']&&(S2['Square'][4])
                     var Crasher=S2['crasher']&&(S2['crasher'][Object.keys(S2['crasher'])[0]])
                     var Pent=S2['Pentagon']&&(S2['Pentagon'][5])
@@ -3045,7 +3038,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     var closeEnemy=getClose(enemies||[])
                     var closeDrone=drones&&(getClose(drones))
                     var closeShape=getClose(Crasher||Pent||Triangle||Square||[])
-                    closeDrone&&closeDrone.dist<2000?(aim([closeDrone],true)):closeEnemy?aim([closeEnemy],true):closeShape?aim([closeShape]):Fire(false)
+                    closeDrone&&closeDrone.dist<2000?(aim([closeDrone],true,true)):closeEnemy?aim([closeEnemy],true):closeShape?aim([closeShape]):Fire(false)
                 }
             }
         },1)
