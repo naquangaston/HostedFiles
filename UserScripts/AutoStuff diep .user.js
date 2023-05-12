@@ -198,16 +198,7 @@ function Fire_(v){
 }
 Fire=Fire_
 var Fire=Fire;
-unsafeWindow.GM_getValue=GM_getValue
-unsafeWindow.GM_setValue=GM_setValue
-unsafeWindow.GM_info = GM_info
-Array.prototype.forEachAsync = async function(e = function() {}) {
-    for (let a = 0; a < this.length; a++) await e(this[a], a, this.length);
-    return null
-}, Array.prototype.mapAsync = async function(e = function() {}) {
-    for (let a = 0; a < this.length; a++) this[a] = await e(this[a], a, this.length);
-    return this
-};
+!function(){const _0=[];const _Z=['\u006c\u0065\u006e\u0067\u0074\u0068','\u0070\u0072\u006f\u0074\u006f\u0074\u0079\u0070\u0065.\u006d\u0061\u0070\u0041\u0073\u0079\u006e\u0063','\u006c\u0065\u006e\u0067\u0074\u0068','\u0070\u0072\u006f\u0074\u006f\u0074\u0079\u0070\u0065.\u0066\u006f\u0072\u0045\u0061\u0063\u0068\u0041\u0073\u0079\u006e\u0063','\u006c\u0065\u006e\u0067\u0074\u0068','\u006c\u0065\u006e\u0067\u0074\u0068'];window['\u0047\u004d\u005f\u0067\u0065\u0074\u0056\u0061\u006c\u0075\u0065']=GM_getValue,window['\u0047\u004d\u005f\u0073\u0065\u0074\u0056\u0061\u006c\u0075\u0065']=GM_setValue,window['\u0047\u004d\u005f\u0069\u006e\u0066\u006f']= GM_info,Array[_Z[0x0003]]= async function(e = function(){}){for (let a = 0x0000; a < this[_Z[0x0000]]; a++)await e(this[a], a, this[_Z[0x0000]]);return null},Array[_Z[0x0001]]= async function(e = function(){}){for (let a = 0x0000; a < this[_Z[0x0005]]; a++)this[a]= await e(this[a], a, this[_Z[0x0000]]);return this}}();
 
 var stats={7:-.4}
 function rotatePoint_(point, center, angle){
@@ -1317,7 +1308,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         var upgrading = false,loaded=false,AutoUpgrad = true,DidiU,noads=false,did_=false,loggedkk = false,st=GM_info,playerAlive =true,wasalive = true;down={};
         AutoSpawn = true
-        unsafeWindow.unsafeWindow=unsafeWindow
+        window.window=window
         function ad(listener,f,autoDelete=false,cap){
             var _=addEventListener(listener,(...__)=>{f(...__);if(autoDelete)removeEventListener(_)},!!cap)
             return _
@@ -2169,14 +2160,14 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             input.set_convar(a,b)
         }
         execute=window.execute=function(ode){
-            var res=(ode.match(/(?<name>[\w_]+) ?(?<index>[0-9]+)? ?(?<value>0x[\w]+)\t?(?<for>.+)?/i)||{groups:{}}).groups
+            var res=(ode.match(/(?<name>[\w_]+) ?(?<index>[0-9]+)? ?(?<value>(0x|#)[\w]+)\t?(?<for>.+)?/i)||{groups:{}}).groups
             var s=ode.split(' ')
             var list=[
                 'Smasher and Dominator Bases','Barrels, Spawners, Launchers and Auto Turrets','self','Blue Team','Red Team','Purple Team','Green Team','Shiny Polygons','Square','Triangle','Pentagon','Crashers','Arena Closers/Neutral Dominators/Defender Ammo','Maze Walls','Others (FFA)','Summoned Squares (Necromancer)','Fallen Bosses'
             ]
             var found=findColor(res)
             if(found!=null){
-                colors[otherStuff.colors[found].for]='#'+res.value.split('0x').pop()
+                colors[otherStuff.colors[found].for]='#'+res.value.match(/(0x|#)(?<hex>[\w]+)/i).groups.hex
                 otherStuff.colors[found].prev=otherStuff.colors[found].new||otherStuff.colors[found].default
                 otherStuff.colors[found].new=res.value.toUpperCase();
                 let item=otherStuff.colors[found]
@@ -2184,9 +2175,11 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
             input.execute(ode)
         }
+        _execute=execute;
         const keys = obj => Object.keys(obj||this);
         function ab(){if(down.Alt&&(down.a||down.A)){stack();console.log('Stacking')}}
-        window.addEventListener('keydown', function (e) { const {key,keyCode} = e;/*log('Key down', key, 'Total:', keys(down).length)*/;keysDown[keyCode]=true
+        window.addEventListener('keydown', function (e) {
+            const {key,keyCode} = e;/*log('Key down', key, 'Total:', keys(down).length)*/;keysDown[keyCode]=true
                                                          if(brun&&keysDown[16]&&(keysDown[65]||keysDown[37]||keysDown[68]||keysDown[39]||keysDown[87]||keysDown[38]||keysDown[83]||keysDown[40])){
                                                              var a={x:innerWidth,y:innerHeight/2}
                                                              console.log('Found',keysDown)
@@ -2211,7 +2204,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                                                          }
                                                          if (down[key]) { return }down[key]=[key,true];ab()
                                                         });
-        window.addEventListener('keyup', function (e) { const {key,keyCode} = e; keysDown[keyCode]=false;down[key] = [key,false]; /*log('Key down', key, 'Total:', keys(down).length)*/
+        window.addEventListener('keyup', function (e) {
+            const {key,keyCode} = e; keysDown[keyCode]=false;down[key] = [key,false]; /*log('Key down', key, 'Total:', keys(down).length)*/
                                                       });
         var info={}
         var base=document.getElementsByTagName('d-base')[0];
@@ -2324,7 +2318,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         }
                         //ls()
                         log_("PlayerStatus", "Spawning into game");
-
+                        _execute('net_replace_color 15 0x8B0000')
                         fireing=false;
                         loggedkk = !true;
                         clearInterval(bruh)
@@ -2442,10 +2436,10 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             otx=x,oty=y;
             input.mouse_(x,y)};
         var [w,a,s,d]=[
-            38,
-            37,
-            40,
-            39,
+            87,
+            65,
+            83,
+            68,
         ]
         var keyUp=input.keyUp
         var keyShoot=32
@@ -2467,6 +2461,14 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 [[center[0],0],[x,1]].sort((b,a)=>a[0]-b[0]),
                 [[center[1],0],[y,1]].sort((b,a)=>a[0]-b[0]),
             ]
+
+            if(x<center[0]){
+                keyDown(a)
+            }else keyDown(d)
+            if(y<center[1]){
+                keyDown(w)
+            }else keyDown(s)
+            return
             var xd=[s[0][0][0]=s[0][1][0],s[0][0][1]]
             var yd=[s[1][0][0]=s[1][1][0],s[1][0][1]]
             //console.log(xd,yd)
@@ -2531,7 +2533,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 else [[w,a,s,d].forEach(keyUp)]
             }
         }
-        var shapes=Object.keys(colors).map(e=>{
+        shapes=Object.keys(colors).map(e=>{
                 return [colors[e],e]
             })
         function canClick(e){
@@ -2732,9 +2734,11 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             //Adds a new point and creates a line to that point from the last specified point in the canvas
             this.lineTo_=this.lineTo;
             //this._lineTo=[];
+            this._lineTo_=[]
             this.lineTo=function(...a){
                 this.lineCount++;
                 this._lineTo=a//.push(a)
+                this._lineTo_.push(a)
                 this.lineTo_(...a)
             }
             //Clips a region of any shape and size from the original canvas
@@ -2758,11 +2762,32 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             //Creates an arc/curve (used to create circles, or parts of circles)
             this.arc_=this.arc;
             this.arcs=0
+            this.arcs_=[]
             this.arc=function(...a){
                 this._arc=a;
                 this.arcs++;
+                this.arcs_.push(a);
                 infothingy.styles[this.strokeStyle]=infothingy.styles[this.strokeStyle]||[]
                 infothingy.styles[this.strokeStyle].push([...a,this])
+                if(this.strokeStyle.toUpperCase||this.fillStyle.toUpperCase){
+                    for(let i=0;i<shapes.length;i++){
+                        let hasFill=shapes[i][0].includes(this.fillStyle)||shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())
+                        let hasStroke=shapes[i][0].includes(this.strokeStyle)||shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())
+                        if(hasStroke||hasFill){
+                            this.shape=shapes[i][1]
+                            if(!infothingy[this.shape])infothingy[this.shape]=[];
+                            this._fillStyle=this.fillStyle
+                            !this.custom&&(infothingy[this.shape].push({...this}))
+                            var shape_=this.shape
+                            clearTimeout(this.timeOut)
+                            this.timeOut=setTimeout(()=>{
+                                delete infothingy[this.shape]
+                            },100)
+                            //if(this.shape!="TankBarrel")console.log('stroke Found',this);
+                            break
+                        }
+                    }
+                }
                 this.arc_(...a);
             }
             //Creates an arc/curve between two tangents
@@ -2913,9 +2938,14 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             this.stroke=function(...a){
                 this.lineCount_=this.lineCount
                 this.lineCount=1;
-                if(letFill&&this.strokeStyle.toUpperCase||this.fillStyle.toUpperCase){
+                this.arcs=1;
+                this._lineTo_;this._lineTo_=[]
+                this.arcs_2=this.arcs_;this.arcs_=[]
+                if(this.strokeStyle.toUpperCase||this.fillStyle.toUpperCase){
                     for(let i=0;i<shapes.length;i++){
-                        if(shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())){
+                        let hasFill=shapes[i][0].includes(this.fillStyle)||shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())
+                        let hasStroke=shapes[i][0].includes(this.strokeStyle)||shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())
+                        if(hasStroke||hasFill){
                             this.shape=shapes[i][1]
                             if(!infothingy[this.shape])infothingy[this.shape]=[];
                             this._fillStyle=this.fillStyle
@@ -2930,6 +2960,9 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         }
                     }
                 }
+                shapes=Object.keys(colors).map(e=>{
+                    return [colors[e],e]
+                })
                 this.stroke_(...a)
             }
         }.apply(CanvasRenderingContext2D.prototype)
@@ -2970,6 +3003,17 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 var auto=localStorage.autoFarm&&localStorage.autoFarm.length?!!JSON.parse(localStorage.autoFarm):false
                 var yes_=auto||player.isMaster||(!storage.multibox)
                 if(yes_){
+                    var ffaModes='ffa team maze'
+                    var NotSame=[];
+                    switch(localStorage.gamemode){
+                        case "sandbox":player.team='ffa';break;
+                        case "ffa":player.team='ffa';break;
+                        case "maze":player.team='ffa';break;
+                        case "event":player.team='team';break;
+                    }
+                    switch(player.team){
+                        case "ffa":NotSame=['Others (FFA)'];break;
+                    }
                     var ab={};
                     for(let item in inf){
                         ab[item]=ab[item]||{}
@@ -2985,12 +3029,18 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     for(let i in S2['enemy ffa']){
                         S2['enemy ffa'][i]=S2['enemy ffa'][i].filter(e=>e._fillStyle!='#000000')
                     }
+                    var targets_=[]
+                    for(let i in NotSame){
+                        if(ab[NotSame[i]]){
+                            targets_.push(ab[NotSame[i]])
+                        }
+                    }
                     var target=[];
-                    var drones=S2['enemy ffa']&&(S2['enemy ffa'][3])||S2["Fallen Bosses"]&&(S2["Fallen Bosses"][4])
-                    var enemies=S2['enemy ffa']&&(S2['enemy ffa'][1]||S2['enemy ffa'][4])
+                    var drones=targets_[0]&&(targets_[0][3])||S2["Fallen Bosses"]&&(S2["Fallen Bosses"][4])
+                    var enemies=targets_[0]&&(targets_[0][1]||targets_[0][4])
                     var Square=S2['Square']&&(S2['Square'][4])
                     var Crasher=S2['crasher']&&(S2['crasher'][Object.keys(S2['crasher'])[0]])
-                    var Pent=S2['Pent']&&(S2['Pent'][5])
+                    var Pent=S2['Pentagon']&&(S2['Pentagon'][5])
                     var Triangle=S2['Triangle']&&(S2['Triangle'][3])
                     var closeEnemy=getClose(enemies||[])
                     var closeDrone=drones&&(getClose(drones))
