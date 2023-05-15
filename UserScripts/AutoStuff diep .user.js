@@ -2,7 +2,6 @@
 // @name         AutoStuff diep
 // @namespace    http://tampermonkey.net/
 // @version      0.4
-// @description  [dark theme][auto build][music player][works with other mods][FPS counter]
 // @author       You
 // @match        https://diep.io/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=diep.io
@@ -2139,6 +2138,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 await sleep(100)
                 focus=document.hasFocus()
             }
+            input.keyUp(85)
             upgrading = false; DidiU = true;
         }
         colors={}
@@ -2180,33 +2180,33 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         function ab(){if(down.Alt&&(down.a||down.A)){stack();console.log('Stacking')}}
         window.addEventListener('keydown', function (e) {
             const {key,keyCode} = e;/*log('Key down', key, 'Total:', keys(down).length)*/;keysDown[keyCode]=true
-                                                         if(brun&&keysDown[16]&&(keysDown[65]||keysDown[37]||keysDown[68]||keysDown[39]||keysDown[87]||keysDown[38]||keysDown[83]||keysDown[40])){
-                                                             var a={x:innerWidth,y:innerHeight/2}
-                                                             console.log('Found',keysDown)
-                                                             var b={x:innerWidth/2,y:innerHeight/2}
-                                                             //a left and d right
-                                                             var angle1=(keysDown[65]||keysDown[37])&&(180) || (keysDown[68]||keysDown[39])&&(0)
-                                                             ///w up and s down
-                                                             var angle2=(keysDown[87]||keysDown[38])&&(270) || ((keysDown[83]||keysDown[40])&&(90))
+            if(brun&&keysDown[16]&&(keysDown[65]||keysDown[37]||keysDown[68]||keysDown[39]||keysDown[87]||keysDown[38]||keysDown[83]||keysDown[40])){
+                var a={x:innerWidth,y:innerHeight/2}
+                console.log('Found',keysDown)
+                var b={x:innerWidth/2,y:innerHeight/2}
+                //a left and d right
+                var angle1=(keysDown[65]||keysDown[37])&&(180) || (keysDown[68]||keysDown[39])&&(0)
+                ///w up and s down
+                var angle2=(keysDown[87]||keysDown[38])&&(270) || ((keysDown[83]||keysDown[40])&&(90))
 
-                                                             var angles=[angle1,angle2]//.sort((a,b)=>a-b) //[1,2,3,4,5] sort
-                                                             var f=(a,b)=>typeof a=='number'&&typeof b=='number'?b-(b-a)/2:[a,b].filter(n=>typeof n=='number')[0];
-                                                             var direction=f(angle1,angle2)
-                                                             var newPoint=rotatePoint(a,b,direction)
-                                                             var d=['','']
-                                                             if([180,37].includes(angle1)){d[0]='left'}
-                                                             if([0,39].includes(angle1)){d[0]='right'}
-                                                             if([270,38].includes(angle2)){d[1]='up'}
-                                                             if([90,83].includes(angle2)){d[1]='down'}
-                                                             console.log(d,{angle1,angle2,direction},angles)
-                                                             RealBooster_(newPoint)
+                var angles=[angle1,angle2]//.sort((a,b)=>a-b) //[1,2,3,4,5] sort
+                var f=(a,b)=>typeof a=='number'&&typeof b=='number'?b-(b-a)/2:[a,b].filter(n=>typeof n=='number')[0];
+                var direction=f(angle1,angle2)
+                var newPoint=rotatePoint(a,b,direction)
+                var d=['','']
+                if([180,37].includes(angle1)){d[0]='left'}
+                if([0,39].includes(angle1)){d[0]='right'}
+                if([270,38].includes(angle2)){d[1]='up'}
+                if([90,83].includes(angle2)){d[1]='down'}
+                console.log(d,{angle1,angle2,direction},angles)
+                RealBooster_(newPoint)
 
-                                                         }
-                                                         if (down[key]) { return }down[key]=[key,true];ab()
-                                                        });
+            }
+            if (down[key]) { return }down[key]=[key,true];ab()
+        });
         window.addEventListener('keyup', function (e) {
-            const {key,keyCode} = e; keysDown[keyCode]=false;down[key] = [key,false]; /*log('Key down', key, 'Total:', keys(down).length)*/
-                                                      });
+            const {key,keyCode} = e; keysDown[keyCode]=false;delete down[key] /*log('Key down', key, 'Total:', keys(down).length)*/
+        });
         var info={}
         var base=document.getElementsByTagName('d-base')[0];
         var canloop=true
@@ -2458,10 +2458,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         enemySide={}
         function moveToward(x,y){
             var center=[innerWidth/2,innerHeight/2]
-            var s=[
-                [[center[0],0],[x,1]].sort((b,a)=>a[0]-b[0]),
-                [[center[1],0],[y,1]].sort((b,a)=>a[0]-b[0]),
-            ]
 
             if(x<center[0]){
                 keyDown(a)
@@ -2496,10 +2492,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         }
         function run(x,y){
             var center=[innerWidth/2,innerHeight/2]
-            var s=[
-                [[center[0],0],[x,1]].sort((b,a)=>a[0]-b[0]),
-                [[center[1],0],[y,1]].sort((b,a)=>a[0]-b[0]),
-            ]
             if(x<center[0]){
                 keyDown(d)
             }else keyDown(a)
@@ -2542,8 +2534,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
         }
         shapes=Object.keys(colors).map(e=>{
-                return [colors[e],e]
-            })
+            return [colors[e],e]
+        })
         function canClick(e){
             var center=[innerWidth/2,innerHeight/2]
             var context = canvas.getContext('2d');
@@ -2977,7 +2969,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             return arr.map(e=>{  e.dist=getDistance(...e._lineTo,canvas.width/2,canvas.height/2);return e;
                               }).sort((a,b)=>a.dist-b.dist)[0]
         }
-       myLoop=setInterval(e=>{
+        myLoop=setInterval(e=>{
             shapes=Object.keys(colors).map(e=>{
                 return [colors[e],e]
             })
@@ -2996,6 +2988,23 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 var auto=localStorage.autoFarm&&localStorage.autoFarm.length?!!JSON.parse(localStorage.autoFarm):false
                 var yes_=auto||player.isMaster||(!storage.multibox)
                 if(yes_){
+                    var barrels=inf["Barrels, Spawners, Launchers and Auto Turrets"]&&inf["Barrels, Spawners, Launchers and Auto Turrets"].filter(e=>{
+                        var [a,b,c,d]=[...(e._lineTo_&&e._lineTo_.length&&(1,e._lineTo_[0])||e._lineTo)
+                                       ,...e._moveTo]
+                        var final=getDistance(a,b,c,d)
+                        console.log({a,b,c,d,final})
+                        return final>500
+                    })||(false)
+                    var teams4=localStorage.gamemode.includes(4)
+                    var teams2=localStorage.gamemode.includes(2)||localStorage.gamemode.includes('event')
+                    var ffa=localStorage.gamemode.includes('ffa')||localStorage.gamemode.includes('maze')
+                    var y=player._minimap._pointY;
+                    var x=player._minimap._pointX;
+                    if(!player.team_){
+                        if(x<1080&&y<800&&teams4){
+                            player.team_='Blue';
+                        }
+                    }
                     var ffaModes='ffa team maze'
                     var NotSame=[];
                     switch(localStorage.gamemode){
@@ -3003,9 +3012,12 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         case "ffa":player.team='ffa';break;
                         case "maze":player.team='ffa';break;
                         case "event":player.team='team';break;
+                        case "2team":player.team='team';break;
+                        case "4teams":player.team='4team';break;
                     }
                     switch(player.team){
                         case "ffa":NotSame=['Others (FFA)'];break;
+                        case "4team":NotSame=['Blue Team','Red Team','Green Team','Purple Team'].filter(e=>!e.includes(player.Team_));break;
                     }
                     var ab={};
                     for(let item in inf){
@@ -3036,6 +3048,7 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     var Pent=S2['Pentagon']&&(S2['Pentagon'][5])
                     var Triangle=S2['Triangle']&&(S2['Triangle'][3])
                     var closeEnemy=getClose(enemies||[])
+                    var closeBarrel=getClose(barrels||[])
                     var closeDrone=drones&&(getClose(drones))
                     var closeShape=getClose(Crasher||Pent||Triangle||Square||[])
                     closeDrone&&closeDrone.dist<2000?(aim([closeDrone],true,true)):closeEnemy?aim([closeEnemy],true):closeShape?aim([closeShape]):Fire(false)
