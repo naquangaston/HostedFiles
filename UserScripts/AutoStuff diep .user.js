@@ -2516,9 +2516,12 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             //console.log({xd,yd})
         }
         function aim(arr,em,drone){
+            arr=arr.filter(e=>!!e)
             var center=[innerWidth/2,innerHeight/2]
-            var close=arr.map(item=>([...(em&&!drone?item._lineTo_&&item._lineTo_.length?item._lineTo_[0]:item._lineTo:item._lineTo)])).map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
-            //console.log(close)
+            var close=arr[0]//arr.map(item=>([...(em&&!drone?item._lineTo_&&item._lineTo_.length?item._lineTo_[0]:item._lineTo:item._lineTo)])).map(e=>[e,getDistance(e[0],e[1],center[0],center[1])]).sort((b,a)=>b[1]-a[1])[0][0]
+            console.log(close)
+            var {x,y}=getMid([close._moveTo,...close._lineTo_].map(e=>({x:e[0],y:e[1]})))
+            close=[x,y]
             let {move,aim}=settings
             aim&&(mouse(...close),Fire(true));
             if(move){
@@ -2586,371 +2589,298 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
         function dif(a,b){
             var s=[a,b].sort((b,a)=>b-a);return s[1]-s[0]
         }
-        !function(){
-            function draw(_this,...a){
-                if(_this.shape&&_this.shape!='undefined'&&!_this.custom){
-                    /*if(this.shape=='TankBarrel'){
-                        let ctx_ = canvas.getContext("2d");
-                        ctx_.beginPath();
-                        ctx_.custom=true
-                        ctx_.strokeStyle = "#FF0000";
-                        ctx_.arc(...a, 50, 0, 2 * Math.PI);
-                        ctx_.stroke();
-                        ctx_.custom=false;
-                    }*/
-                    if(_this.shape.includes('Barrels')||_this.shape.includes('enemy')){
-                        let ctx_ = canvas.getContext("2d");
-                        ctx_.beginPath();
-                        ctx_.custom=true
-                        var gradient = ctx_.createLinearGradient(0, 0, 170, 0);
-                        gradient.addColorStop("0", "magenta");
-                        gradient.addColorStop("0.5" ,"blue");
-                        gradient.addColorStop("1.0", "red");
-                        // Fill with gradient
-                        ctx_.strokeStyle = gradient;
-                        ctx_.lineWidth = 5;
-                        ctx_.arc(a[0],a[1], 50, 0, 2 * Math.PI);
-                        ctx_.stroke();
-                        ctx_.custom=false;
-                    }
-                }
-            }
-            Object.defineProperty(this,'fillStyle',{
-                get fillStyle(){
-                    return this._fillStyle
-                },
-                set fillStyle(a){
-                    infothingy.styles[this._fillStyle]=infothingy.styles[this._fillStyle]||[]
-                    infothingy.styles[this._fillStyle].push(this)
-                    this._fillStyle=a;
-                }
-            })
-            Object.defineProperty(this,'strokeStyle',{
-                get strokeStyle(){
-                    return this._strokeStyle
-                },
-                set strokeStyle(a){
-                    infothingy.styles[this._strokeStyle]=infothingy.styles[this._strokeStyle]||[]
-                    infothingy.styles[this._strokeStyle].push(this)
-                    this._strokeStyle=a;
-                }
-            })
-            this.set_=this.set_||false
-            if(this.set_)return this.beginPath_(...a);
-            this.set_=true;
-            this.startpos;
-            this.shape;
-            //Creates a linear gradient (to use on canvas content)
-            this.createLinearGradient_=this.createLinearGradient;
-            this.createLinearGradient=function(...a){
-                this._createLinearGradient=a
-                return this.createLinearGradient_(...a)
-            }
-            //Repeats a specified element in the specified direction
-            this.createPattern_=this.createPattern;
-            this.createPattern=function(...a){
-                this._createPattern=a
-                return this.createPattern_(...a)
-            }
-            //Creates a radial/circular gradient (to use on canvas content)
-            this.createRadialGradient_=this.createRadialGradient;
-            this.createRadialGradient=function(...a){
-                this._createRadialGradient=a
-                return this.createRadialGradient_(...a)
-            }
-            //Specifies the colors and stop positions in a gradient object
-            this.addColorStop_=this.addColorStop;
-            this.addColorStop=function(...a){
-                this._addColorStop=a
-                return this.addColorStop_(...a)
-            }
-            //Draws a "filled" rectangle
-            this.fillRect_=this.fillRect;
-            this.fillRect=function(...a){
-                this._fillRect=a
-                this.lineCount_=this.lineCount
-                this.lineCount=1;
-                if(letFill&&typeof this.fillStyle=='string'){
-                    for(let i=0;i<shapes.length;i++){
-                        if(shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())){
-                            this.shape=shapes[i][1]
-                            if(!infothingy[this.shape])infothingy[this.shape]=[];
-                            !this.custom&&(infothingy[this.shape].push({...this}))
-                            var shape_=this.shape
-                            clearTimeout(this.timeOut)
-                            this.timeOut=setTimeout(()=>{
-                                delete infothingy[this.shape]
-                            },100)
-                            //if(this.shape!="TankBarrel")console.log('stroke Found',this);
-                            break
-                        }
-                    }
-                }
-                return this.fillRect_(...a)
-                //draw(this,...a)
-            }
-            //Draws a rectangle (no fill)
-            this.strokeRect_=this.strokeRect;
-            this.strokeRect=function(...a){
-                this._strokeRect=a
-                return this.strokeRect_(...a)
-            }
-            //Clears the specified pixels within a given rectangle
-            this.clearRect_=this.clearRect;
-            this.clearRect=function(...a){
-                var[x,y,w,h]=a;
-                this._clearRect={x,y,w,h};
-                return (this.clearRect_(...a),w==canvas.width&&h==canvas.height&&(inf=infothingy,infothingy={styles:{},text:[]}))
-            }
-            //Begins a path, or resets the current path
-            this.beginPath_=this.beginPath;
-            this.beginPath=function(...a){
-                this._beginPath=a
-                return this.beginPath_(...a)
-            }
-            //Moves the path to the specified point in the canvas, without creating a line
-            this.moveTo_=this.moveTo;
-            this.moveTo=function(...a){
-                this._moveTo=a
-                //draw(this,...a)
-                if(this.shape&&this.shape!='undefined'&&!this.custom){
-                    let ctx = canvas.getContext('2d');
-                    ctx.beginPath();
-                    ctx.custom=true
-                    ctx.moveTo(canvas.width/2, canvas.height/2);
-                    ctx.lineTo(...a);
-                    ctx.stroke();
-                    ctx.custom=false;
-                }
-                return this.moveTo_(...a)
-            }
-            //Creates a path from the current point back to the starting point
-            this.closePath_=this.closePath;
-            this.closePath=function(...a){
-                this._closePath=a
-                return this.closePath_(...a)
-            }
-            this.lineCount=1
-            //Adds a new point and creates a line to that point from the last specified point in the canvas
-            this.lineTo_=this.lineTo;
-            //this._lineTo=[];
-            this._lineTo_=[]
-            this.lineTo=function(...a){
-                this.lineCount++;
+        function getClose(arr){
+            return arr.map(e=>{  e.dist=getDistance(...e._lineTo,canvas.width/2,canvas.height/2);return e;
+                              }).sort((a,b)=>a.dist-b.dist)[0]
+        }
+        function getMid(cords=[{x:0,y:0}]){
+    var total=cords.length;
+    var [x,y]=[0,0];
+    cords.forEach(e=>{x+=e.x;y+=e.y})
+    return {x:x/total,y:y/total}
+}
+function draw(_this) {
+    try{if (_this.shape && _this.shape != 'undefined' && !_this.custom) {
+        var {x,y}=getMid(this._lineTo_.map(e=>({x:e[0],y:e[1]})))
+        let ctx_ = canvas.getContext("2d");
+        ctx_.beginPath();
+        ctx_.custom = true
+        var gradient = ctx_.createLinearGradient(0, 0, 170, 0);
+        gradient.addColorStop("0", "magenta");
+        gradient.addColorStop("0.5", "blue");
+        gradient.addColorStop("1.0", "red");
+        // Fill with gradient
+        ctx_.strokeStyle = gradient;
+        ctx_.lineWidth = 5;
+        ctx_.moveTo(x,y);
+        ctx_.arc(x,y, 50, 0, 2 * Math.PI);
+        ctx_.stroke();
+        ctx_.custom = false;
+    }}catch(err){}
+}
+function sleep(ms){return new Promise(a=>setTimeout(a,ms))}
+!function () {
+    this.set_ = this.set_ || false
+    if (this.set_) return this.beginPath_(...a);
+    this.set_ = true;
+    this.startpos;
+    this.shape;
+    //Creates a linear gradient (to use on canvas content)
+    this.createLinearGradient_ = this.createLinearGradient;
+    this.createLinearGradient = function (...a) {
+        this._createLinearGradient = a
+        return this.createLinearGradient_(...a)
+    }
+    //Repeats a specified element in the specified direction
+    this.createPattern_ = this.createPattern;
+    this.createPattern = function (...a) {
+        this._createPattern = a
+        return this.createPattern_(...a)
+    }
+    //Creates a radial/circular gradient (to use on canvas content)
+    this.createRadialGradient_ = this.createRadialGradient;
+    this.createRadialGradient = function (...a) {
+        this._createRadialGradient = a
+        return this.createRadialGradient_(...a)
+    }
+    //Specifies the colors and stop positions in a gradient object
+    this.addColorStop_ = this.addColorStop;
+    this.addColorStop = function (...a) {
+        this._addColorStop = a
+        return this.addColorStop_(...a)
+    }
+    //Draws a "filled" rectangle
+    this.fillRect_ = this.fillRect;
+    this.fillRect = function (...a) {
+        return this.fillRect_(...a)
+        //draw(this,...a)
+    }
+    //Draws a rectangle (no fill)
+    this.strokeRect_ = this.strokeRect;
+    this.strokeRect = function (...a) {
+        this._strokeRect = a
+        return this.strokeRect_(...a)
+    }
+    //Clears the specified pixels within a given rectangle
+    this.clearRect_ = this.clearRect;
+    this.clearRect = function (...a) {
+        var [x, y, w, h] = a;
+        this._clearRect = { x, y, w, h };
+        return (this.clearRect_(...a), w == canvas.width && h == canvas.height && (inf = infothingy, infothingy = { styles: {}, text: [] }))
+    }
+    //Begins a path, or resets the current path
+    this.beginPath_ = this.beginPath;
+    this.beginPath = function (...a) {
+        this._beginPath = a
+        return this.beginPath_(...a)
+    }
+    //Moves the path to the specified point in the canvas, without creating a line
+    this.moveTo_ = this.moveTo;
+    this.moves = []
+    this.moveTo = function (...a) {
+        this._moveTo = a
+        this.moves.push(a)
+        //draw(this,...a)
 
-                ;(this._lineTo=a,this._lineTo_.push(a))
-                this.lineTo_(...a)
-            }
-            //Clips a region of any shape and size from the original canvas
-            this.clip_=this.clip;
-            this.clip=function(...a){
-                this._clip=a
-                return this.clip_(...a)
-            }
-            //Creates a quadratic Bézier curve
-            this.quadraticCurveTo_=this.quadraticCurveTo;
-            this.quadraticCurveTo=function(...a){
-                this._quadraticCurveTo=a
-                return this.quadraticCurveTo_(...a)
-            }
-            //Creates a cubic Bézier curve
-            this.bezierCurveTo_=this.bezierCurveTo;
-            this.bezierCurveTo=function(...a){
-                this._bezierCurveTo=a
-                return this.bezierCurveTo_(...a)
-            }
-            //Creates an arc/curve (used to create circles, or parts of circles)
-            this.arc_=this.arc;
-            this.arcs=0
-            this.arcs_=[]
-            this.arc=function(...a){
-                this._arc=a;
-                this.arcs++;
-                this.arcs_.push(a);
-                infothingy.styles[this.strokeStyle]=infothingy.styles[this.strokeStyle]||[]
-                infothingy.styles[this.strokeStyle].push([...a,this])
-                this.arc_(...a);
-            }
-            //Creates an arc/curve between two tangents
-            this.arcTo_=this.arcTo;
-            this._arcTo=[]
-            this.arcTo=function(...a){
-                this._arcTo=a
-                this.arcs++;
-                this._arcTo.push(a)
-                return this.arcTo_(...a)
-            }
-            //Returns true if the specified point is in the current path, otherwise false
-            this.isPointInPath_=this.isPointInPath;
-            this.isPointInPath=function(...a){
-                this._isPointInPath=a
-                return this.isPointInPath_(...a)
-            }
-            //Rotates the current drawing
-            this.rotate_=this.rotate;
-            this.rotate=function(...a){
-                this._rotate=a
-                return this.rotate_(...a)
-            }
-            //Remaps the (0,0) position on the canvas
-            this.translate_=this.translate;
-            this.translate=function(...a){
-                this._translate=a
-                return this.translate_(...a)
-            }
-            //Replaces the current transformation matrix for the drawing
-            this.transform_=this.transform;
-            this.transform=function(...a){
-                this._transform=a
-                return this.transform_(...a)
-            }
-            //Resets the current transform to the identity matrix. Then runs transform()
-            this.setTransform_=this.setTransform;
-            this.setTransform=function(...a){
-                this._setTransform=a
-                return this.setTransform_(...a)
-            }
-            //Draws text on the canvas (no fill)
-            this.strokeText_=this.strokeText;
-            this.strokeText=function(...a){
-                this._strokeText=a
-                var[text,x,y]=a;
-                if(this.shape&&this.shape!='undefined'&&!this.custom){
-                    var ctx = canvas.getContext('2d');
-                    ctx.beginPath();
-                    ctx.custom=true
-                    ctx.moveTo(canvas.width/2, canvas.height/2);
-                    ctx.lineTo(x,y);
-                    ctx.stroke();
-                    ctx.custom=false;
-                }
-                return this.strokeText_(...a)
-            }
-            //Returns an object that contains the width of the specified text
-            this.measureText_=this.measureText;
-            this.measureText=function(...a){
-                this._measureText=a
-                return this.measureText_(...a)
-            }
-            //Draws an image, canvas, or video onto the canvas
-            this.drawImage_=this.drawImage;
-            this.drawImage=function(...a){
-                this._drawImage=a
-                return this.drawImage_(...a)
-            }
-            //Creates a new, blank ImageData object
-            this.createImageData_=this.createImageData;
-            this.createImageData=function(...a){
-                this._createImageData=a
-                return this.createImageData_(...a)
-            }
-            //Returns an ImageData object that copies the pixel data for the specified rectangle on a canvas
-            this.getImageData_=this.getImageData;
-            this.getImageData=function(...a){
-                this._getImageData=a
-                return this.getImageData_(...a)
-            }
-            //Puts the image data (from a specified ImageData object) back onto the canvas
-            this.putImageData_=this.putImageData;
-            this.putImageData=function(...a){
-                this._putImageData=a
-                return this.putImageData_(...a)
-            }
-            //Saves the state of the current context
-            this.save_=this.save;
-            this.save=function(...a){
-                this._save=a
-                return this.save_(...a)
-            }
-            //Returns previously saved path state and attributes
-            this.restore_=this.restore;
-            this.restore=function(...a){
-                this._restore=a
-                return this.restore_(...a)
-            }
-            //
-            this.createEvent_=this.createEvent;
-            this.createEvent=function(...a){
-                this._createEvent=a
-                return this.createEvent_(...a)
-            }
-            //
-            this.getContext_=this.getContext;
-            this.getContext=function(...a){
-                this._getContext=a
-                return this.getContext_(...a)
-            }
-            //
-            this.toDataURL_=this.toDataURL;
-            this.toDataURL=function(...a){
-                this._toDataURL=a
-                return this.toDataURL_(...a)
-            }
-            this.fill_=this.fill
-            this.fill=function(...a){
-                for(let i=0;i<shapes.length;i++){
-                    if(shapes[i][0].includes(this.fillStyle )){
-                        this.shape=shapes[i][1]
-                        //if(this.shape!="TankBarrel")console.log('fill Found',this);
-                        break
-                    }
-                }
-                this.fill_(...a)
-                //draw(this,...a)
-            }
-            this.scale_=this.scale
-            this.scale=function(...a){
-                var[x,y]=a;
-                this._scale={x,y}
-                return this.scale_(...a)
-            }
-            this.MoveTo=this.MoveTo;
-            this.MoveTo=function(...a){
-                if(!this.startpos){
-                    this.startpos={x:a[0],y:a[1]};
-                }
-                return this.MoveTo_(...a)
-            }
-            this.rect_=this.rect
-            this.rect=function(...a){
-                var[x,y,width,height]=a;
-                this.pos={x,y,width,height};
-                return this.rect_(...a)
-            }
-            this.stroke_=this.stroke;
-            this.stroke=function(...a){
-                this.lineCount_=this.lineCount
-                this.lineCount=1;
-                this.arcs=1;
-                this._lineTo_;this._lineTo_=[]
-                this.arcs_2=this.arcs_;this.arcs_=[]
-                this._arcTo_=this._arcTo;this._arcTo=[];
+        this.moveTo_(...a)
+    }
+    //Creates a path from the current point back to the starting point
+    this.closePath_ = this.closePath;
+    this.closePath = function (...a) {
+        this._closePath = a
+        return this.closePath_(...a)
+    }
+    this.lineCount = 1
+    //Adds a new point and creates a line to that point from the last specified point in the canvas
+    this.lineTo_ = this.lineTo;
+    //this._lineTo=[];
+    this._lineTo_ = []
+    this.lineTo = function (...a) {
+        this.lineCount++;
 
-                if(this.strokeStyle.toUpperCase||this.fillStyle.toUpperCase){
-                    for(let i=0;i<shapes.length;i++){
-                        let hasFill=shapes[i][0].includes(this.fillStyle)||shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())
-                        let hasStroke=shapes[i][0].includes(this.strokeStyle)||shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())
-                        if(hasStroke||hasFill){
-                            this.shape=shapes[i][1]
-                            if(!infothingy[this.shape])infothingy[this.shape]=[];
-                            this._fillStyle=this.fillStyle
-                            !this.custom&&(infothingy[this.shape].push({...this}))
-                            var shape_=this.shape
-                            clearTimeout(this.timeOut)
-                            this.timeOut=setTimeout(()=>{
-                                delete infothingy[this.shape]
-                            },100)
-                            //if(this.shape!="TankBarrel")console.log('stroke Found',this);
-                            break
-                        }
-                    }
+        this._lineTo = a
+        this._lineTo_.push(a)
+        this.lineTo_(...a)
+    }
+    //Clips a region of any shape and size from the original canvas
+    this.clip_ = this.clip;
+    this.clip = function (...a) {
+        this._clip = a
+        return this.clip_(...a)
+    }
+    //Creates a quadratic Bézier curve
+    this.quadraticCurveTo_ = this.quadraticCurveTo;
+    this.quadraticCurveTo = function (...a) {
+        this._quadraticCurveTo = a
+        return this.quadraticCurveTo_(...a)
+    }
+    //Creates a cubic Bézier curve
+    this.bezierCurveTo_ = this.bezierCurveTo;
+    this.bezierCurveTo = function (...a) {
+        this._bezierCurveTo = a
+        return this.bezierCurveTo_(...a)
+    }
+    //Creates an arc/curve (used to create circles, or parts of circles)
+    this.arc_ = this.arc;
+    this.arcs = 0
+    this.arcs_ = []
+    this.arc = function (...a) {
+        this._arc = a;
+        this.arcs++;
+        this.arcs_.push(a);
+        this.arc_(...a);
+    }
+    //Creates an arc/curve between two tangents
+    this.arcTo_ = this.arcTo;
+    this._arcTo = []
+    this.arcTo = function (...a) {
+        this._arcTo = a
+        this.arcs++;
+        this.arcs_.push(a)
+        return this.arcTo_(...a)
+    }
+    //Returns true if the specified point is in the current path, otherwise false
+    this.isPointInPath_ = this.isPointInPath;
+    this.isPointInPath = function (...a) {
+        this._isPointInPath = a
+        return this.isPointInPath_(...a)
+    }
+    //Rotates the current drawing
+    this.rotate_ = this.rotate;
+    this.rotate = function (...a) {
+        this._rotate = a
+        return this.rotate_(...a)
+    }
+    //Remaps the (0,0) position on the canvas
+    this.translate_ = this.translate;
+    this.translate = function (...a) {
+        this._translate = a
+        return this.translate_(...a)
+    }
+    //Replaces the current transformation matrix for the drawing
+    this.transform_ = this.transform;
+    this.transform = function (...a) {
+        this._transform = a
+        return this.transform_(...a)
+    }
+    //Resets the current transform to the identity matrix. Then runs transform()
+    this.setTransform_ = this.setTransform;
+    this.setTransform = function (...a) {
+        this._setTransform = a
+        return this.setTransform_(...a)
+    }
+    //Draws text on the canvas (no fill)
+    this.strokeText_ = this.strokeText;
+    this.strokeText = function (...a) {
+        this._strokeText = a
+        var [text, x, y] = a;
+        return this.strokeText_(...a)
+    }
+    //Returns an object that contains the width of the specified text
+    this.measureText_ = this.measureText;
+    this.measureText = function (...a) {
+        this._measureText = a
+        return this.measureText_(...a)
+    }
+    //Draws an image, canvas, or video onto the canvas
+    this.drawImage_ = this.drawImage;
+    this.drawImage = function (...a) {
+        this._drawImage = a
+        return this.drawImage_(...a)
+    }
+    //Creates a new, blank ImageData object
+    this.createImageData_ = this.createImageData;
+    this.createImageData = function (...a) {
+        this._createImageData = a
+        return this.createImageData_(...a)
+    }
+    //Returns an ImageData object that copies the pixel data for the specified rectangle on a canvas
+    this.getImageData_ = this.getImageData;
+    this.getImageData = function (...a) {
+        this._getImageData = a
+        return this.getImageData_(...a)
+    }
+    //Puts the image data (from a specified ImageData object) back onto the canvas
+    this.putImageData_ = this.putImageData;
+    this.putImageData = function (...a) {
+        this._putImageData = a
+        return this.putImageData_(...a)
+    }
+    //Saves the state of the current context
+    this.save_ = this.save;
+    this.save = function (...a) {
+        this._save = a
+        return this.save_(...a)
+    }
+    //Returns previously saved path state and attributes
+    this.restore_ = this.restore;
+    this.restore = function (...a) {
+        this._restore = a
+        return this.restore_(...a)
+    }
+    //
+    this.createEvent_ = this.createEvent;
+    this.createEvent = function (...a) {
+        this._createEvent = a
+        return this.createEvent_(...a)
+    }
+    //
+    this.getContext_ = this.getContext;
+    this.getContext = function (...a) {
+        this._getContext = a
+        return this.getContext_(...a)
+    }
+    //
+    this.toDataURL_ = this.toDataURL;
+    this.toDataURL = function (...a) {
+        this._toDataURL = a
+        return this.toDataURL_(...a)
+    }
+    this.fill_ = this.fill
+    this.fill = function (...a) {
+        this.fill_(...a)
+        //draw(this,...a)
+    }
+    this.scale_ = this.scale
+    this.scale = function (...a) {
+        var [x, y] = a;
+        this._scale = { x, y }
+        return this.scale_(...a)
+    }
+    this.rect_ = this.rect
+    this.rect = function (...a) {
+        var [x, y, width, height] = a;
+        this._pos = { x, y, width, height };
+        return this.rect_(...a)
+    }
+    this.stroke_ = this.stroke;
+    this.stroke = function (...a) {
+        shapes = Object.keys(colors).map(e => {
+            return [colors[e], e]
+        })
+        this._fillStyle=this.fillStyle
+        this.stroke_(...a)
+        if (this.strokeStyle.toUpperCase || this.fillStyle.toUpperCase) {
+            for (let i = 0; i < shapes.length; i++) {
+                let hasFill = shapes[i][0].includes(this.fillStyle) || shapes[i][0].toUpperCase().includes(this.fillStyle.toUpperCase())
+                let hasStroke = shapes[i][0].includes(this.strokeStyle) || shapes[i][0].toUpperCase().includes(this.strokeStyle.toUpperCase())
+                if (hasStroke || hasFill) {
+                    this.shape = shapes[i][1]
+                    if (!infothingy[this.shape]) infothingy[this.shape] = [];
+                    !this.custom && (infothingy[this.shape].push({ ...this }))
+                    //if(this.shape!="TankBarrel")console.log('stroke Found',this);
+                    break
                 }
-                shapes=Object.keys(colors).map(e=>{
-                    return [colors[e],e]
-                })
-                this.stroke_(...a)
             }
-        }.apply(CanvasRenderingContext2D.prototype)
+        }
+        draw(this)
+        this.arcs_=[];
+        this._lineTo_=[];
+        this.lineCount=1
+        this.arcs=1;
+        this.moves=[]
+    }
+}.apply(CanvasRenderingContext2D.prototype)
         CanvasRenderingContext2D.prototype.fillText = new Proxy(CanvasRenderingContext2D.prototype.fillText, {
 
             apply(fillRect, ctx, [text, x, y, ...blah]) {
@@ -2965,10 +2895,6 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
             }
 
         });
-        function getClose(arr){
-            return arr.map(e=>{  e.dist=getDistance(...e._lineTo,canvas.width/2,canvas.height/2);return e;
-                              }).sort((a,b)=>a.dist-b.dist)[0]
-        }
         myLoop=setInterval(e=>{
             shapes=Object.keys(colors).map(e=>{
                 return [colors[e],e]
@@ -2989,11 +2915,8 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                 var yes_=auto||player.isMaster||(!storage.multibox)
                 if(yes_){
                     var barrels=inf["Barrels, Spawners, Launchers and Auto Turrets"]&&inf["Barrels, Spawners, Launchers and Auto Turrets"].filter(e=>{
-                        var [a,b,c,d]=[...(e._lineTo_&&e._lineTo_.length&&(1,e._lineTo_[0])||e._lineTo)
-                                       ,...e._moveTo]
-                        var final=getDistance(a,b,c,d)
-                        console.log({a,b,c,d,final})
-                        return final>500
+                        var final=getDistance(canvas.width/2,canvas.height/2,...e._moveTo)
+                        return final>120
                     })||(false)
                     var teams4=localStorage.gamemode.includes(4)
                     var teams2=localStorage.gamemode.includes(2)||localStorage.gamemode.includes('event')
@@ -3024,10 +2947,10 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                         ab[item]=ab[item]||{}
                         let arr=inf[item]
                         for(let i=0;i<arr.length;i++){
-                            if(!ab[item][arr[i].lineCount_]){
-                                ab[item][arr[i].lineCount_]=[]
+                            if(!ab[item][arr[i].lineCount]){
+                                ab[item][arr[i].lineCount]=[]
                             }
-                            ab[item][arr[i].lineCount_].push(arr[i])
+                            ab[item][arr[i].lineCount].push(arr[i])
                         }
                     }
                     var S2=ab
@@ -3047,11 +2970,21 @@ Landmine Y = 76`.match(/[\w+ =\d:]+ Y [\w+ =\d]+/gi)].map(e=>[e.match(/([\w ]+):
                     var Crasher=S2['crasher']&&(S2['crasher'][Object.keys(S2['crasher'])[0]])
                     var Pent=S2['Pentagon']&&(S2['Pentagon'][5])
                     var Triangle=S2['Triangle']&&(S2['Triangle'][3])
-                    var closeEnemy=getClose(enemies||[])
+                    var closeEnemy=getClose([...(enemies||[]),...(drones||[]),...(barrels||[])])
+                    var closeEnemy2=getClose([...(enemies||[]),...(barrels||[])])
                     var closeBarrel=getClose(barrels||[])
                     var closeDrone=drones&&(getClose(drones))
                     var closeShape=getClose(Crasher||Pent||Triangle||Square||[])
-                    closeDrone&&closeDrone.dist<2000?(aim([closeDrone],true,true)):closeEnemy?aim([closeEnemy],true):closeShape?aim([closeShape]):Fire(false)
+                    if(closeDrone&&closeDrone.dist<2000){
+                        aim([closeDrone],true,true)
+                    }else if(closeEnemy){
+                        aim([closeEnemy],true)
+                    }else if(closeShape){
+                        aim([closeShape])
+                    }
+                    else{
+                        Fire(false)
+                    }
                 }
             }
         },1)
