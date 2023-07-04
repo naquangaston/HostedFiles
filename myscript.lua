@@ -1,4 +1,4 @@
-print('Starting up')
+print("Starting up")
 
 local function BloxFruit()
   loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
