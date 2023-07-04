@@ -646,7 +646,35 @@ local char = self.Character
 local root = char.HumanoidRootPart
 local mouse = self:GetMouse()
 local value = game:GetService("Players").LocalPlayer.Rebirths
-
+function ShopItems()
+   for i,v in pairs(getgc(true)) do
+       if type(v) == "table" and rawget(v,"Miscs") then
+           return v["All"]
+       end
+   end
+end
+function HasItem(Needed)
+   if game:GetService("ReplicatedStorage").HasItem:InvokeServer(Needed) > 0 then
+       return true
+   end
+   return false
+end
+function IsShopItem(Needed)
+   for i,v in pairs(ShopItems()) do
+       if tonumber(v.ItemId.Value) == tonumber(Needed) then
+           return true
+       end
+   end
+   return false
+end
+local oldPos
+local function goTo(CFrame)
+	oldPos=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = TycoonBase.CFrame * CFrame.new(0,15,0)
+end
+local function goBack()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=oldPos
+end
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TheAbsolutionism/Wally-GUI-Library-V2-Remastered/main/Library%20Code", true))() --//Wally UI Lib V2 Remastered by: https://forum.robloxscripts.com/showthread.php?tid=3180
 library.options.underlinecolor = 'rainbow' --//makes the underline of each "window" rainbow
 library.options.toggledisplay = 'Fill' --//Applies to all toggles, [Fill] OFF = RED, ON = GREEN [CHECK] OFF = BLANK,ON = CHECKMARK
@@ -760,22 +788,24 @@ end)
 
 function loadLayouts()
     task.spawn(function()
+	goTo();wait(.5)
         game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().layoutone) --//Loads first layout
+	wait(.1)
+	goBack()
         --task.wait(getgenv().duration) --//Duration between layouts
         if mainW.flags.seclayout then --//Checks if "Enable second layout" toggle is true
-            repeat wait(0)
-                --print('layout 1')
-                --print(cost1)
-                --print(conv(cost1))
-                --print(comparCash(cost1))
-                until comparCash(cost1)
-            if(mainW.flags.seclayoutclear)then destroyAll() end
+            repeat wait(0) until comparCash(cost1)
+            if(mainW.flags.seclayoutclear)then goTo();wait(.5); destroyAll() ;wait(.1); goBack() end
+		goTo();wait(.5)						
             game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().layoutwo) --//Loads second layout
+		wait(.1); goBack()
             task.wait(getgenv().duration_)
             if mainW.flags.thirdlayout then --//Checks if "Enable second layout" toggle is true
-                repeat wait(0)until comparCash(cost2)
-                if(mainW.flags.thirdlayoutclear)then destroyAll() end
+                repeat wait(0)until comparCash(cost2) 
+                if(mainW.flags.thirdlayoutclear)then goTo();wait(.5); destroyAll(); wait(.1); goBack() end
+		goTo();wait(.5);
                 game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().layouthree) --//Loads third layout
+		 wait(.1); goBack()
         end
         end
     end)
@@ -786,13 +816,16 @@ function farmRebirth()
     task.spawn(function()
         while mainW.flags.aReb do
 	    if mainW.flags.rebirthWl and game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer) then
+		goTo();wait(.5);
 		game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout)
 		wait(.7)
             	game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
             	task.wait()
+		wait(.1); goBack()
 		else 
+		goTo();wait(.5);
 		game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
-		task.wait()
+		task.wait();wait(.1); goBack()
 		end
 end
     end)
