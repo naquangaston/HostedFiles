@@ -819,8 +819,8 @@ Minersdiv:addButton({
 				while mainW.flags.aReb do
 					local canRebirth=game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer)
 					wait(0)
-					print("----------------------------")
-					print(canRebirth)
+					--print("----------------------------")
+					--print(canRebirth)
 					if canRebirth then
 						if mainW.flags.rebirthWl then 
 							print("With Layouth")
