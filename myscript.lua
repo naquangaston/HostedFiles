@@ -815,19 +815,22 @@ end
 function farmRebirth()
     task.spawn(function()
         while mainW.flags.aReb do
-	    if mainW.flags.rebirthWl and game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer) then
-		goTo();wait(.5);
+	    if game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer) then
+		if mainW.flags.rebirthWl
+		goTo();wait(.5);destroyAll(); 
+		
 		game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout)
 		wait(.7)
             	game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
             	task.wait()
 		wait(.1); goBack()
-		else if game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer) then
+		else game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer) then
 		goTo();wait(.5);
 		game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
 		task.wait();wait(.1); goBack()
 		end
-end
+	end
+								end
     end)
 end
 
