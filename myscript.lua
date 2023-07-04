@@ -636,6 +636,10 @@ end
 Minersdiv:addButton({
   title = "Load AutoRebirth",
   callback = function()
+	local FetchItemModule = require(game:GetService("ReplicatedStorage").FetchItem)
+local TycoonBase = game.Players.LocalPlayer.PlayerTycoon.Value.Base
+local MyTycoon = game:GetService("Players").LocalPlayer.PlayerTycoon.Value
+local MoneyLibary = require(game:GetService("ReplicatedStorage").MoneyLib)
   local players = game:GetService("Players")
 local self = players.LocalPlayer
 local char = self.Character
@@ -671,6 +675,7 @@ local tFarm = mainW:Toggle('Enable Second Layout?',{flag = "seclayout"},function
 local tFarm_ = mainW:Toggle('Enable Third Layout?',{flag = "thirdlayout"},function() end)
 local _tFarm_ = mainW:Toggle('Clear after first layout?',{flag = "seclayoutclear"},function() end)
 local tFarm_ = mainW:Toggle('Clear after second layout?',{flag = "thirdlayoutclear"},function() end)
+local RFarm_ = mainW:Toggle('Clear after second layout?',{flag = "rebirthWL"},function() end)
 
 --//Auto Rebirth Toggle
 local autoReb = mainW:Toggle('Auto Rebirth',{flag = "aReb"},function()
@@ -740,6 +745,19 @@ mainW:Dropdown("Third Layout", {
     print("Selected: ".. getgenv().layouthree)
 end)
 
+mainW:Dropdown("Rebrith W Layout", {
+    default = 'Rebirth Layout';
+    location = getgenv();
+    flag = "rebirthlayout";
+    list = {
+        "Layout1";
+        "Layout2";
+        "Layout3";
+    }
+}, function()
+    print("Selected: ".. getgenv().rebirthlayout)
+end)
+
 function loadLayouts()
     task.spawn(function()
         game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().layoutone) --//Loads first layout
@@ -767,9 +785,16 @@ end
 function farmRebirth()
     task.spawn(function()
         while mainW.flags.aReb do
-            game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
-            task.wait()
-        end
+	    if mainW.flags.rebirthWl and game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer) then
+		game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout)
+		wait(.7)
+            	game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
+            	task.wait()
+		else 
+		game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
+		task.wait()
+		end
+end
     end)
 end
 
