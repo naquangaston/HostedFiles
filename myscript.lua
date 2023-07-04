@@ -1,4 +1,4 @@
-print("Starting up")
+print('Starting up')
 
 local function BloxFruit()
   loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
@@ -703,7 +703,7 @@ local tFarm = mainW:Toggle('Enable Second Layout?',{flag = "seclayout"},function
 local tFarm_ = mainW:Toggle('Enable Third Layout?',{flag = "thirdlayout"},function() end)
 local _tFarm_ = mainW:Toggle('Clear after first layout?',{flag = "seclayoutclear"},function() end)
 local tFarm_ = mainW:Toggle('Clear after second layout?',{flag = "thirdlayoutclear"},function() end)
-local RFarm_ = mainW:Toggle('Clear after second layout?',{flag = "rebirthWL"},function() end)
+local RFarm_ = mainW:Toggle('Rebirths with layout?',{flag = "rebirthWL"},function() end)
 
 --//Auto Rebirth Toggle
 local autoReb = mainW:Toggle('Auto Rebirth',{flag = "aReb"},function()
@@ -815,22 +815,19 @@ end
 function farmRebirth()
     task.spawn(function()
         while mainW.flags.aReb do
-	    if game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer) then
-		if mainW.flags.rebirthWl
-		goTo();wait(.5);destroyAll(); 
-		
-		game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout)
-		wait(.7)
-            	game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
-            	task.wait()
-		wait(.1); goBack()
-		else game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer) then
-		goTo();wait(.5);
-		game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
-		task.wait();wait(.1); goBack()
+		local canRebirth=game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer)
+		if canRebirth then
+			if mainW.flags.rebirthWl then 
+				goTo();wait(.5);game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout); wait(.7)
+				game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
+				task.wait();wait(.1);goBack()
+			else 
+				goTo();wait(.2);
+				game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
+				task.wait();wait(.1);goBack()
+			end
 		end
 	end
-								end
     end)
 end
 
