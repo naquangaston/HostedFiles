@@ -796,14 +796,14 @@ function loadLayouts()
         if mainW.flags.seclayout then --//Checks if "Enable second layout" toggle is true
             repeat wait(0) until comparCash(cost1)
             if(mainW.flags.seclayoutclear)then goTo();wait(.5); destroyAll() ;wait(.1); goBack() end
-		goTo();wait(.5)						
+		goTo();wait(.2)						
             game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().layoutwo) --//Loads second layout
 		wait(.1); goBack()
             task.wait(getgenv().duration_)
             if mainW.flags.thirdlayout then --//Checks if "Enable second layout" toggle is true
                 repeat wait(0)until comparCash(cost2) 
                 if(mainW.flags.thirdlayoutclear)then goTo();wait(.5); destroyAll(); wait(.1); goBack() end
-		goTo();wait(.5);
+		goTo();wait(.2);
                 game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().layouthree) --//Loads third layout
 		 wait(.1); goBack()
         end
@@ -816,12 +816,17 @@ function farmRebirth()
     task.spawn(function()
         while mainW.flags.aReb do
 		local canRebirth=game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer)
+									wait(0)
+									print("----------------------------")
+									print(canRebirth)
 		if canRebirth then
 			if mainW.flags.rebirthWl then 
-				goTo();wait(.5);game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout); wait(.7)
+											print("With Layouth)
+				goTo();wait(.2);game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout); wait(.7)
 				game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
 				task.wait();wait(.1);goBack()
 			else 
+												print("WithoutLayout")
 				goTo();wait(.2);
 				game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
 				task.wait();wait(.1);goBack()
