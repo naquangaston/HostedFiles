@@ -822,7 +822,7 @@ function farmRebirth()
             	game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
             	task.wait()
 		wait(.1); goBack()
-		else 
+		else if game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer) then
 		goTo();wait(.5);
 		game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
 		task.wait();wait(.1); goBack()
