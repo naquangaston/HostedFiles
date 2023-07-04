@@ -823,7 +823,7 @@ function farmRebirth()
 				print(canRebirth)
 				if canRebirth then
 					if mainW.flags.rebirthWl then 
-						print("With Layouth)
+						print("With Layouth")
 						goTo();wait(.2);game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout); wait(.7)
 						game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
 						task.wait();wait(.1);goBack()
