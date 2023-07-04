@@ -813,26 +813,28 @@ end
 
 --//Auto Rebirth Function
 function farmRebirth()
+    print("Print trying auto?")
     task.spawn(function()
-        while mainW.flags.aReb do
-		local canRebirth=game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer)
-									wait(0)
-									print("----------------------------")
-									print(canRebirth)
-		if canRebirth then
-			if mainW.flags.rebirthWl then 
-											print("With Layouth)
-				goTo();wait(.2);game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout); wait(.7)
-				game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
-				task.wait();wait(.1);goBack()
-			else 
-												print("WithoutLayout")
-				goTo();wait(.2);
-				game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
-				task.wait();wait(.1);goBack()
+			print("Auto Going?")
+			while mainW.flags.aReb do
+				local canRebirth=game:GetService("Players").LocalPlayer.PlayerGui.GUI.Money.Value >= MoneyLibary.RebornPrice(game:GetService("Players").LocalPlayer)
+				wait(0)
+				print("----------------------------")
+				print(canRebirth)
+				if canRebirth then
+					if mainW.flags.rebirthWl then 
+						print("With Layouth)
+						goTo();wait(.2);game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().rebirthlayout); wait(.7)
+						game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
+						task.wait();wait(.1);goBack()
+					else 
+						print("WithoutLayout")
+						goTo();wait(.2);
+						game:GetService("ReplicatedStorage").Rebirth:InvokeServer(26) --// I dont know what "26" means dont change it.
+						task.wait();wait(.1);goBack()
+					end
+				end
 			end
-		end
-	end
     end)
 end
 
