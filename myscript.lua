@@ -670,7 +670,7 @@ end
 local oldPos
 local function goTo(CFrame)
 	oldPos=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = TycoonBase.CFrame * CFrame.new(Vector3.new(0,15,0))
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = TycoonBase.CFrame -- * CFrame.new(Vector3.new(0,15,0))
 end
 local function goBack()
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=oldPos
