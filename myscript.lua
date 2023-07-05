@@ -770,9 +770,8 @@ Minersdiv:addButton({
 						end
 		end
 		local function goBack()
-						return nil;
-				if(oldPos)then PathfindTo(oldPos) end
-			oldPos=nil
+				--if(oldPos)then PathfindTo(oldPos) end
+				oldPos=nil
 		end
 		local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TheAbsolutionism/Wally-GUI-Library-V2-Remastered/main/Library%20Code", true))() --//Wally UI Lib V2 Remastered by: https://forum.robloxscripts.com/showthread.php?tid=3180
 		library.options.underlinecolor = 'rainbow' --//makes the underline of each "window" rainbow
