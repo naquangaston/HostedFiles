@@ -667,8 +667,7 @@ Minersdiv:addToggle({
 		local pos=humanoidRoot.CFrame
 		while(_cb1)do 
 			local a,b=pcall(function()return getClosest(Boxes()).CFrame end)
-			if a then PathfindTo(b)
-							print("DOne")
+			if a then PathfindTo(b);wait(1.2);print("DOne")
 						end
 						wait()
 		end
