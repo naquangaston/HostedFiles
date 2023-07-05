@@ -1,4 +1,38 @@
 print('Starting up')
+
+-- Function to perform A* pathfinding
+local function PathfindTo(target)
+    local path = game:GetService("PathfindingService"):FindPathAsync(
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,
+        target
+    )
+
+    if path.Status == Enum.PathStatus.Success then
+        -- Loop through the waypoints and move to each position
+        for _, waypoint in ipairs(path:GetWaypoints()) do
+            if waypoint.Action == Enum.PathWaypointAction.Jump then
+                game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
+            else
+                game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(waypoint.Position)
+                game:GetService("Players").LocalPlayer.Character.Humanoid.MoveToFinished:Wait() -- Wait until the character reaches the waypoint
+            end
+        end
+
+        print("Reached target position!")
+    else
+        print("Failed to find a path to the target.")
+    end
+
+    -- Check the distance to the target position continuously
+    while (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - target.Position).Magnitude > 1 do
+        game:GetService("RunService").Heartbeat:Wait()
+    end
+
+    print("Target position reached!")
+end
+
+
+
 local function CombineCFrameAndVector(cframe, vector)
     return cframe + vector
 end
