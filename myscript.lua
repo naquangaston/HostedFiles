@@ -30,6 +30,10 @@ local function PathfindTo(target)
                 currentIndex += 1  -- Move to the next waypoint immediately
             else
                 humanoid:MoveTo(waypoint.Position)
+				spawn(function()
+						wait(5)
+						if finding then humanoid.Jump = true end
+					end)
                 humanoid.MoveToFinished:Wait()
 
                 -- Check if the pathfinding was interrupted
@@ -770,6 +774,7 @@ Minersdiv:addButton({
 						end
 		end
 		local function goBack()
+						return nil;
 				if(oldPos)then PathfindTo(oldPos) end
 			oldPos=nil
 		end
