@@ -657,12 +657,13 @@ Minersdiv:addToggle({
 	toggled = nil,
 	callback = function(value)
 		_cb1=value
-		local pos=humanoidRoot.Position
-		--while(_cb1)do 
-			--PathfindTo(getClosest(Boxes()).Position)
-			--wait(1.2)
-		--end
-		PathfindTo(getClosest(Boxes()).CFrame)
+		local pos=humanoidRoot.CFrame
+		while(_cb1)do 
+			local a,b=pcall(function()return getClosest(Boxes()).CFrame end)
+			if a then PathfindTo(b) end
+			wait(1.2)
+		end
+		PathfindTo(pos)
 	end})
 Minersdiv:addToggle({
 	title = "Auto open Boxes",
