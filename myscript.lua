@@ -24,6 +24,7 @@ local function PathfindTo(target)
 
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 humanoid.Jump = true
+		humanoid:MoveTo(waypoint.Position)
                 currentIndex += 1  -- Move to the next waypoint immediately
             else
                 humanoid:MoveTo(waypoint.Position)
@@ -215,7 +216,7 @@ local function getClosest(t)
 	local _={}
 	print(t)
 	for i,v in pairs(t) do
-		_[#_+1]=v
+		_[#_+1]=vwwwwwwwwwwww
 		print(dist(v,humanoidRoot))
 	end
 	table.sort(_,function(a,b)
@@ -669,7 +670,7 @@ Minersdiv:addToggle({
 			if a then PathfindTo(b)
 							print("DOne")
 						end
-			wait(1.2)
+						wait()
 		end
 		PathfindTo(pos)
 	end})
