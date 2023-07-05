@@ -30,10 +30,6 @@ local function PathfindTo(target)
                 currentIndex += 1  -- Move to the next waypoint immediately
             else
                 humanoid:MoveTo(waypoint.Position)
-				spawn(function()
-						wait(5)
-						if finding then humanoid.Jump = true end
-					end)
                 humanoid.MoveToFinished:Wait()
 
                 -- Check if the pathfinding was interrupted
