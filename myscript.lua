@@ -9,7 +9,7 @@ local pathfindingComplete = false
 local function PathfindTo(target)
     local path = game:GetService("PathfindingService"):FindPathAsync(
         humanoid.RootPart.Position,
-        target -- Use the Position property of the CFrame
+        target.Position -- Use the Position property of the CFrame
     )
 
     if path.Status == Enum.PathStatus.Success then
@@ -650,7 +650,7 @@ Minersdiv:addToggle({
 			--PathfindTo(getClosest(Boxes()).Position)
 			--wait(1.2)
 		--end
-		PathfindTo(getClosest(Boxes()).Position)
+		PathfindTo(getClosest(Boxes()).CFrame)
 	end})
 Minersdiv:addToggle({
 	title = "Auto open Boxes",
