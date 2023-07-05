@@ -4,9 +4,11 @@ local userInputService = game:GetService("UserInputService")
 local player = game:GetService("Players").LocalPlayer
 local humanoid = player.Character.Humanoid
 local pathfindingComplete = false
-
+local finding=false
 -- Function to perform A* pathfinding
 local function PathfindTo(target)
+	repeat wait(0) until not finding
+	finding=true
     local path = game:GetService("PathfindingService"):FindPathAsync(
         humanoid.RootPart.Position,
         target.Position
@@ -40,9 +42,11 @@ local function PathfindTo(target)
         end
 
         print("Reached target position!")
+		finding=false
 		return true
     else
         print("Failed to find a path to the target.")
+		finding=false
 		return true
     end
 
@@ -55,7 +59,7 @@ local function PathfindTo(target)
     end
 
     print("Target position reached!")
-
+	finding=false;
     return true  -- Return true to indicate the target was reached
 end
 
@@ -755,10 +759,10 @@ Minersdiv:addButton({
 		local oldPos
 		local function goTo()
 			oldPos=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =  CombineCFrameAndVector(TycoonBase.CFrame,Vector3.new(0,15,0))-- * CFrame.new(Vector3.new(0,15,0))
+			PathfindTo(TycoonBase.CFrame)
 		end
 		local function goBack()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=oldPos
+			PathfindTo(oldPos)
 		end
 		local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TheAbsolutionism/Wally-GUI-Library-V2-Remastered/main/Library%20Code", true))() --//Wally UI Lib V2 Remastered by: https://forum.robloxscripts.com/showthread.php?tid=3180
 		library.options.underlinecolor = 'rainbow' --//makes the underline of each "window" rainbow
