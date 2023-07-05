@@ -763,6 +763,7 @@ Minersdiv:addButton({
 		end
 		local oldPos
 		local function goTo()
+						TycoonBase = game.Players.LocalPlayer.PlayerTycoon.Value.Base
 						if GetDistanceBetweenCFrame(TycoonBase.CFrame,root.CFrame) > 100 then
 			oldPos=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
 			PathfindTo(TycoonBase.CFrame)
