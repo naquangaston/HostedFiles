@@ -1,5 +1,4 @@
 print('Starting up')
-
 local userInputService = game:GetService("UserInputService")
 local player = game:GetService("Players").LocalPlayer
 local humanoid = player.Character.Humanoid
@@ -9,31 +8,32 @@ local pathfindingComplete = false
 local function PathfindTo(target)
     local path = game:GetService("PathfindingService"):FindPathAsync(
         humanoid.RootPart.Position,
-        target.Position -- Use the Position property of the CFrame
+        target.Position
     )
 
     if path.Status == Enum.PathStatus.Success then
         local waypoints = path:GetWaypoints()
         local currentIndex = 1
-        
+
         -- Enable flag to indicate pathfinding is in progress
         pathfindingComplete = false
 
         while currentIndex <= #waypoints do
             local waypoint = waypoints[currentIndex]
-            
+
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 humanoid.Jump = true
-		humanoid:MoveTo(waypoint.Position)
+                wait(0.1)  -- Small delay before moving to the next waypoint
+                currentIndex += 1
             else
                 humanoid:MoveTo(waypoint.Position)
                 humanoid.MoveToFinished:Wait()
-                
+
                 -- Check if the pathfinding was interrupted
                 if pathfindingComplete then
                     break
                 end
-                
+
                 currentIndex += 1
             end
         end
