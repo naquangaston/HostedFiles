@@ -25,6 +25,16 @@ local function PathfindTo(target)
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 humanoid.Jump = true
                 currentIndex += 1  -- Move to the next waypoint immediately
+            elseif waypoint.Action == Enum.PathWaypointAction.Climb then
+                humanoid.ClimbTo(waypoint.Position)
+                humanoid.MoveToFinished:Wait()
+                
+                -- Check if the pathfinding was interrupted
+                if pathfindingComplete then
+                    break
+                end
+
+                currentIndex += 1
             else
                 humanoid:MoveTo(waypoint.Position)
                 humanoid.MoveToFinished:Wait()
@@ -52,7 +62,10 @@ local function PathfindTo(target)
     end
 
     print("Target position reached!")
+
+    return true  -- Return true to indicate the target was reached
 end
+
 
 -- Separate loop for handling jumps
 spawn(function()
