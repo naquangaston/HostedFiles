@@ -1,4 +1,5 @@
 print('Starting up')
+
 local userInputService = game:GetService("UserInputService")
 local player = game:GetService("Players").LocalPlayer
 local humanoid = player.Character.Humanoid
@@ -23,8 +24,7 @@ local function PathfindTo(target)
 
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 humanoid.Jump = true
-                wait(0.1)  -- Small delay before moving to the next waypoint
-                currentIndex += 1
+                currentIndex += 1  -- Move to the next waypoint immediately
             else
                 humanoid:MoveTo(waypoint.Position)
                 humanoid.MoveToFinished:Wait()
@@ -53,6 +53,17 @@ local function PathfindTo(target)
 
     print("Target position reached!")
 end
+
+-- Separate loop for handling jumps
+spawn(function()
+    while true do
+        if humanoid.MoveToFinished:Wait() then
+            if humanoid.MoveToPoint == nil and not pathfindingComplete then
+                humanoid.Jump = true
+            end
+        end
+    end
+end)
 
 -- Event listener for player input
 userInputService.InputBegan:Connect(function(input)
