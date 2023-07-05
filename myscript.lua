@@ -39,8 +39,10 @@ local function PathfindTo(target)
         end
 
         print("Reached target position!")
+		return true
     else
         print("Failed to find a path to the target.")
+		return true
     end
 
     -- Check the distance to the target position continuously
