@@ -9,12 +9,27 @@ local function PathfindTo(target)
 
     if path.Status == Enum.PathStatus.Success then
         -- Loop through the waypoints and move to each position
-        for _, waypoint in ipairs(path:GetWaypoints()) do
+        for i, waypoint in ipairs(path:GetWaypoints()) do
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
             else
                 game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(waypoint.Position)
-                game:GetService("Players").LocalPlayer.Character.Humanoid.MoveToFinished:Wait() -- Wait until the character reaches the waypoint
+
+                local startTime = os.time()
+                repeat
+                    game:GetService("RunService").Heartbeat:Wait()
+
+                    -- Check if the character has reached the next waypoint
+                    local elapsedTime = os.time() - startTime
+                    if elapsedTime >= 5 then
+                        game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
+                        break
+                    end
+                until (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - waypoint.Position).Magnitude <= 1
+
+                if i < #path:GetWaypoints() then
+                    wait(0.1) -- Small delay before moving to the next waypoint
+                end
             end
         end
 
