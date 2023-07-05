@@ -1,5 +1,7 @@
 print('Starting up')
-
+local function CombineCFrameAndVector(cframe, vector)
+    return cframe + vector
+end
 local function BloxFruit()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Augustzyzx/UraniumMobile/main/UraniumKak.lua"))()
 end
@@ -670,7 +672,7 @@ Minersdiv:addButton({
 		local oldPos
 		local function goTo()
 			oldPos=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(TycoonBase.Postion+Vector3.new(0,15,0)) -- * CFrame.new(Vector3.new(0,15,0))
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =  CombineCFrameAndVector(TycoonBase.CFrame,Vector3.new(0,15,0))-- * CFrame.new(Vector3.new(0,15,0))
 		end
 		local function goBack()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=oldPos
