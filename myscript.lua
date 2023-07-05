@@ -24,6 +24,7 @@ local function PathfindTo(target)
             
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 humanoid.Jump = true
+		humanoid:MoveTo(waypoint.Position)
             else
                 humanoid:MoveTo(waypoint.Position)
                 humanoid.MoveToFinished:Wait()
