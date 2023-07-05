@@ -4,7 +4,7 @@ local userInputService = game:GetService("UserInputService")
 local player = game:GetService("Players").LocalPlayer
 local humanoid = player.Character.Humanoid
 local pathfindingComplete = false
-local targetCFrame
+
 -- Function to perform A* pathfinding
 local function PathfindTo(target)
     local path = game:GetService("PathfindingService"):FindPathAsync(
@@ -658,16 +658,7 @@ local function openBox()
 		game.ReplicatedStorage.MysteryBox:InvokeServer(mysteryBox.Name)
 	end
 end
-task.spawn(function()
-		local a=targetCFrame
-		while true do 
-			if a ~= b then 
-				print("Target Changed")
-				PathfindTo(b)
-				a=b
-				wait()
-		end
-	end)
+
 Minersdiv:addToggle({
 	title = "Collect Boxes",
 	toggled = nil,
@@ -676,9 +667,11 @@ Minersdiv:addToggle({
 		local pos=humanoidRoot.CFrame
 		while(_cb1)do 
 			local a,b=pcall(function()return getClosest(Boxes()).CFrame end)
-			if a then targetCFrame=b;else targetCFrame=pos;end;wait()
+			if a then PathfindTo(b);wait(1.2);print("DOne")
+						end
+						wait()
 		end
-		targetCFrame=pos
+		PathfindTo(pos)
 	end})
 Minersdiv:addToggle({
 	title = "Auto open Boxes",
