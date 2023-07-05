@@ -9,7 +9,7 @@ local pathfindingComplete = false
 local function PathfindTo(target)
     local path = game:GetService("PathfindingService"):FindPathAsync(
         humanoid.RootPart.Position,
-        target
+        target.Position -- Use the Position property of the CFrame
     )
 
     if path.Status == Enum.PathStatus.Success then
