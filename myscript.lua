@@ -9,7 +9,7 @@ local pathfindingComplete = false
 local function PathfindTo(target)
     local path = game:GetService("PathfindingService"):FindPathAsync(
         humanoid.RootPart.Position,
-        target.Position -- Use the Position property of the CFrame
+        target -- Use the Position property of the CFrame
     )
 
     if path.Status == Enum.PathStatus.Success then
@@ -645,9 +645,9 @@ Minersdiv:addToggle({
 	toggled = nil,
 	callback = function(value)
 		_cb1=value
-		local pos=humanoidRoot.CFrame
+		local pos=humanoidRoot.Position
 		while(_cb1)do 
-			PathfindTo(getClosest(Boxes()).CFrame)
+			PathfindTo(getClosest(Boxes()).Position)
 			wait(1.2)
 		end
 		PathfindTo(pos)
