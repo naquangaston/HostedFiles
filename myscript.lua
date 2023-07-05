@@ -668,7 +668,7 @@ Minersdiv:addToggle({
 		while(_cb1)do 
 			local a,b=pcall(function()return getClosest(Boxes()).CFrame end)
 			if a then PathfindTo(b);wait(1.2);print("DOne")
-						else PathfindTo(po);wait(1.2); end
+						else PathfindTo(pos);wait(1.2); end
 						wait()
 		end
 		PathfindTo(pos)
