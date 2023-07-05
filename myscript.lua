@@ -216,7 +216,7 @@ local function getClosest(t)
 	local _={}
 	print(t)
 	for i,v in pairs(t) do
-		_[#_+1]=vwwwwwwwwwwww
+		_[#_+1]=v
 		print(dist(v,humanoidRoot))
 	end
 	table.sort(_,function(a,b)
