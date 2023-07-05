@@ -4,7 +4,7 @@ local userInputService = game:GetService("UserInputService")
 local player = game:GetService("Players").LocalPlayer
 local humanoid = player.Character.Humanoid
 local pathfindingComplete = false
-local targetCFrame
+local targetCFrame = nil
 -- Function to perform A* pathfinding
 local function PathfindTo(target)
     local path = game:GetService("PathfindingService"):FindPathAsync(
@@ -667,6 +667,7 @@ task.spawn(function()
 				a=b
 				wait()
 		end
+				end
 	end)
 Minersdiv:addToggle({
 	title = "Collect Boxes",
