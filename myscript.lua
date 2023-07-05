@@ -1,35 +1,39 @@
 print('Starting up')
 
+local userInputService = game:GetService("UserInputService")
+local player = game:GetService("Players").LocalPlayer
+local humanoid = player.Character.Humanoid
+local pathfindingComplete = false
+
 -- Function to perform A* pathfinding
 local function PathfindTo(target)
     local path = game:GetService("PathfindingService"):FindPathAsync(
-        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,
+        humanoid.RootPart.Position,
         target
     )
 
     if path.Status == Enum.PathStatus.Success then
-        -- Loop through the waypoints and move to each position
-        for i, waypoint in ipairs(path:GetWaypoints()) do
+        local waypoints = path:GetWaypoints()
+        local currentIndex = 1
+        
+        -- Enable flag to indicate pathfinding is in progress
+        pathfindingComplete = false
+
+        while currentIndex <= #waypoints do
+            local waypoint = waypoints[currentIndex]
+            
             if waypoint.Action == Enum.PathWaypointAction.Jump then
-                game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
+                humanoid.Jump = true
             else
-                game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(waypoint.Position)
-
-                local startTime = os.time()
-                repeat
-                    game:GetService("RunService").Heartbeat:Wait()
-
-                    -- Check if the character has reached the next waypoint
-                    local elapsedTime = os.time() - startTime
-                    if elapsedTime >= 5 then
-                        game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
-                        break
-                    end
-                until (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - waypoint.Position).Magnitude <= 1
-
-                if i < #path:GetWaypoints() then
-                    wait(0.1) -- Small delay before moving to the next waypoint
+                humanoid:MoveTo(waypoint.Position)
+                humanoid.MoveToFinished:Wait()
+                
+                -- Check if the pathfinding was interrupted
+                if pathfindingComplete then
+                    break
                 end
+                
+                currentIndex += 1
             end
         end
 
@@ -39,12 +43,23 @@ local function PathfindTo(target)
     end
 
     -- Check the distance to the target position continuously
-    while (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - target.Position).Magnitude > 1 do
-        game:GetService("RunService").Heartbeat:Wait()
+    while (humanoid.RootPart.Position - target.Position).Magnitude > 1 do
+        if pathfindingComplete then
+            break
+        end
+        wait()
     end
 
     print("Target position reached!")
 end
+
+-- Event listener for player input
+userInputService.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Keyboard and not pathfindingComplete then
+        humanoid:Move(Vector3.new()) -- Stop the character's movement
+        pathfindingComplete = true -- Set the flag to interrupt pathfinding
+    end
+end)
 
 
 
