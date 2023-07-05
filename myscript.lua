@@ -735,6 +735,11 @@ Minersdiv:addButton({
 		local root = char.HumanoidRootPart
 		local mouse = self:GetMouse()
 		local value = game:GetService("Players").LocalPlayer.Rebirths
+		local function GetDistanceBetweenCFrame(cframe1, cframe2)
+   			local position1 = cframe1.Position
+			local position2 = cframe2.Position
+  			return (position1 - position2).Magnitude
+		end
 		function ShopItems()
 			for i,v in pairs(getgc(true)) do
 				if type(v) == "table" and rawget(v,"Miscs") then
@@ -758,11 +763,14 @@ Minersdiv:addButton({
 		end
 		local oldPos
 		local function goTo()
+						if GetDistanceBetweenCFrame(TycoonBase.CFrame,root.CFrame) > 100 then
 			oldPos=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
 			PathfindTo(TycoonBase.CFrame)
+						end
 		end
 		local function goBack()
 			PathfindTo(oldPos)
+			oldPos=nil
 		end
 		local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/TheAbsolutionism/Wally-GUI-Library-V2-Remastered/main/Library%20Code", true))() --//Wally UI Lib V2 Remastered by: https://forum.robloxscripts.com/showthread.php?tid=3180
 		library.options.underlinecolor = 'rainbow' --//makes the underline of each "window" rainbow
