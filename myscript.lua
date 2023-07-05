@@ -658,17 +658,6 @@ local function openBox()
 		game.ReplicatedStorage.MysteryBox:InvokeServer(mysteryBox.Name)
 	end
 end
-task.spawn(function()
-		local a=targetCFrame
-		while true do 
-			if a ~= b then 
-				print("Target Changed")
-				PathfindTo(b)
-				a=b
-				wait()
-		end
-				end
-	end)
 Minersdiv:addToggle({
 	title = "Collect Boxes",
 	toggled = nil,
@@ -678,6 +667,7 @@ Minersdiv:addToggle({
 		while(_cb1)do 
 			local a,b=pcall(function()return getClosest(Boxes()).CFrame end)
 			if a then targetCFrame=b;else targetCFrame=pos;end;wait()
+						PathfindTo(targetCFrame)
 		end
 		targetCFrame=pos
 	end})
