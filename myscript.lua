@@ -174,6 +174,7 @@ defineLocals()
 local usertarget=false
 -- Function to perform A* pathfinding
 local function PathfindTo(target)
+	waitForChar()
 	repeat wait(0) until not finding
 	finding=true
     local path = game:GetService("PathfindingService"):FindPathAsync(
