@@ -916,6 +916,7 @@ Minersdiv:addButton({
 						TycoonBase = game.Players.LocalPlayer.PlayerTycoon.Value.Base
 						if GetDistanceBetweenCFrame(TycoonBase.CFrame,root.CFrame) > 100 then
 			oldPos=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+							if finding then pathfindingComplete = true end
 			PathfindTo(TycoonBase.CFrame)
 						end
 		end
@@ -1036,7 +1037,8 @@ Minersdiv:addButton({
 
 		function loadLayouts()
 			task.spawn(function()
-				goTo();wait(.5)
+				goTo();
+								wait(.5)
 				game:GetService("ReplicatedStorage").Layouts:InvokeServer("Load",getgenv().layoutone) --//Loads first layout
 				wait(.1)
 				goBack()
