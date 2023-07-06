@@ -21,12 +21,89 @@ local legitCoin = true
 local PathfindingService = game:GetService("PathfindingService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local function defineNilLocals()
+	if FetchItemModule == nil then
+		local success, result = pcall(function()
+			FetchItemModule = require(game:GetService("ReplicatedStorage").FetchItem)
+		end)
+		if not success then
+			warn("Failed to define FetchItemModule:", result)
+		end
+	end
+
+	if TycoonBase == nil then
+		local success, result = pcall(function()
+			TycoonBase = player.PlayerTycoon.Value.Base
+		end)
+		if not success then
+			warn("Failed to define TycoonBase:", result)
+		end
+	end
+
+	if MyTycoon == nil then
+		local success, result = pcall(function()
+			MyTycoon = player.PlayerTycoon.Value
+		end)
+		if not success then
+			warn("Failed to define MyTycoon:", result)
+		end
+	end
+
+	if MoneyLibary == nil then
+		local success, result = pcall(function()
+			MoneyLibary = require(game:GetService("ReplicatedStorage").MoneyLib)
+		end)
+		if not success then
+			warn("Failed to define MoneyLibary:", result)
+		end
+	end
+
+	if players == nil then
+		players = game:GetService("Players")
+	end
+
+	if self == nil then
+		self = players.LocalPlayer
+	end
+
+	if char == nil then
+		local success, result = pcall(function()
+			char = self.Character
+		end)
+		if not success then
+			warn("Failed to define char:", result)
+		end
+	end
+
+	if root == nil then
+		local success, result = pcall(function()
+			root = char.HumanoidRootPart
+		end)
+		if not success then
+			warn("Failed to define root:", result)
+		end
+	end
+
+	if mouse == nil then
+		mouse = self:GetMouse()
+	end
+
+	if value == nil then
+		local success, result = pcall(function()
+			value = self.Rebirths
+		end)
+		if not success then
+			warn("Failed to define value:", result)
+		end
+	end
+end
+
 
 local function defineLocals()
 	print("waiting for character to load") 
 	repeat wait() until game:GetService("Players").LocalPlayer.Character
 	local success, result
-
+	
 	success, result = pcall(function()
 		FetchItemModule = require(game:GetService("ReplicatedStorage").FetchItem)
 	end)
@@ -803,6 +880,7 @@ Minersdiv:addTextbox({
 Minersdiv:addButton({
 	title = "Load AutoRebirth",
 	callback = function()
+		defineNilLocals()
 		local function GetDistanceBetweenCFrame(cframe1, cframe2)
    			local position1 = cframe1.Position
 			local position2 = cframe2.Position
