@@ -98,6 +98,9 @@ local function defineNilLocals()
 	end
 end
 
+local function waitForChar()
+	repeat wait() until game:GetService("Players").LocalPlayer.Character
+end
 
 local function defineLocals()
 	print("waiting for character to load") 
