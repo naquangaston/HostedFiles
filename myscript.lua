@@ -182,7 +182,6 @@ local function PathfindTo(target)
     if path.Status == Enum.PathStatus.Success then
         local waypoints = path:GetWaypoints()
         local currentIndex = 1
-        local startTime = os.clock()
 
         -- Enable flag to indicate pathfinding is in progress
         pathfindingComplete = false
@@ -197,36 +196,27 @@ local function PathfindTo(target)
                 break
             end
 
-            local elapsedTime = os.clock() - startTime
-            local waypointReached = false
-
-            if elapsedTime >= 2 then
+            repeat
                 humanoid.Jump = true
-            else
-                humanoid:MoveTo(waypoint.Position)
-                waypointReached = humanoid.MoveToFinished:Wait()
-            end
+                wait(2)
+            until humanoid.MoveToFinished:Wait()
 
             -- Check if the pathfinding was interrupted
             if pathfindingComplete then
                 break
             end
 
-            if waypointReached then
-                currentIndex += 1
-                startTime = os.clock()
-            end
+            currentIndex += 1
         end
 
-        print("Reached target position!");return true
+        print("Reached target position!")
     else
         print("Failed to find a path to the target.")
-	return true
     end
 
     pathfindingComplete = true
-	return true
 end
+
 
 
 
