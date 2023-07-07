@@ -17,6 +17,7 @@ local humanoid = nil
 local pathfindingComplete = false
 local finding = false
 local done_ = true
+local jumpTime=.6
 local legitCoin = true
 local PathfindingService = game:GetService("PathfindingService")
 local RunService = game:GetService("RunService")
@@ -174,6 +175,8 @@ defineLocals()
 local usertarget=false
 -- Function to perform A* pathfinding
 local function PathfindTo(target)
+
+		repeat wait() until not finding;finding=true
     local path = game:GetService("PathfindingService"):FindPathAsync(
         humanoid.RootPart.Position,
         target.Position
@@ -198,7 +201,7 @@ local function PathfindTo(target)
 
             repeat
                 humanoid.Jump = true
-                wait(2)
+                wait(jumpTime)
             until humanoid.MoveToFinished:Wait()
 
             -- Check if the pathfinding was interrupted
@@ -208,13 +211,15 @@ local function PathfindTo(target)
 
             currentIndex += 1
         end
-
-        print("Reached target position!")
+				pathfindingComplete = true
+        print("Reached target position!");finding=false;return true
     else
-        print("Failed to find a path to the target.")
+				pathfindingComplete = true
+        print("Failed to find a path to the target.");finding=false;return true
     end
 
     pathfindingComplete = true
+		return true
 end
 
 
