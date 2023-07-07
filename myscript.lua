@@ -191,17 +191,15 @@ local function PathfindTo(target)
 
         while currentIndex <= #waypoints do
             local waypoint = waypoints[currentIndex]
-
+			humanoid:MoveTo(waypoint.Position)
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 humanoid.Jump = true
-		humanoid:MoveTo(waypoint.Position)
                 currentIndex += 1  -- Move to the next waypoint immediately
             else
-                humanoid:MoveTo(waypoint.Position)
                repeat
                 humanoid.Jump = true
                 wait(.6)
-				until humanoid.MoveToFinished:Wait()
+		until humanoid.MoveToFinished:Wait()
 
                 -- Check if the pathfinding was interrupted
                 if pathfindingComplete then
