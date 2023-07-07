@@ -174,9 +174,6 @@ defineLocals()
 local usertarget=false
 -- Function to perform A* pathfinding
 local function PathfindTo(target)
-	waitForChar()
-	repeat wait(0) until not finding
-	finding=true
     local path = game:GetService("PathfindingService"):FindPathAsync(
         humanoid.RootPart.Position,
         target.Position
@@ -185,6 +182,7 @@ local function PathfindTo(target)
     if path.Status == Enum.PathStatus.Success then
         local waypoints = path:GetWaypoints()
         local currentIndex = 1
+        local startTime = os.clock()
 
         -- Enable flag to indicate pathfinding is in progress
         pathfindingComplete = false
@@ -192,44 +190,44 @@ local function PathfindTo(target)
         while currentIndex <= #waypoints do
             local waypoint = waypoints[currentIndex]
 
-            if waypoint.Action == Enum.PathWaypointAction.Jump then
+            if userInputService:GetLastInputType() ~= Enum.UserInputType.None then
+                -- Player input detected, cancel the path
+                path:Cancel()
+                print("Pathfinding canceled due to player input")
+                break
+            end
+
+            local elapsedTime = os.clock() - startTime
+            local waypointReached = false
+
+            if elapsedTime >= 2 then
                 humanoid.Jump = true
-		humanoid:MoveTo(waypoint.Position)
-                currentIndex += 1  -- Move to the next waypoint immediately
             else
                 humanoid:MoveTo(waypoint.Position)
-                humanoid.MoveToFinished:Wait()
+                waypointReached = humanoid.MoveToFinished:Wait()
+            end
 
-                -- Check if the pathfinding was interrupted
-                if pathfindingComplete then
-                    break
-                end
+            -- Check if the pathfinding was interrupted
+            if pathfindingComplete then
+                break
+            end
 
+            if waypointReached then
                 currentIndex += 1
+                startTime = os.clock()
             end
         end
 
-        print("Reached target position!")
-		finding=false
-		return true
+        print("Reached target position!");return true
     else
         print("Failed to find a path to the target.")
-		finding=false
-		return true
+	return true
     end
 
-    -- Check the distance to the target position continuously
-    while (humanoid.RootPart.Position - target.Position).Magnitude > 1 do
-        if pathfindingComplete then
-            break
-        end
-        wait()
-    end
-
-    print("Target position reached!")
-	finding=false;
-    return true  -- Return true to indicate the target was reached
+    pathfindingComplete = true
+	return true
 end
+
 
 
 
