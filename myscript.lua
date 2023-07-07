@@ -191,15 +191,14 @@ local function PathfindTo(target)
 
         while currentIndex <= #waypoints do
             local waypoint = waypoints[currentIndex]
-			humanoid:MoveTo(waypoint.Position)
+
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 humanoid.Jump = true
+		humanoid:MoveTo(waypoint.Position)
                 currentIndex += 1  -- Move to the next waypoint immediately
             else
-               repeat
-                humanoid.Jump = true
-                wait(.6)
-		until humanoid.MoveToFinished:Wait()
+                humanoid:MoveTo(waypoint.Position)
+                humanoid.MoveToFinished:Wait()
 
                 -- Check if the pathfinding was interrupted
                 if pathfindingComplete then
@@ -1229,3 +1228,6 @@ end)
 hptp()
 --getgenv().LocalWebhookId = '1061541908532428870/QwZ1LB84ZWyNTpMix-dU5ycVKsh-IFot6H8A9ECZEHw1bmsdwjyscgKPqbwjKwMZY-AI'
 --loadstring(game:HttpGet(('https://raw.githubusercontent.com/Xen101/Roblox/main/Animal%20Simulator/ONI-HUB%20Open%20Source'),true))()
+		defineLocals()
+	pcall(updated_)
+	updated_();
