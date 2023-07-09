@@ -1,5 +1,10 @@
 print('Starting up')
 local prefixs={{Prefix="",Number=1,Term="Ones"},{Prefix="k",Number=1000,Term="Thousand"},{Prefix="M",Number=1000000,Term="Million"},{Prefix="B",Number=1000000000,Term="Billion"},{Prefix="T",Number=1000000000000,Term="Trillion"},{Prefix="qd",Number=1000000000000000,Term="Quadrillion"},{Prefix="Qn",Number=1000000000000000000,Term="Quintilion"},{Prefix="sx",Number=1000000000000000000000,Term="Sextillion"},{Prefix="Sp",Number=1000000000000000000000000,Term="Septillion"},{Prefix="O",Number=1000000000000000000000000000,Term="Octillion"},{Prefix="N",Number=1000000000000000000000000000000,Term="Nonillion"},{Prefix="de",Number=1000000000000000000000000000000000,Term="Decillion"},{Prefix="Ud",Number=1000000000000000000000000000000000000,Term="Undecillion"},{Prefix="DD",Number=1000000000000000000000000000000000000000,Term="Duodecillion"},{Prefix="tdD",Number=1000000000000000000000000000000000000000000,Term="Tredecillion"},{Prefix="qdD",Number=1000000000000000000000000000000000000000000000,Term="Quattuordecillion"},{Prefix="QnD",Number=1000000000000000000000000000000000000000000000000,Term="Quindecillion"},{Prefix="sxD",Number=1000000000000000000000000000000000000000000000000000,Term="Sedecillion"},{Prefix="SpD",Number=1000000000000000000000000000000000000000000000000000000,Term="Septendecillion"},{Prefix="OcD",Number=1000000000000000000000000000000000000000000000000000000000,Term="Octodecillion"},{Prefix="NvD",Number=1000000000000000000000000000000000000000000000000000000000000,Term="Novemdecillion"},{Prefix="Vgn",Number=1000000000000000000000000000000000000000000000000000000000000000,Term="Vigintillion"},{Prefix="UVg",Number=1000000000000000000000000000000000000000000000000000000000000000000,Term="Unvigintillion"},{Prefix="DVg",Number=1000000000000000000000000000000000000000000000000000000000000000000000,Term="Duovigintillion"},{Prefix="TVg",Number=1000000000000000000000000000000000000000000000000000000000000000000000000,Term="Tresvigintillion"},{Prefix="qtV",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quattuorvigintillion"},{Prefix="QnV",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quinvigintillion"},{Prefix="SeV",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Sesvigintillion"},{Prefix="SPG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Septemvigintillion"},{Prefix="OVG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Octovigintilion"},{Prefix="NVG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Novemvigintillion"},{Prefix="TGN",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Trigintillion"},{Prefix="UTG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Untrigintillion"},{Prefix="DTG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Duotrigintillion"},{Prefix="tsTG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Trestrigintillion"},{Prefix="qtTG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quattuortrigintillion"},{Prefix="QnTG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quintrigintillion"},{Prefix="ssTG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Sestrigintillion"},{Prefix="SpTG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Septentrigintillion"},{Prefix="OcTG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Octotrigintillion"},{Prefix="NoTG",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Novemtrigintillion"},{Prefix="QdDR",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quadragintillion"},{Prefix="uQDR",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Unquadragintillion"},{Prefix="dQDR",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Duoquadragintillion"},{Prefix="tQDR",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Tresquadragintillion"},{Prefix="qdQDR",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quattuorquadragintillion"},{Prefix="QnQDR",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quinquadragintillion"},{Prefix="sxQDR",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Sesquadragintillion"},{Prefix="SpQDR",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Septenquadragintillion"},{Prefix="OQDDr",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Octoquadragintillion"},{Prefix="NQDDr",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Novemquadragintillion"},{Prefix="qQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quinquagintillion"},{Prefix="uQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Unquinquagintillion"},{Prefix="dQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Duoquinquagintillion"},{Prefix="tQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Tresquinquagintillion"},{Prefix="qdQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quattuorquinquagintillion"},{Prefix="QnQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quinquinquagintillion"},{Prefix="sxQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Sesquinquagintillion"},{Prefix="SpQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Septenquinquagintillion"},{Prefix="OQQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Octoquinquagintillion"},{Prefix="NQQGNT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Novemquinquagintillion"},{Prefix="SXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Sexagintillion"},{Prefix="USXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Unsexagintillion"},{Prefix="DSXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Duosexagintillion"},{Prefix="TSXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Tresexagintillion"},{Prefix="QTSXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quattuorsexagintillion"},{Prefix="QNSXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quinsexagintillion"},{Prefix="SXSXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Sesexagintillion"},{Prefix="SPSXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Septensexagintillion"},{Prefix="OSXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Octosexagintillion"},{Prefix="NVSXGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Novemsexagintillion"},{Prefix="SPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Septuagintillion"},{Prefix="USPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Unseptuagintillion"},{Prefix="DSPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Duoseptuagintillion"},{Prefix="TSPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Treseptuagintillion"},{Prefix="QTSPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quattuorseptuagintillion"},{Prefix="QNSPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quinseptuagintillion"},{Prefix="SXSPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Seseptuagintillion"},{Prefix="SPSPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Septenseptuagintillion"},{Prefix="OSPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Octoseptuagintillion"},{Prefix="NVSPTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Novemseptuagintillion"},{Prefix="OTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Octogintillion"},{Prefix="UOTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Unoctogintillion"},{Prefix="DOTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Duooctogintillion"},{Prefix="TOTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Treoctogintillion"},{Prefix="QTOTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quattuoroctogintillion"},{Prefix="QNOTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quinoctogintillion"},{Prefix="SXOTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Sexoctogintillion"},{Prefix="SPOTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Septemoctogintillion"},{Prefix="OTOTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Octooctogintillion"},{Prefix="NVOTGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Novemoctogintillion"},{Prefix="NONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Nonagintillion"},{Prefix="UNONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Unnonagintillion"},{Prefix="DNONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Duononagintillion"},{Prefix="TNONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Trenonagintillion"},{Prefix="QTNONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quattuornonagintillion"},{Prefix="QNNONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Quinnonagintillion"},{Prefix="SXNONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Senonagintillion"},{Prefix="SPNONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Septenonagintillion"},{Prefix="OTNONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Octononagintillion"},{Prefix="NONONGNTL",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Novemnonagintillion"},{Prefix="CENT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Centillion"},{Prefix="UNCENT",Number=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,Term="Uncentillion"}}
+function getItem(name)
+local a,b=pcall(function()return game.ReplicatedStorage.Items[name] end)
+if a then return b else warn("Failed to find:"..name); return nil end
+end
+
 local obj = {
   ["Catalyst of Thunder"] = {
     name = "Draedon's Gauntlet",
@@ -96,6 +101,608 @@ local obj = {
     items = {"True Book of Knowledge", "Daestrophe", "Void Star", "Devourer of Nightmares", "Oblivion Emission", "The Forbidden Tome"},
     Catalyst = "Catalyst of Oblivion"
   }
+}
+local Fusions = {
+    ["Azure Spore"] = {
+        fusion = "Azure Spore",
+        cost = "75k",
+        item = getItem("Azure Spore"),
+        needed = {
+            ["Wild Spore"] = {item = getItem("Wild Spore"), count = 3},
+            ["Azure Refiner"] = {item = getItem("Azure Refiner"), count = 6}
+        }
+    },
+    ["Catalyzed Star"] = {
+        fusion = "Catalyzed Star",
+        cost = "150k",
+        item = getItem("Catalyzed Star"),
+        needed = {
+            ["The Catalyst"] = {item = getItem("The Catalyst"), count = 10},
+            ["Morning Star"] = {item = getItem("Morning Star"), count = 5}
+        }
+    },
+    ["Diamond Breech Loader"] = {
+        fusion = "Diamond Breech Loader",
+        cost = "200k",
+        item = getItem("Diamond Breech Loader"),
+        needed = {
+            ["Massive Diamond Mine"] = {item = getItem("Massive Diamond Mine"), count = 10},
+            ["Breech Loader"] = {item = getItem("Breech Loader"), count = 5}
+        }
+    },
+    ["Eternal Fracture"] = {
+        fusion = "Eternal Fracture",
+        cost = "100k",
+        item = getItem("Eternal Fracture"),
+        needed = {
+            ["Eternal Journey"] = {item = getItem("Eternal Journey"), count = 6},
+            ["The Fracture"] = {item = getItem("The Fracture"), count = 3}
+        }
+    },
+    ["Quantum Clockwork"] = {
+        fusion = "Quantum Clockwork",
+        cost = "75k",
+        item = getItem("Quantum Clockwork"),
+        needed = {
+            ["Quantum Ore Cleaner"] = {item = getItem("Quantum Ore Cleaner"), count = 10},
+            ["Clockwork"] = {item = getItem("Clockwork"), count = 5}
+        }
+    },
+    ["Lightningbolt Predictor"] = {
+        fusion = "Lightningbolt Predictor",
+        cost = "75k",
+        item = getItem("Lightningbolt Predictor"),
+        needed = {
+            ["Lightningbolt Refiner"] = {item = getItem("Lightningbolt Refiner"), count = 6},
+            ["Astral Predictor"] = {item = getItem("Astral Predictor"), count = 3}
+        }
+    },
+    ["Frozen Eclipse"] = {
+        fusion = "Frozen Eclipse",
+        cost = "75k",
+        item = getItem("Frozen Eclipse"),
+        needed = {
+            ["Frozen Justice"] = {item = getItem("Frozen Justice"), count = 3},
+            ["Gate of Eclipse"] = {item = getItem("Gate of Eclipse"), count = 6}
+        }
+    },
+    ["Sage Justice"] = {
+        fusion = "Sage Justice",
+        cost = "250k",
+        item = getItem("Sage Justice"),
+        needed = {
+            ["Sage Redeemer"] = {item = getItem("Sage Redeemer"), count = 5},
+            ["Blind Justice"] = {item = getItem("Blind Justice"), count = 10}
+        }
+    },
+    ["Dark Illuminator"] = {
+        fusion = "Dark Illuminator",
+        cost = "200k",
+        item = getItem("Dark Illuminator"),
+        needed = {
+            ["Ore Illuminator"] = {item = getItem("Ore Illuminator"), count = 4},
+            ["Dark Magic"] = {item = getItem("Dark Magic"), count = 8}
+        }
+    },
+    ["Symcorpium Mine"] = {
+        fusion = "Symcorpium Mine",
+        cost = "250k",
+        item = getItem("Symcorpium Mine"),
+        needed = {
+            ["Scorpium Mine"] = {item = getItem("Scorpium Mine"), count = 10},
+            ["Symmetrium Mine"] = {item = getItem("Symmetrium Mine"), count = 5}
+        }
+    },
+    ["Ambrosia Garden"] = {
+        fusion = "Ambrosia Garden",
+        cost = "100k",
+        item = getItem("Ambrosia Garden"),
+        needed = {
+            ["Sakura Garden"] = {item = getItem("Sakura Garden"), count = 6},
+            ["Ambrosia Fountain"] = {item = getItem("Ambrosia Fountain"), count = 3}
+        }
+    },
+    ["Anguished Garden"] = {
+        fusion = "Anguished Garden",
+        cost = "100k",
+        item = getItem("Anguished Garden"),
+        needed = {
+            ["Dreamer's Anguish"] = {item = getItem("Dreamer's Anguish"), count = 5},
+            ["Sakura Garden"] = {item = getItem("Sakura Garden"), count = 10}
+        }
+    },
+    ["Anguished Guardian of the Gate"] = {
+        fusion = "Anguished Guardian of the Gate",
+        cost = "200k",
+        item = getItem("Anguished Guardian of the Gate"),
+        needed = {
+            ["Dreamer's Anguish"] = {item = getItem("Dreamer's Anguish"), count = 4},
+            ["Guardian of the Gate"] = {item = getItem("Guardian of the Gate"), count = 8}
+        }
+    },
+    ["Firecrystallized System"] = {
+        fusion = "Firecrystallized System",
+        cost = "75k",
+        item = getItem("Firecrystallized System"),
+        needed = {
+            ["Industrial Firecrystal Mine"] = {item = getItem("Industrial Firecrystal Mine"), count = 4},
+            ["Crystallized System"] = {item = getItem("Crystallized System"), count = 8}
+        }
+    },
+    ["Illuminator Evaluator"] = {
+        fusion = "Illuminator Evaluator",
+        cost = "75k",
+        item = getItem("Illuminator Evaluator"),
+        needed = {
+            ["Ore Illuminator"] = {item = getItem("Ore Illuminator"), count = 4},
+            ["Flaming Schrodinger"] = {item = getItem("Flaming Schrodinger"), count = 8}
+        }
+    },
+    ["Nature's Temple"] = {
+        fusion = "Nature's Temple",
+        cost = "150k",
+        item = getItem("Nature's Temple"),
+        needed = {
+            ["Nature's Grip"] = {item = getItem("Nature's Grip"), count = 10},
+            ["Ancient Temple"] = {item = getItem("Ancient Temple"), count = 5}
+        }
+    },
+    ["The Pizzalyst"] = {
+        fusion = "The Pizzalyst",
+        cost = "75k",
+        item = getItem("The Pizzalyst"),
+        needed = {
+            ["The Catalyst"] = {item = getItem("The Catalyst"), count = 6},
+            ["Pizza Blaster"] = {item = getItem("Pizza Blaster"), count = 3}
+        }
+    },
+    ["Yuntonium Mine"] = {
+        fusion = "Yuntonium Mine",
+        cost = "150k",
+        item = getItem("Yuntonium Mine"),
+        needed = {
+            ["Newtonium Mine"] = {item = getItem("Newtonium Mine"), count = 6},
+            ["Yunium Mine"] = {item = getItem("Yunium Mine"), count = 3}
+        }
+    },
+    ["Massive Quantum Diamond Cleaner"] = {
+        fusion = "Massive Quantum Diamond Cleaner",
+        cost = "350k",
+        item = getItem("Massive Quantum Diamond Cleaner"),
+        needed = {
+            ["Quantum Ore Cleaner"] = {item = getItem("Quantum Ore Cleaner"), count = 13},
+            ["Massive Diamond Mine"] = {item = getItem("Massive Diamond Mine"), count = 6}
+        }
+    }
+}
+local Evolved = {
+    ["Saturated Catalyst"] = {
+        cost = "75k",
+        evolved = getItem("Saturated Catalyst"),
+        reborn = getItem("The Catalyst"),
+        r = "The Catalyst",
+        count = 10
+    },
+    ["Quantum Ore Polisher"] = {
+        cost = "50k",
+        evolved = getItem("Quantum Ore Polisher"),
+        reborn = getItem("Quantum Ore Cleaner"),
+        r = "Quantum Ore Cleaner",
+        count = 7
+    },
+    ["Deadly Spore"] = {
+        cost = "100k",
+        evolved = getItem("Deadly Spore"),
+        reborn = getItem("Wild Spore"),
+        r = "Wild Spore",
+        count = 12
+    },
+    ["Symmetryte Mine"] = {
+        cost = "200k",
+        evolved = getItem("Symmetryte Mine"),
+        reborn = getItem("Symmetrium Mine"),
+        r = "Symmetrium Mine",
+        count = 8
+    },
+    ["Swift Justice"] = {
+        cost = "75k",
+        evolved = getItem("Swift Justice"),
+        reborn = getItem("Blind Justice"),
+        r = "Blind Justice",
+        count = 7
+    },
+    ["Sakura Falls"] = {
+        cost = "100k",
+        evolved = getItem("Sakura Falls"),
+        reborn = getItem("Sakura Garden"),
+        r = "Sakura Garden",
+        count = 7
+    },
+    ["Neutron Star"] = {
+        cost = "100k",
+        evolved = getItem("Neutron Star"),
+        reborn = getItem("Red Giant"),
+        r = "Red Giant",
+        count = 10
+    },
+    ["Astral Setter"] = {
+        cost = "50k",
+        evolved = getItem("Astral Setter"),
+        reborn = getItem("Astral Predictor"),
+        r = "Astral Predictor",
+        count = 12
+    },
+    ["Sage King"] = {
+        cost = "50k",
+        evolved = getItem("Sage King"),
+        reborn = getItem("Sage Redeemer"),
+        r = "Sage Redeemer",
+        count = 12
+    },
+    ["Final Eclipse Gate"] = {
+        cost = "75k",
+        evolved = getItem("Final Eclipse Gate"),
+        reborn = getItem("Gate of Eclipse"),
+        r = "Gate of Eclipse",
+        count = 10
+    },
+    ["Ambrosia Forest"] = {
+        cost = "50k",
+        evolved = getItem("Ambrosia Forest"),
+        reborn = getItem("Ambrosia Fountain"),
+        r = "Ambrosia Fountain",
+        count = 7
+    },
+    ["Ancient Coliseum"] = {
+        cost = "50k",
+        evolved = getItem("Ancient Coliseum"),
+        reborn = getItem("Ancient Temple"),
+        r = "Ancient Temple",
+        count = 10
+    },
+    ["Newtonium Excavator"] = {
+        cost = "150k",
+        evolved = getItem("Newtonium Excavator"),
+        reborn = getItem("Newtonium Mine"),
+        r = "Newtonium Mine",
+        count = 14
+    },
+    ["Tesla Refuter"] = {
+        cost = "100k",
+        evolved = getItem("Tesla Refuter"),
+        reborn = getItem("Tesla Resetter"),
+        r = "Tesla Resetter",
+        count = 10
+    },
+    ["Super Schrodinger"] = {
+        cost = "75k",
+        evolved = getItem("Super Schrodinger"),
+        reborn = getItem("Flaming Schrodinger"),
+        r = "Flaming Schrodinger",
+        count = 12
+    },
+    ["Frozen Peaks"] = {
+        cost = "50k",
+        evolved = getItem("Frozen Peaks"),
+        reborn = getItem("Frozen Justice"),
+        r = "Frozen Justice",
+        count = 9
+    },
+    ["Forbidden Magic"] = {
+        cost = "75k",
+        evolved = getItem("Forbidden Magic"),
+        reborn = getItem("Dark Magic"),
+        r = "Dark Magic",
+        count = 12
+    },
+    ["Massive Diamond Drill"] = {
+        cost = "50k",
+        evolved = getItem("Massive Diamond Drill"),
+        reborn = getItem("Massive Diamond Mine"),
+        r = "Massive Diamond Mine",
+        count = 9
+    },
+    ["Ore Indoctrinator"] = {
+        cost = "666k",
+        evolved = getItem("Ore Indoctrinator"),
+        reborn = getItem("Ore Illuminator"),
+        r = "Ore Illuminator",
+        count = 66
+    },
+    ["Dreamer's Nightmare"] = {
+        cost = "150k",
+        evolved = getItem("Dreamer's Nightmare"),
+        reborn = getItem("Dreamer's Anguish"),
+        r = "Dreamer's Anguish",
+        count = 7
+    },
+    ["Dreamer's Terror"] = {
+        cost = "150k",
+        evolved = getItem("Dreamer's Terror"),
+        reborn = getItem("Dreamer's Fright"),
+        r = "Dreamer's Fright",
+        count = 50
+    },
+    ["Zenith Will"] = {
+        cost = "200k",
+        evolved = getItem("Zenith Will"),
+        reborn = getItem("Righteous Will"),
+        r = "Righteous Will",
+        count = 20
+    },
+    ["Draconicglass Mine"] = {
+        cost = "150k",
+        evolved = getItem("Draconicglass Mine"),
+        reborn = getItem("Dragonglass Mine"),
+        r = "Dragonglass Mine",
+        count = 15
+    },
+    ["The Daegelart"] = {
+        cost = "150k",
+        evolved = getItem("The Daegelart"),
+        reborn = getItem("The Abomination"),
+        r = "The Abomination",
+        count = 10
+    },
+    ["Tsar Bomba"] = {
+        cost = "1M",
+        evolved = getItem("Tsar Bomba"),
+        reborn = getItem("Big Bertha"),
+        r = "Big Bertha",
+        count = 100
+    },
+    ["Aethereal Synthesizer"] = {
+        cost = "100k",
+        evolved = getItem("Aethereal Synthesizer"),
+        reborn = getItem("Aether Refinery"),
+        r = "Aether Refinery",
+        count = 15
+    },
+    ["The Fissure"] = {
+        cost = "75k",
+        evolved = getItem("The Fissure"),
+        reborn = getItem("The Fracture"),
+        r = "The Fracture",
+        count = 10
+    },
+    ["Pizza Bombarder"] = {
+        cost = "75k",
+        evolved = getItem("Pizza Bombarder"),
+        reborn = getItem("Pizza Blaster"),
+        r = "Pizza Blaster",
+        count = 10
+    },
+    ["Yuttrium Mine"] = {
+        cost = "75k",
+        evolved = getItem("Yuttrium Mine"),
+        reborn = getItem("Yunium Mine"),
+        r = "Yunium Mine",
+        count = 11
+    },
+    ["Crystallized Engine"] = {
+        cost = "75k",
+        evolved = getItem("Crystallized Engine"),
+        reborn = getItem("Crystallized System"),
+        r = "Crystallized System",
+        count = 8
+    },
+    ["Eternal Limbo"] = {
+        cost = "100k",
+        evolved = getItem("Eternal Limbo"),
+        reborn = getItem("Eternal Journey"),
+        r = "Eternal Journey",
+        count = 20
+    },
+    ["Tempest Refiner"] = {
+        cost = "200k",
+        evolved = getItem("Tempest Refiner"),
+        reborn = getItem("Lightningbolt Refiner"),
+        r = "Lightningbolt Refiner",
+        count = 20
+    },
+    ["Grandfather Clockwork"] = {
+        cost = "100k",
+        evolved = getItem("Grandfather Clockwork"),
+        reborn = getItem("Clockwork"),
+        r = "Clockwork",
+        count = 11
+    },
+    ["Turbine Chamber"] = {
+        cost = "125k",
+        evolved = getItem("Turbine Chamber"),
+        reborn = getItem("Cooling Chamber"),
+        r = "Cooling Chamber",
+        count = 11
+    },
+    ["Atomyke Mine"] = {
+        cost = "150k",
+        evolved = getItem("Atomyke Mine"),
+        reborn = getItem("Atomium Mine"),
+        r = "Atomium Mine",
+        count = 15
+    },
+    ["V-tolite Mine"] = {
+        cost = "150k",
+        evolved = getItem("V-tolite Mine"),
+        reborn = getItem("Pilotite Mine"),
+        r = "Pilotite Mine",
+        count = 7
+    },
+    ["Dimension Extractor"] = {
+        cost = "250k",
+        evolved = getItem("Dimension Extractor"),
+        reborn = getItem("Breech Loader"),
+        r = "Breech Loader",
+        count = 12
+    },
+    ["Azure Purifier"] = {
+        cost = "75k",
+        evolved = getItem("Azure Purifier"),
+        reborn = getItem("Azure Refiner"),
+        r = "Azure Refiner",
+        count = 9
+    },
+    ["Searing Heat"] = {
+        cost = "75k",
+        evolved = getItem("Searing Heat"),
+        reborn = getItem("Scorching Heat"),
+        r = "Scorching Heat",
+        count = 8
+    },
+    ["Atmospheric Steamwork"] = {
+        cost = "50k",
+        evolved = getItem("Atmospheric Steamwork"),
+        reborn = getItem("Gravitational Gearwork"),
+        r = "Gravitational Gearwork",
+        count = 13
+    },
+    ["Dreamer's Valor"] = {
+        cost = "100k",
+        evolved = getItem("Dreamer's Valor"),
+        reborn = getItem("Dreamer's Might"),
+        r = "Dreamer's Might",
+        count = 25
+    },
+    ["Guardian of the Portal"] = {
+        cost = "75k",
+        evolved = getItem("Guardian of the Portal"),
+        reborn = getItem("Guardian of the Gate"),
+        r = "Guardian of the Gate",
+        count = 12
+    },
+    ["Atlantic Monument"] = {
+        cost = "75k",
+        evolved = getItem("Atlantic Monument"),
+        reborn = getItem("Atlantic Monolith"),
+        r = "Atlantic Monolith",
+        count = 10
+    },
+    ["Breached Motherboard"] = {
+        cost = "100k",
+        evolved = getItem("Breached Motherboard"),
+        reborn = getItem("Invasive Cyberlord"),
+        r = "Invasive Cyberlord",
+        count = 10
+    },
+    ["Phase Bombarder"] = {
+        cost = "75k",
+        evolved = getItem("Phase Bombarder"),
+        reborn = getItem("Phase Refiner"),
+        r = "Phase Refiner",
+        count = 11
+    },
+    ["Gaia's Grasp"] = {
+        cost = "100k",
+        evolved = getItem("Gaia's Grasp"),
+        reborn = getItem("Nature's Grip"),
+        r = "Nature's Grip",
+        count = 20
+    },
+    ["Mad Monsterous Melter"] = {
+        cost = "300k",
+        evolved = getItem("Mad Monsterous Melter"),
+        reborn = getItem("Big Bad Blaster"),
+        r = "Big Bad Blaster",
+        count = 20
+    },
+    ["Ore Chainsaw"] = {
+        cost = "300k",
+        evolved = getItem("Ore Chainsaw"),
+        reborn = getItem("Ore Sawmill"),
+        r = "Ore Sawmill",
+        count = 28
+    },
+    ["Scorponyte Mine"] = {
+        cost = "125k",
+        evolved = getItem("Scorponyte Mine"),
+        reborn = getItem("Scorpium Mine"),
+        r = "Scorpium Mine",
+        count = 17
+    },
+    ["Temporal Enchantment"] = {
+        cost = "100k",
+        evolved = getItem("Temporal Enchantment"),
+        reborn = getItem("Timeless Enhancement"),
+        r = "Timeless Enhancement",
+        count = 25
+    },
+    ["Banana Sundae Refiner"] = {
+        cost = "100k",
+        evolved = getItem("Banana Sundae Refiner"),
+        reborn = getItem("Banana Split Upgrader"),
+        r = "Banana Split Upgrader",
+        count = 7
+    },
+    ["Temporal Armageddon"] = {
+        cost = "600k",
+        evolved = getItem("Temporal Armageddon"),
+        reborn = getItem("Fractured Reality"),
+        r = "Fractured Reality",
+        count = 30
+    },
+    ["Shard City"] = {
+        cost = "350k",
+        evolved = getItem("Shard City"),
+        reborn = getItem("Shard Park"),
+        r = "Shard Park",
+        count = 15
+    },
+    ["Green Tea Kettle"] = {
+        cost = "50k",
+        evolved = getItem("Green Tea Kettle"),
+        reborn = getItem("Green Tea Latte"),
+        r = "Green Tea Latte",
+        count = 7
+    },
+    ["Solar Eruption"] = {
+        cost = "50k",
+        evolved = getItem("Solar Eruption"),
+        reborn = getItem("Solar Flare"),
+        r = "Solar Flare",
+        count = 16
+    },
+    ["Lunar Bombardment"] = {
+        cost = "50k",
+        evolved = getItem("Lunar Bombardment"),
+        reborn = getItem("Solar Flare"),
+        r = "Solar Flare",
+        count = 16
+    },
+    ["Nuclear Castle"] = {
+        cost = "500k",
+        evolved = getItem("Nuclear Castle"),
+        reborn = getItem("Nuclear Stronghold"),
+        r = "Nuclear Stronghold",
+        count = 20
+    },
+    ["Demon Core"] = {
+        cost = "125k",
+        evolved = getItem("Demon Core"),
+        reborn = getItem("Toxic Waste Disposal"),
+        r = "Toxic Waste Disposal",
+        count = 10
+    },
+    ["Industrial Firegem Quarry"] = {
+        cost = "80k",
+        evolved = getItem("Industrial Firegem Quarry"),
+        reborn = getItem("Industrial Firecrystal Mine"),
+        r = "Industrial Firecrystal Mine",
+        count = 7
+    },
+    ["Heavenly Flux"] = {
+        cost = "250k",
+        evolved = getItem("Heavenly Flux"),
+        reborn = getItem("Skyliner Flux"),
+        r = "Skyliner Flux",
+        count = 8
+    },
+    ["Vortex Singularity"] = {
+        cost = "400k",
+        evolved = getItem("Vortex Singularity"),
+        reborn = getItem("Vortex Chamber"),
+        r = "Vortex Chamber",
+        count = 15
+    }
 }
 --Miners haven
 local FetchItemModule
@@ -1041,12 +1648,14 @@ Minersdiv:addButton({
 				end
 			end
 		end
-		function HasItem(Needed)
-			if game:GetService("ReplicatedStorage").HasItem:InvokeServer(Needed) > 0 then
-				return true
-			end
-			return false
-		end
+		function HasItem(Needed,count)
+    local r=game:GetService("ReplicatedStorage").HasItem:InvokeServer(Needed) or 0
+    if r > 0 then
+        if count then return r else return true end
+    else
+        if count then return r else return false end
+    end
+end
 		function IsShopItem(Needed)
 			for i,v in pairs(ShopItems()) do
 				if tonumber(v.ItemId.Value) == tonumber(Needed) then
@@ -1055,6 +1664,44 @@ Minersdiv:addButton({
 			end
 			return false
 		end
+					for catalyst, data in pairs(obj) do
+  data.Item = getItem(catalyst)
+  for item,_ in data.items do
+    data[_]=getItem(_)
+  end
+  print("Added:"..catalyst)
+end
+
+local function hasCat(name)
+    local cat=nil
+    for catalyst, data in pairs(obj) do
+        if catalyst:match(name) then cat=data; break;end
+    end
+    if not cat then return nil end
+    print("Cat found:"..cat.Catalyst)
+    if HasItem(getItem(cat.Catalyst).ItemId) then print("Already have:"..cat.Catalyst);return true end
+    print("Checking items")
+    local hasAll=true
+    for index,string in cat.items do
+        local item=cat[string]
+        local has = HasItem(item.ItemId.Value)
+        if not has then 
+            hasAll = false;
+            if Evolved[string] then 
+                local ev=Evolved[string]
+                local count=HasItem(ev.reborn.ItemId.Value,true)
+                if HasItem(ev.reborn.ItemId.Value,true) > ev.count then
+                    repeat warn("Evolve "..ev.r);wait(3) until HasItem(item.ItemId.Value)
+                end
+             end
+            if Fusions[string] then
+            local ev=Fusions[string]
+            warn("Create the Fusion.."..string)
+            end
+        end
+    end
+    if not hasAll then return false end
+end
 		local oldPos
 		local function goTo()
 						TycoonBase = game.Players.LocalPlayer.PlayerTycoon.Value.Base
