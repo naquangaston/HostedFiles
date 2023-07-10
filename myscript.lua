@@ -1996,7 +1996,9 @@ local function hptp()
 				local randomOffsetX = math.random(-15,15)
 				local newPos = enemy.player.Character:WaitForChild("HumanoidRootPart").Position + Vector3.new(randomOffsetX ,randomOffsetY,randomOffsetZ)
 				useAllFire(enemy.player.Character.HumanoidRootPart)
-				repeat wait(0);updated_();pcall(function()damageplayer(enemy.player.Name)end);pcall(function()useAllFire(enemy.player.Character.HumanoidRootPart)end); humanoid:MoveTo(enemy.player.Character.HumanoidRootPart.Position) until enemy.player.Character.Humanoid.Health < 1
+				if not attacking_ then attacking_ = true else return nil end
+				repeat wait(1);updated_();pcall(function()damageplayer(enemy.player.Name)end);pcall(function()useAllFire(enemy.player.Character.HumanoidRootPart)end); humanoid:MoveTo(enemy.player.Character.HumanoidRootPart.Position) until enemy.player.Character.Humanoid.Health < 1
+								attacking_ = false;
 				--game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new(newPos)
 
 			else
