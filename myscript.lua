@@ -213,6 +213,7 @@ local function PathfindTo(target)
 				if not a then humanoidRoot.Postion = target.Postion end
 					pathfindingComplete=true
 					finding=false;
+				return
 	end
 	waitForChar()
 	repeat wait(0) until not finding
