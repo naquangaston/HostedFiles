@@ -898,7 +898,7 @@ Minersdiv:addToggle({
 		end
 	end})
 Minersdiv:addToggle({
-title = "Auto open Boxes",
+title = "Legit Pathing?",
 toggled = nil,
 callback = function(value) LegitPathing=value end
 })
