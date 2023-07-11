@@ -16,6 +16,7 @@ local followEm
 local userInputService = game:GetService("UserInputService")
 local player = game:GetService("Players").LocalPlayer
 local humanoid = nil
+local LegitPathing=false
 local pathfindingComplete = false
 local finding = false
 local done_ = true
@@ -207,6 +208,12 @@ end
 local usertarget=false
 -- Function to perform A* pathfinding
 local function PathfindTo(target)
+	if not LegitPathing then 
+				local a,b=pcall(function() humanoidRoot.CFrame=target end)
+				if not a then humanoidRoot.Postion = target.Postion end
+					pathfindingComplete=true
+					finding=false;
+	end
 	waitForChar()
 	repeat wait(0) until not finding
 	finding=true
@@ -873,6 +880,7 @@ Minersdiv:addToggle({
 	toggled = nil,
 	callback = function(value)__cb1=value;while(__cb1)do  pcall(openBox)end end
 })
+		
 
 Minersdiv:addToggle({
 	title = "Collect Clovers",
@@ -889,12 +897,10 @@ Minersdiv:addToggle({
 			--wait(getgenv().duration+getgenv().duration_)
 		end
 	end})
-Minersdiv:addButton({
-	title = "Collect Boxes",
-	callback = function()
-		print('Colleting Boxes')
-		MHBox()
-	end
+Minersdiv:addToggle({
+title = "Auto open Boxes",
+toggled = nil,
+callback = function(value) LegitPathing=value end
 })
 local cost1
 local cost2
