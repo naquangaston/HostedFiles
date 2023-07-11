@@ -207,16 +207,20 @@ end
 
 local usertarget=false
 -- Function to perform A* pathfinding
-local function PathfindTo(target)
+local function PathfindTo(target,time)
+	waitForChar()
+	repeat wait(0) until not finding
 	if not LegitPathing then 
 				local a,b=pcall(function() humanoidRoot.CFrame=target end)
 				if not a then humanoidRoot.Postion = target.Postion end
 					pathfindingComplete=true
 					finding=false;
+				spawn(function()
+						wait(time or 1)
+						finding = false
+					end)
 				return
 	end
-	waitForChar()
-	repeat wait(0) until not finding
 	finding=true
     local path = game:GetService("PathfindingService"):FindPathAsync(
         humanoid.RootPart.Position,
@@ -1715,7 +1719,7 @@ end
 						if GetDistanceBetweenCFrame(TycoonBase.CFrame,root.CFrame) > 100 then
 			oldPos=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
 							if finding then pathfindingComplete = true end
-			PathfindTo(TycoonBase.CFrame)
+			PathfindTo(TycoonBase.CFrame,2)
 						end
 		end
 		local function goBack()
