@@ -1713,7 +1713,7 @@ function rgbToHex(r, g, b) {
                         clearTimeout(_1x);([...Iimg.classList]).includes(_0x)?_1x=setTimeout(()=>{Iimg.classList.toggle(_0x)},5):(Iimg.classList.toggle(_0x),_1x=setTimeout(()=>{Iimg.classList.toggle(_0x)},_3x))
 						Iscr=Idex.next().value?(Idex.next().value):null;
 						currentBassTime=source.currentTime;bassTimeAvg=avg2.toFixed(3),bassTime.start()}
-          hasSrc?null:document.body.style.backgroundColor = "blue";Iimg.src=Iscr
+          hasSrc?null:document.body.style.backgroundColor = "white";Iimg.src=Iscr
 					dif=[time.stamp,lastSt].sort((a,b)=>b-a)
 					if((dif[0]-dif[1])<100||lastSt>=time.stamp){
 						bassArray.push({
