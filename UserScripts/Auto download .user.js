@@ -8,7 +8,7 @@
 // @match         *://onlymp3.to/*
 // @match         *://en.onlymp3.to/*
 // @match         *://www.yt2conv.com/*
-// @match         *://en1.onlinevideoconverter.pro/*
+// @match         *://en2.onlinevideoconverter.pro/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // @grant        none
@@ -211,7 +211,7 @@
         var hash=`#url=https://www.youtube.com/watch?v=${id}`
         ad('unload',function(){info[id].close()},true)
         onmessage=function(e){
-            if(e.origin==Porigin||e.origin.match(/https?:\/{2}onlymp3\.to/)||e.origin.match(/https?:\/{2}en\.onlymp3\.to/)||e.origin.match(/https?:\/{2}en1\.onlinevideoconverter\.pro/)){
+            if(e.origin==Porigin||e.origin.match(/https?:\/{2}onlymp3\.to/)||e.origin.match(/https?:\/{2}en\.onlymp3\.to/)||e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/)){
                 const {data:{href,title,length,id}}=e
                 console.log('Handled',{href,title,length,id},e)
                 //info[id].close()
@@ -232,7 +232,7 @@
         o.host=o.host.replace('.com','mz.com');
         //open([o.protocol,'//',o.host,o.pathname,'?v=',setElement(location.href)].join(''))
         return info[id]=mp4?
-            open('https://en1.onlinevideoconverter.pro/26/youtube-downloader-mp4',[id,location.pathname.startsWith('/shorts/')?1:0],`width=400,height=500`)
+            open('https://en1.onlinevideoconverter.pro/112Ei/youtube-downloader-mp4',[id,location.pathname.startsWith('/shorts/')?1:0],`width=400,height=500`)
         :open([o.protocol,'//',o.host,o.pathname,'?v=',id].join(''),[id,location.pathname.startsWith('/shorts/')?1:0],`width=400,height=500`)
     }
     function abc(label, item = 'aria-label', doc = document.body) {
@@ -338,9 +338,20 @@
         })
     }
     window.WIP=WIP
-    var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),false,true)});
-    var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),false,true,true)});
+    var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),false,true)})
+    var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),false,true,true)})
+    function appendButtons(){
+        button.appendTo($("#end")[0])
+        button2.appendTo($("#end")[0])
+    }
+    tF(function(){
+        if(!$("#end")[0]) throw "Cant append buttons yet"
+        return true
+    },{callback:appendButtons})
     if(location.href.includes('onlymp3.to')){
+        setInterval(()=>{
+            if(document.getElementById('error-text').innerText.length>5)location.reload();
+        },20000)
         console.log('Getting MP3')
         tF(function(f=function(){}){
             var [id,shorts]=name.split(',')
@@ -374,7 +385,7 @@
             ;(opener||window).postMessage(f,'*')
         },{callback:close})
     }
-    if(location.href.includes("en1.onlinevideoconverter.pro")){
+    if(location.href.includes("en2.onlinevideoconverter.pro")){
         let [id,shorts]=name.split(',')
         let callback=function(){};
         tF(function(f=function(){}){
