@@ -2021,7 +2021,7 @@ local function hptp()
 				local enemy=findDmg(OldHealth-Humanoid.Health)
 				print("damage taken",OldHealth-Humanoid.Health)
 				print("IncDMG:",increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value,10),enemy.lvl)
-				if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value,30) < enemy.lvl then warn(enemy.player.name.." Is to strong self");return end
+				if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value,50) < enemy.lvl then warn(enemy.player.name.." Is to strong self");return end
 				--print('#info:'..enemy.player.Name)
 				--print('$pos:',enemy.player.Character:WaitForChild("HumanoidRootPart").Position)
 				local randomOffsetX = math.random(-15,15)
