@@ -257,8 +257,8 @@ local function PathfindTo(target,time)
 
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 humanoid.Jump = true
-		humanoid:MoveTo(waypoint.Position)
-                currentIndex += 1  -- Move to the next waypoint immediately
+	            	humanoid:MoveTo(waypoint.Position)
+                currentIndex =currentIndex+ 1  -- Move to the next waypoint immediately
             else
                 humanoid:MoveTo(waypoint.Position)
                 humanoid.MoveToFinished:Wait()
@@ -268,7 +268,7 @@ local function PathfindTo(target,time)
                     break
                 end
 
-                currentIndex += 1
+                currentIndex =currentIndex+ 1
             end
         end
 
@@ -1999,7 +1999,7 @@ local function findDmg(taken)
 				hp=(l*2)*10,
 				player=v
 			}
-					game.Players.LocalPlayer
+					--game.Players.LocalPlayer
 			print('@',v.name,'#',v.leaderstats.Level.value,'$',info.dmg)
 			if((l*2)==(taken-10))then print('Found:'..v.name)return info end end
 	end end
@@ -2020,7 +2020,7 @@ local function hptp()
 			if Humanoid.Health < OldHealth then
 				local enemy=findDmg(OldHealth-Humanoid.Health)
 				print("damage taken",OldHealth-Humanoid.Health)
-				if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value,10) < enemy.lvl then warn(enemy.player.name..."Is to strong self");return end
+				if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value,10) < enemy.lvl then warn(enemy.player.name.." Is to strong self");return end
 				--print('#info:'..enemy.player.Name)
 				--print('$pos:',enemy.player.Character:WaitForChild("HumanoidRootPart").Position)
 				local randomOffsetX = math.random(-15,15)
