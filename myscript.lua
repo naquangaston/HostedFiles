@@ -2020,6 +2020,7 @@ local function hptp()
 			if Humanoid.Health < OldHealth then
 				local enemy=findDmg(OldHealth-Humanoid.Health)
 				print("damage taken",OldHealth-Humanoid.Health)
+				print("IncDMG:",increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value,10),enemy.lvl)
 				if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value,10) < enemy.lvl then warn(enemy.player.name.." Is to strong self");return end
 				--print('#info:'..enemy.player.Name)
 				--print('$pos:',enemy.player.Character:WaitForChild("HumanoidRootPart").Position)
