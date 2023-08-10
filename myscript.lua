@@ -2048,7 +2048,9 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
 	defineLocals()
 	pcall(updated_)
 	updated_();
-	game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame=deathPose
+	if deathPose then 
+		game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame=deathPose
+	end
 	hptp()
 end)
 		defineLocals()
