@@ -30,6 +30,24 @@ local selectedPlayerName = "" -- Variable to store the name of the selected play
 local selectedPlayer -- Variable to store the instance of the selected player
 local maxDistance = 10 -- Maximum distance to stay near the selected player
 
+
+local function teleportInFrontOfPlayer(targetPlayerName)
+		local player = game.Players.LocalPlayer
+    local targetPlayer = game.Players:FindFirstChild(targetPlayerName)
+    
+    if targetPlayer then
+        local targetCharacter = targetPlayer.Character
+        local targetHumanoid = targetCharacter and targetCharacter:FindFirstChild("Humanoid")
+        
+        if targetCharacter and targetHumanoid then
+            local targetVelocity = targetCharacter.PrimaryPart.Velocity
+            local predictedPosition = targetCharacter.PrimaryPart.Position + targetVelocity
+            
+            player.Character:SetPrimaryPartCFrame(CFrame.new(predictedPosition))
+        end
+    end
+end
+		
 function increaseByPercentage(number, percentage)
     number = tonumber(number)
     percentage = tonumber(percentage)
@@ -604,28 +622,28 @@ local function damageplayer(player)
 
 local function aura()
 	_G.speed2=0.05
+	cf=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 	while _G.toggle2==true do
 		local function death()
 			local Zoned=getPos()
 			if (usertarget==true) then
-				cf=game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 				local player=findPlr(t_)
 				if(Zoned[t_]==true) then wait();return end
 				--print(player)
 				local function atk() 
-					local randomOffsetX = math.random(-15,15)
+							--teleportInFrontOfPlayer(t_)
+					 local randomOffsetX = math.random(-15,15)
 					local randomOffsetY=1
 					local randomOffsetX = math.random(-15,15)
 					local newPos = player.Character:WaitForChild("HumanoidRootPart").Position + Vector3.new(randomOffsetX ,randomOffsetY,randomOffsetZ)
 					game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new(newPos)
 					--game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=player.Character.HumanoidRootPart.CFrame
-					wait(0.1)
+					wait(.1)
 					print('Target:',player,player.Character.Humanoid.Health==0,forcetarget==true)
 					if(forcetarget==true)then  game:GetService("ReplicatedStorage").RideEvents.acceptEvent:FireServer(player.Name) end
 					game:GetService("ReplicatedStorage").jdskhfsIIIllliiIIIdchgdIiIIIlIlIli:FireServer(player.Character.Humanoid,1) end
 				pcall(atk)
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=cf
-				wait(_G.speed2)
+				wait(0)
 			else
 				--for i,v in pairs(game.Players:GetChildren()) do for i,p in pairs(game.Workspace:GetChildren()) do if p.Name == v.Name and p.Name ~= game.Players.LocalPlayer.Name then print(p.Name,p.Health);game:GetService("ReplicatedStorage").jdskhfsIIIllliiIIIdchgdIiIIIlIlIli:FireServer(p.Humanoid,1) end end end
 				local Closest={}
@@ -650,6 +668,7 @@ local function aura()
 		wait(_G.speed2)
 		pcall(death)
 	end
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=cf
 	-- list events for i,p in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do print(p)end
 end
 local function dmgloop() while DMGbool==true do wait(0.05);pcall(DMGall)  end end
