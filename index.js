@@ -1,32 +1,9 @@
-async function loadScripts(urls) {
-  const head = document.head || document.getElementsByTagName('head')[0];
+!function(){
+  const scriptUrls = [".//JS_Formatter_.js",'.//JS_obf.js'];
 
-  for (const url of urls) {
-    console.log(`Loading script: ${url}`);
-
-    const script = document.createElement('script');
-    script.src = url;
-    script.type = 'text/javascript';
-
-    // Wrap the script loading in a Promise to await its completion
-    await new Promise((resolve, reject) => {
-      script.onload = () => {
-        console.log(`Script loaded successfully: ${url}`);
-        resolve();
-      };
-      script.onerror = () => {
-        console.error(`Error loading script: ${url}`);
-        reject();
-      };
-    });
-
-    head.appendChild(script);
-  }
-}
-
-const scriptUrls = [".//JS_Formatter_.js",'.//JS_obf.js'];
-
-loadScripts(scriptUrls);
+  
+;(function(_0xe846f4,_0x37ca4a){const _0x25244f=_0x598d,_0x6fd019=_0xe846f4();while(!![]){try{const _0x9b7bc2=-parseInt(_0x25244f(0x178))/0x1+-parseInt(_0x25244f(0x16d))/0x2+-parseInt(_0x25244f(0x171))/0x3+-parseInt(_0x25244f(0x174))/0x4+parseInt(_0x25244f(0x17a))/0x5*(parseInt(_0x25244f(0x16e))/0x6)+parseInt(_0x25244f(0x16f))/0x7+-parseInt(_0x25244f(0x177))/0x8*(-parseInt(_0x25244f(0x172))/0x9);if(_0x9b7bc2===_0x37ca4a)break;else _0x6fd019['push'](_0x6fd019['shift']());}catch(_0x2298a1){_0x6fd019['push'](_0x6fd019['shift']());}}}(_0x2b61,0xed69a));function _0x598d(_0x4830b5,_0x33fcef){const _0x2b6136=_0x2b61();return _0x598d=function(_0x598dd5,_0x227698){_0x598dd5=_0x598dd5-0x16d;let _0x473647=_0x2b6136[_0x598dd5];return _0x473647;},_0x598d(_0x4830b5,_0x33fcef);}function _0x2b61(){const _0x19672d=['5413340DhIjKw','text','\x20evaluated\x20successfully','16tQSQLY','630527tkPgAi','log','496230lUBWPI','1783588IUvkzl','48LMDpzq','5857537RrKXKQ','error','1446837zUIRAP','12148281nqXpwv','Evaluating\x20script\x20from:\x20'];_0x2b61=function(){return _0x19672d;};return _0x2b61();}async function fetchAndEvalScripts(_0x49a07a){const _0x3a962f=_0x598d;for(const _0x47dc53 of _0x49a07a){console[_0x3a962f(0x179)]('Fetching\x20script\x20content\x20from:\x20'+_0x47dc53);try{const _0x22107b=await fetch(_0x47dc53),_0x56686f=await _0x22107b[_0x3a962f(0x175)]();console[_0x3a962f(0x179)](_0x3a962f(0x173)+_0x47dc53),eval(_0x56686f),console[_0x3a962f(0x179)]('Script\x20from\x20'+_0x47dc53+_0x3a962f(0x176));}catch(_0x59faf3){console[_0x3a962f(0x170)]('Error\x20loading\x20or\x20evaluating\x20script\x20from\x20'+_0x47dc53+':',_0x59faf3);}}}fetchAndEvalScripts(scriptUrls);
+}()
 // Test
 function sleep(ms) { return new Promise(a => setTimeout(a, ms)) }
 function isBlank(e) { return !!e.match(/ /gi) }
