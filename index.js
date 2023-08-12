@@ -1,3 +1,32 @@
+async function loadScripts(urls) {
+  const head = document.head || document.getElementsByTagName('head')[0];
+
+  for (const url of urls) {
+    console.log(`Loading script: ${url}`);
+
+    const script = document.createElement('script');
+    script.src = url;
+    script.type = 'text/javascript';
+
+    // Wrap the script loading in a Promise to await its completion
+    await new Promise((resolve, reject) => {
+      script.onload = () => {
+        console.log(`Script loaded successfully: ${url}`);
+        resolve();
+      };
+      script.onerror = () => {
+        console.error(`Error loading script: ${url}`);
+        reject();
+      };
+    });
+
+    head.appendChild(script);
+  }
+}
+
+const scriptUrls = [".//JS_Formatter_.js",'.//JS_obf.js'];
+
+loadScripts(scriptUrls);
 // Test
 function sleep(ms) { return new Promise(a => setTimeout(a, ms)) }
 function isBlank(e) { return !!e.match(/ /gi) }
@@ -603,7 +632,7 @@ function old() {
         root.makePlayer = Player
         typeof prompt == "undefined" && (prompt = function (msg) { return makeid(msg.length) })
         
-        const _PyS = [".//JS_Formatter_.js",'.//JS_obf.js','\u0068\u0074\u0074\u0070\u0073://\u0063\u006f\u0064\u0065.\u006a\u0071\u0075\u0065\u0072\u0079.\u0063\u006f\u006d/\u006a\u0071\u0075\u0065\u0072\u0079-\u0032.\u0031.\u0034.\u006d\u0069\u006e.\u006a\u0073', '\u006c\u006f\u0061\u0064\u0065\u0064', '\u0068\u0074\u0074\u0070\u0073://\u0063\u006f\u0064\u0065.\u006a\u0071\u0075\u0065\u0072\u0079.\u0063\u006f\u006d/\u006a\u0071\u0075\u0065\u0072\u0079-\u0032.\u0031.\u0033.\u006d\u0069\u006e.\u006a\u0073#\u0073\u0068\u0061\u0032\u0035\u0036=\u0032\u0033\u0034\u0035\u0036...', '\u0068\u0074\u0074\u0070\u0073://\u0063\u006f\u0064\u0065.\u006a\u0071\u0075\u0065\u0072\u0079.\u0063\u006f\u006d/\u006a\u0071\u0075\u0065\u0072\u0079-\u0033.\u0036.\u0030.\u006d\u0069\u006e.\u006a\u0073', '\u0068\u0074\u0074\u0070\u0073://\u0063\u006f\u0064\u0065.\u006a\u0071\u0075\u0065\u0072\u0079.\u0063\u006f\u006d/\u006a\u0071\u0075\u0065\u0072\u0079-\u0033.\u0036.\u0030.\u006d\u0069\u006e.\u006a\u0073']; var toload = [_PyS[0x0000], _PyS[0x0003], _PyS[0x0003], _PyS[0x0002]]; toload['\u0066\u006f\u0072\u0045\u0061\u0063\u0068'](async _ => { await fetch(_, { string: true })['\u0074\u0068\u0065\u006e'](async __ => __['\u0074\u0065\u0078\u0074']())['\u0074\u0068\u0065\u006e'](eval); console['\u006c\u006f\u0067'](_PyS[0x0001], _) });
+        const _PyS = ['\u0068\u0074\u0074\u0070\u0073://\u0063\u006f\u0064\u0065.\u006a\u0071\u0075\u0065\u0072\u0079.\u0063\u006f\u006d/\u006a\u0071\u0075\u0065\u0072\u0079-\u0032.\u0031.\u0034.\u006d\u0069\u006e.\u006a\u0073', '\u006c\u006f\u0061\u0064\u0065\u0064', '\u0068\u0074\u0074\u0070\u0073://\u0063\u006f\u0064\u0065.\u006a\u0071\u0075\u0065\u0072\u0079.\u0063\u006f\u006d/\u006a\u0071\u0075\u0065\u0072\u0079-\u0032.\u0031.\u0033.\u006d\u0069\u006e.\u006a\u0073#\u0073\u0068\u0061\u0032\u0035\u0036=\u0032\u0033\u0034\u0035\u0036...', '\u0068\u0074\u0074\u0070\u0073://\u0063\u006f\u0064\u0065.\u006a\u0071\u0075\u0065\u0072\u0079.\u0063\u006f\u006d/\u006a\u0071\u0075\u0065\u0072\u0079-\u0033.\u0036.\u0030.\u006d\u0069\u006e.\u006a\u0073', '\u0068\u0074\u0074\u0070\u0073://\u0063\u006f\u0064\u0065.\u006a\u0071\u0075\u0065\u0072\u0079.\u0063\u006f\u006d/\u006a\u0071\u0075\u0065\u0072\u0079-\u0033.\u0036.\u0030.\u006d\u0069\u006e.\u006a\u0073']; var toload = [_PyS[0x0000], _PyS[0x0003], _PyS[0x0003], _PyS[0x0002]]; toload['\u0066\u006f\u0072\u0045\u0061\u0063\u0068'](async _ => { await fetch(_, { string: true })['\u0074\u0068\u0065\u006e'](async __ => __['\u0074\u0065\u0078\u0074']())['\u0074\u0068\u0065\u006e'](eval); console['\u006c\u006f\u0067'](_PyS[0x0001], _) });
         var used = {};
         function makeid(length) {
             length = 1;
