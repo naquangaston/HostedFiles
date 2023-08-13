@@ -665,7 +665,10 @@ local function aura()
 				CurrentTarget=alive[1][1].name
 				for _, player in pairs(alive) do if(not Zoned[player.name]) then game:GetService("ReplicatedStorage").jdskhfsIIIllliiIIIdchgdIiIIIlIlIli:FireServer(player[2],1) end end
 			end end
+		if usertarget then wait(0) end
+			else 
 		wait(_G.speed2)
+			end
 		pcall(death)
 	end
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=cf
