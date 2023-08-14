@@ -823,7 +823,7 @@ local events = {
         if autoJump then
             repeat
                 wait(.1)
-            until events.current.Name == "Running"
+            until event.current.Name == "Running"
             humanoid.Jump = true
         end
     end
