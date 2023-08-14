@@ -2076,9 +2076,11 @@ local function hptp()
 				local newPos = enemy.player.Character:WaitForChild("HumanoidRootPart").Position + Vector3.new(randomOffsetX ,randomOffsetY,randomOffsetZ)
 				useAllFire(enemy.player.Character.HumanoidRootPart)
 				if not attacking_ or increaseByPercentage(info.lvl,10) then attacking_ = true else return nil end
-				local cf=game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
-				repeat wait(0);updated_();pcall(function()damageplayer(enemy.player.Name)end);pcall(function()useAllFire(enemy.player.Character.HumanoidRootPart)end); humanoid:MoveTo(enemy.player.Character.HumanoidRootPart.Position) until enemy.player.Character.Humanoid.Health < 1
+				local cf=game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame;
+								autoJump=true;
+				repeat wait(0);updated_();pcall(function()damageplayer(enemy.player.Name)end);pcall(function()useAllFire(enemy.player.Character.HumanoidRootPart)end); humanoid:MoveTo(enemy.player.Character.HumanoidRootPart.Position) until enemy.player.Character.Humanoid.Health < 1 or not game.Players[enemy.player.name]
 								attacking_ = false;
+								autoJump=false;
 								game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame=cf
 				--game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new(newPos)
 
