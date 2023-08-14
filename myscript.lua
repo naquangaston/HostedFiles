@@ -3274,6 +3274,7 @@ local function hptp()
                         else
                             return nil
                         end
+                        local oldpos=game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position
                         local cf = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
                         Jump_()
                         autoJump = true
@@ -3294,6 +3295,7 @@ local function hptp()
                         until enemy.player.Character.Humanoid.Health < 1 or not game.Players[enemy.player.name]
                         attacking_ = false
                         autoJump = false
+                        PathfindTo({Postiion=oldpos})
                         game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = cf
                     else
                         print("Healed", Humanoid.Health - OldHealth)
