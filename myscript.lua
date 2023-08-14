@@ -18,6 +18,7 @@ local player = game:GetService("Players").LocalPlayer
 local humanoid = nil
 local LegitPathing=false
 local pathfindingComplete = false
+local autoJump=true
 local finding = false
 local done_ = true
 local legitCoin = true
@@ -333,8 +334,25 @@ userInputService.InputBegan:Connect(function(input)
     end
 end)
 
+local event={current=humanoid:GetState(),last=humanoid:GetState()}
+
+local events={
+    Landed=function()
+        if autoJump then repeat wait(.1) until events.current.Name=="Running"; humanoid.Jump= true end 
+    end
+    WaitFor=function(name)
+        repeat wait(0) until events[name.."_"]=true
+    end
+}
+
+function Jump_() humanoid.Jump= true end
 
 
+function v2() event.last = event.current;if event.current ~= humanoid:GetState() then warn("State change",humanoid:GetState());event.current = humanoid:GetState();local eventFunction = events[humanoid:GetState().Name];if eventFunction then print("Running" , humanoid:GetState().Name); eventFunction() end end end
+
+
+
+game:GetService("RunService").Heartbeat:Connect(v2)
 local function CombineCFrameAndVector(cframe, vector)
     return cframe + vector
 end
@@ -842,6 +860,14 @@ Gameplaydiv:addToggle({
 	callback = function(value)
 		_G.toggle2=not value
 		toggleAura()
+	end
+})
+Gameplaydiv:addToggle({
+	title = "Auto",
+	toggled = true,
+	callback = function(value)
+		autoJump=not value
+		print("Autojump",autoJump)
 	end
 })
 Gameplaydiv:addToggle({
