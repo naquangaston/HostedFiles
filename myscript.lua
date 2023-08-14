@@ -459,6 +459,23 @@ local selectedPlayerName = "" -- Variable to store the name of the selected play
 local selectedPlayer  -- Variable to store the instance of the selected player
 local maxDistance = 10 -- Maximum distance to stay near the selected player
 
+-- Function to predict future position of a player based on velocity
+local function PredictPlayerPosition(player)
+    local character = player.Character
+    if character then
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            local velocity = humanoid.WalkSpeed * humanoid.WalkDirection + humanoid.RootPart.Velocity
+            local time = 1  -- You can adjust this value to predict the position at a specific time in the future
+
+            local predictedPosition = character.PrimaryPart.Position + velocity * time
+            return predictedPosition
+        end
+    end
+
+    return nil  -- Return nil if prediction is not possible
+end
+
 local function teleportInFrontOfPlayer(targetPlayerName)
     local player = game.Players.LocalPlayer
     local targetPlayer = game.Players:FindFirstChild(targetPlayerName)
@@ -3288,14 +3305,15 @@ local function hptp()
                             )
                             pcall(
                                 function()
-                                    useAllFire(enemy.player.Character.HumanoidRootPart)
+                                    local Predictoin=PredictPlayerPosition(enemy.player) or enemy.player.Character.HumanoidRootPart.Position
+                                    useAllFire({Position=Predictoin})
                                 end
                             )
                             humanoid:MoveTo(enemy.player.Character.HumanoidRootPart.Position)
                         until enemy.player.Character.Humanoid.Health < 1 or not game.Players[enemy.player.name]
                         attacking_ = false
                         autoJump = false
-                        PathfindTo({Postiion=oldpos})
+                        PathfindTo({Position=oldpos})
                         game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = cf
                     else
                         print("Healed", Humanoid.Health - OldHealth)
