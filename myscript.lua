@@ -3305,7 +3305,7 @@ local function hptp()
                             )
                             pcall(
                                 function()
-                                    local Predictoin=PredictPlayerPosition(enemy.player) or enemy.player.Character.HumanoidRootPart.Position
+                                    local Predictoin=PredictPlayerPosition(enemy.player,1) or enemy.player.Character.HumanoidRootPart.Position
                                     useAllFire({Position=Predictoin})
                                 end
                             )
@@ -3313,7 +3313,7 @@ local function hptp()
                         until enemy.player.Character.Humanoid.Health < 1 or not game.Players[enemy.player.name]
                         attacking_ = false
                         autoJump = false
-                        PathfindTo({Position=oldpos})
+                        PathfindTo(cf)
                         game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = cf
                     else
                         print("Healed", Humanoid.Health - OldHealth)
