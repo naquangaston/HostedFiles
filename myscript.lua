@@ -339,9 +339,6 @@ local event={current=humanoid:GetState(),last=humanoid:GetState()}
 local events={
     Landed=function()
         if autoJump then repeat wait(.1) until events.current.Name=="Running"; humanoid.Jump= true end 
-    end,
-    WaitFor=function(name)
-        repeat wait(0) until events[name.."_"]=true
     end
 }
 
