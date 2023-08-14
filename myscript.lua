@@ -1673,7 +1673,7 @@ Gameplaydiv:addToggle(
         title = "Auto Jump",
         toggled = nil,
         callback = function(value)
-            autoJump = not value
+            autoJump = not not value
             print("Autojump:", autoJump)
         end
     }
