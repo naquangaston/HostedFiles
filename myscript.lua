@@ -510,6 +510,38 @@ function increaseByPercentage(number, percentage)
 
     return result
 end
+local pathfindingService = game:GetService("PathfindingService")
+
+local function getPathToPosition(targetPosition, humanoid)
+    local startPosition = humanoid.RootPart.Position
+    local path = pathfindingService:CreatePath({
+        AgentRadius = humanoid.HipHeight / 2,
+        AgentHeight = humanoid.HipHeight,
+        AgentCanJump = true,
+        AgentJumpHeight = humanoid.JumpHeight,
+        AgentMaxSlope = humanoid.MaxSlopeAngle,
+        AgentMaxStepHeight = humanoid.HipHeight,
+    })
+    path:ComputeAsync(startPosition, targetPosition)
+    return path
+end
+
+local function moveToTarget(target, humanoid)
+    local player = game.Players.LocalPlayer
+    humanoid = humanoid or player.Character:WaitForChild("Humanoid")
+
+    local targetPosition = target
+
+    if typeof(target) == "CFrame" then
+        targetPosition = target.Position
+    elseif typeof(target) ~= "Vector3" then
+        warn("Invalid target type. Expected CFrame or Vector3.")
+        return
+    end
+
+    local path = getPathToPosition(targetPosition, humanoid)
+    humanoid:MoveTo(path)
+end
 
 local function defineNilLocals()
     if FetchItemModule == nil then
@@ -3305,7 +3337,7 @@ local function hptp()
                             )
                             pcall(
                                 function()
-                                    local Predictoin=PredictPlayerPosition(enemy.player,1) or enemy.player.Character.HumanoidRootPart.Position
+                                    local Predictoin = enemy.player.Character.HumanoidRootPart.Position
                                     useAllFire({Position=Predictoin})
                                 end
                             )
@@ -3313,7 +3345,7 @@ local function hptp()
                         until enemy.player.Character.Humanoid.Health < 1 or not game.Players[enemy.player.name]
                         attacking_ = false
                         autoJump = false
-                        PathfindTo(cf)
+                        moveToTarget(cf)
                         game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = cf
                     else
                         print("Healed", Humanoid.Health - OldHealth)
