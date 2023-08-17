@@ -3397,8 +3397,9 @@ game.Players.LocalPlayer.CharacterAdded:Connect(
         defineLocals()
         pcall(updated_)
         updated_()
-        if deathPose then
-            game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = deathPose
+        if deathPose then\
+            moveToTarget(deathPose)
+            --game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = deathPose
         end
         hptp()
     end
