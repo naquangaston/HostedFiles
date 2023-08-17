@@ -540,8 +540,24 @@ local function moveToTarget(target, humanoid)
     end
 
     local path = getPathToPosition(targetPosition, humanoid)
-    humanoid:MoveTo(path)
+    local waypoints = path:GetWaypoints()
+    local currentWaypointIndex = 1
+
+    while currentWaypointIndex <= #waypoints do
+        local currentWaypoint = waypoints[currentWaypointIndex]
+        local distanceToWaypoint = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
+
+        while distanceToWaypoint > 5 do
+            autoJump = currentWaypoint.Action == Enum.PathWaypointAction.Jump
+            humanoid:MoveTo(currentWaypoint.Position)
+            distanceToWaypoint = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
+            wait(0.1) -- Adjust the delay as needed
+        end
+
+        currentWaypointIndex = currentWaypointIndex + 1
+    end
 end
+
 
 local function defineNilLocals()
     if FetchItemModule == nil then
@@ -932,6 +948,24 @@ local function useAllFire(player_)
                         --print(b)
                     end
                     CheckBall.FireballEvent:FireServer(player_.Position)
+                end
+            end
+            --if earlyreturn then return end
+        end
+    end
+end
+local function useAllFire_(pos)
+    local Balls = {"Fireball", "Lightningball"}
+    local Locations = {"Backpack", "Character"}
+    for i, player in pairs(game.Players:GetChildren()) do
+        for _, Ball in pairs(Balls) do
+            for i, Location in pairs(Locations) do
+                local CheckBall = player[Location]:FindFirstChild(Ball)
+                if (CheckBall) then --print(player.Name.." has: "..Ball)
+                    for a, b in pairs(CheckBall:GetChildren()) do
+                        --print(b)
+                    end
+                    CheckBall.FireballEvent:FireServer(pos)
                 end
             end
             --if earlyreturn then return end
@@ -3337,8 +3371,7 @@ local function hptp()
                             )
                             pcall(
                                 function()
-                                    local Predictoin = enemy.player.Character.HumanoidRootPart.Position
-                                    useAllFire({Position=Predictoin})
+                                    useAllFire(enemy.player.Character.HumanoidRootPart)
                                 end
                             )
                             humanoid:MoveTo(enemy.player.Character.HumanoidRootPart.Position)
