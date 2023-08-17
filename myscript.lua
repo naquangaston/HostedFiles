@@ -546,7 +546,7 @@ local function moveToTarget(target, humanoid)
     while currentWaypointIndex <= #waypoints do
         local currentWaypoint = waypoints[currentWaypointIndex]
         local distanceToWaypoint = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
-        print(currentWaypoint.Position,game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"),humanoid.RootPart.Position)
+        --print(currentWaypoint.Position,game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"),humanoid.RootPart.Position)
 
         while distanceToWaypoint > 5 do
             autoJump = currentWaypoint.Action == Enum.PathWaypointAction.Jump
