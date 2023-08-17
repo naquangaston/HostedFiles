@@ -890,7 +890,7 @@ local events = {
             repeat
                 wait(.1)
             until event.current.Name == "Running"
-            humanoid.Jump = true
+            game.Players.LocalPlayer.Character.Humanoid.Jump = true
         end
     end
 }
