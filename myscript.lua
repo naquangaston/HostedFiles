@@ -547,11 +547,11 @@ local function moveToTarget(target, humanoid)
         local currentWaypoint = waypoints[currentWaypointIndex]
         local distanceToWaypoint = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
 
-        while distanceToWaypoint > 5 do
+        while distanceToWaypoint > 2 do
             autoJump = currentWaypoint.Action == Enum.PathWaypointAction.Jump
             humanoid:MoveTo(currentWaypoint.Position)
             distanceToWaypoint = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
-            wait(0.1) -- Adjust the delay as needed
+            wait(0.0) -- Adjust the delay as needed
         end
 
         currentWaypointIndex = currentWaypointIndex + 1
@@ -3399,7 +3399,7 @@ game.Players.LocalPlayer.CharacterAdded:Connect(
         updated_()
         if deathPose then
             moveToTarget(deathPose)
-            --game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = deathPose
+            game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = deathPose
         end
         hptp()
     end
