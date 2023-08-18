@@ -1,5 +1,6 @@
 print("Starting up")
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/naquangaston/HostedFiles/main/myscript.lua"))()
+local incDMG_=60
 local justDied=false
 local prefixs = {
     {Prefix = "", Number = 1, Term = "Ones"},
@@ -3461,10 +3462,10 @@ local function LogDamage(player, damageAmount)
     local enemy = findDmg(damageAmount)
     print(
         "IncDMG:",
-        increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, 10),
+        increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, incDMG_),
         enemy.lvl
     )
-    if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, 50) < enemy.lvl then
+    if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, incDMG_) < enemy.lvl then
         warn(enemy.player.name .. " Is to strong self")
         return
     end
