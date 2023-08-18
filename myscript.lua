@@ -1,5 +1,6 @@
 print("Starting up")
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/naquangaston/HostedFiles/main/myscript.lua"))()
+local justDied=false
 local prefixs = {
     {Prefix = "", Number = 1, Term = "Ones"},
     {Prefix = "k", Number = 1000, Term = "Thousand"},
@@ -548,7 +549,7 @@ local function moveToTarget(target, humanoid)
     end
 
     while currentWaypointIndex <= #waypoints do
-        if(attacking_) then break end
+        if(attacking_ or  justDied) then break end
         local currentWaypoint = waypoints[currentWaypointIndex]
 
         if currentWaypointIndex == 1 then
@@ -563,7 +564,7 @@ local function moveToTarget(target, humanoid)
                 humanoid.Jump=true
             end
             while distanceToWaypoint > (defaultDistance or 5) do
-                if(attacking_) then break end
+                if(attacking_ or  justDied) then break end
                 humanoid:MoveTo(currentWaypoint.Position)
                 moveToFinished()
                 distanceToWaypoint = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
@@ -3344,6 +3345,7 @@ local function hptp()
             end
             if (Humanoid.Health < 1) then
                 deathPose = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
+                justDied=true
             end
             pcall(
                 function()
@@ -3414,6 +3416,7 @@ game.Players.LocalPlayer.CharacterAdded:Connect(
         defineLocals()
         pcall(updated_)
         updated_()
+        justDied=false
         if deathPose then
             moveToTarget(deathPose)
             game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = deathPose
