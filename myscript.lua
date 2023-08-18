@@ -555,6 +555,7 @@ local function moveToTarget(target, humanoid)
             humanoid:MoveTo(currentWaypoint.Position)
             moveToFinished()
             defaultDistance = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude + 0.1
+            print("defaultDistance:",defaultDistance)
         else
             local distanceToWaypoint = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
             if currentWaypoint.Action == Enum.PathWaypointAction.Jump then
