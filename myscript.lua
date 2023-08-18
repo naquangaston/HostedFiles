@@ -3511,9 +3511,9 @@ end
 -- Dictionary to store initial health values for selected players
 local initialHealth = {}
 
--- Function to log damage taken by selected players
-local function LogDamage(player, damageAmount)
-    print(player.Name .. " took " .. damageAmount .. " damage")
+-- Function to log events for selected players
+local function LogEvent(player, event)
+    print(player.Name .. " " .. event)
     -- You can add more advanced logging or processing here if needed
 end
 
@@ -3528,10 +3528,8 @@ local function ConnectHealthChanged(player)
             healthChangedConnection = humanoid:GetPropertyChangedSignal("Health"):Connect(function()
                 local currentHealth = humanoid.Health
                 local initialHealthValue = initialHealth[player]
-                local damageAmount = initialHealthValue - currentHealth
-                if damageAmount > 0 then
-                    LogDamage(player, damageAmount)
-                end
+                LogDamage(player,initialHealthValue - currentHealth)
+                LogEvent(player, "health changed by " .. (initialHealthValue - currentHealth))
                 initialHealth[player] = currentHealth
             end)
 
@@ -3544,6 +3542,7 @@ local function ConnectHealthChanged(player)
     end
 
     player.CharacterAdded:Connect(function()
+        LogEvent(player, "character changed")
         DisconnectHealthChanged()
         -- Reconnect the event for the new character
         DisconnectHealthChanged()
@@ -3554,6 +3553,7 @@ end
 for _, playerName in ipairs(selectedPlayers) do
     local existingPlayer = game.Players:FindFirstChild(playerName)
     if existingPlayer then
+        LogEvent(existingPlayer, "joined")
         ConnectHealthChanged(existingPlayer)
     end
 end
@@ -3562,6 +3562,7 @@ end
 game.Players.PlayerAdded:Connect(function(player)
     for _, playerName in ipairs(selectedPlayers) do
         if player.Name == playerName then
+            LogEvent(player, "joined")
             ConnectHealthChanged(player)
         end
     end
