@@ -525,7 +525,6 @@ local function getPathToPosition(targetPosition, humanoid)
     path:ComputeAsync(startPosition, targetPosition)
     return path
 end
-
 local function moveToTarget(target, humanoid)
     local player = game.Players.LocalPlayer
     humanoid = humanoid or player.Character:WaitForChild("Humanoid")
@@ -549,6 +548,7 @@ local function moveToTarget(target, humanoid)
     end
 
     while currentWaypointIndex <= #waypoints do
+        if(attacking_) then break end
         local currentWaypoint = waypoints[currentWaypointIndex]
 
         if currentWaypointIndex == 1 then
@@ -563,6 +563,7 @@ local function moveToTarget(target, humanoid)
                 humanoid.Jump=true
             end
             while distanceToWaypoint > (defaultDistance or 5) do
+                if(attacking_) then break end
                 humanoid:MoveTo(currentWaypoint.Position)
                 moveToFinished()
                 distanceToWaypoint = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
