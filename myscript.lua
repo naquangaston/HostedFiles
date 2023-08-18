@@ -554,6 +554,7 @@ local function moveToTarget(target, humanoid)
         if currentWaypointIndex == 1 then
             humanoid:MoveTo(currentWaypoint.Position)
             moveToFinished()
+            wait(1)
             defaultDistance = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude + 0.1
             print("defaultDistance:",defaultDistance)
         else
