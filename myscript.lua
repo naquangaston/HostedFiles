@@ -3424,3 +3424,123 @@ defineLocals()
 pcall(updated_)
 updated_()
 hptp()
+spawn(
+function()
+    local placeId = game.PlaceId
+print(placeId)
+
+local AnimalSim={
+    main=5712833750,
+    PvP=13399356664
+}
+-- List of select player names
+local selectedPlayers = {
+    "282475249a7auto","9","Allaboutsuki","DefNotRealMe","Doornextguythat","Little_Puppywolf","ProGammerMove_1","RektBySuki","RektBySukisAlt","Rockyrode112","Rose_altl5","Sakura_Mirai","SimpleDisasters","TheBestAccount_mom","TheFreeAccount_Free1","TheOneMyth","Unicornzzz6109","baby46793","batman_kite","foalsarecut","iwillendUmadaf4","miner_havennoob","naypolm","naypolm005","naypolm05","naypolm12","naypolm1789","qwertyPCLOL",
+    -- Add more player names as needed
+}
+local localPlayer = game.Players.LocalPlayer
+if localPlayer then
+    for i, playerName in ipairs(selectedPlayers) do
+        if playerName == localPlayer.Name then
+            table.remove(selectedPlayers, i)
+            break
+        end
+    end
+end
+
+-- Dictionary to store initial health values for selected players
+local initialHealth = {}
+
+-- Function to log damage taken by selected players
+local function LogDamage(player, damageAmount)
+    print(player.Name .. " took " .. damageAmount .. " damage")
+    local enemy = findDmg(damageAmount)
+    print(
+        "IncDMG:",
+        increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, 10),
+        enemy.lvl
+    )
+    if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, 50) < enemy.lvl then
+        warn(enemy.player.name .. " Is to strong self")
+        return
+    end
+    --print('#info:'..enemy.player.Name)
+    --print('$pos:',enemy.player.Character:WaitForChild("HumanoidRootPart").Position)
+    local randomOffsetX = math.random(-15, 15)
+    local randomOffsetY = 1
+    local randomOffsetX = math.random(-15, 15)
+    local newPos =
+        enemy.player.Character:WaitForChild("HumanoidRootPart").Position +
+        Vector3.new(randomOffsetX, randomOffsetY, randomOffsetZ)
+    useAllFire(enemy.player.Character.HumanoidRootPart)
+    if not attacking_ or increaseByPercentage(info.lvl, 10) then
+        attacking_ = true
+    else
+        return nil
+    end
+    local oldpos=game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position
+    local cf = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
+    Jump_()
+    autoJump = true
+    repeat
+        wait(0)
+        updated_()
+        pcall(
+            function()
+                damageplayer(enemy.player.Name)
+            end
+        )
+        pcall(
+            function()
+                useAllFire(enemy.player.Character.HumanoidRootPart)
+            end
+        )
+        humanoid:MoveTo(enemy.player.Character.HumanoidRootPart.Position)
+    until enemy.player.Character.Humanoid.Health < 1 or not game.Players[enemy.player.name]
+    attacking_ = false
+    autoJump = false
+    moveToTarget(cf)
+    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = cf
+    -- You can add more advanced logging or processing here if needed
+end
+
+-- Function to connect to the player's health changes
+local function ConnectHealthChanged(player)
+    local character = player.Character
+    if character then
+        local humanoid = character:FindFirstChild("Humanoid")
+        if humanoid then
+            initialHealth[player] = humanoid.Health
+
+            local healthChangedConnection
+            healthChangedConnection = humanoid:GetPropertyChangedSignal("Health"):Connect(function()
+                local currentHealth = humanoid.Health
+                local initialHealthValue = initialHealth[player]
+                local damageAmount = initialHealthValue - currentHealth
+                if damageAmount > 0 then
+                    LogDamage(player, damageAmount)
+                end
+                initialHealth[player] = currentHealth
+            end)
+        end
+    end
+end
+
+-- Check existing players for selected names
+for _, playerName in ipairs(selectedPlayers) do
+    local existingPlayer = game.Players:FindFirstChild(playerName)
+    if existingPlayer then
+        ConnectHealthChanged(existingPlayer)
+    end
+end
+
+-- Connect to the PlayerAdded event for future players
+game.Players.PlayerAdded:Connect(function(player)
+    for _, playerName in ipairs(selectedPlayers) do
+        if player.Name == playerName then
+            ConnectHealthChanged(player)
+        end
+    end
+end)
+end
+)
