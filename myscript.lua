@@ -3500,7 +3500,7 @@ local function LogDamage(player, damageAmount)
             end
         )
         humanoid:MoveTo(enemy.player.Character.HumanoidRootPart.Position)
-    until enemy.player.Character.Humanoid.Health < 1 or not game.Players[enemy.player.name]
+    until enemy.player.Character.Humanoid.Health < 1 or not game.Players[enemy.player.name].Character
     attacking_ = false
     autoJump = false
     moveToTarget(cf)
@@ -3508,11 +3508,19 @@ local function LogDamage(player, damageAmount)
     -- You can add more advanced logging or processing here if needed
 end
 
+-- Dictionary to store initial health values for selected players
+local initialHealth = {}
+
+-- Function to log damage taken by selected players
+local function LogDamage(player, damageAmount)
+    print(player.Name .. " took " .. damageAmount .. " damage")
+    -- You can add more advanced logging or processing here if needed
+end
+
 -- Function to connect to the player's health changes
 local function ConnectHealthChanged(player)
-    local character = player.Character
-    if character then
-        local humanoid = character:FindFirstChild("Humanoid")
+    local function DisconnectHealthChanged()
+        local humanoid = player.Character:FindFirstChild("Humanoid")
         if humanoid then
             initialHealth[player] = humanoid.Health
 
@@ -3526,8 +3534,20 @@ local function ConnectHealthChanged(player)
                 end
                 initialHealth[player] = currentHealth
             end)
+
+            player.Character.AncestryChanged:Connect(function(_, newParent)
+                if newParent == nil then
+                    healthChangedConnection:Disconnect()
+                end
+            end)
         end
     end
+
+    player.CharacterAdded:Connect(function()
+        DisconnectHealthChanged()
+        -- Reconnect the event for the new character
+        DisconnectHealthChanged()
+    end)
 end
 
 -- Check existing players for selected names
