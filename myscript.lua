@@ -1605,9 +1605,9 @@ end
 local function damageplayer(player)
     for i, p in pairs(game.Workspace:GetChildren()) do
         if p.Name == player then
-            print("Damaging " .. player)
+            --print("Damaging " .. player)
             game:GetService("ReplicatedStorage").jdskhfsIIIllliiIIIdchgdIiIIIlIlIli:FireServer(p.Humanoid, 1) -- the last arguement is not damage don't bother changin it
-            print("Damaged " .. player)
+            --print("Damaged " .. player)
         end
     end
 end
@@ -3458,6 +3458,7 @@ local initialHealth = {}
 
 -- Function to log damage taken by selected players
 local function LogDamage(player, damageAmount)
+    if damageAmount<0 then damageAmount=-damageAmount end
     print(player.Name .. " took " .. damageAmount .. " damage")
     local enemy = findDmg(damageAmount)
     if not enemy then return end
