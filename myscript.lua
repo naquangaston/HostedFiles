@@ -3550,8 +3550,8 @@ local function ConnectHealthChanged(player)
         LogEvent(player, "character changed")
         DisconnectHealthChanged()
         -- Reconnect the event for the new character
-        DisconnectHealthChanged()
     end)
+    DisconnectHealthChanged()
 end
 
 -- Check existing players for selected names
