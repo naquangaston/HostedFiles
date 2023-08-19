@@ -21,7 +21,7 @@ local prefixs = {
     {Prefix = "qdD", Number = 1000000000000000000000000000000000000000000000, Term = "Quattuordecillion"},
     {Prefix = "QnD", Number = 1000000000000000000000000000000000000000000000000, Term = "Quindecillion"},
     {Prefix = "sxD", Number = 1000000000000000000000000000000000000000000000000000, Term = "Sedecillion"},
-    {Prefix = "SpD", Number = 1000000000000000000000000000000000000000000000000000000, Term = "Septendecillion"},
+    {Prefix = "SpD", NumbQer = 1000000000000000000000000000000000000000000000000000000, Term = "Septendecillion"},
     {Prefix = "OcD", Number = 1000000000000000000000000000000000000000000000000000000000, Term = "Octodecillion"},
     {Prefix = "NvD", Number = 1000000000000000000000000000000000000000000000000000000000000, Term = "Novemdecillion"},
     {Prefix = "Vgn", Number = 1000000000000000000000000000000000000000000000000000000000000000, Term = "Vigintillion"},
@@ -3460,6 +3460,7 @@ local initialHealth = {}
 local function LogDamage(player, damageAmount)
     print(player.Name .. " took " .. damageAmount .. " damage")
     local enemy = findDmg(damageAmount)
+    if not enemy then return end
     print(
         "IncDMG:",
         increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, incDMG_),
