@@ -3521,11 +3521,13 @@ end
 -- Function to connect to the player's health changes
 local function ConnectHealthChanged(player)
     local function DisconnectHealthChanged()
+        repeat wait(0) until player.Character:FindFirstChild("Humanoid");
         local humanoid = player.Character:FindFirstChild("Humanoid")
         if humanoid then
             initialHealth[player] = humanoid.Health
 
             local healthChangedConnection
+            print("Connected HP",player)
             healthChangedConnection = humanoid:GetPropertyChangedSignal("Health"):Connect(function()
                 local currentHealth = humanoid.Health
                 local initialHealthValue = initialHealth[player]
@@ -3536,6 +3538,7 @@ local function ConnectHealthChanged(player)
 
             player.Character.AncestryChanged:Connect(function(_, newParent)
                 if newParent == nil then
+                    print("Disconnected HP",player)
                     healthChangedConnection:Disconnect()
                 end
             end)
