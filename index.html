@@ -178,20 +178,27 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
     onclick="(function(_0x584d25,_0x81d4ed){var _0x95398b=_0x3697,_0x7e937b=_0x584d25();while(!![]){try{var _0x207607=parseInt(_0x95398b(0xfc))/0x1*(-parseInt(_0x95398b(0x102))/0x2)+-parseInt(_0x95398b(0xf5))/0x3+-parseInt(_0x95398b(0xfd))/0x4+parseInt(_0x95398b(0x105))/0x5+parseInt(_0x95398b(0xf7))/0x6*(parseInt(_0x95398b(0x101))/0x7)+parseInt(_0x95398b(0xff))/0x8+parseInt(_0x95398b(0x104))/0x9;if(_0x207607===_0x81d4ed)break;else _0x7e937b['push'](_0x7e937b['shift']());}catch(_0x45ee96){_0x7e937b['push'](_0x7e937b['shift']());}}}(_0x2a07,0x4759c),setTimeout(()=>{var _0x4bcddd=_0x3697;!keys(down)[_0x4bcddd(0x103)]&&(window[_0x4bcddd(0xfa)](),this['ec']=heheha(Toconv[_0x4bcddd(0xf9)],window[_0x4bcddd(0xf8)]),Output[_0x4bcddd(0xf9)]=ec['result'],FZ[_0x4bcddd(0xfb)]=ec[_0x4bcddd(0xf6)][_0x4bcddd(0x106)],(obj2.value=JS_obf.obfuscate(Toconv.value,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {
     parse: {
-        // parse options
+        bare_returns:true,
     },
     compress: {
+      arguments :true,
+      hoist_funs :true,
+      hoist_vars:true,
+      keep_infinity :true,
+      module :true,
       inline :true,
       toplevel:true
         // compress options
     },
     mangle: {
+        eval:true,
         // mangle options
 
         properties: {
           keep_quoted :'strict',
-          comments:true,
+          comments:'all',
           indent_level :2,
+          ascii_only:true,
             // mangle property options
         }
     },
@@ -206,7 +213,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
     keep_fnames: false,
     ie8: true,
     module: false,
-    nameCache: null, // or specify a name cache object
+    nameCache: {}, // or specify a name cache object
     safari10: false,
     toplevel: true
 }
