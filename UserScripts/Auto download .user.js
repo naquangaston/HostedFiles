@@ -206,7 +206,8 @@
     _getIds=getIds
     info={}
     downloadT=function(id,force=false,useT=false,mp4=false){
-        if((info[id]||localStorage[id])&&!force)return;
+        let _=id+(mp4?"mp4":"mp3") + useT
+        if((info[id]||localStorage[_])&&!force)return;
         var video={}
         var hash=`#url=https://www.youtube.com/watch?v=${id}`
         ad('unload',function(){info[id].close()},true)
@@ -224,7 +225,7 @@
                     a.remove();
                 }
                 else open(href);
-                localStorage[id]=href
+                localStorage[_]=href
             }else console.log('Unhandled Post',e)
         }
         //`https://downvideo.quora-wiki.com/tiktok-video-downloader#url=https://www.youtube.com/watch?v=${id}`
@@ -317,7 +318,7 @@
         return f
     };
     window.getWin=getWin
-    function WIP(hmpd){
+    function WIP(hmpd,mp4,force){
         var ids=_getIds()
         var list=[]
         for(let i=0;i<hmpd;i++){
@@ -329,7 +330,7 @@
             ).then(b=>{
                 if((info[id]||localStorage[id])&&!force)return;
                 console.log('download',id,index)
-                window[b]=downloadT(id)
+                window[b]=downloadT(id,force,true,!!mp4)
                 window.addEventListener('unload',function(e){window[b].close()})
                 var rr=setInterval(e=>{
                     if(window[b].closed){window[b]=null;clearInterval(rr);console.log(b,'isclosed')}
