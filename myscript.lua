@@ -1,6 +1,47 @@
+local function teamCheck(name)
+	local playerTeam=nil
+	local includesMember
+	for a,b in pairs(workspace.Teams:GetChildren())do
+		print(b)
+		for c,member in pairs(b:GetChildren())do
+			if(member.value==game.Players.LocalPlayer.Name)then
+				playerTeam=a
+				print(a,b,c,member)
+			end
+		end
+	end
+	if not playerTeam then return false end
+	for a,b in pairs(workspace.Teams:GetChildren()[playerTeam]:GetChildren())do
+		if(b.value==name)then return true end
+	end
+	return false
+end
+local function findClosestPlayer()
+    local players = game.Players:GetPlayers()
+    local closestPlayer = nil
+    local closestDistance = math.huge
+    local localPlayerPosition = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.PrimaryPart.Position
+
+    if localPlayerPosition then
+        for _, player in pairs(players) do
+            if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0 then
+                local playerPosition = player.Character and player.Character.PrimaryPart and player.Character.PrimaryPart.Position
+                if playerPosition then
+                    local distance = (localPlayerPosition - playerPosition).Magnitude
+                    if distance < closestDistance and not teamCheck(player.Name) then
+                        closestPlayer = player
+                        closestDistance = distance
+                    end
+                end
+            end
+        end
+    end
+
+    return closestPlayer
+end
 print("Starting up")
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/naquangaston/HostedFiles/main/myscript.lua"))()
-local incDMG_=60
+local incDMG_=100
 local justDied=false
 local prefixs = {
     {Prefix = "", Number = 1, Term = "Ones"},
@@ -557,14 +598,14 @@ local function moveToTarget(target, humanoid)
             humanoid:MoveTo(currentWaypoint.Position)
             moveToFinished()
             wait(1)
-            defaultDistance = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude + 1
+            defaultDistance = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
             print("defaultDistance:",defaultDistance)
         else
             local distanceToWaypoint = (currentWaypoint.Position - humanoid.RootPart.Position).Magnitude
             if currentWaypoint.Action == Enum.PathWaypointAction.Jump then
                 humanoid.Jump=true
             end
-            while distanceToWaypoint > (defaultDistance or 5) do
+            while (distanceToWaypoint-3) > (defaultDistance or 5) do
                 if(attacking_ or  justDied) then break end
                 humanoid:MoveTo(currentWaypoint.Position)
                 moveToFinished()
@@ -1384,7 +1425,7 @@ local function aura()
                 local function atk()
                     --teleportInFrontOfPlayer(t_)
                     local randomOffsetX = math.random(-15, 15)
-                    local randomOffsetY = 1
+                    local randomOffsetY = math.random(-15, 15)
                     local randomOffsetX = math.random(-15, 15)
                     local newPos =
                         player.Character:WaitForChild("HumanoidRootPart").Position +
@@ -1482,7 +1523,9 @@ local function aura()
                 CurrentTarget = alive[1][1].name
                 for _, player in pairs(alive) do
                     if (not Zoned[player.name]) then
-                        game:GetService("ReplicatedStorage").jdskhfsIIIllliiIIIdchgdIiIIIlIlIli:FireServer(player[2], 1)
+                        --game:GetService("ReplicatedStorage").jdskhfsIIIllliiIIIdchgdIiIIIlIlIli:FireServer(player[2], 1)
+                        print(findClosestPlayer())
+                        game:GetService("ReplicatedStorage").jdskhfsIIIllliiIIIdchgdIiIIIlIlIli:FireServer(findClosestPlayer().Character.Humanoid, 1)
                     end
                 end
             end
@@ -1760,13 +1803,24 @@ Gameplaydiv:addToggle(
 )
 
 local dmga
+
 Gameplaydiv:addToggle(
     {
         title = "Kill aura",
         toggled = nil,
         callback = function(value)
-            _G.toggle2 = not value
+            _G.toggle2 =  not value
             toggleAura()
+        end
+    }
+)
+Gameplaydiv:addToggle(
+    {
+        title = "Auto PVP",
+        toggled = nil,
+        callback = function(value)
+            _G.autoPVP =not  not value
+            print("_G.autoPVP",_G.autoPVP)
         end
     }
 )
@@ -1782,6 +1836,20 @@ Gameplaydiv:addToggle(
 )
 Gameplaydiv:addToggle(
     {
+        title = "Auto Fight",
+        toggled = nil,
+        callback = function(value)
+            autoFight = not not autoFight
+            print("AutoFight:", autoFight)
+            while(autoFight)do
+            	local target=parsePlayer(findClosestPlayer())
+            	wait(0)
+            end
+        end
+    }
+)
+Gameplaydiv:addToggle(
+    {
         title = "Use target",
         toggled = nil,
         callback = function(value)
@@ -1789,16 +1857,6 @@ Gameplaydiv:addToggle(
         end
     }
 )
-Gameplaydiv:addToggle(
-    {
-        title = "Force target",
-        toggled = nil,
-        callback = function(value)
-            forcetarget = value
-        end
-    }
-)
-
 Gameplaydiv:addButton(
     {
         title = "Damage Player",
@@ -3356,10 +3414,10 @@ local function hptp()
                         print("damage taken", OldHealth - Humanoid.Health)
                         print(
                             "IncDMG:",
-                            increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, 10),
+                            increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, incDMG_),
                             enemy.lvl
                         )
-                        if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, 50) < enemy.lvl then
+                        if increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, incDMG_) < enemy.lvl then
                             warn(enemy.player.name .. " Is to strong self")
                             return
                         end
@@ -3371,8 +3429,8 @@ local function hptp()
                         local newPos =
                             enemy.player.Character:WaitForChild("HumanoidRootPart").Position +
                             Vector3.new(randomOffsetX, randomOffsetY, randomOffsetZ)
-                        useAllFire(enemy.player.Character.HumanoidRootPart)
-                        if not attacking_ or increaseByPercentage(info.lvl, 10) then
+                        useAllFire(enemy.player.Character.HumanoidRootPart);damageplayer(enemy.player.Name);
+                        if _G.autoPVP and (not attacking_ or increaseByPercentage(info.lvl, incDMG_)) then
                             attacking_ = true
                         else
                             return nil
@@ -3440,7 +3498,7 @@ local AnimalSim={
 }
 -- List of select player names
 local selectedPlayers = {
-    "282475249a7auto","9","Allaboutsuki","DefNotRealMe","Doornextguythat","Little_Puppywolf","ProGammerMove_1","RektBySuki","RektBySukisAlt","Rockyrode112","Rose_altl5","Sakura_Mirai","SimpleDisasters","TheBestAccount_mom","TheFreeAccount_Free1","TheOneMyth","Unicornzzz6109","baby46793","batman_kite","foalsarecut","iwillendUmadaf4","miner_havennoob","naypolm","naypolm005","naypolm05","naypolm12","naypolm1789","qwertyPCLOL","ll_BANX"    -- Add more player names as needed
+    "282475249a7auto","9","Allaboutsuki","DefNotRealMe","Doornextguythat","Little_Puppywolf","ProGammerMove_1","RektBySuki","RektBySukisAlt","Rockyrode112","Rose_altl5","Sakura_Mirai","SimpleDisasters","TheBestAccount_mom","TheFreeAccount_Free1","TheOneMyth","Unicornzzz6109","baby46793","batman_kite","foalsarecut","iwillendUmadaf4","Miner_havennoob","naypolm","naypolm005","naypolm05","naypolm12","naypolm1789","qwertyPCLOL","ll_BANX","xXxnothingxXx274", "dexvilxtails"    -- Add more player names as needed
 }
 local localPlayer = game.Players.LocalPlayer
 if localPlayer then
@@ -3457,10 +3515,11 @@ local initialHealth = {}
 
 -- Function to log damage taken by selected players
 local function LogDamage(player, damageAmount)
+	
     if damageAmount<0 then damageAmount=-damageAmount end
     print(player.Name .. " took " .. damageAmount .. " damage")
     local enemy = findDmg(damageAmount)
-    if not enemy then return end
+    if not enemy or not _G.autoPVP then return end
     print(
         "IncDMG:",
         increaseByPercentage(game.Players.LocalPlayer.leaderstats.Level.value, incDMG_),
@@ -3478,8 +3537,8 @@ local function LogDamage(player, damageAmount)
     local newPos =
         enemy.player.Character:WaitForChild("HumanoidRootPart").Position +
         Vector3.new(randomOffsetX, randomOffsetY, randomOffsetZ)
-    useAllFire(enemy.player.Character.HumanoidRootPart)
-    if not attacking_ or increaseByPercentage(info.lvl, 10) then
+    useAllFire(enemy.player.Character.HumanoidRootPart);damageplayer(enemy.player.Name)
+    if not attacking_ or increaseByPercentage(info.lvl, incDMG_) or not _G.autoPVP then
         attacking_ = true
     else
         return nil
@@ -3574,3 +3633,4 @@ game.Players.PlayerAdded:Connect(function(player)
 end)
 end
 )
+
