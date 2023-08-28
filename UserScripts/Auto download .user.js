@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  try to take over the world!
-// @author        gaston1799
+// @author       You
 // @match         *://www.youtube.com/*
 // @match         *://onlymp3.to/*
 // @match         *://en.onlymp3.to/*
@@ -173,7 +173,7 @@ getClass=function(name_){
             setTimeout(()=>{document.querySelector("#VGHGFf > div > div.Eddif > div:nth-child(2) > button > div.VfPpkd-RLmnJb").click();},1000)
         },1000)
     }
-    setElement2=function (string){return string.match(/(?<host>https?\:\/\/www\.tiktok\.com)\/(?<username>@\w+)\/video\/(?<videoID>\d+)/i).groups}
+    setElement2=function (string){return string.match(/(?<host>https?\:\/\/www\.tiktok\.com)\/(?<username>@[^\/]+)\/video\/(?<videoID>\d+)/i).groups}
     var Porigin='https://onlymp3.to'
     var Ppath='/watch?='
     function ad(listener,f,autoDelete=false){
@@ -279,11 +279,11 @@ getClass=function(name_){
         let user=info.username
         onmessage=function(e){
             if(e.origin==Porigin||e.origin.match(/https?:\/{2}savetik\.csavetik.coo/)||e.origin.match(/https?:\/{2}en\.onlymp3\.to/)||e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/)||e.origin=="https://savetik.co"){
-                const {data:{href,links,title,length,id,mp4}}=e
+                const {data:{href,links,title,length,id,mp4,info:{username}}}=e
                 console.log('Handled',{href,title,length,id,links,mp4},e)
                 //info[id].close()
                 if(e.origin=="https://savetik.co"){
-                    downloadFileAsTitle(mp4?links[0]:links.pop(),title+(mp4?'.mp4':".mp3"))
+                    downloadFileAsTitle(mp4?links[0]:links.pop(),username+" - "+title+(mp4?'.mp4':".mp3"))
                 }else{
                     if(useT){
                         let a=document.createElement('a')
@@ -504,15 +504,16 @@ getClass=function(name_){
             tF(function(){
                 s_input.value=id
                 ksearchvideo()
-                setTimeout(ksearchvideo,1000)
+                setTimeout(ksearchvideo,100)
             },{callback(){}})
         })
         function Fin(){
             console.log("Found")
             let title=document.getElementsByClassName("clearfix")[0].innerText
             let links=findhref2(document.getElementsByClassName("tik-video")[0]).map(e=>e.href)
-            let f={title,links,mp4:mp4==1}
+            let f={title,links,mp4:mp4==1,info:setElement2(id)}
             ;(opener||window).postMessage(f,'*')
+            setTimeout(close,100)
         }
 
         tF(function(){document.getElementsByClassName("clearfix")[0].innerText;Fin()},{callback(){}})
