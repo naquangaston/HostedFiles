@@ -1,22 +1,67 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  try to take over the world!
 // @author       You
 // @match         *://www.youtube.com/*
 // @match         *://onlymp3.to/*
 // @match         *://en.onlymp3.to/*
 // @match         *://www.yt2conv.com/*
+// @match         *://www.tiktok.com/*
 // @match         *://en2.onlinevideoconverter.pro/*
+// @match         *://savetik.co/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @require https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
-// @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
+// @require      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+// @require      https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
 // @grant        GM_info
+// @grant        GM_setValue
+// @grant        GM_getValue
 // @grant        GM_xmlhttpRequest
 // @run-at document-start
 // ==/UserScript==
-
+GM_setValue_=GM_setValue
+GM_getValue_=GM_getValue
+GM_info_=GM_info
+getElementByAttribute=function getElementByAttribute(label,item='aria-label',doc=document.body){
+    var res=[];
+    function part2(e){
+        if(e.getAttribute(item)==label){
+            res.push(e);
+        }else{
+            if(e.children.length){
+                e=e.children;
+                e.forEach=[].forEach;
+                e.forEach(e2=>{
+                    part2(e2);
+                })
+            }
+        }
+    };
+    part2(doc);
+    return res.length==1?res[0]:res||false;
+}
+get_aria_label=function(label,doc=document.body){
+    var res=[];
+    function part2(e){
+        if(e.getAttribute('aria-label')==label){
+            res.push(e);
+        }else{
+            if(e.children.length){
+                e=e.children;
+                e.forEach=[].forEach;
+                e.forEach(e2=>{
+                    part2(e2);
+                })
+            }
+        }
+    };
+    part2(doc);
+    return res[0]||false;
+}
+getClass=function(name_){
+    return document.getElementsByClassName("ehlq8k34")[0]
+}
 ;(function() {
     //'use strict';
     class element {
@@ -94,6 +139,33 @@
             })([...this.element.children]);
         }
     }
+    function downloadFileAsTitle(url, title) {
+        // Create a hidden anchor element
+        const anchor = document.createElement('a');
+        anchor.style.display = 'none';
+        document.body.appendChild(anchor);
+
+        // Fetch the file data
+        fetch(url)
+            .then(response => response.blob())
+            .then(blob => {
+            // Create an object URL from the blob
+            const objectUrl = URL.createObjectURL(blob);
+
+            // Set anchor attributes
+            anchor.href = objectUrl;
+            anchor.download = title;
+
+            // Programmatically click the anchor element to trigger download
+            anchor.click();
+
+            // Clean up the object URL
+            URL.revokeObjectURL(objectUrl);
+        })
+            .catch(error => {
+            console.error('Error downloading file:', error);
+        });
+    }
     function sk(){
         get_aria_label('Why this ad?').click();
         setTimeout(()=>{
@@ -101,43 +173,7 @@
             setTimeout(()=>{document.querySelector("#VGHGFf > div > div.Eddif > div:nth-child(2) > button > div.VfPpkd-RLmnJb").click();},1000)
         },1000)
     }
-    window.getElementByAttribute=function getElementByAttribute(label,item='aria-label',doc=document.body){
-        var res=[];
-        function part2(e){
-            if(e.getAttribute(item)==label){
-                res.push(e);
-            }else{
-                if(e.children.length){
-                    e=e.children;
-                    e.forEach=[].forEach;
-                    e.forEach(e2=>{
-                        part2(e2);
-                    })
-                }
-            }
-        };
-        part2(doc);
-        return res.length==1?res[0]:res||false;
-    }
-    window.get_aria_label=function (label,doc=document.body){
-        var res=[];
-        function part2(e){
-            if(e.getAttribute('aria-label')==label){
-                res.push(e);
-            }else{
-                if(e.children.length){
-                    e=e.children;
-                    e.forEach=[].forEach;
-                    e.forEach(e2=>{
-                        part2(e2);
-                    })
-                }
-            }
-        };
-        part2(doc);
-        return res[0]||false;
-    }
-
+    setElement2=function (string){return string.match(/(?<host>https?\:\/\/www\.tiktok\.com)\/(?<username>@\w+)\/video\/(?<videoID>\d+)/i).groups}
     var Porigin='https://onlymp3.to'
     var Ppath='/watch?='
     function ad(listener,f,autoDelete=false){
@@ -237,6 +273,32 @@
         return info[id]=mp4?
             open('https://en1.onlinevideoconverter.pro/112Ei/youtube-downloader-mp4',[id,location.pathname.startsWith('/shorts/')?1:0],`width=400,height=500`)
         :open([o.protocol,'//',o.host,o.pathname,'?v=',id].join(''),[id,location.pathname.startsWith('/shorts/')?1:0],`width=400,height=500`)
+    }
+    downloadTikTok=function(mp4,info){
+        let id=info.videoID
+        let user=info.username
+        onmessage=function(e){
+            if(e.origin==Porigin||e.origin.match(/https?:\/{2}savetik\.csavetik.coo/)||e.origin.match(/https?:\/{2}en\.onlymp3\.to/)||e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/)||e.origin=="https://savetik.co"){
+                const {data:{href,links,title,length,id,mp4}}=e
+                console.log('Handled',{href,title,length,id,links,mp4},e)
+                //info[id].close()
+                if(e.origin=="https://savetik.co"){
+                    downloadFileAsTitle(mp4?links[0]:links.pop(),title+(mp4?'.mp4':".mp3"))
+                }else{
+                    if(useT){
+                        let a=document.createElement('a')
+                        a.download=title+'.mp4'
+                        a.href=href
+                        document.body.appendChild(a)
+                        a.click()
+                        a.remove();
+                    }
+                    else open(href);
+                    localStorage[_]=href
+                }
+            }else console.log('Unhandled Post',e)
+        }
+        open("https://savetik.co/en",[`https://www.tiktok.com/${user}/video/${id}`,mp4+false],`width=400,height=500`)
     }
     function abc(label, item = 'aria-label', doc = document.body) {
         var res = [];
@@ -343,14 +405,36 @@
     window.WIP=WIP
     var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),false,true)})
     var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),false,true,true)})
+
+    var tiktokButton=(new element('button')).set("innerText","Get MP4").on('click',function(e){
+        downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))
+    })
+    var tiktokButton2=(new element('button')).set("innerText","Get MP3").on('click',function(e){
+        downloadTikTok(false,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))
+    })
+
     function appendButtons(){
         button.appendTo($("#end")[0])
         button2.appendTo($("#end")[0])
     }
-    tF(function(){
-        if(!$("#end")[0]) throw "Cant append buttons yet"
-        return true
-    },{callback:appendButtons})
+    a1=[
+        ["youtube",tF(function(){if(!$("#end")[0]) throw "Cant append buttons yet";return true},{callback:appendButtons})],
+        ["tiktok",function(){
+            addEventListener("load",function(){
+                tF(function(){
+                    if(!document.getElementsByClassName("ehlq8k33")[0])throw "Cant Append";
+                    tiktokButton.appendTo(document.getElementsByClassName("ehlq8k33")[0])
+                    tiktokButton2.appendTo(document.getElementsByClassName("ehlq8k33")[0])
+                },{callback:function(){}})
+                tF(function(){
+                    if(!document.getElementsByClassName("e13wiwn60")[0])throw "Cant Append";
+                    tiktokButton.appendTo(document.getElementsByClassName("e13wiwn60")[0])
+                    tiktokButton2.appendTo(document.getElementsByClassName("e13wiwn60")[0])
+
+                },{callback:function(){}})
+            })
+        }]
+    ].filter(e=>location.host.includes(e[0]))[0];a1&&a1[1]&&(a1[1]());delete a1;
     if(location.href.includes('onlymp3.to')){
         setInterval(()=>{
             if(document.getElementById('error-text').innerText.length>5)location.reload();
@@ -413,6 +497,25 @@
             ;(opener||window).postMessage(f,'*')
         },{callback:close})
 
+    }
+    if(location.href.includes("savetik.co")){
+        var [id,mp4]=name.split(",")
+        addEventListener("load",function(){
+            tF(function(){
+                s_input.value=id
+                ksearchvideo()
+                setTimeout(ksearchvideo,100)
+            },{callback(){}})
+        })
+        function Fin(){
+            console.log("Found")
+            let title=document.getElementsByClassName("clearfix")[0].innerText
+            let links=findhref2(document.getElementsByClassName("tik-video")[0]).map(e=>e.href)
+            let f={title,links,mp4:mp4==1}
+            ;(opener||window).postMessage(f,'*')
+        }
+
+        tF(function(){document.getElementsByClassName("clearfix")[0].innerText;Fin()},{callback(){}})
     }
     setInterval(e=>{
         document.getElementsByClassName("ytp-ad-button-icon")[0]&&!didmute&&(console.log('muted ad'),didmute=1,Mute());
