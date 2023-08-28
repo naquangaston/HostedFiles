@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.7
 // @description  try to take over the world!
 // @author       You
 // @match         *://www.youtube.com/*
@@ -245,7 +245,7 @@ getClass=function(name_){
     info={}
     downloadT=function(id,force=false,useT=false,mp4=false){
         let _=id+(mp4?"mp4":"mp3") + useT
-        if((info[id]||localStorage[_])&&!force)return;
+        if((localStorage[_])&&!force)return;
         var video={}
         var hash=`#url=https://www.youtube.com/watch?v=${id}`
         ad('unload',function(){info[id].close()},true)
