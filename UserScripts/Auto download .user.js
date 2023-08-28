@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  try to take over the world!
-// @author       You
+// @author        gaston1799
 // @match         *://www.youtube.com/*
 // @match         *://onlymp3.to/*
 // @match         *://en.onlymp3.to/*
@@ -504,7 +504,7 @@ getClass=function(name_){
             tF(function(){
                 s_input.value=id
                 ksearchvideo()
-                setTimeout(ksearchvideo,100)
+                setTimeout(ksearchvideo,1000)
             },{callback(){}})
         })
         function Fin(){
