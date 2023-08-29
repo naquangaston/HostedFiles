@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      0.7
+// @version      0.8
 // @description  try to take over the world!
 // @author       You
 // @match         *://www.youtube.com/*
@@ -418,7 +418,7 @@ getClass=function(name_){
         button2.appendTo($("#end")[0])
     }
     a1=[
-        ["youtube",tF(function(){if(!$("#end")[0]) throw "Cant append buttons yet";return true},{callback:appendButtons})],
+        ["youtube",function(){tF(function(){if(!$("#end")[0]) throw "Cant append buttons yet";return true},{callback:appendButtons})}],
         ["tiktok",function(){
             addEventListener("load",function(){
                 tF(function(){
