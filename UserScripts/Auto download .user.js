@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  try to take over the world!
 // @author       You
 // @match         *://www.youtube.com/*
@@ -271,7 +271,7 @@ getClass=function(name_){
         o.host=o.host.replace('.com','mz.com');
         //open([o.protocol,'//',o.host,o.pathname,'?v=',setElement(location.href)].join(''))
         return info[id]=mp4?
-            open('https://en1.onlinevideoconverter.pro/112Ei/youtube-downloader-mp4',[id,location.pathname.startsWith('/shorts/')?1:0],`width=400,height=500`)
+            open('https://en1.onlinevideoconverter.pro/112Ei/youtube-downloader-mp4',[id,location.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
         :open([o.protocol,'//',o.host,o.pathname,'?v=',id].join(''),[id,location.pathname.startsWith('/shorts/')?1:0],`width=400,height=500`)
     }
     downloadTikTok=function(mp4,info){
@@ -402,7 +402,7 @@ getClass=function(name_){
             })
         })
     }
-    window.WIP=WIP
+    WIP_=WIP
     var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),false,true)})
     var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),false,true,true)})
 
