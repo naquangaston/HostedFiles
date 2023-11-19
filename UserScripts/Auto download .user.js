@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      0.9
+// @version      1.0
 // @description  try to take over the world!
 // @author       You
 // @match         *://www.youtube.com/*
@@ -383,6 +383,7 @@ getClass=function(name_){
     };
     window.getWin=getWin
     function WIP(hmpd,mp4,force){
+        if(!hmpd);
         var ids=_getIds()
         var list=[]
         for(let i=0;i<hmpd;i++){
@@ -397,7 +398,7 @@ getClass=function(name_){
                 window[b]=downloadT(id,force,true,!!mp4)
                 window.addEventListener('unload',function(e){window[b].close()})
                 var rr=setInterval(e=>{
-                    if(window[b].closed){window[b]=null;clearInterval(rr);console.log(b,'isclosed')}
+                    if(!window[b] || window[b].closed){window[b]=null;clearInterval(rr);console.log(b,'isclosed')}
                 },300);
             })
         })
@@ -405,7 +406,8 @@ getClass=function(name_){
     WIP_=WIP
     var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),false,true)})
     var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),false,true,true)})
-
+    var button3 = (new element('button')).set("innerText","PlayList MP3").on('click',function(e){WIP_(2,false,false)})
+    var button4 = (new element('button')).set("innerText","PlayList MP4").on('click',function(e){WIP_(2,true,false)})
     var tiktokButton=(new element('button')).set("innerText","Get MP4").on('click',function(e){
         downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))
     })
@@ -416,6 +418,30 @@ getClass=function(name_){
     function appendButtons(){
         button.appendTo($("#end")[0])
         button2.appendTo($("#end")[0])
+        function _ex(){
+        try{
+
+            [...document.getElementsByTagName('ytd-playlist-panel-renderer')].filter(isElementInViewport).filter(e=>!isHidden(e))[0].children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0]
+            return true
+        }
+            catch(err){
+                return false
+            }
+        }
+        var exist=false
+        setInterval(()=>{
+            if(exist!=_ex() && _ex()){
+                console.log("Added playlist buttons")
+                setTimeout(()=>{
+                    button3.appendTo([...document.getElementsByTagName('ytd-playlist-panel-renderer')].filter(isElementInViewport).filter(e=>!isHidden(e))[0].children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0])
+                button4.appendTo([...document.getElementsByTagName('ytd-playlist-panel-renderer')].filter(isElementInViewport).filter(e=>!isHidden(e))[0].children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0])
+                },100)
+            }else
+            if(exist!=_ex() && !_ex()){
+                console.log("buttons are gone?!?!")
+            }
+            exist=_ex()
+        },100)
     }
     a1=[
         ["youtube",function(){tF(function(){if(!$("#end")[0]) throw "Cant append buttons yet";return true},{callback:appendButtons})}],
