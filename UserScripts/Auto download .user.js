@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  try to take over the world!
 // @author       You
 // @match         *://www.youtube.com/*
@@ -243,7 +243,7 @@ getClass=function(name_){
     }
     _getIds=getIds
     info={}
-    downloadT=function(id,force=false,useT=false,mp4=false){
+    downloadT=function(id,force=false,useT=true,mp4=false){
         let _=id+(mp4?"mp4":"mp3") + useT
         if((localStorage[_])&&!force)return;
         var video={}
@@ -404,8 +404,8 @@ getClass=function(name_){
         })
     }
     WIP_=WIP
-    var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),false,true)})
-    var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),false,true,true)})
+    var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),true,true)})
+    var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),true,true,true)})
     var button3 = (new element('button')).set("innerText","PlayList MP3").on('click',function(e){WIP_(2,false,false)})
     var button4 = (new element('button')).set("innerText","PlayList MP4").on('click',function(e){WIP_(2,true,false)})
     var tiktokButton=(new element('button')).set("innerText","Get MP4").on('click',function(e){
@@ -468,10 +468,12 @@ getClass=function(name_){
         console.log('Getting MP3')
         tF(function(f=function(){}){
             var [id,shorts]=name.split(',')
-            txtUrl.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}/${id}`
+            txtUrl.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
             getListFormats();
-        },{callback:function(){}})
-        tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a[1].match(/[:\d]+/gi)[1],t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close});
+        },{callback:function(){
+            console.log("Ez")
+            tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a.map(e=>e.match(/[:\d]+/gi)).filter(e=>!!e).pop().pop(),t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close});
+        }})
         return
     }
     if(location.href.includes("www.yt2conv.com")){
@@ -517,7 +519,7 @@ getClass=function(name_){
         tF(function(){
             if(document.getElementById('form-app-root').children.length==0)throw ""
             console.log('loaded')
-            var{title,href}=$('#download-720-MP4')[0]
+            var{title,href}=$('#download-720-MP4')?$('#download-720-MP4')[0]?$('#download-720-MP4')[0]:$('#download-720-MP4'):$('#download-720-MP4')
             var f={id,href,title,length:{}};
             console.log('Posted')
             ;(opener||window).postMessage(f,'*')
