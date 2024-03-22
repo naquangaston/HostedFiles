@@ -390,6 +390,42 @@ async function _fimg(e, ip = false) {
         div_.appendChild(video)
         video.onclick = () => (confirm("Play Video?")?video.play():open(`http://${e6.value}.net/posts/${e.id}`))
         video.classList.add('green')
+        const sources = [
+        { src: url, type: 'video/mp4' },
+  { src: url, type: 'video/webm' },
+  { src: 'video2.mp4', type: 'video/mp4' }
+  // Add more sources as needed
+];
+
+function loadVideo(sources, index = 0) {
+  if (index >= sources.length) {
+    console.error('No valid video sources found.');
+    return; // No valid source found
+  }
+
+  const source = sources[index];
+  const sourceElement = document.createElement('source');
+  sourceElement.src = source.src;
+  sourceElement.type = source.type;
+  video.appendChild(sourceElement);
+
+  sourceElement.addEventListener('error', () => {
+    console.log(`Failed to load ${source.src}. Switching to the next source...`);
+    video.removeChild(sourceElement); // Remove failed source
+
+    // Try loading the next source
+    loadVideo(sources, index + 1);
+  });
+
+  sourceElement.addEventListener('loadeddata', () => {
+    console.log(`Successfully loaded ${source.src}.`);
+    // Video successfully loaded, no need to try other sources
+    // You can add additional logic here if needed
+  });
+}
+
+// Start loading the video with the first source
+loadVideo(sources);
         allImgs.push([Pimg, video])
     } else {
         var Rimg = document.createElement('img')
