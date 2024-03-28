@@ -81,7 +81,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
   <h2 class="bass-title">
     <span class="bass-blur logo-neon">
       <span class="text-Logo pulse1">
-        V:34
+        V:35
       </span>
     </span>
   </h2>
@@ -388,7 +388,7 @@ async function _fimg(e, ip = false) {
         video.controls = true
         video.appendChild(source)
         div_.appendChild(video)
-        video.onclick = () => (confirm("Play Video?")?video.play():open(`http://${e6.value}.net/posts/${e.id}`))
+        //video.onclick = () => (confirm("Play Video?")?video.play():open(`http://${e6.value}.net/posts/${e.id}`))
         video.classList.add('green')
         const sources = [
         { src: url, type: 'video/mp4' },
