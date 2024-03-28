@@ -81,7 +81,7 @@ import {createOrUpdateTextFile,composeCreateOrUpdateTextFile,} from "https://cdn
   <h2 class="bass-title">
     <span class="bass-blur logo-neon">
       <span class="text-Logo pulse1">
-        V:33
+        V:34
       </span>
     </span>
   </h2>
@@ -381,7 +381,7 @@ async function _fimg(e, ip = false) {
     Pimg.classList.add('red')
     if (e.file.ext == 'webm') {
         var source = document.createElement("source")
-        source.type = `video/mp4`
+        source.type = `video/webm`
         source.src = url
         var video = document.createElement("video")
         video.loop = true
