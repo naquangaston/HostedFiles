@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "got": "^14.2.1",
+    "openai": "^4.28.4",
+    "playwright": "^1.42.1",
+    "prompt-sync": "^4.2.0",
+    "toml": "^3.0.0",
+    "url-exists": "^1.0.3"
+  }
+}
