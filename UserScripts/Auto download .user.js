@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  try to take over the world!
 // @author       You
 // @match         *://www.youtube.com/*
+// @match         *://onlymp3.app/*
 // @match         *://onlymp3.to/*
-// @match         *://en.onlymp3.to/*
+// @match         *://en.onlymp3.app/*
 // @match         *://www.yt2conv.com/*
 // @match         *://www.tiktok.com/*
 // @match         *://en2.onlinevideoconverter.pro/*
@@ -139,14 +140,21 @@ getClass=function(name_){
             })([...this.element.children]);
         }
     }
-    function downloadFileAsTitle(url, title) {
+    function getTikTokTittle(){
+        try{
+            return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > div.css-1d7krfw-DivOverflowContainer.e1mzilcj5 > h1").innerText.replace('Replying to ','')
+        }catch{
+            return document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace('Replying to ','')
+        }
+    }
+    function downloadFileAsTitle(url, title,win,cb) {
         // Create a hidden anchor element
         const anchor = document.createElement('a');
         anchor.style.display = 'none';
         document.body.appendChild(anchor);
 
         // Fetch the file data
-        fetch(url)
+        return fetch(url)
             .then(response => response.blob())
             .then(blob => {
             // Create an object URL from the blob
@@ -161,9 +169,15 @@ getClass=function(name_){
 
             // Clean up the object URL
             URL.revokeObjectURL(objectUrl);
+
+            ;(win||opener||window).postMessage({url,title,s:true},'*');
+            (typeof cb).includes('function')&&(cb());
         })
             .catch(error => {
+
             console.error('Error downloading file:', error);
+            ;(win||opener||window).postMessage({url,title,s:false},'*')
+
         });
     }
     function sk(){
@@ -174,7 +188,7 @@ getClass=function(name_){
         },1000)
     }
     setElement2=function (string){return string.match(/(?<host>https?\:\/\/www\.tiktok\.com)\/(?<username>@[^\/]+)\/video\/(?<videoID>\d+)/i).groups}
-    var Porigin='https://onlymp3.to'
+    var Porigin='https://onlymp3.app'
     var Ppath='/watch?='
     function ad(listener,f,autoDelete=false){
         var _=addEventListener(listener,(...__)=>{f(...__);if(autoDelete)removeEventListener(_)},true)
@@ -277,17 +291,19 @@ getClass=function(name_){
     downloadTikTok=function(mp4,info){
         let id=info.videoID
         let user=info.username
+        var tiktikWin
         onmessage=function(e){
             if(e.origin==Porigin||e.origin.match(/https?:\/{2}savetik\.csavetik.coo/)||e.origin.match(/https?:\/{2}en\.onlymp3\.to/)||e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/)||e.origin=="https://savetik.co"){
-                const {data:{href,links,title,length,id,mp4,info:{username}}}=e
+                var {data:{href,links,title,length,id,mp4,info:{username}}}=e
                 console.log('Handled',{href,title,length,id,links,mp4},e)
                 //info[id].close()
                 if(e.origin=="https://savetik.co"){
-                    downloadFileAsTitle(mp4?links[0]:links.pop(),username+" - "+title+(mp4?'.mp4':".mp3"))
+                    title=getTikTokTittle()
+                    downloadFileAsTitle(mp4?links[0]:links.pop(),username+" - "+title+(mp4?'.mp4':".mp3"),tiktikWin)
                 }else{
                     if(useT){
                         let a=document.createElement('a')
-                        a.download=title+'.mp4'
+                        a.download=title+'.mp3'
                         a.href=href
                         document.body.appendChild(a)
                         a.click()
@@ -298,7 +314,7 @@ getClass=function(name_){
                 }
             }else console.log('Unhandled Post',e)
         }
-        open("https://savetik.co/en",[`https://www.tiktok.com/${user}/video/${id}`,mp4+false],`width=400,height=500`)
+        tiktikWin=open("https://savetik.co/en",[`https://www.tiktok.com/${user}/video/${id}`,mp4+false],`width=400,height=500`)
     }
     function abc(label, item = 'aria-label', doc = document.body) {
         var res = [];
@@ -419,11 +435,11 @@ getClass=function(name_){
         button.appendTo($("#end")[0])
         button2.appendTo($("#end")[0])
         function _ex(){
-        try{
+            try{
 
-            [...document.getElementsByTagName('ytd-playlist-panel-renderer')].filter(isElementInViewport).filter(e=>!isHidden(e))[0].children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0]
-            return true
-        }
+                [...document.getElementsByTagName('ytd-playlist-panel-renderer')].filter(isElementInViewport).filter(e=>!isHidden(e))[0].children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0]
+                return true
+            }
             catch(err){
                 return false
             }
@@ -434,12 +450,12 @@ getClass=function(name_){
                 console.log("Added playlist buttons")
                 setTimeout(()=>{
                     button3.appendTo([...document.getElementsByTagName('ytd-playlist-panel-renderer')].filter(isElementInViewport).filter(e=>!isHidden(e))[0].children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0])
-                button4.appendTo([...document.getElementsByTagName('ytd-playlist-panel-renderer')].filter(isElementInViewport).filter(e=>!isHidden(e))[0].children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0])
+                    button4.appendTo([...document.getElementsByTagName('ytd-playlist-panel-renderer')].filter(isElementInViewport).filter(e=>!isHidden(e))[0].children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0])
                 },100)
             }else
-            if(exist!=_ex() && !_ex()){
-                console.log("buttons are gone?!?!")
-            }
+                if(exist!=_ex() && !_ex()){
+                    console.log("buttons are gone?!?!")
+                }
             exist=_ex()
         },100)
     }
@@ -461,7 +477,7 @@ getClass=function(name_){
             })
         }]
     ].filter(e=>location.host.includes(e[0]))[0];a1&&a1[1]&&(a1[1]());delete a1;
-    if(location.href.includes('onlymp3.to')){
+    if(location.href.includes('onlymp3.app')){
         setInterval(()=>{
             if(document.getElementById('error-text').innerText.length>5)location.reload();
         },20000)
@@ -532,7 +548,7 @@ getClass=function(name_){
             tF(function(){
                 s_input.value=id
                 ksearchvideo()
-                setTimeout(ksearchvideo,100)
+                setTimeout(ksearchvideo,1000)
             },{callback(){}})
         })
         function Fin(){
@@ -540,8 +556,19 @@ getClass=function(name_){
             let title=document.getElementsByClassName("clearfix")[0].innerText
             let links=findhref2(document.getElementsByClassName("tik-video")[0]).map(e=>e.href)
             let f={title,links,mp4:mp4==1,info:setElement2(id)}
+            let Porigin='https://www.tiktok.com'
+            onmessage=function(e){
+                if(e.origin==Porigin){
+                    var {data:{s,url,title}}=e
+                    console.log('Handled',{s,url,title},e)
+                    if(!s){
+                        downloadFileAsTitle(url,title,null,close)
+                    }else setTimeout(close,100)
+                    //info[id].close()
+                }else console.log('Unhandled Post',e)
+            }
             ;(opener||window).postMessage(f,'*')
-            setTimeout(close,100)
+            //setTimeout(close,100)
         }
 
         tF(function(){document.getElementsByClassName("clearfix")[0].innerText;Fin()},{callback(){}})
