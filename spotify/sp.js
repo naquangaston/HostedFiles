@@ -1,6 +1,6 @@
 // get first node js argument and set it to userid 
-const { firefox } = require('playwright');
-
+const { chromium, firefox } = require('playwright');
+const fs = require('fs');
 
 async function sleep(ms) {
     return new Promise(a => setTimeout(a, ms))
@@ -10,7 +10,7 @@ async function sleep(ms) {
 
     var url = `https://open.spotify.com/user/${userid}/playlists`
 
-    const browser = await firefox.launch({ headless: false });
+    const browser = await chromium.launch({ headless: false });
 
     console.log("Browser launched")
 
@@ -27,33 +27,90 @@ async function sleep(ms) {
     }
     var ytPage
     async function searchYT(searchText) {
-        var codeString = `var convertNumberToLetter = char => char.replace(/[3]/g, 'e');var sortSongs = (songName, ...songList) => songList.map(songObj => ({ ...songObj, matchCount: songObj.songname.toLowerCase().split('').reduce((acc, char, i, arr) => char.toLowerCase() === (isNaN(char) ? songName[i] : convertNumberToLetter(songName[i])) && arr.indexOf(char, i - 1) === songName.toLowerCase().indexOf(char.toLowerCase(), acc) ? acc + 1 : acc, 0) })).sort((a, b) => b.matchCount - a.matchCount).slice(0, Math.round(songList.length / 2));var getTopSong = (name, ...list) => list.sort((a, b) => b.matchCount - a.matchCount)[0];var setElement = url => (String(url).match(/^.*((youtu.be\\/)|(v\\/)|(\\/u\\/\\w\\/)|(embed\\/)|(watch\\?)|(shorts\\/))\\??v?=?([^#\\&\\?]*).*/) && String(url).match(/^.*((youtu.be\\/)|(v\\/)|(\\/u\\/\\w\\/)|(embed\\/)|(watch\\?)|(shorts\\/))\\??v?=?([^#\\&\\?]*).*/)[8].length == 11) ? String(url).match(/^.*((youtu.be\\/)|(v\\/)|(\\/u\\/\\w\\/)|(embed\\/)|(watch\\?)|(shorts\\/))\\??v?=?([^#\\&\\?]*).*/)[8] : false;var [songName, views, datePosted, channelName] = contents[0].querySelectorAll("a#thumbnail")[0].parentNode.parentNode.children[1].innerText.split('\\n');var songList_ = [...contents[0].querySelectorAll("a#thumbnail")].map(e => { var [_songName, views, datePosted, channelName] = e.parentNode.parentNode.children[1].innerText.split('\\n'), id = setElement(e.href); return { songname: _songName, views, datePosted, channelName, id } }).filter(e => e.datePosted);getTopSong(search[2].value, ...songList_);`;
+        var codeString = `var convertNumberToLetter = char => char.replace(/[3]/g, 'e');var sortSongs = (songName, ...songList) => songList.map(songObj => ({ ...songObj, matchCount: songObj.songname.toLowerCase().split('').reduce((acc, char, i, arr) => char.toLowerCase() === (isNaN(char) ? songName[i] : convertNumberToLetter(songName[i])) && arr.indexOf(char, i - 1) === songName.toLowerCase().indexOf(char.toLowerCase(), acc) ? acc + 1 : acc, 0) })).sort((a, b) => b.matchCount - a.matchCount).slice(0, Math.round(songList.length / 2));var getTopSong = (name, ...list) => list.sort((a, b) => b.matchCount - a.matchCount)[0];var setElement = url => (String(url).match(/^.*((youtu.be\\/)|(v\\/)|(\\/u\\/\\w\\/)|(embed\\/)|(watch\\?)|(shorts\\/))\\??v?=?([^#\\&\\?]*).*/) && String(url).match(/^.*((youtu.be\\/)|(v\\/)|(\\/u\\/\\w\\/)|(embed\\/)|(watch\\?)|(shorts\\/))\\??v?=?([^#\\&\\?]*).*/)[8].length == 11) ? String(url).match(/^.*((youtu.be\\/)|(v\\/)|(\\/u\\/\\w\\/)|(embed\\/)|(watch\\?)|(shorts\\/))\\??v?=?([^#\\&\\?]*).*/)[8] : false;var [songName, views, datePosted, channelName] = contents[0].querySelectorAll("a#thumbnail")[0].parentNode.parentNode.children[1].innerText.split('\\n');var songList_ = [...contents[0].querySelectorAll("a#thumbnail")].map(e => { var [_songName, views, datePosted, channelName] = e.parentNode.parentNode.children[1].innerText.split('\\n'), id = setElement(e.href); return { songname: _songName, views, datePosted, channelName, id } }).filter(e => e.datePosted&&e.id);getTopSong(search[2].value, ...songList_);`;
 
         if (!ytPage) {
-            ytPage = await createPage("https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den%26next%3Dhttps%253A%252F%252Fwww.youtube.com%252F&hl=en&ec=65620");
+            var loginPageUrl = "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den%26next%3Dhttps%253A%252F%252Fwww.youtube.com%252F&hl=en&ec=65620"
+            ytPage = await createPage("https://www.youtube.com/");
+            //console.log('Waiting...')
             while (true) {
                 await sleep(1);
-                if (ytPage.evaluate("location.href") == "https://www.youtube.com/") break;
+                if (await ytPage.evaluate("location.href") == "https://www.youtube.com/") break;
             }
         }
-
+        //console.log('Loading')
         // Navigate to Spotify search page
         await ytPage.goto(`https://www.youtube.com/results?search_query=${encodeURIComponent(searchText)}`);
 
         while (true) {
             if (await ytPage.evaluate("document.readyState") == "complete") break;
         }
-        console.log("YT is ready")
+        //console.log("YT is ready")
         while (true) {
-            if (await ytPage.evaluate("contents[0]")) break;
+            try {
+                if (await ytPage.evaluate("contents[0]")) break;
+            }
+            catch { }
         }
         console.log("Contents loaded")
 
         var song = await ytPage.evaluate(codeString)
         await ytPage.goto("https://www.youtube.com/")
+        if(song.channelName.includes("Provided to YouTube")) {
+            song.channelName = song.datePosted
+            delete song.datePosted;
+            console.log('Updated Channel name')
+        }
         return song;
     }
-
+    var skippedSongs = [];
+    async function objTpl() {
+        var obj = JSON.parse(fs.readFileSync('playlist.json'), { encoding: 'utf8' });
+        var k = Object.keys(obj)
+        for (let i = 0; i < k.length; i++) {
+            var pl = obj[k[i]].songs
+            for (let ii = 0; ii < pl.length; ii++) {
+                var { title, artist } = pl[ii]
+                if(artist=='E')artist="song";
+                if(song.channelName.includes("Provided to YouTube")) {
+            song.channelName = song.datePosted
+            delete song.datePosted;
+            console.log('Updated Channel name')
+        }
+                if (pl[ii].id) {
+                    //console.log('Skipping: ' + pl[ii].title + ' - ' + artist)
+                    skippedSongs.push(pl[ii])
+                    continue;
+                }
+                try{
+                    var res = await searchYT(title + ' - ' + artist)
+                await ytPage.close();
+                ytPage = null
+                console.log(k[i],res,
+                    `\nPlaylist left: ${i} out of${k.length}\nCurrent Playlist:${k[i]}\nCurrent Song ${pl[ii].title + ' - ' + artist}\nSongs left ${ii} - ${pl.length}`)
+                let { songname, views, channelName, datePosted, id } = res
+                if(channelName&&channelName.includes("Provided to YouTube")) {
+                    channelName = datePosted
+                    datePosted=null
+                    console.log('Updated Channel name')
+                }
+                obj[k[i]].songs[ii] = { title, artist, songname, views, channelName, datePosted, id }
+                
+                fs.writeFileSync('playlist.json', JSON.stringify(
+                    obj,
+                    null, 4)
+                )
+                }catch(err){
+                    console.warn('Skipping: ' + pl[ii].title + ' - ' + artist+'\nReson:'+err.message)
+                    continue
+                }
+            }
+        }
+    }
+    if (fs.existsSync('playlist.json')) {
+        await objTpl()
+        return
+    }
     var playlistPage = await browser.newPage();
 
     await playlistPage.goto(url)
@@ -77,17 +134,18 @@ async function sleep(ms) {
         console.log("Starting Playlist: " + playlist.arthur + " - " + playlist.name)
         obj[playlist.name] = { arthur: playlist.arthur, songs: [] }
         let currentPage = await createPage(playlist.href)
-        var shouldSkip=false
+        var shouldSkip = false
         while (true) {
             await sleep(1)
             try {
                 if (await currentPage.evaluate(`!!document.querySelector("#main > div > div.ZQftYELq0aOsg6tPbVbV > div.jEMA2gVoLgPQqAFrPhFw > div.main-view-container > div.main-view-container__scroll-node > div:nth-child(2) > div.main-view-container__scroll-node-child > main > div.GlueDropTarget > section > div.rezqw3Q4OEPB1m4rmwfw > div.contentSpacing > div.ShMHCGsT93epRGdxJp2w.Ss6hr6HYpN4wjHJ9GHmi > div.JUa6JJNj7R_Y3i4P8YUX > div:nth-child(2)")`)) break;
-                if (await currentPage.evaluate(`document.querySelector("button.Button-sc-1dqy6lx-0:nth-child(2)")&&!document.querySelector("#main > div > div.ZQftYELq0aOsg6tPbVbV > div.jEMA2gVoLgPQqAFrPhFw > div.main-view-container > div.main-view-container__scroll-node > div:nth-child(2) > div.main-view-container__scroll-node-child > main > div.GlueDropTarget > section > div.rezqw3Q4OEPB1m4rmwfw > div.contentSpacing > div.ShMHCGsT93epRGdxJp2w.Ss6hr6HYpN4wjHJ9GHmi > div.JUa6JJNj7R_Y3i4P8YUX > div:nth-child(2)")`)){shouldSkip=true;break;};
+                if (await currentPage.evaluate(`document.querySelector("button.Button-sc-1dqy6lx-0:nth-child(2)")&&!document.querySelector("#main > div > div.ZQftYELq0aOsg6tPbVbV > div.jEMA2gVoLgPQqAFrPhFw > div.main-view-container > div.main-view-container__scroll-node > div:nth-child(2) > div.main-view-container__scroll-node-child > main > div.GlueDropTarget > section > div.rezqw3Q4OEPB1m4rmwfw > div.contentSpacing > div.ShMHCGsT93epRGdxJp2w.Ss6hr6HYpN4wjHJ9GHmi > div.JUa6JJNj7R_Y3i4P8YUX > div:nth-child(2)")`)) { shouldSkip = true; break; };
             } catch { }
         }
         if (shouldSkip) {
             console.log("Skipping Playlist: " + playlist.arthur + " - " + playlist.name)
             delete obj[playlist.name];
+            await currentPage.close();
             continue;
         }
         console.log("Playlist page loaded");
@@ -122,6 +180,15 @@ async function sleep(ms) {
         await sleep(1000);
     }
     console.log("Finished Getting playlist data");
-    console.log(obj) 
-
+    console.log(obj)
+    fs.writeFileSync('playlist.json', JSON.stringify(
+        obj,
+        null, 4)
+    )
+    await playlistPage.close();
+    await objTpl()
+    await ytPage.close();
+    ytPage = null
+    console.log("Finished", obj);
+    console.log('Skipped songs: ',skippedSongs)
 }()
