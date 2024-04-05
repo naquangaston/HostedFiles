@@ -387,10 +387,12 @@ async function _fimg(e, ip = false) {
         //video.onclick = () => (confirm("Play Video?")?video.play():open(`http://${e6.value}.net/posts/${e.id}`))
         video.classList.add('green')
         const sources = [
+          { src: `https://github.com/naquangaston/HostedFiles/raw/main/videos/{e.id}.mp4`, type: 'video/mp4' },
           { src: `./video/${e.id}.webm`, type: 'video/webm' },
           { src: `./video/${e.id}.mp4`, type: 'video/mp4' },
           { src: `https://github.com/naquangaston/HostedFiles/raw/main/videos/{e.id}.mp4`, type: 'video/mp4' },
-        { src: url, type: 'video/webm' }
+        { src: url, type: 'video/mp4' },
+        { src: url, type: 'video/webm' },
   // Add more sources as needed
 ];
 
