@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto download
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.5
 // @description  try to take over the world!
 // @author       You
 // @match         *://www.youtube.com/*
@@ -10,7 +10,7 @@
 // @match         *://en.onlymp3.app/*
 // @match         *://www.yt2conv.com/*
 // @match         *://www.tiktok.com/*
-// @match         *://en2.onlinevideoconverter.pro/*
+// @match         *://en3.onlinevideoconverter.pro/*
 // @match         *://savetik.co/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
@@ -144,7 +144,11 @@ getClass=function(name_){
         try{
             return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > div.css-1d7krfw-DivOverflowContainer.e1mzilcj5 > h1").innerText.replace('Replying to ','')
         }catch{
-            return document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace('Replying to ','')
+            try{
+                return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0").innerText.replace('Replying to ','')
+            }catch(err){
+                return document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace('Replying to ','')
+            }
         }
     }
     function downloadFileAsTitle(url, title,win,cb) {
@@ -214,7 +218,7 @@ getClass=function(name_){
         !callback&&(callback=function(){});!int&&(int=100)
         console.log({f,callback,int})
         try{f();callback();return}catch(err){}
-        var _=setInterval(()=>{try{f();callback();clearInterval(_)}catch(err){}},int||100)
+        var _=setInterval(()=>{try{f();callback();clearInterval(_);}catch(err){}},int||100)
         return _
     }
     function isHidden(el) {
@@ -257,9 +261,9 @@ getClass=function(name_){
     }
     _getIds=getIds
     info={}
-    downloadT=function(id,force=false,useT=true,mp4=false){
+    downloadT=function(id,force=false,useT=true,mp4=false,manual=false){
         let _=id+(mp4?"mp4":"mp3") + useT
-        if((localStorage[_])&&!force)return;
+        if((localStorage[_])&&!force&&(manual?!confirm(`You have already download this video as .${mp4?"mp4":"mp3"}\nStill download?`):true))return;
         var video={}
         var hash=`#url=https://www.youtube.com/watch?v=${id}`
         ad('unload',function(){info[id].close()},true)
@@ -420,8 +424,8 @@ getClass=function(name_){
         })
     }
     WIP_=WIP
-    var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),true,true)})
-    var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),true,true,true)})
+    var button = (new element('button')).set("innerText","Get MP3").on('click',function(e){downloadT(setElement(location.href),true,true,false,true)})
+    var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),true,true,true,true)})
     var button3 = (new element('button')).set("innerText","PlayList MP3").on('click',function(e){WIP_(2,false,false)})
     var button4 = (new element('button')).set("innerText","PlayList MP4").on('click',function(e){WIP_(2,true,false)})
     var tiktokButton=(new element('button')).set("innerText","Get MP4").on('click',function(e){
@@ -478,18 +482,36 @@ getClass=function(name_){
         }]
     ].filter(e=>location.host.includes(e[0]))[0];a1&&a1[1]&&(a1[1]());delete a1;
     if(location.href.includes('onlymp3.app')){
+        let callback=function(){};
+        function b_(){
+            var [id,shorts]=name.split(',')
+            txtUrl.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+            getListFormats();
+        }
+        function a_(){
+            var a=videoTitle.innerText.split('\n'),
+                l=a.map(e=>e.match(/[:\d]+/gi)).filter(e=>!!e).pop().pop(),
+                t=a[0].split('Title: ')[1],
+                h=findhref2(videoTitle.parentNode)[0].href,
+                f={
+                    id:setElement(location.href),
+                    href:h,
+                    title:t
+                    ,length:l
+                };
+            (opener||window).postMessage(f,'*')
+            console.log('Poasted')
+        }
         setInterval(()=>{
             if(document.getElementById('error-text').innerText.length>5)location.reload();
         },20000)
         console.log('Getting MP3')
         tF(function(f=function(){}){
-            var [id,shorts]=name.split(',')
-            txtUrl.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
-            getListFormats();
-        },{callback:function(){
-            console.log("Ez")
-            tF(function(f=function(){}){var a=videoTitle.innerText.split('\n'),l=a.map(e=>e.match(/[:\d]+/gi)).filter(e=>!!e).pop().pop(),t=a[0].split('Title: ')[1],h=findhref2(videoTitle.parentNode)[0].href,f={id:setElement(location.href),href:h,title:t,length:l};(opener||window).postMessage(f,'*')},{callback:close});
-        }})
+            b_()
+            tF(function(f=function(){}){
+            a_()
+        },{callback:close})
+        },{callback:function(){}})
         return
     }
     if(location.href.includes("www.yt2conv.com")){
@@ -516,7 +538,7 @@ getClass=function(name_){
             ;(opener||window).postMessage(f,'*')
         },{callback:close})
     }
-    if(location.href.includes("en2.onlinevideoconverter.pro")){
+    if(location.href.includes("en3.onlinevideoconverter.pro")){
         let [id,shorts]=name.split(',')
         let callback=function(){};
         tF(function(f=function(){}){
@@ -576,7 +598,7 @@ getClass=function(name_){
     setInterval(e=>{
         document.getElementsByClassName("ytp-ad-button-icon")[0]&&!didmute&&(console.log('muted ad'),didmute=1,Mute());
         !document.getElementsByClassName("ytp-ad-button-icon")[0]&&didmute&&(console.log('unmuted video'),!function(){try{Unmute()}catch(err){console.warn('Failed unmuting')}}(),didmute=0);
-        if(document.getElementsByClassName('ytp-ad-skip-button-modern').length==1){document.getElementsByClassName('ytp-ad-skip-button-modern')[0].click();;console.log('Skipped ad')}
+        if(document.getElementsByClassName('ytp-skip-ad-button').length==1){document.getElementsByClassName('ytp-skip-ad-button')[0].click();;console.log('Skipped ad')}
         document.getElementsByClassName('ytp-ad-overlay-close-button')[2]&&(document.getElementsByClassName('ytp-ad-overlay-close-button')[2].click(),console.log('Close ad card'))
     },10)
 })();
