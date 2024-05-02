@@ -2,7 +2,7 @@ function REMOVE_SPACEfINAL(s){
     while(s.match(/(.)\n+([\s]+)?(.)/gi)){
     [...s.match(/(.)\n+([\s]+)?(.)/gi)].forEach(e=>{
     var test=(str,a,b)=>{
-        try{eval(str.replace(a,b));return true}catch{return false}
+        try{eval(`function a(){${str.replace(a,b)}}`);return true}catch{return false}
     }
     var[a,b,c,d]=[...e.match(/(.)\n+([\s]+)?(.)/)]
     var joiners=['',';',',']
@@ -588,7 +588,7 @@ return ${ty}
         );
     console.newLine()
     console.newLine()
-    var part_ = RemoveSpacing(ty.format_(ty))
+    var part_ = REMOVE_SPACEfINAL(ty.format_(ty))
     var part = ty
     part.match(/.(\s+)?\n+(\s+)?./gi).map(e => [e, e.split_replace(/\s+/gi, null, '')]).forEach(line => {
         var one = line[1][0]
