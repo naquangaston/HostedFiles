@@ -400,6 +400,7 @@ function bytesToSize(bytes){var sizes=['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];if
 function ByteArray(str){var bytes=[];var bytesv2=[];for(var i=0;i<str.length;++i){var code=str.charCodeAt(i);bytes=bytes.concat([code]);bytesv2=bytesv2.concat([code&0xff,code/256>>>0])};const byteSize=str=>new Blob([str]).size;var size=byteSize(str);var unit=bytesToSize(size);Object.assign(this,{bytes,bytesv2,size,unit});return{bytes,bytesv2,size,unit}}
 console.newLine = function () { log('') }
 function heheha(str, idkok) {
+    const THISISASTRING=typeof str=='string'
     function Ecode(str) {
         return (/[\w]+/g).test(str) ? '\\u00' + str.charCodeAt(0).toString(16).slice(-4) : str
     }
@@ -558,7 +559,7 @@ function heheha(str, idkok) {
     vars.forEach(v => { ty = ty.replace(v[3], v[0]) })
     vars.v = vars.filter(v => v[1] == "var").map(v => v[0])
     vars.l = vars.filter(v => v[1] == "let").map(v => v[0])
-    _rt ?
+     !THISISASTRING?
         (ty = (Object.keys(methods).length ? ('var [' + Object.keys(methods).map(e => [methods[e]]).join(',') + ']=["' + Object.keys(methods).map(e => e.replace("_", "").split("").map(Ecode).join("")).join('","') + '"];') : "") + "\n" + ty) :
         (ty = `const[${arguments[0].name}]=[(function(){
 ${('var [' + Object.keys(methods).map(e => [methods[e]]).join(',') + ']=["' + Object.keys(methods).map(e => e.replace("_", "").split("").map(Ecode).join("")).join('","') + '"];')};
