@@ -1,3 +1,105 @@
+/**
+ * Represents a permutation index.
+ * @extends Array
+ */
+class PermIndex extends Array {
+    /**
+     * Private field to store generated permutations.
+     * @private
+     */
+    #items = [];
+
+    /**
+     * Creates an instance of PermIndex.
+     * @param {number} length - The length of permutations to generate.
+     */
+    constructor(length) {
+        super();
+        this.#generatePermutations(length);
+        this.push(...this.#items);
+        this.used=new Set();
+    }
+
+    /**
+     * Generates permutations of given length.
+     * @param {number} length - The length of permutations to generate.
+     * @param {string} [prefix=''] - The prefix for permutations.
+     * @private
+     */
+    #generatePermutations(length, prefix = '') {
+        if (length === 0) {
+            this.#items.push(prefix);
+            return;
+        }
+
+        for (let i = 0; i < 26; i++) {
+            const char = String.fromCharCode(97 + i); // 'a' to 'z'
+            this.#generatePermutations(length - 1, prefix + char);
+        }
+    }
+
+    /**
+     * Get a random permutation from the list.
+     * @returns {string} A random permutation.
+     */
+    getRandom() {
+        let a=this.#items.filter(e=>![...this.used].includes(e))
+        if(!a.length)return false;
+        const randomIndex = Math.floor(Math.random() * a.length);
+        return a[randomIndex];
+    }
+}
+
+/**
+ * Represents a variable name generator.
+ */
+class Variable {
+  /**
+   * Creates an instance of Variable.
+   * @param {number} maxLength - The maximum length of variable names.
+   * @throws {Error} If maxLength is not between 1 and 26.
+   */
+  constructor(maxLength) {
+  	if(maxLength==undefined||maxLength==null)maxLength=26;
+    if (Number.isNaN(maxLength)) {
+      throw new Error("Maximum length must be Number.");
+    }
+
+    this.maxLength = maxLength;
+    this.permutations = [];
+    this.generatePermutations();
+    this.used = new Set();
+  }
+
+  /**
+   * Generate permutations for each length up to maxLength.
+   */
+  generatePermutations() {
+    for (let length = 1; length <= this.maxLength; length++) {
+      const permutations = new PermIndex(length);
+      this.permutations.push(permutations);
+    }
+  }
+
+  /**
+   * Get a permutation generator for a specific length.
+   * @returns {PermIndex} A permutation generator for the specified length.
+   */
+  get length() {
+    const self = this;
+    return new Proxy({}, {
+      get(target, prop) {
+        const index = parseInt(prop);
+        if (isNaN(index) || index < 1 || index > self.maxLength) {
+          throw new Error(`Invalid index: ${prop}`);
+        }
+        return self.permutations[index - 1];
+      },
+    });
+  }
+}
+
+
 !function(){
   const scriptUrls = [".//JS_Formatter_.js",'.//JS_obf.js'];
 
@@ -347,9 +449,11 @@ function heheha(str, idkok) {
         log("Method on:" + base + " - " + "Chain:" + meth)
     }
 
-    function generateVar() {
-        var c = "_0x" + makeid2(1) + makeid1(2) + makeid2(2)
-        return !used[c] ? (used[c] = c) : generateVar()
+    function generateVar(c_,cc=1) {
+        var c = A_.length[cc].getRandom();
+        if(!c)return generateVar(c,cc+1)
+        //"_0x" + makeid2(1) + makeid1(2) + makeid2(2)
+        return !used[c] ? (used[c] = c) : generateVar(c,cc+1)
     }
     var replaced = {}
     String.prototype.rm = function (left = -1, right = -1) {
