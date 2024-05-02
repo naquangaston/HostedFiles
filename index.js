@@ -579,7 +579,7 @@ function heheha(str, idkok) {
     vars.forEach(v => { ty = ty.replace(v[3], v[0]) })
     vars.v = vars.filter(v => v[1] == "var").map(v => v[0])
     vars.l = vars.filter(v => v[1] == "let").map(v => v[0])
-     !THISISASTRING?
+     THISISASTRING?
         (ty = (Object.keys(methods).length ? ('var [' + Object.keys(methods).map(e => [methods[e]]).join(',') + ']=["' + Object.keys(methods).map(e => e.replace("_", "").split("").map(Ecode).join("")).join('","') + '"];') : "") + "\n" + ty) :
         (ty = `const[${arguments[0].name}]=[(function(){
 ${('var [' + Object.keys(methods).map(e => [methods[e]]).join(',') + ']=["' + Object.keys(methods).map(e => e.replace("_", "").split("").map(Ecode).join("")).join('","') + '"];')};
