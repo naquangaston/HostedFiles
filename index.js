@@ -1,3 +1,21 @@
+function REMOVE_SPACEfINAL(s){
+    while(s.match(/(.)\n+([\s]+)?(.)/gi)){
+    [...s.match(/(.)\n+([\s]+)?(.)/gi)].forEach(e=>{
+    var test=(str,a,b)=>{
+        try{eval(str.replace(a,b));return true}catch{return false}
+    }
+    var[a,b,c,d]=[...e.match(/(.)\n+([\s]+)?(.)/)]
+    var joiners=['',';',',']
+    for(let i=0;i<joiners.length;i++){
+        let j=joiners[i]
+        if(test(s,a,`${b}${j}${d}`)){
+            s=s.replace(a,`${b}${j}${d}`)
+        }
+    }
+    console.log({a,b,c})
+})
+};return s
+}
 /**
  * Represents a permutation index.
  * @extends Array
@@ -595,6 +613,7 @@ return ${ty}
             //log(e,'idk spacing',map)
         }
     })
+    part_=REMOVE_SPACEfINAL(part_)
     return { result:new String(part_), size: ByteArray(part_) }
 }
 Object.prototype.keys = function () { return Object.keys(this) }
