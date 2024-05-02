@@ -46,6 +46,7 @@ class PermIndex extends Array {
         let a=this.#items.filter(e=>![...this.used].includes(e))
         if(!a.length)return false;
         const randomIndex = Math.floor(Math.random() * a.length);
+        this.used.add(a[randomIndex])
         return a[randomIndex];
     }
 }
@@ -400,6 +401,7 @@ function bytesToSize(bytes){var sizes=['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];if
 function ByteArray(str){var bytes=[];var bytesv2=[];for(var i=0;i<str.length;++i){var code=str.charCodeAt(i);bytes=bytes.concat([code]);bytesv2=bytesv2.concat([code&0xff,code/256>>>0])};const byteSize=str=>new Blob([str]).size;var size=byteSize(str);var unit=bytesToSize(size);Object.assign(this,{bytes,bytesv2,size,unit});return{bytes,bytesv2,size,unit}}
 console.newLine = function () { log('') }
 function heheha(str, idkok) {
+    const A_ = new Variable(3);
     const THISISASTRING=typeof str=='string'
     function Ecode(str) {
         return (/[\w]+/g).test(str) ? '\\u00' + str.charCodeAt(0).toString(16).slice(-4) : str
