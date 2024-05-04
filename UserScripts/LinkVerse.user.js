@@ -1,88 +1,80 @@
-// ==UserScript==
-// @name         LinkVerse
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        *://linkvertise.com/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=linkvertise.com
-// @require      https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
-// @grant        GM_setValue
-// @grant        GM_getValue
-// @grant        GM_addStyle
-// @grant        GM_addValueChangeListener
-// @grant        GM_removeValueChangeListener
-// ==/UserScript==
-tF=function (f,{callback,int}){
-    !callback&&(callback=function(){});!int&&(int=100)
-    console.log({f,callback,int})
-    try{f();callback();return}catch(err){}
-    var _=setInterval(()=>{try{f();callback();clearInterval(_)}catch(err){}},int||100)
-    return _
-}
-findElementByTagNameAndText=function (tagName, searchText) {
-    const elements = document.getElementsByTagName(tagName);
-
-    for (const element of elements) {
-        if (element.textContent === searchText) {
-            return element;
+// @name LinkVerse
+// @namespace http://tampermonkey.net/
+// @version 0.1
+// @description try to take over the world!
+// @author You
+// @match *://linkvertise.com/*
+// @icon https://www.google.com/s2/favicons?sz=64&domain=linkvertise.com
+// @grant GM_setValue
+// @grant GM_getValue
+// @grant GM_addStyle
+// @grant GM_addValueChangeListener
+// @grant GM_removeValueChangeListener
+// @grant GM_xmlhttpRequest
+// @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
+var e;
+tF = function(e, {
+    t: t,
+    o: n
+}) {
+    !t && (t = function() {}), !n && (n = 100);
+    try {
+        return e(), void t()
+    } catch (s) {}
+    var a = setInterval((() => {
+        try {
+            e(), t(), clearInterval(a)
+        } catch (s) {}
+    }), n || 100);
+    return a
+}, findElementByTagNameAndText = function(e, t) {
+    const n = document.getElementsByTagName(e);
+    for (const e of n) {
+        if (e.textContent === t) {
+            return e
         }
     }
-
-    return null; // Element not found
-}
-steps_=[
-    ["button"," Free Access "],[],
-    ["button","Install and Open Opera GX"],
-    ["div"," I have already completed this Step "]
-]
-steps=[
-    ["button"," Free Access with Ads "],
-    ["button","I'm interested"],
-    ["button","Explore Website & Learn more"],
-    ["div","I have already completed this Step"]
-]
-ogopen=open
-
-step=0
-var time=performance.now()
-var allow=false
-var start=setInterval(()=>{
-    (findElementByTagNameAndText(...steps[0])||findElementByTagNameAndText(...steps_[0])).click()
-},3000)
-open_=function(...a){
-    return !step?(alert("Openeing"),clearInterval(start),ogopen(...a)):(console.log({allow,step,a}))
-}
-
-var loop=setInterval(()=>{
-    open=function(...a){
-        return !step?(alert("Openeing"),clearInterval(start),ogopen(...a)):(console.log({allow,step,a}))
+    return null
+}, steps_ = [
+    ["button", " Free Access "],
+    [],
+    ["button", "Install and Open Opera GX"],
+    ["div", " I have already completed this Step "]
+], steps = [
+    ["button", " Free Access with Ads "],
+    ["button", "I'm interested"],
+    ["button", "Explore Website & Learn more"],
+    ["div", "I have already completed this Step"]
+], ogopen = open, step = 0, performance.now(), e = setInterval((() => {
+    (findElementByTagNameAndText(...steps[0]) || findElementByTagNameAndText(...steps_[0])).click()
+}), 3e3), open_ = function(...t) {
+    return step ? void 0 : (alert("Openeing"), clearInterval(e), ogopen(...t))
+}, setInterval((() => {
+    window.open = open = function(...t) {
+        return step ? void 0 : (alert("Openeing:" + step), clearInterval(e), ogopen(...t))
     }
-})
-
-console.log("Step1 in",performance.now()-time)
-setTimeout(()=>{(findElementByTagNameAndText(...steps[0])||findElementByTagNameAndText(...steps_[0])).click()},1000)
-
-tF(function(){
-    if(findElementByTagNameAndText(...steps[1]).disabled)throw "";
-    findElementByTagNameAndText(...steps[1]).click()
-    clearInterval(start);
-},{callback:function(){
-    step=2
-     console.log("Step2 in",performance.now()-time)
-}})
-
-tF(function(){(findElementByTagNameAndText(...steps[2])||findElementByTagNameAndText(...steps_[2])).click()},{
-    callback(){
-        step=3
-        console.log("Step3 in",performance.now()-time)
+}), 1), setTimeout((() => {
+    (findElementByTagNameAndText(...steps[0]) || findElementByTagNameAndText(...steps_[0])).click()
+}), 1e3), tF((function() {
+    let t = [...document.querySelectorAll("button.ng-star-inserted")].filter((e => !e.innerText.includes("Access")))[0].click();
+    if (t.disabled) {
+        throw ""
     }
-})
-
-tF(function(){(findElementByTagNameAndText(...steps[3])||findElementByTagNameAndText(...steps_[3])).children[0].click()},{
-    callback:function(){
-        step=4
-        console.log("Step4 in",performance.now()-time)
+    t.click(), clearInterval(e)
+}), {
+    t: function() {
+        step = 2
     }
-})
-
+}), tF((function() {
+    (findElementByTagNameAndText(...steps[2]) || findElementByTagNameAndText(...steps_[2])).click()
+}), {
+    t() {
+        step = 3
+    }
+}), tF((function() {
+    (findElementByTagNameAndText(...steps[3]) || findElementByTagNameAndText(...steps_[3])).children[0].click()
+}), {
+    t: function() {
+        step = 4
+    }
+});
