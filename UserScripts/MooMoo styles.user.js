@@ -50,7 +50,15 @@ function add_Style(e) {
 
 function SetUpSploop() {
     function e(e = 0, n = 0, o = 0) {
-        t(0), !Number.isNaN(e) && findhref2(id("skins-middle-main"), "img").filter((t => t.src.includes(`skin${e}`))).click(), t(1), !Number.isNaN(n) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${n}`))).click(), t(2), !Number.isNaN(o) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${o}`))).click(), t(0)
+        t(0);
+        try {
+            !Number.isNaN(e) && findhref2(id("skins-middle-main"), "img").filter((t => t.src.includes(`skin${e}`)))[0].click()
+        } catch (r) {}
+        t(1);
+        try {
+            !Number.isNaN(n) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${n}`)))[0].click()
+        } catch (r) {}
+        t(2), !Number.isNaN(o) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${o}`)))[0].click(), t(0)
     }
 
     function t(e) {
@@ -109,14 +117,14 @@ function SetUpSploop() {
         }
         play.click(), o()
     }, a = e => new Promise((t => setTimeout(t, e))), _game_ = game_, _setUp = !0;
-    let x = id("game-left-content-main"),
-        f = ["#game-bottom-content", "#game-right-content-main"];
+    let f = id("game-left-content-main"),
+        x = ["#game-bottom-content", "#game-right-content-main"];
     ! function() {
         var [e, t, n, o, r, a] = ["map", "forEach", "log", "length", "children", "remove"], i = {get _() {
                 return console
             }
         };
-        f[e]($)[t]((e => {
+        x[e]($)[t]((e => {
             i.sn[n]({
                 s: e
             }), e[o] && [...e[0][r]][t]((e => e[a]()))
@@ -139,11 +147,15 @@ function SetUpSploop() {
     }).set("innerText", "Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.").on("click", (function() {
         this.remove(), localStorage.seen = 1
     })).h("#game-bottom-content");
-    if (1 == localStorage.seen && g.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").h(x), r(), d = new element("button").set("innerText", "AntiKick:false").on("click", (function(e) {
+    if (1 == localStorage.seen && g.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").h(f), async function() {
+            for (;;) {
+                await a(0), await r()
+            }
+        }(), d = new element("button").set("innerText", "AntiKick:false").on("click", (function(e) {
             m.toggle(), e.target.innerText = `AntiKick:${m.status}`, m.status ? game_.start() : game_.stop()
-        })).h(x), new element("button").set("innerText", `StreamerMode:${p.status}`).on("click", (function(e) {
+        })).h(f), new element("button").set("innerText", `StreamerMode:${p.status}`).on("click", (function(e) {
             p.toggle(), e.target.innerText = `StreamerMode:${p.status}`, GM_setValue("sm", p.status), r()
-        })).h(x), new element("br").h(x), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
+        })).h(f), new element("br").h(f), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
             var t, n, o;
             GM_setValue("skin", localStorage.m || 0), GM_setValue("accessory", localStorage.p || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("server", id("server-select").selectedOptions[0].getAttribute("region")), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0)), t = id("create_clan"), id("leave_clan"), id("clan-menu-clan-name-input"), "none" == t.style.display || (n = id("create-clan-button"), (o = id("clan-menu-clan-name-input")).dispatchEvent(new Event("focus", {
                 bubbles: !0
@@ -160,7 +172,7 @@ function SetUpSploop() {
             })).then((e => {
                 _GM_setValue("clan", b.children[0].innerText)
             }))), open(location.href, "alt" + Date.now())
-        })).h(x), new element("br").h(x), new element(findhref2(id("skin-message"))[0]), randomFit = new element("button").h(x).on("click", (function(e) {
+        })).h(f), new element("br").h(f), new element(findhref2(id("skin-message"))[0]), randomFit = new element("button").h(f).on("click", (function(e) {
             var [t, n] = ["forEach", "click"];
             findhref2(id("skins-categories"), "img")[t](((e, t) => {
                 e[n](), random(findhref2(id("skins-middle-main"), "img"))[n]()
