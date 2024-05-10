@@ -17,25 +17,31 @@
 // @grant GM_getValue
 // @grant GM_setValue
 // @grant GM_addValueChangeListener
+function isHidden(e) {
+    return null === e.offsetParent
+}
+
 function random(e) {
     return e[Math.floor(Math.random() * e.length)]
 }
 
 function dispatchAllMouseEvents(e) {
     ["click", "mouseover", "mouseenter", "mousemove", "mousedown", "mouseup", "mouseout", "mouseleave"].forEach((t => {
-        e.dispatchEvent(new MouseEvent(t, {
+        let n = new Event(t, {
             bubbles: !0,
             isTrusted: !0
-        }))
+        });
+        e[`on${t}`] && e[`on${t}`](n), e.dispatchEvent(n)
     }))
 }
 
 function dispatchAllInputEvents(e, t) {
     ["focus", "input", "change", "blur"].forEach((n => {
-        e.dispatchEvent(new Event(n, {
+        let o = new Event(n, {
             bubbles: !0,
             isTrusted: !0
-        })), "input" === n && (e.value = t)
+        });
+        e[`on${n}`] && e[`on${n}`](o), "input" === n && (e.value = t), e.dispatchEvent(o)
     }))
 }
 
@@ -74,70 +80,84 @@ function SetUpSploop() {
     }
 
     function o() {
-        t(0), !Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`)))[0].click(), t(1), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`)))[0].click(), t(2), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`)))[0].click(), t(0)
+        dispatchAllInputEvents(nickname, GM_getValue("nn")), t(0), !Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`)))[0].click(), t(1), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`)))[0].click(), t(2), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`)))[0].click(), t(0)
     }
     async function r() {
         await n("#player-container");
         var e = id("player-container");
-        e.style.display = "none", p.status ? (!l && (l = (await n("#nickname-value")).innerText), (await n("#nickname-value")).innerText = "streamerMode", (await n("#change-username")).style.display = "none") : l && ((await n("#nickname-value")).innerText = l, (await n("#change-username")).style.display = "block"), e.style.display = "flex"
+        e.style.display = "none", b.status ? (!s && (s = (await n("#nickname-value")).innerText), (await n("#nickname-value")).innerText = "streamerMode", (await n("#change-username")).style.display = "none") : s && ((await n("#nickname-value")).innerText = s, (await n("#change-username")).style.display = "block"), e.style.display = "flex"
     }
-    var a, i, l, d, s, c, u = null;
-    if (_loadFit = e, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async e => {
-            await a(1e3), alt || (!Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`))).click(), t(1), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`))).click(), t(2), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`))).click(), t(0))
+    var a, i, l, d, s, c, u, p;
+    alt && "number" == typeof GM_getValue("alts") && GM_setValue("alts", {});
+    for (let e = 1;; e++) {
+        if (!GM_getValue("alts")[e]) {
+            a = e;
+            let t = GM_getValue("alts");
+            t[e] = !0, GM_setValue("alts", t);
+            break
+        }
+    }
+    if (addEventListener("unload", (function() {
+            if (alt) {
+                let e = GM_getValue("alts");
+                e[a] = !1, GM_setValue("alts", e)
+            }
+        })), i = null, _loadFit = e, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async t => {
+            await l(1e3), alt || e(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
         })), id("game-left-content-main").style.overflow = "scroll", id("da-right").parentNode.style.overflow = "scroll", _setUp) {
         return
     }
     add_Style("\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}");
     const m = new bool,
-        p = new bool;
-    GM_getValue("sm") && p.toggle();
-    let b = id("clan-menu");
+        b = new bool;
+    GM_getValue("sm") && b.toggle();
+    let f = id("clan-menu");
     game_.o = !0, game_.i = 5e3, game_.l = function() {
-        return "flex" == document.querySelector(sploopMenu).style.display
+        return !isHidden(play)
     }, game_.u = function() {
-        if (alt && !u) {
-            randomFit.element.click();
+        if (alt) {
+            dispatchAllInputEvents(nickname, `alt:${a} - ${GM_getValue("nn")}`), randomFit.element.click();
             const {
-                m: e,
+                p: e,
                 back: t,
-                p: n
+                m: n
             } = localStorage;
-            u = {
-                m: e,
+            i = {
+                p: e,
                 back: t,
-                p: n
+                m: n
             }
         } else {
             const {
-                m: t,
+                p: t,
                 back: n,
-                p: o
-            } = u;
+                m: o
+            } = i;
             e(t, o, n)
         }
-        play.click(), o()
-    }, a = e => new Promise((t => setTimeout(t, e))), _game_ = game_, _setUp = !0;
-    let f = id("game-left-content-main"),
-        x = ["#game-bottom-content", "#game-right-content-main"];
+        play.click(), setTimeout(o, 200)
+    }, l = e => new Promise((t => setTimeout(t, e))), _game_ = game_, _setUp = !0;
+    let x = id("game-left-content-main"),
+        g = ["#game-bottom-content", "#game-right-content-main"];
     ! function() {
         var [e, t, n, o, r, a] = ["map", "forEach", "log", "length", "children", "remove"], i = {get _() {
                 return console
             }
         };
-        x[e]($)[t]((e => {
+        g[e]($)[t]((e => {
             i.sn[n]({
                 s: e
             }), e[o] && [...e[0][r]][t]((e => e[a]()))
         }))
-    }(), i = id("da-right");
+    }(), d = id("da-right");
     new element("div").style({
         padding: "10px",
         backgroundColor: "rgba(0, 0, 0, 0)",
         color: "#000",
         border: "1px solid #ddd",
         marginBottom: "10px"
-    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts"))).h(i);
-    const g = new element("div").style({
+    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts"))).h(d);
+    const _ = new element("div").style({
         padding: "10px",
         backgroundColor: "#f8d7da",
         color: "#721c24",
@@ -147,17 +167,17 @@ function SetUpSploop() {
     }).set("innerText", "Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.").on("click", (function() {
         this.remove(), localStorage.seen = 1
     })).h("#game-bottom-content");
-    if (1 == localStorage.seen && g.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").h(f), async function() {
+    if (1 == localStorage.seen && _.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").h(x), async function() {
             for (;;) {
-                await a(0), await r()
+                await l(0), await r()
             }
-        }(), d = new element("button").set("innerText", "AntiKick:false").on("click", (function(e) {
+        }(), c = new element("button").set("innerText", "AntiKick:false").on("click", (function(e) {
             m.toggle(), e.target.innerText = `AntiKick:${m.status}`, m.status ? game_.start() : game_.stop()
-        })).h(f), new element("button").set("innerText", `StreamerMode:${p.status}`).on("click", (function(e) {
-            p.toggle(), e.target.innerText = `StreamerMode:${p.status}`, GM_setValue("sm", p.status), r()
-        })).h(f), new element("br").h(f), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
+        })).h(x), new element("button").set("innerText", `StreamerMode:${b.status}`).on("click", (function(e) {
+            b.toggle(), e.target.innerText = `StreamerMode:${b.status}`, GM_setValue("sm", b.status), r()
+        })).h(x), new element("br").h(x), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
             var t, n, o;
-            GM_setValue("skin", localStorage.m || 0), GM_setValue("accessory", localStorage.p || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("server", id("server-select").selectedOptions[0].getAttribute("region")), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0)), t = id("create_clan"), id("leave_clan"), id("clan-menu-clan-name-input"), "none" == t.style.display || (n = id("create-clan-button"), (o = id("clan-menu-clan-name-input")).dispatchEvent(new Event("focus", {
+            GM_setValue("skin", localStorage.p || 0), GM_setValue("accessory", localStorage.m || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("server", id("server-select").selectedOptions[0].getAttribute("region")), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0)), t = id("create_clan"), id("leave_clan"), id("clan-menu-clan-name-input"), "none" == t.style.display || (n = id("create-clan-button"), (o = id("clan-menu-clan-name-input")).dispatchEvent(new Event("focus", {
                 bubbles: !0
             })), o.dispatchEvent(new Event("input", {
                 bubbles: !0
@@ -167,12 +187,12 @@ function SetUpSploop() {
                 bubbles: !0
             })), n.click(), n.dispatchEvent(new Event("click")), new Promise((e => {
                 var t = setInterval((() => {
-                    "Clans" != b.children[0].innerText && (clearInterval(t), e())
+                    "Clans" != f.children[0].innerText && (clearInterval(t), e())
                 }), 200)
             })).then((e => {
-                _GM_setValue("clan", b.children[0].innerText)
+                _GM_setValue("clan", f.children[0].innerText)
             }))), open(location.href, "alt" + Date.now())
-        })).h(f), new element("br").h(f), new element(findhref2(id("skin-message"))[0]), randomFit = new element("button").h(f).on("click", (function(e) {
+        })).h(x), new element("br").h(x), new element(findhref2(id("skin-message"))[0]), randomFit = new element("button").h(x).on("click", (function(e) {
             var [t, n] = ["forEach", "click"];
             findhref2(id("skins-categories"), "img")[t](((e, t) => {
                 e[n](), random(findhref2(id("skins-middle-main"), "img"))[n]()
@@ -212,21 +232,21 @@ function SetUpSploop() {
                 position: "absolute"
             })[o]("click", (function(e) {
                 const {
-                    m: t,
+                    p: t,
                     back: n,
-                    p: o
+                    m: o
                 } = localStorage;
-                u = {
-                    m: t,
+                i = {
+                    p: t,
                     back: n,
-                    p: o
-                }, GM_setValue("skin", localStorage.m || 0), GM_setValue("accessory", localStorage.p || 0), GM_setValue("back", localStorage.back || 0)
+                    m: o
+                }, GM_setValue("skin", localStorage.p || 0), GM_setValue("accessory", localStorage.m || 0), GM_setValue("back", localStorage.back || 0)
             }))[r]("innerText", "Save Fit")[a])
         }(), addEventListener("unload", (function() {
-            GM_getValue("skin") && (localStorage.m = GM_getValue("skin")), GM_getValue("accessory") && (localStorage.p = GM_getValue("accessory")), GM_getValue("back") && (localStorage.p = GM_getValue("accessory"))
+            GM_getValue("skin") && (localStorage.p = GM_getValue("skin")), GM_getValue("accessory") && (localStorage.m = GM_getValue("accessory")), GM_getValue("back") && (localStorage.m = GM_getValue("accessory"))
         })), alt) {
         let t = GM_getValue("server");
-        s = id("server-select"), new Promise((e => {
+        u = id("server-select"), new Promise((e => {
             var t = setInterval((() => {
                 "none" == id("small-waiting").style.display && (clearInterval(t), e())
             }), 200)
@@ -236,8 +256,8 @@ function SetUpSploop() {
                     "none" == id("small-waiting").style.display && (clearInterval(t), e())
                 }), 200)
             })).then((e => {
-                let n = s.selectedIndex = [...id("server-select").options].map((e => e.getAttribute("region"))).indexOf(t);
-                s.dispatchEvent(new Event("click")), s.selectedIndex = n, s.dispatchEvent(new Event("change")), d.element.dispatchEvent(new Event("click")), new Promise((e => {
+                let n = u.selectedIndex = [...id("server-select").options].map((e => e.getAttribute("region"))).indexOf(t);
+                u.dispatchEvent(new Event("click")), u.selectedIndex = n, u.dispatchEvent(new Event("change")), c.element.dispatchEvent(new Event("click")), new Promise((e => {
                     var t = setInterval((() => {
                         "flex" != document.querySelector(sploopMenu).style.display && (clearInterval(t), e(id("clan-menu")))
                     }), 200)
@@ -291,29 +311,29 @@ function SetUpSploop() {
         })), id("play").addEventListener("click", (function(t) {
             const {
                 nickname: n,
-                m: o,
+                p: o,
                 back: r,
-                p: a
+                m: a
             } = localStorage;
-            !e && (u = {
-                m: o,
+            !e && (i = {
+                p: o,
                 back: r,
-                p: a
+                m: a
             })
         }))
     } else {
         id("play").addEventListener("click", (function(e) {
             const {
                 nickname: t,
-                m: n,
+                p: n,
                 back: o,
-                p: r
+                m: r
             } = localStorage;
-            GM_setValue("skin", localStorage.m || 0), GM_setValue("accessory", localStorage.p || 0), GM_setValue("back", localStorage.back || 0)
-        })), c = "", _loop = setInterval((() => {
-            b.children[0].innerText != c && (c = b.children[0].innerText, GM_setValue("clan_", {
+            GM_setValue("skin", localStorage.p || 0), GM_setValue("accessory", localStorage.m || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("nn", localStorage.nickname)
+        })), p = "", _loop = setInterval((() => {
+            f.children[0].innerText != p && (p = f.children[0].innerText, GM_setValue("clan_", {
                 v: "block" != id("create_clan").style.display,
-                name: b.children[0].innerText
+                name: f.children[0].innerText
             }))
         }))
     }
@@ -476,14 +496,8 @@ function cSs() {
         }, jj = function(e) {
             return localStorage_[_0x44d661(629)](e)
         }, frame = CE("iframe", "music_frame"), frame.style.width = "98%", inputm = CE(_0x44d661(538), "insert"), frame[_0x44d661(604)], inputm[_0x44d661(457)] = imsub, inputm[_0x44d661(380)] = function(e) {
-            var t, n, o, r = _0x44d661,
-                a = (t = e[r(493)][r(604)], function(e, t) {
-                    var n = _0x587f;
-                    if (e && t) {
-                        return n(572) + e + "?list=" + t
-                    }
-                }(setElement(t), ((n = t[_0x587f(453)]("&"))[0], o = n[1], n[2], o ? o.split("=")[1] : window.default_list)));
-            localStorage_.setItem("LP", a), frame.src = a
+            var t = `https://www.youtube.com/embed/${setElement(id("insert").value)}?${[...new URL(id("insert").value).searchParams].map((e=>e.join("="))).join("&")}`;
+            localStorage_.setItem("LP", t), frame.src = t
         }, eval(fix2(_0x44d661(656), !0))[0] ? (fix2("RS", "https://www.youtube.com/watch?v=-Mypt378fkc"), frame.src = fix(jj("RS"))) : (inputm[_0x44d661(673)] = fix(_0x44d661(377)), alert(_0x44d661(400)), frame[_0x44d661(612)] = localStorage_[_0x44d661(629)]("LP") || inputm.placeholder), br = CE("br"), canclear && (pendto[_0x44d661(541)] = ""), listn = CE(_0x44d661(538), "list"), listn.placeholder = "enter Plist id", hb = CE("button", _0x44d661(595)), fix2(_0x44d661(626), "RDJsG8fl0VfkQ"), fix2(_0x44d661(561), "-Mypt378fkc"), hb2 = CE(_0x44d661(447), _0x44d661(454)), hb2[_0x44d661(357)] = _0x44d661(511), frame.setAttribute(_0x44d661(474), 1), hb.innerText = _0x44d661(501), set = function(e, t, n) {
             e.setAttribute(t, n)
         }, test3 = [{
@@ -629,7 +643,7 @@ function cSs() {
                 try {
                     pendto && (clearInterval(a), e = pendto, frame[r(612)] = localStorage_.getItem("LP"), window[r(616)] = function(e) {
                         localStorage_.setItem("LP", frame.src)
-                    }, o = CE(r(578), r(633)), pendto[r(404)](o), (pendto = centy)[r(404)](br), pendto.appendChild(frame), pendto.appendChild(br), pendto.appendChild(br), pendto.appendChild(inputm), pendto.appendChild(br), pendto[r(404)](br), clearInterval(a), t[r(404)](br), t[r(404)](hb), t[r(404)](br), t[r(404)](hb2), e[r(404)](t), add_styles(), $("#play") && SetUpSploop())
+                    }, o = CE(r(578), r(633)), pendto[r(404)](o), (pendto = centy)[r(404)](br), pendto.appendChild(frame), pendto.appendChild(br), pendto.appendChild(br), pendto.appendChild(inputm), pendto.appendChild(br), pendto[r(404)](br), clearInterval(a), t[r(404)](br), t[r(404)](hb), t[r(404)](br), t[r(404)](hb2), e[r(404)](t), add_styles(), id("play") && SetUpSploop())
                 } catch (i) {
                     window.lastError = i
                 }
@@ -639,7 +653,7 @@ function cSs() {
                     pendto && (clearInterval(a), e = pendto, (pendto = CE("div", "centy2"))[t(404)](br), pendto[t(404)](frame), frame[t(612)] = localStorage_.getItem("LP"), window.onunload = function(e) {
                         var n = t;
                         localStorage_[n(655)]("LP", frame[n(612)])
-                    }, pendto[t(404)](br), pendto.appendChild(br), pendto[t(404)](inputm), e[t(404)](pendto), e[t(404)](br), e.appendChild(hb), e.appendChild(br), e.appendChild(hb2), add_styles(), $("#play") && SetUpSploop())
+                    }, pendto[t(404)](br), pendto.appendChild(br), pendto[t(404)](inputm), e[t(404)](pendto), e[t(404)](br), e.appendChild(hb), e.appendChild(br), e.appendChild(hb2), add_styles(), id("play") && SetUpSploop())
                 } catch (o) {}
             }), 0)), setTimeout((function() {
                 var t = n;
@@ -663,31 +677,31 @@ function Csc2() {
                     I: 3,
                     S: 5,
                     F: 7,
-                    C: 8,
-                    G: 6
+                    G: 8,
+                    C: 6
                 },
                 2: {
                     cookie: 17,
-                    T: 20
+                    V: 20
                 },
                 3: {
-                    V: 31,
+                    T: 31,
                     B: 32
                 },
                 4: {
-                    P: 23,
-                    $: 29,
-                    H: 30,
-                    A: 27
+                    $: 23,
+                    P: 29,
+                    A: 30,
+                    H: 27
                 },
                 5: {
                     D: 0,
                     L: 10,
-                    N: 14,
-                    j: 11
+                    j: 14,
+                    R: 11
                 },
                 6: {
-                    R: 18,
+                    N: 18,
                     q: 21,
                     O: 33,
                     platform: 34,
