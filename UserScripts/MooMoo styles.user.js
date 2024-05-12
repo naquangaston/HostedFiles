@@ -55,22 +55,26 @@ function add_Style(e) {
 }
 
 function SetUpSploop() {
-    function e(e = 0, n = 0, o = 0) {
-        t(0);
+    function e(e) {
+        return /^[0-9a-zA-Z]$/.test(e) && 1 == e.length
+    }
+
+    function t(e = 0, t = 0, o = 0) {
+        n(0);
         try {
             !Number.isNaN(e) && findhref2(id("skins-middle-main"), "img").filter((t => t.src.includes(`skin${e}`)))[0].click()
         } catch (a) {}
-        t(1);
+        n(1);
         try {
-            !Number.isNaN(n) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${n}`)))[0].click()
+            !Number.isNaN(t) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${t}`)))[0].click()
         } catch (a) {}
-        t(2), !Number.isNaN(o) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${o}`)))[0].click(), t(0)
+        n(2), !Number.isNaN(o) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${o}`)))[0].click(), n(0)
     }
 
-    function t(e) {
+    function n(e) {
         findhref2(id("skins-categories"), "img")[e].click()
     }
-    async function n(e, t = 3e3) {
+    async function o(e, t = 3e3) {
         return await new Promise(((n, o) => {
             let a = performance.now();
             ! function r() {
@@ -79,91 +83,127 @@ function SetUpSploop() {
         }))
     }
 
-    function o() {
-        dispatchAllInputEvents(nickname, GM_getValue("nn")), t(0), !Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`)))[0].click(), t(1), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`)))[0].click(), t(2), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`)))[0].click(), t(0)
+    function a() {
+        dispatchAllInputEvents(nickname, GM_getValue("nn")), n(0), !Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`)))[0].click(), n(1), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`)))[0].click(), n(2), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`)))[0].click(), n(0)
     }
-    async function a() {
-        await n("#player-container");
+    async function r() {
+        await o("#player-container");
         var e = id("player-container");
-        e.style.display = "none", h.status ? (!l && (l = (await n("#nickname-value")).innerText), (await n("#nickname-value")).innerText = "streamerMode", (await n("#change-username")).style.display = "none") : l && ((await n("#nickname-value")).innerText = l, (await n("#change-username")).style.display = "block"), e.style.display = "flex"
+        e.style.display = "none", x.status ? (!u && (u = (await o("#nickname-value")).innerText), (await o("#nickname-value")).innerText = "streamerMode", (await o("#change-username")).style.display = "none") : u && ((await o("#nickname-value")).innerText = u, (await o("#change-username")).style.display = "block"), e.style.display = "flex"
     }
-    var r, i, s, c, l, u, d, k;
-    const m = new bool,
-        f = ({
+    var i, s, c, l, u, d, m, k;
+    const f = new bool,
+        p = new bool,
+        g = ({
             target: e
         }) => {
-            m.status && (e.value = filterWord(e.value))
+            f.status && (e.value = filter1(e.value))
+        },
+        h = ({
+            target: e
+        }) => {
+            p.status && (e.value = filter2(e.value))
         };
-    n("#chat").then((e => e.addEventListener("keypress", f))), n("#chat").then((e => e.addEventListener("keydown", f))), n("#chat").then((e => e.addEventListener("keyup", f))), alt && "number" == typeof GM_getValue("alts") && GM_setValue("alts", {});
+    o("#chat").then((t => {
+        t.addEventListener("keypress", (({
+            target: t,
+            key: n
+        }) => {
+            e(n) && [g].forEach((e => e({
+                target: t
+            })))
+        })), t.addEventListener("keyup", (t => {
+            const {
+                target: n,
+                key: o,
+                code: a
+            } = t;
+            e(o) && "KeyL" != a && [g, h].forEach((e => e({
+                target: n
+            })))
+        })), t.addEventListener("keydown", (({
+            target: t,
+            key: n
+        }) => {
+            e(n) && [g].forEach((e => e({
+                target: t
+            })))
+        }))
+    })), alt && "number" == typeof GM_getValue("alts") && GM_setValue("alts", {});
     for (let e = 1;; e++) {
         if (!GM_getValue("alts")[e]) {
-            r = e;
+            i = e;
             let t = GM_getValue("alts");
             t[e] = !0, GM_setValue("alts", t);
             break
         }
     }
-    if (addEventListener("unload", (function() {
+    if (onbeforeunload = function() {
             if (alt) {
                 let e = GM_getValue("alts");
-                e[r] = !1, GM_setValue("alts", e)
+                e[i] = !1, GM_setValue("alts", e)
             }
-        })), i = null, _loadFit = e, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async t => {
-            await s(1e3), alt || e(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
+        }, addEventListener("unload", (function() {
+            if (alt) {
+                let e = GM_getValue("alts");
+                e[i] = !1, GM_setValue("alts", e)
+            }
+        })), s = null, _loadFit = t, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async e => {
+            await c(1e3), alt || t(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
         })), id("game-left-content-main").style.overflow = "scroll", id("da-right").parentNode.style.overflow = "scroll", _setUp) {
         return
     }
     add_Style("\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}");
-    const p = new bool,
-        h = new bool;
-    GM_getValue("sm") && h.toggle();
-    let g = id("clan-menu");
+    const b = new bool,
+        x = new bool;
+    GM_getValue("sm") && x.toggle();
+    let w = id("clan-menu");
     game_.o = !0, game_.i = 5e3, game_.l = function() {
         return !isHidden(play)
     }, game_.u = function() {
         if (alt) {
-            dispatchAllInputEvents(nickname, `alt:${r} - ${GM_getValue("nn")}`), randomFit.element.click();
+            dispatchAllInputEvents(nickname, `alt:${i} - ${GM_getValue("nn")}`), randomFit.element.click();
             const {
-                k: e,
+                m: e,
                 back: t,
-                m: n
+                k: n
             } = localStorage;
-            i = {
-                k: e,
+            s = {
+                m: e,
                 back: t,
-                m: n
+                k: n
             }
         } else {
             const {
-                k: t,
+                m: e,
                 back: n,
-                m: o
-            } = i;
-            e(t, o, n)
+                k: o
+            } = s;
+            t(e, o, n)
         }
-        play.click(), setTimeout(o, 200)
-    }, s = e => new Promise((t => setTimeout(t, e))), _game_ = game_, _setUp = !0;
-    let b = id("game-left-content-main"),
-        x = ["#game-bottom-content", "#game-right-content-main"];
+        play.click(), setTimeout(a, 200)
+    }, c = e => new Promise((t => setTimeout(t, e))), _game_ = game_, _setUp = !0;
+    let _ = id("game-left-content-main"),
+        y = ["#game-bottom-content", "#game-right-content-main"];
     ! function() {
         var [e, t, n, o, a, r] = ["map", "forEach", "log", "length", "children", "remove"], i = {get p() {
                 return console
             }
         };
-        x[e]($)[t]((e => {
+        y[e]($)[t]((e => {
             i.sn[n]({
                 s: e
             }), e[o] && [...e[0][a]][t]((e => e[r]()))
         }))
-    }(), c = id("da-right");
+    }(), l = id("da-right");
     new element("div").style({
         padding: "10px",
         backgroundColor: "rgba(0, 0, 0, 0)",
         color: "#000",
         border: "1px solid #ddd",
         marginBottom: "10px"
-    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts"))).h(c);
-    const w = new element("div").style({
+    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts"))).h(l);
+    const v = new element("div").style({
         padding: "10px",
         backgroundColor: "#f8d7da",
         color: "#721c24",
@@ -173,19 +213,21 @@ function SetUpSploop() {
     }).set("innerText", "Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.").on("click", (function() {
         this.remove(), localStorage.seen = 1
     })).h("#game-bottom-content");
-    if (1 == localStorage.seen && w.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").h(b), async function() {
+    if (1 == localStorage.seen && v.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").h(_), async function() {
             for (;;) {
-                await s(0), await a()
+                await c(0), await r()
             }
-        }(), u = new element("button").set("innerText", "AntiKick:false").on("click", (function(e) {
-            p.toggle(), e.target.innerText = `AntiKick:${p.status}`, p.status ? game_.start() : game_.stop()
-        })).h(b), new element("button").set("innerText", "chatFilter:false").on("click", (function(e) {
-            m.toggle(), e.target.innerText = `chatFilter:${m.status}`
-        })).h(b), new element("br").h(b), new element("button").set("innerText", `StreamerMode:${h.status}`).on("click", (function(e) {
-            h.toggle(), e.target.innerText = `StreamerMode:${h.status}`, GM_setValue("sm", h.status), a()
-        })).h(b), new element("br").h(b), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
+        }(), d = new element("button").set("innerText", "AntiKick:false").on("click", (function(e) {
+            b.toggle(), e.target.innerText = `AntiKick:${b.status}`, b.status ? game_.start() : game_.stop()
+        })).h(_), new element("button").set("innerText", "chatFilter:false").on("click", (function(e) {
+            f.toggle(), e.target.innerText = `chatFilter:${f.status}`
+        })).h(_), new element("br").h(_), new element("button").set("innerText", "lolFilter:false").on("click", (function(e) {
+            p.toggle(), e.target.innerText = `lolFilter:${p.status}`
+        })).h(_), new element("button").set("innerText", `StreamerMode:${x.status}`).on("click", (function(e) {
+            x.toggle(), e.target.innerText = `StreamerMode:${x.status}`, GM_setValue("sm", x.status), r()
+        })).h(_), new element("br").h(_), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
             var t, n, o;
-            GM_setValue("skin", localStorage.k || 0), GM_setValue("accessory", localStorage.m || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("server", id("server-select").selectedOptions[0].getAttribute("region")), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0)), t = id("create_clan"), id("leave_clan"), id("clan-menu-clan-name-input"), "none" == t.style.display || (n = id("create-clan-button"), (o = id("clan-menu-clan-name-input")).dispatchEvent(new Event("focus", {
+            GM_setValue("skin", localStorage.m || 0), GM_setValue("accessory", localStorage.k || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("server", id("server-select").selectedOptions[0].getAttribute("region")), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0)), t = id("create_clan"), id("leave_clan"), id("clan-menu-clan-name-input"), "none" == t.style.display || (n = id("create-clan-button"), (o = id("clan-menu-clan-name-input")).dispatchEvent(new Event("focus", {
                 bubbles: !0
             })), o.dispatchEvent(new Event("input", {
                 bubbles: !0
@@ -195,17 +237,17 @@ function SetUpSploop() {
                 bubbles: !0
             })), n.click(), n.dispatchEvent(new Event("click")), new Promise((e => {
                 var t = setInterval((() => {
-                    "Clans" != g.children[0].innerText && (clearInterval(t), e())
+                    "Clans" != w.children[0].innerText && (clearInterval(t), e())
                 }), 200)
             })).then((e => {
-                _GM_setValue("clan", g.children[0].innerText)
+                _GM_setValue("clan", w.children[0].innerText)
             }))), open(location.href, "alt" + Date.now())
-        })).h(b), new element("br").h(b), new element(findhref2(id("skin-message"))[0]), randomFit = new element("button").h(b).on("click", (function(e) {
+        })).h(_), new element(findhref2(id("skin-message"))[0]), randomFit = new element("button").h(_).on("click", (function(e) {
             var [t, n] = ["forEach", "click"];
             findhref2(id("skins-categories"), "img")[t](((e, t) => {
                 e[n](), random(findhref2(id("skins-middle-main"), "img"))[n]()
             }))
-        })).set("innerText", "Generate Random Fit"), function() {
+        })).set("innerText", "Generate Random Fit"), new element("br").h(_), function() {
             var [e, t, n, o, a, r] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
             id("skin-message")[e][1][t]("afterend", new element("button", {
                 _: "button-type-1 blue-discord-button text-shadowed-3"
@@ -220,15 +262,16 @@ function SetUpSploop() {
                 }))
             }))[a]("innerText", "Generate Random Fit")[r])
         }(), function() {
-            var [e, t, n, a, r, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
+            var [e, t, n, o, r, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
             id("skin-message")[e][1][t]("afterend", new element("button", {
-                _: "button-type-1 blue-discord-button text-shadowed-3"
+                _: "button-type-1 blue-discord-button text-shadowed-3",
+                id: "reset-button"
             })[n]({
                 height: "15%",
                 left: "8%",
                 position: "absolute"
-            })[a]("click", (function(e) {
-                o()
+            })[o]("click", (function(e) {
+                a()
             }))[r]("innerText", "Reset Fit")[i])
         }(), function() {
             var [e, t, n, o, a, r] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
@@ -240,32 +283,32 @@ function SetUpSploop() {
                 position: "absolute"
             })[o]("click", (function(e) {
                 const {
-                    k: t,
+                    m: t,
                     back: n,
-                    m: o
+                    k: o
                 } = localStorage;
-                i = {
-                    k: t,
+                s = {
+                    m: t,
                     back: n,
-                    m: o
-                }, GM_setValue("skin", localStorage.k || 0), GM_setValue("accessory", localStorage.m || 0), GM_setValue("back", localStorage.back || 0)
+                    k: o
+                }, GM_setValue("skin", localStorage.m || 0), GM_setValue("accessory", localStorage.k || 0), GM_setValue("back", localStorage.back || 0)
             }))[a]("innerText", "Save Fit")[r])
         }(), addEventListener("unload", (function() {
-            GM_getValue("skin") && (localStorage.k = GM_getValue("skin")), GM_getValue("accessory") && (localStorage.m = GM_getValue("accessory")), GM_getValue("back") && (localStorage.m = GM_getValue("accessory"))
+            GM_getValue("skin") && (localStorage.m = GM_getValue("skin")), GM_getValue("accessory") && (localStorage.k = GM_getValue("accessory")), GM_getValue("back") && (localStorage.k = GM_getValue("accessory"))
         })), alt) {
-        let t = GM_getValue("server");
-        d = id("server-select"), new Promise((e => {
+        let e = GM_getValue("server");
+        m = id("server-select"), new Promise((e => {
             var t = setInterval((() => {
                 "none" == id("small-waiting").style.display && (clearInterval(t), e())
             }), 200)
-        })).then((e => {
+        })).then((t => {
             [id("ffa-mode"), id("sandbox-mode"), id("event-mode")][GM_getValue("gm")].click(), new Promise((e => {
                 var t = setInterval((() => {
                     "none" == id("small-waiting").style.display && (clearInterval(t), e())
                 }), 200)
-            })).then((e => {
-                let n = d.selectedIndex = [...id("server-select").options].map((e => e.getAttribute("region"))).indexOf(t);
-                d.dispatchEvent(new Event("click")), d.selectedIndex = n, d.dispatchEvent(new Event("change")), u.element.dispatchEvent(new Event("click")), new Promise((e => {
+            })).then((t => {
+                let n = m.selectedIndex = [...id("server-select").options].map((e => e.getAttribute("region"))).indexOf(e);
+                m.dispatchEvent(new Event("click")), m.selectedIndex = n, m.dispatchEvent(new Event("change")), d.element.dispatchEvent(new Event("click")), new Promise((e => {
                     var t = setInterval((() => {
                         "flex" != document.querySelector(sploopMenu).style.display && (clearInterval(t), e(id("clan-menu")))
                     }), 200)
@@ -316,34 +359,46 @@ function SetUpSploop() {
                     }))
                 }))
             }))
-        })), id("play").addEventListener("click", (function(t) {
+        })), id("play").addEventListener("click", (function(e) {
             const {
                 nickname: n,
-                k: o,
+                m: o,
                 back: a,
-                m: r
+                k: r
             } = localStorage;
-            !e && (i = {
-                k: o,
+            !t && (s = {
+                m: o,
                 back: a,
-                m: r
+                k: r
             })
         }))
     } else {
         id("play").addEventListener("click", (function(e) {
             const {
                 nickname: t,
-                k: n,
+                m: n,
                 back: o,
-                m: a
+                k: a
             } = localStorage;
-            GM_setValue("skin", localStorage.k || 0), GM_setValue("accessory", localStorage.m || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("nn", localStorage.nickname)
+            GM_setValue("skin", localStorage.m || 0), GM_setValue("accessory", localStorage.k || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("nn", localStorage.nickname)
         })), k = "", _loop = setInterval((() => {
-            g.children[0].innerText != k && (k = g.children[0].innerText, GM_setValue("clan_", {
+            w.children[0].innerText != k && (k = w.children[0].innerText, GM_setValue("clan_", {
                 v: "block" != id("create_clan").style.display,
-                name: g.children[0].innerText
+                name: w.children[0].innerText
             }))
-        }))
+        })), setTimeout((() => {
+            id("nav-skins").click(), setTimeout((() => {
+                id("reset-button").click(), setTimeout((() => {
+                    setTimeout((() => {
+                        setTimeout((() => {
+                            id("reset-button").click(), setTimeout((() => {
+                                id("nav-game").click()
+                            }), 500)
+                        }), 1e3)
+                    }), 100)
+                }), 500)
+            }), 1e3)
+        }), 4e3)
     }
 }
 
@@ -504,7 +559,7 @@ function cSs() {
         }, jj = function(e) {
             return localStorage_[_0x44d661(629)](e)
         }, frame = CE("iframe", "music_frame"), frame.style.width = "98%", inputm = CE(_0x44d661(538), "insert"), frame[_0x44d661(604)], inputm[_0x44d661(457)] = imsub, inputm[_0x44d661(380)] = function(e) {
-            var t = `https://www.youtube.com/embed/${setElement(id("insert").value)}?${[...new URL(id("insert").value).searchParams].map((e=>e.join("="))).join("&")}`;
+            var t = `https://www.youtube.com/embed/${setElement(id("insert").value)}?${[...new URL(id("insert").value).searchParams].map((e=>e.join("="))).join("&")}&autoplay=1`;
             localStorage_.setItem("LP", t), frame.src = t
         }, eval(fix2(_0x44d661(656), !0))[0] ? (fix2("RS", "https://www.youtube.com/watch?v=-Mypt378fkc"), frame.src = fix(jj("RS"))) : (inputm[_0x44d661(673)] = fix(_0x44d661(377)), alert(_0x44d661(400)), frame[_0x44d661(612)] = localStorage_[_0x44d661(629)]("LP") || inputm.placeholder), br = CE("br"), canclear && (pendto[_0x44d661(541)] = ""), listn = CE(_0x44d661(538), "list"), listn.placeholder = "enter Plist id", hb = CE("button", _0x44d661(595)), fix2(_0x44d661(626), "RDJsG8fl0VfkQ"), fix2(_0x44d661(561), "-Mypt378fkc"), hb2 = CE(_0x44d661(447), _0x44d661(454)), hb2[_0x44d661(357)] = _0x44d661(511), frame.setAttribute(_0x44d661(474), 1), hb.innerText = _0x44d661(501), set = function(e, t, n) {
             e.setAttribute(t, n)
@@ -686,20 +741,20 @@ function Csc2() {
                     S: 5,
                     j: 7,
                     I: 8,
-                    C: 6
+                    G: 6
                 },
                 2: {
                     cookie: 17,
-                    G: 20
+                    C: 20
                 },
                 3: {
-                    V: 31,
-                    T: 32
+                    T: 31,
+                    V: 32
                 },
                 4: {
                     B: 23,
-                    P: 29,
-                    $: 30,
+                    $: 29,
+                    P: 30,
                     A: 27
                 },
                 5: {
@@ -714,13 +769,13 @@ function Csc2() {
                     O: 33,
                     platform: 34,
                     U: 35,
-                    J: 37,
-                    K: 38
+                    K: 37,
+                    J: 38
                 },
                 7: {
-                    W: 2,
-                    X: 12,
-                    Y: 4,
+                    X: 2,
+                    Y: 12,
+                    W: 4,
                     Z: 28
                 },
                 8: {
@@ -798,64 +853,73 @@ function Csc2() {
     }
 }
 var _setUp;
-const badWords = [...new Set(["4r5e", "5h1t", "5hit", "a55", "anal", "anus", "ar5e", "arrse", "arse", "ass", "ass-fucker", "asses", "assfucker", "assfukka", "asshole", "assholes", "asswhole", "a_s_s", "b!tch", "b00bs", "b17ch", "b1tch", "ballbag", "balls", "ballsack", "bastard", "beastial", "beastiality", "bellend", "bestial", "bestiality", "bi+ch", "biatch", "bitch", "bitcher", "bitchers", "bitches", "bitchin", "bitching", "bloody", "blow job", "blowjob", "blowjobs", "boiolas", "bollock", "bollok", "boner", "boob", "boobs", "booobs", "boooobs", "booooobs", "booooooobs", "breasts", "buceta", "bugger", "bum", "bunny fucker", "butt", "butthole", "buttmuch", "buttplug", "c0ck", "c0cksucker", "carpet muncher", "cawk", "chink", "cipa", "cl1t", "clit", "clitoris", "clits", "cnut", "cock", "cock-sucker", "cockface", "cockhead", "cockmunch", "cockmuncher", "cocks", "cocksuck", "cocksucked", "cocksucker", "cocksucking", "cocksucks", "cocksuka", "cocksukka", "cok", "cokmuncher", "coksucka", "coon", "cox", "crap", "cum", "cummer", "cumming", "cums", "cumshot", "cunilingus", "cunillingus", "cunnilingus", "cunt", "cuntlick", "cuntlicker", "cuntlicking", "cunts", "cyalis", "cyberfuc", "cyberfuck", "cyberfucked", "cyberfucker", "cyberfuckers", "cyberfucking", "d1ck", "damn", "dick", "dickhead", "dildo", "dildos", "dink", "dinks", "dirsa", "dlck", "dog-fucker", "doggin", "dogging", "donkeyribber", "doosh", "duche", "dyke", "ejaculate", "ejaculated", "ejaculates", "ejaculating", "ejaculatings", "ejaculation", "ejakulate", "f u c k", "f u c k e r", "f4nny", "fag", "fagging", "faggitt", "faggot", "faggs", "fagot", "fagots", "fags", "fanny", "fannyflaps", "fannyfucker", "fanyy", "fatass", "fcuk", "fcuker", "fcuking", "feck", "fecker", "felching", "fellate", "fellatio", "fingerfuck", "fingerfucked", "fingerfucker", "fingerfuckers", "fingerfucking", "fingerfucks", "fistfuck", "fistfucked", "fistfucker", "fistfuckers", "fistfucking", "fistfuckings", "fistfucks", "flange", "fook", "fooker", "fuck", "fucka", "fucked", "fucker", "fuckers", "fuckhead", "fuckheads", "fuckin", "fucking", "fuckings", "fuckingshitmotherfucker", "fuckme", "fucks", "fuckwhit", "fuckwit", "fudge packer", "fudgepacker", "fuk", "fuker", "fukker", "fukkin", "fuks", "fukwhit", "fukwit", "fux", "fux0r", "f_u_c_k", "gangbang", "gangbanged", "gangbangs", "gaylord", "gaysex", "goatse", "God", "god-dam", "god-damned", "goddamn", "goddamned", "hardcoresex", "hell", "heshe", "hoar", "hoare", "hoer", "homo", "hore", "horniest", "horny", "hotsex", "jack-off", "jackoff", "jap", "jerk-off", "jism", "jiz", "jizm", "jizz", "kawk", "knob", "knobead", "knobed", "knobend", "knobhead", "knobjocky", "knobjokey", "kock", "kondum", "kondums", "kum", "kummer", "kumming", "kums", "kunilingus", "l3i+ch", "l3itch", "labia", "lust", "lusting", "m0f0", "m0fo", "m45terbate", "ma5terb8", "ma5terbate", "masochist", "master-bate", "masterb8", "masterbat*", "masterbat3", "masterbate", "masterbation", "masterbations", "masturbate", "mo-fo", "mof0", "mofo", "mothafuck", "mothafucka", "mothafuckas", "mothafuckaz", "mothafucked", "mothafucker", "mothafuckers", "mothafuckin", "mothafucking", "mothafuckings", "mothafucks", "mother fucker", "motherfuck", "motherfucked", "motherfucker", "motherfuckers", "motherfuckin", "motherfucking", "motherfuckings", "motherfuckka", "motherfucks", "muff", "mutha", "muthafecker", "muthafuckker", "muther", "mutherfucker", "n1gga", "n1gger", "nazi", "nigg3r", "nigg4h", "nigga", "niggah", "niggas", "niggaz", "nigger", "niggers", "nob", "nob jokey", "nobhead", "nobjocky", "nobjokey", "numbnuts", "nutsack", "orgasim", "orgasims", "orgasm", "orgasms", "p0rn", "pawn", "pecker", "penis", "penisfucker", "phonesex", "phuck", "phuk", "phuked", "phuking", "phukked", "phukking", "phuks", "phuq", "pigfucker", "pimpis", "piss", "pissed", "pisser", "pissers", "pisses", "pissflaps", "pissin", "pissing", "pissoff", "poop", "porn", "porno", "pornography", "pornos", "prick", "pricks", "pron", "pube", "pusse", "pussi", "pussies", "pussy", "pussys", "rectum", "retard", "rimjaw", "rimming", "s hit", "s.o.b.", "sadist", "schlong", "screwing", "scroat", "scrote", "scrotum", "semen", "sex", "sh!+", "sh!t", "sh1t", "shag", "shagger", "shaggin", "shagging", "shemale", "shi+", "shit", "shitdick", "shite", "shited", "shitey", "shitfuck", "shitfull", "shithead", "shiting", "shitings", "shits", "shitted", "shitter", "shitters", "shitting", "shittings", "shitty", "skank", "slut", "sluts", "smegma", "smut", "snatch", "son-of-a-bitch", "spac", "spunk", "s_h_i_t", "t1tt1e5", "t1tties", "teets", "teez", "testical", "testicle", "tit", "titfuck", "tits", "titt", "tittie5", "tittiefucker", "titties", "tittyfuck", "tittywank", "titwank", "tosser", "turd", "tw4t", "twat", "twathead", "twatty", "twunt", "twunter", "v14gra", "v1gra", "vagina", "viagra", "vulva", "w00se", "wang", "wank", "wanker", "wanky", "whoar", "whore", "willies", "willy", "xrated", "xxx", "4r5e", "5h1t", "5hit", "a55", "anal", "anus", "ar5e", "arrse", "arse", "ass", "ass-fucker", "asses", "assfucker", "assfukka", "asshole", "assholes", "asswhole", "a_s_s", "b!tch", "b00bs", "b17ch", "b1tch", "ballbag", "balls", "ballsack", "bastard", "beastial", "beastiality", "bellend", "bestial", "bestiality", "bi+ch", "biatch", "bitch", "bitcher", "bitchers", "bitches", "bitchin", "bitching", "bloody", "blow job", "blowjob", "blowjobs", "boiolas", "bollock", "bollok", "boner", "boob", "boobs", "booobs", "boooobs", "booooobs", "booooooobs", "breasts", "buceta", "bugger", "bum", "bunny fucker", "butt", "butthole", "buttmuch", "buttplug", "c0ck", "c0cksucker", "carpet muncher", "cawk", "chink", "cipa", "cl1t", "clit", "clitoris", "clits", "cnut", "cock", "cock-sucker", "cockface", "cockhead", "cockmunch", "cockmuncher", "cocks", "cocksuck", "cocksucked", "cocksucker", "cocksucking", "cocksucks", "cocksuka", "cocksukka", "cok", "cokmuncher", "coksucka", "coon", "cox", "crap", "cum", "cummer", "cumming", "cums", "cumshot", "cunilingus", "cunillingus", "cunnilingus", "cunt", "cuntlick", "cuntlicker", "cuntlicking", "cunts", "cyalis", "cyberfuc", "cyberfuck", "cyberfucked", "cyberfucker", "cyberfuckers", "cyberfucking", "d1ck", "damn", "dick", "dickhead", "dildo", "dildos", "dink", "dinks", "dirsa", "dlck", "dog-fucker", "doggin", "dogging", "donkeyribber", "doosh", "duche", "dyke", "ejaculate", "ejaculated", "ejaculates", "ejaculating", "ejaculatings", "ejaculation", "ejakulate", "f u c k", "f u c k e r", "f4nny", "fag", "fagging", "faggitt", "faggot", "faggs", "fagot", "fagots", "fags", "fanny", "fannyflaps", "fannyfucker", "fanyy", "fatass", "fcuk", "fcuker", "fcuking", "feck", "fecker", "felching", "fellate", "fellatio", "fingerfuck", "fingerfucked", "fingerfucker", "fingerfuckers", "fingerfucking", "fingerfucks", "fistfuck", "fistfucked", "fistfucker", "fistfuckers", "fistfucking", "fistfuckings", "fistfucks", "flange", "fook", "fooker", "fuck", "fucka", "fucked", "fucker", "fuckers", "fuckhead", "fuckheads", "fuckin", "fucking", "fuckings", "fuckingshitmotherfucker", "fuckme", "fucks", "fuckwhit", "fuckwit", "fudge packer", "fudgepacker", "fuk", "fuker", "fukker", "fukkin", "fuks", "fukwhit", "fukwit", "fux", "fux0r", "f_u_c_k", "gangbang", "gangbanged", "gangbangs", "gaylord", "gaysex", "goatse", "God", "god-dam", "god-damned", "goddamn", "goddamned", "hardcoresex", "hell", "heshe", "hoar", "hoare", "hoer", "homo", "hore", "horniest", "horny", "hotsex", "jack-off", "jackoff", "jap", "jerk-off", "jism", "jiz", "jizm", "jizz", "kawk", "knob", "knobead", "knobed", "knobend", "knobhead", "knobjocky", "knobjokey", "kock", "kondum", "kondums", "kum", "kummer", "kumming", "kums", "kunilingus", "l3i+ch", "l3itch", "labia", "lust", "lusting", "m0f0", "m0fo", "m45terbate", "ma5terb8", "ma5terbate", "masochist", "master-bate", "masterb8", "masterbat*", "masterbat3", "masterbate", "masterbation", "masterbations", "masturbate", "mo-fo", "mof0", "mofo", "mothafuck", "mothafucka", "mothafuckas", "mothafuckaz", "mothafucked", "mothafucker", "mothafuckers", "mothafuckin", "mothafucking", "mothafuckings", "mothafucks", "mother fucker", "motherfuck", "motherfucked", "motherfucker", "motherfuckers", "motherfuckin", "motherfucking", "motherfuckings", "motherfuckka", "motherfucks", "muff", "mutha", "muthafecker", "muthafuckker", "muther", "mutherfucker", "n1gga", "n1gger", "nazi", "nigg3r", "nigg4h", "nigga", "niggah", "niggas", "niggaz", "nigger", "niggers", "nob", "nob jokey", "nobhead", "nobjocky", "nobjokey", "numbnuts", "nutsack", "orgasim", "orgasims", "orgasm", "orgasms", "p0rn", "pawn", "pecker", "penis", "penisfucker", "phonesex", "phuck", "phuk", "phuked", "phuking", "phukked", "phukking", "phuks", "phuq", "pigfucker", "pimpis", "piss", "pissed", "pisser", "pissers", "pisses", "pissflaps", "pissin", "pissing", "pissoff", "poop", "porn", "porno", "pornography", "pornos", "prick", "pricks", "pron", "pube", "pusse", "pussi", "pussies", "pussy", "pussys", "rectum", "retard", "rimjaw", "rimming", "s hit", "s.o.b.", "sadist", "schlong", "screwing", "scroat", "scrote", "scrotum", "semen", "sex", "sh!+", "sh!t", "sh1t", "shag", "shagger", "shaggin", "shagging", "shemale", "shi+", "shit", "shitdick", "shite", "shited", "shitey", "shitfuck", "shitfull", "shithead", "shiting", "shitings", "shits", "shitted", "shitter", "shitters", "shitting", "shittings", "shitty", "skank", "slut", "sluts", "smegma", "smut", "snatch", "son-of-a-bitch", "spac", "spunk", "s_h_i_t", "t1tt1e5", "t1tties", "teets", "teez", "testical", "testicle", "tit", "titfuck", "tits", "titt", "tittie5", "tittiefucker", "titties", "tittyfuck", "tittywank", "titwank", "tosser", "turd", "tw4t", "twat", "twathead", "twatty", "twunt", "twunter", "v14gra", "v1gra", "vagina", "viagra", "vulva", "w00se", "wang", "wank", "wanker", "wanky", "whoar", "whore", "willies", "willy", "xrated", "xxx", "ahole", "anus", "ash0le", "ash0les", "asholes", "ass", "Ass Monkey", "Assface", "assh0le", "assh0lez", "asshole", "assholes", "assholz", "asswipe", "azzhole", "bassterds", "bastard", "bastards", "bastardz", "basterds", "basterdz", "Biatch", "bitch", "bitches", "Blow Job", "boffing", "butthole", "buttwipe", "c0ck", "c0cks", "c0k", "Carpet Muncher", "cawk", "cawks", "Clit", "cnts", "cntz", "cock", "cockhead", "cock-head", "cocks", "CockSucker", "cock-sucker", "crap", "cum", "cunt", "cunts", "cuntz", "dick", "dild0", "dild0s", "dildo", "dildos", "dilld0", "dilld0s", "dominatricks", "dominatrics", "dominatrix", "dyke", "enema", "f u c k", "f u c k e r", "fag", "fag1t", "faget", "fagg1t", "faggit", "faggot", "fagg0t", "fagit", "fags", "fagz", "faig", "faigs", "fart", "flipping the bird", "fuck", "fucker", "fuckin", "fucking", "fucks", "Fudge Packer", "fuk", "Fukah", "Fuken", "fuker", "Fukin", "Fukk", "Fukkah", "Fukken", "Fukker", "Fukkin", "g00k", "God-damned", "h00r", "h0ar", "h0re", "hells", "hoar", "hoor", "hoore", "jackoff", "jap", "japs", "jerk-off", "jisim", "jiss", "jizm", "jizz", "knob", "knobs", "knobz", "kunt", "kunts", "kuntz", "Lezzian", "Lipshits", "Lipshitz", "masochist", "masokist", "massterbait", "masstrbait", "masstrbate", "masterbaiter", "masterbate", "masterbates", "Motha Fucker", "Motha Fuker", "Motha Fukkah", "Motha Fukker", "Mother Fucker", "Mother Fukah", "Mother Fuker", "Mother Fukkah", "Mother Fukker", "mother-fucker", "Mutha Fucker", "Mutha Fukah", "Mutha Fuker", "Mutha Fukkah", "Mutha Fukker", "n1gr", "nastt", "nigger;", "nigur;", "niiger;", "niigr;", "orafis", "orgasim;", "orgasm", "orgasum", "oriface", "orifice", "orifiss", "packi", "packie", "packy", "paki", "pakie", "paky", "pecker", "peeenus", "peeenusss", "peenus", "peinus", "pen1s", "penas", "penis", "penis-breath", "penus", "penuus", "Phuc", "Phuck", "Phuk", "Phuker", "Phukker", "polac", "polack", "polak", "Poonani", "pr1c", "pr1ck", "pr1k", "pusse", "pussee", "pussy", "puuke", "puuker", "queer", "queers", "queerz", "qweers", "qweerz", "qweir", "recktum", "rectum", "retard", "sadist", "scank", "schlong", "screwing", "semen", "sex", "sexy", "Sh!t", "sh1t", "sh1ter", "sh1ts", "sh1tter", "sh1tz", "shit", "shits", "shitter", "Shitty", "Shity", "shitz", "Shyt", "Shyte", "Shytty", "Shyty", "skanck", "skank", "skankee", "skankey", "skanks", "Skanky", "slag", "slut", "sluts", "Slutty", "slutz", "son-of-a-bitch", "tit", "turd", "va1jina", "vag1na", "vagiina", "vagina", "vaj1na", "vajina", "vullva", "vulva", "w0p", "wh00r", "wh0re", "whore", "xrated", "xxx", "b!+ch", "bitch", "blowjob", "clit", "arschloch", "fuck", "shit", "ass", "asshole", "b!tch", "b17ch", "b1tch", "bastard", "bi+ch", "boiolas", "buceta", "c0ck", "cawk", "chink", "cipa", "clits", "cock", "cum", "cunt", "dildo", "dirsa", "ejakulate", "fatass", "fcuk", "fuk", "fux0r", "hoer", "hore", "jism", "kawk", "l3itch", "l3i+ch", "lesbian", "masturbate", "masterbat*", "masterbat3", "motherfucker", "s.o.b.", "mofo", "nazi", "nigga", "nigger", "nutsack", "phuck", "pimpis", "pusse", "pussy", "scrotum", "sh!t", "shemale", "shi+", "sh!+", "slut", "smut", "teets", "tits", "boobs", "b00bs", "teez", "testical", "testicle", "titt", "w00se", "jackoff", "wank", "whoar", "whore", "*damn", "*dyke", "*fuck*", "*shit*", "@$$", "amcik", "andskota", "arse*", "assrammer", "ayir", "bi7ch", "bitch*", "bollock*", "breasts", "butt-pirate", "cabron", "cazzo", "chraa", "chuj", "Cock*", "cunt*", "d4mn", "daygo", "dego", "dick*", "dike*", "dupa", "dziwka", "ejackulate", "Ekrem*", "Ekto", "enculer", "faen", "fag*", "fanculo", "fanny", "feces", "feg", "Felcher", "ficken", "fitt*", "Flikker", "foreskin", "Fotze", "Fu(*", "fuk*", "futkretzn", "gook", "guiena", "h0r", "h4x0r", "hell", "helvete", "hoer*", "honkey", "Huevon", "hui", "injun", "jizz", "kanker*", "kike", "klootzak", "kraut", "knulle", "kuk", "kuksuger", "Kurac", "kurwa", "kusi*", "kyrpa*", "lesbo", "mamhoon", "masturbat*", "merd*", "mibun", "monkleigh", "mouliewop", "muie", "mulkku", "muschi", "nazis", "nepesaurio", "nigger*", "orospu", "paska*", "perse", "picka", "pierdol*", "pillu*", "pimmel", "piss*", "pizda", "poontsee", "poop", "porn", "p0rn", "pr0n", "preteen", "pula", "pule", "puta", "puto", "qahbeh", "queef*", "rautenberg", "schaffer", "scheiss*", "schlampe", "schmuck", "screw", "sh!t*", "sharmuta", "sharmute", "shipal", "shiz", "skribz", "skurwysyn", "sphencter", "spic", "spierdalaj", "splooge", "suka", "b00b*", "testicle*", "titt*", "twat", "vittu", "wank*", "wetback*", "wichser", "wop*", "yed", "zabourah"])],
+const badWords = [...new Set(["4r5e", "5h1t", "5hit", "fuck", "a55", "anal", "anus", "ar5e", "arrse", "arse", "ass", "ass-fucker", "asses", "assfucker", "assfukka", "asshole", "assholes", "asswhole", "a_s_s", "b!tch", "b00bs", "b17ch", "b1tch", "ballbag", "balls", "ballsack", "bastard", "beastial", "beastiality", "bellend", "bestial", "bestiality", "bi+ch", "biatch", "bitch", "bitcher", "bitchers", "bitches", "bitchin", "bitching", "bloody", "blow job", "blowjob", "blowjobs", "boiolas", "bollock", "bollok", "boner", "boob", "boobs", "booobs", "boooobs", "booooobs", "booooooobs", "breasts", "buceta", "bugger", "bum", "bunny fucker", "butt", "butthole", "buttmuch", "buttplug", "c0ck", "c0cksucker", "carpet muncher", "cawk", "chink", "cipa", "cl1t", "clit", "clitoris", "clits", "cnut", "cock", "cock-sucker", "cockface", "cockhead", "cockmunch", "cockmuncher", "cocks", "cocksuck", "cocksucked", "cocksucker", "cocksucking", "cocksucks", "cocksuka", "cocksukka", "cok", "cokmuncher", "coksucka", "coon", "cox", "crap", "cum", "cummer", "cumming", "cums", "cumshot", "cunilingus", "cunillingus", "cunnilingus", "cunt", "cuntlick", "cuntlicker", "cuntlicking", "cunts", "cyalis", "cyberfuc", "cyberfuck", "cyberfucked", "cyberfucker", "cyberfuckers", "cyberfucking", "d1ck", "damn", "dick", "dickhead", "dildo", "dildos", "dink", "dinks", "dirsa", "dlck", "dog-fucker", "doggin", "dogging", "donkeyribber", "doosh", "duche", "dyke", "ejaculate", "ejaculated", "ejaculates", "ejaculating", "ejaculatings", "ejaculation", "ejakulate", "f u c k", "f u c k e r", "f4nny", "fag", "fagging", "faggitt", "faggot", "faggs", "fagot", "fagots", "fags", "fanny", "fannyflaps", "fannyfucker", "fanyy", "fatass", "fcuk", "fcuker", "fcuking", "feck", "fecker", "felching", "fellate", "fellatio", "fingerfuck", "fingerfucked", "fingerfucker", "fingerfuckers", "fingerfucking", "fingerfucks", "fistfuck", "fistfucked", "fistfucker", "fistfuckers", "fistfucking", "fistfuckings", "fistfucks", "flange", "fook", "fooker", "fuck", "fucka", "fucked", "fucker", "fuckers", "fuckhead", "fuckheads", "fuckin", "fucking", "fuckings", "fuckingshitmotherfucker", "fuckme", "fucks", "fuckwhit", "fuckwit", "fudge packer", "fudgepacker", "fuk", "fuker", "fukker", "fukkin", "fuks", "fukwhit", "fukwit", "fux", "fux0r", "f_u_c_k", "gangbang", "gangbanged", "gangbangs", "gaylord", "gaysex", "goatse", "God", "god-dam", "god-damned", "goddamn", "goddamned", "hardcoresex", "hell", "heshe", "hoar", "hoare", "hoer", "homo", "hore", "horniest", "horny", "hotsex", "jack-off", "jackoff", "jap", "jerk-off", "jism", "jiz", "jizm", "jizz", "kawk", "knob", "knobead", "knobed", "knobend", "knobhead", "knobjocky", "knobjokey", "kock", "kondum", "kondums", "kum", "kummer", "kumming", "kums", "kunilingus", "l3i+ch", "l3itch", "labia", "lust", "lusting", "m0f0", "m0fo", "m45terbate", "ma5terb8", "ma5terbate", "masochist", "master-bate", "masterb8", "masterbat*", "masterbat3", "masterbate", "masterbation", "masterbations", "masturbate", "mo-fo", "mof0", "mofo", "mothafuck", "mothafucka", "mothafuckas", "mothafuckaz", "mothafucked", "mothafucker", "mothafuckers", "mothafuckin", "mothafucking", "mothafuckings", "mothafucks", "mother fucker", "motherfuck", "motherfucked", "motherfucker", "motherfuckers", "motherfuckin", "motherfucking", "motherfuckings", "motherfuckka", "motherfucks", "muff", "mutha", "muthafecker", "muthafuckker", "muther", "mutherfucker", "n1gga", "n1gger", "nazi", "nigg3r", "nigg4h", "nigga", "niggah", "niggas", "niggaz", "nigger", "niggers", "nob", "nob jokey", "nobhead", "nobjocky", "nobjokey", "numbnuts", "nutsack", "orgasim", "orgasims", "orgasm", "orgasms", "p0rn", "pawn", "pecker", "penis", "penisfucker", "phonesex", "phuck", "phuk", "phuked", "phuking", "phukked", "phukking", "phuks", "phuq", "pigfucker", "pimpis", "piss", "pissed", "pisser", "pissers", "pisses", "pissflaps", "pissin", "pissing", "pissoff", "poop", "porn", "porno", "pornography", "pornos", "prick", "pricks", "pron", "pube", "pusse", "pussi", "pussies", "pussy", "pussys", "rectum", "retard", "rimjaw", "rimming", "s hit", "s.o.b.", "sadist", "schlong", "screwing", "scroat", "scrote", "scrotum", "semen", "sex", "sh!+", "sh!t", "sh1t", "shag", "shagger", "shaggin", "shagging", "shemale", "shi+", "shit", "shitdick", "shite", "shited", "shitey", "shitfuck", "shitfull", "shithead", "shiting", "shitings", "shits", "shitted", "shitter", "shitters", "shitting", "shittings", "shitty", "skank", "slut", "sluts", "smegma", "smut", "snatch", "son-of-a-bitch", "spac", "spunk", "s_h_i_t", "t1tt1e5", "t1tties", "teets", "teez", "testical", "testicle", "tit", "titfuck", "tits", "titt", "tittie5", "tittiefucker", "titties", "tittyfuck", "tittywank", "titwank", "tosser", "turd", "tw4t", "twat", "twathead", "twatty", "twunt", "twunter", "v14gra", "v1gra", "vagina", "viagra", "vulva", "w00se", "wang", "wank", "wanker", "wanky", "whoar", "whore", "willies", "willy", "xrated", "xxx", "4r5e", "5h1t", "5hit", "a55", "anal", "anus", "ar5e", "arrse", "arse", "ass", "ass-fucker", "asses", "assfucker", "assfukka", "asshole", "assholes", "asswhole", "a_s_s", "b!tch", "b00bs", "b17ch", "b1tch", "ballbag", "balls", "ballsack", "bastard", "beastial", "beastiality", "bellend", "bestial", "bestiality", "bi+ch", "biatch", "bitch", "bitcher", "bitchers", "bitches", "bitchin", "bitching", "bloody", "blow job", "blowjob", "blowjobs", "boiolas", "bollock", "bollok", "boner", "boob", "boobs", "booobs", "boooobs", "booooobs", "booooooobs", "breasts", "buceta", "bugger", "bum", "bunny fucker", "butt", "butthole", "buttmuch", "buttplug", "c0ck", "c0cksucker", "carpet muncher", "cawk", "chink", "cipa", "cl1t", "clit", "clitoris", "clits", "cnut", "cock", "cock-sucker", "cockface", "cockhead", "cockmunch", "cockmuncher", "cocks", "cocksuck", "cocksucked", "cocksucker", "cocksucking", "cocksucks", "cocksuka", "cocksukka", "cok", "cokmuncher", "coksucka", "coon", "cox", "crap", "cum", "cummer", "cumming", "cums", "cumshot", "cunilingus", "cunillingus", "cunnilingus", "cunt", "cuntlick", "cuntlicker", "cuntlicking", "cunts", "cyalis", "cyberfuc", "cyberfuck", "cyberfucked", "cyberfucker", "cyberfuckers", "cyberfucking", "d1ck", "damn", "dick", "dickhead", "dildo", "dildos", "dink", "dinks", "dirsa", "dlck", "dog-fucker", "doggin", "dogging", "donkeyribber", "doosh", "duche", "dyke", "ejaculate", "ejaculated", "ejaculates", "ejaculating", "ejaculatings", "ejaculation", "ejakulate", "f u c k", "f u c k e r", "f4nny", "fag", "fagging", "faggitt", "faggot", "faggs", "fagot", "fagots", "fags", "fanny", "fannyflaps", "fannyfucker", "fanyy", "fatass", "fcuk", "fcuker", "fcuking", "feck", "fecker", "felching", "fellate", "fellatio", "fingerfuck", "fingerfucked", "fingerfucker", "fingerfuckers", "fingerfucking", "fingerfucks", "fistfuck", "fistfucked", "fistfucker", "fistfuckers", "fistfucking", "fistfuckings", "fistfucks", "flange", "fook", "fooker", "fuck", "fucka", "fucked", "fucker", "fuckers", "fuckhead", "fuckheads", "fuckin", "fucking", "fuckings", "fuckingshitmotherfucker", "fuckme", "fucks", "fuckwhit", "fuckwit", "fudge packer", "fudgepacker", "fuk", "fuker", "fukker", "fukkin", "fuks", "fukwhit", "fukwit", "fux", "fux0r", "f_u_c_k", "gangbang", "gangbanged", "gangbangs", "gaylord", "gaysex", "goatse", "God", "god-dam", "god-damned", "goddamn", "goddamned", "hardcoresex", "hell", "heshe", "hoar", "hoare", "hoer", "homo", "hore", "horniest", "horny", "hotsex", "jack-off", "jackoff", "jap", "jerk-off", "jism", "jiz", "jizm", "jizz", "kawk", "knob", "knobead", "knobed", "knobend", "knobhead", "knobjocky", "knobjokey", "kock", "kondum", "kondums", "kum", "kummer", "kumming", "kums", "kunilingus", "l3i+ch", "l3itch", "labia", "lust", "lusting", "m0f0", "m0fo", "m45terbate", "ma5terb8", "ma5terbate", "masochist", "master-bate", "masterb8", "masterbat*", "masterbat3", "masterbate", "masterbation", "masterbations", "masturbate", "mo-fo", "mof0", "mofo", "mothafuck", "mothafucka", "mothafuckas", "mothafuckaz", "mothafucked", "mothafucker", "mothafuckers", "mothafuckin", "mothafucking", "mothafuckings", "mothafucks", "mother fucker", "motherfuck", "motherfucked", "motherfucker", "motherfuckers", "motherfuckin", "motherfucking", "motherfuckings", "motherfuckka", "motherfucks", "muff", "mutha", "muthafecker", "muthafuckker", "muther", "mutherfucker", "n1gga", "n1gger", "nazi", "nigg3r", "nigg4h", "nigga", "niggah", "niggas", "niggaz", "nigger", "niggers", "nob", "nob jokey", "nobhead", "nobjocky", "nobjokey", "numbnuts", "nutsack", "orgasim", "orgasims", "orgasm", "orgasms", "p0rn", "pawn", "pecker", "penis", "penisfucker", "phonesex", "phuck", "phuk", "phuked", "phuking", "phukked", "phukking", "phuks", "phuq", "pigfucker", "pimpis", "piss", "pissed", "pisser", "pissers", "pisses", "pissflaps", "pissin", "pissing", "pissoff", "poop", "porn", "porno", "pornography", "pornos", "prick", "pricks", "pron", "pube", "pusse", "pussi", "pussies", "pussy", "pussys", "rectum", "retard", "rimjaw", "rimming", "s hit", "s.o.b.", "sadist", "schlong", "screwing", "scroat", "scrote", "scrotum", "semen", "sex", "sh!+", "sh!t", "sh1t", "shag", "shagger", "shaggin", "shagging", "shemale", "shi+", "shit", "shitdick", "shite", "shited", "shitey", "shitfuck", "shitfull", "shithead", "shiting", "shitings", "shits", "shitted", "shitter", "shitters", "shitting", "shittings", "shitty", "skank", "slut", "sluts", "smegma", "smut", "snatch", "son-of-a-bitch", "spac", "spunk", "s_h_i_t", "t1tt1e5", "t1tties", "teets", "teez", "testical", "testicle", "tit", "titfuck", "tits", "titt", "tittie5", "tittiefucker", "titties", "tittyfuck", "tittywank", "titwank", "tosser", "turd", "tw4t", "twat", "twathead", "twatty", "twunt", "twunter", "v14gra", "v1gra", "vagina", "viagra", "vulva", "w00se", "wang", "wank", "wanker", "wanky", "whoar", "whore", "willies", "willy", "xrated", "xxx", "ahole", "anus", "ash0le", "ash0les", "asholes", "ass", "Ass Monkey", "Assface", "assh0le", "assh0lez", "asshole", "assholes", "assholz", "asswipe", "azzhole", "bassterds", "bastard", "bastards", "bastardz", "basterds", "basterdz", "Biatch", "bitch", "bitches", "Blow Job", "boffing", "butthole", "buttwipe", "c0ck", "c0cks", "c0k", "Carpet Muncher", "cawk", "cawks", "Clit", "cnts", "cntz", "cock", "cockhead", "cock-head", "cocks", "CockSucker", "cock-sucker", "crap", "cum", "cunt", "cunts", "cuntz", "dick", "dild0", "dild0s", "dildo", "dildos", "dilld0", "dilld0s", "dominatricks", "dominatrics", "dominatrix", "dyke", "enema", "f u c k", "f u c k e r", "fag", "fag1t", "faget", "fagg1t", "faggit", "faggot", "fagg0t", "fagit", "fags", "fagz", "faig", "faigs", "fart", "flipping the bird", "fuck", "fucker", "fuckin", "fucking", "fucks", "Fudge Packer", "fuk", "Fukah", "Fuken", "fuker", "Fukin", "Fukk", "Fukkah", "Fukken", "Fukker", "Fukkin", "g00k", "God-damned", "h00r", "h0ar", "h0re", "hells", "hoar", "hoor", "hoore", "jackoff", "jap", "japs", "jerk-off", "jisim", "jiss", "jizm", "jizz", "knob", "knobs", "knobz", "kunt", "kunts", "kuntz", "Lezzian", "Lipshits", "Lipshitz", "masochist", "masokist", "massterbait", "masstrbait", "masstrbate", "masterbaiter", "masterbate", "masterbates", "Motha Fucker", "Motha Fuker", "Motha Fukkah", "Motha Fukker", "Mother Fucker", "Mother Fukah", "Mother Fuker", "Mother Fukkah", "Mother Fukker", "mother-fucker", "Mutha Fucker", "Mutha Fukah", "Mutha Fuker", "Mutha Fukkah", "Mutha Fukker", "n1gr", "nastt", "nigger;", "nigur;", "niiger;", "niigr;", "orafis", "orgasim;", "orgasm", "orgasum", "oriface", "orifice", "orifiss", "packi", "packie", "packy", "paki", "pakie", "paky", "pecker", "peeenus", "peeenusss", "peenus", "peinus", "pen1s", "penas", "penis", "penis-breath", "penus", "penuus", "Phuc", "Phuck", "Phuk", "Phuker", "Phukker", "polac", "polack", "polak", "Poonani", "pr1c", "pr1ck", "pr1k", "pusse", "pussee", "pussy", "puuke", "puuker", "queer", "queers", "queerz", "qweers", "qweerz", "qweir", "recktum", "rectum", "retard", "sadist", "scank", "schlong", "screwing", "semen", "sex", "sexy", "Sh!t", "sh1t", "sh1ter", "sh1ts", "sh1tter", "sh1tz", "shit", "shits", "shitter", "Shitty", "Shity", "shitz", "Shyt", "Shyte", "Shytty", "Shyty", "skanck", "skank", "skankee", "skankey", "skanks", "Skanky", "slag", "slut", "sluts", "Slutty", "slutz", "son-of-a-bitch", "tit", "turd", "va1jina", "vag1na", "vagiina", "vagina", "vaj1na", "vajina", "vullva", "vulva", "w0p", "wh00r", "wh0re", "whore", "xrated", "xxx", "b!+ch", "bitch", "blowjob", "clit", "arschloch", "fuck", "shit", "ass", "asshole", "b!tch", "b17ch", "b1tch", "bastard", "bi+ch", "boiolas", "buceta", "c0ck", "cawk", "chink", "cipa", "clits", "cock", "cum", "cunt", "dildo", "dirsa", "ejakulate", "fatass", "fcuk", "fuk", "fux0r", "hoer", "hore", "jism", "kawk", "l3itch", "l3i+ch", "lesbian", "masturbate", "masterbat*", "masterbat3", "motherfucker", "s.o.b.", "mofo", "nazi", "nigga", "nigger", "nutsack", "phuck", "pimpis", "pusse", "pussy", "scrotum", "sh!t", "shemale", "shi+", "sh!+", "slut", "smut", "teets", "tits", "boobs", "b00bs", "teez", "testical", "testicle", "titt", "w00se", "jackoff", "wank", "whoar", "whore", "*damn", "*dyke", "*fuck*", "*shit*", "@$$", "amcik", "andskota", "arse*", "assrammer", "ayir", "bi7ch", "bitch*", "bollock*", "breasts", "butt-pirate", "cabron", "cazzo", "chraa", "chuj", "Cock*", "cunt*", "d4mn", "daygo", "dego", "dick*", "dike*", "dupa", "dziwka", "ejackulate", "Ekrem*", "Ekto", "enculer", "faen", "fag*", "fanculo", "fanny", "feces", "feg", "Felcher", "ficken", "fitt*", "Flikker", "foreskin", "Fotze", "Fu(*", "fuk*", "futkretzn", "gook", "guiena", "h0r", "h4x0r", "hell", "helvete", "hoer*", "honkey", "Huevon", "hui", "injun", "jizz", "kanker*", "kike", "klootzak", "kraut", "knulle", "kuk", "kuksuger", "Kurac", "kurwa", "kusi*", "kyrpa*", "lesbo", "mamhoon", "masturbat*", "merd*", "mibun", "monkleigh", "mouliewop", "muie", "mulkku", "muschi", "nazis", "nepesaurio", "nigger*", "orospu", "paska*", "perse", "picka", "pierdol*", "pillu*", "pimmel", "piss*", "pizda", "poontsee", "poop", "porn", "p0rn", "pr0n", "preteen", "pula", "pule", "puta", "puto", "qahbeh", "queef*", "rautenberg", "schaffer", "scheiss*", "schlampe", "schmuck", "screw", "sh!t*", "sharmuta", "sharmute", "shipal", "shiz", "skribz", "skurwysyn", "sphencter", "spic", "spierdalaj", "splooge", "suka", "b00b*", "testicle*", "titt*", "twat", "vittu", "wank*", "wetback*", "wichser", "wop*", "yed", "zabourah"])],
     reg = new RegExp(`(${[...new Set(badWords.join(" ").match(/[\w\d]+/gi))].join("|")})`, "gi"),
-    filterWord = e => e.replaceAll(reg, (function(e, t, n) {
-        return e.length > 1 ? e.split(/[aeiou]+/).join("*") : e
+    filter1 = e => e.replaceAll(reg, (function(e, t, n) {
+        return e.length > 1 ? e.split(/[aeiou]+/gi).join("*") : e
     })),
-    game_ = new class {#
-        e = function() {};#
-        t = function() {};#
-        n = !1;#
-        o = 1e3;#
-        a = function(e) {
-            return new Promise((t => setTimeout(t, e)))
-        };#
-        r = 0;#
-        i = 0;#
-        s = async function() {
-            for (;;) {
-                let e = this.#a,
-                    t = this.#t,
-                    n = this.#e;
-                if (await e(0), this.#i) {
-                    break
-                }
-                t() && (await e(this.#o), n(), await e(this.#o))
+    filter2 = e => "oh" === (e = e.toLowerCase()) ? random(["owo", "OwO"]) : e.replaceAll(/l/g, "w").replaceAll(/[le]+/g, (function(e) {
+        return {
+            l: "w",
+            e: "ee"
+        }[e[0]] || e
+    })).replace(/r/g, "z").replace(/s/g, "z").replace(/t/g, "t(t)").replace(/e/g, (function(e, t, n) {
+        return n.slice(t - 1, t + 1), "e"
+    }));
+"".replaceAll(/e{3,}/gi, "ee");
+const game_ = new class {#
+    e = function() {};#
+    t = function() {};#
+    n = !1;#
+    o = 1e3;#
+    a = function(e) {
+        return new Promise((t => setTimeout(t, e)))
+    };#
+    r = 0;#
+    i = 0;#
+    s = async function() {
+        for (;;) {
+            let e = this.#a,
+                t = this.#t,
+                n = this.#e;
+            if (await e(0), this.#i) {
+                break
             }
-            this.#i = !1
-        };
-        set i(e) {
-            return this.#o = Number.isNaN(e) ? 1e3 : Number(e)
+            t() && (await e(this.#o), n(), await e(this.#o))
         }
-        get i() {
-            return this.#o
-        }
-        start() {
-            this.#s()
-        }
-        stop() {
-            this.#i = !0
-        }
-        set o(e) {
-            return this.#n = !!e
-        }
-        get o() {
-            return this.#n
-        }
-        set l(e) {
-            return this.#t = e
-        }
-        get l() {
-            return this.#t
-        }
-        set u(e) {
-            return this.#e = e
-        }
-        get u() {
-            return this.#e
-        }
+        this.#i = !1
     };
+    set i(e) {
+        return this.#o = Number.isNaN(e) ? 1e3 : Number(e)
+    }
+    get i() {
+        return this.#o
+    }
+    start() {
+        this.#s()
+    }
+    stop() {
+        this.#i = !0
+    }
+    set o(e) {
+        return this.#n = !!e
+    }
+    get o() {
+        return this.#n
+    }
+    set l(e) {
+        return this.#t = e
+    }
+    get l() {
+        return this.#t
+    }
+    set u(e) {
+        return this.#e = e
+    }
+    get u() {
+        return this.#e
+    }
+};
 class bool {#
     c = !1;
     toggle() {
