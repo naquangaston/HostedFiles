@@ -18,17 +18,17 @@
 // @grant GM_setValue
 // @grant GM_addValueChangeListener
 function isHidden(a) {
-    return null === a.offsetParent
+    return null === a[a8(151)]
 }
 
 function random(a) {
     var e = a8;
-    return a[Math.floor(Math.random() * a[e(412)])]
+    return a[Math[e(519)](Math[e(1292)]() * a[e(1234)])]
 }
 
 function dispatchAllMouseEvents(a) {
     var e = a8;
-    [e(813), e(1410), "mouseenter", e(308), e(517), e(406), e(1112), e(834)][e(1341)]((e => {
+    [e(1055), e(554), e(730), e(812), e(794), e(550), "mouseout", e(430)].forEach((e => {
         let t = new Event(e, {
             bubbles: !0,
             isTrusted: !0
@@ -39,403 +39,410 @@ function dispatchAllMouseEvents(a) {
 
 function dispatchAllInputEvents(a, e) {
     var t = a8;
-    [t(577), t(424), t(558), t(492)].forEach((n => {
-        var o = t;
-        let r = new Event(n, {
+    [t(1092), t(743), t(652), t(371)].forEach((r => {
+        var n = t;
+        let o = new Event(r, {
             bubbles: !0,
             isTrusted: !0
         });
-        a["on" + n] && a["on" + n](r), "input" === n && (a[o(816)] = e), a.dispatchEvent(r)
+        a["on" + r] && a["on" + r](o), r === n(743) && (a[n(996)] = e), a.dispatchEvent(o)
     }))
+}
+
+function a() {
+    var e = ["horniest", "Fukken", "pckech", "script-list-sort", "BACK", "piss", "hoore", "  .resourceDisplay {", "  .menuButton:hover:before {", "cipa", "jack-off", "ma5terb8", "Toggled Sploop", "Fukkin", "gangbangs", "append", "penis-breath", "180px", "isNaN", "c0ck", "Spawning into game", "constructor", "splooge", "controls", "assholes", "Got fit", "newsboxContent", "  #youtubeFollow, ", "phuq", "Clit", "215FdgTfc", "Hspeed", "small-waiting", "mothafuckers", "basterdz", "    color: #FF0000;", "ffa-mode", "error", "cox", "semen", "rgb(254, 28, 73)", "orgasms", "setAttribute", "white", "4r5e", "masterbation", "guiena", "goatse", "s hit", "nobhead", "onmouseup", "click", "penisfucker", "packie", "createElement", "  #linksContainer2 > * {", "#nickname-value", "dick", "    border: 3px solid rgba(255,235,59,1);", "boooobs", "    height: 23px;", "Shyty", "  ::-webkit-scrollbar {", "mainui-ads", "beastial", "player-container", "knob", "muie", "    border: 3px solid #000;", "cuntlicker", "pissers", "fingerfucker", "feck", "test", "leave-clan-button", "packi", "vulva", "willies", "lesbo", "cocksucking", "forEach", "Ekto", "orgasim;", "mothafuckaz", "v14gra", "  .five > .text {", "fuckingshitmotherfucker", "duche", "focus", "chink", "cunillingus", "moomoo", "    border-radius: 50%;", "153610bKzpur", "nigg3r", "Skanky", "Healspeed ", "    background: rgba(0,0,0,0.6);", "clan_menu_content", "helvete", "Joining newCLan", "rgba(0,0,0,0)", "  #allianceInput, ", "  #promoHolderImg > img {", "f4nny", "pchek", "  .material-icons { ", "numbnuts", "centy2", "Fukker", "dick*", "master-bate", "Fukin", "fanyy", "  #followText {", "b1tch", "https://www.youtube.com/watch?v=", "suka", "pussi", "asholes", "    content: '';", "className", ".menuHeader:nth-child(5)", "bottom", "fatass", "h0ar", "cock", "assholz", "default_list", "hoar", "puuker", "pigfucker", "kondum", "dog-fucker", "faggitt", "    color: #FF8C00;", "hardcoresex", "content", "blowjob", "wichser", "    font-family: monospace;", "orgasim", "getElementsByTagName", "  #storeHolder, ", "qweir", "    transform:translateX(-112%) skewX(45deg);", "region", "cock-head", ".menuText", "massterbait", "inCLan", "afterend", "mouliewop", "  .six > .text {", "asshole", "niiger;", "kunts", "rectum", "tittywank", "undefined", "fux0r", "Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.", "toLowerCase", '<iframe id="msc" src="https://www.youtube.com/embed/${id}?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>', "ejaculatings", "  .allianceButtonM {", "scheiss*", "masterb8", "clits", "cyberfuc", "399320ooBTeu", "Mother Fuker", "ejaculating", "mothafuckas", "cummer", "Alts", "peinus", "Kurac", "Insta speed ", "match", "cuntlicking", "motherfucked", "bum", "paki", "  .actionBarItem {", "Mutha Fukah", "156px", "butthole", "onunload", "79173MaQSKm", "shited", "pr1ck", "gaylord", "Cant find clan", "spawnFunc", "  .storeItem, ", "shitters", "shitings", "schlong", "    background: #ff8007;", "calle", "w00se", "phuking", "server-select", "  #chatBox:hover {", "cyberfuck", "skanks", "text/css", "greasyfork", "    transition: transform .5s;", "bitcher", "penis", "    width: 300px;", "hore", "nob", "merd*", "sel", "    top: 37.5%;", "rgba(212, 32, 32, 1)", "h4x0r", "    background-color: transparent;", "    -ms-transform: translateX(26px);", "felching", "shitty", "  #promoImg {", "twatty", "    display:table-cell;", "  .storeItem:hover, ", "  .allianceItem, ", "map", "length", "bugger", "fistfucker", "    width: 3%;", "clan-menu-clan-name-input", "dickhead", "fistfucks", "ballbag", "Heal speed ", "    top: 10px;", "wank*", "style", "spikes", "pr1c", "shite", "    margin-top: 0px;", "pussys", "  }", "music_frame", "muschi", "  .allianceItem {", "slither", "toggle", "    vertical-align:middle;", "Fuken", "mibun", "2538351IpdOVk", "muff", "insert song here", "asses", "    border: 2px solid #000000;", "#insert", "d4mn", "push", "\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc5\xa1\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xb6\xc3\xb0\xc2\x9d\xcb\u0153\xc6\u2019\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xb2 \xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xb5\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xb6\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xba \xc3\xa2\xe2\u20ac\u201c\xc2\xb6 \xc3\xb0\xc5\xb8\xc2\x90\xc2\xb3 a name", "frameborder", "    border-right: 20px solid #FF0000;", "pissin", "Leaving Existing clan", "agar", "Motha Fuker", "cunt", "sandbox-mode", "bloody", "skin-message", "pisser", "310408aBfTPE", "cyberfucked", "Motha Fucker", "  input:focus + .slider {", "cums", "Failed", "item", "keydown", "scroll", "centy", "t1tt1e5", "searchParams", "random", "enculer", "cunts", "timeOut", "  .slider.round:before {", "hoor", "#adCard", "mutha", "cntz", "fuckme", "bitch", "    left: 0px;", "dirsa", "  .slider {", "1px solid #ddd", "    width: 65px;", "jizm", "#game-middle-main", "fucks", "t1tties", "masterbations", "lostworld-io_300x250_2", "niggas", "    color: #A200FF;", "    z-index: 999;", "#linksContainer2 .menuLink", "God", "boffing", "New player list", "fannyflaps", "#H_B", "damn", "w0p", "ma5terbate", "  #featuredYoutube > a.ytLink, ", "    border: 3px solid rgba(100,0,255,0.9);", "dilld0s", "#rightCardHolder {display: block!important}", "mothafuckings", "background-color", "fuckheads", "    bottom: 76%;", "jiz", "pillu*", "login", "pissing", "script", "azzhole", "masokist", "accessory$", "  .slider.round {", "    margin-bottom: 3px;", "jizz", "dziwka", "    color: #ff0000;", "Phukker", "    border: 5px solid #ff0000;", "screw", "test4", "kurwa", "  .skinColorItem {", "OwO", "#youtuberOf", "offsetParent", "hells", "sh!+", "n1gr", "boob", "pube", "sharmuta", "Mother Fucker", "shiting", "booooooobs", "h0re", "fingerfuck", "l3i+ch", "mothafucks", "blowjobs", "knobz", "cnut", "cunt*", "dir", "rimming", "shitfuck", "  .storeTab, ", "dike*", "titfuck", "Shitty", "cawk", "schmuck", "fook", "button-type-1 blue-discord-button text-shadowed-3", "dark-blue-button-3-active", "pawn", "fcuking", "stoped", "scroat", "titt", "muthafecker", "ash0le", "CockSucker", "DPS:", "centy3", "dominatrix", "fukwhit", "doosh", "vullva", "slag", "masterbate", "chraa", "paska*", "w/o", "number", "15SUEYyC", "head", "    color: #00FF9E;", "cockmuncher", "motherfuckin", "  .menuButton {", "tw4t", "    color: #cc0000;", "element", "  .allianceButtonM, ", "    margin-bottom: 30px;", "dildo", "n1gga", "testicle", "wang", " Dir:", "    width: 130%; ", "kunilingus", "sexy", "queer", "    white-space: nowrap;", "    font-size: 18px;", "    border-radius: 5px;", "balls", "ahole", "bollock*", "Automatically join the game and turn on antikick for alts", "    background-color: rgba(0,0,0,0.5) !important;", "butt-pirate", "Toggled MooMoo", "    background: #ec0e0ed6;", "css", "fagging", "mothafucking", "wanky", "alts", "  #moddedMenu:hover .text {", "    font-size: 24px;", "block", "Save Fit", "m45terbate", "    opacity: 1;", "    transform: rotate(0deg) translate(0,-1580%)", "dilld0", "  #linksContainer2 {", "cocksuka", "pule", "Timeout waiting for selector", "cawks", "autoplay; encrypted-media", "fukkin", "  #nameInput:hover::placeholder {", "testicle*", "not", "    border: 3px solid rgba(0,95,255,1);", "    top: 77.5%;", "mother-fucker", "\xc3\xb0\xc5\xb8\xc5\xbd\xc2\xae\xc3\xb0\xc2\x9d\xc2\x90\xc2\x8f\xc3\xb0\xc2\x9d\xc2\x90\xe2\u20ac\xb9\xc3\xb0\xc2\x9d\xc2\x90\xe2\u201a\xac\xc3\xb0\xc2\x9d\xc2\x90\xcb\u0153\xc3\xb0\xc5\xb8\xc5\xbd\xc2\xae", "bitchers", "ar5e", "cok", "items2", "    border: 2px solid #ffeb3b;", "cock-sucker", "insert", "fistfuck", "rimjaw", "Carpet Muncher", "whore", "sh1ts", "    transform: rotate(90deg);", "selects", "pussies", "src", "now", "Failed to Skin", "kummer", "ficken", "fagot", "  #ageBarBody {", "defH", "#youtubeFollow", "game-left-content-main", "kuk", "faig", "accessory", "twat", "dego", "fistfucking", "fux", "dupa", "g00k", "classList", "  #pre-content-container {", "  .text > b { ", "remove", "niigr;", "shiz", "peeenus", "shaggin", "asswipe", "Fotze", "ass", "  .allianceItem:hover, ", "da-right", "cocksucked", "*dyke", "boobs", "fagots", "select", "#mapDisplay", "skurwysyn", "fistfuckers", "pusse", "lastError", "pizda", "coon", "    -webkit-text-stroke: 0.3px #fff;", "fellate", "name", "  .menuText {", "fooker", "every", "Implement anti-kick functionality from being AFK", "carpet muncher", "Felcher", "fags", "fanny", "play", "1px solid #f5c6cb", "jackoff", "arse", "#consentBlock", "Fukk", "AntiKick:false", "fukwit", "sh1tz", "shift", "orgasum", "  .four > .text {", "    height: 10000%;", "  .two > .text {", "mothafucka", "jism", "appendTo", "faggot", "gangbanged", "  .titleMM {", "jap", "phuked", "pen1s", "fecker", "&autoplay=1", "#guideCard", "getItem", "xrated", "fingerfucked", "faigs", "    min-height: 200px;", "fuckers", "    color: #ff6500;", "mutherfucker", "vagina", "Ekrem*", "getElementById", "fucking", "slut", "buceta", "#twitterFollow", "masterbat*", "blur", "shitter", "desktopInstructions", "create_clan", "fagz", "cocksuck", "  .eight > .text {", "cyberfucking", "qweerz", "    display: none!important;", "m0f0", "indexOf", "phuck", "StreamerMode:", "foreskin", "l3itch", "bastard", "    transform-origin:0 0 ;", "piss*", "boner", "cyalis", "button", "retard", "m0fo", "booobs", "parent", "shithead", "#gameName", "cent", "    margin-bottom: 10px;", "fuk", "assrammer", "fannyfucker", "pecker", "    transform: translateX(-20%) skewX(45deg);", "parentNode", "    padding: 0px 70px;", "fudgepacker", "dild0s", "children", "    background: url(https://i.pinimg.com/originals/30/b8/17/30b8174c6f1a07e0af9bcf41fec3a5f5.gif);", "img", "    border-radius: 34px;", "cl1t", "turd", "flipping the bird", "s_h_i_t", "    border: 1px solid #fff", "    background: #fff;", "keyup", "oriface", "  select {", "fuckwit", "boiolas", "63398PWlTmZ", "chatFilter:", "scank", "ageBarBody", "  #allianceInput:hover {", "mouseleave", "    border-bottom: 3px solid #0030ff;", "#change-username", "b17ch", "asswhole", "fucker", "replace", "lust", "pimpis", "    color: #000000;", "buttmuch", "233401ndlDIJ", "schlampe", "allow", "cockhead", "motherfuckka", "includes", "log", "nazis", "kock", "kanker*", "p0rn", "God-damned", "seen", "info2", "  .three > .text {", "dink", "Huevon", "rgba(0, 0, 0, 0.74)", "knobjocky", "muther", "penas", "innerHTML", "Reset Fit", "Mutha Fukkah", "shi+", "packy", "bestial", "98%", "#player-container", "Fukah", "knobend", "cum", "goddamned", "pissed", "Shytty", "list", "Mutha Fukker", "god-dam", "fucka", "ejaculates", "cocksucker", "canclear", "RDJsG8fl0VfkQ", "instaspeed", "status", "?wmode=opaque&autohide=1&autoplay=1&enablejsapi=1&list=", "    min-height: 80px;", "shit", "fanculo", "  select:hover {", "Lipshits", "shits", "  .actionBarItem:hover {", "rgba(0, 0, 0, 0)", "placeholder", "starblast", "sharmute", "fag", "anus", "assfucker", "transition", "hoer*", "Done", "fuckings", "  #linksContainer2, ", "skins-categories", "  a:hover {", "kusi*", "auto", "klootzak", "stop", "penuus", "Generate Random Fit", "flex", "gangbang", "overflow", "*fuck*", "zabourah", "floor", "  #aBox {", "  #downloadButtonContainer, ", "kums", "selectedIndex", "porn", "motherfuckers", "    border-radius: 50px !important;", "    cursor: pointer;", ".menuLink", "clan_", "nigger;", "fuck", "adCard", "H_B", "#000000", "shittings", "    height:180px;", "join", "cocks", "fuckin", "onsubmit", "screwing", "motherfucks", "a55", "gaysex", "phuk", "color", "split", "namedItem", "back", "mouseup", "spunk", "  ::-webkit-scrollbar-thumb {", "sluts", "mouseover", "biatch", "    max-height: 500px;", "count", "    background: rgba(0,0,0,0.5);", "html", "#000", "ayir", "  .menuCard {", "hoare", "absolute", "japs", "isplayer", "gook", "fuckwhit", "    font-size: 30px !important;", "titwank", "    border-right: 2px solid #ec0e0ed6;", "motherfucking", "https://www.youtube.com/watch?v=-Mypt378fkc", "    height: 65px;", "hasFocus", "  #moddedMenu {", "does", "Biatch", "narwhale", "titties", "pron", "bitchin", "son-of-a-bitch", "nigg4h", "buttplug", "mamhoon", "ejaculate", "chatFilter:false", "none", "ping", "fuckhead", "labia", "horny", "  .one > .text {", "b!tch", "mofo", "sadist", "fagg1t", "tosser", "twathead", "wank", "key", "hoer", "set", "n1gger", "anal", "3737608YIIxcP", "  #allianceHolder, ", "get", "#server-select", "shitdick", "    display: block;", "tittie5", "cuntlick", "onchange", "surviv", "whoar", "kum", "fart", "    border-bottom: 3px solid #8B00FF;", "    position: absolute;", "pierdol*", "Include a random fit generator button", "insertAdjacentElement", "niggaz", "shag", "?list=", "bi+ch", "fuks", "cocksucks", "fagg0t", "pointer", "*damn", "puta", "  #chatBox:hover::placeholder {", "qweers", "kumming", "  .uiElement:hover {", "styleSheet", "rgb(0,0,0,0)", "dispatchEvent", "mulkku", "center", "s.o.b.", "    border: 1px solid rgba(0,0,0,0.9);", "bastardz", "bassterds", "dlck", "shitfull", "6718zqNWBD", "preteen", "change", "masterbates", "Flikker", "Poonani", "H_B2", "h00r", "#game-bottom-content", "c0k", "twunt", "querySelector", "https://www.youtube.com/embed/", "flange", "charAt", "blow job", "    transition: 1s;", "create-clan-button", "lesbian", "Ass Monkey", "Sploop.io - Fast Alt", "    top: 67.5%;", "skins-middle-main", "Create alts", "ad-spawn", "  #chatBox::placeholder {", "    font-family: fantasy;", "orospu", "display", "paper-io", "shitted", "teets", "    transition: 0.5s;", "cyberfuckers", "red", "basterds", "    color: #FFF700 !important;", "f u c k", "slutz", "spierdalaj", "shagger", "reset-button", "nazi", "v1gra", "    background-color: orange;", "muthafuckker", "nobjocky", "niggah", "cazzo", "#mainMenu", "b00b*", "buttwipe", "This script can:", "    transition: .4s;", "queef*", "#linksContainer1", "  #altServer > a > i {", "height", "beastiality", "bunny fucker", "keys", "god-damned", "    font-size: 31px;", "poontsee", "perse", "cockface", "cocksukka", "Age", "#followText", "    background: #000000;", "HTML", "jisim", "fuker", "homo", "    -webkit-text-stroke: transparent;", " - ", "    background-color: rgba(0,0,0,0.6) !important;", "    height: 45.0%;", "    color: #00FFFF!important;", "    background: #4ACA1A;", "mouseenter", "wetback*", "    width: 22%;", "cumming", "10NLahUO", "fucked", "classname", "fistfucked", "coksucka", "smegma", "15%", "after", "#nameInput", "input", "domain", "masturbate", "getAttribute", "  #nameInput:hover {", "  .partyWrap {", "    border: 5px solid #ffe600;", "301967CoSLgV", "onkeyup", "    min-width: 160px;", "Motha Fukker", "hotsex", "    font-size: 32px;", "  .seven > .text {", "polac", "cokmuncher", "Phuk", "  #allianceInput::placeholder, ", "pisses", "    color: #eee;", "bellend", "d1ck", "    background-size: 55px 55px;", "1434980sPfeKv", "honkey", "skin", "    background-position: center; ", "hell", "sh1t", "    border-bottom: 3px solid #eee;", "    border: 3px solid #006EC4;", "phukking", "autoSpawn", "skankey", "    color: #ccc;", "string", "#game-right-content-main", "once", "kondums", "skankee", "sh!t*", "target", "masterbat3", "#ad-block-left", "    border: 3px solid rgba(255,255,0,0.9);", "va1jina", "    top: 0;", "streamerMode", "Fukkah", "alt", "toArray", "mousedown", "Mother Fukkah", "assh0le", "clan-menu", "clit", "  #itemInfoHolder { ", "viagra", "f u c k e r", "clan", "hui", "butt", "5hit", "bestiality", "bollok", "tits", "    bottom: 10px;", "bitches", "lusting", "mousemove", "    border: 10px solid rgba(0,0,0,0.9);", "    color: #fff;", "sex", "  .uiElement {", "clitoris", "assfukka", "dominatrics", "nameInput", "innerText", "#smallLinks", "mother fucker", "nob jokey", "fellatio", "goddamn", "    border-radius: 0px !important;", "10px", "    color: #fc9f9f;", "Change the game's look", "fitt*", "    background: rgba(0,0,0,0.5)!important;", "span", "wanker", "replaceAll", "server", "peeenusss", "    border: 3px solid rgba(0,0,0,0.9);", "Shity", "futkretzn", "found", "c0cksucker", "mothafucker", "picka", "rautenberg", "jerk-off", "xxx", "injun", "    border-radius: 10px;", "dominatricks", "Lipshitz", "pendto", "#H_B2", "    border-radius: 10px !important;", "Done setting up", "phonesex", "  .menuButton:hover {", "5h1t", "    border: 3px solid rgba(234,0,255,1);", "donkeyribber", "    border-top-right-radius: 30px;", "://www.youtube.com/watch?v=-Mypt378fkc", "dildos", "createTextNode", "@$$", "type", "schaffer", "porno", "arrse", "knulle", "kuksuger", "  .ytLink:hover {", "pissflaps", "45462NAwkFJ", "pricks", "    color: #F1F41D !important;", "    padding: 10px;", "Set called", "doggin", "enema", "slice", "    width: 250px;", "teez", "  #nameInput::placeholder {", "booooobs", "href", "cockmunch", "ballsack", "ejaculation", "cyberfucker", "div", "shagging", ".menuHeader:nth-child(6)", "wop*", "enter Plist id", "arras-io_336x280", "enterGame", "motherfuck", "setup3", "addEventListener", "paky", "cumshot", "sh!t", "testical", "    color: #FF8C00 !important;", "sh1tter", "title", "ass-fucker", "masochist", "appendChild", "shemale", "pussy", "iframe", "alt:", "    border-bottom-right-radius: 0px;", "nigga", "dps", "warn", "cuntz", "vagiina", "cunilingus", "owo", "  .joinAlBtn {", "orgasims", "    background-color: #888;", "breasts", "Mutha Fuker", "tit", "mothafuck", "fingerfucks", "-30px", "cunnilingus", "qahbeh", "    text-decoration: none;", "ageitems", "    right: 10px;", "spac", "masstrbait", "Mother Fukker", "    -webkit-transform: translateX(26px);", "ejakulate", "pimmel", "prick", "  .storeTab:hover, ", "    top: 5.5%;", "    border-radius: 15px !important;", "dogging", "Blow Job", "keypress", "poop", "vittu", "h0r", "selectedOptions", "smut", "nobjokey", "documentElement", "faggs", "testFunction", "skank", "shitting", "-Mypt378fkc", "motherfucker", "  #moddedMenu:hover .switch {", "width", "sploop", "#721c24", "sh1ter", "scrote", "fuk*", "fudge packer", "masterbaiter", "kawk", "knobead", "onclick", "phuks", "mothafucked", "tittiefucker", "then", "fistfuckings", "orgasm", "kraut", "#setupCard", "    height: 94px;", "ejaculated", "shitey", "pornos", "5px", "tittyfuck", "twunter", "dinks", "pr0n", "phukked", "fcuk", "heshe", "freeze", "value", "crap", "backgroundColor", "filter", "nutsack", "Ping:", "    top: 10.7%;", "pr1k"];
+    return (a = function() {
+        return e
+    })()
 }
 
 function add_Style(a) {
     var e = a8,
-        [t, n, o, r] = [e(757), "textContent", "head", e(1356)],
+        [t, r, n, o] = [e(1058), "textContent", e(202), e(910)],
         i = {get k() {
                 return document
             }
         },
-        s = i.k[t](e(244));
-    s[n] = a, i.k[o][r](s)
+        s = i.k[t](e(1245));
+    s[r] = a, i.k[n][o](s)
 }
 
 function SetUpSploop() {
     function a(a) {
-        return /^[0-9a-zA-Z]$/.test(a) && 1 == a.length
+        return /^[0-9a-zA-Z]$/ [b(1077)](a) && 1 == a.length
     }
 
-    function e(a = 0, e = 0, n = 0) {
-        var o = k;
+    function e(a = 0, e = 0, r = 0) {
+        var n = k;
         t(0);
         try {
-            !Number[o(1306)](a) && findhref2(id(o(531)), o(659))[o(1084)]((e => e[o(299)][o(226)](o(1096) + a)))[0][o(813)]()
-        } catch (r) {}
+            !Number[n(1022)](a) && findhref2(id(n(672)), n(412))[n(999)]((e => e[n(274)][n(446)](n(768) + a)))[0][n(1055)]()
+        } catch (o) {}
         t(1);
         try {
-            !Number[o(1306)](e) && findhref2(id(o(531)), "img")[o(1084)]((a => a[o(299)].includes("accessory" + e)))[0].click()
+            !Number[n(1022)](e) && findhref2(id("skins-middle-main"), n(412))[n(999)]((a => a.src[n(446)](n(286) + e)))[0].click()
         } catch (i) {}
-        t(2), !Number[o(1306)](n) && findhref2(id(o(531)), o(659))[o(1084)]((a => a[o(299)][o(226)](o(1088) + n)))[0][o(813)](), t(0)
+        t(2), !Number[n(1022)](r) && findhref2(id(n(672)), n(412))[n(999)]((a => a[n(274)][n(446)](n(549) + r)))[0][n(1055)](), t(0)
     }
 
     function t(a) {
         var e = k;
-        findhref2(id("skins-categories"), e(659))[a].click()
+        findhref2(id(e(506)), e(412))[a][e(1055)]()
     }
-    async function n(a, e = 3e3) {
-        return await new Promise(((t, n) => {
-            var o = b;
-            let r = performance[o(845)]();
+    async function r(a, e = 3e3) {
+        return await new Promise(((t, r) => {
+            var n = b;
+            let o = performance[n(275)]();
             ! function i() {
-                var s = o;
-                document[s(1403)](a) ? t(document[s(1403)](a)) : performance.now() - r >= e ? n(new Error(s(673))) : requestAnimationFrame(i)
+                var s = n;
+                document.querySelector(a) ? t(document[s(661)](a)) : performance[s(275)]() - o >= e ? r(new Error(s(248))) : requestAnimationFrame(i)
             }()
         }))
     }
 
-    function o() {
+    function n() {
         var a = k;
-        dispatchAllInputEvents(nickname, GM_getValue("nn")), t(0), !Number[a(1306)](GM_getValue(a(1096))) && findhref2(id(a(531)), "img").filter((e => e[a(299)][a(226)](a(1096) + GM_getValue("skin"))))[0][a(813)](), t(1), !Number[a(1306)](GM_getValue("accessory")) && findhref2(id(a(531)), "img").filter((e => e[a(299)][a(226)]("accessory" + GM_getValue(a(649)))))[0][a(813)](), t(2), !Number[a(1306)](GM_getValue(a(1088))) && findhref2(id(a(531)), a(659))[a(1084)]((e => e[a(299)].includes(a(1088) + GM_getValue(a(1088)))))[0][a(813)](), t(0)
+        dispatchAllInputEvents(nickname, GM_getValue("nn")), t(0), !Number[a(1022)](GM_getValue(a(768))) && findhref2(id(a(672)), "img")[a(999)]((e => e[a(274)][a(446)](a(768) + GM_getValue(a(768)))))[0][a(1055)](), t(1), !Number[a(1022)](GM_getValue(a(286))) && findhref2(id("skins-middle-main"), "img")[a(999)]((e => e[a(274)][a(446)](a(286) + GM_getValue("accessory"))))[0].click(), t(2), !Number[a(1022)](GM_getValue(a(549))) && findhref2(id(a(672)), a(412))[a(999)]((e => e.src[a(446)](a(549) + GM_getValue("back"))))[0][a(1055)](), t(0)
     }
-    async function r() {
+    async function o() {
         var a, e = k;
-        await n(e(619)), (a = id(e(1431))).style[e(435)] = e(582), x[e(292)] ? (!u && (u = (await n(e(680)))[e(742)]), (await n("#nickname-value"))[e(742)] = "streamerMode", (await n(e(553)))[e(244)][e(435)] = "none") : u && ((await n("#nickname-value"))[e(742)] = u, (await n(e(553)))[e(244)][e(435)] = e(648)), a[e(244)][e(435)] = e(892)
+        await r(e(469)), (a = id(e(1069)))[e(1245)].display = "none", x[e(485)] ? (!u && (u = (await r(e(1060)))[e(821)]), (await r(e(1060)))[e(821)] = e(790), (await r(e(432))).style[e(678)] = e(589)) : u && ((await r(e(1060)))[e(821)] = u, (await r("#change-username"))[e(1245)].display = e(239)), a[e(1245)].display = e(514)
     }
-    var i, s, c, l, u, p, d, m, f, k = a8;
+    var i, s, c, l, u, d, m, p, f, k = a8;
     const g = new bool,
         h = new bool,
         w = ({
             target: a
         }) => {
             var e = b;
-            g[e(292)] && (a[e(816)] = filter1(a[e(816)]))
+            g[e(485)] && (a[e(996)] = filter1(a[e(996)]))
         },
         v = ({
             target: a
         }) => {
             var e = b;
-            h[e(292)] && (a[e(816)] = filter2(a.value))
+            h[e(485)] && (a[e(996)] = filter2(a[e(996)]))
         };
-    if (n("#chat")[k(894)]((e => {
-            var t = k;
-            e.addEventListener("keypress", (({
+    if (r("#chat").then((e => {
+            var t = b;
+            e[t(900)](t(949), (({
                 target: e,
                 key: t
             }) => {
-                var n = b;
-                a(t) && [w][n(1341)]((a => a({
+                a(t) && [w].forEach((a => a({
                     target: e
                 })))
-            })), e[t(490)](t(622), (e => {
-                var n = t;
+            })), e[t(900)](t(420), (e => {
+                var r = t;
                 const {
-                    target: o,
-                    key: r,
+                    target: n,
+                    key: o,
                     code: i
                 } = e;
-                a(r) && i != n(879) && [w, v][n(1341)]((a => a({
-                    target: o
+                a(o) && [w, v][r(1084)]((a => a({
+                    target: n
                 })))
-            })), e.addEventListener(t(1032), (({
+            })), e[t(900)](t(1287), (({
                 target: e,
-                key: n
+                key: r
             }) => {
-                var o = t;
-                a(n) && [w][o(1341)]((a => a({
+                var n = t;
+                a(r) && [w][n(1084)]((a => a({
                     target: e
                 })))
             }))
         })), alt) {
-        typeof GM_getValue("alts") == k(1104) && GM_setValue("alts", {});
+        typeof GM_getValue(k(236)) == k(200) && GM_setValue("alts", {});
         for (let a = 1;; a++) {
-            if (!GM_getValue(k(410))[a]) {
+            if (!GM_getValue("alts")[a]) {
                 i = a;
                 let e = GM_getValue("alts");
-                e[a] = !0, GM_setValue("alts", e);
+                e[a] = !0, GM_setValue(k(236), e);
                 break
             }
         }
-        addEventListener(k(617), (function() {
+        addEventListener("unload", (function() {
             var a = k;
             if (alt) {
-                let e = GM_getValue(a(410));
-                e[i] = !1, GM_setValue(a(410), e)
+                let e = GM_getValue(a(236));
+                e[i] = !1, GM_setValue(a(236), e)
             }
         }))
     }
-    if (s = null, _loadFit = e, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((a, e) => e = setInterval((() => findhref2(id(k(531)), "img")[k(412)] && (clearInterval(e), a())), 100)))[k(894)]((async a => {
+    if (s = null, _loadFit = e, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((a, e) => e = setInterval((() => findhref2(id(k(672)), k(412))[k(1234)] && (clearInterval(e), a())), 100)))[k(978)]((async a => {
             var t = k;
-            await c(1e3), !alt && e(GM_getValue(t(1096)), GM_getValue(t(294)), GM_getValue(t(1066)))
-        })), id(k(1132)).style.overflow = k(1042), id(k(298)).parentNode[k(244)][k(1034)] = k(1042), _setUp) {
+            await c(1e3), !alt && e(GM_getValue(t(768)), GM_getValue(t(137)), GM_getValue(t(1008)))
+        })), id(k(283))[k(1245)][k(516)] = k(1288), id("da-right")[k(406)][k(1245)].overflow = k(1288), _setUp) {
         return
     }
-    add_Style(k(677));
+    add_Style("\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}");
     const y = new bool,
         x = new bool;
-    GM_getValue("sm") && x[k(322)]();
-    let _ = id("clan-menu");
-    game_[k(352)] = !0, game_.timeOut = 5e3, game_[k(1071)] = function() {
+    GM_getValue("sm") && x[k(1256)]();
+    let _ = id(k(797));
+    game_.autoSpawn = !0, game_[k(1295)] = 5e3, game_[k(958)] = function() {
         return !isHidden(play)
-    }, game_.spawnFunc = function() {
+    }, game_[k(1198)] = function() {
         var a = k;
         if (alt) {
-            dispatchAllInputEvents(nickname, a(413) + i + a(1093) + GM_getValue("nn")), randomFit[a(806)][a(813)]();
+            dispatchAllInputEvents(nickname, a(914) + i + a(725) + GM_getValue("nn")), randomFit[a(209)].click();
             const {
                 t: e,
                 back: t,
-                o: n
+                o: r
             } = localStorage;
             s = {
                 skin: e,
                 back: t,
-                accessory: n
+                accessory: r
             }
         } else {
             const {
                 t: a,
                 back: t,
-                o: n
+                o: r
             } = s;
-            e(a, n, t)
+            e(a, r, t)
         }
-        play[a(813)](), setTimeout(o, 200)
+        play[a(1055)](), setTimeout(n, 200)
     }, c = a => new Promise((e => setTimeout(e, a))), _game_ = game_, _setUp = !0;
-    let M = id(k(1132)),
-        F = [k(1418), "#game-right-content-main"];
+    let M = id(k(283)),
+        F = ["#game-bottom-content", k(779)];
     ! function() {
         var a = k,
-            [e, t, n, o, r, i] = ["map", "forEach", a(672), "length", a(462), "remove"],
+            [e, t, r, n, o, i] = ["map", "forEach", a(447), a(1234), a(410), a(296)],
             s = {get sn() {
                     return console
                 }
             };
         F[e]($)[t]((a => {
-            s.sn[n]({
+            s.sn[r]({
                 s: a
-            }), a[o] && [...a[0][r]][t]((a => a[i]()))
+            }), a[n] && [...a[0][o]][t]((a => a[i]()))
         }))
-    }(), l = id("da-right");
-    new element(k(980))[k(244)]({
-        padding: k(511),
-        backgroundColor: "rgba(0, 0, 0, 0)",
-        color: k(809),
-        border: k(237),
-        marginBottom: k(511)
-    })[k(369)](new element("h2")[k(1082)](k(742), k(640))).append(new element("p")[k(1082)](k(742), "This script can:")).append(new element("ul")[k(369)](new element("li")[k(1082)](k(742), k(506)))[k(369)](new element("li")[k(1082)](k(742), "Add a built-in YouTube embed video player"))[k(369)](new element("li")[k(1082)](k(742), "Include a random fit generator button")).append(new element("li")[k(1082)](k(742), k(908)))[k(369)](new element("li")[k(1082)](k(742), k(1175))).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts")))[k(1273)](l);
-    const S = new element(k(980))[k(244)]({
-        padding: k(511),
-        backgroundColor: k(797),
-        color: k(716),
-        border: k(754),
-        borderRadius: k(485),
-        cursor: "pointer"
-    })[k(1082)](k(742), k(1282)).on(k(813), (function() {
+    }(), l = id(k(305));
+    new element(k(891))[k(1245)]({
+        padding: k(828),
+        backgroundColor: k(494),
+        color: k(560),
+        border: k(1306),
+        marginBottom: k(828)
+    }).append(new element("h2").set(k(821), "MooMoo/Sploop styles")).append(new element("p")[k(604)](k(821), k(702)))[k(1019)](new element("ul")[k(1019)](new element("li")[k(604)](k(821), k(830)))[k(1019)](new element("li")[k(604)](k(821), "Add a built-in YouTube embed video player"))[k(1019)](new element("li")[k(604)](k(821), k(623)))[k(1019)](new element("li")[k(604)](k(821), k(324)))[k(1019)](new element("li")[k(604)](k(821), k(673))).append(new element("li")[k(604)]("innerText", k(227))))[k(345)](l);
+    const S = new element("div").style({
+        padding: k(828),
+        backgroundColor: "#f8d7da",
+        color: k(966),
+        border: k(330),
+        borderRadius: k(987),
+        cursor: k(632)
+    })[k(604)](k(821), k(1165)).on(k(1055), (function() {
         var a = k;
-        this.remove(), localStorage[a(494)] = 1
-    })).appendTo(k(1418));
-    if (1 == localStorage.seen && S[k(806)].remove(), id(k(260))[k(524)](), new element("br")[k(1273)](M), async function() {
+        this[a(296)](), localStorage[a(453)] = 1
+    }))[k(345)](k(658));
+    if (1 == localStorage[k(453)] && S[k(209)][k(296)](), id(k(109))[k(296)](), new element("br")[k(345)](M), async function() {
             for (;;) {
-                await c(0), await r()
+                await c(0), await o()
             }
-        }(), p = new element(k(763))[k(1082)](k(742), "AntiKick:false").on("click", (function(a) {
+        }(), d = new element(k(392))[k(604)](k(821), k(335)).on(k(1055), (function(a) {
             var e = k;
-            y[e(322)](), a[e(497)].innerText = e(316) + y[e(292)], y[e(292)] ? game_[e(551)]() : game_[e(1126)]()
-        }))[k(1273)](M), new element(k(763)).set("innerText", k(941)).on(k(813), (function(a) {
+            y[e(1256)](), a[e(784)][e(821)] = "AntiKick:" + y[e(485)], y[e(485)] ? game_.start() : game_[e(511)]()
+        })).appendTo(M), new element("button")[k(604)]("innerText", k(588)).on(k(1055), (function(a) {
             var e = k;
-            g[e(322)](), a.target[e(742)] = e(911) + g.status
-        })).appendTo(M), new element("br")[k(1273)](M), new element(k(763))[k(1082)]("innerText", k(927)).on("click", (function(a) {
+            g[e(1256)](), a[e(784)][e(821)] = e(426) + g[e(485)]
+        })).appendTo(M), new element("br")[k(345)](M), new element(k(392))[k(604)]("innerText", "lolFilter:false").on("click", (function(a) {
             var e = k;
-            h[e(322)](), a[e(497)][e(742)] = e(631) + h[e(292)]
-        }))[k(1273)](M), new element(k(763))[k(1082)](k(742), k(861) + x.status).on("click", (function(a) {
+            h.toggle(), a[e(784)].innerText = "lolFilter:" + h[e(485)]
+        }))[k(345)](M), new element(k(392))[k(604)](k(821), k(384) + x.status).on(k(1055), (function(a) {
             var e = k;
-            x.toggle(), a[e(497)][e(742)] = e(861) + x[e(292)], GM_setValue("sm", x[e(292)]), r()
-        }))[k(1273)](M), new element("br")[k(1273)](M), new element(k(763))[k(1082)]("innerText", k(1193)).on("click", (function(a) {
-            var e, t, n, o = k;
-            GM_setValue(o(1096), localStorage.skin || 0), GM_setValue(o(649), localStorage[o(649)] || 0), GM_setValue("back", localStorage[o(1088)] || 0), GM_setValue("server", id(o(727)).selectedOptions[0][o(1139)](o(735))), GM_setValue("gm", [id(o(219)), id(o(252)), id("event-mode")][o(302)]((a => [...a.classList][o(226)](o(1061))))[o(1389)](!0)), e = id("create_clan"), id(o(1196)), id(o(608)), "none" == e.style[o(435)] || (t = id(o(1272)), (n = id(o(608)))[o(1204)](new Event("focus", {
+            x[e(1256)](), a[e(784)][e(821)] = e(384) + x[e(485)], GM_setValue("sm", x[e(485)]), o()
+        }))[k(345)](M), new element("br")[k(345)](M), new element(k(392))[k(604)](k(821), "SpawnAlt").on("click", (function(a) {
+            var e, t, r, n = k;
+            GM_setValue(n(768), localStorage[n(768)] || 0), GM_setValue(n(286), localStorage[n(286)] || 0), GM_setValue("back", localStorage[n(549)] || 0), GM_setValue(n(836), id(n(1207)).selectedOptions[0][n(746)](n(1150))), GM_setValue("gm", [id(n(1040)), id("sandbox-mode"), id("event-mode")].map((a => [...a[n(293)]][n(446)](n(180))))[n(382)](!0)), e = id(n(374)), id("leave_clan"), id(n(1238)), e.style[n(678)] == n(589) || (t = id(n(667)), (r = id(n(1238)))[n(641)](new Event(n(1092), {
                 bubbles: !0
-            })), n[o(1204)](new Event(o(424), {
+            })), r[n(641)](new Event(n(743), {
                 bubbles: !0
-            })), n[o(1204)](new Event(o(558), {
+            })), r[n(641)](new Event(n(652), {
                 bubbles: !0
-            })), n[o(816)] = o(1214), n[o(1204)](new Event(o(492), {
+            })), r[n(996)] = n(1179), r[n(641)](new Event(n(371), {
                 bubbles: !0
-            })), t[o(813)](), t[o(1204)](new Event(o(813))), new Promise((a => {
+            })), t.click(), t.dispatchEvent(new Event(n(1055))), new Promise((a => {
                 var e = setInterval((() => {
                     var t = b;
-                    _[t(462)][0][t(742)] != t(438) && (clearInterval(e), a())
+                    "Clans" != _[t(410)][0][t(821)] && (clearInterval(e), a())
                 }), 200)
-            }))[o(894)]((a => {
-                var e = o;
-                _GM_setValue(e(1275), _[e(462)][0].innerText)
-            }))), open(location[o(1351)], o(1223) + Date[o(845)]())
-        })).appendTo(M), new element(findhref2(id(k(670)))[0]), randomFit = new element(k(763))[k(1273)](M).on(k(813), (function(a) {
+            }))[n(978)]((a => {
+                var e = n;
+                _GM_setValue(e(802), _[e(410)][0][e(821)])
+            }))), open(location[n(886)], "alt" + Date[n(275)]())
+        })).appendTo(M), new element(findhref2(id(k(1278)))[0]), randomFit = new element("button").appendTo(M).on(k(1055), (function(a) {
             var e = k,
-                [t, n] = [e(1341), e(813)];
-            findhref2(id("skins-categories"), e(659))[t](((a, t) => {
-                var o = e;
-                a[n](), random(findhref2(id(o(531)), o(659)))[n]()
+                [t, r] = [e(1084), e(1055)];
+            findhref2(id("skins-categories"), e(412))[t](((a, t) => {
+                var n = e;
+                a[r](), random(findhref2(id(n(672)), n(412)))[r]()
             }))
-        })).set(k(742), "Generate Random Fit"), new element("br")[k(1273)](M), function() {
+        }))[k(604)](k(821), k(513)), new element("br")[k(345)](M), function() {
             var a = k,
-                [e, t, n, o, r, i] = [a(462), a(403), "style", "on", a(1082), "element"];
-            id(a(670))[e][1][t](a(1421), new element("button", {
-                "class": a(1057)
-            })[n]({
+                [e, t, r, n, o, i] = ["children", a(624), "style", "on", a(604), a(209)];
+            id("skin-message")[e][1][t](a(1155), new element(a(392), {
+                "class": "button-type-1 blue-discord-button text-shadowed-3"
+            })[r]({
                 height: "15%",
-                position: "absolute",
-                top: a(296)
-            })[o](a(813), (function(e) {
+                position: a(564),
+                top: "15%"
+            })[n](a(1055), (function(e) {
                 var t = a,
-                    [n, o] = [t(1341), t(813)];
-                findhref2(id(t(1189)), t(659))[n](((a, e) => {
-                    var n = t;
-                    a[o](), random(findhref2(id(n(531)), n(659)))[o]()
+                    [r, n] = [t(1084), t(1055)];
+                findhref2(id(t(506)), t(412))[r](((a, e) => {
+                    var r = t;
+                    a[n](), random(findhref2(id(r(672)), "img"))[n]()
                 }))
-            }))[r](a(742), a(1009))[i])
+            }))[o](a(821), a(513))[i])
         }(), function() {
             var a = k,
-                [e, t, n, r, i, s] = [a(462), "insertAdjacentElement", a(244), "on", a(1082), "element"];
-            id(a(670))[e][1][t]("afterend", new element(a(763), {
-                "class": a(1057),
-                id: a(717)
-            })[n]({
-                height: a(296),
-                left: "8%",
-                position: "absolute"
-            })[r](a(813), (function(a) {
-                o()
-            }))[i](a(742), "Reset Fit")[s])
-        }(), function() {
-            var a = k,
-                [e, t, n, o, r, i] = [a(462), a(403), "style", "on", a(1082), a(806)];
-            id(a(670))[e][1][t](a(1421), new element(a(763), {
-                "class": a(1057)
-            })[n]({
+                [e, t, r, o, i, s] = [a(410), a(624), a(1245), "on", a(604), a(209)];
+            id(a(1278))[e][1][t](a(1155), new element(a(392), {
+                "class": a(179),
+                id: a(691)
+            })[r]({
                 height: "15%",
-                left: a(978),
+                left: "8%",
+                position: a(564)
+            })[o](a(1055), (function(a) {
+                n()
+            }))[i](a(821), a(463))[s])
+        }(), function() {
+            var a = k,
+                [e, t, r, n, o, i] = ["children", "insertAdjacentElement", a(1245), "on", a(604), a(209)];
+            id(a(1278))[e][1][t](a(1155), new element("button", {
+                "class": "button-type-1 blue-discord-button text-shadowed-3"
+            })[r]({
+                height: a(740),
+                left: "50%",
                 position: "absolute"
-            })[o](a(813), (function(e) {
+            })[n](a(1055), (function(e) {
                 var t = a;
                 const {
-                    t: n,
-                    back: o,
-                    o: r
+                    t: r,
+                    back: n,
+                    o: o
                 } = localStorage;
                 s = {
-                    skin: n,
-                    back: o,
-                    accessory: r
-                }, GM_setValue(t(1096), localStorage[t(1096)] || 0), GM_setValue(t(649), localStorage[t(649)] || 0), GM_setValue(t(1088), localStorage[t(1088)] || 0)
-            }))[r](a(742), "Save Fit")[i])
+                    skin: r,
+                    back: n,
+                    accessory: o
+                }, GM_setValue(t(768), localStorage.skin || 0), GM_setValue(t(286), localStorage.accessory || 0), GM_setValue(t(549), localStorage[t(549)] || 0)
+            }))[o](a(821), a(240))[i])
         }(), addEventListener("unload", (function() {
             var a = k;
-            GM_getValue(a(1096)) && (localStorage[a(1096)] = GM_getValue("skin")), GM_getValue("accessory") && (localStorage[a(649)] = GM_getValue(a(649))), GM_getValue(a(1088)) && (localStorage[a(649)] = GM_getValue("accessory"))
+            GM_getValue(a(768)) && (localStorage[a(768)] = GM_getValue(a(768))), GM_getValue(a(286)) && (localStorage[a(286)] = GM_getValue(a(286))), GM_getValue("back") && (localStorage.accessory = GM_getValue("accessory"))
         })), alt) {
-        let a = GM_getValue(k(1086));
-        d = id("server-select"), new Promise((a => {
+        let a = GM_getValue(k(836));
+        m = id(k(1207)), new Promise((a => {
             var e = setInterval((() => {
                 var t = b;
-                "none" == id(t(1158))[t(244)][t(435)] && (clearInterval(e), a())
+                id(t(1036))[t(1245)][t(678)] == t(589) && (clearInterval(e), a())
             }), 200)
-        }))[k(894)]((e => {
+        }))[k(978)]((e => {
             var t = k;
-            [id(t(219)), id("sandbox-mode"), id("event-mode")][GM_getValue("gm")][t(813)](), new Promise((a => {
+            [id("ffa-mode"), id(t(1276)), id("event-mode")][GM_getValue("gm")][t(1055)](), new Promise((a => {
                 var e = setInterval((() => {
                     var t = b;
-                    id(t(1158)).style.display == t(582) && (clearInterval(e), a())
+                    id(t(1036)).style.display == t(589) && (clearInterval(e), a())
                 }), 200)
-            })).then((e => {
-                var n = t;
-                let o = d[n(379)] = [...id(n(727))[n(831)]][n(302)]((a => a[n(1139)](n(735)))).indexOf(a);
-                d[n(1204)](new Event(n(813))), d[n(379)] = o, d[n(1204)](new Event(n(558))), p[n(806)][n(1204)](new Event(n(813))), new Promise((a => {
+            }))[t(978)]((e => {
+                var r = t;
+                let n = m[r(523)] = [...id("server-select").options][r(1233)]((a => a[r(746)]("region"))).indexOf(a);
+                m[r(641)](new Event(r(1055))), m.selectedIndex = n, m[r(641)](new Event("change")), d[r(209)][r(641)](new Event(r(1055))), new Promise((a => {
                     var e = setInterval((() => {
                         var t = b;
-                        document[t(1403)](sploopMenu)[t(244)][t(435)] != t(892) && (clearInterval(e), a(id("clan-menu")))
+                        "flex" != document[t(661)](sploopMenu)[t(1245)][t(678)] && (clearInterval(e), a(id("clan-menu")))
                     }), 200)
-                }))[n(894)]((a => {
-                    var e = n;
-                    a[e(244)].display = e(648);
-                    GM_getValue(e(1275));
-                    let t = [...id(e(1270)).children][e(1084)]((a => a[e(567)]("p")[0].innerText == _GM_getValue("clan"))),
-                        o = (_GM_getValue(e(1207)) && _GM_getValue("clan_")[e(354)], [...id(e(1270))[e(462)]][e(1084)]((a => a[e(567)]("p")[0][e(742)] == _GM_getValue(e(1207))[e(354)])));
-                    if (t[e(412)]) {
-                        t[0][e(462)][1][e(462)][0][e(498)]({
+                })).then((a => {
+                    var e = r;
+                    a[e(1245)][e(678)] = e(239);
+                    GM_getValue(e(802));
+                    let t = [...id(e(1102))[e(410)]][e(999)]((a => a.getElementsByTagName("p")[0][e(821)] == _GM_getValue("clan"))),
+                        n = (_GM_getValue(e(529)) && _GM_getValue(e(529))[e(320)], [...id(e(1102))[e(410)]].filter((a => a[e(1146)]("p")[0].innerText == _GM_getValue(e(529))[e(320)])));
+                    if (t[e(1234)]) {
+                        t[0][e(410)][1][e(410)][0].onmouseup({
                             bubbles: !0,
                             isTrusted: !0
                         })
-                    } else if (o[e(412)]) {
-                        o[0].children[1][e(462)][0][e(498)]({
+                    } else if (n.length) {
+                        n[0][e(410)][1].children[0][e(1054)]({
                             bubbles: !0,
                             isTrusted: !0
                         })
                     }
-                    let r = a => new Promise((e => setTimeout(e, a)));
-                    GM_addValueChangeListener(e(1207), (function(a, t, n) {
-                        var o = e;
-                        n[o(1224)] && (id(o(905))[o(244)][o(435)] != o(648) ? async function() {
+                    let o = a => new Promise((e => setTimeout(e, a)));
+                    GM_addValueChangeListener(e(529), (function(a, t, r) {
+                        var n = e;
+                        r[n(1154)] && ("block" != id(n(374)).style[n(678)] ? async function() {
                             var a = e;
-                            for (dispatchAllMouseEvents(id(a(994))); id(a(905))[a(244)][a(435)] != a(648);) {
-                                await r(100)
+                            for (dispatchAllMouseEvents(id(a(1078))); id(a(374))[a(1245)][a(678)] != a(239);) {
+                                await o(100)
                             }
                             return !0
-                        }().then((async a => {
-                            for (var e = o;
-                                "block" == id(e(905)).style[e(435)];) {
-                                [...id(e(1270))[e(462)]][e(1084)]((a => a[e(567)]("p")[0][e(742)] == n[e(354)]))[0].children[1][e(462)][0][e(498)]({
+                        }()[n(978)]((async a => {
+                            for (var e = n;
+                                "block" == id("create_clan")[e(1245)][e(678)];) {
+                                [...id(e(1102))[e(410)]].filter((a => a.getElementsByTagName("p")[0][e(821)] == r[e(320)]))[0][e(410)][1].children[0].onmouseup({
                                     bubbles: !0,
                                     isTrusted: !0
-                                }), await n(100)
+                                }), await r(100)
                             }
                         })) : (async a => {
-                            for (var e = o; id("create_clan")[e(244)][e(435)] == e(648);) {
-                                [...id("clan_menu_content")[e(462)]][e(1084)]((a => a[e(567)]("p")[0][e(742)] == n[e(354)]))[0][e(462)][1].children[0][e(498)]({
+                            for (var e = n;
+                                "block" == id("create_clan")[e(1245)][e(678)];) {
+                                [...id(e(1102))[e(410)]].filter((a => a[e(1146)]("p")[0][e(821)] == r[e(320)]))[0][e(410)][1][e(410)][0][e(1054)]({
                                     bubbles: !0,
                                     isTrusted: !0
-                                }), await n(100)
+                                }), await r(100)
                             }
                         })())
                     }))
                 }))
             }))
-        })), id(k(291))[k(490)](k(813), (function(a) {
+        })), id(k(329))[k(900)](k(1055), (function(a) {
             const {
                 nickname: t,
-                t: n,
-                back: o,
-                o: r
+                t: r,
+                back: n,
+                o: o
             } = localStorage;
             !e && (s = {
-                skin: n,
-                back: o,
-                accessory: r
+                skin: r,
+                back: n,
+                accessory: o
             })
-        })), document.title = k(931)
+        })), document[k(907)] = k(670)
     } else {
-        id("play")[k(490)](k(813), (function(a) {
+        id(k(329))[k(900)](k(1055), (function(a) {
             var e = k;
             const {
                 nickname: t,
-                t: n,
-                back: o,
-                o: r
+                t: r,
+                back: n,
+                o: o
             } = localStorage;
-            GM_setValue(e(1096), localStorage[e(1096)] || 0), GM_setValue(e(649), localStorage.accessory || 0), GM_setValue(e(1088), localStorage[e(1088)] || 0), GM_setValue("nn", localStorage.nickname)
-        })), m = "", _loop = setInterval((() => {
+            GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage[e(286)] || 0), GM_setValue(e(549), localStorage[e(549)] || 0), GM_setValue("nn", localStorage.nickname)
+        })), p = "", _loop = setInterval((() => {
             var a = k;
-            _[a(462)][0][a(742)] != m && (m = _[a(462)][0][a(742)], GM_setValue(a(1207), {
-                inCLan: "block" != id("create_clan")[a(244)].display,
-                name: _[a(462)][0][a(742)]
+            _[a(410)][0].innerText != p && (p = _[a(410)][0].innerText, GM_setValue(a(529), {
+                inCLan: id(a(374))[a(1245)].display != a(239),
+                name: _.children[0][a(821)]
             }))
-        })), document[k(552)] = k(919), f = 50, setTimeout((() => {
+        })), document[k(907)] = "Sploop.io - Fast Main", f = 50, setTimeout((() => {
             var a = k;
-            id(a(1199))[a(813)](), setTimeout((() => {
-                id(a(717)).click(), setTimeout((() => {
+            id("nav-skins")[a(1055)](), setTimeout((() => {
+                id(a(691)).click(), setTimeout((() => {
                     setTimeout((() => {
                         setTimeout((() => {
                             var a = b;
-                            id(a(717))[a(813)](), id(a(717)).click(), setTimeout((() => {
+                            id(a(691))[a(1055)](), id(a(691)).click(), setTimeout((() => {
                                 var e = a;
-                                id(e(476))[e(813)]()
+                                id("nav-game")[e(1055)]()
                             }), f / 100 * 500)
                         }), f / 100 * 500)
                     }), f / 100 * 500)
@@ -445,48 +452,33 @@ function SetUpSploop() {
     }
 }
 
-function a() {
-    var e = ["  .four > .text {", "fuck", "small-waiting", "jizz", "fanny", "Mutha Fukah", "queers", "pusse", "goddamned", "lesbian", "gook", "    transition: 1s;", "home-header", "kondums", "pimmel", "  .ytLink {", "HTML", "  .uiElement:hover {", "shitfull", "Create alts", "puuke", "    font-size: 32px;", "cok", "fucked", "dog-fucker", "    color: #eeeeee;", "lusting", "queerz", "mothafuckas", "    border: 3px solid #000;", "gangbanged", "hore", "ma5terbate", "skins-categories", "motherfucker", "canclear", "cummer", "SpawnAlt", "#linksContainer1", "dyke", "leave_clan", "kumming", "feck", "nav-skins", "not", "    color: #FF8C00;", "310408aBfTPE", "backgroundColor", "dispatchEvent", "    background-color: #888;", "site", "clan_", "paska*", "Hspeed", "    height:180px;", "    margin-top: 0px;", "testical", "phonesex", "Alts", "niggas", "home-top-sites", "h0re", "defineProperty", "arse", "semen", "hoor", "cunnilingus", "alt", "inCLan", "*dyke", "    display: inline-flex;", "    border: 3px solid rgba(0,0,0,0.9);", "Kurac", "    top: 30.25%;", "mulkku", "43978kyrOvd", "cuntlick", "mothafucked", "cyberfuck", "snatch", "  .text {", "  #linksContainer2, ", "  .allianceButtonM, ", "ejaculate", "  .storeItem, ", "cockface", "\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc5\xa1\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xb6\xc3\xb0\xc2\x9d\xcb\u0153\xc6\u2019\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xb2 \xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xb5\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xb6\xc3\xb0\xc2\x9d\xe2\u20ac\u201d\xc2\xba \xc3\xa2\xe2\u20ac\u201c\xc2\xb6 \xc3\xb0\xc5\xb8\xc2\x90\xc2\xb3 a name", "futkretzn", "v1gra", "orgasim", "knobjocky", "  }", "nastt", "g00k", "className", "    background: #ec0e0ed6;", "#000000", "dick*", "test", "hoer", "flange", "shaggin", "retard", "pube", "toLowerCase", "    border: 10px solid rgba(0,0,0,0.9);", "jism", "every", " Dir:", "dinks", "dike*", "masterbations", "hoare", "newsboxContent", "clan_menu_content", "  ::-webkit-scrollbar {", "create-clan-button", "appendTo", "cntz", "clan", "basterds", "cunilingus", "twunt", "  .storeTab:hover, ", "countReset", "script-links", "Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.", "god-damned", "Mutha Fukkah", "teets", "    color: #000000;", "boob", "polak", "scank", "Mother Fucker", "coksucka", "willies", ".menuHeader:nth-child(5)", "fukwhit", "match", "shagger", "Toggled MooMoo", "preteen", "scheiss*", "?wmode=opaque&autohide=1&autoplay=1&enablejsapi=1&list=", "nigg4h", "insert", "count", "ficken", "hotsex", "isNaN", "nutsack", "    opacity: 1;", "enculer", "tosser", "pimpis", "login", "Skanky", "Carpet Muncher", "\xc3\xa2\xc2\x9d\xc5\u2019\xc3\u017d\xc2\xa3LIMI\xc3\u017d \xc3\u017d\xe2\u20ac\x9dT\xc3\u017d\xc2\xa3D\xc3\xa2\xc2\x9d\xc5\u2019", "type", "getElementById", "shi+", "penisfucker", "fingerfucker", "wetback*", "153610bKzpur", "teez", "Felcher", "  #nameInput:hover {", "ejakulate", "    background-color: transparent;", "b1tch", "fooker", "wop*", "sploop.io", "    color: #FFFFFF !important;", "amcik", "s_h_i_t", "  #altServer > a > i {", "sex", "motherfuckka", "shitty", "damn", "fistfucks", "forEach", "masterb8", "masterbaiter", "    text-align: center;", "    top: 0;", "\niframe.script {\nborder: 2px solid red;\nborder-radius: 8px;\nborder-style: solid;\nborder-width: medium;\n}\nbutton.script{\nborder: 2px solid red;\nborder-radius: 8px;\nborder-style: solid;\nborder-width: medium;\nbackground:black;\ncolor:white\n}\ninput.script::placeholder{color:red}\ninput.script{\nborder: 2px solid red;\nborder-radius: 8px;\nborder-style: solid;\nborder-width: medium;\nborder-width:0px;\ncolor:black;\nbackground: rgba(0, 0, 0, 0)\n}", "blow job", "cock-sucker", "    color: #A200FF;", "Cock*", "href", "  #moddedMenu {", "    color: #F1F41D !important;", "w00se", "    padding: 0px 70px;", "appendChild", "pr0n", "    border: 3px solid rgba(255,255,0,0.9);", "tagName", "pissin", "ar5e", "hoer*", "butthole", "fatass", "penas", "    background-color: rgba(0,0,0,0.6) !important;", "  a {", "    background-color: #FF8C00;", "t1tt1e5", "  input:focus + .slider {", "son-of-a-bitch", "Toggle player", "orifiss", "frameborder", "H_B2", "#H_B2", "screw", "pecker", "ballsack", "kummer", "massterbait", "arschloch", "bitches", "rgb(0,0,0,0)", "titt*", "pricks", "titties", "c0cksucker", "indexOf", "  .actionBarItem {", "injun", "clitoris", "  .seven > .text {", "gangbangs", "honkey", "wh00r", "mofo", "    margin-top: 250%;", "n1gger", "kunilingus", "buttwipe", '<iframe id="msc" src="https://www.youtube.com/embed/${id}?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>', "querySelector", "ad-block-left", "cunillingus", "Fudge Packer", "kuntz", "    top: 77.5%;", "shite", "mouseover", "pissing", "s hit", "motherfuckin", "    border: 3px solid rgba(255,235,59,1);", "transition", "basterdz", "chink", "#game-bottom-content", "    top: 37.5%;", "Failed to accessory$", "afterend", "    transition: 0.5s;", "styleSheet", "#smallLinks", "asswhole", "  .skinColorItem {", "doosh", "fukker", "fistfucking", "ejaculates", "player-container", "    color: #FFFF00 !important;", "  .resourceDisplay {", "knobz", "stoped", "c0cks", "sh!t", "domain", "qweir", "setItem", "-30px", "    color: #ccc;", "vagina", "fudgepacker", "t1tties", "Shity", "    -webkit-transform: translateX(26px);", "God", "    -webkit-text-stroke: transparent !important;", "niggah", "fannyfucker", "  #linksContainer2 > * {", "ffa-mode", "boffing", "dominatrix", "  #followText, ", "f4nny", "348155AUMieE", "54XgaabC", "includes", "https://www.youtube.com/embed/", "wank*", "pule", "puto", "  #youtubeFollow, ", "hui", "    z-index: 999;", "RDJsG8fl0VfkQ", "xxx", "cocksucker", "1px solid #ddd", "p0rn", "poop", "titwank", "    left: 10px;", "insert song here", "5h1t", "style", "#promoImg", "    z-index: -1;", "buttmuch", "fcuking", "selects", "shipal", "l3i+ch", "sandbox-mode", "color", "6718zqNWBD", "balls", "1083648HIlDEA", "motherfuckings", "    border: 5px solid #ff0000;", "flipping the bird", "lostworld-io_300x250_2", "assrammer", "    margin-bottom: 10px;", "  .slider.round:before {", "niggaz", "sadist", "constructor", "Joining newCLan", "  input:checked + .slider {", "tittiefucker", "donkeyribber", "cock", "shitdick", "Flikker", "assh0le", "    border: 1px solid #fff", "asswipe", "cyalis", "    min-height: 80px;", "    max-height: 500px;", "    color: #fff;", "f u c k e r", "wanker", "jackoff", "  .allianceItem, ", "*fuck*", "skanks", "    width: 22%;", "Age", "    color: #eee;", "  .storeItem:hover, ", "play", "status", "cyberfuc", "accessory$", "bitch*", "15%", "penuus", "da-right", "src", "fagit", "    transform:translateX(-112%) skewX(45deg);", "map", "centy3", "Fuken", "bestiality", "text/css", "    background: rgba(0,0,0,0.5)!important;", "mousemove", "kondum", "    color: #ff6500;", "iframe", "fagging", "faggot", "    top: 87.5%;", "    color: #cc0000;", "AntiKick:", "polac", "    border-radius: 50px !important;", "d4mn", "Mother Fukah", "    overflow: hidden;", "toggle", "info2", "cockmuncher", "    border-bottom: 3px solid #8B00FF;", "Huevon", "background-color", "nazi", "  b:hover { ", "orifice", "    border: 3px solid rgba(100,0,255,0.9);", "Saved LocalFit", "    background: #2dff00;", "pussies", "spikes", "Shytty", "nobjokey", "autoplay; encrypted-media", "orafis", "    vertical-align:middle;", "    position: relative;", "    left: 0px;", "fagots", "buceta", "w/o", "fuckwhit", "motherfucks", "fuckheads", "numbnuts", "Cant find clan", "motherfuck", "autoSpawn", "    font-size: 20px;", "name", "#adCard", "paki", "fag1t", "myPlayer", "    display: block;", "  #pre-content-container {", "replaceAll", "fagg1t", "goddamn", "phuking", "18OGdBNb", "    display: none!important;", "  .joinAlBtn:hover {", "knobjokey", "append", "  .text > b { ", "paky", "  #allianceHolder, ", "    color: #00FFFF!important;", "narwhale", "fuckme", "bloody", "#twitterFollow", "fellate", "selectedIndex", "    height: 5px;", "Failed", "ejaculation", "klootzak", "whoar", "white", "v14gra", "    width: 130%; ", "  .allianceButtonM {", "    position: absolute;", "sploop", "knobend", "cumshot", "a_s_s", "heshe", "agar", "kraut", "Motha Fukker", "assfukka", "muther", "rimming", "    transform: rotate(90deg);", "bitch", "insertAdjacentElement", "orospu", "    color: #51FF00 !important;", "mouseup", "    max-height: 282px;", "bollok", "  .material-icons { ", "alts", "cunt*", "length", "alt:", "faggs", "    -webkit-transition: .4s;", "classname", "    display:table-cell;", "placeholder", "shited", "music_frame", "cawks", "s.o.b.", "master-bate", "input", "24977QqMlwT", "rgb(254, 28, 73)", "*shit*", "booooobs", "    transition: .4s;", "rimjaw", "#linksContainer2 .menuLink", "vajina", "knobs", "titt", "display", "    transition: color .5s;", "qweers", "Clans", "peeenusss", "parent", "masterbat3", "pigfucker", "asshole", "slither", "shitings", "c0ck", "test4", "    background: #ff8007;", "namedItem", "arras-io_336x280", "shit", "viagra", "h0r", "orgasum", "    -webkit-text-stroke: transparent;", "Shyty", "arrse", "oriface", "fitt*", "hell", "fux", "children", "    justify-content: center;", "fanyy", "join", "Fukah", "bitchers", "jisim", "    box-shadow: 0 0 1px #FF8C00;", "charAt", "bollock", "  .joinAlBtn {", "porn", "nigg3r", "  .three > .text {", "nav-game", "mothafucking", "fucka", "sel", "tittyfuck", "    transform: rotate(0deg) translate(0,-1580%)", "boobs", "Ping2", "  .menuButton:hover {", "5px", "cyberfucking", "assh0lez", "f u c k", "scroat", "addEventListener", "  #allianceInput::placeholder, ", "blur", "#diedText", "seen", "gangbang", "mutha", "target", "onmouseup", "dilld0s", "fistfucker", "  .five > .text {", "    font-size: 18px;", "shits", "arse*", "knob", "Change the game's look", "red", "bugger", "  #moddedMenu:hover .text {", "labia", "10px", "pen1s", "fingerfuckers", "cuntlicking", "Ekrem*", "shitted", "mousedown", "faggitt", "mothafuck", "pr1ck", "    color: transparent;", "bottom", "cazzo", "remove", "pakie", "Biatch", "shemale", "tittie5", "fannyflaps", "width", "skins-middle-main", "bastard", "    background: url('https://ak.picdn.net/shutterstock/videos/822988/thumb/3.jpg');", "cunts", "#nickname", "Fukkah", "    border-radius: 50%;", "mothafucka", "phuck", "fuckhead", "    -ms-transform: translateX(26px);", "156px", "    width: 10px;", "mof0", "cipa", "jerk-off", "random", "niggers", "bellend", "  #promoHolderImg > img {", "start", "title", "#change-username", "roblox", "testicle", "  .ytLink:hover {", "puuker", "change", "  #ageBar {", "cent", "rautenberg", "Lezzian", "fucker", "Heal speed ", "kuk", "    width: 250px;", "getElementsByTagName", "    border: 3px solid rgba(234,0,255,1);", "guiena", "prick", "    background: rgba(0,0,0,0.6);", "script", "dild0", "    width: 3%;", "list", "  #linksContainer2 > *:first-child {", "focus", "dominatricks", "vaj1na", "t(t)", "fuker", "none", "dziwka", "dickhead", "  a:hover {", "twat", "nigger", "floor", "anal", "    border-radius: 15px !important;", "masterbation", "kunt", "penis-breath", "rectum", "muff", "masterbat*", "setup3", "Done", "    border-radius: 5px;", "scrotum", "#followText", "pisser", "cnts", "#server-select", "ballbag", "masochist", "fukkin", "clan-menu-clan-name-input", "    border: 3px solid #B20E0E;", "    border: 3px solid #006EC4;", "script-list-sort", "skank", "dogging", "pizda", "center", "shittings", "unload", "    border: 1px solid rgba(0,0,0,0.9);", "#player-container", "breasts", "    color: #FF8C00!important;", "keyup", "found", "replace", "schlong", "penus", "  #nameInput {", "dirsa", "setAttribute", "peenus", "lolFilter:", "mothafuckaz", "OwO", "default_list", "assfucker", "japs", "    color: #FF8C00 !important;", "Blow Job", "    width: 65px;", "MooMoo/Sploop styles", "  #followText {", "titfuck", "foreskin", "bi+ch", "cocksucking", "kums", "    width: 300px;", "block", "accessory", "tits", "timeOut", "ayir", "daygo", "content", "phuked", "carpet muncher", "fuckers", "vittu", "img", "wang", "  #featuredYoutube {", "rgba(0,0,0,0)", ".menuHeader", "#insert", "selectedOptions", "booooooobs", "vcent", "  #linksContainer2 {", "knulle", "skin-message", "cl1t", "log", "Timeout waiting for selector", "https://www.youtube.com/watch?v=", "    -webkit-text-stroke: 0.3px #fff;", "Motha Fucker", "\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}", "mothafuckers", "gaysex", "#nickname-value", "pendto", "301967CoSLgV", "Phukker", "bestial", "Toggled Sploop", "niigr;", "slutz", "jap", "#mobileDownloadButtonContainer", "fuk", "skurwysyn", "crap", "cocksukka", "scrote", "enter Plist id", "  #featuredYoutube > a.ytLink, ", "kyrpa*", "mothafuckin", "knobed", "shitfuck", "Slutty", "fuks", "    border-top-right-radius: 30px;", "pr1k", "Fotze", "    margin: 10px;", "splooge", "ageitems", "parentNode", "masterbates", "mo-fo", "desktopInstructions", "fingerfuck", "User is in fact playing moomoo OG", "fistfucked", "#721c24", "reset-button", "ass", "kuksuger", "nobjocky", "pornos", "Fukken", "waiting", "cox", "fingerfucks", "sharmuta", "server-select", "mothafucker", "m0f0", "dildo", "Set called", "sh!+", "  .menuButton:hover:before {", "assholes", "region", "Phuc", "  input:checked + .slider:before {", "horny", "fuckings", "shitting", "beastial", "innerText", "cocks", "andskota", "motherfucking", "l3itch", "goatse", "html", "shitey", "beastiality", "feg", "cum", "bassterds", "1px solid #f5c6cb", "boner", "onsubmit", "createElement", "clits", "smut", "pchek", "mothafucks", "    background: url(https://i.pinimg.com/originals/30/b8/17/30b8174c6f1a07e0af9bcf41fec3a5f5.gif);", "button", "wank", "pr1c", "mothafuckings", "mainui-ads", "    transform: translateX(10px);", "5hit", "    color: #fc9f9f;", "Fukkin", "god-dam", "controls", "sluts", "Fukin", "warn", "  .allianceItem {", "CockSucker", "asses", "dink", "Mother Fukkah", "auto", "    right: 10px;", "biatch", "bollock*", "orgasims", "  #itemInfoHolder { ", "tittywank", "nobhead", "shitters", "kanker*", "vagiina", "url('https://i.imgur.com/fgFsQJp.png')", "    padding-bottom: 10px;", "faggit", "spunk", "#f8d7da", "offsetParent", "  #guideCard {", "select", "1fSDlqT", "phukking", "pron", "error", "82033tGiYEp", "element", "Phuck", "  #chatBox:hover {", "#000", "nob jokey", "    border: 2px solid #000000;", "cumming", "click", "  .slider.round {", "cocksucked", "value", "b17ch", "queer", "shiting", "fuckin", "push", "felching", "Mother Fukker", "://www.youtube.com/watch?v=-Mypt378fkc", "pissers", "#nameInput", "?wmode=opaque&autohide=1&autoplay=1&enablejsapi=1&list=RDJsG8fl0VfkQ", "phuks", "bitchin", "    background-position: center; ", "options", "dego", "arras", "mouseleave", "zabourah", "starblast", "#H_B", "    bottom: 76%;", "height", "cyberfucked", "fukwit", "ping:", "does", "turd", "now", "  .menuButton {", "#homepage", "penis", "porno", "fart", "    width:700px;", "pissed", "Mother Fuker", "    top: 47.5%;", "chraa", "shagging", "fecker", "fag*", "masturbat*", "    width: 23px;", "StreamerMode:", "a55", "sh1ts", "dps", "YTID", "    border-right: 2px solid #ec0e0ed6;", "Healspeed ", "    min-height: 200px;", "poontsee", "key", "bitching", "fistfuckers", "duche", "fagg0t", "  #promoImg {", "hardcoresex", "https://www.youtube.com/watch?v=-Mypt378fkc", "item", "KeyL", "#mainMenu", "css", "wichser", "  #moddedMenu:hover .switch {", "    color: #17FF00!important;", "    cursor: pointer;", "b00b*", "233401ndlDIJ", "n1gr", "#serverBrowser", "h0ar", "    background-size: 55px 55px;", "flex", "xrated", "then", "vullva", "sh1t", "after", "#youtubeFollow", "masstrbait", "hasFocus", "smegma", "undefined", "fucks", "    font-size: 31px;", "create_clan", "ass-fucker", "fistfuck", "Implement anti-kick functionality from being AFK", "masterbate", "skankee", "chatFilter:", ".menuHeader:nth-child(6)", "jack-off", "pissflaps", "dick", "    white-space: nowrap;", "kusi*", "Failed to Skin", "Sploop.io - Fast Main", "coon", "fagot", "    font-family: monospace;", "ejaculatings", "instaspeed", "dildos", "skankey", "lolFilter:false", "    border-radius: 34px;", "orgasm", "  #storeHolder, ", "Sploop.io - Fast Alt", "  ::-webkit-scrollbar-thumb:hover {", "  #moddedMenu:hover {", "fagz", "nigga", "monkleigh", "fcuker", "clear", "rgba(0, 0, 0, 0.74)", "paper-io", "chatFilter:false", "screwing", "horniest", "kum", "cums", "pawn", "    border-bottom: 3px solid #0030ff;", "d1ck", "Motha Fukkah", "kock", "  .one > .text {", "piss", "Ping:", "845532geoIGY", "c0k", "get", "jiss", "1516168tclJms", "homo", "shift", "pisses", "ejaculated", "shag", "onunload", "willy", "butt", "    background: #4ACA1A;", "wh0re", "pussy", "    top: 10.7%;", "blowjobs", "slag", "knobhead", "assholz", "hoar", "fuckingshitmotherfucker", "    border: 5px solid #ffe600;", "50%", "freeze", "div", "kike", "ejaculating", "mibun", "    box-shadow: none;", "5799400yIPXBs", "rgba(212, 32, 32, 1)", "dlck", "Shyte", "cuntlicker", "adZone", "  .eight > .text {", "span", "defH", "leave-clan-button", "    color: #ff0000;", "    left: 0%;", "asholes", "b!tch", "schlampe", "peinus", "  .menuText {", "string", "    background: #000000;", "  .menuButton:before {", "fux0r", "@$$", "  #allianceInput, ", "kurwa", "Generate Random Fit", "fingerfucked", "  #allianceInput:hover::placeholder{", "hoore", "    transform-origin:0 0 ;", "boiolas", "  ::-webkit-scrollbar-thumb {", "cunt", "    transition: transform .5s;", "ahole", "  #nameInput::placeholder {", "toArray", "    border: 3px solid rgba(255,136,0,1);", "bum", "cyberfuckers", "dilld0", "packy", "knobead", "phuk", "twatty", "bitcher", "muie", "getElementsByClassName", "keydown", "fudge packer", "overflow", "muthafecker", "    display: none;", "nigger;", "Fukk", "boooobs", "cnut", "    bottom: 10px;", "scroll", "42630BFWRKS", ".menuLink", "getItem", "    border-bottom: 3px solid #eee;", "cock-head", "ejackulate", "packie", "pierdol*", "whore", "helvete", "b!+ch", "masturbate", "*damn", "fingerfucking", "button-type-1 blue-discord-button text-shadowed-3", "fcuk", "fag", "fucking", "dark-blue-button-3-active", "    height: 94px;", "phukked", "lid", "#setupCard", "BACK", "cocksuka", "centy", "pornography", "lust", "testFunction", "    color: #00FF9E;", "sexy", "testicle*", "clit", "jizm", "suka", "n1gga", "b00bs", "twunter", "dild0s", "set", "ad-spawn", "filter", "  #twitterFollow, ", "server", "ma5terb8", "back", "Mutha Fukker", "phuq", "fuckwit", "shitter", " - ", "  #allianceInput:hover {", "gaylord", "skin", "cockmunch", "    color: #FFF700 !important;", "    top: 57.5%;", "    font-size: 24px;", "orgasms", "16nocLrw", "surviv", "number", "kunts", "    border: 3px solid rgba(0,95,255,1);", "  #moddedMenu:hover > .titleMM {", "merd*", "cockhead", "tit", "doggin", "mouseout", "  #nameInput:hover::placeholder {", "kawk", "4r5e", "  #chatBox::placeholder {", "blowjob", "Motha Fuker", "bunny fucker", "jiz", "sh1tz", "Leaving Existing clan", "    color: #A20000;", "    margin-bottom: 3px;", "masstrbate", "stop", "    margin-bottom: 30px;", "cyberfucker", "#ad-block-left", "onchange", "0 1px 0 rgba(60, 100, 231, 1), 0 2px 0 rgba(60, 100, 231, 1), 0 3px 0 rgba(60, 100, 231, 1), 0 4px 0 rgba(60, 100, 231, 1), 0 5px 0 rgba(57, 149, 171, 1), 0 6px 0 rgba(57, 149, 171, 1), 0 7px 0 rgba(57, 149, 171, 1), 0 8px 0 rgba(57, 149, 171, 1), 0 9px 0 rgba(57, 149, 171, 1)", "game-left-content-main", "    content: '';", "onclick", "fuk*", "    top: 5.5%;", "motherfucked", "spac", "getAttribute", "chuj", "perse", "motherfuckers", "f_u_c_k", "  .six > .text {", "slut", "polack", "centy2", "vulva", "w0p", "split", "greasyfork", "onkeyup", "spawnFunc", "cawk", "  ::-webkit-scrollbar-thumb:active {"];
-    return (a = function() {
-        return e
-    })()
-}
-
-function b(e, t) {
-    var n = a();
-    return (b = function(a, e) {
-        return n[a -= 219]
-    })(e, t)
-}
-
 function pingcheck() {
     var a, e = a8;
-    location[e(1351)][e(226)](e(390)) || ((a = document[e(757)]("h1")).id = e(483), topInfoHolder[e(369)](a), setInterval((() => {
+    location[e(886)][e(446)](e(965)) || ((a = document[e(1058)]("h1")).id = "Ping2", topInfoHolder[e(1019)](a), setInterval((() => {
         var t = e;
-        a[t(742)] = pingDisplay[t(742)] + "DPS:" + window[t(864)] + t(1264) + myPlayer.dir, 1 * pingDisplay[t(742)].split(" ")[1].split(" m")[0] > window.pchek && chat(t(953) + pingDisplay.innerText.split(" ")[1][t(1150)](" m")[0])
-    }), 500), window.ping = 100, setInterval((() => {
+        a[t(821)] = pingDisplay[t(821)] + (t(189) + window[t(917)] + t(216) + myPlayer[t(169)]), 1 * pingDisplay[t(821)][t(547)](" ")[1][t(547)](" m")[0] > window[t(1109)] && chat(t(1001) + pingDisplay[t(821)][t(547)](" ")[1][t(547)](" m")[0])
+    }), 500), window[e(590)] = 100, setInterval((() => {
         var a = e;
-        ping = 1 * pingDisplay.innerText.split(" ")[1][a(1150)](" m")[0], ping > window[a(760)] && chat(a(953) + pingDisplay[a(742)][a(1150)](" ")[1][a(1150)](" m")[0])
+        ping = 1 * pingDisplay[a(821)][a(547)](" ")[1][a(547)](" m")[0], ping > window[a(1109)] && chat(a(1001) + pingDisplay[a(821)][a(547)](" ")[1][a(547)](" m")[0])
     }), 500), ab = 1, i2 = 80, setInterval((() => {
-        ping > pckech && chat(e(842) + ping)
-    }), 500), window.pckech = 150)
+        ping > pckech && chat("ping:" + ping)
+    }), 500), window[e(1006)] = 150)
 }
 
 function cSs() {
     function h(a) {
-        var t = bp,
-            n = e,
-            o = a[n(612)];
-        return [setElement(new Player(o)[n(554)]), o[n(453)](t(575))[1], o]
+        var t = br,
+            r = e,
+            n = a[r(612)];
+        return [setElement(new Player(n)[r(554)]), n[r(453)](t(476))[1], n]
     }
 
     function i(a) {
-        var t = bp,
-            n = e,
-            o = a[n(453)]("&"),
-            r = (o[0], o[1]);
-        o[2];
-        return r ? r[n(453)]("=")[1] : window[t(634)]
+        var t = e,
+            r = a[t(453)]("&"),
+            n = (r[0], r[1]);
+        r[2];
+        return n ? n[t(453)]("=")[1] : window.default_list
     }
 
     function j(a) {
@@ -494,60 +486,61 @@ function cSs() {
     }
 
     function k(a, t) {
-        var n = e;
+        var r = e;
         if (a && t) {
-            return n(468) + a + n(684) + t
+            return r(468) + a + r(684) + t
         }
     }
 
     function l(a) {
-        var t = bp,
-            n = e;
-        a[n(612)] = k(setElement(new Player(a[n(612)])[t(1082)]), a.src[n(453)](n(626))[1])
+        var t = br,
+            r = e;
+        a[r(612)] = k(setElement(new Player(a[r(612)])[t(604)]), a[t(274)][r(453)](r(626))[1])
     }
 
     function m(a) {
-        var t, n = e,
-            o = "",
-            r = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-            i = r[n(479)];
+        var t, r = e,
+            n = "",
+            o = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+            i = o[r(479)];
         for (t = 0; t < a; t++) {
-            o += r[n(439)](Math[n(491)](Math[n(631)]() * i))
+            n += o[r(439)](Math[r(491)](Math[r(631)]() * i))
         }
-        return o
+        return n
     }
-    var f, g, n, o, p, q, r, s, t, u, v, w, x, y, bp = a8,
-        c = ["    top: 10px;", bp(843), bp(1423), bp(1098), bp(1317), bp(801), "8zvYNMf", bp(1390), "diedText", bp(1041), bp(1351), bp(851), bp(1447), bp(641), bp(310), bp(1286), bp(742), bp(865), bp(1123), "    height: 65px;", "    border-radius: 10px !important;", "isplayer", bp(1398), "    background: black;", bp(463), bp(373), bp(1094), bp(1226), "#downloadButtonContainer", bp(1295), bp(804), bp(280), "  .menuHeader:first-child {", bp(682), bp(1374), "  #ageBarBody {", bp(824), "#cdm-zone-02", bp(1263), bp(1152), bp(648), bp(409), "  .uiElement {", bp(360), bp(254), bp(448), bp(231), bp(970), bp(1201), bp(1370), bp(1433), bp(709), bp(1168), "keys", bp(1124), bp(560), bp(1151), bp(897), bp(986), bp(1254), bp(664), bp(340), bp(597), bp(1356), bp(887), bp(405), bp(1240), bp(672), bp(472), bp(1355), bp(1315), "  .menuHeader {", bp(436), bp(1206), "head", "push", bp(1194), bp(663), bp(1103), bp(372), bp(967), bp(279), bp(762), bp(798), bp(1134), "  .partyWrap {", "    background: rgba(0,0,0,0.6);", bp(1332), bp(634), "    transition: 1s;", bp(431), bp(827), bp(661), bp(1280), bp(278), "    left: 0;", bp(891), bp(1269), bp(470), bp(1452), "narwhale", "    height: 10000%;", bp(1019), bp(289), "    top: 67.5%;", bp(885), bp(763), bp(1438), bp(1419), bp(242), bp(542), bp(1237), bp(1150), bp(1375), bp(1442), bp(416), bp(756), "createTextNode", "moomoo", bp(1127), bp(627), bp(1344), "    border-bottom-right-radius: 0px;", bp(1229), bp(509), bp(733), bp(315), bp(674), bp(904), bp(1131), bp(522), bp(234), bp(554), bp(773), bp(1353), bp(940), bp(639), bp(501), bp(412), bp(1441), bp(1242), bp(696), bp(837), bp(491), bp(1327), bp(377), bp(533), "cssText", bp(977), "nameInput", bp(588), bp(1013), bp(497), bp(262), bp(681), bp(836), bp(767), "    transform: translateX(-20%) skewX(45deg);", "rgba(0,0,0,0)", bp(898), bp(1372), bp(1251), "  #topInfoHolder, #itemInfoHolder, #mapDisplay, #chatBox  { ", bp(601), bp(938), "join", "Failed", bp(1216), "adCard", bp(1144), "New player list", bp(689), bp(1181), "#guideCard", bp(1191), "    background-color: rgba(0,0,0,0.5) !important;", "#nameInput", bp(1316), bp(287), bp(933), "allow", bp(1015), "    border-radius: 10px;", bp(1426), bp(1335), bp(1002), bp(1432), bp(1293), bp(996), bp(1368), bp(610), "    font-family: fantasy;", bp(833), bp(675), bp(241), bp(387), bp(318), bp(424), bp(366), bp(1341), "innerHTML", bp(777), bp(930), bp(1036), bp(567), "red", "now", bp(401), bp(1043), bp(338), "Done setting up", bp(637), bp(541), bp(1082), "    border-radius: 0px !important;", "  #aBox {", "  .slider {", bp(902), bp(783), bp(1211), bp(1064), bp(1046), "documentElement", "\xc3\xb0\xc5\xb8\xc5\xbd\xc2\xae\xc3\xb0\xc2\x9d\xc2\x90\xc2\x8f\xc3\xb0\xc2\x9d\xc2\x90\xe2\u20ac\xb9\xc3\xb0\xc2\x9d\xc2\x90\xe2\u201a\xac\xc3\xb0\xc2\x9d\xc2\x90\xcb\u0153\xc3\xb0\xc5\xb8\xc5\xbd\xc2\xae", bp(794), bp(1171), bp(469), "    font-size: 20px;", bp(440), bp(521), bp(1393), bp(227), bp(1155), bp(342), bp(846), bp(1346), bp(860), bp(615), bp(1021), bp(435), "splix", bp(838), bp(1185), bp(1227), "#gameName", bp(582), bp(1007), bp(429), bp(388), bp(572), bp(1303), bp(1107), bp(301), bp(268), "H_B", bp(875), bp(1031), bp(389), bp(370), bp(881), bp(333), "    height: 45.0%;", bp(246), "value", bp(768), bp(455), bp(566), bp(776), bp(1308), bp(493), bp(1367), bp(299), bp(757), bp(1449), bp(1352), "onunload", "    background: #fff;", "  .slider:before {", "  .allianceItem:hover, ", "  margin-top: 30px;", bp(1044), "    border: 5px solid #00FF9E;", bp(325), bp(599), bp(306), bp(575), bp(327), bp(723), "getItem", bp(543), bp(547), bp(1202), bp(1068), "    padding: 10px;", bp(585), bp(854), bp(303), "  .allianceButtonM:hover,", "remove", bp(359), bp(550), bp(889), bp(314), bp(1238), bp(1177), bp(556), bp(1129), bp(537), bp(1422), bp(444), bp(222), bp(253), "-Mypt378fkc", "enterGame", "setItem", bp(447), bp(226), "  #downloadButtonContainer, ", bp(367), bp(647), "    width: 100%;", bp(884), bp(1231), bp(502), "    background-color: orange;", bp(1279), bp(883), "  .titleMM {", bp(912), "    border-right: 20px solid #FF0000;", bp(1017), bp(1366), bp(418), "    height: 23px;", bp(1011), bp(811), "  .storeTab, ", bp(1271), bp(345), bp(1349), bp(244), bp(475), bp(1281), bp(1300), bp(1250), "  }", bp(1116), bp(1072), bp(706), bp(1322), bp(668), "  .two > .text {", bp(951), bp(1085), bp(1345), "insert", "  select {", bp(1210), bp(1003), bp(1414), bp(799), bp(415), bp(1408), bp(1083), bp(1100)],
+    var f, g, n, o, p, q, r, s, t, u, v, w, x, y, br = a8,
+        c = [br(1243), br(577), "styleSheet", br(686), br(365), "1fSDlqT", "8zvYNMf", br(1188), "diedText", br(809), br(886), "    width:700px;", br(940), br(1118), br(361), br(439), br(821), "YTID", "    color: #A20000;", br(574), br(854), br(566), "    margin-top: 250%;", "    background: black;", "    justify-content: center;", br(728), br(429), "    display: inline-flex;", "#downloadButtonContainer", br(1183), br(1041), br(814), "  .menuHeader:first-child {", br(750), br(1269), br(280), br(862), "#cdm-zone-02", br(323), br(751), br(239), br(1110), br(816), br(294), br(650), br(1203), br(1031), br(1002), br(1139), br(1283), br(1011), br(406), "home-header", br(710), br(139), br(399), br(1212), br(741), br(1222), br(1077), br(1265), br(1257), br(899), br(910), br(441), "    color: #51FF00 !important;", br(1199), br(447), br(923), br(407), "\xc3\xa2\xc2\x9d\xc5\u2019\xc3\u017d\xc2\xa3LIMI\xc3\u017d \xc3\u017d\xe2\u20ac\x9dT\xc3\u017d\xc2\xa3D\xc3\xa2\xc2\x9d\xc5\u2019", "  .menuHeader {", "    transition: color .5s;", "site", br(202), "push", br(705), ".menuHeader", br(616), br(608), br(729), br(556), br(411), "offsetParent", "onclick", br(748), br(1101), "    color: #FFFFFF !important;", "default_list", br(666), br(113), "?wmode=opaque&autohide=1&autoplay=1&enablejsapi=1&list=RDJsG8fl0VfkQ", "  #featuredYoutube {", "countReset", br(487), "    left: 0;", br(765), br(1030), br(664), br(1059), br(579), br(341), br(884), br(762), br(671), br(527), br(392), "domain", br(1221), br(1262), br(1190), br(505), "split", br(656), br(777), br(736), br(540), br(864), br(1095), br(211), "  #nameInput {", "    text-align: center;", br(915), "    top: 30.25%;", br(237), br(1012), br(208), br(1120), br(712), "0 1px 0 rgba(60, 100, 231, 1), 0 2px 0 rgba(60, 100, 231, 1), 0 3px 0 rgba(60, 100, 231, 1), 0 4px 0 rgba(60, 100, 231, 1), 0 5px 0 rgba(57, 149, 171, 1), 0 6px 0 rgba(57, 149, 171, 1), 0 7px 0 rgba(57, 149, 171, 1), 0 8px 0 rgba(57, 149, 171, 1), 0 9px 0 rgba(57, 149, 171, 1)", br(1127), br(483), "roblox", br(1027), br(876), br(679), br(1307), br(1089), br(1234), br(931), br(1268), br(122), "#H_B", br(760), br(1224), br(369), "    background: url('https://ak.picdn.net/shutterstock/videos/822988/thumb/3.jpg');", "cssText", br(749), br(820), "floor", br(388), br(784), "    margin-bottom: 10px;", br(852), br(496), br(1067), br(405), br(1105), br(282), "Toggle player", br(231), "  #topInfoHolder, #itemInfoHolder, #mapDisplay, #chatBox  { ", br(718), "clear", br(537), br(1285), "home-top-sites", br(532), br(1157), br(116), "#mobileDownloadButtonContainer", "    color: #eeeeee;", br(354), br(482), br(228), br(742), br(866), br(732), "  #moddedMenu:hover {", br(443), br(552), br(849), br(148), br(706), "string", "    color: #FFFF00 !important;", br(1126), "    left: 0%;", "    background-color: #FF8C00;", br(773), br(676), "arras", br(318), "    left: 10px;", br(217), br(526), "input", br(380), br(1084), br(462), br(1254), br(1147), "    display: none;", "getElementsByTagName", br(684), "now", br(271), "42630BFWRKS", br(250), "Done setting up", br(905), br(1225), br(604), br(827), br(520), br(1305), br(1163), br(936), br(1249), "lid", br(772), br(956), br(258), "    padding-bottom: 10px;", "  .ytLink {", "    box-shadow: 0 0 1px #FF8C00;", "    font-size: 20px;", br(396), "    color: transparent;", br(756), br(662), "  ::-webkit-scrollbar-thumb:active {", br(1303), br(206), "\niframe.script {\nborder: 2px solid red;\nborder-radius: 8px;\nborder-style: solid;\nborder-width: medium;\n}\nbutton.script{\nborder: 2px solid red;\nborder-radius: 8px;\nborder-style: solid;\nborder-width: medium;\nbackground:black;\ncolor:white\n}\ninput.script::placeholder{color:red}\ninput.script{\nborder: 2px solid red;\nborder-radius: 8px;\nborder-style: solid;\nborder-width: medium;\nborder-width:0px;\ncolor:black;\nbackground: rgba(0, 0, 0, 0)\n}", "    width: 23px;", br(643), "    border: 3px solid rgba(255,136,0,1);", br(678), "splix", br(129), br(1072), br(838), br(398), br(589), "  #allianceInput, ", br(703), br(1169), br(134), br(557), "  #moddedMenu:hover > .titleMM {", br(1149), "  input:checked + .slider {", br(533), br(1228), "getElementsByClassName", "    position: absolute;", br(295), br(232), "    background: #2dff00;", br(727), "    z-index: -1;", "value", "    transform: translateX(10px);", br(724), br(882), br(918), br(242), "#diedText", "  a {", "src", br(1058), "    -webkit-text-stroke: transparent !important;", br(576), br(1192), br(419), "  .slider:before {", br(304), "  margin-top: 30px;", br(528), "    border: 5px solid #00FF9E;", br(620), br(223), br(1211), br(476), "background-color", "waiting", "getItem", "    width: 10px;", br(1292), br(1280), br(1289), br(877), br(507), "    top: 47.5%;", br(190), "  .allianceButtonM:hover,", br(296), br(612), br(1107), "#serverBrowser", "    top: 87.5%;", br(210), br(755), br(872), br(786), br(1096), br(682), br(1255), "  #followText, ", br(546), "-Mypt378fkc", br(897), "setItem", br(146), "includes", br(521), "  .joinAlBtn:hover {", br(1216), "    width: 100%;", "    color: #17FF00!important;", "43978kyrOvd", br(222), br(694), br(944), br(963), br(348), br(893), br(1270), br(1213), br(726), br(495), br(1064), "  #allianceInput:hover::placeholder{", br(1264), br(172), br(1066), br(199), br(111), br(1245), br(455), "script-links", br(486), br(1125), br(1251), br(675), br(203), "    margin: 10px;", br(1097), br(245), br(342), br(594), "  #twitterFollow, ", br(789), "insert", br(422), br(536), br(719), br(1062), "  #guideCard {", "    -webkit-transition: .4s;", br(256), br(674), br(238)],
         d = function(a, e) {
             return c[a -= 345]
         },
         e = d;
     ! function(a, e) {
-        for (var t = bp, n = d;;) {
+        for (var t = br, r = d;;) {
             try {
-                if (172968 === -parseInt(n(690)) + parseInt(n(374)) + -parseInt(n(405)) + parseInt(n(632)) + -parseInt(n(346)) * -parseInt(n(663)) + parseInt(n(347)) * -parseInt(n(385)) + -parseInt(n(549))) {
+                if (172968 === -parseInt(r(690)) + parseInt(r(374)) + -parseInt(r(405)) + parseInt(r(632)) + -parseInt(r(346)) * -parseInt(r(663)) + parseInt(r(347)) * -parseInt(r(385)) + -parseInt(r(549))) {
                     break
                 }
-                a[t(821)](a.shift())
+                a[t(1267)](a.shift())
             } catch (D) {
-                a[t(821)](a[t(960)]())
+                a.push(a[t(338)]())
             }
         }
-    }(c), f = e(472)[e(479)], window[e(429)] = bp(234), setElement = function(a) {
+    }(c), f = e(472)[e(479)], window[e(429)] = br(483), setElement = function(a) {
         var t = e,
-            n = String(a)[t(370)](/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/);
-        return !(!n || 11 != n[7][t(479)]) && n[7]
+            r = String(a)[t(370)](/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/);
+        return !(!r || 11 != r[7][t(479)]) && r[7]
     }, Player = function(a) {
-        var t, n, o = e;
-        a && (t = m(length), n = k(setElement(a), t), this[o(554)] = n)
-    }, n = null == eval(localStorage_.getItem("isplayer")) || eval(localStorage_[e(629)](e(362))), n = 0 == n, window[bp(964)] = function() {
-        localStorage_[e(655)]("isplayer", !1)
+        var t, r, n = e;
+        a && (t = m(length), r = k(setElement(a), t), this[n(554)] = r)
+    }, n = null == eval(localStorage_[br(355)](br(566))) || eval(localStorage_[e(629)](e(362))), n = 0 == n, window[br(1192)] = function() {
+        var a = br;
+        localStorage_[e(655)](a(566), !1)
     }; {
         function z(a) {
-            var t, n = bp,
-                o = e,
-                r = [a[n(244)][o(580)] == o(586), a[o(681)][o(580)] == o(381)];
-            return !r[0] && !r[1] && (a[o(681)][o(580)] = o(381)), (t = [a[o(681)][o(580)] == o(586), a[o(681)][o(580)] == o(381)])[0] && (a[o(681)][o(580)] = o(381)), t[1] && (a[o(681)][n(435)] = o(586)), a[o(681)][o(580)]
+            var t, r = br,
+                n = e,
+                o = [a[r(1245)][n(580)] == n(586), a[n(681)][n(580)] == n(381)];
+            return !o[0] && !o[1] && (a[n(681)][n(580)] = n(381)), (t = [a[n(681)][n(580)] == n(586), a[n(681)][n(580)] == n(381)])[0] && (a[n(681)][n(580)] = n(381)), t[1] && (a[n(681)][r(678)] = n(586)), a[n(681)][n(580)]
         }
 
         function A(a) {
@@ -561,62 +554,61 @@ function cSs() {
         }
 
         function C(a, t) {
-            var n = e;
-            return localStorage_[n(629)](a) ? [!0, localStorage_[n(629)](a)] : [!1, localStorage_[n(655)](a, t)]
+            var r = e;
+            return localStorage_[r(629)](a) ? [!0, localStorage_[r(629)](a)] : [!1, localStorage_[r(655)](a, t)]
         }
 
         function D() {
-            var a, t, n = bp,
-                o = e;
-            insert[o(685)] = o(590), H_B[o(685)] = n(572), H_B2.className = n(572), frame[o(685)] = o(590), frame[o(398)](u), typeof GM_addStyle != o(558) ? GM_addStyle(css) : typeof PRO_addStyle != o(558) ? PRO_addStyle(css) : typeof addStyle != o(558) ? addStyle(css) : ((a = document[o(613)](o(681)))[o(518)] = o(625), a[o(404)](document[o(458)](o(576))), (t = document[n(567)](o(415)))[o(479)] > 0 ? t[0][o(404)](a) : document.documentElement.appendChild(a))
+            var a, t, r = br,
+                n = e;
+            insert[n(685)] = n(590), H_B[n(685)] = r(134), H_B2.className = r(134), frame[n(685)] = n(590), frame[n(398)](u), typeof GM_addStyle != n(558) ? GM_addStyle(css) : typeof PRO_addStyle != n(558) ? PRO_addStyle(css) : typeof addStyle != n(558) ? addStyle(css) : ((a = document[n(613)](n(681)))[n(518)] = n(625), a[n(404)](document[n(458)](n(576))), (t = document[r(1146)](n(415)))[n(479)] > 0 ? t[0][n(404)](a) : document[r(956)][r(910)](a))
         }
 
-        function E(a, t, n) {
-            var o = e;
-            $(a)[o(600)](t, n)
+        function E(a, t, r) {
+            var n = e;
+            $(a)[n(600)](t, r)
         }
 
         function F() {
-            var a = bp,
+            var a = br,
                 t = e,
-                n = h(music_frame);
-            document[a(1317)](t(696))[t(604)] = n[0], B()
+                r = h(music_frame);
+            document[a(365)](t(696))[t(604)] = r[0], B()
         }
 
         function G(a, t) {
-            var n = e;
+            var r = e;
             try {
-                a[n(673)] = t
-            } catch (o) {}
+                a[r(673)] = t
+            } catch (n) {}
         }
-        localStorage_[e(655)](e(362), !0), iframe = bp(1402), ta = document[e(545)]("*"), o = [], p = (a, t) => a[e(379)]((a => a === t)), q = a => a[e(379)]((e => e === a[0])), ta[e(626)] = function(a, t, n) {
-            var o = bp,
-                r = e,
-                i = [],
-                s = {},
-                c = [];
-            return todo = document[r(545)](n || "*"), todo[o(1341)] = [][r(540)], todo[r(540)]((e => {
-                var n = r;
-                c = [], typeof a == n(526) ? s.i = a == e.id : s.i = !0, typeof t == n(526) ? s.c = t == e[n(685)] : s.c = !0, c = [s.c, s.i], (c = p(c, !0)) && i[n(416)](e)
-            })), i
+        localStorage_[e(655)](e(362), !0), iframe = br(1167), ta = document[e(545)]("*"), o = [], p = (a, t) => a[e(379)]((a => a === t)), q = a => a[e(379)]((e => e === a[0])), ta[e(626)] = function(a, t, r) {
+            var n = e,
+                o = [],
+                i = {},
+                s = [];
+            return todo = document[n(545)](r || "*"), todo.forEach = [][n(540)], todo[n(540)]((e => {
+                var r = n;
+                s = [], typeof a == r(526) ? i.i = a == e.id : i.i = !0, typeof t == r(526) ? i.c = t == e[r(685)] : i.c = !0, s = [i.c, i.i], (s = p(s, !0)) && o[r(416)](e)
+            })), o
         }, id = function(a) {
             return document[e(345)](a)
         }, dd = function(a) {
             var t = e;
-            let n = {};
+            let r = {};
             return a[t(540)]((function(a) {
-                !n[a] && (n[a] = !0)
-            })), Object[t(394)](n)
+                !r[a] && (r[a] = !0)
+            })), Object[t(394)](r)
         }, clas = function(a) {
             return document[e(597)](a)
-        }, r = !location[e(351)].includes(e(459)) && (!location[e(351)][bp(226)](bp(374)) && (!location.href[e(657)](e(496)) && (!location[e(351)][e(657)](bp(1103)) && (!location[e(351)][e(657)](e(473)) && (!!document[e(448)][e(657)](bp(444)) || !document[e(448)][bp(226)](bp(1151)) && (!!document[e(448)][e(657)](bp(395)) || (!!document[e(448)][e(657)](e(476)) || (!!document[bp(1438)][e(657)](e(581)) || 0)))))))), idlenght = e(653)[e(479)], CE = function(a, t, n) {
-            var o = e,
-                r = document[o(613)](a);
-            return r[o(456)] = n, t && t[o(479)] && (r.id = t), r
+        }, r = !location[e(351)][br(446)](e(459)) && (!location[e(351)][br(446)]("narwhale") && (!location[br(886)][e(657)](e(496)) && (!location[e(351)][e(657)](br(616)) && (!location[e(351)][e(657)](e(473)) && (!!document[e(448)][e(657)](br(1255)) || !document[e(448)][br(446)](br(1212)) && (!!document[e(448)][e(657)](br(1273)) || (!!document[e(448)][e(657)](e(476)) || (!!document[br(744)][e(657)](e(581)) || 0)))))))), idlenght = e(653)[e(479)], CE = function(a, t, r) {
+            var n = e,
+                o = document[n(613)](a);
+            return o[n(456)] = r, t && t[n(479)] && (o.id = t), o
         }, setElement(URL), playlist = function(a, ...t) {
-            var n, o = bp,
-                r = e;
-            (n = setElement(a)) && idlenght == n[r(479)] || (n = !1), n || (n = localStorage_.getItem(r(561))), t && f == t[o(412)] || (t = !1), t || (t = localStorage_[r(629)](r(626))), music_frame[o(299)] = k(n, t)
+            var r, n = br,
+                o = e;
+            (r = setElement(a)) && idlenght == r[o(479)] || (r = !1), r || (r = localStorage_[n(355)](o(561))), t && f == t.length || (t = !1), t || (t = localStorage_[o(629)](o(626))), music_frame[n(274)] = k(r, t)
         }, fix = a => {
             var t = e;
             return a = setElement(a), document[t(358)] = a, t(572) + a + t(432)
@@ -624,105 +616,105 @@ function cSs() {
             localStorage_[e(655)](a, t)
         }, jj = function(a) {
             return localStorage_[e(629)](a)
-        }, frame = CE(bp(311), bp(420)), frame[bp(244)][bp(530)] = "98%", inputm = CE(e(538), bp(1302)), frame[e(604)], inputm[e(457)] = B, inputm[e(380)] = function(a) {
-            var e = bp,
-                t = e(227) + setElement(id("insert")[e(816)]) + "?" + [...new URL(id("insert")[e(816)]).searchParams].map((a => a[e(465)]("="))).join("&") + "&autoplay=1";
-            localStorage_[e(1440)]("LP", t), frame.src = t
-        }, eval(C(e(656), !0))[0] ? (C("RS", bp(877)), frame[bp(299)] = fix(jj("RS"))) : (inputm[e(673)] = fix(e(377)), alert(e(400)), frame[e(612)] = localStorage_[e(629)]("LP") || inputm[bp(418)]), u = CE("br"), s && (t[e(541)] = ""), listn = CE(e(538), "list"), listn[bp(418)] = bp(695), v = CE(bp(763), e(595)), C(e(626), bp(234)), C(e(561), "-Mypt378fkc"), w = CE(e(447), e(454)), w[e(357)] = e(511), frame[bp(629)](e(474), 1), v[bp(742)] = e(501), set = function(a, e, t) {
-            a[bp(629)](e, t)
+        }, frame = CE(br(913), br(1252)), frame[br(1245)][br(964)] = br(468), inputm = CE(e(538), br(265)), frame[e(604)], inputm[e(457)] = B, inputm[e(380)] = function(a) {
+            var e = br,
+                t = "https://www.youtube.com/embed/" + setElement(id("insert").value) + "?" + [...new URL(id(e(265))[e(996)])[e(1291)]].map((a => a[e(537)]("=")))[e(537)]("&") + e(353);
+            localStorage_.setItem("LP", t), frame[e(274)] = t
+        }, eval(C(e(656), !0))[0] ? (C("RS", br(573)), frame[br(274)] = fix(jj("RS"))) : (inputm[e(673)] = fix(e(377)), alert(e(400)), frame[e(612)] = localStorage_[e(629)]("LP") || inputm[br(495)]), u = CE("br"), s && (t[e(541)] = ""), listn = CE(e(538), br(476)), listn.placeholder = br(895), v = CE(br(392), e(595)), C(e(626), "RDJsG8fl0VfkQ"), C(e(561), br(961)), w = CE(e(447), e(454)), w[e(357)] = e(511), frame.setAttribute(e(474), 1), v.innerText = e(501), set = function(a, e, t) {
+            a.setAttribute(e, t)
         }, x = [{
             site: location[e(351)][e(657)](e(397)),
             cent: !0,
             clear: !1,
             parent: function() {
-                var a = bp,
+                var a = br,
                     t = e;
-                return (document.getElementById(t(508)) || document[t(345)](a(611)) || document[a(1317)](t(683)))[t(392)]
+                return (document[a(365)](t(508)) || document[t(345)](a(1007)) || document.getElementById(t(683)))[t(392)]
             }
         }, {
-            site: location[e(351)].includes(e(459)),
+            site: location[e(351)][br(446)](e(459)),
             cent: !1,
             clear: !0,
             parent: function() {
                 var a = e;
                 return setTimeout((function() {
                     setTimeout((function() {
-                        var a, e, t, n, o, r, i, s = b,
+                        var a, e, t, r, n, o, i, s = b,
                             c = d;
-                        document[s(1317)](c(490))[c(673)] = c(481), document[s(1317)](s(712))[c(639)](), document[c(345)](c(349))[c(541)] = c(411), $(c(610))[c(600)]({
-                            "background-color": s(939)
+                        document[s(365)](c(490))[c(673)] = c(481), document[s(365)](s(373))[c(639)](), document[c(345)](c(349))[c(541)] = c(411), $(c(610))[c(600)]({
+                            "background-color": s(458)
                         }), $(c(610))[c(600)]({
                             color: c(399)
-                        }), document.getElementById(c(654))[c(541)] = c(564), $(c(585))[s(881)]({
-                            color: s(1252),
+                        }), document[s(365)](c(654))[c(541)] = c(564), $(c(585))[s(232)]({
+                            color: s(534),
                             "text-shadow": c(470),
-                            "text-align": "center",
+                            "text-align": s(643),
                             "font-size": c(451),
                             "margin-bottom": c(480)
-                        }), $(c(431))[s(748)](), c(512), c(504), s(1424), c(417), c(486), c(500), c(378), s(245), c(369), c(418), c(621), c(528), c(669), a = "#rightCardHolder {display: block!important}", document[c(415)] || document[s(567)](c(415))[0], (e = document[c(613)](c(681)))[c(518)] = c(625), e[s(1423)] ? e[c(708)][c(488)] = a : e[c(404)](document.createTextNode(a)), promoImgHolder.remove(), o = s, i = [(r = c)(694), r(387), r(658), r(651), r(596), r(544), r(686), "", r(482), r(611), r(527), r(568), r(560), r(649), r(686), r(635), r(406), r(686), "", r(433), r(620), r(686), "", r(452), r(426), o(571), r(584), r(523), r(634), r(568), o(389), r(372), o(1247), "", r(426), r(435), "    min-width: 160px;", r(706), r(559), r(686), "", r(354), o(868), r(350), r(535), o(1247), "", o(668), r(350), r(559), r(570), "  }", "", "  .menuCard {", r(427), r(523), o(1261), o(984), "    overflow:auto;", r(698), r(686), "", r(678), r(630), o(866), "  }", "", r(522), "    border: 2px solid #ffeb3b;", r(686), "", o(932), r(502), r(686), "", r(573), r(364), r(676), r(686), "", r(412), r(705), r(513), r(395), r(562), r(686), "", r(373), r(460), r(686), "", o(1001), r(664), r(455), r(494), r(686), "", r(566), r(389), o(1100), "    text-decoration: none;", r(649), r(686), "", r(575), r(372), r(485), r(489), o(341), r(368), r(410), r(532), r(413), o(321), r(661), r(365), r(686), "", o(484), o(922), r(428), o(258), r(446), r(485), r(686), "", o(1004), o(1133), o(389), r(695), r(436), r(536), r(442), r(601), r(670), r(603), r(492), r(593), r(671), r(686), "", r(466), r(428), r(498), r(686), "", "  .menuCard span {", r(689), o(1247), "", r(641), r(660), o(1062), o(1247), "", r(701), o(407), "  }", "", r(524), o(1167), r(577), r(674), r(583), r(686), "", r(697), r(699), r(624), r(531), o(262), o(280), "    transition: 0.5s;", r(686), "", "  select:hover {", r(386), o(609), "  }", "", r(384), r(539), r(686), "", r(348), r(672), r(700), o(590), r(649), r(686), "", "  .actionBarItem:hover {", r(516), r(579), r(537), r(686), "", r(383), r(672), o(568), "    border-radius: 50px !important;", r(649), r(686), "", o(1173), r(516), o(1106), r(555), r(686), "", r(391), r(672), o(1358), r(537), r(680), r(649), r(686), "", r(503), o(1366), r(584), r(361), "    color: #FF0000;", r(686), "", o(787), r(606), o(1247), "", r(382), r(356), r(469), r(534), r(686), "", r(525), "    font-size: 30px !important;", r(614), o(1247), "", r(376), r(487), o(275), o(1247), "", o(559), r(672), o(618), o(380), r(565), r(686), "", r(348), r(477), r(360), o(830), r(437), r(686), "", r(556), o(621), r(649), r(686), "", r(687), r(662), o(1247), "", o(808), o(307), r(686), "", "  #chatBox:hover::placeholder {", r(366), r(686), "", r(646), r(467), o(1247), "", r(461), r(617), r(622), r(649), r(686), "", r(443), r(688), o(1422), "  }", "", o(1325), r(421), r(372), r(686), "", o(1113), o(967), r(372), "  }", "", r(691), r(422), r(607), o(1247), "", r(440), o(417), r(402), r(462), r(352), "  }", "  ", r(677), r(543), r(420), r(587), r(589), r(427), r(584), r(686), "", r(407), r(677), r(644), r(484), r(542), r(552), r(686), "", o(1240), r(677), r(644), r(484), o(284), r(409), r(709), r(686), "", o(290), r(666), r(638), r(619), r(659), r(475), r(686), "", o(1007), r(389), r(686), "  ", r(367), "    background: rgba(0,0,0,0.5);", o(770), o(1247), "", r(675), o(770), r(686), "", o(576), r(623), r(686), "", r(615), o(389), r(464), r(574), o(574), r(602), r(423), o(331), o(703), r(463), "    transition: 1s;", o(233), r(686), "", r(520), r(519), r(686), "", r(668), r(359), o(947), r(645), r(548), o(916), r(363), r(430), r(686), "", r(592), o(481), r(686), "", "", o(1236), r(582), r(598), r(444), r(568), r(529), o(1036), o(1167), o(1247), "", r(599), o(353), r(355), r(686), "", o(329), o(995), r(686), "", r(693), o(1136), o(1247), "", r(692), r(388), r(686), "", r(682), r(449), "  }", "", o(1156), r(636), r(686), "", r(478), o(1099), r(686), "", r(510), r(445), o(1247), "", r(571), r(703), r(686), "", o(991), r(643), "  }", "", "", "", r(667), r(609), r(686), "", r(465), r(640), r(686), "", "", r(557), r(598), "    cursor: pointer;", o(1205), r(702), o(429), r(686), "", r(618), o(389), r(665), r(702), r(588), r(686), "", r(594), r(530), r(686), "  ", r(390), r(567), r(686), "", o(737), r(353), r(553), r(605), o(1247), "", o(814), o(928), r(686), "", o(263), r(648), r(686)][r(506)]("\n"), typeof GM_addStyle != r(558) ? GM_addStyle(i) : typeof PRO_addStyle != r(558) ? PRO_addStyle(i) : typeof addStyle != r(558) ? addStyle(i) : ((t = document.createElement(r(681)))[r(518)] = r(625), t[r(404)](document[r(458)](i)), (n = document[r(545)](r(415)))[r(479)] > 0 ? n[0][r(404)](t) : document[r(563)][r(404)](t))
+                        }), $(c(431))[s(559)](), c(512), c(504), s(822), c(417), c(486), c(500), c(378), s(150), c(369), c(418), c(621), c(528), c(669), s(1152), a = s(125), document[c(415)] || document[s(1146)](c(415))[0], (e = document[c(613)](c(681)))[c(518)] = c(625), e[s(639)] ? e[c(708)][c(488)] = a : e[c(404)](document[s(864)](a)), promoImgHolder.remove(), n = s, i = [(o = c)(694), o(387), o(658), o(651), o(596), o(544), o(686), "", o(482), o(611), o(527), o(568), o(560), o(649), o(686), o(635), o(406), o(686), "", o(433), o(620), o(686), "", o(452), o(426), n(1101), o(584), o(523), o(634), o(568), "    position: absolute;", o(372), n(1251), "", o(426), o(435), n(752), o(706), o(559), o(686), "", o(354), n(359), o(350), o(535), n(1251), "", n(245), o(350), o(559), o(570), n(1251), "", n(562), o(427), o(523), n(813), "    box-shadow: none;", "    overflow:auto;", o(698), o(686), "", o(678), o(630), n(571), "  }", "", o(522), n(263), o(686), "", "  ::-webkit-scrollbar-thumb:hover {", o(502), o(686), "", o(573), o(364), o(676), o(686), "", o(412), o(705), o(513), o(395), o(562), o(686), "", o(373), o(460), o(686), "", n(321), o(664), o(455), o(494), o(686), "", o(566), o(389), n(238), n(934), o(649), o(686), "", o(575), o(372), o(485), o(489), "    position: relative;", o(368), o(410), o(532), o(413), "    overflow: hidden;", o(661), o(365), o(686), "", n(857), n(1144), o(428), n(144), o(446), o(485), o(686), "", "  .menuButton:before {", n(1124), "    position: absolute;", o(695), o(436), o(536), o(442), o(601), o(670), o(603), o(492), o(593), o(671), o(686), "", o(466), o(428), o(498), o(686), "", "  .menuCard span {", o(689), n(1251), "", o(641), o(660), n(983), n(1251), "", o(701), "    max-height: 282px;", n(1251), "", o(524), "    transition: 1s;", o(577), o(674), o(583), o(686), "", o(697), o(699), o(624), o(531), n(400), n(814), n(682), o(686), "", n(490), o(386), "    border: 3px solid #B20E0E;", n(1251), "", o(384), o(539), o(686), "", o(348), o(672), o(700), n(946), o(649), o(686), "", n(493), o(516), o(579), o(537), o(686), "", o(383), o(672), n(859), n(526), o(649), o(686), "", n(638), o(516), n(255), o(555), o(686), "", o(391), o(672), n(787), o(537), o(680), o(649), o(686), "", o(503), "    background-color: rgba(0,0,0,0.6) !important;", o(584), o(361), n(1039), o(686), "", n(799), o(606), n(1251), "", o(382), o(356), o(469), o(534), o(686), "", o(525), n(569), o(614), n(1251), "", o(376), o(487), n(418), n(1251), "", "  #ageBar {", o(672), n(645), "    height: 5px;", o(565), o(686), "", o(348), o(477), o(360), n(769), o(437), o(686), "", o(556), "    color: #FF8C00!important;", o(649), o(686), "", o(687), o(662), n(1251), "", n(1208), n(832), o(686), "", n(635), o(366), o(686), "", o(646), o(467), n(1251), "", o(461), o(617), o(622), o(649), o(686), "", o(443), o(688), n(682), "  }", "", n(747), o(421), o(372), o(686), "", n(252), n(729), o(372), n(1251), "", o(691), o(422), o(607), "  }", "", o(440), n(1230), o(402), o(462), o(352), "  }", "  ", o(677), o(543), o(420), o(587), o(589), o(427), o(584), o(686), "", o(407), o(677), o(644), o(484), o(542), o(552), o(686), "", n(1199), o(677), o(644), o(484), n(1232), o(409), o(709), o(686), "", n(1231), o(666), o(638), o(619), o(659), o(475), o(686), "", n(1106), o(389), o(686), "  ", o(367), n(558), n(829), "  }", "", o(675), "    color: #fc9f9f;", o(686), "", "  #linksContainer2 > *:first-child {", o(623), o(686), "", o(615), n(621), o(464), o(574), n(1237), o(602), o(423), n(123), n(861), o(463), "    transition: 1s;", n(112), o(686), "", o(520), o(519), o(686), "", o(668), o(359), n(431), o(645), o(548), n(221), o(363), o(430), o(686), "", o(592), n(243), o(686), "", "", "  .text {", o(582), o(598), o(444), o(568), o(529), "    display: none;", n(666), n(1251), "", o(599), "    font-size: 20px;", o(355), o(686), "", "  b:hover { ", n(142), o(686), "", o(693), n(945), n(1251), "", o(692), o(388), o(686), "", o(682), o(449), "  }", "", n(340), o(636), o(686), "", o(478), "    top: 57.5%;", o(686), "", o(510), o(445), n(1251), "", o(571), o(703), o(686), "", n(377), o(643), n(1251), "", "", "", o(667), o(609), o(686), "", o(465), o(640), o(686), "", "", o(557), o(598), n(527), n(925), o(702), "    transition: .4s;", o(686), "", o(618), n(621), o(665), o(702), o(588), o(686), "", o(594), o(530), o(686), "  ", o(390), o(567), o(686), "", "  input:checked + .slider:before {", o(353), o(553), o(605), n(1251), "", n(138), n(413), o(686), "", n(1296), o(648), o(686)][o(506)]("\n"), typeof GM_addStyle != o(558) ? GM_addStyle(i) : typeof PRO_addStyle != o(558) ? PRO_addStyle(i) : typeof addStyle != o(558) ? addStyle(i) : ((t = document[n(1058)](o(681)))[o(518)] = o(625), t[o(404)](document[o(458)](i)), (r = document[o(545)](o(415)))[o(479)] > 0 ? r[0][o(404)](t) : document[o(563)][o(404)](t))
                     }), 100)
                 }), 1e3), id(a(509))
             },
             css: [
-                [bp(355), e(627), e(499)],
-                [bp(664), e(627), e(499)],
+                [br(1298), e(627), e(499)],
+                [br(1265), e(627), e(499)],
                 [e(483), e(652), e(546)],
-                [e(642), bp(327), e(499)],
+                [e(642), "background-color", e(499)],
                 [e(514), e(627), e(499)],
-                [bp(1065), e(627), bp(662)],
-                [bp(826), e(627), e(499)],
-                [e(517), e(652), bp(426)]
+                [br(982), e(627), br(1105)],
+                [br(742), e(627), e(499)],
+                [e(517), e(652), br(1044)]
             ]
         }, {
-            site: location[e(351)][bp(226)](e(650)),
+            site: location[e(351)][br(446)](e(650)),
             cent: !0,
             clear: !0,
             parent: function() {
-                return id(bp(1312))
+                return id(br(132))
             }
         }, {
-            site: location[e(351)][bp(226)](bp(1331)),
+            site: location[e(351)][br(446)]("sploop.io"),
             cent: !0,
             clear: !0,
             parent: function() {
-                return id(bp(1132))
+                return id(br(283))
             },
             css: [
-                [bp(1418), e(627), e(499)],
-                [bp(664), e(627), e(499)],
+                ["#game-bottom-content", e(627), e(499)],
+                [br(1265), e(627), e(499)],
                 [e(483), e(652), e(546)],
-                [bp(1376), e(652), e(546)],
-                [bp(604), bp(327), e(499)],
+                [br(853), e(652), e(546)],
+                [br(610), "background-color", e(499)],
                 [e(514), e(627), e(499)],
-                ["#game-middle-main", e(627), "rgba(0,0,0,0)"],
+                [br(1309), e(627), "rgba(0,0,0,0)"],
                 ["#nickname", e(627), e(499)],
-                [bp(535), e(652), bp(426)]
+                ["#nickname", e(652), br(1044)]
             ]
         }, {
-            site: location[bp(1351)].includes(e(441)),
+            site: location.href[br(446)](e(441)),
             cent: !1,
             clear: !1,
             parent: function() {
-                return id(bp(990))
+                return id("adZone")
             }
         }, {
-            site: location[e(351)][bp(226)](e(496)),
+            site: location[e(351)].includes(e(496)),
             cent: !1,
             clear: !1,
             parent: function() {
-                return id(bp(654))
+                return id(br(1141))
             }
         }, {
             site: location[e(351)][e(657)](e(419)),
             cent: !0,
             clear: !0,
             parent: function() {
-                return id(bp(1404))
+                return id("ad-block-left")
             },
             css: [
                 [e(483), e(627), e(499)],
-                [e(401), bp(327), e(499)],
-                ["#H_B", e(652), e(546)],
+                [e(401), br(127), e(499)],
+                [br(118), e(652), e(546)],
                 [e(647), e(627), e(499)]
             ]
         }, {
@@ -733,7 +725,7 @@ function cSs() {
                 return clas(e(393))[0]
             }
         }, {
-            site: location[e(351)][e(657)]("agar"),
+            site: location[e(351)][e(657)](br(1273)),
             cent: !0,
             clear: !0,
             parent: function() {
@@ -758,11 +750,11 @@ function cSs() {
             cent: !0,
             clear: !0,
             parent: function() {
-                var a = bp,
+                var a = br,
                     t = e;
-                return id(t(704)).remove(), id(a(450))[t(639)](), document[t(597)]("referral")[0]
+                return id(t(704))[a(296)](), id(a(896))[t(639)](), document[t(597)]("referral")[0]
             }
-        }], window.br = document[e(613)]("br"), v[bp(1134)] = function() {
+        }], window.br = document[e(613)]("br"), v[br(974)] = function() {
             try {
                 z(centy2)
             } catch (a) {}
@@ -775,21 +767,22 @@ function cSs() {
                 var a, e, r = b,
                     i = o;
                 try {
-                    t && (clearInterval(y), a = t, frame[i(612)] = localStorage_[r(1045)]("LP"), window[i(616)] = function(a) {
-                        localStorage_[r(1440)]("LP", frame.src)
-                    }, e = CE(i(578), i(633)), t[i(404)](e), (t = centy)[i(404)](u), t[r(1356)](frame), t[r(1356)](u), t[r(1356)](u), t[r(1356)](inputm), t.appendChild(u), t[i(404)](u), clearInterval(y), n[i(404)](u), n[i(404)](v), n[i(404)](u), n[i(404)](w), a[i(404)](n), D(), id("play") && SetUpSploop())
+                    t && (clearInterval(y), a = t, frame[i(612)] = localStorage_.getItem("LP"), window[i(616)] = function(a) {
+                        var e = b;
+                        localStorage_.setItem("LP", frame[e(274)])
+                    }, e = CE(i(578), i(633)), t[i(404)](e), (t = centy)[i(404)](u), t[r(910)](frame), t[r(910)](u), t[r(910)](u), t[r(910)](inputm), t.appendChild(u), t[i(404)](u), clearInterval(y), n[i(404)](u), n[i(404)](v), n[i(404)](u), n[i(404)](w), a[i(404)](n), D(), id(r(329)) && SetUpSploop())
                 } catch (s) {
-                    window.lastError = s
+                    window[r(315)] = s
                 }
             }), 0)) : (clearInterval(y), y = setInterval((function() {
                 var a, e = b,
-                    n = o;
+                    r = o;
                 try {
-                    t && (clearInterval(y), a = t, (t = CE(e(980), e(1147)))[n(404)](u), t[n(404)](frame), frame[n(612)] = localStorage_[e(1045)]("LP"), window.onunload = function(a) {
-                        var e = n;
+                    t && (clearInterval(y), a = t, (t = CE(e(891), e(1112)))[r(404)](u), t[r(404)](frame), frame[r(612)] = localStorage_[e(355)]("LP"), window[e(1192)] = function(a) {
+                        var e = r;
                         localStorage_[e(655)]("LP", frame[e(612)])
-                    }, t[n(404)](u), t[e(1356)](u), t[n(404)](inputm), a[n(404)](t), a[n(404)](u), a[e(1356)](v), a[e(1356)](u), a[e(1356)](w), D(), id(e(291)) && SetUpSploop())
-                } catch (r) {}
+                    }, t[r(404)](u), t.appendChild(u), t[r(404)](inputm), a[r(404)](t), a[r(404)](u), a[e(910)](v), a.appendChild(u), a[e(910)](w), D(), id(e(329)) && SetUpSploop())
+                } catch (n) {}
             }), 0)), setTimeout((function() {
                 var e = o;
                 a && a[e(540)]((a => {
@@ -797,17 +790,24 @@ function cSs() {
                 })), G(id(e(696)), e(450))
             }), 1e3)
         }, x[e(540)]((a => {
-            var n = bp,
+            var n = br,
                 o = e;
-            a[o(414)] && (t = window[o(495)] = a[o(569)](), r = window[n(667)] = a[o(396)], s = window[o(515)] = a[o(505)], a[n(881)] ? setup3(a[o(600)]) : setTimeout(window[o(403)], 100))
+            a[o(414)] && (t = window[o(495)] = a[o(569)](), r = window.vcent = a[o(396)], s = window[o(515)] = a[o(505)], a[n(232)] ? setup3(a[o(600)]) : setTimeout(window[o(403)], 100))
         }))
     }
 }
 
+function b(e, t) {
+    var r = a();
+    return (b = function(a, e) {
+        return r[a -= 108]
+    })(e, t)
+}
+
 function Csc2() {
     var a = a8;
-    if (cSs(), pingcheck(), window.ageBarBody) {
-        ageBarBody[a(244)][a(1415)] = "1s", window.items2 = {};
+    if (cSs(), pingcheck(), window[a(428)]) {
+        ageBarBody[a(1245)][a(501)] = "1s", window[a(262)] = {};
         let e = {
                 1: {
                     hand_axe: 1,
@@ -860,176 +860,176 @@ function Csc2() {
                     spawnpad: 36
                 }
             },
-            t = document[a(757)](a(980));
-        (function(n = ((e, t) => {
-            var n = a;
-            window.items2[t] = e[n(497)][n(665)][0][n(816)]
-        }), o = document[a(757)]("br")) {
+            t = document[a(1058)]("div");
+        (function(r = ((e, t) => {
             var r = a;
+            window.items2[t] = e[r(784)][r(953)][0][r(996)]
+        }), n = document.createElement("br")) {
+            var o = a;
             for (let a in e) {
-                t.append(document[r(757)]("br"));
-                let n = document.createElement(r(800));
-                window[r(249)][r(821)]([a, n]), n.id = r(479) + a, n[r(416)] = a;
-                let o = document[r(757)](r(992));
-                o[r(742)] = "Age " + a + ":", Object.keys(e[a])[r(1341)]((t => {
-                    var o = r;
-                    let i = document[o(757)]("option");
-                    i[o(816)] = e[a][t], i.innerText = t, n[o(369)](i)
-                })), t[r(369)](o), t[r(369)](n)
+                t[o(1019)](document[o(1058)]("br"));
+                let r = document.createElement(o(310));
+                window[o(272)].push([a, r]), r.id = o(1220) + a, r[o(736)] = a;
+                let n = document[o(1058)](o(833));
+                n[o(821)] = "Age " + a + ":", Object[o(710)](e[a]).forEach((t => {
+                    var n = o;
+                    let i = document[n(1058)]("option");
+                    i[n(996)] = e[a][t], i[n(821)] = t, r[n(1019)](i)
+                })), t[o(1019)](n), t[o(1019)](r)
             }
-            setupCard[r(369)](t), sel1[r(1130)] = function(a) {
-                var e = r,
-                    t = a[e(497)][e(816)],
-                    n = a[e(497)].classname;
-                items2[n] = t
-            }, sel2[r(1130)] = function(a) {
-                var e = r,
-                    t = a[e(497)].value,
-                    n = a[e(497)][e(416)];
-                items2[n] = t
-            }, sel3[r(1130)] = function(a) {
-                var e = r,
-                    t = a[e(497)][e(816)],
-                    n = a[e(497)][e(416)];
-                items2[n] = t
-            }, sel4[r(1130)] = function(a) {
-                var e = r,
-                    t = a[e(497)][e(816)],
-                    n = a[e(497)][e(416)];
-                items2[n] = t
-            }, sel5[r(1130)] = function(a) {
-                var e = r,
-                    t = a.target.value,
-                    n = a[e(497)].classname;
-                items2[n] = t
-            }, sel6[r(1130)] = function(a) {
-                var e = r,
-                    t = a[e(497)][e(816)],
-                    n = a[e(497)].classname;
-                items2[n] = t
+            setupCard.append(t), sel1[o(615)] = function(a) {
+                var e = o,
+                    t = a[e(784)][e(996)],
+                    r = a[e(784)].classname;
+                items2[r] = t
+            }, sel2[o(615)] = function(a) {
+                var e = o,
+                    t = a[e(784)][e(996)],
+                    r = a[e(784)][e(736)];
+                items2[r] = t
+            }, sel3.onchange = function(a) {
+                var e = o,
+                    t = a[e(784)].value,
+                    r = a[e(784)][e(736)];
+                items2[r] = t
+            }, sel4[o(615)] = function(a) {
+                var e = o,
+                    t = a[e(784)][e(996)],
+                    r = a.target.classname;
+                items2[r] = t
+            }, sel5[o(615)] = function(a) {
+                var e = o,
+                    t = a[e(784)][e(996)],
+                    r = a[e(784)][e(736)];
+                items2[r] = t
+            }, sel6[o(615)] = function(a) {
+                var e = o,
+                    t = a[e(784)].value,
+                    r = a[e(784)][e(736)];
+                items2[r] = t
             }, sel7.onchange = function(a) {
-                var e = r,
-                    t = a[e(497)].value,
-                    n = a[e(497)][e(416)];
-                items2[n] = t
-            }, sel8[r(1130)] = function(a) {
-                var e = r,
-                    t = a[e(497)].value,
-                    n = a[e(497)][e(416)];
-                items2[n] = t
+                var e = o,
+                    t = a[e(784)][e(996)],
+                    r = a[e(784)][e(736)];
+                items2[r] = t
+            }, sel8[o(615)] = function(a) {
+                var e = o,
+                    t = a.target[e(996)],
+                    r = a[e(784)].classname;
+                items2[r] = t
             }
-        })(), window[a(335)] = [25, 23, 24, 6, 7, 9], info2[a(708)] = e, info2[a(708)][0] = {
+        })(), window[a(1246)] = [25, 23, 24, 6, 7, 9], info2[a(935)] = e, info2[a(935)][0] = {
             wood_wall: 19,
             spike: 6,
             winddmill: 10
         };
-        let n = document[a(757)](a(424));
-        n[a(816)] = 150, n.id = a(1209), n.style[a(1203)] = a(1384), n[a(244)].color = "white", n[a(1130)] = function(e) {
+        let r = document[a(1058)](a(743));
+        r[a(996)] = 150, r.id = a(1035), r[a(1245)].backgroundColor = a(640), r[a(1245)][a(546)] = a(1047), r[a(615)] = function(e) {
             var t = a;
-            window[t(993)] = 1 * n[t(816)], chat(t(867) + n[t(816)])
+            window[t(281)] = 1 * r.value, chat(t(1100) + r[t(996)])
         };
-        let o = document[a(757)](a(424));
-        o[a(816)] = i2, o.id = a(924), o.style[a(1203)] = a(1384), o[a(244)][a(253)] = a(385);
-        let r = document.createElement(a(992));
-        r.innerText = "Insta speed ", r[a(244)].color = a(507);
-        let i = document[a(757)](a(992));
-        i[a(742)] = a(564), i.style.color = a(507), setupCard[a(369)](document[a(757)]("br")), setupCard[a(369)](i), setupCard.append(n), setupCard[a(369)](document[a(757)]("br")), setupCard[a(369)](r), setupCard.append(o), o[a(1130)] = function(e) {
-            i2 = 1 * o[a(816)], chat("Insta speed " + o.value)
-        }, setupCard.style[a(1034)] = a(782), setupCard[a(244)][a(839)] = "180px", window[a(1435)] = 1
+        let n = document[a(1058)](a(743));
+        n[a(996)] = i2, n.id = a(484), n[a(1245)][a(998)] = a(640), n[a(1245)].color = a(1047);
+        let o = document[a(1058)](a(833));
+        o[a(821)] = "Insta speed ", o[a(1245)][a(546)] = a(684);
+        let i = document[a(1058)]("span");
+        i[a(821)] = a(1242), i[a(1245)][a(546)] = "red", setupCard[a(1019)](document[a(1058)]("br")), setupCard[a(1019)](i), setupCard.append(r), setupCard.append(document.createElement("br")), setupCard[a(1019)](o), setupCard[a(1019)](n), n[a(615)] = function(e) {
+            var t = a;
+            i2 = 1 * n[t(996)], chat(t(1182) + n[t(996)])
+        }, setupCard[a(1245)][a(516)] = a(509), setupCard.style[a(707)] = a(1021), window[a(183)] = 1
     }
 }
 var _setUp, a8 = b;
 ! function(e, t) {
-    for (var n = b, o = a();;) {
+    for (var r = b, n = a();;) {
         try {
-            if (216531 === parseInt(n(425)) / 1 * (parseInt(n(365)) / 2) + -parseInt(n(256)) / 3 + -parseInt(n(958)) / 4 + parseInt(n(224)) / 5 + parseInt(n(225)) / 6 * (-parseInt(n(805)) / 7) + -parseInt(n(1102)) / 8 * (-parseInt(n(954)) / 9) + parseInt(n(985)) / 10) {
+            if (348208 === -parseInt(r(1193)) / 1 + -parseInt(r(425)) / 2 * (-parseInt(r(201)) / 3) + -parseInt(r(766)) / 4 + parseInt(r(1034)) / 5 * (parseInt(r(874)) / 6) + parseInt(r(607)) / 7 + parseInt(r(1174)) / 8 + parseInt(r(1260)) / 9 * (-parseInt(r(734)) / 10)) {
                 break
             }
-            o.push(o.shift())
-        } catch (r) {
-            o.push(o.shift())
+            n.push(n.shift())
+        } catch (o) {
+            n.push(n.shift())
         }
     }
 }();
-const badWords = [...new Set([a8(1115), a8(243), a8(769), a8(1157), a8(862), a8(589), "anus", a8(1361), a8(457), a8(1219), "ass", "ass-fucker", "asses", a8(635), a8(398), a8(443), a8(734), a8(1425), "a_s_s", a8(998), a8(1079), "b17ch", a8(1328), "ballbag", a8(255), a8(1379), a8(532), a8(741), a8(750), a8(549), a8(684), a8(305), "bi+ch", a8(784), a8(402), a8(1029), a8(467), a8(1383), a8(829), a8(871), a8(376), "blow job", a8(1117), "blowjobs", a8(1014), a8(471), a8(408), a8(755), a8(1287), a8(482), "booobs", a8(1039), a8(428), a8(666), a8(620), a8(344), "bugger", a8(1022), "bunny fucker", "butt", a8(1363), a8(247), "buttplug", "c0ck", a8(1388), a8(656), "cawk", "chink", a8(545), a8(671), "clit", "clitoris", a8(758), "cnut", a8(271), a8(1348), a8(1241), a8(1109), a8(1097), a8(324), a8(743), "cocksuck", "cocksucked", a8(236), "cocksucking", "cocksucks", a8(1067), a8(693), "cok", "cokmuncher", a8(1291), a8(920), a8(724), a8(692), "cum", "cummer", "cumming", a8(945), a8(392), a8(1277), a8(1405), a8(1222), a8(1016), a8(1232), a8(989), "cuntlicking", "cunts", a8(277), "cyberfuc", a8(1234), "cyberfucked", a8(1128), a8(1023), a8(486), a8(948), a8(1339), a8(915), "dickhead", "dildo", a8(925), a8(780), a8(1265), a8(628), a8(987), "dog-fucker", a8(1111), a8(613), a8(270), a8(1427), a8(873), a8(1195), a8(1239), a8(962), a8(1430), a8(982), "ejaculatings", a8(382), "ejakulate", a8(488), a8(281), "f4nny", a8(1059), a8(312), a8(518), a8(313), a8(414), a8(921), "fagots", "fags", a8(1160), a8(529), "fannyfucker", "fanyy", "fatass", a8(1058), a8(937), "fcuking", a8(1198), a8(857), a8(822), a8(378), "fellatio", a8(713), a8(1010), "fingerfucker", a8(513), "fingerfucking", "fingerfucks", "fistfuck", a8(715), a8(500), a8(872), a8(1429), "fistfuckings", a8(1340), "flange", "fook", a8(1329), a8(1157), a8(478), a8(1179), a8(563), a8(657), a8(540), "fuckheads", a8(820), a8(1060), a8(739), a8(976), a8(375), a8(903), a8(346), a8(1091), a8(1033), a8(1444), "fuk", a8(581), a8(1428), a8(607), a8(702), "fukwhit", a8(841), a8(461), "fux0r", a8(1143), a8(495), a8(1186), a8(1394), a8(1095), a8(679), "goatse", a8(1448), a8(772), "god-damned", a8(363), a8(1164), "hardcoresex", a8(460), a8(394), a8(975), a8(1268), a8(1255), a8(959), "hore", a8(943), a8(738), a8(1305), a8(913), "jackoff", a8(688), a8(546), "jism", a8(1120), a8(1076), a8(1159), a8(1114), "knob", a8(1026), a8(699), "knobend", "knobhead", a8(1246), "knobjokey", a8(950), a8(309), a8(1169), "kum", a8(1380), "kumming", a8(646), a8(1400), a8(251), a8(746), "labia", "lust", a8(1182), "m0f0", "m0fo", "m45terbate", a8(1087), a8(1188), a8(606), "master-bate", a8(1342), "masterbat*", "masterbat3", "masterbate", "masterbation", a8(1267), a8(1054), a8(711), a8(544), a8(1397), a8(519), a8(538), "mothafuckas", a8(632), a8(1233), "mothafucker", a8(678), a8(698), "mothafucking", a8(766), a8(761), "mother fucker", a8(351), a8(1137), a8(1190), a8(1142), a8(1413), a8(745), a8(257), "motherfuckka", a8(347), a8(595), "mutha", a8(1035), "muthafuckker", a8(399), "mutherfucker", a8(1078), a8(1399), "nazi", a8(474), a8(1301), a8(935), a8(1450), a8(1215), a8(264), a8(587), a8(548), "nob", a8(810), a8(789), "nobjocky", a8(337), a8(349), a8(1307), a8(1245), a8(786), "orgasm", a8(1101), "p0rn", a8(946), a8(1378), a8(848), a8(1319), a8(1213), a8(539), a8(1027), "phuked", "phuking", a8(1063), "phukking", a8(828), "phuq", a8(442), a8(1311), a8(952), a8(852), a8(602), a8(825), a8(961), a8(914), "pissin", a8(1411), "pissoff", "poop", a8(473), a8(849), a8(1069), "pornos", a8(570), a8(1386), a8(803), "pube", "pusse", "pussi", a8(334), a8(969), "pussys", a8(594), a8(1258), a8(430), a8(400), a8(1412), a8(422), "sadist", "schlong", "screwing", a8(489), a8(694), a8(600), a8(1220), "sex", a8(732), "sh!t", a8(896), a8(963), a8(1296), "shaggin", a8(856), a8(527), a8(1318), a8(451), a8(272), a8(1409), a8(419), a8(749), a8(700), a8(1174), "shithead", a8(819), a8(445), a8(503), a8(516), a8(1092), a8(790), a8(740), a8(616), "shitty", "skank", "slut", a8(774), a8(901), a8(759), "snatch", a8(1371), a8(1138), "spunk", "s_h_i_t", "t1tt1e5", a8(1445), a8(1285), a8(1323), a8(1212), a8(555), a8(1110), "titfuck", a8(650), a8(434), a8(528), a8(269), "titties", a8(480), a8(788), a8(240), a8(1310), "turd", "tw4t", a8(586), "twathead", a8(1028), a8(1278), "twunter", a8(386), a8(1244), a8(1443), a8(452), a8(1148), a8(1354), "wang", a8(764), a8(282), "wanky", a8(384), a8(1051), "willies", a8(965), a8(893), "xxx", a8(1115), a8(243), "5hit", a8(862), a8(589), "anus", a8(1361), a8(457), a8(1219), a8(718), a8(906), a8(779), a8(635), a8(398), "asshole", a8(734), a8(1425), a8(393), a8(998), a8(1079), a8(817), a8(1328), a8(605), a8(255), a8(1379), a8(532), a8(741), a8(750), "bellend", a8(684), a8(305), "bi+ch", a8(784), a8(402), a8(1029), a8(467), a8(1383), a8(829), "bitching", a8(376), a8(1347), a8(1117), a8(971), a8(1014), "bollock", a8(408), "boner", a8(1287), "boobs", "booobs", a8(1039), a8(428), "booooooobs", a8(620), "buceta", a8(508), a8(1022), a8(1119), a8(966), a8(1363), a8(247), "buttplug", a8(446), "c0cksucker", a8(656), a8(1154), a8(1417), a8(545), a8(671), "clit", a8(1392), a8(758), a8(1040), a8(271), a8(1348), a8(1241), "cockhead", a8(1097), a8(324), a8(743), "cocksuck", a8(815), a8(236), a8(645), "cocksucks", a8(1067), "cocksukka", a8(1178), "cokmuncher", a8(1291), "coon", "cox", a8(692), "cum", a8(1192), a8(812), a8(945), a8(392), a8(1277), a8(1405), a8(1222), a8(1016), "cuntlick", a8(989), a8(514), a8(534), "cyalis", a8(293), a8(1234), a8(840), a8(1128), a8(1023), a8(486), a8(948), "damn", a8(915), a8(584), a8(730), a8(925), a8(780), a8(1265), "dirsa", "dlck", a8(1180), a8(1111), a8(613), a8(270), "doosh", a8(873), "dyke", a8(1239), a8(962), a8(1430), "ejaculating", a8(923), a8(382), a8(1326), a8(488), a8(281), a8(223), a8(1059), a8(312), "faggitt", a8(313), a8(414), a8(921), a8(343), "fags", "fanny", a8(529), a8(1451), a8(464), a8(1364), a8(1058), "fcuker", a8(248), a8(1198), a8(857), "felching", a8(378), "fellatio", "fingerfuck", a8(1010), a8(1320), a8(513), a8(1056), a8(725), a8(907), a8(715), "fistfucker", a8(872), "fistfucking", "fistfuckings", "fistfucks", a8(1256), "fook", a8(1329), a8(1157), a8(478), a8(1179), a8(563), "fuckers", a8(540), a8(348), a8(820), a8(1060), a8(739), a8(976), a8(375), a8(903), a8(346), "fuckwit", a8(1033), a8(1444), "fuk", a8(581), a8(1428), a8(607), a8(702), a8(1294), a8(841), a8(461), "fux0r", a8(1143), a8(495), a8(1186), "gangbangs", a8(1095), a8(679), a8(747), a8(1448), a8(772), a8(1283), a8(363), a8(1164), a8(876), a8(460), a8(394), a8(975), "hoare", a8(1255), a8(959), a8(1187), a8(943), "horny", a8(1305), a8(913), a8(283), a8(688), a8(546), a8(1262), a8(1120), a8(1076), a8(1159), "kawk", a8(505), "knobead", a8(699), a8(391), a8(973), a8(1246), a8(368), a8(950), "kondum", a8(1169), a8(944), a8(1380), a8(1197), "kums", "kunilingus", a8(251), a8(746), a8(510), a8(1070), "lusting", a8(729), "m0fo", "m45terbate", a8(1087), a8(1188), "masochist", a8(423), a8(1342), a8(596), "masterbat3", a8(909), a8(591), a8(1267), a8(1054), a8(711), a8(544), a8(1397), "mothafuck", "mothafucka", a8(1184), "mothafuckaz", a8(1233), a8(728), a8(678), a8(698), a8(477), a8(766), "mothafucks", "mother fucker", a8(351), a8(1137), a8(1190), a8(1142), a8(1413), a8(745), a8(257), a8(1337), a8(347), "muff", a8(496), a8(1035), "muthafuckker", a8(399), "mutherfucker", a8(1078), a8(1399), a8(328), a8(474), a8(1301), a8(935), "niggah", a8(1215), a8(264), a8(587), a8(548), "nob", "nob jokey", "nobhead", a8(720), a8(337), a8(349), a8(1307), "orgasim", a8(786), a8(929), a8(1101), a8(238), a8(946), "pecker", a8(848), "penisfucker", "phonesex", a8(539), a8(1027), a8(655), a8(364), a8(1063), a8(802), "phuks", a8(1090), a8(442), a8(1311), "piss", a8(852), "pisser", a8(825), a8(961), a8(914), a8(1360), a8(1411), "pissoff", "poop", a8(473), a8(849), a8(1069), a8(721), "prick", a8(1386), a8(803), a8(1259), "pusse", "pussi", a8(334), "pussy", "pussys", a8(594), "retard", a8(430), a8(400), a8(1412), a8(422), "sadist", a8(625), "screwing", "scroat", a8(694), a8(600), "semen", a8(1336), "sh!+", a8(1437), "sh1t", a8(963), "shagger", a8(1257), a8(856), "shemale", a8(1318), a8(451), "shitdick", a8(1409), a8(419), a8(749), a8(700), "shitfull", "shithead", a8(819), a8(445), a8(503), a8(516), a8(1092), "shitters", a8(740), "shittings", a8(1338), "skank", a8(1145), a8(774), a8(901), a8(759), a8(1235), a8(1371), a8(1138), a8(796), a8(1334), a8(1369), a8(1445), a8(1285), a8(1323), a8(1212), a8(555), a8(1110), a8(642), "tits", a8(434), a8(528), a8(269), a8(1387), "tittyfuck", a8(788), a8(240), "tosser", a8(844), "tw4t", a8(586), "twathead", a8(1028), a8(1278), a8(1080), a8(386), a8(1244), "vagina", a8(452), "vulva", a8(1354), a8(660), a8(764), a8(282), "wanky", a8(384), a8(1051), a8(1292), "willy", a8(893), a8(235), a8(1018), "anus", "ash0le", "ash0les", a8(997), "ass", "Ass Monkey", "Assface", a8(274), a8(487), a8(443), a8(734), a8(974), a8(276), "azzhole", a8(753), a8(532), "bastards", "bastardz", a8(1276), a8(1416), a8(526), "bitch", a8(1383), a8(638), a8(220), "butthole", a8(1401), a8(446), a8(1436), a8(955), a8(1314), a8(1154), a8(421), "Clit", a8(603), a8(1274), a8(271), a8(1109), a8(1047), a8(743), a8(778), a8(1348), a8(692), "cum", a8(1016), a8(534), "cuntz", "dick", a8(573), a8(1081), a8(730), a8(925), a8(1024), a8(499), a8(578), "dominatrics", a8(221), a8(1195), "enema", a8(488), a8(281), a8(1059), a8(357), "faget", a8(362), a8(795), a8(313), a8(874), a8(300), "fags", a8(934), "faig", "faigs", a8(850), a8(259), a8(1157), "fucker", a8(820), a8(1060), a8(903), a8(1406), a8(690), a8(466), a8(304), "fuker", a8(775), a8(1038), a8(536), a8(722), "Fukker", a8(771), a8(1249), "God-damned", "h00r", a8(890), a8(1217), "hells", a8(975), a8(1221), a8(1012), a8(283), "jap", a8(636), "jerk-off", a8(468), a8(957), a8(1076), a8(1159), a8(505), a8(433), a8(1434), a8(592), a8(1105), a8(1407), a8(562), "Lipshits", "Lipshitz", a8(606), "masokist", a8(1381), a8(899), a8(1125), a8(1343), a8(909), a8(710), a8(676), a8(1118), a8(949), a8(397), a8(1290), a8(320), a8(853), a8(781), a8(823), "mother-fucker", "Mutha Fucker", a8(1161), "Mutha Fuker", a8(1284), a8(1089), a8(888), a8(1248), a8(1037), "nigur;", "niiger;", a8(686), a8(339), "orgasim;", "orgasm", a8(454), a8(458), a8(330), a8(1373), "packi", a8(1049), a8(1025), a8(356), a8(525), a8(371), a8(1378), "peeenus", a8(439), a8(630), a8(1e3), a8(512), a8(1365), a8(848), a8(593), a8(626), a8(297), a8(736), a8(807), "Phuk", "Phuker", a8(683), a8(317), a8(1146), a8(1288), "Poonani", a8(765), a8(520), a8(704), "pusse", "pussee", a8(969), a8(1176), a8(557), a8(818), a8(1162), a8(1183), a8(437), "qweerz", a8(1439), "recktum", a8(594), a8(1258), a8(265), a8(1289), a8(625), a8(942), a8(1220), "sex", a8(1073), "Sh!t", "sh1t", "sh1ter", a8(863), "sh1tter", a8(1121), a8(451), a8(503), a8(1092), "Shitty", a8(1446), "shitz", "Shyt", a8(988), a8(336), a8(456), "skanck", a8(612), a8(910), a8(926), a8(286), a8(1313), a8(972), "slut", a8(774), a8(701), a8(687), a8(1371), a8(1110), a8(844), "va1jina", "vag1na", a8(792), "vagina", a8(579), a8(432), a8(895), "vulva", a8(1149), a8(1396), a8(968), a8(1051), "xrated", a8(235), a8(1053), a8(402), a8(1117), a8(1075), a8(1382), "fuck", "shit", a8(718), a8(443), "b!tch", a8(817), a8(1328), a8(532), a8(644), a8(1014), a8(344), a8(446), a8(1154), a8(1417), "cipa", a8(758), a8(271), a8(752), "cunt", a8(730), a8(628), "ejakulate", "fatass", a8(1058), a8(690), a8(1005), a8(1255), a8(1187), a8(1262), "kawk", a8(746), a8(251), a8(1165), "masturbate", a8(596), a8(441), a8(1190), a8(422), a8(1397), a8(328), a8(935), a8(587), a8(1307), a8(539), a8(1311), a8(1163), a8(969), a8(600), a8(1437), "shemale", "shi+", a8(732), a8(1145), a8(759), a8(1285), "tits", a8(482), a8(1079), a8(1323), a8(1212), "testicle", a8(434), a8(1354), a8(283), "wank", a8(384), a8(1051), a8(1055), a8(1225), a8(285), a8(427), a8(1006), a8(1333), a8(744), a8(504), a8(261), a8(652), "bi7ch", a8(295), a8(785), a8(620), "butt-pirate", "cabron", a8(523), a8(855), a8(1140), a8(1350), a8(411), a8(319), a8(653), a8(832), a8(1253), a8(1266), "dupa", a8(583), a8(1048), a8(515), "Ekto", a8(1309), "faen", a8(858), "fanculo", a8(1160), "feces", a8(751), a8(1324), a8(1304), a8(459), a8(273), a8(643), a8(705), "Fu(*", a8(1135), a8(1243), a8(1166), a8(569), a8(453), "h4x0r", a8(460), a8(1052), a8(1362), a8(1395), a8(326), a8(232), a8(1391), a8(1159), a8(791), a8(981), a8(383), a8(396), a8(669), a8(565), a8(719), a8(1228), a8(1008), a8(917), a8(697), "lesbo", "mamhoon", a8(859), a8(1108), a8(983), a8(936), "mouliewop", a8(1030), a8(1230), "muschi", "nazis", "nepesaurio", "nigger*", a8(404), a8(1208), a8(1141), "picka", a8(1050), "pillu*", a8(1170), "piss*", a8(614), a8(869), a8(239), "porn", a8(238), a8(1357), a8(1298), "pula", a8(229), "puta", a8(230), "qahbeh", "queef*", a8(561), "schaffer", a8(1299), a8(999), "schmuck", a8(1377), "sh!t*", a8(726), "sharmute", a8(250), "shiz", "skribz", a8(691), "sphencter", "spic", "spierdalaj", a8(707), a8(1077), a8(886), a8(1074), a8(1385), a8(586), a8(658), a8(228), a8(1321), a8(882), a8(1330), "yed", a8(835)])],
-    reg = new RegExp("(" + [...new Set(badWords[a8(465)](" ")[a8(1295)](/[\w\d]+/gi))][a8(465)]("|") + ")", "gi"),
-    filter1 = a => a[a8(361)](reg, (function(a, e, t) {
-        var n = a8;
-        return a[n(412)] > 1 ? a.split(/[aeiou]+/gi)[n(465)]("*") : a
+const badWords = [...new Set([a8(1048), a8(858), a8(805), "fuck", a8(543), a8(606), a8(499), "ar5e", a8(869), a8(332), a8(303), "ass-fucker", a8(1263), a8(500), a8(818), a8(1158), a8(1028), "asswhole", "a_s_s", a8(595), "b00bs", a8(433), a8(1119), a8(1241), a8(224), a8(888), a8(387), a8(1068), a8(708), "bellend", a8(467), a8(806), "bi+ch", a8(555), a8(1302), a8(1214), a8(259), a8(810), "bitchin", "bitching", a8(1277), a8(665), a8(1142), a8(165), a8(424), "bollock", "bollok", a8(390), a8(155), a8(308), a8(395), "boooobs", a8(885), a8(160), a8(926), a8(368), a8(1235), a8(1186), a8(709), a8(804), a8(1191), a8(440), a8(585), a8(1023), a8(842), a8(325), a8(176), a8(1093), a8(1013), a8(414), a8(798), a8(817), a8(1172), a8(167), a8(1130), "cock-sucker", a8(715), a8(444), a8(887), a8(204), a8(538), a8(376), a8(306), a8(481), "cocksucking", a8(630), "cocksuka", a8(716), a8(261), a8(758), a8(738), a8(317), a8(1042), a8(997), a8(472), a8(1178), a8(733), a8(1284), a8(902), a8(921), a8(1094), a8(932), a8(1275), a8(614), a8(1073), a8(1184), a8(1294), a8(391), a8(1173), a8(1209), a8(1281), a8(890), "cyberfuckers", a8(378), a8(764), a8(119), a8(1061), a8(1239), a8(212), a8(863), a8(456), a8(990), a8(1304), a8(648), a8(1137), "doggin", a8(947), a8(860), a8(193), a8(1091), "dyke", "ejaculate", a8(984), a8(480), "ejaculating", a8(1168), a8(889), "ejakulate", "f u c k", a8(801), a8(1108), "fag", "fagging", a8(1138), a8(346), a8(957), a8(279), a8(309), a8(327), a8(328), "fannyflaps", a8(403), a8(1117), a8(1128), a8(993), "fcuker", a8(182), a8(1076), "fecker", a8(1226), a8(319), a8(825), a8(162), "fingerfucked", a8(1075), "fingerfuckers", "fingerfucking", a8(930), a8(266), a8(737), a8(1236), a8(313), a8(289), a8(979), a8(1240), a8(663), "fook", a8(322), a8(531), a8(479), "fucked", a8(435), a8(360), a8(591), "fuckheads", a8(539), a8(366), a8(504), a8(1090), a8(1301), "fucks", "fuckwhit", a8(423), a8(970), a8(408), a8(401), a8(722), "fukker", "fukkin", a8(629), a8(192), a8(336), "fux", a8(1164), "f_u_c_k", a8(515), a8(347), a8(1018), a8(1196), "gaysex", a8(1051), a8(114), a8(478), "god-damned", a8(826), a8(473), "hardcoresex", "hell", a8(994), a8(1133), a8(563), "hoer", a8(723), "hore", a8(1004), "horny", a8(754), a8(1014), a8(331), "jap", "jerk-off", "jism", "jiz", a8(1308), a8(140), a8(972), a8(1070), "knobead", "knobed", a8(471), "knobhead", a8(459), "knobjokey", a8(449), a8(1136), a8(781), a8(618), a8(277), a8(637), a8(522), "kunilingus", "l3i+ch", "l3itch", a8(592), a8(437), a8(811), a8(381), a8(394), a8(241), a8(1015), a8(121), "masochist", a8(1115), a8(1171), a8(370), "masterbat3", a8(196), a8(1049), a8(108), a8(745), "mo-fo", "mof0", a8(596), a8(929), a8(343), a8(1177), a8(1087), a8(976), a8(843), a8(1037), "mothafuckin", a8(234), a8(126), a8(164), a8(823), a8(898), a8(1185), a8(962), "motherfuckers", a8(205), a8(572), "motherfuckings", a8(445), a8(542), a8(1261), a8(1299), a8(186), "muthafuckker", a8(460), a8(362), a8(213), "n1gger", a8(692), a8(1098), a8(584), a8(916), a8(697), a8(110), a8(625), "nigger", "niggers", a8(1218), a8(824), a8(1053), a8(696), "nobjokey", a8(1111), a8(1e3), a8(1145), a8(924), a8(980), a8(1045), a8(451), "pawn", a8(404), a8(1215), a8(1056), a8(856), a8(383), "phuk", a8(350), "phuking", a8(992), a8(774), "phuks", a8(1032), a8(1135), "pimpis", a8(1009), a8(474), a8(1279), a8(1074), a8(761), a8(873), a8(1271), "pissing", "pissoff", a8(950), a8(524), a8(868), "pornography", a8(986), a8(943), a8(875), a8(581), a8(156), "pusse", a8(1122), "pussies", a8(912), a8(1250), a8(1161), a8(393), "rimjaw", "rimming", a8(1052), a8(644), a8(597), a8(1202), a8(541), a8(184), "scrote", "scrotum", "semen", "sex", a8(153), a8(903), "sh1t", a8(626), a8(690), a8(300), a8(892), "shemale", a8(465), a8(488), a8(611), a8(1248), a8(1194), a8(985), a8(171), a8(649), "shithead", "shiting", a8(1201), "shits", a8(680), a8(372), a8(1200), a8(960), a8(535), a8(1227), "skank", a8(367), a8(553), a8(739), a8(954), "snatch", a8(583), a8(937), a8(551), "s_h_i_t", a8(1290), a8(1311), "teets", a8(883), a8(904), a8(214), a8(928), a8(174), "tits", a8(185), a8(613), a8(977), a8(580), a8(988), a8(1162), a8(570), a8(599), a8(415), "tw4t", a8(287), a8(600), "twatty", a8(660), a8(989), a8(1088), a8(693), a8(363), a8(800), a8(1080), a8(1205), a8(215), "wank", a8(834), a8(235), a8(617), a8(269), a8(1081), "willy", a8(356), "xxx", a8(1048), "5h1t", a8(805), "a55", a8(606), a8(499), a8(260), a8(869), a8(332), a8(303), a8(908), a8(1263), a8(500), a8(818), a8(1158), a8(1028), a8(434), "a_s_s", a8(595), "b00bs", a8(433), a8(1119), "ballbag", a8(224), a8(888), "bastard", a8(1068), a8(708), a8(763), "bestial", a8(806), a8(628), "biatch", a8(1302), a8(1214), a8(259), "bitches", a8(582), "bitching", a8(1277), a8(665), a8(1142), a8(165), a8(424), "bollock", a8(807), a8(390), "boob", a8(308), a8(395), a8(1063), a8(885), a8(160), "breasts", "buceta", a8(1235), a8(1186), a8(709), a8(804), a8(1191), a8(440), a8(585), "c0ck", a8(842), "carpet muncher", a8(176), a8(1093), a8(1013), a8(414), a8(798), a8(817), "clits", a8(167), a8(1130), a8(264), a8(715), a8(444), "cockmunch", "cockmuncher", a8(538), "cocksuck", a8(306), "cocksucker", a8(1083), "cocksucks", a8(246), "cocksukka", a8(261), a8(758), a8(738), a8(317), "cox", a8(997), a8(472), "cummer", "cumming", a8(1284), a8(902), a8(921), a8(1094), "cunnilingus", a8(1275), a8(614), a8(1073), "cuntlicking", a8(1294), a8(391), a8(1173), a8(1209), a8(1281), a8(890), a8(683), a8(378), a8(764), a8(119), a8(1061), a8(1239), "dildo", "dildos", "dink", a8(990), a8(1304), a8(648), a8(1137), a8(879), a8(947), "donkeyribber", a8(193), a8(1091), "dyke", a8(587), a8(984), a8(480), a8(1176), "ejaculatings", a8(889), "ejakulate", a8(687), a8(801), a8(1108), a8(498), a8(233), a8(1138), "faggot", a8(957), a8(279), a8(309), a8(327), a8(328), a8(117), "fannyfucker", a8(1117), a8(1128), "fcuk", "fcuker", a8(182), a8(1076), a8(352), a8(1226), a8(319), a8(825), a8(162), a8(357), a8(1075), "fingerfuckers", "fingerfucking", "fingerfucks", "fistfuck", "fistfucked", a8(1236), a8(313), "fistfucking", a8(979), "fistfucks", a8(663), a8(178), a8(322), a8(531), "fucka", a8(735), "fucker", a8(360), a8(591), a8(128), a8(539), a8(366), "fuckings", "fuckingshitmotherfucker", a8(1301), a8(1310), a8(568), a8(423), a8(970), "fudgepacker", a8(401), a8(722), "fukker", a8(251), "fuks", a8(192), a8(336), a8(290), "fux0r", "f_u_c_k", a8(515), "gangbanged", a8(1018), a8(1196), a8(544), "goatse", "God", a8(478), a8(711), a8(826), "goddamned", a8(1140), a8(770), a8(994), a8(1133), a8(563), a8(603), a8(723), a8(1217), "horniest", a8(593), a8(754), "jack-off", a8(331), a8(349), a8(846), a8(344), a8(130), a8(1308), a8(140), a8(972), a8(1070), a8(973), "knobed", "knobend", "knobhead", "knobjocky", "knobjokey", "kock", a8(1136), a8(781), "kum", "kummer", a8(637), a8(522), a8(218), a8(163), a8(386), a8(592), a8(437), "lusting", a8(381), a8(394), a8(241), "ma5terb8", a8(121), a8(909), a8(1115), "masterb8", a8(370), a8(785), a8(196), a8(1049), a8(108), "masturbate", "mo-fo", "mof0", a8(596), "mothafuck", a8(343), a8(1177), a8(1087), "mothafucked", "mothafucker", "mothafuckers", "mothafuckin", a8(234), a8(126), a8(164), "mother fucker", a8(898), a8(1185), a8(962), a8(525), a8(205), a8(572), "motherfuckings", a8(445), "motherfucks", a8(1261), a8(1299), a8(186), a8(695), a8(460), a8(362), "n1gga", a8(605), a8(692), "nigg3r", a8(584), a8(916), a8(697), a8(110), a8(625), "nigger", "niggers", a8(1218), a8(824), a8(1053), "nobjocky", a8(955), a8(1111), "nutsack", a8(1145), a8(924), a8(980), "orgasms", a8(451), a8(181), a8(404), a8(1215), a8(1056), "phonesex", "phuck", a8(545), a8(350), a8(1206), a8(992), a8(774), a8(975), a8(1032), a8(1135), a8(438), a8(1009), a8(474), a8(1279), "pissers", a8(761), a8(873), a8(1271), a8(133), "pissoff", a8(950), a8(524), a8(868), "pornography", a8(986), "prick", a8(875), "pron", a8(156), "pusse", "pussi", a8(273), a8(912), a8(1250), "rectum", a8(393), a8(267), a8(170), "s hit", "s.o.b.", a8(597), a8(1202), "screwing", "scroat", a8(968), "scrotum", a8(1043), a8(815), a8(153), "sh!t", a8(771), a8(626), a8(690), a8(300), a8(892), a8(911), a8(465), a8(488), a8(611), a8(1248), a8(1194), "shitey", a8(171), a8(649), a8(397), a8(159), a8(1201), a8(492), a8(680), a8(372), "shitters", "shitting", "shittings", a8(1227), a8(959), "slut", a8(553), a8(739), a8(954), "snatch", a8(583), a8(937), a8(551), a8(417), a8(1290), a8(1311), a8(681), "teez", a8(904), a8(214), a8(928), "titfuck", a8(808), "titt", a8(613), a8(977), "titties", a8(988), "tittywank", a8(570), "tosser", a8(415), a8(207), a8(287), "twathead", a8(1229), a8(660), a8(989), a8(1088), a8(693), a8(363), "viagra", a8(1080), "w00se", a8(215), a8(601), "wanker", a8(235), a8(617), a8(269), "willies", "willy", a8(356), a8(847), a8(225), a8(499), a8(187), "ash0les", a8(1123), a8(303), a8(669), "Assface", a8(796), "assh0lez", a8(1158), "assholes", a8(1131), a8(301), a8(135), a8(647), a8(387), "bastards", a8(646), a8(685), a8(1038), a8(578), a8(1302), a8(810), a8(948), a8(115), a8(1191), a8(701), "c0ck", "c0cks", a8(659), a8(268), "cawk", a8(249), a8(1033), "cnts", a8(1300), a8(1130), "cockhead", a8(1151), a8(538), a8(188), "cock-sucker", a8(997), a8(472), a8(1275), a8(1294), a8(919), a8(1061), "dild0", a8(409), a8(212), "dildos", a8(244), a8(124), a8(850), a8(819), a8(191), "dyke", a8(880), a8(687), "f u c k e r", a8(498), "fag1t", "faget", a8(598), "faggit", a8(346), a8(631), "fagit", a8(327), a8(375), a8(285), a8(358), a8(619), a8(416), a8(531), "fucker", a8(539), a8(366), a8(1310), "Fudge Packer", a8(401), a8(470), a8(1258), a8(722), a8(1116), a8(334), a8(791), a8(1005), a8(1113), a8(1017), a8(292), a8(452), a8(657), a8(1129), a8(161), a8(152), a8(1133), a8(1297), a8(1010), "jackoff", "jap", a8(565), a8(846), a8(721), "jiss", a8(1308), a8(140), a8(1070), "knobs", a8(166), "kunt", a8(1160), "kuntz", "Lezzian", a8(491), a8(851), a8(909), a8(136), a8(1153), a8(938), "masstrbate", a8(971), a8(196), a8(653), a8(1282), a8(1274), "Motha Fukkah", a8(753), a8(158), "Mother Fukah", a8(1175), a8(795), a8(939), a8(257), "Mutha Fucker", a8(1189), a8(927), a8(464), a8(477), a8(154), "nastt", a8(530), "nigur;", a8(1159), a8(297), "orafis", a8(1086), a8(980), a8(339), a8(421), "orifice", "orifiss", a8(1079), a8(1057), a8(466), a8(1187), "pakie", a8(901), a8(404), a8(299), a8(837), "peenus", a8(1180), a8(351), a8(461), a8(1215), a8(1020), "penus", a8(512), "Phuc", "Phuck", a8(759), "Phuker", a8(143), a8(757), "polack", "polak", a8(655), a8(1247), a8(1195), a8(1003), a8(314), "pussee", a8(912), "puuke", a8(1134), a8(220), "queers", "queerz", a8(636), a8(379), a8(1148), "recktum", a8(1161), a8(393), "sadist", a8(427), "schlong", "screwing", "semen", "sex", a8(219), "Sh!t", a8(771), a8(967), a8(270), a8(906), a8(337), "shit", a8(492), a8(372), a8(175), a8(839), "shitz", "Shyt", "Shyte", a8(475), a8(1065), "skanck", a8(959), a8(782), a8(776), a8(1210), a8(1099), a8(195), a8(367), "sluts", "Slutty", a8(688), a8(583), a8(928), "turd", a8(788), "vag1na", a8(920), "vagina", "vaj1na", "vajina", a8(194), a8(1080), a8(120), "wh00r", "wh0re", "whore", a8(356), a8(847), "b!+ch", "bitch", a8(1142), a8(798), "arschloch", a8(531), a8(488), a8(303), a8(1158), a8(595), a8(433), a8(1119), a8(387), "bi+ch", "boiolas", a8(368), a8(1023), a8(176), "chink", a8(1013), a8(1172), a8(1130), a8(472), a8(1275), "dildo", a8(1304), a8(941), a8(1128), a8(993), "fuk", a8(1164), a8(603), a8(1217), a8(344), a8(972), a8(386), a8(163), a8(668), a8(745), a8(370), a8(785), a8(962), a8(644), a8(596), a8(692), a8(916), "nigger", a8(1e3), a8(383), a8(438), a8(314), a8(912), "scrotum", a8(903), a8(911), a8(465), "sh!+", "slut", "smut", "teets", a8(808), a8(308), "b00bs", "teez", "testical", a8(214), a8(185), a8(1205), a8(331), a8(601), a8(617), a8(269), a8(633), a8(307), a8(517), "*shit*", a8(865), "amcik", "andskota", "arse*", a8(402), a8(561), "bi7ch", "bitch*", a8(226), "breasts", a8(229), "cabron", a8(698), a8(197), "chuj", "Cock*", a8(168), a8(1266), "daygo", a8(288), a8(1114), a8(173), a8(291), a8(141), "ejackulate", a8(364), a8(1085), a8(1293), "faen", "fag*", a8(489), "fanny", "feces", "feg", a8(326), a8(278), a8(831), a8(654), a8(385), a8(302), "Fu(*", a8(969), a8(840), a8(567), a8(1050), a8(952), a8(1223), a8(770), a8(1103), a8(502), a8(767), a8(457), a8(803), a8(848), "jizz", a8(450), "kike", a8(510), a8(981), a8(870), a8(284), a8(871), a8(1181), a8(147), a8(508), "kyrpa*", a8(1082), a8(586), "masturbat*", a8(1219), a8(1259), "monkleigh", a8(1156), a8(1071), a8(642), a8(1253), a8(448), "nepesaurio", "nigger*", a8(677), a8(198), a8(714), a8(844), a8(622), a8(131), a8(942), a8(389), a8(316), a8(713), a8(950), a8(524), a8(451), a8(991), a8(651), "pula", a8(247), a8(634), "puto", a8(933), a8(704), a8(845), a8(867), a8(1170), a8(442), a8(177), a8(145), a8(783), a8(157), a8(497), "shipal", a8(298), "skribz", a8(312), "sphencter", "spic", a8(689), a8(1026), a8(1121), a8(700), a8(253), "titt*", "twat", a8(951), a8(1244), a8(731), a8(1143), a8(894), "yed", a8(518)])],
+    reg = new RegExp("(" + [...new Set(badWords.join(" ").match(/[\w\d]+/gi))][a8(537)]("|") + ")", "gi"),
+    filter1 = a => a[a8(835)](reg, (function(a, e, t) {
+        var r = a8;
+        return a.length > 1 ? a[r(547)](/[aeiou]+/gi)[r(537)]("*") : a
     })),
     filter2 = a => {
         var e = a8;
-        return "oh" === (a = (a = a[e(1260)]())[e(1150)]("l").join("w")) ? random(["owo", e(633)]) : a[e(361)](/l/g, "w").replaceAll(/[le]+/g, (function(a) {
+        return "oh" === (a = (a = a[e(1166)]())[e(547)]("l").join("w")) ? random([e(922), e(149)]) : a.replaceAll(/l/g, "w")[e(835)](/[le]+/g, (function(a) {
             return {
                 l: "w",
                 e: "ee"
             }[a[0]] || a
-        }))[e(624)](/r/g, "z").replace(/s/g, "z")[e(624)](/t/g, e(580))[e(624)](/e/g, (function(a, e, t) {
-            return t.slice(e - 1, e + 1), "e"
-        }))
-    };
-"" [a8(361)](/e{3,}/gi, "ee");
-const game_ = new class {#
-    a = function() {};#
-    e = function() {};#
-    t = !1;#
-    n = 1e3;#
-    o = function(a) {
-        return new Promise((e => setTimeout(e, a)))
-    };#
-    r = 0;#
-    i = 0;#
-    s = async function() {
-        for (;;) {
-            let a = this.#o,
-                e = this.#e,
-                t = this.#a;
-            if (await a(0), this.#i) {
-                break
+        })).replace(/s/g, "z")[e(436)](/th/g, "d")[e(436)](/e^d/g, (function(a, t, r) {
+            return r[e(881)](t - 1, t + 1), "e"
+        }))[e(436)](/w{2,}/g, "wl")
+    },
+    game_ = new class {#
+        a = function() {};#
+        e = function() {};#
+        t = !1;#
+        r = 1e3;#
+        n = function(a) {
+            return new Promise((e => setTimeout(e, a)))
+        };#
+        o = 0;#
+        i = 0;#
+        s = async function() {
+            for (;;) {
+                let a = this.#n,
+                    e = this.#e,
+                    t = this.#a;
+                if (await a(0), this.#i) {
+                    break
+                }
+                e() && (await a(this.#r), t(), await a(this.#r))
             }
-            e() && (await a(this.#n), t(), await a(this.#n))
+            this.#i = !1
+        };
+        set[a8(1295)](a) {
+            return this.#r = Number.isNaN(a) ? 1e3 : Number(a)
         }
-        this.#i = !1
+        get timeOut() {
+            return this.#r
+        }
+        start() {
+            this.#s()
+        }[a8(511)]() {
+            this.#i = !0
+        }
+        set[a8(775)](a) {
+            return this.#t = !!a
+        }
+        get[a8(775)]() {
+            return this.#t
+        }
+        set testFunction(a) {
+            return this.#e = a
+        }
+        get[a8(958)]() {
+            return this.#e
+        }
+        set spawnFunc(a) {
+            return this.#a = a
+        }
+        get[a8(1198)]() {
+            return this.#a
+        }
     };
-    set[a8(651)](a) {
-        var e = a8;
-        return this.#n = Number[e(1306)](a) ? 1e3 : Number(a)
-    }
-    get[a8(651)]() {
-        return this.#n
-    }[a8(551)]() {
-        this.#s()
-    }[a8(1126)]() {
-        this.#i = !0
-    }
-    set autoSpawn(a) {
-        return this.#t = !!a
-    }
-    get[a8(352)]() {
-        return this.#t
-    }
-    set[a8(1071)](a) {
-        return this.#e = a
-    }
-    get[a8(1071)]() {
-        return this.#e
-    }
-    set[a8(1153)](a) {
-        return this.#a = a
-    }
-    get[a8(1153)]() {
-        return this.#a
-    }
-};
 class bool {#
     c = !1;
-    toggle() {
+    [a8(1256)]() {
         this.#c = !this.#c
     }
-    get[a8(292)]() {
+    get[a8(485)]() {
         return this.#c
     }
-    set[a8(292)](a) {
+    set[a8(485)](a) {
         this.#c = !!a
     }
 }
@@ -1039,76 +1039,76 @@ class element {
     }
     constructor(a, e) {
         var t = a8;
-        this.element = a[t(266)][t(354)][t(226)](t(1172)) && a || function() {
+        this[t(209)] = a[t(1025)].name.includes(t(720)) && a || function() {
             var a = t;
             for (let e in arguments[1]) {
-                arguments[0][a(629)](e, arguments[1][e])
+                arguments[0][a(1046)](e, arguments[1][e])
             }
             return arguments[0]
-        }(document[t(757)](a), e)
-    }[a8(244)](a) {
+        }(document[t(1058)](a), e)
+    }[a8(1245)](a) {
         var e = a8;
         for (let t in a) {
-            this.element[e(244)][t] = a[t]
+            this[e(209)].style[t] = a[t]
         }
         return this
+    }[a8(1019)](a) {
+        var e = a8;
+        return this[e(209)][e(1019)](a[e(209)] || a), this
     }
-    append(a) {
+    appendTo(a) {
         var e = a8;
-        return this[e(806)].append(a[e(806)] || a), this
-    }[a8(1273)](a) {
-        var e = a8;
-        return (a[e(806)] || typeof a == e(1002) ? document[e(1403)](a) : a)[e(369)](this[e(806)]), this
+        return (a[e(209)] || typeof a == e(778) ? document[e(661)](a) : a).append(this.element), this
     }
     on(a, e) {
-        return this.element["on" + a] = e, this
-    }[a8(1082)](a, e) {
-        return this.element[a] = e, this
-    }[a8(524)]() {
+        return this[a8(209)]["on" + a] = e, this
+    }[a8(604)](a, e) {
+        return this[a8(209)][a] = e, this
+    }[a8(296)]() {
         var a = a8;
-        return this[a(806)][a(524)](), this
-    }[a8(956)]() {
-        return this[a8(806)][arguments[0]]
+        return this.element[a(296)](), this
+    }[a8(609)]() {
+        return this[a8(209)][arguments[0]]
     }
-    get children() {
+    get[a8(410)]() {
         var a = a8;
         return new class {
             constructor(a) {
                 var e, t = b;
-                for (e = 0; e < a[t(412)]; e += 1) {
+                for (e = 0; e < a.length; e += 1) {
                     this[e] = a[e]
                 }
-                Object[t(1218)](this, t(412), {
+                Object.defineProperty(this, t(1234), {
                     get: function() {
-                        return a[t(412)]
+                        return a[t(1234)]
                     }
-                }), Object[t(979)](this)
-            }[a(878)](a) {
+                }), Object[t(995)](this)
+            }[a(1286)](a) {
                 return null != this[a] ? this[a] : null
-            }[a(449)](e) {
-                var t, n = a;
-                for (t = 0; t < this[n(412)]; t += 1) {
-                    if (this[t].id === e || this[t][n(354)] === e) {
+            }[a(548)](e) {
+                var t, r = a;
+                for (t = 0; t < this.length; t += 1) {
+                    if (this[t].id === e || this[t][r(320)] === e) {
                         return this[t]
                     }
                 }
                 return null
             }
-            get[a(1020)]() {
+            get[a(793)]() {
                 return [...this]
             }
-        }([...this[a(806)][a(462)]])
+        }([...this[a(209)][a(410)]])
     }
 }
-const alt = name.includes(a8(1223));
+const alt = name[a8(446)](a8(792));
 _setUp = !1, findhref2 = function(a, e) {
     var t = [];
-    return function n(a) {
-        var o = b;
-        a[o(1359)].toLowerCase() == (e || "a") ? (t[o(821)](a), a[o(462)][o(412)] && ((a = a[o(462)])[o(1341)] = [][o(1341)], a[o(1341)]((a => {
-            n(a)
-        })))) : a.children[o(412)] && ((a = a.children)[o(1341)] = [][o(1341)], a[o(1341)]((a => {
-            n(a)
+    return function r(a) {
+        var n = b;
+        a.tagName[n(1166)]() == (e || "a") ? (t[n(1267)](a), a.children.length && ((a = a[n(410)])[n(1084)] = [][n(1084)], a[n(1084)]((a => {
+            r(a)
+        })))) : a[n(410)].length && ((a = a[n(410)]).forEach = [][n(1084)], a[n(1084)]((a => {
+            r(a)
         })))
     }(a), t
 };
@@ -1116,20 +1116,20 @@ const localStorage_ = {
     getItem: a => GM_getValue(a),
     setItem(a, e) {
         var t = a8;
-        return GM_setValue(a, e), GM_setValue("LC", this), this[t(1045)](a)
+        return GM_setValue(a, e), GM_setValue("LC", this), this[t(355)](a)
     }
 };
-window.once = window.on;
+window[a8(780)] = window.on;
 const DefaultDisplay = {};
-let moomooMenu = a8(880),
-    sploopMenu = a8(847);
-document[a8(490)]("keydown", (function(a) {
+let moomooMenu = a8(699),
+    sploopMenu = "#homepage";
+document[a8(900)]("keydown", (function(a) {
     var e = a8;
-    "`" === a[e(870)] && ($(moomooMenu) && $(moomooMenu)[e(322)] && $(moomooMenu)[e(322)](), $(sploopMenu) && $(sploopMenu).toggle && (document.querySelector(sploopMenu)[e(244)][e(435)] = document[e(1403)](sploopMenu)[e(244)][e(435)] == e(582) ? e(892) : e(582)))
-})), $("#consentBlock").css({
-    display: a8(582)
-}), $("#mapDisplay")[a8(881)]({
-    background: a8(793)
+    "`" === a[e(602)] && ($(moomooMenu) && $(moomooMenu)[e(1256)] && $(moomooMenu).toggle(), $(sploopMenu) && $(sploopMenu)[e(1256)] && (document.querySelector(sploopMenu)[e(1245)][e(678)] = document.querySelector(sploopMenu).style[e(678)] == e(589) ? e(514) : e(589)))
+})), $(a8(333))[a8(232)]({
+    display: a8(589)
+}), $(a8(311))[a8(232)]({
+    background: "url('https://i.imgur.com/fgFsQJp.png')"
 });
-var [info2, myPlayer] = [window[a8(323)] || {}, window[a8(358)] || []];
-window[a8(249)] = window[a8(249)] || [], document[a8(900)]() ? onload = Csc2 : Csc2();
+var [info2, myPlayer] = [window[a8(454)] || {}, window.myPlayer || []];
+window[a8(272)] = window.selects || [], document[a8(575)]() ? onload = Csc2 : Csc2();
