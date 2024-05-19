@@ -1632,8 +1632,8 @@ function findColor(group){
     function main_(){
         window.requestAnimationFrame(main_)
         squares = tempsquares;
-        let crashers=temptriangles.filter(e=>e.shape&&(e.shape[1]=='Crasher'));
-        triangles = temptriangles.filter(e=>e.shape[1]!='Crasher');
+        //let crashers=temptriangles.filter(e=>e.shape&&(e.shape[1]=='Crasher'));
+        triangles = temptriangles//.filter(e=>e.shape[1]!='Crasher');
         pentagons = temppentagons;
         enemies = tempenemies;
         tempsquares = [];
