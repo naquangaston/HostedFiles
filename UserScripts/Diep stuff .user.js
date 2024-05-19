@@ -1632,7 +1632,8 @@ function findColor(group){
     function main_(){
         window.requestAnimationFrame(main_)
         squares = tempsquares;
-        triangles = temptriangles;
+        let crashers=temptriangles.filter(e=>e.shape[1]=='Crasher');
+        triangles = temptriangles.filter(e=>e.shape[1]!='Crasher');
         pentagons = temppentagons;
         enemies = tempenemies;
         tempsquares = [];
@@ -1701,7 +1702,7 @@ function findColor(group){
             return Math.sqrt((shapeX - centerX) ** 2 + (shapeY - centerY) ** 2);
         }
         const sortedEnemies = shapes
-        .filter(shape => shape[3].toUpperCase() === 'ENEMIES')
+        .filter(shape => (shape[3].toUpperCase() === 'ENEMIES')||(shape[3].toUpperCase() === 'CRASHERS'))
         .sort((a, b) => distanceFromCenter(a) - distanceFromCenter(b));
 
         const sortedPentagons = shapes
@@ -1838,9 +1839,6 @@ function findColor(group){
 
     return "EZ"
 }()).then(console.log,console.warn))
-
-
-
 
 var mouseInteraction=1;
 document.onkeydown = function(e) {
