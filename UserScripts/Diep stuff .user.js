@@ -684,7 +684,7 @@ class element {
 }
 const {win1,win2,win3,win4,hh,jj,dd}=[null,null,null,null,function(item,val){localStorage.setItem(item,val)},function(item){return localStorage.getItem(item)},function (names) {let unique = {};names.forEach(function(i) {if(!unique[i]) {unique[i] = true;}});return Object.keys(unique)}]
 const AutoUpgrade=new bool(1)
-const AutoReload=new bool
+const AutoReload=new bool(1)
 const Firing=new bool
 const AutoSpawn=new bool
 const A=document.querySelector('d-base')
@@ -1421,16 +1421,15 @@ function findColor(group){
     addButton('Fix Game', FixGame, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
     addButton('Remove-Ads', RemoveAds, {line:true, desc: 'Use to remove ads that may cause gae lag' })
     addButton('Stack', stack, {line:true, desc: 'stack preditor bullets max reload requried' })
-    addToggle('AutoReload', function(){AutoReload.toggle();log_('AutoReloads',AutoReload.status)}, {defaut:false,line:true, desc: 'Auto Reloads page is loading take too long.(10 Seconds)' })
-    addToggle('AutoUpgrade', function(){AutoUpgrade.toggle();log_('AutoUpgrade',AutoUpgrade.status)}, {defaut:true,line:true, desc: 'AutoUpgrade you stats when you spawn into the game' })
-    addToggle('AutoSpawn', function(){AutoSpawn.toggle();log_('AutoSpawn',AutoSpawn.status)}, {defaut:false,line:true, desc: 'Just auto respawn' })
-    console.log({AutoSpawn,AutoUpgrade,AutoReload
-                })
+    addToggle('AutoReload', function(){AutoReload.toggle();log_('AutoReloads',AutoReload.status)}, {defaut:AutoReload.status,line:true, desc: 'Auto Reloads page is loading take too long.(10 Seconds)' })
+    addToggle('AutoUpgrade', function(){AutoUpgrade.toggle();log_('AutoUpgrade',AutoUpgrade.status)}, {defaut:AutoUpgrade.status,line:true, desc: 'AutoUpgrade you stats when you spawn into the game' })
+    addToggle('AutoSpawn', function(){AutoSpawn.toggle();log_('AutoSpawn',AutoSpawn.status)}, {defaut:AutoSpawn.status,line:true, desc: 'Just auto respawn' })
+    console.log({AutoSpawn,AutoUpgrade,AutoReload})
     setInterval(()=>{
         if(AutoReload.status&&['loading','captcha'].includes(Player.screen)){
             alert('Auto reload is on\n page will reload in 5 seconds')
             setTimeout(()=>{
-                location.reload
+                location.reload()
             },5000)
         }
     },10000)
