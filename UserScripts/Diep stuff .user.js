@@ -1362,7 +1362,7 @@ function findColor(group){
         }
     }
     let _myWin_=_myWin
-
+    while(!_myWin_.window.document.getElementById('menu'))await sleep(0);
     var myMenu = _myWin_.window.document.getElementById('menu')
     _myWin_.window.getV=getV
     !function(){
@@ -1618,6 +1618,7 @@ function findColor(group){
     let minimapDim = [0, 0];
     playerPos = [0, 0];
     enemies = [];
+    TempotherList={}
     let tempenemies = [];
     squares = [];
     let tempsquares = [];
@@ -1635,6 +1636,8 @@ function findColor(group){
         triangles = temptriangles//.filter(e=>e.shape[1]!='Crasher');
         pentagons = temppentagons;
         enemies = tempenemies;
+        otherList=TempotherList
+        TempotherList={}
         tempsquares = [];
         temptriangles = [];
         temppentagons = [];
@@ -1719,7 +1722,6 @@ function findColor(group){
         return [...sortedEnemies,...sortedPentagons, ...sortedTriangles, ...sortedSquares];
     }
 
-
     function hook(target, callback){
 
         function check(){
@@ -1742,13 +1744,20 @@ function findColor(group){
     }
     let calls = 0;
     let points = [];
+    var myPoints=[]
+    var xy=[]
     hook('beginPath', function(thisArg, args){
         calls = 1;
         points = [];
+        myPoints=[]
+        xy=[];
         shapes=Object.keys(colors).map(e=>{
             return [colors[e],e]
         })
     });
+    hook('rect',function(a,b){
+        xy.push(b)
+    })
     hook('moveTo', function(thisArg, args){
         if (calls == 1) {
             calls+=1;
@@ -1756,7 +1765,16 @@ function findColor(group){
         } else {
             calls = 0;
         }
+        myPoints.push(args)
     });
+    hook('stroke',function(thisArg,args){
+        let t=thisArg.getTransform();
+        let pos=[t.e,t.f]
+        var shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
+        if(!shape)return;
+        TempotherList[shape[1]]=TempotherList[shape[1]]||[]
+        TempotherList[shape[1]].push({xy,myPoints,shape,pos,points,calls})
+    })
     hook('lineTo', function(thisArg, args){
         if (calls >= 2 && calls <= 6) {
             calls+=1;
@@ -1764,6 +1782,7 @@ function findColor(group){
         } else {
             calls = 0;
         }
+        myPoints.push(args)
     });
     hook('fill', function(thisArg, args){
         if(thisArg.fillStyle == "#00e16e"){
