@@ -1702,7 +1702,7 @@ function findColor(group){
             return Math.sqrt((shapeX - centerX) ** 2 + (shapeY - centerY) ** 2);
         }
         const sortedEnemies = shapes
-        .filter(shape => (shape[3].toUpperCase() === 'ENEMIES')||(shape[3].toUpperCase() === 'CRASHERS'))
+        .filter(shape => shape[3].toUpperCase() === 'ENEMIES')
         .sort((a, b) => distanceFromCenter(a) - distanceFromCenter(b));
 
         const sortedPentagons = shapes
