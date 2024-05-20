@@ -1502,7 +1502,7 @@ function findColor(group){
             const onFillPolygon = (ctx) => {
                 cb(vertices, ctx);
             };
-            CanvasKit.hookCtx('beginPath', (target, thisArg, args) => {
+            /* CanvasKit.hookCtx('beginPath', (target, thisArg, args) => {
                 index = 1;
                 vertices = [];
             });
@@ -1530,6 +1530,7 @@ function findColor(group){
                 }
                 index = 0;
             });
+    */
         }
     }
     class EventEmitter extends EventTarget {
@@ -1627,7 +1628,7 @@ function findColor(group){
                     },
                 });
             })
-            CanvasKit.overrideCtx('stroke', (target, thisArg, args) => {
+            /*CanvasKit.overrideCtx('stroke', (target, thisArg, args) => {
                 if (thisArg.fillStyle !== '#cdcdcd') {
                     return Reflect.apply(target, thisArg, args);
                 }
@@ -1638,7 +1639,7 @@ function findColor(group){
                 if (!this.#drawSolidBackground) {
                     return Reflect.apply(target, thisArg, args);
                 }
-            });
+            });*/
         }
         get windowRatio() {
             return Math.max(innerWidth / 1920, innerHeight / 1080);
@@ -2153,12 +2154,7 @@ function findColor(group){
             return _
         }):[]*/
         var drones=otherList['Others (FFA)']
-        sortedShapes = sortByDistanceFromCenter([...enemies.map(e=>{
-            var pos=[e[0].x,e[0].y]
-            let _=[pos,null,null,'Barrels']
-            _.shape=[null,'Barrels']
-            return _
-        }),...crashers,...pentagons,...triangles,...squares]).filter(e=>e.shape?!e.shape[1].includes('Body (You)'):true)
+        sortedShapes = sortByDistanceFromCenter([...enemies,...crashers,...pentagons,...triangles,...squares]).filter(e=>e.shape?!e.shape[1].includes('Body (You)'):true)
     }
     autoPlay=false
     setTimeout(main_,100)
@@ -2291,6 +2287,7 @@ function findColor(group){
         xy.push(b)
     })
     hook('moveTo', function(thisArg, args){
+        lines.push(args)
         if (calls == 1) {
             calls+=1;
             points.push(args)
@@ -2327,12 +2324,8 @@ function findColor(group){
         }
         calledEnemyLast=false
     })
-    CanvasRenderingContext2D.prototype.lineTo_=CanvasRenderingContext2D.prototype.lineTo
-    CanvasRenderingContext2D.prototype.moveTo_=CanvasRenderingContext2D.prototype.moveTo
-
-    CanvasRenderingContext2D.prototype.moveTo=function(...a){lines.push(a);return this.moveTo_(...a)}
-    CanvasRenderingContext2D.prototype.lineTo=function(...a){lines.push(a);return this.lineTo_(...a)}
     hook('lineTo', function(thisArg, args){
+        lines.push(args)
         if (calls >= 2 && calls <= 6) {
             calls+=1;
             points.push(args)
@@ -2376,6 +2369,7 @@ function findColor(group){
             let obj=[centre, acc[1], thisArg.fillStyle]
             obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
             calledEnemyLast=false
+            //console.log('temp')
             if(calls == 4){
                 if((colors['Body (You)'].toUpperCase()==thisArg.fillStyle.toUpperCase())||('#000000'==thisArg.fillStyle))return;
                 if(colors.Crashers.toUpperCase()==thisArg.fillStyle.toUpperCase()){
@@ -2399,12 +2393,6 @@ function findColor(group){
         }
     });
 
-    hook('strokeRect', function(thisArg, args) {
-        const t = thisArg.getTransform();
-        minimapPos = [t.e, t.f];
-        minimapDim = [t.a, t.d];
-    });
-
     hook('arc', function(thisArg, args){
         const transform = thisArg.getTransform();
         position = new Vector(transform.e, transform.f);
@@ -2421,12 +2409,14 @@ function findColor(group){
         obj.arcs=arcs
         obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
         if(!obj.shape||obj.shape[1].includes("You"))return
+        if('#ffffff'.toUpperCase()==thisArg.fillStyle.toUpperCase())return;
         if(radius<46){
             tempbullets.push([position,radius,type,color])
             return;
         }
         obj.calls=calls
-        obj.push('enemies')
+        obj.push('Barrels')
+        obj.push(radius)
         tempenemies.push(obj)
         calledEnemyLast=true
     });
