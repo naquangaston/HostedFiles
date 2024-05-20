@@ -21,6 +21,7 @@
 // ==/UserScript==
 infothingy={}
 inf={}
+_upgrade=''
 const Settings = GM_getValue("Settings") || {};
 const extended={update:function(screen){}}
 const getV=function(a,b){
@@ -532,11 +533,11 @@ function MySrc() {
     });
 }
 function log_(title, body) { var l = new CustomLog(title); l.log(body) }
-set_convar=window.set_convar=function(a,b){
+set_convar=function(a,b){
     console.log('Set',a,b)
     input.set_convar(a,b)
 }
-execute=window.execute=function(ode){
+execute=function(ode){
     var res=(ode.match(/(?<name>[\w_]+) ?(?<index>[0-9]+)? ?(?<value>(0x|#)[\w]+)\t?(?<for>.+)?/i)||{groups:{}}).groups
     var s=ode.split(' ')
     var list=[
@@ -1168,7 +1169,7 @@ document.getElementsByClassName('aa left')[0].remove()
 document.getElementsByClassName('aa bottom')[0].remove()
 
 
-otherStuff={"toggles":[{"name":"net_predict_movement","bool":"true","for":"Enable clientside prediction for movement"},{"name":"ren_achievements","bool":"true","for":"Render achievements"},{"name":"ren_background","bool":"true","for":"Render background[6]"},{"name":"ren_cache_grid","bool":"true","for":"Cache grid on separate canvas"},{"name":"ren_context_reinitialization","bool":"true","for":"Reinitialize contexts if FPS is too low[7]"},{"name":"ren_debug_collisions","bool":"false","for":"Render collidable debug info[8]"},{"name":"ren_debug_info","bool":"false","for":"Render some debug info on the server stats test"},{"name":"ren_fps","bool":"false","for":"Render FPS"},{"name":"ren_health_bars","bool":"true","for":"Render health bars"},{"name":"ren_names","bool":"true","for":"Render names"},{"name":"ren_pattern_grid","bool":"true","for":"Use canvas createPattern for grid, it's faster but looks slightly worse"},{"name":"ren_raw_health_values","bool":"false","for":"Render raw health bar values"},{"name":"ren_scoreboard","bool":"true","for":"Render scoreboard"},{"name":"ren_scoreboard_names","bool":"true","for":"Render scoreboard names"},{"name":"ren_solid_background","bool":"true","for":"Render background as solid color, without the grid"},{"name":"ren_stats","bool":"true","for":"Render stat upgrades"},{"name":"ren_stroke_soft_color","bool":"true","for":"Renders strokes as a darker shade of fill color"},{"name":"ren_ui","bool":"true","for":"Render UI layer"},{"name":"ren_upgrades","bool":"true","for":"Render class upgrades"},{"name":"ui_prevent_right_click","bool":"true","for":"Prevent right click from triggering context menu"}],"colors":[{"name":"net_replace_color","index":"0","default":"0x555555","for":"Smasher and Dominator Bases"},{"name":"net_replace_color","index":"1","default":"0x999999","for":"Barrels"},{"name":"net_replace_color","index":"2","default":"0x00B1DE","for":"Body (You)"},{"name":"net_replace_color","index":"3","default":"0x00B1DE","for":"Blue Team"},{"name":"net_replace_color","index":"4","default":"0xF14E54","for":"Red Team"},{"name":"net_replace_color","index":"5","default":"0xBE7FF5","for":"Purple Team"},{"name":"net_replace_color","index":"6","default":"0x00F46C","for":"Green Team"},{"name":"net_replace_color","index":"6","default":"0xD68163","for":"Green Team (Making Green Team Brown, like it was formerly)"},{"name":"net_replace_color","index":"7","default":"0x89FF69","for":"Shiny Polygons (Green Square, Green Triangle, Green Pentagon)"},{"name":"net_replace_color","index":"8","default":"0xFFE869","for":"Square"},{"name":"net_replace_color","index":"9","default":"0xFC7677","for":"Triangle"},{"name":"net_replace_color","index":"10","default":"0x768DFC","for":"Pentagon"},{"name":"net_replace_color","index":"11","default":"0xFF77DC","for":"Crashers"},{"name":"net_replace_color","index":"12","default":"0xFFE869","for":"Arena Closers/Neutral Dominators/Defender Ammo"},{"name":"net_replace_color","index":"13","default":"0x44FFA0","for":"Scoreboard"},{"name":"net_replace_color","index":"14","default":"0xBBBBBB","for":"Maze Walls"},{"name":"net_replace_color","index":"15","default":"0xF14E54","for":"Others (FFA)"},{"name":"net_replace_color","index":"16","default":"0xFBC477","for":"Summoned Squares (Necromancer)"},{"name":"net_replace_color","index":"17","default":"0xC0C0C0","for":"Fallen Bosses"},{"name":"ren_background_color","default":"0xCDCDCD","for":"Base color for the background"},{"name":"ren_border_color","default":"0x000000","for":"The area outside the map (overlayed on top of the inside the map color, semi-transparent)"},{"name":"ren_minimap_background_color","default":"0xCDCDCD","for":"Minimap"},{"name":"ren_minimap_border_color","default":"0x555555","for":"Minimap Border"},{"name":"ren_health_fill_color","default":"0x85E37D","for":"Health Bar"},{"name":"ren_health_background_color","default":"0x555555","for":"Health Bar Background"},{"name":"ren_xp_bar_fill_color","default":"0xFFDE43","for":"EXP Bar"},{"name":"ren_score_bar_fill_color","default":"0x43FF91","for":"Score Bar"},{"name":"ren_bar_background_color","default":"0x000000","for":"EXP/Score Bar/Scoreboard Background"},{"name":"ren_stroke_solid_color","default":"0x555555","for":"Outlines (For ren_stroke_soft_color false)"},{"name":"ren_grid_color","default":"0x000000","for":"Grid Lines (Note: Actual Results Vary, seeing as the border is different for each section)"}]}
+otherStuff={"toggles":[{"name":"net_predict_movement","bool":"true","for":"Enable clientside prediction for movement"},{"name":"ren_achievements","bool":"true","for":"Render achievements"},{"name":"ren_background","bool":"true","for":"Render background[6]"},{"name":"ren_cache_grid","bool":"true","for":"Cache grid on separate canvas"},{"name":"ren_context_reinitialization","bool":"true","for":"Reinitialize contexts if FPS is too low[7]"},{"name":"ren_debug_collisions","bool":"false","for":"Render collidable debug info[8]"},{"name":"ren_debug_info","bool":"false","for":"Render some debug info on the server stats test"},{"name":"ren_fps","bool":"false","for":"Render FPS"},{"name":"ren_health_bars","bool":"true","for":"Render health bars"},{"name":"ren_names","bool":"true","for":"Render names"},{"name":"ren_pattern_grid","bool":"true","for":"Use canvas createPattern for grid, it's faster but looks slightly worse"},{"name":"ren_raw_health_values","bool":"false","for":"Render raw health bar values"},{"name":"ren_scoreboard","bool":"true","for":"Render scoreboard"},{"name":"ren_scoreboard_names","bool":"true","for":"Render scoreboard names"},{"name":"ren_solid_background","bool":"true","for":"Render background as solid color, without the grid"},{"name":"ren_stats","bool":"true","for":"Render stat upgrades"},{"name":"ren_stroke_soft_color","bool":"true","for":"Renders strokes as a darker shade of fill color"},{"name":"ren_ui","bool":"true","for":"Render UI layer"},{"name":"ren_upgrades","bool":"true","for":"Render class upgrades"},{"name":"ui_prevent_right_click","bool":"true","for":"Prevent right click from triggering context menu"}],"colors":[{"name":"net_replace_color","index":"0","default":"0x555555","for":"Smasher and Dominator Bases"},{"name":"net_replace_color","index":"1","default":"0x999999","for":"Barrels"},{"name":"net_replace_color","index":"2","default":"0x00B1DE","for":"Body (You)"},{"name":"net_replace_color","index":"3","default":"0x00B1DE","for":"Blue Team"},{"name":"net_replace_color","index":"4","default":"0xF14E54","for":"Red Team"},{"name":"net_replace_color","index":"5","default":"0xBE7FF5","for":"Purple Team"},{"name":"net_replace_color","index":"6","default":"0x00F46C","for":"Green Team"},{"name":"net_replace_color","index":"6","default":"0xD68163","for":"Green Team (Making Green Team Brown, like it was formerly)"},{"name":"net_replace_color","index":"7","default":"0x89FF69","for":"Shiny Polygons"},{"name":"net_replace_color","index":"8","default":"0xFFE869","for":"Square"},{"name":"net_replace_color","index":"9","default":"0xFC7677","for":"Triangle"},{"name":"net_replace_color","index":"10","default":"0x768DFC","for":"Pentagon"},{"name":"net_replace_color","index":"11","default":"0xFF77DC","for":"Crashers"},{"name":"net_replace_color","index":"12","default":"0xFFE869","for":"Arena Closers/Neutral Dominators/Defender Ammo"},{"name":"net_replace_color","index":"13","default":"0x44FFA0","for":"Scoreboard"},{"name":"net_replace_color","index":"14","default":"0xBBBBBB","for":"Maze Walls"},{"name":"net_replace_color","index":"15","default":"0xF14E54","for":"Others (FFA)"},{"name":"net_replace_color","index":"16","default":"0xFBC477","for":"Summoned Squares (Necromancer)"},{"name":"net_replace_color","index":"17","default":"0xC0C0C0","for":"Fallen Bosses"},{"name":"ren_background_color","default":"0xCDCDCD","for":"Base color for the background"},{"name":"ren_border_color","default":"0x000000","for":"The area outside the map (overlayed on top of the inside the map color, semi-transparent)"},{"name":"ren_minimap_background_color","default":"0xCDCDCD","for":"Minimap"},{"name":"ren_minimap_border_color","default":"0x555555","for":"Minimap Border"},{"name":"ren_health_fill_color","default":"0x85E37D","for":"Health Bar"},{"name":"ren_health_background_color","default":"0x555555","for":"Health Bar Background"},{"name":"ren_xp_bar_fill_color","default":"0xFFDE43","for":"EXP Bar"},{"name":"ren_score_bar_fill_color","default":"0x43FF91","for":"Score Bar"},{"name":"ren_bar_background_color","default":"0x000000","for":"EXP/Score Bar/Scoreboard Background"},{"name":"ren_stroke_solid_color","default":"0x555555","for":"Outlines (For ren_stroke_soft_color false)"},{"name":"ren_grid_color","default":"0x000000","for":"Grid Lines (Note: Actual Results Vary, seeing as the border is different for each section)"}]}
 colors={}
 otherStuff.colors.forEach(e=>{
     colors[e.for]='#'+e.default.split('0x').pop();
@@ -1504,13 +1505,13 @@ function findColor(group){
         execute("net_replace_color 4 0xFF0000");
         execute("net_replace_color 5 0x990099");
         execute("net_replace_color 6 0x00FF00");
-        execute("net_replace_color 7 0xFFFFFF");
+        //execute("net_replace_color 7 0xFFFFFF");
         execute("net_replace_color 8 0xFFFF00");
         execute("net_replace_color 9 0xFFBBBB");
         execute("net_replace_color 10 0xCCCCFF");
         execute("net_replace_color 11 0xFF69B4");
         execute("net_replace_color 12 0xFFFF00");
-        execute("net_replace_color 13 0xFFFFFF");
+       // execute("net_replace_color 13 0xFFFFFF");
         execute("net_replace_color 14 0x888888");
         execute("net_replace_color 16 0xBBBB00");
         execute("net_replace_color 17 0x777777");
@@ -1526,13 +1527,15 @@ function findColor(group){
         execute("ren_stroke_solid_color 0xFFFFFF");
         execute('net_replace_color 15 0x8B0000')
     }
+    otherStuff.colors.map(e=>`${e.name} ${e.index?`${e.index} ${e.default}`:e.default}`).forEach(execute)
     ls()
     shapes=Object.keys(colors).map(e=>{
         return [colors[e],e]
     })
     var upgrading
+    var lastUpgrade=Player.screen
     extended.update=async function(a){
-        if(a=='game'){
+        if(a=='game'&&lastUpgrade!='users'){
             AutoUpgrade.status&&(execute(`game_stats_build ${_upgrade}`))
             if(autoPlay){
                 Player.down(75)
@@ -1540,7 +1543,7 @@ function findColor(group){
                 Player.up(75)
             }
         }
-        if(a=='stats'&&Firing.status()){
+        if(a=='stats'&&Firing.status){
             Firing.toggle()
             log_('AutoFire','off')
         }
@@ -1630,6 +1633,7 @@ function findColor(group){
     let temppentagons = [];
 
     function main_(){
+
         window.requestAnimationFrame(main_)
         squares = tempsquares;
         //let crashers=temptriangles.filter(e=>e.shape&&(e.shape[1]=='Crasher'));
@@ -1637,7 +1641,7 @@ function findColor(group){
         pentagons = temppentagons;
         enemies = tempenemies;
         otherList=infothingy
-        infothingy={}
+        infothingy={text:[]}
         tempsquares = [];
         temptriangles = [];
         temppentagons = [];
@@ -1645,18 +1649,15 @@ function findColor(group){
         arcs=0;
         lines=[]
         x_y=[]
-        sortedShapes = sortByDistanceFromCenter([...enemies,...pentagons,...triangles,...squares]).filter(e=>e.shape?!e.shape[1].includes('Body (You)'):true)
+        var people=otherList.Barrels?otherList.Barrels.filter(e=>e.arcs==3).map(e=>{
+            return [e.pos, null, null,e.shape]
+        }):[]
+        var crashers=otherList.Crashers||[]
+        var drones=otherList['Others (FFA)']
+        sortedShapes = sortByDistanceFromCenter([...people,...crashers,...pentagons,...triangles,...squares]).filter(e=>e.shape?!e.shape[1].includes('Body (You)'):true)
     }
     autoPlay=false
     setTimeout(main_,100)
-    setInterval(()=>{
-        if(autoPlay&&sortedShapes.length){
-            aim(...sortedShapes[0][0],true)
-            determineDirection(sortedShapes[0])
-        }else if(autoPlay){
-            fireTank(0)
-        }
-    },300)
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     determineDirection = function (closestShape, range) {
@@ -1707,7 +1708,7 @@ function findColor(group){
             return Math.sqrt((shapeX - centerX) ** 2 + (shapeY - centerY) ** 2);
         }
         const sortedEnemies = shapes
-        .filter(shape => shape[3].toUpperCase() === 'ENEMIES')
+        .filter(shape => shape[3].toUpperCase() === 'BARRELS')
         .sort((a, b) => distanceFromCenter(a) - distanceFromCenter(b));
 
         const sortedPentagons = shapes
@@ -1745,14 +1746,24 @@ function findColor(group){
         }
         window.requestAnimationFrame(check)
     }
+    function getPos(shape,ctx, x, y) {
+        const transform = ctx.getTransform();
+        const transformedPoint = transform.transformPoint(new DOMPoint(x, y));
+        if(transformedPoint.x&&transformedPoint.y&&shape!='Smasher and Dominator Bases')console.log(shape,`Shape drawn at transformed coordinates: (${transformedPoint.x}, ${transformedPoint.y})`);
+        return transformedPoint;
+    }
     let calls = 0;
     let points = [];
     var myPoints=[]
     var xy=[]
+    var calledEnemyLast=false
+    var _pos_=[]
     var x_y=[]
     var arcs=0
     var lines=[]
     hook('beginPath', function(thisArg, args){
+        x_y=[]
+        pos_=[];
         calls = 1;
         points = [];
         myPoints=[]
@@ -1761,7 +1772,29 @@ function findColor(group){
             return [colors[e],e]
         })
     });
-    hook('fillRect',function(a,b){
+    hook('fillText',function(thisArg,args){
+        var pos=getPos(args,thisArg,...args)
+        infothingy.text.push({args,x:pos.x,y:pos.y})
+    })
+    hook('fillRect',function(thisArg,b){
+        var _this={};_this.args=b
+        shapes=Object.keys(colors).map(e=>{
+            return [colors[e],e]
+        })
+        for (let i = 0; i < shapes.length; i++) {
+            let hasFill = shapes[i][0].includes(thisArg.fillStyle) || shapes[i][0].toUpperCase().includes(thisArg.fillStyle.toUpperCase())
+            let hasStroke = shapes[i][0].includes(thisArg.strokeStyle) || shapes[i][0].toUpperCase().includes(thisArg.strokeStyle.toUpperCase())
+            if (hasStroke || hasFill) {
+                _this.shape = shapes[i][1]
+                var pos=getPos(_this.shape,thisArg,...b)
+                _this.pos = {x:pos.x,y:pos.y}
+                if(_this.shape=='Barrels'&&logCtx)(console.log({_this},_this),logCtx=false)
+                if (!infothingy[_this.shape]) infothingy[_this.shape] = [];
+                !_this.custom && (infothingy[_this.shape].push({ ..._this }))
+                //if(this.shape!="TankBarrel")console.log('stroke Found',this);
+                break
+            }
+        }
         x_y.push(b)
     })
     hook('rect',function(a,b){
@@ -1777,23 +1810,32 @@ function findColor(group){
         myPoints.push(args)
     });
     hook('stroke',function(thisArg,args){
+        var _this={...thisArg}
         shapes=Object.keys(colors).map(e=>{
             return [colors[e],e]
         })
-        thisArg.x_y=x_y
-        thisArg.arcs=arcs;thisArg.lines=lines
+        _this.x_y=x_y
+        _this.arcs=arcs;_this.lines=lines
         for (let i = 0; i < shapes.length; i++) {
             let hasFill = shapes[i][0].includes(thisArg.fillStyle) || shapes[i][0].toUpperCase().includes(thisArg.fillStyle.toUpperCase())
             let hasStroke = shapes[i][0].includes(thisArg.strokeStyle) || shapes[i][0].toUpperCase().includes(thisArg.strokeStyle.toUpperCase())
             if (hasStroke || hasFill) {
-                thisArg.shape = shapes[i][1]
-                if(thisArg.shape=='Barrels'&&logCtx)(console.log({thisArg},Object.getOwnPropertyNames(Object.getPrototypeOf(thisArg))),logCtx=false)
-                if (!infothingy[thisArg.shape]) infothingy[thisArg.shape] = [];
-                !thisArg.custom && (infothingy[thisArg.shape].push({ ...thisArg }))
+                _this.shape = shapes[i][1]
+                _this.calls=calls
+                var pos=getPos(_this.shape,thisArg,...args)
+                _this.pos = {x:pos.x,y:pos.y}
+                if(_this.shape=='Barrels' && arcs==3){
+                    _this.pos=_pos_
+                    _this.calledEnemyLast=calledEnemyLast
+                }
+                if(_this.shape=='Barrels'&&logCtx)(console.log({_this},_this),logCtx=false)
+                if (!infothingy[_this.shape]) infothingy[_this.shape] = [];
+                !_this.custom && (infothingy[_this.shape].push({ ..._this }))
                 //if(this.shape!="TankBarrel")console.log('stroke Found',this);
                 break
             }
         }
+        calledEnemyLast=false
     })
     CanvasRenderingContext2D.prototype.lineTo_=CanvasRenderingContext2D.prototype.lineTo
     CanvasRenderingContext2D.prototype.moveTo_=CanvasRenderingContext2D.prototype.moveTo
@@ -1843,6 +1885,7 @@ function findColor(group){
             }
             let obj=[centre, acc[1], thisArg.fillStyle]
             obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
+            calledEnemyLast=false
             if(calls == 4){
                 if('#000000'==thisArg.fillStyle)return;
                 obj.push('triangle')
@@ -1874,11 +1917,13 @@ function findColor(group){
             return [colors[e],e]
         })
         let obj=[[t.e, t.f], 0, thisArg.fillStyle]
+        _pos_=obj[0]
         obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
         if(!calls||!obj.shape||!obj.shape[1].includes("thers"))return
         obj.calls=calls
         obj.push('enemies')
         tempenemies.push(obj)
+        calledEnemyLast=true
     });
 
     return "EZ"
