@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Diep stuff
 // @namespace    http://tampermonkey.net/
-// @version      2024-05-13
+// @version      2024-05-20
 // @description  try to take over the world!
 // @author       You
 // @match        *://diep.io/*
@@ -2418,7 +2418,6 @@ function findColor(group){
         obj.push('Barrels')
         obj.push(radius)
         tempenemies.push(obj)
-        console.log('added')
         calledEnemyLast=true
     });
 
