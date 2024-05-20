@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Diep stuff
 // @namespace    http://tampermonkey.net/
-// @version      2024-05-21
+// @version      2.4
 // @description  try to take over the world!
 // @author       You
 // @match        *://diep.io/*
@@ -689,7 +689,7 @@ const {win1,win2,win3,win4,hh,jj,dd}=[null,null,null,null,function(item,val){loc
 const AutoUpgrade=new bool(1)
 const AutoReload=new bool(1)
 const Firing=new bool
-const AutoSpawn=new bool
+const AutoSpawn=new bool(1)
 const A=document.querySelector('d-base')
 //menu in js
 const bootstrapCss = new element('link').set('rel', 'stylesheet').set('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
@@ -1353,6 +1353,7 @@ function findColor(group){
         console.log(txt)
         console.log(parse)
         console.log({_upgrade,upgrade})
+        GM_setValue('u',_upgrade)
         for(let i in parse.build){
             try{
                 var l=parse.build[i]/7;l*=100
@@ -1366,6 +1367,7 @@ function findColor(group){
     }
     let _myWin_=_myWin
     while(!_myWin_.window.document.getElementById('menu'))await sleep(0);
+    _upgrade=GM_getValue('u')||""
     var myMenu = _myWin_.window.document.getElementById('menu')
     _myWin_.window.getV=getV
     !function(){
@@ -1421,6 +1423,9 @@ function findColor(group){
 
         }()
     }()
+    addButton('Reset stats', function(){
+        GM_setValue('u','')
+    }, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
     addButton('Fix Game', FixGame, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
     addButton('Remove-Ads', RemoveAds, {line:true, desc: 'Use to remove ads that may cause gae lag' })
     addButton('Stack', stack, {line:true, desc: 'stack preditor bullets max reload requried' })
@@ -2249,7 +2254,7 @@ function findColor(group){
     function getPos(shape,ctx, x, y) {
         const transform = ctx.getTransform();
         const transformedPoint = transform.transformPoint(new DOMPoint(x, y));
-        if(transformedPoint.x&&transformedPoint.y&&shape!='Smasher and Dominator Bases')console.log(shape,`Shape drawn at transformed coordinates: (${transformedPoint.x}, ${transformedPoint.y})`);
+        //if(transformedPoint.x&&transformedPoint.y&&shape!='Smasher and Dominator Bases')console.log(shape,`Shape drawn at transformed coordinates: (${transformedPoint.x}, ${transformedPoint.y})`);
         return transformedPoint;
     }
     let calls = 0;
