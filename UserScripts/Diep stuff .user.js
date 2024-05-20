@@ -1650,7 +1650,9 @@ function findColor(group){
         lines=[]
         x_y=[]
         var people=otherList.Barrels?otherList.Barrels.filter(e=>e.arcs==3).map(e=>{
-            return [e.pos, null, null,e.shape]
+            let _= [e.pos, null, null,e.shape]
+            _.shape=[null,e.shape]
+            return _
         }):[]
         var crashers=otherList.Crashers||[]
         var drones=otherList['Others (FFA)']
