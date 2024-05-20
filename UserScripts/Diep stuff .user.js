@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Diep stuff
 // @namespace    http://tampermonkey.net/
-// @version      2024-05-20
+// @version      2024-05-21
 // @description  try to take over the world!
 // @author       You
 // @match        *://diep.io/*
@@ -2410,7 +2410,7 @@ function findColor(group){
         obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
         if(!obj.shape||obj.shape[1].includes("You"))return
         //if('#ffffff'.toUpperCase()==thisArg.fillStyle.toUpperCase())return;
-        if(radius<46){
+        if(radius<40){
             tempbullets.push([position,radius,type,color])
             return;
         }
