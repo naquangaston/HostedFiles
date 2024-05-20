@@ -1826,7 +1826,7 @@ function findColor(group){
                 _this.calls=calls
                 var pos=getPos(_this.shape,thisArg,...args)
                 _this.pos = {x:pos.x,y:pos.y}
-                if(_this.shape=='Barrels' && arcs==3){
+                if(_this.shape=='Barrels' && (arcs==3||arcs==6)){
                     _this.pos=_pos_
                     _this.calledEnemyLast=calledEnemyLast
                 }
