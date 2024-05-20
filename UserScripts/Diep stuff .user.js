@@ -16,12 +16,14 @@
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // @require http://code.createjs.com/easeljs-0.5.0.min.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_obf.js
+
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/ResourceLoader_.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_Formatter_.js
 // ==/UserScript==
 infothingy={}
 inf={}
 _upgrade=''
+
 const Settings = GM_getValue("Settings") || {};
 const extended={update:function(screen){}}
 const getV=function(a,b){
@@ -1434,6 +1436,492 @@ function findColor(group){
             },5000)
         }
     },10000)
+    _window=window;
+
+    class CanvasKit {
+        /**
+             * If you need a canvas then create it with this method.
+             */
+        static createCanvas() {
+            const canvas = document.createElement('canvas');
+            canvas.className = 'CanvasKit-bypass';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.position = 'fixed';
+            canvas.style['z-index'] = 1;
+            canvas.style.top = '0px';
+            canvas.style.left = '0px';
+            canvas.style.right = '0px';
+            canvas.style.bottom = '0px';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            return canvas;
+        }
+        /**
+             * The consumer will be called before.
+             */
+        static hookRAF(consumer) {
+            requestAnimationFrame = new Proxy(requestAnimationFrame, {
+                apply(target, thisArg, args) {
+                    consumer();
+                    return Reflect.apply(target, thisArg, args);
+                },
+            });
+        }
+        /**
+             * The consumer will be called before
+             */
+        static hookCtx(method, consumer) {
+            const target = CanvasRenderingContext2D.prototype;
+            target[method] = new Proxy(target[method], {
+                apply(target, thisArg, args) {
+                    if (thisArg.canvas.className !== 'CanvasKit-bypass') consumer(target, thisArg, args);
+                    return Reflect.apply(target, thisArg, args);
+                },
+            });
+        }
+        /**
+             * replaces the function. Use `return Reflect.apply(target, thisArg, args);` in
+             * your function to call the original function.
+             */
+        static overrideCtx(method, func) {
+            const target = CanvasRenderingContext2D.prototype;
+            target[method] = new Proxy(target[method], {
+                apply(target, thisArg, args) {
+                    if (thisArg.canvas.className !== 'CanvasKit-bypass') return func(target, thisArg, args);
+                    return Reflect.apply(target, thisArg, args);
+                },
+            });
+        }
+        /**
+             *
+             * Calls the callback method when a polygon with `numVertices` is being drawn.
+             */
+        static hookPolygon(numVertices, cb) {
+            let index = 0;
+            let vertices = [];
+            const onFillPolygon = (ctx) => {
+                cb(vertices, ctx);
+            };
+            CanvasKit.hookCtx('beginPath', (target, thisArg, args) => {
+                index = 1;
+                vertices = [];
+            });
+            CanvasKit.hookCtx('moveTo', (target, thisArg, args) => {
+                if (index === 1) {
+                    index++;
+                    vertices.push(new Vector(args[0], args[1]));
+                    return;
+                }
+                index = 0;
+            });
+            CanvasKit.hookCtx('lineTo', (target, thisArg, args) => {
+                if (index >= 2 && index <= numVertices) {
+                    index++;
+                    vertices.push(new Vector(args[0], args[1]));
+                    return;
+                }
+                index = 0;
+            });
+            CanvasKit.hookCtx('fill', (target, thisArg, args) => {
+                if (index === numVertices + 1) {
+                    index++;
+                    onFillPolygon(thisArg);
+                    return;
+                }
+                index = 0;
+            });
+        }
+    }
+    class EventEmitter extends EventTarget {
+        /**
+             *
+             * @param {string} eventName The name of the event
+             * @param  {...any} args The arguments that will be passed to the listener
+             */
+        emit(eventName, ...args) {
+            this.dispatchEvent(new CustomEvent(eventName, { detail: args }));
+        }
+        /**
+             *
+             * @param {string} eventName The name of the event
+             * @param {EventCallback} listener The callback function
+             */
+        on(eventName, listener) {
+            this.addEventListener(eventName, (e) => Reflect.apply(listener, this, e.detail));
+        }
+        /**
+             *
+             * @param {string} eventName The name of the event
+             * @param {EventCallback} listener The callback function
+             */
+        once(eventName, listener) {
+            this.addEventListener(eventName, (e) => Reflect.apply(listener, this, e.detail), { once: true });
+        }
+        /**
+             *
+             * @param {string} eventName The name of the event
+             * @param {EventCallback} listener The callback function
+             */
+        off(eventName, listener) {
+            this.removeEventListener(eventName, listener);
+        }
+    }
+    class Game extends EventEmitter {
+        #ready = false;
+        #shadowRoot;
+        constructor() {
+            super();
+            CanvasKit.hookRAF(() => this.#onframe());
+        }
+        #onframe() {
+            if (!this.#ready && input !== undefined) {
+                this.#ready = true;
+                this.#onready();
+            }
+            super.emit('frame');
+            super.emit('frame_end');
+        }
+        #onready() {
+            setTimeout(() => super.emit('ready'), 100);
+            this.#shadowRoot = document.querySelector('d-base').shadowRoot;
+            new MutationObserver((mutationList, observer) => {
+                mutationList.forEach((mutation) => {
+                    if (mutation.addedNodes.length === 0) {
+                        return;
+                    }
+                    super.emit('state', this.state);
+                    super.emit(`s_${this.state}`);
+                    return;
+                });
+            }).observe(this.#shadowRoot, { childList: true });
+        }
+        get state() {
+            return this.#shadowRoot.querySelector('.screen').tagName.slice(2).toLowerCase();
+        }
+        get inHome() {
+            return this.state == 'home';
+        }
+        get inGame() {
+            return this.state == 'game';
+        }
+        get inStats() {
+            return this.state == 'stats';
+        }
+        get inLoading() {
+            return this.state == 'loading';
+        }
+        get isCaptcha() {
+            return this.state == 'captcha';
+        }
+    }
+    class Scaling {
+        #scalingFactor = 1;
+        #drawSolidBackground = false;
+        constructor() {
+            // TODO: game.on('ready')
+            Player.wfs('home').then(() => {
+                input.set_convar = new Proxy(input.set_convar, {
+                    apply: (target, thisArg, args) => {
+                        if (args[0] === 'ren_solid_background') this.#drawSolidBackground = args[1];
+                        else Reflect.apply(target, thisArg, args);
+                    },
+                });
+            })
+            CanvasKit.overrideCtx('stroke', (target, thisArg, args) => {
+                if (thisArg.fillStyle !== '#cdcdcd') {
+                    return Reflect.apply(target, thisArg, args);
+                }
+                if (thisArg.globalAlpha === 0) {
+                    return Reflect.apply(target, thisArg, args);
+                }
+                this.#scalingFactor = thisArg.globalAlpha * 10;
+                if (!this.#drawSolidBackground) {
+                    return Reflect.apply(target, thisArg, args);
+                }
+            });
+        }
+        get windowRatio() {
+            return Math.max(innerWidth / 1920, innerHeight / 1080);
+        }
+        get scalingFactor() {
+            return this.#scalingFactor;
+        }
+        get fov() {
+            return this.#scalingFactor / this.windowRatio;
+        }
+        /**
+             *
+             * @param {Vector} v The vector in canvas units
+             * @returns {Vector} The vector in arena units
+             */
+        toArenaUnits(v) {
+            return Vector.round(Vector.unscale(this.#scalingFactor, v));
+        }
+        /**
+             *
+             * @param {Vector} v The vector in arena units
+             * @returns {Vector} The vector in canvas units
+             */
+        toCanvasUnits(v) {
+            return Vector.round(Vector.scale(this.#scalingFactor, v));
+        }
+        /**
+             * Will translate coordinates from canvas to arena
+             * @param {Vector} canvasPos The canvas coordinates
+             * @returns {Vector} The `canvasPos` translated to arena coordinates
+             */
+        toArenaPos(canvasPos) {
+            const direction = Vector.subtract(canvasPos, this.screenToCanvas(new Vector(innerWidth / 2, innerHeight / 2)));
+            const scaled = this.toArenaUnits(direction);
+            const arenaPos = Vector.add(scaled, camera.position);
+            return arenaPos;
+        }
+        /**
+             * Will translate coordinates from arena to canvas
+             * @param {Vector} arenaPos The arena coordinates
+             * @returns {Vector} The `arenaPos` translated to canvas coordinates
+             */
+        toCanvasPos(arenaPos) {
+            const direction = Vector.subtract(arenaPos, camera.position);
+            const scaled = this.toCanvasUnits(direction);
+            const canvasPos = Vector.add(scaled, this.screenToCanvas(new Vector(innerWidth / 2, innerHeight / 2)));
+            return canvasPos;
+        }
+        screenToCanvasUnits(n) {
+            return n * devicePixelRatio;
+        }
+        canvasToScreenUnits(n) {
+            return n / devicePixelRatio;
+        }
+        /**
+             * Will translate coordinates from screen to canvas
+             * @param v The screen coordinates
+             * @returns The canvas coordinates
+             */
+        screenToCanvas(v) {
+            return Vector.scale(devicePixelRatio, v);
+        }
+        /**
+             * Will translate coordinates from canvas to screen
+             * @param v The canvas coordinates
+             * @returns the screen coordinates
+             */
+        canvasToScreen(v) {
+            return Vector.scale(1 / devicePixelRatio, v);
+        }
+    }
+    class Vector {
+        x;
+        y;
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        static len(v) {
+            return Math.sqrt(v.x ** 2 + v.y ** 2);
+        }
+        static round(v) {
+            return new Vector(Math.round(v.x), Math.round(v.y));
+        }
+        static scale(r, v) {
+            return new Vector(r * v.x, r * v.y);
+        }
+        static unscale(r, v) {
+            return new Vector(v.x / r, v.y / r);
+        }
+        static add(u, v) {
+            return new Vector(u.x + v.x, u.y + v.y);
+        }
+        static subtract(u, v) {
+            return new Vector(u.x - v.x, u.y - v.y);
+        }
+        static multiply(u, v) {
+            return new Vector(u.x * v.x, u.y * v.y);
+        }
+        static divide(u, v) {
+            return new Vector(u.x / v.x, u.y / v.y);
+        }
+        static distance(u, v) {
+            return Vector.len(Vector.subtract(u, v));
+        }
+        /**
+             * Calculates the [centroid](https://en.wikipedia.org/wiki/Centroid)
+             */
+        static centroid(...vertices) {
+            const sum = vertices.reduce((acc, vec) => Vector.add(acc, vec), new Vector(0, 0));
+            const centroid = Vector.scale(1 / vertices.length, sum);
+            return centroid;
+        }
+        /**
+             * Calcutes the radius from a set of vertices that are placed on a circle
+             */
+        static radius(...vertices) {
+            const centroid = Vector.centroid(...vertices);
+            const distance = vertices.reduce((acc, vec) => acc + Vector.distance(centroid, vec), 0);
+            const radius = distance / vertices.length;
+            return radius;
+        }
+    }
+    class Camera {
+        #position;
+        constructor() {
+            game.on('frame_end', () => {
+                const center = Vector.add(minimap.viewportPos, Vector.unscale(2, minimap.viewportDim));
+                const cameraPos = Vector.subtract(center, minimap.minimapPos);
+                const normalized = Vector.divide(cameraPos, minimap.minimapDim);
+                this.#position = arena.scale(normalized);
+            });
+        }
+        get position() {
+            return this.#position;
+        }
+    }
+    class Arena {
+        #size = 1;
+        constructor() {
+            setInterval(() => {
+                const ratio = Vector.divide(minimap.minimapDim, minimap.viewportDim);
+                const arenaDim = Vector.multiply(ratio, scaling.screenToCanvas(new Vector(innerWidth, innerHeight)));
+                const arenaSize = scaling.toArenaUnits(arenaDim);
+                this.#size = arenaSize.x;
+            }, 16);
+        }
+        /**
+             * @returns {number} The Arena size in arena units
+             */
+        get size() {
+            return this.#size;
+        }
+        /**
+             *
+             * @param {Vector} vector The vector in [0, 1] coordinates
+             * @returns {Vector} The scaled vector in [-Arena.size/2, Arena.size/2] coordinates
+             */
+        scale(vector) {
+            const scale = (value) => Math.round(this.#size * (value - 0.5));
+            return new Vector(scale(vector.x), scale(vector.y));
+        }
+        /**
+             *
+             * @param {Vector} vector - The scaled vector in [-Arena.size/2, Arena.size/2] coordinates
+             * @returns {Vector} The unscaled vector in [0, 1] coordinates
+             */
+        unscale(vector) {
+            const unscale = (value) => value / this.#size + 0.5;
+            return new Vector(unscale(vector.x), unscale(vector.y));
+        }
+    }
+    class Minimap {
+        #minimapDim = new Vector(1, 1);
+        #minimapPos = new Vector(0, 0);
+        #viewportDim = new Vector(1, 1);
+        #viewportPos = new Vector(1, 1);
+        #arrowPos = new Vector(0.5, 0.5);
+        #drawViewport = false;
+        constructor() {
+            Player.wfs("home").then(()=>{
+                input.set_convar('ren_minimap_viewport', 'true');
+                input.set_convar = new Proxy(input.set_convar, {
+                    apply: (target, thisArg, args) => {
+                        if (args[0] === 'ren_minimap_viewport') {
+                            this.#drawViewport = args[1];
+                            return;
+                        }
+                        return Reflect.apply(target, thisArg, args);
+                    },
+                });
+            })
+            this.#minimapHook();
+            this.#viewportHook();
+            this.#arrowHook();
+        }
+        get minimapDim() {
+            return this.#minimapDim;
+        }
+        get minimapPos() {
+            return this.#minimapPos;
+        }
+        get viewportDim() {
+            return this.#viewportDim;
+        }
+        get viewportPos() {
+            return this.#viewportPos;
+        }
+        get arrowPos() {
+            return this.#arrowPos;
+        }
+        #minimapHook() {
+            CanvasKit.hookCtx('strokeRect', (target, thisArg, args) => {
+                const transform = thisArg.getTransform();
+                this.#minimapDim = new Vector(transform.a, transform.d);
+                this.#minimapPos = new Vector(transform.e, transform.f);
+            });
+        }
+        #viewportHook() {
+            CanvasKit.overrideCtx('fillRect', (target, thisArg, args) => {
+                const transform = thisArg.getTransform();
+                if (thisArg.globalAlpha !== 0.1) {
+                    return Reflect.apply(target, thisArg, args);
+                }
+                if (
+                    Math.abs(transform.a / transform.d - innerWidth / innerHeight) >
+                    (innerWidth / innerHeight) * 0.000_05
+                ) {
+                    return Reflect.apply(target, thisArg, args);
+                }
+                this.#viewportDim = new Vector(transform.a, transform.d);
+                this.#viewportPos = new Vector(transform.e, transform.f);
+                if (this.#drawViewport) {
+                    return Reflect.apply(target, thisArg, args);
+                }
+            });
+        }
+        #arrowHook() {
+            CanvasKit.hookPolygon(3, (vertices, ctx) => {
+                const side1 = Math.round(Vector.distance(vertices[0], vertices[1]));
+                const side2 = Math.round(Vector.distance(vertices[0], vertices[2]));
+                const side3 = Math.round(Vector.distance(vertices[1], vertices[2]));
+                if (side1 === side2 && side2 === side3) return;
+                const centroid = Vector.centroid(...vertices);
+                const arrowPos = Vector.subtract(centroid, this.#minimapPos);
+                const position = Vector.divide(arrowPos, this.#minimapDim);
+                this.#arrowPos = position;
+            });
+        }
+    }
+    var EntityType;
+    (function (EntityType) {
+        EntityType[(EntityType['Player'] = 0)] = 'Player';
+        EntityType[(EntityType['Bullet'] = 1)] = 'Bullet';
+        EntityType[(EntityType['Drone'] = 2)] = 'Drone';
+        EntityType[(EntityType['Trap'] = 3)] = 'Trap';
+        EntityType[(EntityType['Square'] = 4)] = 'Square';
+        EntityType[(EntityType['Triangle'] = 5)] = 'Triangle';
+        EntityType[(EntityType['Pentagon'] = 6)] = 'Pentagon';
+        EntityType[(EntityType['AlphaPentagon'] = 7)] = 'AlphaPentagon';
+        EntityType[(EntityType['Crasher'] = 8)] = 'Crasher';
+        EntityType[(EntityType['UNKNOWN'] = 9)] = 'UNKNOWN';
+    })(EntityType || (EntityType = {}));
+    var EntityColor;
+    (function (EntityColor) {
+        EntityColor['TeamBlue'] = '#00b2e1';
+        EntityColor['TeamRed'] = '#f14e54';
+        EntityColor['TeamPurple'] = '#bf7ff5';
+        EntityColor['TeamGreen'] = '#00e16e';
+        EntityColor['Square'] = '#ffe869';
+        EntityColor['Triangle'] = '#fc7677';
+        EntityColor['Pentagon'] = '#768dfc';
+        EntityColor['AlphaPentagon'] = '#768dfc';
+        EntityColor['Crasher'] = '#f177dd';
+        EntityColor['NecromancerDrone'] = '#fcc376';
+    })(EntityColor || (EntityColor = {}));
+
+    const game = new Game();
+    const arena = new Arena();
+    const scaling = new Scaling();
+    const minimap = new Minimap()
+    const camera = new Camera();
+
     await Player.wfs('home')
     var allChecks = [];
     const Tanks = new Object(); for (let i in Builds) {try{Builds[i]._builds.forEach(e => { var tank = e.p; const { name, desc, build } = e; if (!Tanks[tank]) Tanks[tank] = []; Tanks[tank].push({ name, desc, build }) }) }catch(err){}}
@@ -1511,7 +1999,7 @@ function findColor(group){
         execute("net_replace_color 10 0xCCCCFF");
         execute("net_replace_color 11 0xFF69B4");
         execute("net_replace_color 12 0xFFFF00");
-       // execute("net_replace_color 13 0xFFFFFF");
+        // execute("net_replace_color 13 0xFFFFFF");
         execute("net_replace_color 14 0x888888");
         execute("net_replace_color 16 0xBBBB00");
         execute("net_replace_color 17 0x777777");
@@ -1621,8 +2109,12 @@ function findColor(group){
     let minimapDim = [0, 0];
     playerPos = [0, 0];
     enemies = [];
+    buttlets = [];
+    enemies2 = [];
     TempotherList={}
     let tempenemies = [];
+    let tempbullets = [];
+    let tempenemies2 = [];
     squares = [];
     let tempsquares = [];
     triangles = [];
@@ -1642,6 +2134,7 @@ function findColor(group){
         triangles = temptriangles//.filter(e=>e.shape[1]!='Crasher');
         pentagons = temppentagons;
         enemies = tempenemies;
+        enemies2 = tempenemies2;
         otherList=infothingy
         crashers=tempcrashers
         infothingy={text:[]}
@@ -1649,17 +2142,23 @@ function findColor(group){
         temptriangles = [];
         temppentagons = [];
         tempenemies = [];
+        tempenemies2 = [];
         tempcrashers=[]
         arcs=0;
         lines=[]
         x_y=[]
-        var people=otherList.Barrels?otherList.Barrels.filter(e=>e.arcs==3).map(e=>{
+        /*var people=otherList.Barrels?otherList.Barrels.filter(e=>e.arcs==3).map(e=>{
             let _= [e.pos, null, null,e.shape]
             _.shape=[null,e.shape]
             return _
-        }):[]
+        }):[]*/
         var drones=otherList['Others (FFA)']
-        sortedShapes = sortByDistanceFromCenter([...people,...crashers,...pentagons,...triangles,...squares]).filter(e=>e.shape?!e.shape[1].includes('Body (You)'):true)
+        sortedShapes = sortByDistanceFromCenter([...enemies.map(e=>{
+            var pos=[e[0].x,e[0].y]
+            let _=[pos,null,null,'Barrels']
+            _.shape=[null,'Barrels']
+            return _
+        }),...crashers,...pentagons,...triangles,...squares]).filter(e=>e.shape?!e.shape[1].includes('Body (You)'):true)
     }
     autoPlay=false
     setTimeout(main_,100)
@@ -1786,20 +2285,6 @@ function findColor(group){
         shapes=Object.keys(colors).map(e=>{
             return [colors[e],e]
         })
-        for (let i = 0; i < shapes.length; i++) {
-            let hasFill = shapes[i][0].includes(thisArg.fillStyle) || shapes[i][0].toUpperCase().includes(thisArg.fillStyle.toUpperCase())
-            let hasStroke = shapes[i][0].includes(thisArg.strokeStyle) || shapes[i][0].toUpperCase().includes(thisArg.strokeStyle.toUpperCase())
-            if (hasStroke || hasFill) {
-                _this.shape = shapes[i][1]
-                var pos=getPos(_this.shape,thisArg,...b)
-                _this.pos = {x:pos.x,y:pos.y}
-                if(_this.shape=='Barrels'&&logCtx)(console.log({_this},_this),logCtx=false)
-                if (!infothingy[_this.shape]) infothingy[_this.shape] = [];
-                !_this.custom && (infothingy[_this.shape].push({ ..._this }))
-                //if(this.shape!="TankBarrel")console.log('stroke Found',this);
-                break
-            }
-        }
         x_y.push(b)
     })
     hook('rect',function(a,b){
@@ -1921,6 +2406,11 @@ function findColor(group){
     });
 
     hook('arc', function(thisArg, args){
+        const transform = thisArg.getTransform();
+        position = new Vector(transform.e, transform.f);
+        radius = transform.a;
+        type=EntityType.Player
+        const radiusScaled = scaling.toArenaUnits(new Vector(radius, radius)).x;
         arcs++
         const t = thisArg.getTransform();
         shapes=Object.keys(colors).map(e=>{
@@ -1928,13 +2418,78 @@ function findColor(group){
         })
         let obj=[[t.e, t.f], 0, thisArg.fillStyle]
         _pos_=obj[0]
+        obj.arcs=arcs
         obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
-        if(!calls||!obj.shape||!obj.shape[1].includes("thers"))return
+        if(!obj.shape||obj.shape[1].includes("You"))return
+        if(radius<46){
+            tempbullets.push([position,radius,type,color])
+            return;
+        }
         obj.calls=calls
         obj.push('enemies')
         tempenemies.push(obj)
         calledEnemyLast=true
     });
+
+    var index=0
+    var color,position,radius,type;
+    const onCircle = () => {
+        position = scaling.toArenaPos(position);
+        radius = scaling.toArenaUnits(new Vector(radius, radius)).x;
+        let type = EntityType.UNKNOWN;
+        if (radius > 53) {
+            type = EntityType.Player;
+            console.log([position,radius,type,color])
+            tempenemies2.push([position,radius,type,color])
+        } else {
+            type = EntityType.Bullet;
+        }
+    };
+
+    /*hook('beginPath',function(thisArg, args){
+        if (index !== 3) {
+            index = 1;
+            return;
+        }
+        if (index === 3) {
+            index++;
+            return;
+        }
+        index = 0;
+    })
+    hook('arc',function(thisArg, args){
+        if (index === 1) {
+            index++;
+            const transform = thisArg.getTransform();
+            position = new Vector(transform.e, transform.f);
+            radius = transform.a;
+            return;
+        }
+        if (index === 4) {
+            index++;
+            color = thisArg.fillStyle;
+            return;
+        }
+        //last arc call
+        if (index === 6) {
+            index++;
+            onCircle();
+            return;
+        }
+        index = 0;
+    })
+    hook('fill',(thisArg, args)=>{
+        if (index === 2) {
+            index++;
+            return;
+        }
+        if (index === 5) {
+            index++;
+            return;
+        }
+        index = 0;
+    })*/
+
 
     return "EZ"
 }()).then(console.log,console.warn))
