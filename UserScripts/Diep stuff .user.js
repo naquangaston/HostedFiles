@@ -2409,7 +2409,7 @@ function findColor(group){
         obj.arcs=arcs
         obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
         if(!obj.shape||obj.shape[1].includes("You"))return
-        if('#ffffff'.toUpperCase()==thisArg.fillStyle.toUpperCase())return;
+        //if('#ffffff'.toUpperCase()==thisArg.fillStyle.toUpperCase())return;
         if(radius<46){
             tempbullets.push([position,radius,type,color])
             return;
@@ -2418,6 +2418,7 @@ function findColor(group){
         obj.push('Barrels')
         obj.push(radius)
         tempenemies.push(obj)
+        console.log('added')
         calledEnemyLast=true
     });
 
