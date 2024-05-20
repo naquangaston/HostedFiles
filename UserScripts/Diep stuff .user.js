@@ -1627,6 +1627,8 @@ function findColor(group){
     let tempsquares = [];
     triangles = [];
     let temptriangles = [];
+    let tempcrashers = [];
+    crashers=[]
     pentagons = [];
     sortedShapes=[]
     let baseArea;
@@ -1641,11 +1643,13 @@ function findColor(group){
         pentagons = temppentagons;
         enemies = tempenemies;
         otherList=infothingy
+        crashers=tempcrashers
         infothingy={text:[]}
         tempsquares = [];
         temptriangles = [];
         temppentagons = [];
         tempenemies = [];
+        tempcrashers=[]
         arcs=0;
         lines=[]
         x_y=[]
@@ -1654,7 +1658,6 @@ function findColor(group){
             _.shape=[null,e.shape]
             return _
         }):[]
-        var crashers=otherList.Crashers||[]
         var drones=otherList['Others (FFA)']
         sortedShapes = sortByDistanceFromCenter([...people,...crashers,...pentagons,...triangles,...squares]).filter(e=>e.shape?!e.shape[1].includes('Body (You)'):true)
     }
@@ -1889,9 +1892,14 @@ function findColor(group){
             obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
             calledEnemyLast=false
             if(calls == 4){
-                if('#000000'==thisArg.fillStyle)return;
-                obj.push('triangle')
-                temptriangles.push(obj);
+                if((colors['Body (You)'].toUpperCase()==thisArg.fillStyle.toUpperCase())||('#000000'==thisArg.fillStyle))return;
+                if(colors.Crashers.toUpperCase()==thisArg.fillStyle.toUpperCase()){
+                    obj.push('Crashers')
+                    tempcrashers.push(obj);
+                }else{
+                    obj.push('triangle')
+                    temptriangles.push(obj);
+                }
             }else
                 if(calls == 5){
                     obj.push('square')
