@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Auto download
 // @namespace http://tampermonkey.net/
-// @version 1.5
+// @version 1.7
 // @description try to take over the world!
 // @author You
 // @match *://www.youtube.com/*
