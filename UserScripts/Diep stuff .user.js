@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         Diep stuff
-// @namespace    http://tampermonkey.net/
-// @version      2.4
-// @description  try to take over the world!
-// @author       You
-// @match        *://diep.io/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=diep.io
-// @grant        GM_getValue
-// @grant        GM_setValue
-// @grant        GM_info
+// @name Diep stuff
+// @namespace http://tampermonkey.net/
+// @version 2.4
+// @description try to take over the world!
+// @author You
+// @match *://diep.io/*
+// @icon https://www.google.com/s2/favicons?sz=64&domain=diep.io
+// @grant GM_getValue
+// @grant GM_setValue
+// @grant GM_info
 // @grant GM_addStyle
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
@@ -16,2490 +16,1657 @@
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // @require http://code.createjs.com/easeljs-0.5.0.min.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_obf.js
-
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/ResourceLoader_.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_Formatter_.js
+// @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
 // ==/UserScript==
-infothingy={}
-inf={}
-_upgrade=''
+infothingy = {}, inf = {}, _upgrade = "";
+const Settings = GM_getValue("Settings") || {},
+    extended = {
+        update: function(e) {}
+    },
+    getV = function(e, t) {
+        return 1 != arguments.length ? (GM_setValue(e, t), t) : GM_getValue(e)
+    };
 
-const Settings = GM_getValue("Settings") || {};
-const extended={update:function(screen){}}
-const getV=function(a,b){
-    return arguments.length!=1?(GM_setValue(a,b),b):GM_getValue(a)
+function setElement(e) {
+    return !(!String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/) || 11 != String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length) && String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8]
 }
-function setElement(url) {
-    return (String(url).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)&&String(url).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length==11)? String(url).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8]: false;
-};
-getClose=function (arr){
-    return arr.map(e=>{  e.dist=getDistance(...e._lineTo,canvas.width/2,canvas.height/2);return e;
-                      }).sort((a,b)=>a.dist-b.dist)[0]
+
+function sleep(e) {
+    return new Promise((t => setTimeout(t, e)))
 }
-getMid=function (cords=[{x:0,y:0}]){
-    var total=cords.length;
-    var [x,y]=[0,0];
-    cords.forEach(e=>{x+=e.x;y+=e.y})
-    return {x:x/total,y:y/total}
+
+function RemoveAds() {
+    return [...document.getElementsByTagName("iframe")].forEach((e => e.remove()))
 }
-;(function(){
-    class CustomLogging {
-        /**
-     *
-     * @param {String} title Title of the custom log
-     */
-        constructor(title) {
-            this.title = {
-                body: title || "---",
-                color: "darkgrey",
-                size: "1rem"
-            };
 
-            this.body = {
-                color: "#008f68",
-                size: "1rem"
-            };
-        }
-        setTitleBody(title) {
-            this.title.body = title
-        }
+function checkWin(e = this.win1) {
+    return !!e && !e.closed
+}
 
-        setTitleStyle({ color, size }) {
-            if (color !== undefined) this.title.color = color;
-            if (size !== undefined) this.title.size = size;
-        }
-
-        setBodyStyle({ color, size }) {
-            if (color !== undefined) this.body.color = color;
-            if (size !== undefined) this.body.size = size;
-        }
-        /**
-     *
-     * @param {String} body the text body of the log
-     */
-        log(body = "") {
-            // the second line is now the body because the first references the content after the first %c for the title
-            console.log(
-                `%c${this.title.body} | %c${body}`,
-                `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size
-                };`,
-                `color: ${this.body.color}; font-weight: bold; font-size: ${this.body.size
-                }; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
-            );
-        }
+function startwin(e, t = null, n, o) {
+    var r;
+    null == t && (t = e), console.log("attemp the close", e);
+    try {
+        n && window[e].close()
+    } catch (t) {
+        window[e] = null, console.warn("attemp the close", e, "Fail")
     }
-    Object.assign(this || arguments[0], { CustomLog: CustomLogging})})(window.globalRoot||window)
-draw=function (_this) {
-    try{if (_this.shape && _this.shape != 'undefined' && !_this.custom) {
-        var {x,y}=getMid(this._lineTo_.map(e=>({x:e[0],y:e[1]})))
-        let ctx_ = canvas.getContext("2d");
-        ctx_.beginPath();
-        ctx_.custom = true
-        var gradient = ctx_.createLinearGradient(0, 0, 170, 0);
-        gradient.addColorStop("0", "magenta");
-        gradient.addColorStop("0.5", "blue");
-        gradient.addColorStop("1.0", "red");
-        // Fill with gradient
-        ctx_.strokeStyle = gradient;
-        ctx_.lineWidth = 5;
-        ctx_.moveTo(x,y);
-        ctx_.arc(x,y, 50, 0, 2 * Math.PI);
-        ctx_.stroke();
-        ctx_.custom = false;
-    }}catch(err){}
-}
-function sleep(ms){return new Promise(a=>setTimeout(a,ms))}
-function RemoveAds(){return [...document.getElementsByTagName('iframe')].forEach(frame=>frame.remove())}
-function checkWin(myWindow=this.win1) {return !myWindow?false:myWindow.closed?false:true}
-function startwin(win,name=null,reopen,c){
-    var win_
-    name==null&&(name=win);
-    console.log('attemp the close',win)
-    try{if(reopen)window[win].close()}catch
-        (err){window[win]=null;console.warn('attemp the close',win,'Fail')}
-    try{if(!checkWin(window[win]))(window[win]=win_=open(c,'PROFILES',`width=256,height=305`),console.log('Making',win,'in',name),console.log(window[win])
-                                   ,console.log('writing defalt styles','to',win,name),
-                                   win_.document.write(htmlContent.element.outerHTML)
-                                  );
-        else (globalRoot[name]=open('','PROFILES',`width=256,height=305`),globalRoot[name].window.document.body.innerHTML='',
-              globalRoot[name].window.document.head.innerHTML='')}catch(err){
-            console.warn(err)
-        }
-    globalRoot[name]=globalRoot[win];
-    console.log('complete win')
-    return win_
-}
-function get(id, base = document.body) {
-    // Check if the base element itself has the id
-    if (base.id === id) {
-        return base;
+    try {
+        checkWin(window[e]) ? (globalRoot[t] = open("", "PROFILES", "width=256,height=305"), globalRoot[t].window.document.body.innerHTML = "", globalRoot[t].window.document.head.innerHTML = "") : (window[e] = r = open(o, "PROFILES", "width=256,height=305"), console.log("Making", e, "in", t), console.log(window[e]), console.log("writing defalt styles", "to", e, t), r.document.write(htmlContent.element.outerHTML))
+    } catch (e) {
+        console.warn(e)
     }
-
-    // Check if the base element has a shadowRoot
-    if (base.shadowRoot) {
-        const shadowResult = get(id, base.shadowRoot);
-        if (shadowResult) {
-            return shadowResult;
-        }
-    }
-
-    // Loop through the base element's children
-    for (const child of base.children) {
-        const result = get(id, child);
-        if (result) {
-            return result;
-        }
-    }
-
-    // If no element with the id is found, return null
-    return null;
+    return globalRoot[t] = globalRoot[e], console.log("complete win"), r
 }
+
+function get(e, t = document.body) {
+    if (t.id === e) return t;
+    if (t.shadowRoot) {
+        const n = get(e, t.shadowRoot);
+        if (n) return n
+    }
+    for (const n of t.children) {
+        const t = get(e, n);
+        if (t) return t
+    }
+    return null
+}
+
 function MySrc() {
-    var aA = g;
-    (function(C, D) {
-        var a2 = g,
-            E = C();
-        while (!![]) {
-            try {
-                var F = parseInt(a2(0x115)) / 0x1 + parseInt(a2(0xc7)) / 0x2 + -parseInt(a2(0xff)) / 0x3 * (-parseInt(a2(0x127)) / 0x4) + -parseInt(a2(0xbf)) / 0x5 * (parseInt(a2(0x113)) / 0x6) + -parseInt(a2(0xb4)) / 0x7 + parseInt(a2(0x112)) / 0x8 + -parseInt(a2(0xce)) / 0x9;
-                if (F === D) break;
-                else E['push'](E['shift']());
-            } catch (G) {
-                E['push'](E['shift']());
-            }
+    var e = u;
+
+    function t(e) {
+        return !!(e || this)[u(233)](/[A-Z_$a-z]/gi)
+    }
+
+    function n(e) {
+        return !!(e || this)[u(233)](/[\(\{\[]/gi)
+    }
+
+    function o(e) {
+        return !!(e || this)[u(233)](/[\]\}\)]/gi)
+    }
+
+    function r(e) {
+        return !!(e || this)[u(233)](/[0-9]/gi)
+    }
+
+    function a(e) {
+        return !!(e || this).match(/[\r\n]/gi)
+    }
+
+    function s(e) {
+        return !!(e || this)[u(233)](/ /gi)
+    }
+
+    function i() {
+        var e = u,
+            t = d[l];
+        m[e(225)] = t.t, document[e(251)] = t.name, m[e(264)] = function() {
+            var n = e;
+            m[n(225)] = null, l++, t = d[l], m.src = t.t, document.title = t[n(201)]
         }
-    }(b, 0xa3444));
+    }! function(e, t) {
+        for (var n = u, o = e();;) try {
+            if (668740 === parseInt(n(277)) / 1 + parseInt(n(199)) / 2 + -parseInt(n(255)) / 3 * (-parseInt(n(295)) / 4) + -parseInt(n(191)) / 5 * (parseInt(n(275)) / 6) + -parseInt(n(180)) / 7 + parseInt(n(274)) / 8 + -parseInt(n(206)) / 9) break;
+            o.push(o.shift())
+        } catch (e) {
+            o.push(o.shift())
+        }
+    }(h);
+    var l, c, d;
 
-    function h(C) {
-        var a3 = g;
-        return !!(C || this)[a3(0xe9)](/[A-Z_$a-z]/gi);
-    }
-
-    function j(C) {
-        var a4 = g;
-        return !!(C || this)[a4(0xe9)](/[\(\{\[]/gi);
-    }
-
-    function k(C) {
-        var a5 = g;
-        return !!(C || this)[a5(0xe9)](/[\]\}\)]/gi);
-    }
-
-    function m(C) {
-        var a6 = g;
-        return !!(C || this)[a6(0xe9)](/[0-9]/gi);
-    }
-
-    function p(C) {
-        return !!(C || this)['match'](/[\r\n]/gi);
-    }
-
-    function q(C) {
-        var a8 = g;
-        return !!(C || this)[a8(0xe9)](/ /gi);
-    }
-
-    function v() {
-        var a9 = g,
-            C = y[w];
-        B[a9(0xe1)] = C['t'], document[a9(0xfb)] = C['name'], B[a9(0x108)] = function() {
-            var aa = a9;
-            B[aa(0xe1)] = null, w++, C = y[w], B['src'] = C['t'], document['title'] = C[aa(0xc9)];
-        };
-    }
-    var w, x, y, z = 0x64;
-
-    function g(a, c) {
-        var d = b();
-        return g = function(e, f) {
-            e = e - 0xaf;
-            var h = d[e];
-            return h;
-        }, g(a, c);
+    function u(e, t) {
+        var n = h();
+        return (u = function(e, t) {
+            return n[e -= 175]
+        })(e, t)
     }(function() {
-        var ah = g;
+        var e = u;
 
-        function C(J, K) {
-            var ab = g,
-                L, M = 0x0,
-                N = '',
-                O = [typeof String(), ab(0x105), ab(0x105)];
-            if (![O[ab(0x109)](typeof this), O[ab(0x109)](typeof J)]['filter'](P => !(P < 0x0))[ab(0xef)]) throw ab(0xf8) + ab(0x111) + 'de';
-            (L = (Array[ab(0xfc)](J || this) ? (J || this)[ab(0x10d)](K) : (O['indexOf'](typeof J) < 0x0 ? this : J)[ab(0xf5)]()[ab(0x11a)]('\x20\x20')[ab(0x10d)]('')['split']('{')['join']('{\x0a')[ab(0x11a)]('}')['join']('\x0a}')[ab(0x11a)]('\x0a\x0a')[ab(0x10d)]('\x0a'))[ab(0x11a)](''))[ab(0xef)];
-            for (let P = 0x0; P < L[ab(0xef)]; P++) {
-                const Q = L[P],
-                      R = L[P + 0x1],
-                      S = L[P - 0x1];
-                Number((P / L[ab(0xef)] * 0x64)[ab(0xfa)](0x2)), ('\x5c' != S && ('{' == Q && M++, '}' == Q && M--), M < 0x0 && (M = 0x0), N += '\x0a' == Q ? '}' == R ? Q + '\x20' ['repeat'](M ? M - 0x1 : M) : Q + '\x20' [ab(0x11e)](M) : Q);
+        function i(e, t) {
+            var n, o = u,
+                r = 0,
+                a = "",
+                s = [typeof String(), o(261), o(261)];
+            if (![s[o(265)](typeof this), s[o(265)](typeof e)].filter((e => !(e < 0)))[o(239)]) throw o(248) + o(273) + "de";
+            (n = (Array[o(252)](e || this) ? (e || this)[o(269)](t) : (s.indexOf(typeof e) < 0 ? this : e)[o(245)]()[o(282)]("  ")[o(269)]("").split("{").join("{\n")[o(282)]("}").join("\n}")[o(282)]("\n\n")[o(269)]("\n"))[o(282)](""))[o(239)];
+            for (let e = 0; e < n[o(239)]; e++) {
+                const t = n[e],
+                    s = n[e + 1],
+                    i = n[e - 1];
+                Number((e / n[o(239)] * 100)[o(250)](2)), "\\" != i && ("{" == t && r++, "}" == t && r--), r < 0 && (r = 0), a += "\n" == t ? "}" == s ? t + " ".repeat(r ? r - 1 : r) : t + " " [o(286)](r) : t
             }
-            return N;
+            return a
         }
 
-        function D(J) {
-            var ac = g;
-            return (J || this)['constructo' + 'r'][ac(0xc9)][ac(0xc1)](ac(0xb7) + 'ion');
+        function l(e) {
+            var t = u;
+            return (e || this).constructor[t(201)][t(193)](t(183) + "ion")
         }
 
-        function E(J, K = null, L = '') {
-            var ad = g;
-            return this['split'](...(function() {
-                return arguments[0x0] ? [J, K] : [J];
-            }(K)))[ad(0x10d)](L);
+        function c(e, t = null, n = "") {
+            var o = u;
+            return this.split(...function() {
+                return arguments[0] ? [e, t] : [e]
+            }(t))[o(269)](n)
         }
 
-        function F() {
-            var ae = g;
-            return !this[ae(0xf5)]()['includes']('.');
+        function d() {
+            return !this[u(245)]().includes(".")
         }
 
-        function G(J = []) {
-            var af = g;
-            return (J[af(0xef)] ? J : this)[Math[af(0xe7)](Math[af(0xd7)]() * (J['length'] ? J : this)['length'])];
+        function p(e = []) {
+            var t = u;
+            return (e[t(239)] ? e : this)[Math[t(231)](Math[t(215)]() * (e.length ? e : this).length)]
         }
 
-        function H(J = []) {
-            var ag = g;
-            for (let K = (J[ag(0xef)] ? J : this)[ag(0xef)] - 0x1; K > 0x0; K--) {
-                const L = Math[ag(0xe7)](Math['random']() * (K + 0x1)),
-                      M = (J['length'] ? J : this)[K];
-                (J['length'] ? J : this)[K] = (J[ag(0xef)] ? J : this)[L], (J['length'] ? J : this)[L] = M;
+        function m(e = []) {
+            var t = u;
+            for (let n = (e[t(239)] ? e : this)[t(239)] - 1; n > 0; n--) {
+                const o = Math[t(231)](Math.random() * (n + 1)),
+                    r = (e.length ? e : this)[n];
+                (e.length ? e : this)[n] = (e[t(239)] ? e : this)[o], (e.length ? e : this)[o] = r
             }
-            return J[ag(0xef)] ? J : this;
+            return e[t(239)] ? e : this
         }
-        var I = (function() {
-            const J = arguments;
-            return function(K) {
-                return (K || this)[J[0x2][0x0]][J[0x2][0x1]][J[0x2][0x2]](J[0x2][0x3]);
-            };
-        }([], [''], [ah(0xe8) + 'r', ah(0xc9), ah(0xc1), ah(0xb7) + 'ion'], [''], [], {}));
-        Function[ah(0x101)][ah(0x118)] = C, Function[ah(0x101)][ah(0xb3)] = D, Function[ah(0x101)][ah(0xb3)] = I, Number[ah(0x101)]['isWhole'] = F, Array[ah(0x101)][ah(0xd7)] = G, Array[ah(0x101)][ah(0xe5)] = H, String['prototype'][ah(0x117) + ah(0xe6)] = E, Object[ah(0x123)](Object['prototype'], {
-            'isNumber': m,
-            'isLetter': h,
-            'isOpen': j,
-            'isClose': k,
-            'isBlank': q,
-            'isLine': p,
-            'getType': function(J) {
-                var ai = ah;
-                return null == typeof(J || this) ? ai(0xdb) : (J || this)[ai(0xe8) + 'r'][ai(0xc9)];
+        var h = function() {
+            const e = arguments;
+            return function(t) {
+                return (t || this)[e[2][0]][e[2][1]][e[2][2]](e[2][3])
+            }
+        }([], [""], [e(232) + "r", e(201), e(193), e(183) + "ion"], [""], [], {});
+        Function[e(257)][e(280)] = i, Function[e(257)][e(179)] = l, Function[e(257)][e(179)] = h, Number[e(257)].isWhole = d, Array[e(257)][e(215)] = p, Array[e(257)][e(229)] = m, String.prototype[e(279) + e(230)] = c, Object[e(291)](Object.prototype, {
+            isNumber: r,
+            isLetter: t,
+            isOpen: n,
+            isClose: o,
+            isBlank: s,
+            isLine: a,
+            getType: function(t) {
+                var n = e;
+                return null == typeof(t || this) ? n(219) : (t || this)[n(232) + "r"][n(201)]
             },
-            'type_': function() {
-                var aj = ah;
-                const J = arguments[0x0] || this;
-                var K = [h, m, j, k, q];
-                return K[aj(0xcd)](L => !!L(J))[aj(0xc3)](L => K[aj(0xc3)](M => M[aj(0xc9)])[aj(0x109)](L[aj(0xc9)]))[0x0];
+            type_: function() {
+                var a = e;
+                const i = arguments[0] || this;
+                var l = [t, r, n, o, s];
+                return l[a(205)]((e => !!e(i)))[a(195)]((e => l[a(195)]((e => e[a(201)]))[a(265)](e[a(201)])))[0]
             }
-        }), Object['assign'](this, {
-            'formate': C,
-            'isAsync': D,
-            'isWhole': F,
-            'random': G,
-            'shuffle': H,
-            'split_replace': E,
-            'getError': function(J, ...K) {
+        }), Object.assign(this, {
+            formate: i,
+            isAsync: l,
+            isWhole: d,
+            random: p,
+            shuffle: m,
+            split_replace: c,
+            getError: function(e, ...t) {
                 try {
-                    J(...K);
-                } catch (L) {
-                    return L;
+                    e(...t)
+                } catch (e) {
+                    return e
                 }
             }
-        }), Object[ah(0x123)](this, {
-            'debug': function(...J) {
-                var ak = ah;
-                Date()[ak(0xe9)](/[\d:]+/gi)[0x2];
+        }), Object[e(291)](this, {
+            debug: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'error': function(...J) {
-                var al = ah;
-                Date()[al(0xe9)](/[\d:]+/gi)[0x2];
+            error: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'info': function(...J) {
-                Date()['match'](/[\d:]+/gi)[0x2];
+            info: function(...e) {
+                Date().match(/[\d:]+/gi)[2]
             },
-            'log': function(...J) {
-                Date()['match'](/[\d:]+/gi)[0x2];
+            log: function(...e) {
+                Date().match(/[\d:]+/gi)[2]
             },
-            'warn': function(...J) {
-                var am = ah;
-                Date()[am(0xe9)](/[\d:]+/gi)[0x2];
+            warn: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'dir': function(...J) {
-                var an = ah;
-                Date()[an(0xe9)](/[\d:]+/gi)[0x2];
+            dir: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'dirxml': function(...J) {
-                var ao = ah;
-                Date()[ao(0xe9)](/[\d:]+/gi)[0x2];
+            dirxml: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'table': function(...J) {
-                var ap = ah;
-                Date()[ap(0xe9)](/[\d:]+/gi)[0x2];
+            table: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'trace': function(...J) {
-                var aq = ah;
-                Date()[aq(0xe9)](/[\d:]+/gi)[0x2];
+            trace: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'group': function(...J) {
-                Date()['match'](/[\d:]+/gi)[0x2];
+            group: function(...e) {
+                Date().match(/[\d:]+/gi)[2]
             },
-            'groupCollapsed': function(...J) {
-                var ar = ah;
-                Date()[ar(0xe9)](/[\d:]+/gi)[0x2];
+            groupCollapsed: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'groupEnd': function(...J) {
-                Date()['match'](/[\d:]+/gi)[0x2];
+            groupEnd: function(...e) {
+                Date().match(/[\d:]+/gi)[2]
             },
-            'clear': function(...J) {
-                var as = ah;
-                Date()[as(0xe9)](/[\d:]+/gi)[0x2];
+            clear: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'count': function(...J) {
-                Date()['match'](/[\d:]+/gi)[0x2];
+            count: function(...e) {
+                Date().match(/[\d:]+/gi)[2]
             },
-            'countReset': function(...J) {
-                var at = ah;
-                Date()[at(0xe9)](/[\d:]+/gi)[0x2];
+            countReset: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'assert': function(...J) {
-                var au = ah;
-                Date()[au(0xe9)](/[\d:]+/gi)[0x2];
+            assert: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'profile': function(...J) {
-                var av = ah;
-                Date()[av(0xe9)](/[\d:]+/gi)[0x2];
+            profile: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'profileEnd': function(...J) {
-                Date()['match'](/[\d:]+/gi)[0x2];
+            profileEnd: function(...e) {
+                Date().match(/[\d:]+/gi)[2]
             },
-            'time': function(...J) {
-                var aw = ah;
-                Date()[aw(0xe9)](/[\d:]+/gi)[0x2];
+            time: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'timeLog': function(...J) {
-                var ax = ah;
-                Date()[ax(0xe9)](/[\d:]+/gi)[0x2];
+            timeLog: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'timeEnd': function(...J) {
-                Date()['match'](/[\d:]+/gi)[0x2];
+            timeEnd: function(...e) {
+                Date().match(/[\d:]+/gi)[2]
             },
-            'timeStamp': function(...J) {
-                var ay = ah;
-                Date()[ay(0xe9)](/[\d:]+/gi)[0x2];
+            timeStamp: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             },
-            'context': function(...J) {
-                var az = ah;
-                Date()[az(0xe9)](/[\d:]+/gi)[0x2];
+            context: function(...t) {
+                var n = e;
+                Date()[n(233)](/[\d:]+/gi)[2]
             }
-        });
-    }['apply'](aA(0xdb) == typeof exports ? this['i'] ? exports : aA(0xdb) == typeof window ? this : globalThis || self || window || top : this));
-    const A = document['getElement' + 'ById'](aA(0x125));
-    Array[aA(0x101)][aA(0xc5) + 'nc'] = async function(C = function() {}) {
-        var aB = aA;
-        for (let D = 0x0; D < this[aB(0xef)]; D++) {
-            await C(this[D], D, this[aB(0xef)]);
-        }
-        return null;
-    }, Array[aA(0x101)][aA(0x120)] = async function(C = function() {}) {
-        var aC = aA,
-            D = this;
-        for (let E = 0x0; E < D[aC(0xef)]; E++) {
-            D[E] = await C(D[E], E, D[aC(0xef)]);
-        }
-        return D;
-    }, w = 0x0, x = document['getElement' + 'ById']('Songs_');
-    const B = new Audio();
+        })
+    }).apply(e(219) == typeof exports ? this.i ? exports : e(219) == typeof window ? this : globalThis || self || window || top : this);
+    const p = document.getElementById(e(293));
+    Array[e(257)][e(197) + "nc"] = async function(t = function() {}) {
+        var n = e;
+        for (let e = 0; e < this[n(239)]; e++) await t(this[e], e, this[n(239)]);
+        return null
+    }, Array[e(257)][e(288)] = async function(t = function() {}) {
+        var n = e,
+            o = this;
+        for (let e = 0; e < o[n(239)]; e++) o[e] = await t(o[e], e, o[n(239)]);
+        return o
+    }, l = 0, c = document.getElementById("Songs_");
+    const m = new Audio;
 
-    function b() {
-        var aV = ['formate', 'TED', 'split', 'innerHTML', 'type', 'duration', 'repeat', 'URL', 'mapAsync', 'audio', 'Skip', 'assign', 'className', 'chooseFile', 'Enter\x20volu', '40ZrktiR', 'rgb(', 'fillStyle', 'innerWidth', 'currentTim', 'file', 'isAsync', '2873052ihhgmG', 'stener', 'abort', 'AsyncFunct', 'NOT\x20SUPPOR', 'height', 'addEventLi', 'size', 'forEach', 'push', 'Shuffle', '5BXcMlF', 'ById', 'includes', 'fftSize', 'map', 'fillRect', 'forEachAsy', 'width', '2239692OFlANm', 'getContext', 'name', 'loadend', 'off', 'progress', 'filter', '3228507JKSaSR', 'inCount', 'volume', 'pop', 'TextAl', 'files', 'append', 'error', 'result', 'random', 'getByteFre', 'button', 'frequencyB', 'undefined', 'innerHeigh', 'createMedi', 'total', 'aElementSo', 'loop:', 'src', 'pause', 'hrough', 'change', 'shuffle', 'ace', 'floor', 'constructo', 'match', 'quencyData', 'input', '\x20file\x20exte', 'destinatio', 'onclick', 'length', '\x22\x20is\x20not\x20a', 'getElement', 'span', 'load', 'createElem', 'toString', 'then', 'href', 'Cant\x20forma', 'createAnal', 'toFixed', 'title', 'isArray', 'ntsion:\x0a\x22', '\x22\x20button\x20i', '87969ZAwmKG', 'The\x20\x22', 'prototype', 'ent', 'style', 'readAsData', 'function', 'Previous', 'canvas', 'onended', 'indexOf', 'play', 'myBar', 'connect', 'join', '\x20supported', 'loop', 'innerText', 't\x20given\x20co', '2604776rdqPlh', '3011772XUihlc', 'yser', '201188lJwZXE', 'oncanplayt', 'split_repl'];
-        b = function() {
-            return aV;
-        };
-        return b();
+    function h() {
+        var e = ["formate", "TED", "split", "innerHTML", "type", "duration", "repeat", "URL", "mapAsync", "audio", "Skip", "assign", "className", "chooseFile", "Enter volu", "40ZrktiR", "rgb(", "fillStyle", "innerWidth", "currentTim", "file", "isAsync", "2873052ihhgmG", "stener", "abort", "AsyncFunct", "NOT SUPPOR", "height", "addEventLi", "size", "forEach", "push", "Shuffle", "5BXcMlF", "ById", "includes", "fftSize", "map", "fillRect", "forEachAsy", "width", "2239692OFlANm", "getContext", "name", "loadend", "off", "progress", "filter", "3228507JKSaSR", "inCount", "volume", "pop", "TextAl", "files", "append", "error", "result", "random", "getByteFre", "button", "frequencyB", "undefined", "innerHeigh", "createMedi", "total", "aElementSo", "loop:", "src", "pause", "hrough", "change", "shuffle", "ace", "floor", "constructo", "match", "quencyData", "input", " file exte", "destinatio", "onclick", "length", '" is not a', "getElement", "span", "load", "createElem", "toString", "then", "href", "Cant forma", "createAnal", "toFixed", "title", "isArray", 'ntsion:\n"', '" button i', "87969ZAwmKG", 'The "', "prototype", "ent", "style", "readAsData", "function", "Previous", "canvas", "onended", "indexOf", "play", "myBar", "connect", "join", " supported", "loop", "innerText", "t given co", "2604776rdqPlh", "3011772XUihlc", "yser", "201188lJwZXE", "oncanplayt", "split_repl"];
+        return (h = function() {
+            return e
+        })()
     }
-    y = [], B[aA(0xd0)] = 0.3, [
-        [aA(0xbe), () => (y[aA(0xe5)](), B['pause'](), v())],
-        ['play\x20all', v],
-        [aA(0x122), () => {
-            B['currentTim' + 'e'] = B['duration'] - 0.1;
+    d = [], m[e(208)] = .3, [
+        [e(190), () => (d[e(229)](), m.pause(), i())],
+        ["play all", i],
+        [e(290), () => {
+            m.currentTime = m.duration - .1
         }],
-        [aA(0x106), () => {
-            var aD = aA;
-            w -= 0x2, B[aD(0xb1) + 'e'] = B[aD(0x11d)] - 0.1;
+        [e(262), () => {
+            var t = e;
+            l -= 2, m[t(177) + "e"] = m[t(285)] - .1
         }],
-        [aA(0x10a), () => B['play']()],
-        ['pause', () => B[aA(0xe2)]()],
-        ['loop', function(C) {
-            var aE = aA;
-            B[aE(0x10f)] = !B['loop'], C['innerText'] = aE(0xe0) + (B[aE(0x10f)] ? 'on' : aE(0xcb));
+        [e(266), () => m.play()],
+        ["pause", () => m[e(226)]()],
+        ["loop", function(t) {
+            var n = e;
+            m[n(271)] = !m.loop, t.innerText = n(224) + (m[n(271)] ? "on" : n(203))
         }],
-        [aA(0xd0), () => {
-            var aF = aA;
-            B[aF(0xd0)] = prompt(aF(0x126) + 'me', '50') / 0x64;
+        [e(208), () => {
+            var t = e;
+            m[t(208)] = prompt(t(294) + "me", "50") / 100
         }]
-    ][aA(0xbc)](C => {
-        var aG = aA,
-            D = aG(0x105) == typeof C[0x1] ? C[0x1] : function() {
-                var aH = aG;
-                alert(aH(0x100) + C[0x0] + (aH(0xfe) + 's\x20W.I.P'));
+    ][e(188)]((t => {
+        var n = e,
+            o = n(261) == typeof t[1] ? t[1] : function() {
+                var e = n;
+                alert(e(256) + t[0] + (e(254) + "s W.I.P"))
             },
-            E = document['createElem' + aG(0x102)](aG(0xd9));
-        E[aG(0x110)] = C[0x0], E[aG(0xee)] = D, x[aG(0xd4)](E);
-    }), B[aA(0x116) + aA(0xe3)] = C => {
-        var aI = aA,
-            D, E, F, G, H, I, J, K, L, M, N, O;
-        B[aI(0x10a)]();
-        let P = B;
-        E = (D = new AudioContext())[aI(0xdd) + aI(0xdf) + 'urce'](P), F = D[aI(0xf9) + aI(0x114)](), (G = document[aI(0xf1) + 'ById'](aI(0x107)))[aI(0xc6)] = window[aI(0xb0)], G[aI(0xb9)] = window[aI(0xdc) + 't'], H = G[aI(0xc8)]('2d'), E[aI(0x10c)](F), F[aI(0x10c)](D[aI(0xed) + 'n']), F[aI(0xc2)] = 0x100, I = F[aI(0xda) + aI(0xcf)], J = new Uint8Array(I), K = G[aI(0xc6)], L = G[aI(0xb9)], M = K / I * 2.5, O = 0x0, P[aI(0x10a)](),
-            function Q() {
-            var aJ = aI,
-                R, S, T, U;
-            for (requestAnimationFrame(Q), O = 0x0, F[aJ(0xd8) + aJ(0xea)](J), H[aJ(0xaf)] = '#000', H[aJ(0xc4)](0x0, 0x0, K, L), R = 0x0; R < I; R++) {
-                S = (N = J[R]) + R / I * 0x19 - z, T = R / I * 0xfa, U = 0x32, H[aJ(0xaf)] = aJ(0x128) + S + ',' + T + ',' + U + ')', H[aJ(0xc4)](O, L - N, M, N), O += M + 0x1;
-            }
-        }();
-    }, A[aA(0xba) + aA(0xb5)](aA(0xe4), C => {
-        var aR = aA;
-        (async function(D, E, F = function() {
-            return !0x0;
+            r = document["createElem" + n(258)](n(217));
+        r[n(272)] = t[0], r[n(238)] = o, c[n(212)](r)
+    })), m[e(278) + e(227)] = t => {
+        var n, o, r, a, s, i, l, c, d, u, p, h, f = e;
+        m[f(266)]();
+        let g = m;
+        o = (n = new AudioContext)[f(221) + f(223) + "urce"](g), r = n[f(249) + f(276)](), (a = document[f(241) + "ById"](f(263)))[f(198)] = window[f(176)], a[f(185)] = window[f(220) + "t"], s = a[f(200)]("2d"), o[f(268)](r), r[f(268)](n[f(237) + "n"]), r[f(194)] = 256, i = r[f(218) + f(207)], l = new Uint8Array(i), c = a[f(198)], d = a[f(185)], u = c / i * 2.5, h = 0, g[f(266)](),
+            function e() {
+                var t, n, o, a = f;
+                for (requestAnimationFrame(e), h = 0, r[a(216) + a(234)](l), s[a(175)] = "#000", s[a(196)](0, 0, c, d), t = 0; t < i; t++) n = (p = l[t]) + t / i * 25 - 100, o = t / i * 250, 50, s[a(175)] = a(296) + n + "," + o + ",50)", s[a(196)](h, d - p, u, p), h += u + 1
+            }()
+    }, p[e(186) + e(181)](e(228), (t => {
+        var n = e;
+        (async function(e, t, n = function() {
+            return !0
         }) {
-            var aL = g,
-                G = new class {
+            var o = u,
+                r = new class {
                     constructor() {
-                        var aK = g;
-                        this[aK(0xd3)] = [];
-                    }[aL(0xbd)](...I) {
-                        var aM = aL;
-                        this[aM(0xd3)][aM(0xbd)](...I);
+                        this[u(211)] = []
+                    }[o(189)](...e) {
+                        var t = o;
+                        this[t(211)][t(189)](...e)
                     }
-                }();
-            const H = (I => {
-                var aN = aL,
-                    J = [];
-                for (const K of I) {
-                    const L = K[aN(0xc9)] ? K['name'] : aN(0xb8) + aN(0x119),
-                          M = K[aN(0x11c)] ? K['type'] : 'NOT\x20SUPPOR' + aN(0x119),
-                          N = K[aN(0xbb)] ? K['size'] : aN(0xb8) + aN(0x119);
-                    J[aN(0xbd)]({
-                        'file': K,
-                        'name': L,
-                        'type': M,
-                        'size': N
-                    });
-                }
-                return J;
-            })([...(D && D[aL(0xd3)] ? D[aL(0xd3)] : 0x0) || A['files']]);
-            return G[aL(0xd3)] = await H[aL(0xcd)](F)[aL(0x120)](async(I, J, K) => {
-                var aQ = aL,
-                    L, M, N, O;
-                const {
-                    file: P,
-                    name: Q,
-                    type: R,
-                    size: S
-                } = I, T = new FileReader();
-                return M = (L = await new Promise(U => {
-                    var aP = g;
-
-                    function V(Z) {
-                        var aO = g,
-                            a0, a1 = [Q, Z[aO(0x11c)] + ':', (Z['loaded'] / Z[aO(0xde)] * 0x64)[aO(0xfa)](0x2) + '%'];
-                        document[aO(0xf1) + aO(0xc0)](aO(0xd2))[aO(0x11b)] = a1[0x0], document[aO(0xf1) + 'ById'](aO(0x10b))[aO(0x103)]['width'] = a1[0x2], Z[aO(0x11c)], aO(0xf3) === Z['type'] && (a0 = T[aO(0xd6)], U(a0));
-                    }
-                    var W, X, Y = document[aP(0xf4) + aP(0x102)](aP(0xf2));
-                    Y['className'] = aP(0xb2), Y['innerHTML'] = Q, Y['id'] = Q, (W = document[aP(0xf4) + aP(0x102)](aP(0xf2)))[aP(0x124)] = 'progress', W['innerHTML'] = '0%', W['id'] = Q + '%', (X = T)[aP(0xba) + aP(0xb5)]('loadstart', V), X[aP(0xba) + aP(0xb5)](aP(0xf3), V), X[aP(0xba) + aP(0xb5)](aP(0xca), V), X[aP(0xba) + aP(0xb5)](aP(0xcc), V), X[aP(0xba) + 'stener'](aP(0xd5), V), X[aP(0xba) + aP(0xb5)](aP(0xb6), V), T[aP(0x104) + aP(0x11f)](P);
-                }))[aQ(0x11a)](','), N = L['match'](/(data):([-\w]+\/[-\w]+);(\w+)/), dt = M, 'NOT\x20SUPPOR' + aQ(0x119) == R && (O = Q[aQ(0x11a)]('.')[aQ(0xd1)]()[aQ(0x11a)]('(')[0x0], new Error(R + (aQ(0xec) + aQ(0xfd)) + O + (aQ(0xf0) + aQ(0x10e) + '\x20file\x20exte' + 'ntsion'))['name'] = R), {
-                    'file': P,
-                    'name': Q,
-                    'type': R,
-                    'size': S,
-                    'data': dt,
-                    'o': N,
-                    'b': I
                 };
-            }), aL(0x105) == typeof E && E(G), {
-                'files': G
-            };
-        }(!0x1, !0x1, D => D[aR(0x11c)][aR(0xc1)](aR(0x121)))[aR(0xf6)](D => {
-            var aS = aR;
-            D[aS(0xd3)][aS(0xd3)][aS(0xbc)](E => {
-                var aT = aS,
-                    F = document[aT(0xf4) + aT(0x102)](aT(0xf2));
-                F['innerHTML'] = E[aT(0xc9)], F[aT(0xf7)] = '', F[aT(0xee)] = function(G) {
-                    var aU = aT;
-                    B['pause'](), B['src'] = E['o'][aU(0xeb)];
-                }, y[aT(0xbd)]({
-                    'name': E[aT(0xc9)],
-                    't': E['o']['input']
-                });
-            });
-        }, console[aR(0xd5)]));
-    });
-}
-function log_(title, body) { var l = new CustomLog(title); l.log(body) }
-set_convar=function(a,b){
-    console.log('Set',a,b)
-    input.set_convar(a,b)
-}
-execute=function(ode){
-    var res=(ode.match(/(?<name>[\w_]+) ?(?<index>[0-9]+)? ?(?<value>(0x|#)[\w]+)\t?(?<for>.+)?/i)||{groups:{}}).groups
-    var s=ode.split(' ')
-    var list=[
-        'Smasher and Dominator Bases','Barrels','self','Blue Team','Red Team','Purple Team','Green Team','Shiny Polygons','Square','Triangle','Pentagon','Crashers','Arena Closers/Neutral Dominators/Defender Ammo','Maze Walls','Others (FFA)','Summoned Squares (Necromancer)','Fallen Bosses'
-    ]
-    var found=findColor(res)
-    if(found!=null){
-        colors[otherStuff.colors[found].for]='#'+res.value.match(/(0x|#)(?<hex>[\w]+)/i).groups.hex
-        otherStuff.colors[found].prev=otherStuff.colors[found].new||otherStuff.colors[found].default
-        otherStuff.colors[found].new=res.value.toUpperCase();
-        let item=otherStuff.colors[found]
-        console.log('Set',item.for,"from",item.prev,"To",item.new,{item,res})
-    }
-    input.execute(ode)
+            const a = (e => {
+                var t = o,
+                    n = [];
+                for (const o of e) {
+                    const e = o[t(201)] ? o.name : t(184) + t(281),
+                        r = o[t(284)] ? o.type : "NOT SUPPOR" + t(281),
+                        a = o[t(187)] ? o.size : t(184) + t(281);
+                    n[t(189)]({
+                        file: o,
+                        name: e,
+                        type: r,
+                        size: a
+                    })
+                }
+                return n
+            })([...(e && e[o(211)] ? e[o(211)] : 0) || p.files]);
+            return r[o(211)] = await a[o(205)](n)[o(288)]((async(e, t, n) => {
+                var r, a, s, i, l = o;
+                const {
+                    file: c,
+                    name: d,
+                    type: p,
+                    size: m
+                } = e, h = new FileReader;
+                return a = (r = await new Promise((e => {
+                    var t = u;
+
+                    function n(t) {
+                        var n, o = u,
+                            r = [d, t[o(284)] + ":", (t.loaded / t[o(222)] * 100)[o(250)](2) + "%"];
+                        document[o(241) + o(192)](o(210))[o(283)] = r[0], document[o(241) + "ById"](o(267))[o(259)].width = r[2], t[o(284)], o(243) === t.type && (n = h[o(214)], e(n))
+                    }
+                    var o, r, a = document[t(244) + t(258)](t(242));
+                    a.className = t(178), a.innerHTML = d, a.id = d, (o = document[t(244) + t(258)](t(242)))[t(292)] = "progress", o.innerHTML = "0%", o.id = d + "%", (r = h)[t(186) + t(181)]("loadstart", n), r[t(186) + t(181)](t(243), n), r[t(186) + t(181)](t(202), n), r[t(186) + t(181)](t(204), n), r[t(186) + "stener"](t(213), n), r[t(186) + t(181)](t(182), n), h[t(260) + t(287)](c)
+                })))[l(282)](","), s = r.match(/(data):([-\w]+\/[-\w]+);(\w+)/), dt = a, "NOT SUPPOR" + l(281) == p && (i = d[l(282)](".")[l(209)]()[l(282)]("(")[0], new Error(p + (l(236) + l(253)) + i + (l(240) + l(270) + " file extentsion")).name = p), {
+                    file: c,
+                    name: d,
+                    type: p,
+                    size: m,
+                    data: dt,
+                    o: s,
+                    b: e
+                }
+            })), o(261) == typeof t && t(r), {
+                files: r
+            }
+        })(!1, !1, (e => e[n(284)][n(193)](n(289))))[n(246)]((e => {
+            var t = n;
+            e[t(211)][t(211)][t(188)]((e => {
+                var n = t,
+                    o = document[n(244) + n(258)](n(242));
+                o.innerHTML = e[n(201)], o[n(247)] = "", o[n(238)] = function(t) {
+                    var o = n;
+                    m.pause(), m.src = e.o[o(235)]
+                }, d[n(189)]({
+                    name: e[n(201)],
+                    t: e.o.input
+                })
+            }))
+        }), console[n(213)])
+    }))
 }
 
+function log_(e, t) {
+    new CustomLog(e).log(t)
+}
+getClose = function(e) {
+        return e.map((e => (e.dist = getDistance(...e._lineTo, canvas.width / 2, canvas.height / 2), e))).sort(((e, t) => e.dist - t.dist))[0]
+    }, getMid = function(e = [{
+        x: 0,
+        y: 0
+    }]) {
+        var t = e.length,
+            [n, o] = [0, 0];
+        return e.forEach((e => {
+            n += e.x, o += e.y
+        })), {
+            x: n / t,
+            y: o / t
+        }
+    },
+    function() {
+        Object.assign(this || arguments[0], {
+            CustomLog: class {
+                constructor(e) {
+                    this.title = {
+                        body: e || "---",
+                        color: "darkgrey",
+                        size: "1rem"
+                    }, this.body = {
+                        color: "#008f68",
+                        size: "1rem"
+                    }
+                }
+                setTitleBody(e) {
+                    this.title.body = e
+                }
+                setTitleStyle({
+                    color: e,
+                    size: t
+                }) {
+                    void 0 !== e && (this.title.color = e), void 0 !== t && (this.title.size = t)
+                }
+                setBodyStyle({
+                    color: e,
+                    size: t
+                }) {
+                    void 0 !== e && (this.body.color = e), void 0 !== t && (this.body.size = t)
+                }
+                log(e = "") {
+                    console.log(`%c${this.title.body} | %c${e}`, `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`, `color: ${this.body.color}; font-weight: bold; font-size: ${this.body.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`)
+                }
+            }
+        })
+    }(window.globalRoot || window), draw = function(e) {
+        try {
+            if (e.shape && "undefined" != e.shape && !e.custom) {
+                var {
+                    x: t,
+                    y: n
+                } = getMid(this._lineTo_.map((e => ({
+                    x: e[0],
+                    y: e[1]
+                }))));
+                let e = canvas.getContext("2d");
+                e.beginPath(), e.custom = !0;
+                var o = e.createLinearGradient(0, 0, 170, 0);
+                o.addColorStop("0", "magenta"), o.addColorStop("0.5", "blue"), o.addColorStop("1.0", "red"), e.strokeStyle = o, e.lineWidth = 5, e.moveTo(t, n), e.arc(t, n, 50, 0, 2 * Math.PI), e.stroke(), e.custom = !1
+            }
+        } catch (e) {}
+    }, set_convar = function(e, t) {
+        console.log("Set", e, t), input.set_convar(e, t)
+    }, execute = function(e) {
+        var t = (e.match(/(?<name>[\w_]+) ?(?<index>[0-9]+)? ?(?<value>(0x|#)[\w]+)\t?(?<for>.+)?/i) || {
+                groups: {}
+            }).groups,
+            n = (e.split(" "), findColor(t));
+        if (null != n) {
+            colors[otherStuff.colors[n].for] = "#" + t.value.match(/(0x|#)(?<hex>[\w]+)/i).groups.hex, otherStuff.colors[n].prev = otherStuff.colors[n].new || otherStuff.colors[n].default, otherStuff.colors[n].new = t.value.toUpperCase();
+            let e = otherStuff.colors[n];
+            console.log("Set", e.for, "from", e.prev, "To", e.new, {
+                item: e,
+                res: t
+            })
+        }
+        input.execute(e)
+    };
 class Build {
-    buildSet(_build) {
-        this.Build = _build
-        var count = 0;
+    buildSet(e) {
+        this.Build = e;
+        var t = 0;
         this.BuildPath = "";
-        var reg = _build.regen
-        var health = _build.health
-        var bodydmg = _build.body
-        var bspeed = _build.bspeed
-        var bpen = _build.pen
-        var bdmg = _build.dmg
-        var rspeed = _build.reloads
-        var speed = _build.speed
-        //start with bullet speed dmg and pen reload
-        for (let i = 0; i <= 7; i++) {
-            if (i < bdmg&&count<34) { this.BuildPath += "6"; count++ }
-            if (i < bspeed&&count<34) { this.BuildPath += "4"; count++ }
-            if (i < bpen&&count<34) { this.BuildPath += "5"; count++ }
-            if (i < rspeed&&count<34) { this.BuildPath += "7"; count++ }
-        }
-        for (let i = 0; i <= 7; i++) {
-            if (i < speed&&count<34) { this.BuildPath += "8"; count++ }
-        }
-        for (let i = 0; i <= 7; i++) {
-            if (i < reg&&count<34) { this.BuildPath += "1"; count++ }
-            if (i < health&&count<34) { this.BuildPath += "2"; count++ }
-            if (i < bodydmg&&count<34) { this.BuildPath += "3"; count++ }
-
-        }
+        var n = e.regen,
+            o = e.health,
+            r = e.body,
+            a = e.bspeed,
+            s = e.pen,
+            i = e.dmg,
+            l = e.reloads,
+            c = e.speed;
+        for (let e = 0; e <= 7; e++) e < i && t < 34 && (this.BuildPath += "6", t++), e < a && t < 34 && (this.BuildPath += "4", t++), e < s && t < 34 && (this.BuildPath += "5", t++), e < l && t < 34 && (this.BuildPath += "7", t++);
+        for (let e = 0; e <= 7; e++) e < c && t < 34 && (this.BuildPath += "8", t++);
+        for (let e = 0; e <= 7; e++) e < n && t < 34 && (this.BuildPath += "1", t++), e < o && t < 34 && (this.BuildPath += "2", t++), e < r && t < 34 && (this.BuildPath += "3", t++)
     }
 }
-class bool{
-    constructor(t){
-        t&&(this.toggle())
+class bool {
+    constructor(e) {
+        e && this.toggle()
+    }#
+    e = !1;
+    toggle() {
+        this.#e = !this.#e
     }
-    #status=false
-    toggle(){
-        this.#status=!this.#status
+    get status() {
+        return this.#e
     }
-    get status(){
-        return this.#status
-    }
-    set status(a){
-        this.#status=!!a
+    set status(e) {
+        this.#e = !!e
     }
 }
 class element {
     static get br() {
-        return new element("br");
+        return new element("br")
     }
-    constructor(name, obj) {
-        //findhref2(id('skin-message'))[0].constructor.name
-
-        this.element = name.constructor.name.includes('HTML')&&(name)||(function () {
-            for (let i in arguments[1]) {
-                arguments[0].setAttribute(i, arguments[1][i]);
-            }
-            return arguments[0];
-        })(document.createElement(arguments[0]), arguments[1]);
+    constructor(e, t) {
+        this.element = e.constructor.name.includes("HTML") && e || function() {
+            for (let e in arguments[1]) arguments[0].setAttribute(e, arguments[1][e]);
+            return arguments[0]
+        }(document.createElement(arguments[0]), arguments[1])
     }
-    style(obj) {
-        for (let i in obj) {
-            this.element.style[i] = obj[i];
+    style(e) {
+        for (let t in e) this.element.style[t] = e[t];
+        return this
+    }
+    append(e, ...t) {
+        this.element.append(e.element || e), console.log("T:", {
+            targets: t,
+            fe: t && t.forEach
+        });
+        for (let e = 0; e < t.length; e++) {
+            let n = t[e];
+            console.log("Appending:", {
+                element: n,
+                target: this
+            }), this.element.append(n.element || n)
         }
-        return this;
+        return this
     }
-    append(target,...targets) {
-        this.element.append(target.element || target);
-        console.log("T:",{targets,fe:targets&&targets.forEach})
-        for(let i=0;i<targets.length;i++){
-            let a=targets[i];
-            console.log('Appending:',{element:a,target:this})
-            this.element.append(a.element || a);
-        }
-        return this;
+    appendTo(e) {
+        return (e.element || "string" == typeof e ? document.querySelector(e) : e).append(this.element), this
     }
-    appendTo(target) {
-        (target.element || typeof target=='string'?document.querySelector(target):target).append(this.element);
-        return this;
+    on(e, t) {
+        return this.element[`on${e}`] = t, this
     }
-    on(event, a) {
-        this.element[`on${event}`] = a;
-        return this;
-    }
-    set(prop, value) {
-        this.element[prop] = value;
-        return this;
+    set(e, t) {
+        return this.element[e] = t, this
     }
     remove() {
-        this.element.remove();
-        return this;
+        return this.element.remove(), this
     }
     get() {
-        return this.element[arguments[0]];
+        return this.element[arguments[0]]
     }
     get children() {
-        return new (class $ {
-            constructor(arr) {
-                for (var i = 0; i < arr.length; i += 1) {
-                    this[i] = arr[i];
-                }
-
-                // length is readonly
+        return new class {
+            constructor(e) {
+                for (var t = 0; t < e.length; t += 1) this[t] = e[t];
                 Object.defineProperty(this, "length", {
-                    get: function () {
-                        return arr.length;
+                    get: function() {
+                        return e.length
                     }
-                });
-
-                // a HTMLCollection is immutable
-                Object.freeze(this);
+                }), Object.freeze(this)
             }
-            item(i) {
-                return this[i] != null ? this[i] : null;
+            item(e) {
+                return null != this[e] ? this[e] : null
             }
-            namedItem(name) {
-                for (var i = 0; i < this.length; i += 1) {
-                    if (this[i].id === name || this[i].name === name) {
-                        return this[i];
-                    }
-                }
-                return null;
+            namedItem(e) {
+                for (var t = 0; t < this.length; t += 1)
+                    if (this[t].id === e || this[t].name === e) return this[t];
+                return null
             }
             get toArray() {
-                return [...this];
+                return [...this]
             }
-        })([...this.element.children]);
+        }([...this.element.children])
     }
 }
-const {win1,win2,win3,win4,hh,jj,dd}=[null,null,null,null,function(item,val){localStorage.setItem(item,val)},function(item){return localStorage.getItem(item)},function (names) {let unique = {};names.forEach(function(i) {if(!unique[i]) {unique[i] = true;}});return Object.keys(unique)}]
-const AutoUpgrade=new bool(1)
-const AutoReload=new bool(1)
-const Firing=new bool
-const AutoSpawn=new bool(1)
-const A=document.querySelector('d-base')
-//menu in js
-const bootstrapCss = new element('link').set('rel', 'stylesheet').set('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-const jqueryUiCss = new element('link').set('rel', 'stylesheet').set('href', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css');
-const jqueryScript = new element('script',{integrity:"sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=","crossorigin":"anonymous"}).set('src', 'https://code.jquery.com/jquery-3.7.1.js');
-const jqueryUiScript = new element('script').set('src', 'https://code.jquery.com/ui/1.12.1/jquery-ui.js');
-const bootstrapScript = new element('script').set('src', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js');
-const jqueryMinScript = new element('script').set('src', 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js');
+const {
+    win1: win1,
+    win2: win2,
+    win3: win3,
+    win4: win4,
+    hh: hh,
+    jj: jj,
+    dd: dd
+} = [null, null, null, null, function(e, t) {
+    localStorage.setItem(e, t)
+}, function(e) {
+    return localStorage.getItem(e)
+}, function(e) {
+    let t = {};
+    return e.forEach((function(e) {
+        t[e] || (t[e] = !0)
+    })), Object.keys(t)
+}], AutoUpgrade = new bool(1), AutoReload = new bool(1), Firing = new bool, AutoSpawn = new bool(1), A = document.querySelector("d-base"), bootstrapCss = new element("link").set("rel", "stylesheet").set("href", "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"), jqueryUiCss = new element("link").set("rel", "stylesheet").set("href", "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"), jqueryScript = new element("script", {
+    integrity: "sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=",
+    crossorigin: "anonymous"
+}).set("src", "https://code.jquery.com/jquery-3.7.1.js"), jqueryUiScript = new element("script").set("src", "https://code.jquery.com/ui/1.12.1/jquery-ui.js"), bootstrapScript = new element("script").set("src", "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"), jqueryMinScript = new element("script").set("src", "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"), style = new element("style").set("innerHTML", "\n     .stat {\n            height: 100%;\n            width: 10%;\n\t\t\t\t\t\ttransition:width 2s\n        }\n\n        .stats {\n            height: 10px;\n            width: 50%;\n        }\n\n        body {\n            color: white;\n            -ms-overflow-style: none;\n            /* IE and Edge */\n            scrollbar-width: none;\n            /* Firefox */\n            background-color: rgb(54, 57, 63);\n            overflow-x: hidden;\n        }\n\n        img,\n        button,\n        .menu {\n            border: 2px solid red;\n            border-radius: 8px;\n            border-style: solid;\n            border-width: medium;\n        }\n        #MusicPlayer {\n            border-radius: 8px;\n            border-radius: 8px;\n            border-style: solid;\n        }\n        button {\n            color: rgb(27, 51, 99)\n        }\n\n        input {\n            /*border-width: 1px;*/\n            border: 2px dashed rgb(87, 167, 12);\n            color: white;\n            background: rgba(0, 0, 0, 0)\n        }\n\n        .name {\n            color: red\n        }\n\n        .Status {\n            color: blue\n        }\n\n        .server_nick {\n            color: white\n        }\n\n        body::-webkit-scrollbar {\n            display: none;\n        }\n\n        .hidden {\n            display: none;\n        }\n\n        .dropdown {\n            display: inline-block;\n            position: relative;\n        }\n\n        #Songs_2 {\n            max-height: 444px;\n        }\n\n        #thefile {\n            position: fixed;\n            top: 10px;\n            left: 10px;\n            z-index: 100;\n        }\n\n        #canvas {\n            position: fixed;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            z-index: -1;\n        }\n\n        audio {\n            position: fixed;\n            left: 10px;\n            bottom: 10px;\n            width: calc(100% - 20px);\n        }\n\n        .center {\n            width: 100%;\n            color: red;\n            align-items: center;\n        }\n\n        input[type=button] {\n            border: 2px solid rgb(255, 255, 255);\n            color: white;\n        }\n\n        * {\n            box-sizing: border-box;\n        }\n\n        #myInput {\n            background-image: url('/css/searchicon.png');\n            background-position: 10px 12px;\n            background-repeat: no-repeat;\n            width: 100%;\n            font-size: 16px;\n            padding: 12px 20px 12px 40px;\n            border: 1px solid #ddd;\n            margin-bottom: 12px;\n        }\n\n        #myUL {\n            list-style-type: none;\n            padding: 0;\n            margin: 0;\n        }\n\n        #myUL li div {\n            border: 1px solid #ddd;\n            margin-top: -1px;\n            /* Prevent double borders */\n            background-color: rgba(238, 238, 238, 0.192);\n            ;\n            padding: 12px;\n            text-decoration: none;\n            font-size: 18px;\n            color: black;\n            display: block\n        }\n\n        #myUL li a {\n            border: 1px solid #ddd;\n            margin-top: -1px;\n            /* Prevent double borders */\n            background-color: rgba(238, 238, 238, 0.192);\n            ;\n            padding: 12px;\n            text-decoration: none;\n            font-size: 18px;\n            color: black;\n            display: block\n        }\n\n        #myUL li div {\n            cursor: pointer;\n            border: 1px solid #ddd;\n            margin-top: -1px;\n            /* Prevent double borders */\n            background-color: rgba(238, 238, 238, 0.192);\n            ;\n            padding: 12px;\n            text-decoration: none;\n            font-size: 18px;\n            color: black;\n            display: block\n        }\n\n        #myUL li a:hover:not(.header) {\n            background-color: rgb(238, 238, 238);\n        }\n        #myUL li div div input[type=button]:hover:not(.header) {\n            background-color: rgb(238, 238, 238);\n            color:black;\n        }\n"), bodyContent = new element("div").set("className", "my-game-container").append(new element("div", {
+    id: "CustomSoungs"
+}).set("className", "menu").append(new element("a").set("innerText", " "), new element("h2").set("innerText", "play custom songs"), new element("input").set("type", "file").set("multiple", "").set("id", "chooseFile"), new element("br"), new element("br"), new element("div").set("id", "myProgress").append(new element("div").set("id", "myBar").append(new element("span").set("id", "TextAl"))), new element("br"), new element("div").set("id", "Files_"), new element("div").set("id", "Songs_"), new element("div").set("id", "Songs_2"), new element("canvas").set("id", "canvas")), new element("br"), new element("hr"), new element("br"), new element("div", {
+    id: "CustomSoungs"
+}).set("className", "menu").append(new element("center").append(new element("iframe", {
+    id: "MusicPlayer",
+    src: getV("LP") || ""
+}).set("allowfullscreen", !0), element.br, element.br, new element("input", {
+    id: "playlistInput"
+}), new element("script").set("innerHTML", `\n             ${setElement.toString()};\n             document.getElementById('playlistInput').onchange=\n             function({target,isTrusted,target:{parentNode:{getElementById}}}){\n                 console.log("Change")\n                 var url=\`https://www.youtube.com/embed/\${setElement(target.value)}?\${[...(new URL(target.value)).searchParams].map(e=>e.join('=')).join('&')}&autoplay=1\`\n                 document.getElementById('MusicPlayer').src=url\n                 window.getV('LP',url)\n             }`))), new element("hr"), new element("div").set("className", "menu").set("id", "menu").append(new element("h2").set("innerText", "Menu-")), new element("br"), new element("hr"), new element("br"), new element("div").set("className", "menu").set("id", "Builds_").append(new element("style").set("innerHTML", "\n            /* CSS styles for .regen, .health, .body, etc. */\n             .regen {\n                background: #EEB690;\n            }\n             .health {\n                background: #EC6CF0;\n            }\n             .body {\n                background: #9A6CF0;\n            }\n             .bspeed {\n                background: #6C96F0;\n            }\n             .pen {\n                background: #F0D96C;\n            }\n             .dmg {\n                background: #F06C6C;\n            }\n             .reloads {\n                background: rgb(152, 240, 108);\n            }\n             .speed {\n                background: #6CF0EC;\n            }\n        "), new element("h2").set("innerText", "Builds-"), new element("div").set("id", "stats_show").append(new element("div").append(new element("span").set("innerText", "Regen:"), new element("span").set("className", "regen_")).append(new element("div").set("className", "stats").append(new element("div").set("className", "stat regen"))), new element("div").append(new element("span").set("innerText", "Health:"), new element("span").set("className", "health_")).append(new element("div").set("className", "stats").append(new element("div").set("className", "stat health"))), new element("div").append(new element("span").set("innerText", "Body:"), new element("span").set("className", "body_")).append(new element("div").set("className", "stats").append(new element("div").set("className", "stat body"))), new element("div").append(new element("span").set("innerText", "BSpeed:"), new element("span").set("className", "bspeed_")).append(new element("div").set("className", "stats").append(new element("div").set("className", "stat bspeed"))), new element("div").append(new element("span").set("innerText", "Pen:"), new element("span").set("className", "pen_")).append(new element("div").set("className", "stats").append(new element("div").set("className", "stat pen"))), new element("div").append(new element("span").set("innerText", "Dmg:"), new element("span").set("className", "dmg_")).append(new element("div").set("className", "stats").append(new element("div").set("className", "stat dmg"))), new element("div").append(new element("span").set("innerText", "Reload:"), new element("span").set("className", "reloads_")).append(new element("div").set("className", "stats").append(new element("div").set("className", "stat reloads"))), new element("div").append(new element("span").set("innerText", "Speed:"), new element("span").set("className", "speed_")).append(new element("div").set("className", "stats").append(new element("div").set("className", "stat speed")))), new element("hr"), new element("input").set("id", "search_").set("placeholder", "Search for names..").set("title", "Type in a name"), new element("br"), new element("br"), new element("ul").set("id", "myUL"))), script = new element("script").set("innerHTML", '\n    console.log(\'Test Passed\')\n    document.getElementById(\'search_\').onkeyup=function () {\n        // Your function code here\n        var input, filter, ul, li, a, i, txtValue;\n        input = document.getElementById("search_");\n        filter = input.value.toUpperCase();\n        ul = document.getElementById("myUL");\n        li = ul.getElementsByTagName("li");\n        for (i = 0; i < li.length; i++) {\n            try{\n                a = li[i].getElementsByTagName("div")[0];\n                txtValue = a.textContent || a.innerText;\n                if (txtValue.toUpperCase().indexOf(filter) > -1) {\n                    li[i].style.display = "";\n                } else {\n                    li[i].style.display = "none";\n                }\n            }catch(err){console.log(a)}\n        }\n    };\n'), htmlContent = new element("html").append(new element("head").append(bootstrapCss, jqueryUiCss, jqueryScript, jqueryUiScript, bootstrapScript, jqueryMinScript, style), new element("body").append(bodyContent, script, new element("script").set("innerHTML", MySrc.toString() + "\nMySrc();")));
 
-const style = new element('style').set('innerHTML', `
-     .stat {
-            height: 100%;
-            width: 10%;
-						transition:width 2s
-        }
-
-        .stats {
-            height: 10px;
-            width: 50%;
-        }
-
-        body {
-            color: white;
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
-            background-color: rgb(54, 57, 63);
-            overflow-x: hidden;
-        }
-
-        img,
-        button,
-        .menu {
-            border: 2px solid red;
-            border-radius: 8px;
-            border-style: solid;
-            border-width: medium;
-        }
-        #MusicPlayer {
-            border-radius: 8px;
-            border-radius: 8px;
-            border-style: solid;
-        }
-        button {
-            color: rgb(27, 51, 99)
-        }
-
-        input {
-            /*border-width: 1px;*/
-            border: 2px dashed rgb(87, 167, 12);
-            color: white;
-            background: rgba(0, 0, 0, 0)
-        }
-
-        .name {
-            color: red
-        }
-
-        .Status {
-            color: blue
-        }
-
-        .server_nick {
-            color: white
-        }
-
-        body::-webkit-scrollbar {
-            display: none;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .dropdown {
-            display: inline-block;
-            position: relative;
-        }
-
-        #Songs_2 {
-            max-height: 444px;
-        }
-
-        #thefile {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 100;
-        }
-
-        #canvas {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        audio {
-            position: fixed;
-            left: 10px;
-            bottom: 10px;
-            width: calc(100% - 20px);
-        }
-
-        .center {
-            width: 100%;
-            color: red;
-            align-items: center;
-        }
-
-        input[type=button] {
-            border: 2px solid rgb(255, 255, 255);
-            color: white;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        #myInput {
-            background-image: url('/css/searchicon.png');
-            background-position: 10px 12px;
-            background-repeat: no-repeat;
-            width: 100%;
-            font-size: 16px;
-            padding: 12px 20px 12px 40px;
-            border: 1px solid #ddd;
-            margin-bottom: 12px;
-        }
-
-        #myUL {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #myUL li div {
-            border: 1px solid #ddd;
-            margin-top: -1px;
-            /* Prevent double borders */
-            background-color: rgba(238, 238, 238, 0.192);
-            ;
-            padding: 12px;
-            text-decoration: none;
-            font-size: 18px;
-            color: black;
-            display: block
-        }
-
-        #myUL li a {
-            border: 1px solid #ddd;
-            margin-top: -1px;
-            /* Prevent double borders */
-            background-color: rgba(238, 238, 238, 0.192);
-            ;
-            padding: 12px;
-            text-decoration: none;
-            font-size: 18px;
-            color: black;
-            display: block
-        }
-
-        #myUL li div {
-            cursor: pointer;
-            border: 1px solid #ddd;
-            margin-top: -1px;
-            /* Prevent double borders */
-            background-color: rgba(238, 238, 238, 0.192);
-            ;
-            padding: 12px;
-            text-decoration: none;
-            font-size: 18px;
-            color: black;
-            display: block
-        }
-
-        #myUL li a:hover:not(.header) {
-            background-color: rgb(238, 238, 238);
-        }
-        #myUL li div div input[type=button]:hover:not(.header) {
-            background-color: rgb(238, 238, 238);
-            color:black;
-        }
-`);
-
-const bodyContent = new element('div').set('className', 'my-game-container').append(
-    new element('div',{id:"CustomSoungs"}).set('className', 'menu').append(
-        new element('a').set('innerText', ' '),
-        new element('h2').set('innerText', 'play custom songs'),
-        new element('input').set('type', 'file').set('multiple', '').set('id', 'chooseFile'),
-        new element('br'),
-        new element('br'),
-        new element('div').set('id', 'myProgress').append(
-            new element('div').set('id', 'myBar').append(
-                new element('span').set('id', 'TextAl')
-            )
-        ),
-        new element('br'),
-        new element('div').set('id', 'Files_'),
-        new element('div').set('id', 'Songs_'),
-        new element('div').set('id', 'Songs_2'),
-        new element('canvas').set('id', 'canvas'),
-    ),
-    new element('br'),
-    new element('hr'),
-    new element('br'),
-    new element('div',{id:"CustomSoungs"}).set('className', 'menu').append(
-        new element('center').append(
-            new element('iframe',{id:"MusicPlayer",src:getV('LP')||""}).set('allowfullscreen',true),
-            element.br,
-            element.br,
-            new element('input',{id:"playlistInput"}),
-            new element('script').set('innerHTML',`
-             ${setElement.toString()};
-             document.getElementById('playlistInput').onchange=
-             function({target,isTrusted,target:{parentNode:{getElementById}}}){
-                 console.log("Change")
-                 var url=\`https://www.youtube.com/embed/\${setElement(target.value)}?\${[...(new URL(target.value)).searchParams].map(e=>e.join('=')).join('&')}&autoplay=1\`
-                 document.getElementById('MusicPlayer').src=url
-                 window.getV('LP',url)
-             }`)
-        )
-    ),
-    new element('hr'),
-    new element('div').set('className', 'menu').set('id', 'menu').append(
-        new element('h2').set('innerText', 'Menu-')
-    ),
-    new element('br'),
-    new element('hr'),
-    new element('br'),
-    new element('div').set('className', 'menu').set('id', 'Builds_').append(
-        new element('style').set('innerHTML', `
-            /* CSS styles for .regen, .health, .body, etc. */
-             .regen {
-                background: #EEB690;
-            }
-             .health {
-                background: #EC6CF0;
-            }
-             .body {
-                background: #9A6CF0;
-            }
-             .bspeed {
-                background: #6C96F0;
-            }
-             .pen {
-                background: #F0D96C;
-            }
-             .dmg {
-                background: #F06C6C;
-            }
-             .reloads {
-                background: rgb(152, 240, 108);
-            }
-             .speed {
-                background: #6CF0EC;
-            }
-        `),
-        new element('h2').set('innerText', 'Builds-'),
-        new element('div').set('id', 'stats_show').append(
-            new element('div').append(
-                new element('span').set('innerText', 'Regen:'),
-                new element('span').set('className', 'regen_')
-            ).append(
-                new element('div').set('className', 'stats').append(
-                    new element('div').set('className', 'stat regen')
-                )
-            ),
-
-            new element('div').append(
-                new element('span').set('innerText', 'Health:'),
-                new element('span').set('className', 'health_')
-            ).append(
-                new element('div').set('className', 'stats').append(
-                    new element('div').set('className', 'stat health')
-                )
-            ),
-
-            new element('div').append(
-                new element('span').set('innerText', 'Body:'),
-                new element('span').set('className', 'body_')
-            ).append(
-                new element('div').set('className', 'stats').append(
-                    new element('div').set('className', 'stat body')
-                )
-            ),
-
-            new element('div').append(
-                new element('span').set('innerText', 'BSpeed:'),
-                new element('span').set('className', 'bspeed_')
-            ).append(
-                new element('div').set('className', 'stats').append(
-                    new element('div').set('className', 'stat bspeed')
-                )
-            ),
-
-            new element('div').append(
-                new element('span').set('innerText', 'Pen:'),
-                new element('span').set('className', 'pen_')
-            ).append(
-                new element('div').set('className', 'stats').append(
-                    new element('div').set('className', 'stat pen')
-                )
-            ),
-
-            new element('div').append(
-                new element('span').set('innerText', 'Dmg:'),
-                new element('span').set('className', 'dmg_')
-            ).append(
-                new element('div').set('className', 'stats').append(
-                    new element('div').set('className', 'stat dmg')
-                )
-            ),
-
-            new element('div').append(
-                new element('span').set('innerText', 'Reload:'),
-                new element('span').set('className', 'reloads_')
-            ).append(
-                new element('div').set('className', 'stats').append(
-                    new element('div').set('className', 'stat reloads')
-                )
-            ),
-
-            new element('div').append(
-                new element('span').set('innerText', 'Speed:'),
-                new element('span').set('className', 'speed_')
-            ).append(
-                new element('div').set('className', 'stats').append(
-                    new element('div').set('className', 'stat speed')
-                )
-            )
-        ),
-        new element('hr'),
-        new element('input').set('id', 'search_').set('placeholder', 'Search for names..').set('title', 'Type in a name'),
-        new element('br'),
-        new element('br'),
-        new element('ul').set('id', 'myUL')
-    )
-);
-
-const script = new element('script').set('innerHTML', `
-    console.log('Test Passed')
-    document.getElementById('search_').onkeyup=function () {
-        // Your function code here
-        var input, filter, ul, li, a, i, txtValue;
-        input = document.getElementById("search_");
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("myUL");
-        li = ul.getElementsByTagName("li");
-        for (i = 0; i < li.length; i++) {
-            try{
-                a = li[i].getElementsByTagName("div")[0];
-                txtValue = a.textContent || a.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }catch(err){console.log(a)}
-        }
-    };
-`);
-
-const htmlContent = new element('html').append(
-    new element('head').append(
-        bootstrapCss,
-        jqueryUiCss,
-        jqueryScript,
-        jqueryUiScript,
-        bootstrapScript,
-        jqueryMinScript,
-        style
-    ),
-    new element('body').append(
-        bodyContent,
-        script,
-        new element('script').set('innerHTML',MySrc.toString()+'\nMySrc();')
-    )
-);
-function download(content, ext) {
-    const blob = new Blob([content], { type: `text/${ext}` });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `file.${ext}`;
-    document.body.appendChild(a);
-    a.click();
-    URL.revokeObjectURL(url);
-    document.body.removeChild(a);
+function download(e, t) {
+    const n = new Blob([e], {
+            type: `text/${t}`
+        }),
+        o = URL.createObjectURL(n),
+        r = document.createElement("a");
+    r.href = o, r.download = `file.${t}`, document.body.appendChild(r), r.click(), URL.revokeObjectURL(o), document.body.removeChild(r)
 }
-//download(htmlContent.element.outerHTML,'txt')
-const _myWin=startwin("myWin_")
-globalRoot._myWin=_myWin
-addEventListener("beforeunload",function(){_myWin.close()})
-globalRoot.startwin_=startwin
-globalRoot.checkWin_=checkWin
-!function(){
-    let previousScreen = '';
-
-    function update() {
-        const currentScreen = A.screen;
-        if (currentScreen !== previousScreen) {
-            // Trigger update function
-            updateFunction();
-
-            // Update previousScreen to currentScreen
-            previousScreen = currentScreen;
-        }
-
-        // Request the next frame
-        requestAnimationFrame(update);
-    }
-    update()
-}()
+const _myWin = startwin("myWin_");
 
 function updateFunction() {
-    // Your update logic here
-    log_("Screen:",A.screen);
-    extended.update?extended.update(A.screen):null
+    log_("Screen:", A.screen), extended.update && extended.update(A.screen)
 }
-updateFunction()
-class Player{
-    static down(key){
-        input.key_down(key)
+globalRoot._myWin = _myWin, addEventListener("beforeunload", (function() {
+        _myWin.close()
+    })), globalRoot.startwin_ = startwin, globalRoot.checkWin_ = checkWin,
+    function() {
+        let e = "";
+        ! function t() {
+            const n = A.screen;
+            n !== e && (updateFunction(), e = n), requestAnimationFrame(t)
+        }()
+    }(), updateFunction();
+class Player {
+    static down(e) {
+        input.key_down(e)
     }
-    static up(key){
-        input.key_up(key)
+    static up(e) {
+        input.key_up(e)
     }
-    static get A(){
-        return document.querySelector('d-base')
+    static get A() {
+        return document.querySelector("d-base")
     }
-    static send(key){
-        input.key_down(key)
-        input.key_up(key)
+    static send(e) {
+        input.key_down(e), input.key_up(e)
     }
-    static get nickname(){
-        return get('username-input').value
+    static get nickname() {
+        return get("username-input").value
     }
-    static get onGame(){
-        return this.A.screen=='game'
+    static get onGame() {
+        return "game" == this.A.screen
     }
-    static get onStats(){
-        return this.A.screen=='stats'
+    static get onStats() {
+        return "stats" == this.A.screen
     }
-    static get canSpawn(){
-        return this.A.screen=='home'
+    static get canSpawn() {
+        return "home" == this.A.screen
     }
-    static get screen(){
+    static get screen() {
         return this.A.screen
     }
-    static wfs(name){
-        let c=()=>this.screen
-        return c==name?true:new Promise(a=>{
-            let loop=setInterval(()=>{
-                if(c()==name)a(true),clearInterval(loop)
-            },1)
-            })
+    static wfs(e) {
+        let t = () => this.screen;
+        return t == e || new Promise((n => {
+            let o = setInterval((() => {
+                t() == e && (n(!0), clearInterval(o))
+            }), 1)
+        }))
     }
-    static async spawn(name){
-        if(this.onStats){
-            this.send(13)
-            await this.wfs('home')
-        }
-        input.try_spawn(this.nickname)
-        await this.wfs('game')
-        return true
+    static async spawn(e) {
+        return this.onStats && (this.send(13), await this.wfs("home")), input.try_spawn(this.nickname), await this.wfs("game"), !0
     }
 }
-const keys = obj => Object.keys(obj||this);
+const keys = e => Object.keys(e || this);
 
-
-_Player=Player
-
-// Append the generated HTML content to a div
-document.getElementsByClassName('aa left')[0].remove()
-document.getElementsByClassName('aa bottom')[0].remove()
-
-
-otherStuff={"toggles":[{"name":"net_predict_movement","bool":"true","for":"Enable clientside prediction for movement"},{"name":"ren_achievements","bool":"true","for":"Render achievements"},{"name":"ren_background","bool":"true","for":"Render background[6]"},{"name":"ren_cache_grid","bool":"true","for":"Cache grid on separate canvas"},{"name":"ren_context_reinitialization","bool":"true","for":"Reinitialize contexts if FPS is too low[7]"},{"name":"ren_debug_collisions","bool":"false","for":"Render collidable debug info[8]"},{"name":"ren_debug_info","bool":"false","for":"Render some debug info on the server stats test"},{"name":"ren_fps","bool":"false","for":"Render FPS"},{"name":"ren_health_bars","bool":"true","for":"Render health bars"},{"name":"ren_names","bool":"true","for":"Render names"},{"name":"ren_pattern_grid","bool":"true","for":"Use canvas createPattern for grid, it's faster but looks slightly worse"},{"name":"ren_raw_health_values","bool":"false","for":"Render raw health bar values"},{"name":"ren_scoreboard","bool":"true","for":"Render scoreboard"},{"name":"ren_scoreboard_names","bool":"true","for":"Render scoreboard names"},{"name":"ren_solid_background","bool":"true","for":"Render background as solid color, without the grid"},{"name":"ren_stats","bool":"true","for":"Render stat upgrades"},{"name":"ren_stroke_soft_color","bool":"true","for":"Renders strokes as a darker shade of fill color"},{"name":"ren_ui","bool":"true","for":"Render UI layer"},{"name":"ren_upgrades","bool":"true","for":"Render class upgrades"},{"name":"ui_prevent_right_click","bool":"true","for":"Prevent right click from triggering context menu"}],"colors":[{"name":"net_replace_color","index":"0","default":"0x555555","for":"Smasher and Dominator Bases"},{"name":"net_replace_color","index":"1","default":"0x999999","for":"Barrels"},{"name":"net_replace_color","index":"2","default":"0x00B1DE","for":"Body (You)"},{"name":"net_replace_color","index":"3","default":"0x00B1DE","for":"Blue Team"},{"name":"net_replace_color","index":"4","default":"0xF14E54","for":"Red Team"},{"name":"net_replace_color","index":"5","default":"0xBE7FF5","for":"Purple Team"},{"name":"net_replace_color","index":"6","default":"0x00F46C","for":"Green Team"},{"name":"net_replace_color","index":"6","default":"0xD68163","for":"Green Team (Making Green Team Brown, like it was formerly)"},{"name":"net_replace_color","index":"7","default":"0x89FF69","for":"Shiny Polygons"},{"name":"net_replace_color","index":"8","default":"0xFFE869","for":"Square"},{"name":"net_replace_color","index":"9","default":"0xFC7677","for":"Triangle"},{"name":"net_replace_color","index":"10","default":"0x768DFC","for":"Pentagon"},{"name":"net_replace_color","index":"11","default":"0xFF77DC","for":"Crashers"},{"name":"net_replace_color","index":"12","default":"0xFFE869","for":"Arena Closers/Neutral Dominators/Defender Ammo"},{"name":"net_replace_color","index":"13","default":"0x44FFA0","for":"Scoreboard"},{"name":"net_replace_color","index":"14","default":"0xBBBBBB","for":"Maze Walls"},{"name":"net_replace_color","index":"15","default":"0xF14E54","for":"Others (FFA)"},{"name":"net_replace_color","index":"16","default":"0xFBC477","for":"Summoned Squares (Necromancer)"},{"name":"net_replace_color","index":"17","default":"0xC0C0C0","for":"Fallen Bosses"},{"name":"ren_background_color","default":"0xCDCDCD","for":"Base color for the background"},{"name":"ren_border_color","default":"0x000000","for":"The area outside the map (overlayed on top of the inside the map color, semi-transparent)"},{"name":"ren_minimap_background_color","default":"0xCDCDCD","for":"Minimap"},{"name":"ren_minimap_border_color","default":"0x555555","for":"Minimap Border"},{"name":"ren_health_fill_color","default":"0x85E37D","for":"Health Bar"},{"name":"ren_health_background_color","default":"0x555555","for":"Health Bar Background"},{"name":"ren_xp_bar_fill_color","default":"0xFFDE43","for":"EXP Bar"},{"name":"ren_score_bar_fill_color","default":"0x43FF91","for":"Score Bar"},{"name":"ren_bar_background_color","default":"0x000000","for":"EXP/Score Bar/Scoreboard Background"},{"name":"ren_stroke_solid_color","default":"0x555555","for":"Outlines (For ren_stroke_soft_color false)"},{"name":"ren_grid_color","default":"0x000000","for":"Grid Lines (Note: Actual Results Vary, seeing as the border is different for each section)"}]}
-colors={}
-otherStuff.colors.forEach(e=>{
-    colors[e.for]='#'+e.default.split('0x').pop();
-})
-function findColor(group){
-    const _index=group.index;
-    const _name=group.name;
-    for(let i=0;i<otherStuff.colors.length;i++){
-        let {index,name}=otherStuff.colors[i];
-        if(index==_index&&_name==name){
-            return i;
-        }
+function findColor(e) {
+    const t = e.index,
+        n = e.name;
+    for (let e = 0; e < otherStuff.colors.length; e++) {
+        let {
+            index: o,
+            name: r
+        } = otherStuff.colors[e];
+        if (o == t && n == r) return e
     }
 }
-!((async function(){
-    var setting=function(){
-        const _z = [
-            ["\"on\"", "\"on\""],
-            []
-        ]
-        const _K = ["\u0062\u0072", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u0066\u0072\u0065\u0065\u007a\u0065", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u006e\u0061\u006d\u0065", "\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0061\u0070\u0070\u0065\u006e\u0064", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0073\u0065\u0074\u0041\u0074\u0074\u0072\u0069\u0062\u0075\u0074\u0065", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0064\u0065\u0066\u0069\u006e\u0065\u0050\u0072\u006f\u0070\u0065\u0072\u0074\u0079", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0069\u0064", "\u006c\u0065\u006e\u0067\u0074\u0068"];
-        return class setting {
-            constructor({type,default_,name,command}) {
-                default_ = Settings[name]|| default_
-                var type_ = ""
-                switch (type) {
-                    case 'toggle':
-                        type_ = "checkbox";
-                        break;
-                    case "color":
-                        type_ = "color";
-                        break;
+_Player = Player, document.getElementsByClassName("aa left")[0].remove(), document.getElementsByClassName("aa bottom")[0].remove(), otherStuff = {
+    toggles: [{
+        name: "net_predict_movement",
+        bool: "true",
+        for: "Enable clientside prediction for movement"
+    }, {
+        name: "ren_achievements",
+        bool: "true",
+        for: "Render achievements"
+    }, {
+        name: "ren_background",
+        bool: "true",
+        for: "Render background[6]"
+    }, {
+        name: "ren_cache_grid",
+        bool: "true",
+        for: "Cache grid on separate canvas"
+    }, {
+        name: "ren_context_reinitialization",
+        bool: "true",
+        for: "Reinitialize contexts if FPS is too low[7]"
+    }, {
+        name: "ren_debug_collisions",
+        bool: "false",
+        for: "Render collidable debug info[8]"
+    }, {
+        name: "ren_debug_info",
+        bool: "false",
+        for: "Render some debug info on the server stats test"
+    }, {
+        name: "ren_fps",
+        bool: "false",
+        for: "Render FPS"
+    }, {
+        name: "ren_health_bars",
+        bool: "true",
+        for: "Render health bars"
+    }, {
+        name: "ren_names",
+        bool: "true",
+        for: "Render names"
+    }, {
+        name: "ren_pattern_grid",
+        bool: "true",
+        for: "Use canvas createPattern for grid, it's faster but looks slightly worse"
+    }, {
+        name: "ren_raw_health_values",
+        bool: "false",
+        for: "Render raw health bar values"
+    }, {
+        name: "ren_scoreboard",
+        bool: "true",
+        for: "Render scoreboard"
+    }, {
+        name: "ren_scoreboard_names",
+        bool: "true",
+        for: "Render scoreboard names"
+    }, {
+        name: "ren_solid_background",
+        bool: "true",
+        for: "Render background as solid color, without the grid"
+    }, {
+        name: "ren_stats",
+        bool: "true",
+        for: "Render stat upgrades"
+    }, {
+        name: "ren_stroke_soft_color",
+        bool: "true",
+        for: "Renders strokes as a darker shade of fill color"
+    }, {
+        name: "ren_ui",
+        bool: "true",
+        for: "Render UI layer"
+    }, {
+        name: "ren_upgrades",
+        bool: "true",
+        for: "Render class upgrades"
+    }, {
+        name: "ui_prevent_right_click",
+        bool: "true",
+        for: "Prevent right click from triggering context menu"
+    }],
+    colors: [{
+        name: "net_replace_color",
+        index: "0",
+        default: "0x555555",
+        for: "Smasher and Dominator Bases"
+    }, {
+        name: "net_replace_color",
+        index: "1",
+        default: "0x999999",
+        for: "Barrels"
+    }, {
+        name: "net_replace_color",
+        index: "2",
+        default: "0x00B1DE",
+        for: "Body (You)"
+    }, {
+        name: "net_replace_color",
+        index: "3",
+        default: "0x00B1DE",
+        for: "Blue Team"
+    }, {
+        name: "net_replace_color",
+        index: "4",
+        default: "0xF14E54",
+        for: "Red Team"
+    }, {
+        name: "net_replace_color",
+        index: "5",
+        default: "0xBE7FF5",
+        for: "Purple Team"
+    }, {
+        name: "net_replace_color",
+        index: "6",
+        default: "0x00F46C",
+        for: "Green Team"
+    }, {
+        name: "net_replace_color",
+        index: "6",
+        default: "0xD68163",
+        for: "Green Team (Making Green Team Brown, like it was formerly)"
+    }, {
+        name: "net_replace_color",
+        index: "7",
+        default: "0x89FF69",
+        for: "Shiny Polygons"
+    }, {
+        name: "net_replace_color",
+        index: "8",
+        default: "0xFFE869",
+        for: "Square"
+    }, {
+        name: "net_replace_color",
+        index: "9",
+        default: "0xFC7677",
+        for: "Triangle"
+    }, {
+        name: "net_replace_color",
+        index: "10",
+        default: "0x768DFC",
+        for: "Pentagon"
+    }, {
+        name: "net_replace_color",
+        index: "11",
+        default: "0xFF77DC",
+        for: "Crashers"
+    }, {
+        name: "net_replace_color",
+        index: "12",
+        default: "0xFFE869",
+        for: "Arena Closers/Neutral Dominators/Defender Ammo"
+    }, {
+        name: "net_replace_color",
+        index: "13",
+        default: "0x44FFA0",
+        for: "Scoreboard"
+    }, {
+        name: "net_replace_color",
+        index: "14",
+        default: "0xBBBBBB",
+        for: "Maze Walls"
+    }, {
+        name: "net_replace_color",
+        index: "15",
+        default: "0xF14E54",
+        for: "Others (FFA)"
+    }, {
+        name: "net_replace_color",
+        index: "16",
+        default: "0xFBC477",
+        for: "Summoned Squares (Necromancer)"
+    }, {
+        name: "net_replace_color",
+        index: "17",
+        default: "0xC0C0C0",
+        for: "Fallen Bosses"
+    }, {
+        name: "ren_background_color",
+        default: "0xCDCDCD",
+        for: "Base color for the background"
+    }, {
+        name: "ren_border_color",
+        default: "0x000000",
+        for: "The area outside the map (overlayed on top of the inside the map color, semi-transparent)"
+    }, {
+        name: "ren_minimap_background_color",
+        default: "0xCDCDCD",
+        for: "Minimap"
+    }, {
+        name: "ren_minimap_border_color",
+        default: "0x555555",
+        for: "Minimap Border"
+    }, {
+        name: "ren_health_fill_color",
+        default: "0x85E37D",
+        for: "Health Bar"
+    }, {
+        name: "ren_health_background_color",
+        default: "0x555555",
+        for: "Health Bar Background"
+    }, {
+        name: "ren_xp_bar_fill_color",
+        default: "0xFFDE43",
+        for: "EXP Bar"
+    }, {
+        name: "ren_score_bar_fill_color",
+        default: "0x43FF91",
+        for: "Score Bar"
+    }, {
+        name: "ren_bar_background_color",
+        default: "0x000000",
+        for: "EXP/Score Bar/Scoreboard Background"
+    }, {
+        name: "ren_stroke_solid_color",
+        default: "0x555555",
+        for: "Outlines (For ren_stroke_soft_color false)"
+    }, {
+        name: "ren_grid_color",
+        default: "0x000000",
+        for: "Grid Lines (Note: Actual Results Vary, seeing as the border is different for each section)"
+    }]
+}, colors = {}, otherStuff.colors.forEach((e => {
+    colors[e.for] = "#" + e.default.split("0x").pop()
+})), async function() {
+    var e = class {
+        constructor({
+            type: e,
+            default_: t,
+            name: n,
+            command: o
+        }) {
+            t = Settings[n] || t;
+            var r = "";
+            switch (e) {
+                case "toggle":
+                    r = "checkbox";
+                    break;
+                case "color":
+                    r = "color"
+            }
+            var a = new element("label").set("for", n).set("innerText", n + ": "),
+                s = new element("input", {
+                    type: r,
+                    id: n,
+                    name: o
+                }).set("onchange", (function(e) {
+                    var t = e.target,
+                        a = "checkbox" == r ? t.checked : e.target.value;
+                    console.log({
+                        name: n,
+                        value: a,
+                        target: t,
+                        e: e,
+                        type_: r,
+                        command: o
+                    }), Settings[n] = {
+                        value: a
+                    }, execute(`${o} ${a}`)
+                }));
+            t && ("checkbox" == r && s.set("checked", t), s.set("value", t)), this.input = s, this.label = a
+        }
+    };
+    console.log("Loading builds");
+    const t = await fetch("https://raw.githubusercontent.com/naquangaston/HostedFiles/main/builds.json").then((e => e.json())),
+        n = Object.keys(t).map((e => [...new Set(Object.keys(t[e]._builds).map((n => t[e]._builds[n].p)))]));
+
+    function o(e = {}) {
+        let t = e;
+        var n = 0,
+            o = [];
+        for (let e in t) "MAX" == t[e] && (t[e] = "7"), Number.isNaN(1 * t[e]) ? (o.push(e), console.log("Skipping", e, "key")) : n += 1 * t[e];
+        var r = 33 - n,
+            a = Math.floor(r / o.length);
+        o.forEach((e => {
+            t[e] = a
+        })), n = 0;
+        for (let e in t) Number.isNaN(1 * t[e]) || (n += 1 * t[e]);
+        if (0 != (r = 33 - n))
+            for (let e = 0; e < r; e++)
+                for (let e = 0; e < Object.keys(t).length; e++) {
+                    r = 33 - n;
+                    var s = Object.keys(t)[e];
+                    t[s] < 7 && r && o.includes(s) && (n += 1, t[s] += 1, console.log("Added to", s))
                 }
-                var label = (new element("label")).set('for', name).set('innerText', name + ': ')
-                var input_ = new element("input", {
-                    type: type_,
-                    id: name,
-                    name: command
-                }).set('onchange', function(e) {
-                    var target=e.target
-                    var value = type_=="checkbox"?target.checked:e.target.value
-                    console.log({name,value,target,e,type_,command})
-                    Settings[name] = {
-                        value
-                    }
-                    execute(`${command} ${value}`)
-                })
-                if (default_) {
-                    if(type_=="checkbox")input_.set('checked',default_);
-                    input_.set('value', default_)
-                }
-                this.input = input_;
-                this.label = label;
+        return Object.keys(t).forEach((e => {
+            t[e] = 1 * t[e]
+        })), t
+    }
+    console.log({
+            BuildsName: n,
+            Builds: t
+        }),
+        function() {
+            var [e, n] = ["map", "build"];
+            for (let a in t) {
+                var r = t[a];
+                for (let s in r) "object" == typeof t[a][s] && (t[a][s] = t[a][s][e]((e => (e[n] = o(e[n]), e))))
             }
-        }
-    }()
-    function FixGame() { var info = (function ({ gamemode, name }) { return { gamemode, name } })(localStorage); for (let i in localStorage) (localStorage.removeItem(i));localStorage.clear();for (let i in info) (localStorage.setItem(i, info[i])); location.href = location.href }
-    function get(id, base = document.body) {
-        // Check if the base element itself has the id
-        if (base.id === id) {
-            return base;
-        }
+        }();
 
-        // Check if the base element has a shadowRoot
-        if (base.shadowRoot) {
-            const shadowResult = get(id, base.shadowRoot);
-            if (shadowResult) {
-                return shadowResult;
-            }
-        }
-
-        // Loop through the base element's children
-        for (const child of base.children) {
-            const result = get(id, child);
-            if (result) {
-                return result;
-            }
-        }
-
-        // If no element with the id is found, return null
-        return null;
+    function r(e, t, {
+        desc: n,
+        line: o,
+        space: r,
+        befors: a,
+        afters: s
+    }) {
+        var i = document.createElement("button");
+        i.innerText = e, i.onclick = t;
+        var l, c = (l = "span", document.createElement(l));
+        c.innerText = n || "No description.", c.className = "menuDesc", o && d.append(document.createElement("br")), d.append(i), d.append(c)
     }
 
-    console.log('Loading builds')
-    const Builds=await fetch('https://raw.githubusercontent.com/naquangaston/HostedFiles/main/builds.json').then(e=>e.json())
-    const BuildsName=Object.keys(Builds).map(s=>{
-        return [...new Set(Object.keys(Builds[s]._builds).map(b=>Builds[s]._builds[b].p))]
-    })
-    console.log({BuildsName,Builds})
-    function FixBuild(build={}){
-        let b=build;
-        var maxB=(7*4)+5
-        var used=0;
-        var skipped=[]
-        for(let i in b){
-            if(b[i]=='MAX')b[i]="7";
-            if(!Number.isNaN((b[i]*1))){
-                used+=(b[i]*1);
-            }
-            else{skipped.push(i);console.log('Skipping',i,"key")}
-        }
-        var left=maxB-used
-        var fixed=Math.floor(left/skipped.length)
-        skipped.forEach(key=>{b[key]=fixed})
+    function a(e, t) {
+        setTimeout((function() {
+            input.key_down(32)
+        }), 1e3 * e), setTimeout((function() {
+            input.key_up(32)
+        }), 1e3 * e + t)
+    }
 
-        used=0;
-        for(let i in b){
-            if(!Number.isNaN((b[i]*1))){
-                used+=(b[i]*1);
-            }
-        }
-        left=maxB-used
-        if(left!=0){
-            for(let i=0;i<left;i++){
-                for(let u=0;u<Object.keys(b).length;u++){
-                    left=maxB-used
-                    var key=Object.keys(b)[u]
-                    if(b[key]<7&&left&&skipped.includes(key)){used+=1;b[key]+=1;console.log("Added to",key)}
-                }
-            }
-        }
-        //eval keys as numbes
-        Object.keys(b).forEach(key=>{b[key]=b[key]*1})
-        return b
+    function s(e, t, {
+        defaut: n,
+        desc: o,
+        line: r,
+        space: a,
+        befors: s,
+        afters: i
+    }) {
+        var l = document.createElement("label");
+        l.innerText = e, l.for = e;
+        var c = document.createElement("input");
+        c.type = "checkbox", c.name = e, c.onclick = t, c.checked = !!n;
+        var u, p = (u = "span", document.createElement(u));
+        p.innerText = o || "No description.", p.className = "menuDesc", r && d.append(document.createElement("br")), d.append(l), d.append(c), d.append(p)
     }
-    !(function(){var[_0xm51se,_0xg09mv]=["\u006d\u0061\u0070","\u0062\u0075\u0069\u006c\u0064"];for(let _0xa86nc in Builds){var _0xw09fj=Builds[_0xa86nc];for(let _0xd58sm in _0xw09fj){if(typeof Builds[_0xa86nc][_0xd58sm]== 'object'){Builds[_0xa86nc][_0xd58sm]=Builds[_0xa86nc][_0xd58sm][_0xm51se](_0xk93gs=>{_0xk93gs[_0xg09mv]=FixBuild(_0xk93gs[_0xg09mv]);return _0xk93gs})}}}})()
-    function forEachObj({ obj, func = function () { } }) {if (!func) { throw "func must be property of object" }; for (let i in (obj || this)) func((obj || this)[i], i);}
-    var list = [
-        'Smasher and Dominator Bases', 'Barrels', 'self', 'Blue Team', 'Red Team', 'Purple Team', 'Green Team', 'Shiny Polygons', 'Square', 'Triangle', 'Pentagon', 'Crashers', 'Arena Closers/Neutral Dominators/Defender Ammo', 'Maze Walls', 'Others (FFA)', 'Summoned Squares (Necromancer)', 'Fallen Bosses'
-    ]
-    function newRow() { var row = document.createElement('div') }
-    function addButton(name, f, { desc, line, space, befors, afters }) {
-        function element(e){return document.createElement(e)}
-        //for(let i=rows.length-1;i<line;i++){}
-        var button = document.createElement('button'); button.innerText = name; button.onclick = f;
-        var span = element('span'); span.innerText = desc || "No description."; span.className = 'menuDesc'
-        if (line) myMenu.append(document.createElement('br'));
-        myMenu.append(button)
-        myMenu.append(span)
-
-    }
-    function fire(t, w) {
-        setTimeout(function() {
-            input.key_down(32);
-        }, t * 1000);
-        setTimeout(function() {
-            input.key_up(32);
-        }, t * 1000 + w);
-    }
-    function stack(){
-        fire(0, 100);
-        fire(0.75, 200);
-        fire(1.5, 750);
-        setTimeout(function() {
-            input.key_down(69);
-        }, 2000);
-    }
-    function addToggle(name, f, {defaut, desc, line, space, befors, afters }) {
-        function element(e){return document.createElement(e)}
-        //for(let i=rows.length-1;i<line;i++){}
-        var label=document.createElement('label')
-        label.innerText=name
-        label.for=name;
-        var button = document.createElement('input');button.type='checkbox';button.name=name; button.onclick = f;
-        button.checked=!!defaut
-        var span = element('span'); span.innerText = desc || "No description."; span.className = 'menuDesc'
-        if (line) myMenu.append(document.createElement('br'));
-        myMenu.append(label)
-        myMenu.append(button)
-        myMenu.append(span)
-
-    }
-    function setBuild(parse) {
-        var b = new Build()
-        b.buildSet(parse.build)
-        var txt = 'Tank:' + parse.p + '\n\nPath:' + b.BuildPath + '\n\nName:' + parse.name + '\nBuild:' + (Object.keys(parse.build).map(e_ => parse.build[e_]).join(' / ')) + '\n\nDesc:' + parse.desc;
-        upgrade=window.upgrade = b.BuildPath;
-        _upgrade=b.BuildPath
-        console.log(txt)
-        console.log(parse)
-        console.log({_upgrade,upgrade})
-        GM_setValue('u',_upgrade)
-        for(let i in parse.build){
-            try{
-                var l=parse.build[i]/7;l*=100
-                _myWin_.document.getElementsByClassName(`${i}_`)[0].innerText=parse.build[i]
-                !(_myWin_.document.getElementsByClassName(i)[0].style.width=`${l}%`)
-            }catch(err){
-                log_('Error',err.message)
-                console.error({err,i,p:`${l}%`,text:`${i}_`})
-            }
-        }
-    }
-    let _myWin_=_myWin
-    while(!_myWin_.window.document.getElementById('menu'))await sleep(0);
-    _upgrade=GM_getValue('u')||""
-    var myMenu = _myWin_.window.document.getElementById('menu')
-    _myWin_.window.getV=getV
-    !function(){
-        !function(){
-            const _z = [
-                ["\"on\"", "\"on\""],
-                []
-            ]
-            const _K = ["\u0062\u0072", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u0066\u0072\u0065\u0065\u007a\u0065", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u006e\u0061\u006d\u0065", "\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074", "\u006c\u0065\u006e\u0067\u0074\u0068", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0061\u0070\u0070\u0065\u006e\u0064", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0073\u0065\u0074\u0041\u0074\u0074\u0072\u0069\u0062\u0075\u0074\u0065", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0064\u0065\u0066\u0069\u006e\u0065\u0050\u0072\u006f\u0070\u0065\u0072\u0074\u0079", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074", "\u0069\u0064", "\u006c\u0065\u006e\u0067\u0074\u0068"];
-
-            function map_(f) {
-                const _n = []
-                const _a = ['\u006c\u0065\u006e\u0067\u0074\u0068'];
-                const local = this;
-                for (let _J = 0x0000; _J < this[_a[0x0000]]; _J++) {
-                    local[_J] = f(this[_J], _J)
-                }
-                return local
-            }
-            Array.prototype.map_ = map_
-
-            var list = [
-                'Smasher and Dominator Bases', 'Barrels', 'self', 'Blue Team', 'Red Team', 'Purple Team', 'Green Team', 'Shiny Polygons', 'Square', 'Triangle', 'Pentagon', 'Crashers', 'Arena Closers/Neutral Dominators/Defender Ammo', 'Maze Walls', 'Others (FFA)', 'Summoned Squares (Necromancer)', 'Fallen Bosses'
-            ]
-            addEventListener('beforeunload', function() {
+    let i = _myWin;
+    for (; !i.window.document.getElementById("menu");) await sleep(0);
+    _upgrade = GM_getValue("u") || "";
+    var l, c, d = i.window.document.getElementById("menu");
+    i.window.getV = getV,
+        function() {
+            Array.prototype.map_ = function(e) {
+                const t = ["length"],
+                    n = this;
+                for (let o = 0; o < this[t[0]]; o++) n[o] = e(this[o], o);
+                return n
+            }, addEventListener("beforeunload", (function() {
                 GM_setValue("Settings", Settings)
-            })
-            //toggle settings
-            var toggles=new element("div",{id:"toggles"}).append((new element('h1')).set('innerText','Toggles')).append(element.br)
-            otherStuff.toggles.map(toggle=>(new setting({
-                name:toggle.for,
+            }));
+            var t = new element("div", {
+                id: "toggles"
+            }).append(new element("h1").set("innerText", "Toggles")).append(element.br);
+            otherStuff.toggles.map((t => new e({
+                name: t.for,
                 type: "toggle",
-                default_:toggle.bool=='true',
-                command: `${toggle.name} `
-            }))).forEach(e => {
-                toggles.append(e.label).append(e.input).append(element.br)
-            })
-
-            //color settings
-            var colors = new element("div", {
+                default_: "true" == t.bool,
+                command: `${t.name} `
+            }))).forEach((e => {
+                t.append(e.label).append(e.input).append(element.br)
+            }));
+            var n = new element("div", {
                 id: "colors"
-            }).append((new element('h1')).set('innerText','Styles')).append(element.br)
-            otherStuff.colors.map(color=>(new setting({
-                name:color.for,
+            }).append(new element("h1").set("innerText", "Styles")).append(element.br);
+            otherStuff.colors.map((t => new e({
+                name: t.for,
                 type: "color",
-                default_:'#'+(color.new||color.default).match(/0x(?<o>.+)/i).groups.o,
-                command: `${color.name}${color.index?" "+color.index:" "}`
-            }))).forEach(e => {
-                colors.append(e.label).append(e.input).append(element.br)
-            })
-            toggles.appendTo(myMenu)
-            colors.appendTo(myMenu)
-
-        }()
-    }()
-    addButton('Reset stats', function(){
-        GM_setValue('u','')
-    }, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
-    addButton('Fix Game', FixGame, { desc: 'Only use if your (game reloads without finish loading) or if game doesnt load.' })
-    addButton('Remove-Ads', RemoveAds, {line:true, desc: 'Use to remove ads that may cause gae lag' })
-    addButton('Stack', stack, {line:true, desc: 'stack preditor bullets max reload requried' })
-    addToggle('AutoReload', function(){AutoReload.toggle();log_('AutoReloads',AutoReload.status)}, {defaut:AutoReload.status,line:true, desc: 'Auto Reloads page is loading take too long.(10 Seconds)' })
-    addToggle('AutoUpgrade', function(){AutoUpgrade.toggle();log_('AutoUpgrade',AutoUpgrade.status)}, {defaut:AutoUpgrade.status,line:true, desc: 'AutoUpgrade you stats when you spawn into the game' })
-    addToggle('AutoSpawn', function(){AutoSpawn.toggle();log_('AutoSpawn',AutoSpawn.status)}, {defaut:AutoSpawn.status,line:true, desc: 'Just auto respawn' })
-    console.log({AutoSpawn,AutoUpgrade,AutoReload})
-    setInterval(()=>{
-        if(AutoReload.status&&['loading','captcha'].includes(Player.screen)){
-            alert('Auto reload is on\n page will reload in 5 seconds')
-            setTimeout(()=>{
+                default_: "#" + (t.new || t.default).match(/0x(?<o>.+)/i).groups.o,
+                command: `${t.name}${t.index?" "+t.index:" "}`
+            }))).forEach((e => {
+                n.append(e.label).append(e.input).append(element.br)
+            })), t.appendTo(d), n.appendTo(d)
+        }(), r("Reset stats", (function() {
+            GM_setValue("u", "")
+        }), {
+            desc: "Only use if your (game reloads without finish loading) or if game doesnt load."
+        }), r("Fix Game", (function() {
+            var e = function({
+                gamemode: e,
+                name: t
+            }) {
+                return {
+                    gamemode: e,
+                    name: t
+                }
+            }(localStorage);
+            for (let e in localStorage) localStorage.removeItem(e);
+            localStorage.clear();
+            for (let t in e) localStorage.setItem(t, e[t]);
+            location.href = location.href
+        }), {
+            desc: "Only use if your (game reloads without finish loading) or if game doesnt load."
+        }), r("Remove-Ads", RemoveAds, {
+            line: !0,
+            desc: "Use to remove ads that may cause gae lag"
+        }), r("Stack", (function() {
+            a(0, 100), a(.75, 200), a(1.5, 750), setTimeout((function() {
+                input.key_down(69)
+            }), 2e3)
+        }), {
+            line: !0,
+            desc: "stack preditor bullets max reload requried"
+        }), s("AutoReload", (function() {
+            AutoReload.toggle(), log_("AutoReloads", AutoReload.status)
+        }), {
+            defaut: AutoReload.status,
+            line: !0,
+            desc: "Auto Reloads page is loading take too long.(10 Seconds)"
+        }), s("AutoUpgrade", (function() {
+            AutoUpgrade.toggle(), log_("AutoUpgrade", AutoUpgrade.status)
+        }), {
+            defaut: AutoUpgrade.status,
+            line: !0,
+            desc: "AutoUpgrade you stats when you spawn into the game"
+        }), s("AutoSpawn", (function() {
+            AutoSpawn.toggle(), log_("AutoSpawn", AutoSpawn.status)
+        }), {
+            defaut: AutoSpawn.status,
+            line: !0,
+            desc: "Just auto respawn"
+        }), console.log({
+            AutoSpawn: AutoSpawn,
+            AutoUpgrade: AutoUpgrade,
+            AutoReload: AutoReload
+        }), setInterval((() => {
+            AutoReload.status && ["loading", "captcha"].includes(Player.screen) && (alert("Auto reload is on\n page will reload in 5 seconds"), setTimeout((() => {
                 location.reload()
-            },5000)
-        }
-    },10000)
-    _window=window;
-
-    class CanvasKit {
-        /**
-             * If you need a canvas then create it with this method.
-             */
+            }), 5e3))
+        }), 1e4), _window = window;
+    class u {
         static createCanvas() {
-            const canvas = document.createElement('canvas');
-            canvas.className = 'CanvasKit-bypass';
-            canvas.style.pointerEvents = 'none';
-            canvas.style.position = 'fixed';
-            canvas.style['z-index'] = 1;
-            canvas.style.top = '0px';
-            canvas.style.left = '0px';
-            canvas.style.right = '0px';
-            canvas.style.bottom = '0px';
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-            return canvas;
+            const e = document.createElement("canvas");
+            return e.className = "CanvasKit-bypass", e.style.pointerEvents = "none", e.style.position = "fixed", e.style["z-index"] = 1, e.style.top = "0px", e.style.left = "0px", e.style.right = "0px", e.style.bottom = "0px", e.style.width = "100%", e.style.height = "100%", e
         }
-        /**
-             * The consumer will be called before.
-             */
-        static hookRAF(consumer) {
+        static hookRAF(e) {
             requestAnimationFrame = new Proxy(requestAnimationFrame, {
-                apply(target, thisArg, args) {
-                    consumer();
-                    return Reflect.apply(target, thisArg, args);
-                },
-            });
-        }
-        /**
-             * The consumer will be called before
-             */
-        static hookCtx(method, consumer) {
-            const target = CanvasRenderingContext2D.prototype;
-            target[method] = new Proxy(target[method], {
-                apply(target, thisArg, args) {
-                    if (thisArg.canvas.className !== 'CanvasKit-bypass') consumer(target, thisArg, args);
-                    return Reflect.apply(target, thisArg, args);
-                },
-            });
-        }
-        /**
-             * replaces the function. Use `return Reflect.apply(target, thisArg, args);` in
-             * your function to call the original function.
-             */
-        static overrideCtx(method, func) {
-            const target = CanvasRenderingContext2D.prototype;
-            target[method] = new Proxy(target[method], {
-                apply(target, thisArg, args) {
-                    if (thisArg.canvas.className !== 'CanvasKit-bypass') return func(target, thisArg, args);
-                    return Reflect.apply(target, thisArg, args);
-                },
-            });
-        }
-        /**
-             *
-             * Calls the callback method when a polygon with `numVertices` is being drawn.
-             */
-        static hookPolygon(numVertices, cb) {
-            let index = 0;
-            let vertices = [];
-            const onFillPolygon = (ctx) => {
-                cb(vertices, ctx);
-            };
-            /* CanvasKit.hookCtx('beginPath', (target, thisArg, args) => {
-                index = 1;
-                vertices = [];
-            });
-            CanvasKit.hookCtx('moveTo', (target, thisArg, args) => {
-                if (index === 1) {
-                    index++;
-                    vertices.push(new Vector(args[0], args[1]));
-                    return;
-                }
-                index = 0;
-            });
-            CanvasKit.hookCtx('lineTo', (target, thisArg, args) => {
-                if (index >= 2 && index <= numVertices) {
-                    index++;
-                    vertices.push(new Vector(args[0], args[1]));
-                    return;
-                }
-                index = 0;
-            });
-            CanvasKit.hookCtx('fill', (target, thisArg, args) => {
-                if (index === numVertices + 1) {
-                    index++;
-                    onFillPolygon(thisArg);
-                    return;
-                }
-                index = 0;
-            });
-    */
-        }
-    }
-    class EventEmitter extends EventTarget {
-        /**
-             *
-             * @param {string} eventName The name of the event
-             * @param  {...any} args The arguments that will be passed to the listener
-             */
-        emit(eventName, ...args) {
-            this.dispatchEvent(new CustomEvent(eventName, { detail: args }));
-        }
-        /**
-             *
-             * @param {string} eventName The name of the event
-             * @param {EventCallback} listener The callback function
-             */
-        on(eventName, listener) {
-            this.addEventListener(eventName, (e) => Reflect.apply(listener, this, e.detail));
-        }
-        /**
-             *
-             * @param {string} eventName The name of the event
-             * @param {EventCallback} listener The callback function
-             */
-        once(eventName, listener) {
-            this.addEventListener(eventName, (e) => Reflect.apply(listener, this, e.detail), { once: true });
-        }
-        /**
-             *
-             * @param {string} eventName The name of the event
-             * @param {EventCallback} listener The callback function
-             */
-        off(eventName, listener) {
-            this.removeEventListener(eventName, listener);
-        }
-    }
-    class Game extends EventEmitter {
-        #ready = false;
-        #shadowRoot;
-        constructor() {
-            super();
-            CanvasKit.hookRAF(() => this.#onframe());
-        }
-        #onframe() {
-            if (!this.#ready && input !== undefined) {
-                this.#ready = true;
-                this.#onready();
-            }
-            super.emit('frame');
-            super.emit('frame_end');
-        }
-        #onready() {
-            setTimeout(() => super.emit('ready'), 100);
-            this.#shadowRoot = document.querySelector('d-base').shadowRoot;
-            new MutationObserver((mutationList, observer) => {
-                mutationList.forEach((mutation) => {
-                    if (mutation.addedNodes.length === 0) {
-                        return;
-                    }
-                    super.emit('state', this.state);
-                    super.emit(`s_${this.state}`);
-                    return;
-                });
-            }).observe(this.#shadowRoot, { childList: true });
-        }
-        get state() {
-            return this.#shadowRoot.querySelector('.screen').tagName.slice(2).toLowerCase();
-        }
-        get inHome() {
-            return this.state == 'home';
-        }
-        get inGame() {
-            return this.state == 'game';
-        }
-        get inStats() {
-            return this.state == 'stats';
-        }
-        get inLoading() {
-            return this.state == 'loading';
-        }
-        get isCaptcha() {
-            return this.state == 'captcha';
-        }
-    }
-    class Scaling {
-        #scalingFactor = 1;
-        #drawSolidBackground = false;
-        constructor() {
-            // TODO: game.on('ready')
-            Player.wfs('home').then(() => {
-                input.set_convar = new Proxy(input.set_convar, {
-                    apply: (target, thisArg, args) => {
-                        if (args[0] === 'ren_solid_background') this.#drawSolidBackground = args[1];
-                        else Reflect.apply(target, thisArg, args);
-                    },
-                });
+                apply: (t, n, o) => (e(), Reflect.apply(t, n, o))
             })
-            /*CanvasKit.overrideCtx('stroke', (target, thisArg, args) => {
-                if (thisArg.fillStyle !== '#cdcdcd') {
-                    return Reflect.apply(target, thisArg, args);
-                }
-                if (thisArg.globalAlpha === 0) {
-                    return Reflect.apply(target, thisArg, args);
-                }
-                this.#scalingFactor = thisArg.globalAlpha * 10;
-                if (!this.#drawSolidBackground) {
-                    return Reflect.apply(target, thisArg, args);
-                }
-            });*/
         }
-        get windowRatio() {
-            return Math.max(innerWidth / 1920, innerHeight / 1080);
+        static hookCtx(e, t) {
+            const n = CanvasRenderingContext2D.prototype;
+            n[e] = new Proxy(n[e], {
+                apply: (e, n, o) => ("CanvasKit-bypass" !== n.canvas.className && t(e, n, o), Reflect.apply(e, n, o))
+            })
         }
-        get scalingFactor() {
-            return this.#scalingFactor;
+        static overrideCtx(e, t) {
+            const n = CanvasRenderingContext2D.prototype;
+            n[e] = new Proxy(n[e], {
+                apply: (e, n, o) => "CanvasKit-bypass" !== n.canvas.className ? t(e, n, o) : Reflect.apply(e, n, o)
+            })
         }
-        get fov() {
-            return this.#scalingFactor / this.windowRatio;
+        static hookPolygon(e, t) {}
+    }
+    class p extends EventTarget {
+        emit(e, ...t) {
+            this.dispatchEvent(new CustomEvent(e, {
+                detail: t
+            }))
         }
-        /**
-             *
-             * @param {Vector} v The vector in canvas units
-             * @returns {Vector} The vector in arena units
-             */
-        toArenaUnits(v) {
-            return Vector.round(Vector.unscale(this.#scalingFactor, v));
+        on(e, t) {
+            this.addEventListener(e, (e => Reflect.apply(t, this, e.detail)))
         }
-        /**
-             *
-             * @param {Vector} v The vector in arena units
-             * @returns {Vector} The vector in canvas units
-             */
-        toCanvasUnits(v) {
-            return Vector.round(Vector.scale(this.#scalingFactor, v));
+        once(e, t) {
+            this.addEventListener(e, (e => Reflect.apply(t, this, e.detail)), {
+                once: !0
+            })
         }
-        /**
-             * Will translate coordinates from canvas to arena
-             * @param {Vector} canvasPos The canvas coordinates
-             * @returns {Vector} The `canvasPos` translated to arena coordinates
-             */
-        toArenaPos(canvasPos) {
-            const direction = Vector.subtract(canvasPos, this.screenToCanvas(new Vector(innerWidth / 2, innerHeight / 2)));
-            const scaled = this.toArenaUnits(direction);
-            const arenaPos = Vector.add(scaled, camera.position);
-            return arenaPos;
-        }
-        /**
-             * Will translate coordinates from arena to canvas
-             * @param {Vector} arenaPos The arena coordinates
-             * @returns {Vector} The `arenaPos` translated to canvas coordinates
-             */
-        toCanvasPos(arenaPos) {
-            const direction = Vector.subtract(arenaPos, camera.position);
-            const scaled = this.toCanvasUnits(direction);
-            const canvasPos = Vector.add(scaled, this.screenToCanvas(new Vector(innerWidth / 2, innerHeight / 2)));
-            return canvasPos;
-        }
-        screenToCanvasUnits(n) {
-            return n * devicePixelRatio;
-        }
-        canvasToScreenUnits(n) {
-            return n / devicePixelRatio;
-        }
-        /**
-             * Will translate coordinates from screen to canvas
-             * @param v The screen coordinates
-             * @returns The canvas coordinates
-             */
-        screenToCanvas(v) {
-            return Vector.scale(devicePixelRatio, v);
-        }
-        /**
-             * Will translate coordinates from canvas to screen
-             * @param v The canvas coordinates
-             * @returns the screen coordinates
-             */
-        canvasToScreen(v) {
-            return Vector.scale(1 / devicePixelRatio, v);
+        off(e, t) {
+            this.removeEventListener(e, t)
         }
     }
-    class Vector {
+    class m {
         x;
         y;
-        constructor(x, y) {
-            this.x = x;
-            this.y = y;
+        constructor(e, t) {
+            this.x = e, this.y = t
         }
-        static len(v) {
-            return Math.sqrt(v.x ** 2 + v.y ** 2);
+        static len(e) {
+            return Math.sqrt(e.x * * 2 + e.y * * 2)
         }
-        static round(v) {
-            return new Vector(Math.round(v.x), Math.round(v.y));
+        static round(e) {
+            return new m(Math.round(e.x), Math.round(e.y))
         }
-        static scale(r, v) {
-            return new Vector(r * v.x, r * v.y);
+        static scale(e, t) {
+            return new m(e * t.x, e * t.y)
         }
-        static unscale(r, v) {
-            return new Vector(v.x / r, v.y / r);
+        static unscale(e, t) {
+            return new m(t.x / e, t.y / e)
         }
-        static add(u, v) {
-            return new Vector(u.x + v.x, u.y + v.y);
+        static add(e, t) {
+            return new m(e.x + t.x, e.y + t.y)
         }
-        static subtract(u, v) {
-            return new Vector(u.x - v.x, u.y - v.y);
+        static subtract(e, t) {
+            return new m(e.x - t.x, e.y - t.y)
         }
-        static multiply(u, v) {
-            return new Vector(u.x * v.x, u.y * v.y);
+        static multiply(e, t) {
+            return new m(e.x * t.x, e.y * t.y)
         }
-        static divide(u, v) {
-            return new Vector(u.x / v.x, u.y / v.y);
+        static divide(e, t) {
+            return new m(e.x / t.x, e.y / t.y)
         }
-        static distance(u, v) {
-            return Vector.len(Vector.subtract(u, v));
+        static distance(e, t) {
+            return m.len(m.subtract(e, t))
         }
-        /**
-             * Calculates the [centroid](https://en.wikipedia.org/wiki/Centroid)
-             */
-        static centroid(...vertices) {
-            const sum = vertices.reduce((acc, vec) => Vector.add(acc, vec), new Vector(0, 0));
-            const centroid = Vector.scale(1 / vertices.length, sum);
-            return centroid;
+        static centroid(...e) {
+            const t = e.reduce(((e, t) => m.add(e, t)), new m(0, 0));
+            return m.scale(1 / e.length, t)
         }
-        /**
-             * Calcutes the radius from a set of vertices that are placed on a circle
-             */
-        static radius(...vertices) {
-            const centroid = Vector.centroid(...vertices);
-            const distance = vertices.reduce((acc, vec) => acc + Vector.distance(centroid, vec), 0);
-            const radius = distance / vertices.length;
-            return radius;
+        static radius(...e) {
+            const t = m.centroid(...e);
+            return e.reduce(((e, n) => e + m.distance(t, n)), 0) / e.length
         }
-    }
-    class Camera {
-        #position;
-        constructor() {
-            game.on('frame_end', () => {
-                const center = Vector.add(minimap.viewportPos, Vector.unscale(2, minimap.viewportDim));
-                const cameraPos = Vector.subtract(center, minimap.minimapPos);
-                const normalized = Vector.divide(cameraPos, minimap.minimapDim);
-                this.#position = arena.scale(normalized);
-            });
-        }
-        get position() {
-            return this.#position;
-        }
-    }
-    class Arena {
-        #size = 1;
-        constructor() {
-            setInterval(() => {
-                const ratio = Vector.divide(minimap.minimapDim, minimap.viewportDim);
-                const arenaDim = Vector.multiply(ratio, scaling.screenToCanvas(new Vector(innerWidth, innerHeight)));
-                const arenaSize = scaling.toArenaUnits(arenaDim);
-                this.#size = arenaSize.x;
-            }, 16);
-        }
-        /**
-             * @returns {number} The Arena size in arena units
-             */
-        get size() {
-            return this.#size;
-        }
-        /**
-             *
-             * @param {Vector} vector The vector in [0, 1] coordinates
-             * @returns {Vector} The scaled vector in [-Arena.size/2, Arena.size/2] coordinates
-             */
-        scale(vector) {
-            const scale = (value) => Math.round(this.#size * (value - 0.5));
-            return new Vector(scale(vector.x), scale(vector.y));
-        }
-        /**
-             *
-             * @param {Vector} vector - The scaled vector in [-Arena.size/2, Arena.size/2] coordinates
-             * @returns {Vector} The unscaled vector in [0, 1] coordinates
-             */
-        unscale(vector) {
-            const unscale = (value) => value / this.#size + 0.5;
-            return new Vector(unscale(vector.x), unscale(vector.y));
-        }
-    }
-    class Minimap {
-        #minimapDim = new Vector(1, 1);
-        #minimapPos = new Vector(0, 0);
-        #viewportDim = new Vector(1, 1);
-        #viewportPos = new Vector(1, 1);
-        #arrowPos = new Vector(0.5, 0.5);
-        #drawViewport = false;
-        constructor() {
-            Player.wfs("home").then(()=>{
-                input.set_convar('ren_minimap_viewport', 'true');
-                input.set_convar = new Proxy(input.set_convar, {
-                    apply: (target, thisArg, args) => {
-                        if (args[0] === 'ren_minimap_viewport') {
-                            this.#drawViewport = args[1];
-                            return;
-                        }
-                        return Reflect.apply(target, thisArg, args);
-                    },
-                });
-            })
-            this.#minimapHook();
-            this.#viewportHook();
-            this.#arrowHook();
-        }
-        get minimapDim() {
-            return this.#minimapDim;
-        }
-        get minimapPos() {
-            return this.#minimapPos;
-        }
-        get viewportDim() {
-            return this.#viewportDim;
-        }
-        get viewportPos() {
-            return this.#viewportPos;
-        }
-        get arrowPos() {
-            return this.#arrowPos;
-        }
-        #minimapHook() {
-            CanvasKit.hookCtx('strokeRect', (target, thisArg, args) => {
-                const transform = thisArg.getTransform();
-                this.#minimapDim = new Vector(transform.a, transform.d);
-                this.#minimapPos = new Vector(transform.e, transform.f);
-            });
-        }
-        #viewportHook() {
-            CanvasKit.overrideCtx('fillRect', (target, thisArg, args) => {
-                const transform = thisArg.getTransform();
-                if (thisArg.globalAlpha !== 0.1) {
-                    return Reflect.apply(target, thisArg, args);
-                }
-                if (
-                    Math.abs(transform.a / transform.d - innerWidth / innerHeight) >
-                    (innerWidth / innerHeight) * 0.000_05
-                ) {
-                    return Reflect.apply(target, thisArg, args);
-                }
-                this.#viewportDim = new Vector(transform.a, transform.d);
-                this.#viewportPos = new Vector(transform.e, transform.f);
-                if (this.#drawViewport) {
-                    return Reflect.apply(target, thisArg, args);
-                }
-            });
-        }
-        #arrowHook() {
-            CanvasKit.hookPolygon(3, (vertices, ctx) => {
-                const side1 = Math.round(Vector.distance(vertices[0], vertices[1]));
-                const side2 = Math.round(Vector.distance(vertices[0], vertices[2]));
-                const side3 = Math.round(Vector.distance(vertices[1], vertices[2]));
-                if (side1 === side2 && side2 === side3) return;
-                const centroid = Vector.centroid(...vertices);
-                const arrowPos = Vector.subtract(centroid, this.#minimapPos);
-                const position = Vector.divide(arrowPos, this.#minimapDim);
-                this.#arrowPos = position;
-            });
-        }
-    }
-    var EntityType;
-    (function (EntityType) {
-        EntityType[(EntityType['Player'] = 0)] = 'Player';
-        EntityType[(EntityType['Bullet'] = 1)] = 'Bullet';
-        EntityType[(EntityType['Drone'] = 2)] = 'Drone';
-        EntityType[(EntityType['Trap'] = 3)] = 'Trap';
-        EntityType[(EntityType['Square'] = 4)] = 'Square';
-        EntityType[(EntityType['Triangle'] = 5)] = 'Triangle';
-        EntityType[(EntityType['Pentagon'] = 6)] = 'Pentagon';
-        EntityType[(EntityType['AlphaPentagon'] = 7)] = 'AlphaPentagon';
-        EntityType[(EntityType['Crasher'] = 8)] = 'Crasher';
-        EntityType[(EntityType['UNKNOWN'] = 9)] = 'UNKNOWN';
-    })(EntityType || (EntityType = {}));
-    var EntityColor;
-    (function (EntityColor) {
-        EntityColor['TeamBlue'] = '#00b2e1';
-        EntityColor['TeamRed'] = '#f14e54';
-        EntityColor['TeamPurple'] = '#bf7ff5';
-        EntityColor['TeamGreen'] = '#00e16e';
-        EntityColor['Square'] = '#ffe869';
-        EntityColor['Triangle'] = '#fc7677';
-        EntityColor['Pentagon'] = '#768dfc';
-        EntityColor['AlphaPentagon'] = '#768dfc';
-        EntityColor['Crasher'] = '#f177dd';
-        EntityColor['NecromancerDrone'] = '#fcc376';
-    })(EntityColor || (EntityColor = {}));
-
-    const game = new Game();
-    const arena = new Arena();
-    const scaling = new Scaling();
-    const minimap = new Minimap()
-    const camera = new Camera();
-
-    await Player.wfs('home')
-    var allChecks = [];
-    const Tanks = new Object(); for (let i in Builds) {try{Builds[i]._builds.forEach(e => { var tank = e.p; const { name, desc, build } = e; if (!Tanks[tank]) Tanks[tank] = []; Tanks[tank].push({ name, desc, build }) }) }catch(err){}}
-    let NoL = 2
-    var Builds_M = window.myWin_.document.getElementById('myUL')
-    await new Promise(a=>{
-        var loop=setInterval(()=>{
-            Builds_M = window.myWin_.document.getElementById('myUL')
-            if(Builds_M)a(),clearInterval(loop)
-        })
-        })
-    forEachObj({
-        obj: Tanks, func: function (a, b) {
-            try{
-                Builds_M = window.myWin_.document.getElementById('myUL')
-                function element(e){return document.createElement(e)}
-                let $=_myWin_.window.$
-                var s
-                var button = element('span'); button.id = `dropDown_${b}`; button.className = "classBuild"
-                button.innerText = b;
-                var divid = `dropDown_${b.split(' ').join('_')}_div`
-                button.onclick = function () {console.log($(`#dropDown_${b.split(' ').join('_')}_div`)); $(`#dropDown_${b.split(' ').join('_')}_div`).toggle(2000, "swing") }
-                var div = element('div')
-                div.id = divid;
-                console.log({a,b})
-                a.forEach(e => {
-                    var { name, build, desc } = e;
-
-                    var sect = element("div")
-                    var button = element('input')
-                    button.type = 'button'
-                    button.value = 'Select Build'
-                    var sp = element('span')
-                    sp.innerText = `Name:${name}\nDesc:${desc}`
-                    sect.append(button)
-                    sect.append(element('br'))
-                    e.p=b
-                    button.onclick = function () {
-                        setBuild(e)
-                    }
-                    sect.append(sp)
-                    div.append(sect)
-                    div.append(element('br'))
+    }! function(e) {
+        e[e.Player = 0] = "Player", e[e.Bullet = 1] = "Bullet", e[e.Drone = 2] = "Drone", e[e.Trap = 3] = "Trap", e[e.Square = 4] = "Square", e[e.Triangle = 5] = "Triangle", e[e.Pentagon = 6] = "Pentagon", e[e.AlphaPentagon = 7] = "AlphaPentagon", e[e.Crasher = 8] = "Crasher", e[e.UNKNOWN = 9] = "UNKNOWN"
+    }(l || (l = {})),
+    function(e) {
+        e.TeamBlue = "#00b2e1", e.TeamRed = "#f14e54", e.TeamPurple = "#bf7ff5", e.TeamGreen = "#00e16e", e.Square = "#ffe869", e.Triangle = "#fc7677", e.Pentagon = "#768dfc", e.AlphaPentagon = "#768dfc", e.Crasher = "#f177dd", e.NecromancerDrone = "#fcc376"
+    }(c || (c = {}));
+    const h = new class extends p {#
+            t = !1;#
+            n;
+            constructor() {
+                super(), u.hookRAF((() => this.#o()))
+            }#
+            o() {
+                this.#t || void 0 === input || (this.#t = !0, this.#r()), super.emit("frame"), super.emit("frame_end")
+            }#
+            r() {
+                setTimeout((() => super.emit("ready")), 100), this.#n = document.querySelector("d-base").shadowRoot, new MutationObserver(((e, t) => {
+                    e.forEach((e => {
+                        0 !== e.addedNodes.length && (super.emit("state", this.state), super.emit(`s_${this.state}`))
+                    }))
+                })).observe(this.#n, {
+                    childList: !0
                 })
-                var li = element("li")
-                var lid=element('div')
-                lid.append(button)
-                li.append(lid)
-                li.append(div)
-                Builds_M.append(li)
-                $(`#dropDown_${b.split(' ').join('_')}_div`).toggle()
-                //for (let i = 0; i < NoL; i++)(Builds_M.append(element('br')))
-            }catch(err){
-                log_('Warning',err.message)
             }
-        }
-    })
-    // default settings
-    set_convar("ren_health_bars", true);
-    set_convar("ren_raw_health_values", true);
-    set_convar("ren_stroke_soft_color",false);
-    set_convar("ren_solid_background",true);
-    function ls(){
-        execute("net_replace_color 0 0x000000");
-        execute("net_force_secure true");
-        execute("net_replace_color 1 0x999999");
-        execute("net_replace_color 2 0x050505");
-        execute("net_replace_color 3 0x0000FF");
-        execute("net_replace_color 4 0xFF0000");
-        execute("net_replace_color 5 0x990099");
-        execute("net_replace_color 6 0x00FF00");
-        //execute("net_replace_color 7 0xFFFFFF");
-        execute("net_replace_color 8 0xFFFF00");
-        execute("net_replace_color 9 0xFFBBBB");
-        execute("net_replace_color 10 0xCCCCFF");
-        execute("net_replace_color 11 0xFF69B4");
-        execute("net_replace_color 12 0xFFFF00");
-        // execute("net_replace_color 13 0xFFFFFF");
-        execute("net_replace_color 14 0x888888");
-        execute("net_replace_color 16 0xBBBB00");
-        execute("net_replace_color 17 0x777777");
-        execute("ren_stroke_solid_color 0xFFFFFF");
-        execute("ren_stroke_soft_color_intensity .5");
-        //dark
-        execute("ren_health_background_color 0x8c8c8c");
-        execute("ren_minimap_background_color 0xFFFFFF");
-        execute("ren_background_color 0x333231");
-        execute("ren_border_color 0xffffff");
-        execute("ren_bar_background_color 0x8c8c8c");
-        execute("net_replace_color 14 0x595959");
-        execute("ren_stroke_solid_color 0xFFFFFF");
-        execute('net_replace_color 15 0x8B0000')
-    }
-    otherStuff.colors.map(e=>`${e.name} ${e.index?`${e.index} ${e.default}`:e.default}`).forEach(execute)
-    ls()
-    shapes=Object.keys(colors).map(e=>{
-        return [colors[e],e]
-    })
-    var upgrading
-    var lastUpgrade=Player.screen
-    extended.update=async function(a){
-        if(a=='game'&&lastUpgrade!='users'){
-            AutoUpgrade.status&&(execute(`game_stats_build ${_upgrade}`))
-            if(autoPlay){
-                Player.down(75)
-                await sleep(4000)
-                Player.up(75)
+            get state() {
+                return this.#n.querySelector(".screen").tagName.slice(2).toLowerCase()
             }
-        }
-        if(a=='stats'&&Firing.status){
-            Firing.toggle()
-            log_('AutoFire','off')
-        }
-        if(a=='stats'&&AutoSpawn.status){
-            log_("PlayerStatus", "Spawning into game");
-            await sleep(5000)
-            await Player.spawn()
-        }
-    }
-    testList={f:{},s:{}}
-    function invertCoordinate(coord){
-        return [canvas.width - coord[0], canvas.height - coord[1]];
-    }
-    Firing.status
-    function fireTank(t){
-        if(!Firing.status&&t){
-            log_('AutoFire','on')
-            Firing.toggle()
-            Player.send(69)
-        }else if(!t&&Firing.status){
-            Firing.toggle()
-            Player.send(69)
-            log_('AutoFire','off')
-        }
-    }
-    aim=function (x,y,shoot=false){
-        input.mouse(x,y)
-        fireTank(shoot)
-    }
-    function aim_(x, y) {
-        const canvas = document.getElementById('canvas'); // Replace 'your-canvas-id' with the ID of your canvas element
-        const bounds = canvas.getBoundingClientRect();
-        const clientX = bounds.left + x;
-        const clientY = bounds.top + y;
-
-        const mouseMoveEvent = new MouseEvent('mousemove', {
-            view: unsafeWindow.window,
-            bubbles: true,
-            cancelable: true,
-            isTrusted:true,
-            clientX,
-            clientY
-        });
-
-        canvas.dispatchEvent(mouseMoveEvent);
-    }
-    function getDist(t1, t2){
-        const distX = t1[0] - t2[0];
-        const distY = t1[1] - t2[1];
-
-        return [Math.hypot(distX, distY), distX, distY];
-    };
-    function getCentre(vertices) {
-        let centre = [0, 0];
-        vertices.forEach (vertex => {
-            centre [0] += vertex[0]
-            centre [1] += vertex[1]
-        });
-        centre[0] /= vertices.length;
-        centre[1] /= vertices.length;
-        return centre;
-    }
-    function getClosest(entities) {
-        let acc = [[0, 0], 0]
-        for (let i = 0; i < entities.length; i ++) {
-            const accumulator = getDist (acc[0], [canvas.width / 2, canvas.height / 2])[0];
-            const current = getDist (entities[i][0], [canvas.width / 2, canvas.height / 2])[0];
-
-            if (current < accumulator) acc = entities[i];
-        }
-        return acc;
-    }
-    let minimapArrow = [0, 0];
-    let minimapPos = [0, 0];
-    let minimapDim = [0, 0];
-    playerPos = [0, 0];
-    enemies = [];
-    buttlets = [];
-    enemies2 = [];
-    TempotherList={}
-    let tempenemies = [];
-    let tempbullets = [];
-    let tempenemies2 = [];
-    squares = [];
-    let tempsquares = [];
-    triangles = [];
-    let temptriangles = [];
-    let tempcrashers = [];
-    crashers=[]
-    pentagons = [];
-    sortedShapes=[]
-    let baseArea;
-    let temppentagons = [];
-
-    function main_(){
-
-        window.requestAnimationFrame(main_)
-        squares = tempsquares;
-        //let crashers=temptriangles.filter(e=>e.shape&&(e.shape[1]=='Crasher'));
-        triangles = temptriangles//.filter(e=>e.shape[1]!='Crasher');
-        pentagons = temppentagons;
-        enemies = tempenemies;
-        enemies2 = tempenemies2;
-        otherList=infothingy
-        crashers=tempcrashers
-        infothingy={text:[]}
-        tempsquares = [];
-        temptriangles = [];
-        temppentagons = [];
-        tempenemies = [];
-        tempenemies2 = [];
-        tempcrashers=[]
-        arcs=0;
-        lines=[]
-        x_y=[]
-        /*var people=otherList.Barrels?otherList.Barrels.filter(e=>e.arcs==3).map(e=>{
-            let _= [e.pos, null, null,e.shape]
-            _.shape=[null,e.shape]
-            return _
-        }):[]*/
-        var drones=otherList['Others (FFA)']
-        sortedShapes = sortByDistanceFromCenter([...enemies,...crashers,...pentagons,...triangles,...squares]).filter(e=>e.shape?!e.shape[1].includes('Body (You)'):true)
-    }
-    autoPlay=false
-    setTimeout(main_,100)
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    determineDirection = function (closestShape, range) {
-        const [shapeX, shapeY] = closestShape[0];
-        var center={x:innerWidth/2,y:innerHeight/2}
-        const centerX = innerWidth/2
-        const centerY = innerHeight / 2;
-
-        const distance = Math.sqrt((shapeX - centerX) ** 2 + (shapeY - centerY) ** 2);
-
-        // Check if the player is too close to the shape
-        if (distance <= range) {
-            if (shapeX < centerX && shapeY < centerY) {
-                Player.down(40); // Move down (Down arrow key)
-            } else if (shapeX > centerX && shapeY < centerY) {
-                Player.down(40); // Move down (Down arrow key)
-            } else if (shapeX < centerX && shapeY > centerY) {
-                Player.down(38); // Move up (Up arrow key)
-            } else if (shapeX > centerX && shapeY > centerY) {
-                Player.down(38); // Move up (Up arrow key)
+            get inHome() {
+                return "home" == this.state
             }
-
-            if (shapeX < centerX && shapeY < centerY) {
-                Player.down(37); // Move left (Left arrow key)
-            } else if (shapeX > centerX && shapeY < centerY) {
-                Player.down(39); // Move right (Right arrow key)
-            } else if (shapeX < centerX && shapeY > centerY) {
-                Player.down(37); // Move left (Left arrow key)
-            } else if (shapeX > centerX && shapeY > centerY) {
-                Player.down(39); // Move right (Right arrow key)
+            get inGame() {
+                return "game" == this.state
             }
-        } else {
-            // If not too close, release all keys
-            Player.up(38); // Release up key
-            Player.up(40); // Release down key
-            Player.up(37); // Release left key
-            Player.up(39); // Release right key
-        }
-    }
-
-    logCtx=false
-    function sortByDistanceFromCenter(shapes) {
-        if(!shapes.length)return shapes;
-        function distanceFromCenter(shape) {
-            const [shapeX, shapeY] = shape[0];
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            return Math.sqrt((shapeX - centerX) ** 2 + (shapeY - centerY) ** 2);
-        }
-        const sortedEnemies = shapes
-        .filter(shape => shape[3].toUpperCase() === 'BARRELS')
-        .sort((a, b) => distanceFromCenter(a) - distanceFromCenter(b));
-
-        const sortedPentagons = shapes
-        .filter(shape => shape[3].toUpperCase() === 'PENTAGON')
-        .sort((a, b) => distanceFromCenter(a) - distanceFromCenter(b));
-
-        const sortedTriangles = shapes
-        .filter(shape => shape[3].toUpperCase() === 'TRIANGLE')
-        .sort((a, b) => distanceFromCenter(a) - distanceFromCenter(b));
-
-        const sortedSquares = shapes
-        .filter(shape => shape[3].toUpperCase() === 'SQUARE')
-        .sort((a, b) => distanceFromCenter(a) - distanceFromCenter(b));
-
-        return [...sortedEnemies,...sortedPentagons, ...sortedTriangles, ...sortedSquares];
-    }
-
-    function hook(target, callback){
-
-        function check(){
-            window.requestAnimationFrame(check)
-
-            const func = CanvasRenderingContext2D.prototype[target]
-
-            if(func.toString().includes(target)){
-
-                CanvasRenderingContext2D.prototype[target] = new Proxy (func, {
-                    apply (method, thisArg, args) {
-                        callback(thisArg, args)
-
-                        return Reflect.apply (method, thisArg, args)
+            get inStats() {
+                return "stats" == this.state
+            }
+            get inLoading() {
+                return "loading" == this.state
+            }
+            get isCaptcha() {
+                return "captcha" == this.state
+            }
+        },
+        f = new class {#
+            a = 1;
+            constructor() {
+                setInterval((() => {
+                    const e = m.divide(w.minimapDim, w.viewportDim),
+                        t = m.multiply(e, g.screenToCanvas(new m(innerWidth, innerHeight))),
+                        n = g.toArenaUnits(t);
+                    this.#a = n.x
+                }), 16)
+            }
+            get size() {
+                return this.#a
+            }
+            scale(e) {
+                const t = e => Math.round(this.#a * (e - .5));
+                return new m(t(e.x), t(e.y))
+            }
+            unscale(e) {
+                const t = e => e / this.#a + .5;
+                return new m(t(e.x), t(e.y))
+            }
+        },
+        g = new class {#
+            s = 1;#
+            i = !1;
+            constructor() {
+                Player.wfs("home").then((() => {
+                    input.set_convar = new Proxy(input.set_convar, {
+                        apply: (e, t, n) => {
+                            "ren_solid_background" === n[0] ? this.#i = n[1] : Reflect.apply(e, t, n)
+                        }
+                    })
+                }))
+            }
+            get windowRatio() {
+                return Math.max(innerWidth / 1920, innerHeight / 1080)
+            }
+            get scalingFactor() {
+                return this.#s
+            }
+            get fov() {
+                return this.#s / this.windowRatio
+            }
+            toArenaUnits(e) {
+                return m.round(m.unscale(this.#s, e))
+            }
+            toCanvasUnits(e) {
+                return m.round(m.scale(this.#s, e))
+            }
+            toArenaPos(e) {
+                const t = m.subtract(e, this.screenToCanvas(new m(innerWidth / 2, innerHeight / 2))),
+                    n = this.toArenaUnits(t);
+                return m.add(n, y.position)
+            }
+            toCanvasPos(e) {
+                const t = m.subtract(e, y.position),
+                    n = this.toCanvasUnits(t);
+                return m.add(n, this.screenToCanvas(new m(innerWidth / 2, innerHeight / 2)))
+            }
+            screenToCanvasUnits(e) {
+                return e * devicePixelRatio
+            }
+            canvasToScreenUnits(e) {
+                return e / devicePixelRatio
+            }
+            screenToCanvas(e) {
+                return m.scale(devicePixelRatio, e)
+            }
+            canvasToScreen(e) {
+                return m.scale(1 / devicePixelRatio, e)
+            }
+        },
+        w = new class {#
+            l = new m(1, 1);#
+            c = new m(0, 0);#
+            d = new m(1, 1);#
+            u = new m(1, 1);#
+            p = new m(.5, .5);#
+            m = !1;
+            constructor() {
+                Player.wfs("home").then((() => {
+                    input.set_convar("ren_minimap_viewport", "true"), input.set_convar = new Proxy(input.set_convar, {
+                        apply: (e, t, n) => {
+                            if ("ren_minimap_viewport" !== n[0]) return Reflect.apply(e, t, n);
+                            this.#m = n[1]
+                        }
+                    })
+                })), this.#h(), this.#f(), this.#g()
+            }
+            get minimapDim() {
+                return this.#l
+            }
+            get minimapPos() {
+                return this.#c
+            }
+            get viewportDim() {
+                return this.#d
+            }
+            get viewportPos() {
+                return this.#u
+            }
+            get arrowPos() {
+                return this.#p
+            }#
+            h() {
+                u.hookCtx("strokeRect", ((e, t, n) => {
+                    const o = t.getTransform();
+                    this.#l = new m(o.a, o.d), this.#c = new m(o.e, o.f)
+                }))
+            }#
+            f() {
+                u.overrideCtx("fillRect", ((e, t, n) => {
+                    const o = t.getTransform();
+                    return .1 !== t.globalAlpha || Math.abs(o.a / o.d - innerWidth / innerHeight) > innerWidth / innerHeight * 5e-5 ? Reflect.apply(e, t, n) : (this.#d = new m(o.a, o.d), this.#u = new m(o.e, o.f), this.#m ? Reflect.apply(e, t, n) : void 0)
+                }))
+            }#
+            g() {
+                u.hookPolygon(3, ((e, t) => {
+                    const n = Math.round(m.distance(e[0], e[1])),
+                        o = Math.round(m.distance(e[0], e[2])),
+                        r = Math.round(m.distance(e[1], e[2]));
+                    if (n === o && o === r) return;
+                    const a = m.centroid(...e),
+                        s = m.subtract(a, this.#c),
+                        i = m.divide(s, this.#l);
+                    this.#p = i
+                }))
+            }
+        },
+        y = new class {#
+            w;
+            constructor() {
+                h.on("frame_end", (() => {
+                    const e = m.add(w.viewportPos, m.unscale(2, w.viewportDim)),
+                        t = m.subtract(e, w.minimapPos),
+                        n = m.divide(t, w.minimapDim);
+                    this.#w = f.scale(n)
+                }))
+            }
+            get position() {
+                return this.#w
+            }
+        };
+    await Player.wfs("home");
+    const b = new Object;
+    for (let e in t) try {
+        t[e]._builds.forEach((e => {
+            var t = e.p;
+            const {
+                name: n,
+                desc: o,
+                build: r
+            } = e;
+            b[t] || (b[t] = []), b[t].push({
+                name: n,
+                desc: o,
+                build: r
+            })
+        }))
+    } catch (e) {}
+    var v = window.myWin_.document.getElementById("myUL");
+    await new Promise((e => {
+            var t = setInterval((() => {
+                (v = window.myWin_.document.getElementById("myUL")) && (e(), clearInterval(t))
+            }))
+        })),
+        function({
+            obj: e,
+            func: t = function() {}
+        }) {
+            if (!t) throw "func must be property of object";
+            for (let n in e || this) t((e || this)[n], n)
+        }({
+            obj: b,
+            func: function(e, t) {
+                try {
+                    function n(e) {
+                        return document.createElement(e)
                     }
-                });
-            }
-        }
-        window.requestAnimationFrame(check)
-    }
-    function getPos(shape,ctx, x, y) {
-        const transform = ctx.getTransform();
-        const transformedPoint = transform.transformPoint(new DOMPoint(x, y));
-        //if(transformedPoint.x&&transformedPoint.y&&shape!='Smasher and Dominator Bases')console.log(shape,`Shape drawn at transformed coordinates: (${transformedPoint.x}, ${transformedPoint.y})`);
-        return transformedPoint;
-    }
-    let calls = 0;
-    let points = [];
-    var myPoints=[]
-    var xy=[]
-    var calledEnemyLast=false
-    var _pos_=[]
-    var x_y=[]
-    var arcs=0
-    var lines=[]
-    hook('beginPath', function(thisArg, args){
-        x_y=[]
-        pos_=[];
-        calls = 1;
-        points = [];
-        myPoints=[]
-        xy=[];
-        shapes=Object.keys(colors).map(e=>{
-            return [colors[e],e]
-        })
-    });
-    hook('fillText',function(thisArg,args){
-        var pos=getPos(args,thisArg,...args)
-        infothingy.text.push({args,x:pos.x,y:pos.y})
-    })
-    hook('fillRect',function(thisArg,b){
-        var _this={};_this.args=b
-        shapes=Object.keys(colors).map(e=>{
-            return [colors[e],e]
-        })
-        x_y.push(b)
-    })
-    hook('rect',function(a,b){
-        xy.push(b)
-    })
-    hook('moveTo', function(thisArg, args){
-        lines.push(args)
-        if (calls == 1) {
-            calls+=1;
-            points.push(args)
-        } else {
-            calls = 0;
-        }
-        myPoints.push(args)
-    });
-    hook('stroke',function(thisArg,args){
-        var _this={...thisArg}
-        shapes=Object.keys(colors).map(e=>{
-            return [colors[e],e]
-        })
-        _this.x_y=x_y
-        _this.arcs=arcs;_this.lines=lines
-        for (let i = 0; i < shapes.length; i++) {
-            let hasFill = shapes[i][0].includes(thisArg.fillStyle) || shapes[i][0].toUpperCase().includes(thisArg.fillStyle.toUpperCase())
-            let hasStroke = shapes[i][0].includes(thisArg.strokeStyle) || shapes[i][0].toUpperCase().includes(thisArg.strokeStyle.toUpperCase())
-            if (hasStroke || hasFill) {
-                _this.shape = shapes[i][1]
-                _this.calls=calls
-                var pos=getPos(_this.shape,thisArg,...args)
-                _this.pos = {x:pos.x,y:pos.y}
-                if(_this.shape=='Barrels' && (arcs==3||arcs==6)){
-                    _this.pos=_pos_
-                    _this.calledEnemyLast=calledEnemyLast
+                    v = window.myWin_.document.getElementById("myUL");
+                    let c = i.window.$;
+                    var o = n("span");
+                    o.id = `dropDown_${t}`, o.className = "classBuild", o.innerText = t;
+                    var r = `dropDown_${t.split(" ").join("_")}_div`;
+                    o.onclick = function() {
+                        console.log(c(`#dropDown_${t.split(" ").join("_")}_div`)), c(`#dropDown_${t.split(" ").join("_")}_div`).toggle(2e3, "swing")
+                    };
+                    var a = n("div");
+                    a.id = r, console.log({
+                        a: e,
+                        b: t
+                    }), e.forEach((e => {
+                        var {
+                            name: o,
+                            build: r,
+                            desc: s
+                        } = e, l = n("div"), c = n("input");
+                        c.type = "button", c.value = "Select Build";
+                        var d = n("span");
+                        d.innerText = `Name:${o}\nDesc:${s}`, l.append(c), l.append(n("br")), e.p = t, c.onclick = function() {
+                            ! function(e) {
+                                var t = new Build;
+                                t.buildSet(e.build);
+                                var n = "Tank:" + e.p + "\n\nPath:" + t.BuildPath + "\n\nName:" + e.name + "\nBuild:" + Object.keys(e.build).map((t => e.build[t])).join(" / ") + "\n\nDesc:" + e.desc;
+                                upgrade = window.upgrade = t.BuildPath, _upgrade = t.BuildPath, console.log(n), console.log(e), console.log({
+                                    _upgrade: _upgrade,
+                                    upgrade: upgrade
+                                }), GM_setValue("u", _upgrade);
+                                for (let t in e.build) try {
+                                    var o = e.build[t] / 7;
+                                    o *= 100, i.document.getElementsByClassName(`${t}_`)[0].innerText = e.build[t], i.document.getElementsByClassName(t)[0].style.width = `${o}%`
+                                } catch (e) {
+                                    log_("Error", e.message), console.error({
+                                        err: e,
+                                        i: t,
+                                        p: `${o}%`,
+                                        text: `${t}_`
+                                    })
+                                }
+                            }(e)
+                        }, l.append(d), a.append(l), a.append(n("br"))
+                    }));
+                    var s = n("li"),
+                        l = n("div");
+                    l.append(o), s.append(l), s.append(a), v.append(s), c(`#dropDown_${t.split(" ").join("_")}_div`).toggle()
+                } catch (d) {
+                    log_("Warning", d.message)
                 }
-                if(_this.shape=='Barrels'&&logCtx)(console.log({_this},_this),logCtx=false)
-                if (!infothingy[_this.shape]) infothingy[_this.shape] = [];
-                !_this.custom && (infothingy[_this.shape].push({ ..._this }))
-                //if(this.shape!="TankBarrel")console.log('stroke Found',this);
+            }
+        }), set_convar("ren_health_bars", !0), set_convar("ren_raw_health_values", !0), set_convar("ren_stroke_soft_color", !1), set_convar("ren_solid_background", !0), otherStuff.colors.map((e => `${e.name} ${e.index?`
+            $ {
+                e.index
+            }
+            $ {
+                e.default
+            }
+            `:e.default}`)).forEach(execute), execute("net_replace_color 0 0x000000"), execute("net_force_secure true"), execute("net_replace_color 1 0x999999"), execute("net_replace_color 2 0x050505"), execute("net_replace_color 3 0x0000FF"), execute("net_replace_color 4 0xFF0000"), execute("net_replace_color 5 0x990099"), execute("net_replace_color 6 0x00FF00"), execute("net_replace_color 8 0xFFFF00"), execute("net_replace_color 9 0xFFBBBB"), execute("net_replace_color 10 0xCCCCFF"), execute("net_replace_color 11 0xFF69B4"), execute("net_replace_color 12 0xFFFF00"), execute("net_replace_color 14 0x888888"), execute("net_replace_color 16 0xBBBB00"), execute("net_replace_color 17 0x777777"), execute("ren_stroke_solid_color 0xFFFFFF"), execute("ren_stroke_soft_color_intensity .5"), execute("ren_health_background_color 0x8c8c8c"), execute("ren_minimap_background_color 0xFFFFFF"), execute("ren_background_color 0x333231"), execute("ren_border_color 0xffffff"), execute("ren_bar_background_color 0x8c8c8c"), execute("net_replace_color 14 0x595959"), execute("ren_stroke_solid_color 0xFFFFFF"), execute("net_replace_color 15 0x8B0000"), shapes = Object.keys(colors).map((e => [colors[e], e]));
+    var _ = Player.screen;
+
+    function x(e, t) {
+        const n = e[0] - t[0],
+            o = e[1] - t[1];
+        return [Math.hypot(n, o), n, o]
+    }
+    extended.update = async function(e) {
+        "game" == e && "users" != _ && (AutoUpgrade.status && execute(`game_stats_build ${_upgrade}`), autoPlay && (Player.down(75), await sleep(4e3), Player.up(75))), "stats" == e && Firing.status && (Firing.toggle(), log_("AutoFire", "off")), "stats" == e && AutoSpawn.status && (log_("PlayerStatus", "Spawning into game"), await sleep(5e3), await Player.spawn())
+    }, testList = {
+        f: {},
+        s: {}
+    }, Firing.status, aim = function(e, t, n = !1) {
+        var o;
+        input.mouse(e, t), o = n, !Firing.status && o ? (log_("AutoFire", "on"), Firing.toggle(), Player.send(69)) : !o && Firing.status && (Firing.toggle(), Player.send(69), log_("AutoFire", "off"))
+    };
+    playerPos = [0, 0], enemies = [], buttlets = [], enemies2 = [], TempotherList = {};
+    let S = [],
+        k = [],
+        P = [];
+    squares = [];
+    let C = [];
+    triangles = [];
+    let F = [],
+        T = [];
+    crashers = [], pentagons = [], sortedShapes = [];
+    let B = [];
+    autoPlay = !1, setTimeout((function e() {
+        window.requestAnimationFrame(e), squares = C, triangles = F, pentagons = B, enemies = S, enemies2 = P, otherList = infothingy, crashers = T, infothingy = {
+            text: []
+        }, C = [], F = [], B = [], S = [], P = [], T = [], O = 0, q = [], I = [], otherList["Others (FFA)"], sortedShapes = function(e) {
+            if (!e.length) return e;
+
+            function t(e) {
+                const [t, n] = e[0], o = A.width / 2, r = A.height / 2;
+                return Math.sqrt((t - o) * * 2 + (n - r) * * 2)
+            }
+            const n = e.filter((e => "BARRELS" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n))),
+                o = e.filter((e => "PENTAGON" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n))),
+                r = e.filter((e => "TRIANGLE" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n))),
+                a = e.filter((e => "SQUARE" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n)));
+            return [...n, ...o, ...r, ...a]
+        }([...enemies, ...crashers, ...pentagons, ...triangles, ...squares]).filter((e => !e.shape || !e.shape[1].includes("Body (You)")))
+    }), 100);
+    const A = document.getElementById("canvas");
+    A.getContext("2d");
+
+    function E(e, t) {
+        window.requestAnimationFrame((function n() {
+            window.requestAnimationFrame(n);
+            const o = CanvasRenderingContext2D.prototype[e];
+            o.toString().includes(e) && (CanvasRenderingContext2D.prototype[e] = new Proxy(o, {
+                apply: (e, n, o) => (t(n, o), Reflect.apply(e, n, o))
+            }))
+        }))
+    }
+
+    function R(e, t, n, o) {
+        return t.getTransform().transformPoint(new DOMPoint(n, o))
+    }
+    determineDirection = function(e, t) {
+        const [n, o] = e[0];
+        innerWidth, innerHeight;
+        const r = innerWidth / 2,
+            a = innerHeight / 2;
+        Math.sqrt((n - r) * * 2 + (o - a) * * 2) <= t ? (n < r && o < a || n > r && o < a ? Player.down(40) : (n < r && o > a || n > r && o > a) && Player.down(38), n < r && o < a ? Player.down(37) : n > r && o < a ? Player.down(39) : n < r && o > a ? Player.down(37) : n > r && o > a && Player.down(39)) : (Player.up(38), Player.up(40), Player.up(37), Player.up(39))
+    }, logCtx = !1;
+    let N = 0,
+        D = [];
+    var U = [],
+        j = [],
+        L = !1,
+        M = [],
+        I = [],
+        O = 0,
+        q = [];
+    E("beginPath", (function(e, t) {
+        I = [], pos_ = [], N = 1, D = [], U = [], j = [], shapes = Object.keys(colors).map((e => [colors[e], e]))
+    })), E("fillText", (function(e, t) {
+        var n = R(t, e, ...t);
+        infothingy.text.push({
+            args: t,
+            x: n.x,
+            y: n.y
+        })
+    })), E("fillRect", (function(e, t) {
+        shapes = Object.keys(colors).map((e => [colors[e], e])), I.push(t)
+    })), E("rect", (function(e, t) {
+        j.push(t)
+    })), E("moveTo", (function(e, t) {
+        q.push(t), 1 == N ? (N += 1, D.push(t)) : N = 0, U.push(t)
+    })), E("stroke", (function(e, t) {
+        var n = {...e
+        };
+        shapes = Object.keys(colors).map((e => [colors[e], e])), n.x_y = I, n.arcs = O, n.lines = q;
+        for (let r = 0; r < shapes.length; r++) {
+            let a = shapes[r][0].includes(e.fillStyle) || shapes[r][0].toUpperCase().includes(e.fillStyle.toUpperCase());
+            if (shapes[r][0].includes(e.strokeStyle) || shapes[r][0].toUpperCase().includes(e.strokeStyle.toUpperCase()) || a) {
+                n.shape = shapes[r][1], n.calls = N;
+                var o = R(n.shape, e, ...t);
+                n.pos = {
+                    x: o.x,
+                    y: o.y
+                }, "Barrels" != n.shape || 3 != O && 6 != O || (n.pos = M, n.calledEnemyLast = L), "Barrels" == n.shape && logCtx && (console.log({
+                    _this: n
+                }, n), logCtx = !1), infothingy[n.shape] || (infothingy[n.shape] = []), !n.custom && infothingy[n.shape].push({...n
+                });
                 break
             }
         }
-        calledEnemyLast=false
-    })
-    hook('lineTo', function(thisArg, args){
-        lines.push(args)
-        if (calls >= 2 && calls <= 6) {
-            calls+=1;
-            points.push(args)
-        } else {
-            calls = 0;
-        }
-        myPoints.push(args)
-    });
-    hook('fill', function(thisArg, args){
-        if(thisArg.fillStyle == "#00e16e"){
-            //lastCheck = Date.now();
-        }
-        shapes=Object.keys(colors).map(e=>{
-            return [colors[e],e]
-        })
-        if(calls >= 4 && calls <= 6) {
-            const centre = getCentre(points);
-            const list = calls == 4 ? triangles : calls == 5 ? squares : pentagons;
-            if(thisArg.globalAlpha < 1){
-                return;
+        L = !1
+    })), E("lineTo", (function(e, t) {
+        q.push(t), N >= 2 && N <= 6 ? (N += 1, D.push(t)) : N = 0, U.push(t)
+    })), E("fill", (function(e, t) {
+        if (e.fillStyle, shapes = Object.keys(colors).map((e => [colors[e], e])), N >= 4 && N <= 6) {
+            const t = function(e) {
+                    let t = [0, 0];
+                    return e.forEach((e => {
+                        t[0] += e[0], t[1] += e[1]
+                    })), t[0] /= e.length, t[1] /= e.length, t
+                }(D),
+                n = 4 == N ? triangles : 5 == N ? squares : pentagons;
+            if (e.globalAlpha < 1) return;
+            let o = [
+                [0, 0], 0
+            ];
+            for (let e = 0; e < n.length; e++) {
+                const r = x(o[0], t)[0];
+                x(n[e][0], t)[0] < r && (o = n[e])
             }
-            let acc = [[0, 0], 0]
-            for (let i = 0; i < list.length; i ++) {
-                const accumulator = getDist (acc[0], centre)[0];
-                const current = getDist (list[i][0], centre)[0];
-
-                if (current < accumulator) acc = list[i];
-            }
-            if(getDist(acc[0], centre)[0] < 50){
-                if(acc[2]){
-                    if(acc[2] == thisArg.fillStyle){
-                        acc[1]++;
-                    }else{
-                        acc[1] = 0;
-                    }
-                }
-                if(acc[1] > 2){
-                    return;
-                }
-            }
-            let obj=[centre, acc[1], thisArg.fillStyle]
-            obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
-            calledEnemyLast=false
-            //console.log('temp')
-            if(calls == 4){
-                if((colors['Body (You)'].toUpperCase()==thisArg.fillStyle.toUpperCase())||('#000000'==thisArg.fillStyle))return;
-                if(colors.Crashers.toUpperCase()==thisArg.fillStyle.toUpperCase()){
-                    obj.push('Crashers')
-                    tempcrashers.push(obj);
-                }else{
-                    obj.push('triangle')
-                    temptriangles.push(obj);
-                }
-            }else
-                if(calls == 5){
-                    obj.push('square')
-                    tempsquares.push(obj);
-                }
-            else {
-                obj.push('pentagon')
-                temppentagons.push(obj);
-            }
-        } else {
-            calls = 0;
-        }
-    });
-
-    hook('arc', function(thisArg, args){
-        const transform = thisArg.getTransform();
-        position = new Vector(transform.e, transform.f);
-        radius = transform.a;
-        type=EntityType.Player
-        const radiusScaled = scaling.toArenaUnits(new Vector(radius, radius)).x;
-        arcs++
-        const t = thisArg.getTransform();
-        shapes=Object.keys(colors).map(e=>{
-            return [colors[e],e]
-        })
-        let obj=[[t.e, t.f], 0, thisArg.fillStyle]
-        _pos_=obj[0]
-        obj.arcs=arcs
-        obj.shape=shapes.filter(e=>e[0].toUpperCase()==thisArg.fillStyle.toUpperCase())[0]
-        if(!obj.shape||obj.shape[1].includes("You"))return
-        //if('#ffffff'.toUpperCase()==thisArg.fillStyle.toUpperCase())return;
-        if(radius<40){
-            tempbullets.push([position,radius,type,color])
-            return;
-        }
-        obj.calls=calls
-        obj.push('Barrels')
-        obj.push(radius)
-        tempenemies.push(obj)
-        calledEnemyLast=true
-    });
-
-    var index=0
-    var color,position,radius,type;
-    const onCircle = () => {
-        position = scaling.toArenaPos(position);
-        radius = scaling.toArenaUnits(new Vector(radius, radius)).x;
-        let type = EntityType.UNKNOWN;
-        if (radius > 53) {
-            type = EntityType.Player;
-            console.log([position,radius,type,color])
-            tempenemies2.push([position,radius,type,color])
-        } else {
-            type = EntityType.Bullet;
-        }
-    };
-
-    /*hook('beginPath',function(thisArg, args){
-        if (index !== 3) {
-            index = 1;
-            return;
-        }
-        if (index === 3) {
-            index++;
-            return;
-        }
-        index = 0;
-    })
-    hook('arc',function(thisArg, args){
-        if (index === 1) {
-            index++;
-            const transform = thisArg.getTransform();
-            position = new Vector(transform.e, transform.f);
-            radius = transform.a;
-            return;
-        }
-        if (index === 4) {
-            index++;
-            color = thisArg.fillStyle;
-            return;
-        }
-        //last arc call
-        if (index === 6) {
-            index++;
-            onCircle();
-            return;
-        }
-        index = 0;
-    })
-    hook('fill',(thisArg, args)=>{
-        if (index === 2) {
-            index++;
-            return;
-        }
-        if (index === 5) {
-            index++;
-            return;
-        }
-        index = 0;
-    })*/
-
-
+            if (x(o[0], t)[0] < 50 && (o[2] && (o[2] == e.fillStyle ? o[1]++ : o[1] = 0), o[1] > 2)) return;
+            let r = [t, o[1], e.fillStyle];
+            if (r.shape = shapes.filter((t => t[0].toUpperCase() == e.fillStyle.toUpperCase()))[0], L = !1, 4 == N) {
+                if (colors["Body (You)"].toUpperCase() == e.fillStyle.toUpperCase() || "#000000" == e.fillStyle) return;
+                colors.Crashers.toUpperCase() == e.fillStyle.toUpperCase() ? (r.push("Crashers"), T.push(r)) : (r.push("triangle"), F.push(r))
+            } else 5 == N ? (r.push("square"), C.push(r)) : (r.push("pentagon"), B.push(r))
+        } else N = 0
+    })), E("arc", (function(e, t) {
+        const n = e.getTransform();
+        z = new m(n.e, n.f), H = n.a, W = l.Player;
+        g.toArenaUnits(new m(H, H)).x;
+        O++;
+        const o = e.getTransform();
+        shapes = Object.keys(colors).map((e => [colors[e], e]));
+        let r = [
+            [o.e, o.f], 0, e.fillStyle
+        ];
+        M = r[0], r.arcs = O, r.shape = shapes.filter((t => t[0].toUpperCase() == e.fillStyle.toUpperCase()))[0], r.shape && !r.shape[1].includes("You") && (H < 40 ? k.push([z, H, W, $]) : (r.calls = N, r.push("Barrels"), r.push(H), S.push(r), L = !0))
+    }));
+    var $, z, H, W;
     return "EZ"
-}()).then(console.log,console.warn))
-
-var mouseInteraction=1;
+}().then(console.log, console.warn);
+var mouseInteraction = 1;
 document.onkeydown = function(e) {
-    if (e.keyCode == 88) {
-        if (mouseInteraction) {
-            document.body.style.pointerEvents = 'none';
-            mouseInteraction = false;
-        } else {
-            document.body.style.pointerEvents = 'auto';
-            mouseInteraction = true;
-        }
-    }
-};
-//globals for debugging
-window.s=A
+    88 == e.keyCode && (mouseInteraction ? (document.body.style.pointerEvents = "none", mouseInteraction = !1) : (document.body.style.pointerEvents = "auto", mouseInteraction = !0))
+}, window.s = A;
