@@ -2,7 +2,7 @@
 // @name Auto download
 // @namespace http://tampermonkey.net/
 // @version 1.7
-// @description try to take over the world!
+// @description Youtube/titktok video/audio download alwayts updated
 // @author You
 // @match *://www.youtube.com/*
 // @match *://music.youtube.com/*
