@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Auto download
 // @namespace http://tampermonkey.net/
-// @version 1.7
+// @version 1.5
 // @description try to take over the world!
 // @author You
 // @match *://www.youtube.com/*
@@ -106,7 +106,7 @@ query = function(e) {
             const i = document.createElement("a");
             return i.style.display = "none", document.body.appendChild(i), fetch(e).then((e => e.blob())).then((l => {
                 const c = URL.createObjectURL(l);
-                i.href = c, i.download = t, i.click(), URL.revokeObjectURL(c), (n || opener || window).postMessage({
+                i.href = c, i.download = t, i.target = "_blank", i.click(), URL.revokeObjectURL(c), (n || opener || window).postMessage({
                     url: e,
                     title: t,
                     s: !0
