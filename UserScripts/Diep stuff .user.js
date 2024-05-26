@@ -2,7 +2,7 @@
 // @name Diep stuff
 // @namespace http://tampermonkey.net/
 // @version 2.4
-// @description Gastons epic diep script
+// @description Gastons diep script
 // @author You
 // @match *://diep.io/*
 // @icon https://www.google.com/s2/favicons?sz=64&domain=diep.io
@@ -1199,7 +1199,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
             this.x = e, this.y = t
         }
         static len(e) {
-            return Math.sqrt(e.x * * 2 + e.y * * 2)
+            return Math.sqrt(e.x ** 2 + e.y ** 2)
         }
         static round(e) {
             return new m(Math.round(e.x), Math.round(e.y))
@@ -1531,7 +1531,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
 
             function t(e) {
                 const [t, n] = e[0], o = A.width / 2, r = A.height / 2;
-                return Math.sqrt((t - o) * * 2 + (n - r) * * 2)
+                return Math.sqrt((t - o) ** 2 + (n - r) ** 2)
             }
             const n = e.filter((e => "BARRELS" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n))),
                 o = e.filter((e => "PENTAGON" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n))),
@@ -1561,7 +1561,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
         innerWidth, innerHeight;
         const r = innerWidth / 2,
             a = innerHeight / 2;
-        Math.sqrt((n - r) * * 2 + (o - a) * * 2) <= t ? (n < r && o < a || n > r && o < a ? Player.down(40) : (n < r && o > a || n > r && o > a) && Player.down(38), n < r && o < a ? Player.down(37) : n > r && o < a ? Player.down(39) : n < r && o > a ? Player.down(37) : n > r && o > a && Player.down(39)) : (Player.up(38), Player.up(40), Player.up(37), Player.up(39))
+        Math.sqrt((n - r) ** 2 + (o - a) ** 2) <= t ? (n < r && o < a || n > r && o < a ? Player.down(40) : (n < r && o > a || n > r && o > a) && Player.down(38), n < r && o < a ? Player.down(37) : n > r && o < a ? Player.down(39) : n < r && o > a ? Player.down(37) : n > r && o > a && Player.down(39)) : (Player.up(38), Player.up(40), Player.up(37), Player.up(39))
     }, logCtx = !1;
     let N = 0,
         D = [];
