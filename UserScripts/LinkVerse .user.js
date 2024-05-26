@@ -2,8 +2,8 @@
 // @name LinkVerse
 // @namespace http://tampermonkey.net/
 // @version 0.1
-// @description try to take over the world!
-// @author You
+// @description Some LinkVerse Script
+// @author gaston1779
 // @match *://linkvertise.com/*
 // @icon https://www.google.com/s2/favicons?sz=64&domain=linkvertise.com
 // @grant GM_setValue
@@ -13,6 +13,7 @@
 // @grant GM_removeValueChangeListener
 // @grant GM_xmlhttpRequest
 // @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
+// @license MIT
 // ==/UserScript==
 tF = function(e, {
     callback: t,
