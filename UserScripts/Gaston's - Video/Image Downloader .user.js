@@ -26,10 +26,10 @@ GM_setValue_ = GM_setValue, GM_getValue_ = GM_getValue, GM_info_ = GM_info;
 var UnmutePath = "M3.15,3.85l4.17,4.17L6.16,9H3v6h3.16L12,19.93v-7.22l2.45,2.45c-0.15,0.07-0.3,0.13-0.45,0.18v1.04 c0.43-0.1,0.83-0.27,1.2-0.48l1.81,1.81c-0.88,0.62-1.9,1.04-3.01,1.2v1.01c1.39-0.17,2.66-0.71,3.73-1.49l2.42,2.42l0.71-0.71 l-17-17L3.15,3.85z M11,11.71v6.07L6.52,14H4v-4h2.52l1.5-1.27L11,11.71z M10.33,6.79L9.62,6.08L12,4.07v4.39l-1-1V6.22L10.33,6.79 z M14,8.66V7.62c2,0.46,3.5,2.24,3.5,4.38c0,0.58-0.13,1.13-0.33,1.64l-0.79-0.79c0.07-0.27,0.12-0.55,0.12-0.85 C16.5,10.42,15.44,9.1,14,8.66z M14,5.08V4.07c3.95,0.49,7,3.85,7,7.93c0,1.56-0.46,3.01-1.23,4.24l-0.73-0.73 C19.65,14.48,20,13.28,20,12C20,8.48,17.39,5.57,14,5.08z",
     mutePath = "M17.5,12c0,2.14-1.5,3.92-3.5,4.38v-1.04c1.44-0.43,2.5-1.76,2.5-3.34c0-1.58-1.06-2.9-2.5-3.34V7.62 C16,8.08,17.5,9.86,17.5,12z M12,4.07v15.86L6.16,15H3V9h3.16L12,4.07z M11,6.22L6.52,10H4v4h2.52L11,17.78V6.22z M21,12 c0,4.08-3.05,7.44-7,7.93v-1.01c3.39-0.49,6-3.4,6-6.92s-2.61-6.43-6-6.92V4.07C17.95,4.56,21,7.92,21,12z";
 downloadFileAsTitle = function(e, t, n, o) {
-        const i = document.createElement("a");
-        return i.style.display = "none", document.body.appendChild(i), fetch(e).then((e => e.blob())).then((l => {
-            const c = URL.createObjectURL(l);
-            i.href = c, i.download = t, i.target = "_blank", i.click(), URL.revokeObjectURL(c), (n || opener || window).postMessage({
+        const l = document.createElement("a");
+        return l.style.display = "none", document.body.appendChild(l), fetch(e).then((e => e.blob())).then((i => {
+            const c = URL.createObjectURL(i);
+            l.href = c, l.download = t, l.target = "_blank", l.click(), URL.revokeObjectURL(c), (n || opener || window).postMessage({
                 url: e,
                 title: t,
                 s: !0
@@ -46,8 +46,8 @@ downloadFileAsTitle = function(e, t, n, o) {
         var t
     }, getElementByAttribute = function(e, t = "aria-label", n = document.body) {
         var o = [];
-        return function n(i) {
-            i.getAttribute(t) == e ? o.push(i) : i.children.length && ((i = i.children).forEach = [].forEach, i.forEach((e => {
+        return function n(l) {
+            l.getAttribute(t) == e ? o.push(l) : l.children.length && ((l = l.children).forEach = [].forEach, l.forEach((e => {
                 n(e)
             })))
         }(n), 1 == o.length ? o[0] : o || !1
@@ -160,11 +160,11 @@ downloadFileAsTitle = function(e, t, n, o) {
             return o
         }
 
-        function i(e) {
+        function l(e) {
             return null === e.offsetParent
         }
 
-        function l(e) {
+        function i(e) {
             return e.parentNode
         }
 
@@ -235,11 +235,11 @@ downloadFileAsTitle = function(e, t, n, o) {
                 if (e && e.src && e.src.startsWith("blob:")) {
                     const n = e.captureStream(),
                         o = new MediaRecorder(n),
-                        i = [];
+                        l = [];
                     o.ondataavailable = e => {
-                        e.data.size > 0 && (i.push(e.data), console.log(e.data))
+                        e.data.size > 0 && (l.push(e.data), console.log(e.data))
                     }, o.onstop = () => {
-                        const e = new Blob(i, {
+                        const e = new Blob(l, {
                                 type: "video/mp4"
                             }),
                             n = URL.createObjectURL(e),
@@ -283,9 +283,9 @@ downloadFileAsTitle = function(e, t, n, o) {
 
         function u(e, t = "aria-label", n = document.body) {
             var o = [];
-            return function n(i) {
-                var l = !1;
-                t ? i.getAttribute(t) == e && (o.push(i), l = 1) : [...i.attributes].map((e => {
+            return function n(l) {
+                var i = !1;
+                t ? l.getAttribute(t) == e && (o.push(l), i = 1) : [...l.attributes].map((e => {
                     const {
                         name: t,
                         value: n
@@ -294,29 +294,29 @@ downloadFileAsTitle = function(e, t, n, o) {
                         name: t,
                         value: n
                     }
-                })).filter((t => t.value == e)).length && (o.push(i), l = 1), i.children.length && !l && ((i = i.children).forEach = [].forEach, i.forEach((e => {
+                })).filter((t => t.value == e)).length && (o.push(l), i = 1), l.children.length && !i && ((l = l.children).forEach = [].forEach, l.forEach((e => {
                     n(e)
                 })))
             }(n), o.length ? 1 == o.length ? o[0] : o || !1 : null
         }
 
         function m() {
-            (u("Mute", "title")[0] || u("Mute (m)", "title")).click()
+            (u("Mute", "title") && u("Mute", "title")[0] || u("Mute (m)", "title")).click()
         }
 
         function h() {
-            (query("#right-controls").querySelectorAll("path")[0].getAttribute("d") == UnmutePath && u("Mute", "title")[0] || u("Unmute", "title")).click()
+            (query("#right-controls") && query("#right-controls").querySelectorAll("path")[0].getAttribute("d") == UnmutePath && u("Mute", "title")[0] || u("Unmute", "title") || u("Unmute (m)", "title")).click()
         }
         _getIds = function() {
             if (document.domain.includes("music")) throw alert("These button dont work on youtube music yet"), ".";
-            var e = [...document.getElementsByTagName("ytd-playlist-panel-renderer")].filter(n).filter((e => !i(e)))[0];
-            return findhref2(e, "span").filter((e => !i(e))).filter(n).filter((e => "video-title" == e.id)).map(l).map(l).map((e => ({
-                id: setElement(findhref2(l(e))[0].href),
+            var e = [...document.getElementsByTagName("ytd-playlist-panel-renderer")].filter(n).filter((e => !l(e)))[0];
+            return findhref2(e, "span").filter((e => !l(e))).filter(n).filter((e => "video-title" == e.id)).map(i).map(i).map((e => ({
+                id: setElement(findhref2(i(e))[0].href),
                 e: e
             })))
-        }, info = {}, downloadT = function(e, n = !1, o = !0, i = !1, l = !1) {
-            let c = e + (i ? "mp4" : "mp3") + o;
-            if (!localStorage[c] || n || l && confirm(`You have already download this video as .${i?"mp4":"mp3"}\nStill download?`)) {
+        }, info = {}, downloadT = function(e, n = !1, o = !0, l = !1, i = !1) {
+            let c = e + (l ? "mp4" : "mp3") + o;
+            if (!localStorage[c] || n || i && confirm(`You have already download this video as .${l?"mp4":"mp3"}\nStill download?`)) {
                 ! function(e, t, n = !1) {
                     var o = addEventListener(e, ((...e) => {
                         t(...e), n && removeEventListener(o)
@@ -328,72 +328,73 @@ downloadFileAsTitle = function(e, t, n, o) {
                         const {
                             data: {
                                 href: t,
-                                title: i,
-                                length: l,
+                                title: l,
+                                length: i,
                                 id: r
                             }
                         } = e;
                         if (console.log("Handled", {
                                 href: t,
-                                title: i,
-                                length: l,
+                                title: l,
+                                length: i,
                                 id: r
                             }, e), o) {
                             var n = document.createElement("a");
-                            n.download = i + ".mp4", n.href = t, document.body.appendChild(n), n.click(), n.remove()
+                            n.download = l + ".mp4", n.href = t, document.body.appendChild(n), n.click(), n.remove()
                         } else open(t);
                         localStorage[c] = t
                     } else console.log("Unhandled Post", e)
                 };
                 var r = new URL(location.href);
-                return r.host = r.host.replace(".com", "mz.com"), info[e] = i ? open("https://en1.onlinevideoconverter.pro/112Ei/youtube-downloader-mp4", [e, location.pathname.startsWith("/shorts/") ? 1 : 0, i + !1], "width=400,height=500") : open([r.protocol, "//", r.host, r.pathname, "?v=", e].join(""), [e, location.pathname.startsWith("/shorts/") ? 1 : 0], "width=400,height=500")
+                return r.host = r.host.replace(".com", "mz.com"), info[e] = l ? open("https://en1.onlinevideoconverter.pro/112Ei/youtube-downloader-mp4", [e, location.pathname.startsWith("/shorts/") ? 1 : 0, l + !1], "width=400,height=500") : open([r.protocol, "//", r.host, r.pathname, "?v=", e].join(""), [e, location.pathname.startsWith("/shorts/") ? 1 : 0], "width=400,height=500")
             }
         }, downloadTikTok = function(e, n) {
             let o = n.videoID,
-                i = n.username;
-            var l;
+                l = n.username,
+                i = function() {
+                    try {
+                        return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > div.css-1d7krfw-DivOverflowContainer.e1mzilcj5 > h1").innerText.replace("Replying to ", "")
+                    } catch {
+                        try {
+                            return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0").innerText.replace("Replying to ", "")
+                        } catch (e) {
+                            return document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace("Replying to ", "")
+                        }
+                    }
+                }();
+            var c;
             onmessage = function(e) {
                 if (e.origin == t || e.origin.match(/https?:\/{2}savetik\.csavetik.coo/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://savetik.co" == e.origin) {
                     var {
                         data: {
                             href: n,
                             links: o,
-                            title: i,
-                            length: c,
-                            id: r,
-                            mp4: a,
+                            title: l,
+                            length: r,
+                            id: a,
+                            mp4: s,
                             info: {
-                                username: s
+                                username: d
                             }
                         }
                     } = e;
                     if (console.log("Handled", {
                             href: n,
-                            title: i,
-                            length: c,
-                            id: r,
+                            title: l,
+                            length: r,
+                            id: a,
                             links: o,
-                            mp4: a
-                        }, e), "https://savetik.co" == e.origin) i = function() {
-                        try {
-                            return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > div.css-1d7krfw-DivOverflowContainer.e1mzilcj5 > h1").innerText.replace("Replying to ", "")
-                        } catch {
-                            try {
-                                return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0").innerText.replace("Replying to ", "")
-                            } catch (e) {
-                                return document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace("Replying to ", "")
-                            }
-                        }
-                    }(), downloadFileAsTitle(a ? o[0] : o.pop(), s + " - " + i + (a ? ".mp4" : ".mp3"), l);
+                            mp4: s
+                        }, e), "https://savetik.co" == e.origin) l = i, downloadFileAsTitle(s ? o[0] : o.pop(), d + " - " + l + (s ? ".mp4" : ".mp3"), c);
                     else {
                         if (useT) {
                             let e = document.createElement("a");
-                            e.download = i + ".mp3", e.href = n, document.body.appendChild(e), e.click(), e.remove()
+                            e.download = l + ".mp3", e.href = n, document.body.appendChild(e), e.click(), e.remove()
                         } else open(n);
                         localStorage[_] = n
                     }
                 } else console.log("Unhandled Post", e)
-            }, l = open("https://savetik.co/en", [`https://www.tiktok.com/${i}/video/${o}`, e + !1], "width=400,height=500")
+            }, c = open("https://savetik.co/en", [`https://www.tiktok.com/${l}/video/${o}`, e + !1], "width=400,height=500")
         }, abc_ = u, M = m, Um = h;
         var f = 0;
 
@@ -407,28 +408,28 @@ downloadFileAsTitle = function(e, t, n, o) {
             ["w4", "win4"]
         ]) {
             var t, n = !1;
-            return await new Promise(((o, i) => {
-                var l = setInterval((i => {
+            return await new Promise(((o, l) => {
+                var i = setInterval((l => {
                     e.forEach((e => {
                         this[e[0]] = p(window[e[1]]), window[e[1]] || n || (n = !0, t = e[1], console.log(e))
-                    })), t && (o(t), clearInterval(l))
+                    })), t && (o(t), clearInterval(i))
                 }), 500)
             })), t
         }
         window.ch3 = p, window.getWin = g, WIP_ = function(e, t, n) {
             var o = _getIds(),
-                i = [];
-            for (let t = 0; t < e; t++) i.push(["w" + t, "win" + t]);
+                l = [];
+            for (let t = 0; t < e; t++) l.push(["w" + t, "win" + t]);
             o.forEach((({
                 id: e
             }, o) => {
-                g(i).then((i => {
+                g(l).then((l => {
                     if (!info[e] && !localStorage[e] || n) {
-                        console.log("download", e, o), window[i] = downloadT(e, n, !0, !!t), window.addEventListener("unload", (function(e) {
-                            window[i].close()
+                        console.log("download", e, o), window[l] = downloadT(e, n, !0, !!t), window.addEventListener("unload", (function(e) {
+                            window[l].close()
                         }));
-                        var l = setInterval((e => {
-                            window[i] && !window[i].closed || (window[i] = null, clearInterval(l), console.log(i, "isclosed"))
+                        var i = setInterval((e => {
+                            window[l] && !window[l].closed || (window[l] = null, clearInterval(i), console.log(l, "isclosed"))
                         }), 300)
                     }
                 }))
@@ -449,9 +450,13 @@ downloadFileAsTitle = function(e, t, n, o) {
             k = new e("button").set("innerText", "Get MP4").on("click", (function(e) {
                 downloadTikTok(!0, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
             })),
-            E = new e("button").set("innerText", "Get MP3").on("click", (function(e) {
+            E = (new e("button", {
+                id: "tt1"
+            }).set("innerText", "Get MP4").on("click", (function(e) {
+                downloadTikTok(!0, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
+            })), new e("button").set("innerText", "Get MP3").on("click", (function(e) {
                 downloadTikTok(!1, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
-            }));
+            })));
 
         function T() {
             return query("#end") || query("#right-content")
@@ -462,17 +467,17 @@ downloadFileAsTitle = function(e, t, n, o) {
 
             function o() {
                 try {
-                    return !(![...document.querySelectorAll("#header-description")].filter(n).filter((e => !i(e)))[0] && !query(".autoplay")) && ([...document.querySelectorAll("#header-description")].filter(n).filter((e => !i(e)))[0] || query(".autoplay"))
+                    return !(![...document.querySelectorAll("#header-description")].filter(n).filter((e => !l(e)))[0] && !query(".autoplay")) && ([...document.querySelectorAll("#header-description")].filter(n).filter((e => !l(e)))[0] || query(".autoplay"))
                 } catch (e) {
                     return !1
                 }
             }
             v.appendTo(t), w.appendTo(t), console.log("Posted Buttons");
-            var l = !1;
+            var i = !1;
             setInterval((() => {
-                l != o() && o() ? (console.log("Added playlist buttons"), setTimeout((() => {
+                i != o() && o() ? (console.log("Added playlist buttons"), setTimeout((() => {
                     o().append(e.br.element), o().append(y.element), o().append(b.element)
-                }), 100)) : l == o() || o() || console.log("buttons are gone?!?!"), l = o()
+                }), 100)) : i == o() || o() || console.log("buttons are gone?!?!"), i = o()
             }), 100)
         }
         if (a1 = [
@@ -487,13 +492,27 @@ downloadFileAsTitle = function(e, t, n, o) {
                 ["tiktok", function() {
                     addEventListener("load", (function() {
                         o((function() {
-                            if (!document.getElementsByClassName("ehlq8k33")[0]) throw "Cant Append";
+                            if (!abc_("browse-copy", "data-e2e")) throw "Cant Append";
                             k.appendTo(document.querySelectorAll(".e1mecfx011")), E.appendTo(document.querySelectorAll(".e1mecfx011"))
                         }), {
                             callback: function() {}
                         }), o((function() {
                             if (!document.getElementsByClassName("e13wiwn60")[0]) throw "Cant Append";
-                            k.appendTo(document.getElementsByClassName("e13wiwn60")[0]), E.appendTo(document.getElementsByClassName("e13wiwn60")[0])
+
+                            function t() {
+                                try {
+                                    return !!abc_("browse-copy", "data-e2e").parentNode && abc_("browse-copy", "data-e2e").parentNode
+                                } catch (e) {
+                                    return !1
+                                }
+                            }
+                            k.appendTo(document.getElementsByClassName("e13wiwn60")[0]), E.appendTo(document.getElementsByClassName("e13wiwn60")[0]), console.log("Posted Buttons");
+                            var n = !1;
+                            setInterval((() => {
+                                n != t() && t() ? (console.log("Added playlist buttons"), setTimeout((() => {
+                                    t().append(e.br.element), t().append(k.element), t().append(E.element)
+                                }), 100)) : n == t() || t() || console.log("buttons are gone?!?!"), n = t()
+                            }), 100)
                         }), {
                             callback: function() {}
                         })
@@ -512,13 +531,13 @@ downloadFileAsTitle = function(e, t, n, o) {
                             t = e.map((e => e.match(/[:\d]+/gi))).filter((e => !!e)).pop().pop(),
                             n = e[0].split("Title: ")[1],
                             o = findhref2(videoTitle.parentNode)[0].href,
-                            i = {
+                            l = {
                                 id: setElement(location.href),
                                 href: o,
                                 title: n,
                                 length: t
                             };
-                        (opener || window).postMessage(i, "*"), console.log("Poasted")
+                        (opener || window).postMessage(l, "*"), console.log("Poasted")
                     }()
                 }), {
                     callback: close
@@ -629,12 +648,12 @@ downloadFileAsTitle = function(e, t, n, o) {
             ctrlKey: t,
             shiftKey: n,
             code: o,
-            target: i,
+            target: l,
             target: {
-                tagName: l
+                tagName: i
             }
         }) {
-            ["INPUT", "TEXTAREA"].includes(l) || t || n || !e || "KeyI" != o || (abc_("Close player page") || abc_("Open player page")[1]).click()
+            ["INPUT", "TEXTAREA"].includes(i) || t || n || !e || "KeyI" != o || (abc_("Close player page") || abc_("Open player page")[1]).click()
         }))), setInterval((e => {
             document.getElementsByClassName("ytp-ad-button-icon")[0] && !f && (console.log("muted ad"), f = 1, m()), !document.getElementsByClassName("ytp-ad-button-icon")[0] && f && (console.log("unmuted video"), function() {
                 try {
