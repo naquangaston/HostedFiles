@@ -2,7 +2,7 @@
 // @name Diep stuff
 // @namespace http://tampermonkey.net/
 // @version 2.4
-// @description try to take over the world!
+// @description Gastons epic diep script
 // @author You
 // @match *://diep.io/*
 // @icon https://www.google.com/s2/favicons?sz=64&domain=diep.io
@@ -535,8 +535,7 @@ class Build {
 class bool {
     constructor(e) {
         e && this.toggle()
-    }#
-    e = !1;
+    }#e = !1;
     toggle() {
         this.#e = !this.#e
     }
@@ -1240,16 +1239,12 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
     function(e) {
         e.TeamBlue = "#00b2e1", e.TeamRed = "#f14e54", e.TeamPurple = "#bf7ff5", e.TeamGreen = "#00e16e", e.Square = "#ffe869", e.Triangle = "#fc7677", e.Pentagon = "#768dfc", e.AlphaPentagon = "#768dfc", e.Crasher = "#f177dd", e.NecromancerDrone = "#fcc376"
     }(c || (c = {}));
-    const h = new class extends p {#
-            t = !1;#
-            n;
+    const h = new class extends p {#t = !1;#n;
             constructor() {
                 super(), u.hookRAF((() => this.#o()))
-            }#
-            o() {
+            }#o() {
                 this.#t || void 0 === input || (this.#t = !0, this.#r()), super.emit("frame"), super.emit("frame_end")
-            }#
-            r() {
+            }#r() {
                 setTimeout((() => super.emit("ready")), 100), this.#n = document.querySelector("d-base").shadowRoot, new MutationObserver(((e, t) => {
                     e.forEach((e => {
                         0 !== e.addedNodes.length && (super.emit("state", this.state), super.emit(`s_${this.state}`))
@@ -1277,8 +1272,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
                 return "captcha" == this.state
             }
         },
-        f = new class {#
-            a = 1;
+        f = new class {#a = 1;
             constructor() {
                 setInterval((() => {
                     const e = m.divide(w.minimapDim, w.viewportDim),
@@ -1299,9 +1293,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
                 return new m(t(e.x), t(e.y))
             }
         },
-        g = new class {#
-            s = 1;#
-            i = !1;
+        g = new class {#s = 1;#i = !1;
             constructor() {
                 Player.wfs("home").then((() => {
                     input.set_convar = new Proxy(input.set_convar, {
@@ -1349,13 +1341,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
                 return m.scale(1 / devicePixelRatio, e)
             }
         },
-        w = new class {#
-            l = new m(1, 1);#
-            c = new m(0, 0);#
-            d = new m(1, 1);#
-            u = new m(1, 1);#
-            p = new m(.5, .5);#
-            m = !1;
+        w = new class {#l = new m(1, 1);#c = new m(0, 0);#d = new m(1, 1);#u = new m(1, 1);#p = new m(.5, .5);#m = !1;
             constructor() {
                 Player.wfs("home").then((() => {
                     input.set_convar("ren_minimap_viewport", "true"), input.set_convar = new Proxy(input.set_convar, {
@@ -1380,20 +1366,17 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
             }
             get arrowPos() {
                 return this.#p
-            }#
-            h() {
+            }#h() {
                 u.hookCtx("strokeRect", ((e, t, n) => {
                     const o = t.getTransform();
                     this.#l = new m(o.a, o.d), this.#c = new m(o.e, o.f)
                 }))
-            }#
-            f() {
+            }#f() {
                 u.overrideCtx("fillRect", ((e, t, n) => {
                     const o = t.getTransform();
                     return .1 !== t.globalAlpha || Math.abs(o.a / o.d - innerWidth / innerHeight) > innerWidth / innerHeight * 5e-5 ? Reflect.apply(e, t, n) : (this.#d = new m(o.a, o.d), this.#u = new m(o.e, o.f), this.#m ? Reflect.apply(e, t, n) : void 0)
                 }))
-            }#
-            g() {
+            }#g() {
                 u.hookPolygon(3, ((e, t) => {
                     const n = Math.round(m.distance(e[0], e[1])),
                         o = Math.round(m.distance(e[0], e[2])),
@@ -1406,8 +1389,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
                 }))
             }
         },
-        y = new class {#
-            w;
+        y = new class {#w;
             constructor() {
                 h.on("frame_end", (() => {
                     const e = m.add(w.viewportPos, m.unscale(2, w.viewportDim)),
