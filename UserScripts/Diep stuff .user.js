@@ -2,7 +2,7 @@
 // @name Diep stuff
 // @namespace http://tampermonkey.net/
 // @version 2.4
-// @description Gastons diep script
+// @description Gastons diep script - Replaced the MySrc function
 // @author You
 // @match *://diep.io/*
 // @icon https://www.google.com/s2/favicons?sz=64&domain=diep.io
@@ -19,6 +19,7 @@
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/ResourceLoader_.js
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@master/JS_Formatter_.js
 // @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
+// @license MIT
 // ==/UserScript==
 infothingy = {}, inf = {}, _upgrade = "";
 const Settings = GM_getValue("Settings") || {},
@@ -74,359 +75,141 @@ function get(e, t = document.body) {
     return null
 }
 
-function MySrc() {
-    var e = u;
+function Mysrc() {
+    const e = document.getElementById("chooseFile");
 
-    function t(e) {
-        return !!(e || this)[u(233)](/[A-Z_$a-z]/gi)
+    function t(e, t) {
+        a.src = e, t && a.addEventListener("ended", t)
     }
-
-    function n(e) {
-        return !!(e || this)[u(233)](/[\(\{\[]/gi)
-    }
+    Array.prototype.forEachAsync = async function(e = function() {}) {
+        for (let t = 0; t < this.length; t++) await e(this[t], t, this.length);
+        return null
+    }, Array.prototype.mapAsync = async function(e = function() {}) {
+        for (let t = 0; t < this.length; t++) this[t] = await e(this[t], t, this.length);
+        return this
+    };
+    var n = 0;
 
     function o(e) {
-        return !!(e || this)[u(233)](/[\]\}\)]/gi)
+        ! function o() {
+            n + 1 === e.length ? (console.log("Now playing", e[n].name), t(e[n].sound, null)) : (console.log("Now playing", e[n].name), t(e[n].sound, (function() {
+                n++, o()
+            })))
+        }()
     }
-
-    function r(e) {
-        return !!(e || this)[u(233)](/[0-9]/gi)
-    }
-
-    function a(e) {
-        return !!(e || this).match(/[\r\n]/gi)
-    }
-
-    function s(e) {
-        return !!(e || this)[u(233)](/ /gi)
-    }
-
-    function i() {
-        var e = u,
-            t = d[l];
-        m[e(225)] = t.t, document[e(251)] = t.name, m[e(264)] = function() {
-            var n = e;
-            m[n(225)] = null, l++, t = d[l], m.src = t.t, document.title = t[n(201)]
-        }
-    }! function(e, t) {
-        for (var n = u, o = e();;) try {
-            if (668740 === parseInt(n(277)) / 1 + parseInt(n(199)) / 2 + -parseInt(n(255)) / 3 * (-parseInt(n(295)) / 4) + -parseInt(n(191)) / 5 * (parseInt(n(275)) / 6) + -parseInt(n(180)) / 7 + parseInt(n(274)) / 8 + -parseInt(n(206)) / 9) break;
-            o.push(o.shift())
-        } catch (e) {
-            o.push(o.shift())
-        }
-    }(h);
-    var l, c, d;
-
-    function u(e, t) {
-        var n = h();
-        return (u = function(e, t) {
-            return n[e -= 175]
-        })(e, t)
-    }(function() {
-        var e = u;
-
-        function i(e, t) {
-            var n, o = u,
-                r = 0,
-                a = "",
-                s = [typeof String(), o(261), o(261)];
-            if (![s[o(265)](typeof this), s[o(265)](typeof e)].filter((e => !(e < 0)))[o(239)]) throw o(248) + o(273) + "de";
-            (n = (Array[o(252)](e || this) ? (e || this)[o(269)](t) : (s.indexOf(typeof e) < 0 ? this : e)[o(245)]()[o(282)]("  ")[o(269)]("").split("{").join("{\n")[o(282)]("}").join("\n}")[o(282)]("\n\n")[o(269)]("\n"))[o(282)](""))[o(239)];
-            for (let e = 0; e < n[o(239)]; e++) {
-                const t = n[e],
-                    s = n[e + 1],
-                    i = n[e - 1];
-                Number((e / n[o(239)] * 100)[o(250)](2)), "\\" != i && ("{" == t && r++, "}" == t && r--), r < 0 && (r = 0), a += "\n" == t ? "}" == s ? t + " ".repeat(r ? r - 1 : r) : t + " " [o(286)](r) : t
-            }
-            return a
-        }
-
-        function l(e) {
-            var t = u;
-            return (e || this).constructor[t(201)][t(193)](t(183) + "ion")
-        }
-
-        function c(e, t = null, n = "") {
-            var o = u;
-            return this.split(...function() {
-                return arguments[0] ? [e, t] : [e]
-            }(t))[o(269)](n)
-        }
-
-        function d() {
-            return !this[u(245)]().includes(".")
-        }
-
-        function p(e = []) {
-            var t = u;
-            return (e[t(239)] ? e : this)[Math[t(231)](Math[t(215)]() * (e.length ? e : this).length)]
-        }
-
-        function m(e = []) {
-            var t = u;
-            for (let n = (e[t(239)] ? e : this)[t(239)] - 1; n > 0; n--) {
-                const o = Math[t(231)](Math.random() * (n + 1)),
-                    r = (e.length ? e : this)[n];
-                (e.length ? e : this)[n] = (e[t(239)] ? e : this)[o], (e.length ? e : this)[o] = r
-            }
-            return e[t(239)] ? e : this
-        }
-        var h = function() {
-            const e = arguments;
-            return function(t) {
-                return (t || this)[e[2][0]][e[2][1]][e[2][2]](e[2][3])
-            }
-        }([], [""], [e(232) + "r", e(201), e(193), e(183) + "ion"], [""], [], {});
-        Function[e(257)][e(280)] = i, Function[e(257)][e(179)] = l, Function[e(257)][e(179)] = h, Number[e(257)].isWhole = d, Array[e(257)][e(215)] = p, Array[e(257)][e(229)] = m, String.prototype[e(279) + e(230)] = c, Object[e(291)](Object.prototype, {
-            isNumber: r,
-            isLetter: t,
-            isOpen: n,
-            isClose: o,
-            isBlank: s,
-            isLine: a,
-            getType: function(t) {
-                var n = e;
-                return null == typeof(t || this) ? n(219) : (t || this)[n(232) + "r"][n(201)]
-            },
-            type_: function() {
-                var a = e;
-                const i = arguments[0] || this;
-                var l = [t, r, n, o, s];
-                return l[a(205)]((e => !!e(i)))[a(195)]((e => l[a(195)]((e => e[a(201)]))[a(265)](e[a(201)])))[0]
-            }
-        }), Object.assign(this, {
-            formate: i,
-            isAsync: l,
-            isWhole: d,
-            random: p,
-            shuffle: m,
-            split_replace: c,
-            getError: function(e, ...t) {
-                try {
-                    e(...t)
-                } catch (e) {
-                    return e
-                }
-            }
-        }), Object[e(291)](this, {
-            debug: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            error: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            info: function(...e) {
-                Date().match(/[\d:]+/gi)[2]
-            },
-            log: function(...e) {
-                Date().match(/[\d:]+/gi)[2]
-            },
-            warn: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            dir: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            dirxml: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            table: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            trace: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            group: function(...e) {
-                Date().match(/[\d:]+/gi)[2]
-            },
-            groupCollapsed: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            groupEnd: function(...e) {
-                Date().match(/[\d:]+/gi)[2]
-            },
-            clear: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            count: function(...e) {
-                Date().match(/[\d:]+/gi)[2]
-            },
-            countReset: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            assert: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            profile: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            profileEnd: function(...e) {
-                Date().match(/[\d:]+/gi)[2]
-            },
-            time: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            timeLog: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            timeEnd: function(...e) {
-                Date().match(/[\d:]+/gi)[2]
-            },
-            timeStamp: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            },
-            context: function(...t) {
-                var n = e;
-                Date()[n(233)](/[\d:]+/gi)[2]
-            }
-        })
-    }).apply(e(219) == typeof exports ? this.i ? exports : e(219) == typeof window ? this : globalThis || self || window || top : this);
-    const p = document.getElementById(e(293));
-    Array[e(257)][e(197) + "nc"] = async function(t = function() {}) {
-        var n = e;
-        for (let e = 0; e < this[n(239)]; e++) await t(this[e], e, this[n(239)]);
-        return null
-    }, Array[e(257)][e(288)] = async function(t = function() {}) {
-        var n = e,
-            o = this;
-        for (let e = 0; e < o[n(239)]; e++) o[e] = await t(o[e], e, o[n(239)]);
-        return o
-    }, l = 0, c = document.getElementById("Songs_");
-    const m = new Audio;
-
-    function h() {
-        var e = ["formate", "TED", "split", "innerHTML", "type", "duration", "repeat", "URL", "mapAsync", "audio", "Skip", "assign", "className", "chooseFile", "Enter volu", "40ZrktiR", "rgb(", "fillStyle", "innerWidth", "currentTim", "file", "isAsync", "2873052ihhgmG", "stener", "abort", "AsyncFunct", "NOT SUPPOR", "height", "addEventLi", "size", "forEach", "push", "Shuffle", "5BXcMlF", "ById", "includes", "fftSize", "map", "fillRect", "forEachAsy", "width", "2239692OFlANm", "getContext", "name", "loadend", "off", "progress", "filter", "3228507JKSaSR", "inCount", "volume", "pop", "TextAl", "files", "append", "error", "result", "random", "getByteFre", "button", "frequencyB", "undefined", "innerHeigh", "createMedi", "total", "aElementSo", "loop:", "src", "pause", "hrough", "change", "shuffle", "ace", "floor", "constructo", "match", "quencyData", "input", " file exte", "destinatio", "onclick", "length", '" is not a', "getElement", "span", "load", "createElem", "toString", "then", "href", "Cant forma", "createAnal", "toFixed", "title", "isArray", 'ntsion:\n"', '" button i', "87969ZAwmKG", 'The "', "prototype", "ent", "style", "readAsData", "function", "Previous", "canvas", "onended", "indexOf", "play", "myBar", "connect", "join", " supported", "loop", "innerText", "t given co", "2604776rdqPlh", "3011772XUihlc", "yser", "201188lJwZXE", "oncanplayt", "split_repl"];
-        return (h = function() {
-            return e
-        })()
-    }
-    d = [], m[e(208)] = .3, [
-        [e(190), () => (d[e(229)](), m.pause(), i())],
-        ["play all", i],
-        [e(290), () => {
-            m.currentTime = m.duration - .1
+    var r = document.getElementById("Songs_");
+    const a = new Audio;
+    var s = [];
+    a.volume = .3, [
+        ["Shuffle", () => (s.shuffle(), a.pause(), o(s))],
+        ["play all", function() {
+            o(s)
         }],
-        [e(262), () => {
-            var t = e;
-            l -= 2, m[t(177) + "e"] = m[t(285)] - .1
+        ["Skip", () => {
+            a.currentTime = a.duration - 10
         }],
-        [e(266), () => m.play()],
-        ["pause", () => m[e(226)]()],
-        ["loop", function(t) {
-            var n = e;
-            m[n(271)] = !m.loop, t.innerText = n(224) + (m[n(271)] ? "on" : n(203))
+        ["Previous", () => {
+            n -= 2, a.currentTime = a.duration - 10
         }],
-        [e(208), () => {
-            var t = e;
-            m[t(208)] = prompt(t(294) + "me", "50") / 100
+        ["play", () => a.play()],
+        ["pause", () => a.pause()],
+        ["loop", function(e) {
+            a.loop = !a.loop, e.innerText = "loop:" + (a.loop ? "on" : "off")
+        }],
+        ["volume", () => {
+            a.volume = prompt("Enter volume", "50") / 100
         }]
-    ][e(188)]((t => {
-        var n = e,
-            o = n(261) == typeof t[1] ? t[1] : function() {
-                var e = n;
-                alert(e(256) + t[0] + (e(254) + "s W.I.P"))
+    ].forEach((e => {
+        var t = "function" == typeof e[1] ? e[1] : function() {
+                alert(`The "${e[0]}" button is W.I.P`)
             },
-            r = document["createElem" + n(258)](n(217));
-        r[n(272)] = t[0], r[n(238)] = o, c[n(212)](r)
-    })), m[e(278) + e(227)] = t => {
-        var n, o, r, a, s, i, l, c, d, u, p, h, f = e;
-        m[f(266)]();
-        let g = m;
-        o = (n = new AudioContext)[f(221) + f(223) + "urce"](g), r = n[f(249) + f(276)](), (a = document[f(241) + "ById"](f(263)))[f(198)] = window[f(176)], a[f(185)] = window[f(220) + "t"], s = a[f(200)]("2d"), o[f(268)](r), r[f(268)](n[f(237) + "n"]), r[f(194)] = 256, i = r[f(218) + f(207)], l = new Uint8Array(i), c = a[f(198)], d = a[f(185)], u = c / i * 2.5, h = 0, g[f(266)](),
-            function e() {
-                var t, n, o, a = f;
-                for (requestAnimationFrame(e), h = 0, r[a(216) + a(234)](l), s[a(175)] = "#000", s[a(196)](0, 0, c, d), t = 0; t < i; t++) n = (p = l[t]) + t / i * 25 - 100, o = t / i * 250, 50, s[a(175)] = a(296) + n + "," + o + ",50)", s[a(196)](h, d - p, u, p), h += u + 1
-            }()
-    }, p[e(186) + e(181)](e(228), (t => {
-        var n = e;
-        (async function(e, t, n = function() {
+            n = document.createElement("button");
+        n.innerText = e[0], n.onclick = t, r.append(n), console.log(n)
+    })), a.oncanplaythrough = e => {
+        a.play()
+    }, e.addEventListener("change", (t => {
+        (async function(t, n, o = function() {
             return !0
         }) {
-            var o = u,
-                r = new class {
-                    constructor() {
-                        this[u(211)] = []
-                    }[o(189)](...e) {
-                        var t = o;
-                        this[t(211)][t(189)](...e)
-                    }
-                };
+            var r = new class {
+                constructor() {
+                    this.files = []
+                }
+                push(...e) {
+                    this.files.push(...e)
+                }
+            };
             const a = (e => {
-                var t = o,
-                    n = [];
-                for (const o of e) {
-                    const e = o[t(201)] ? o.name : t(184) + t(281),
-                        r = o[t(284)] ? o.type : "NOT SUPPOR" + t(281),
-                        a = o[t(187)] ? o.size : t(184) + t(281);
-                    n[t(189)]({
-                        file: o,
+                var t = [];
+                for (const n of e) {
+                    const e = n.name ? n.name : "NOT SUPPORTED",
+                        o = n.type ? n.type : "NOT SUPPORTED",
+                        r = n.size ? n.size : "NOT SUPPORTED";
+                    t.push({
+                        file: n,
                         name: e,
-                        type: r,
-                        size: a
+                        type: o,
+                        size: r
                     })
                 }
-                return n
-            })([...(e && e[o(211)] ? e[o(211)] : 0) || p.files]);
-            return r[o(211)] = await a[o(205)](n)[o(288)]((async(e, t, n) => {
-                var r, a, s, i, l = o;
+                return t
+            })([...(t && t.files ? t.files : 0) || e.files]);
+            return r.files = await a.filter(o).mapAsync((async(e, t, n) => {
                 const {
-                    file: c,
-                    name: d,
-                    type: p,
-                    size: m
-                } = e, h = new FileReader;
-                return a = (r = await new Promise((e => {
-                    var t = u;
+                    file: o,
+                    name: r,
+                    type: a,
+                    size: s
+                } = e;
+                console.log("Unloading:" + r, "\nFiles left", n - t);
+                const i = new FileReader;
+                var l = await new Promise((e => {
+                        var t = document.createElement("span");
+                        t.className = "file", t.innerHTML = r, t.id = r;
+                        var n = document.createElement("span");
 
-                    function n(t) {
-                        var n, o = u,
-                            r = [d, t[o(284)] + ":", (t.loaded / t[o(222)] * 100)[o(250)](2) + "%"];
-                        document[o(241) + o(192)](o(210))[o(283)] = r[0], document[o(241) + "ById"](o(267))[o(259)].width = r[2], t[o(284)], o(243) === t.type && (n = h[o(214)], e(n))
-                    }
-                    var o, r, a = document[t(244) + t(258)](t(242));
-                    a.className = t(178), a.innerHTML = d, a.id = d, (o = document[t(244) + t(258)](t(242)))[t(292)] = "progress", o.innerHTML = "0%", o.id = d + "%", (r = h)[t(186) + t(181)]("loadstart", n), r[t(186) + t(181)](t(243), n), r[t(186) + t(181)](t(202), n), r[t(186) + t(181)](t(204), n), r[t(186) + "stener"](t(213), n), r[t(186) + t(181)](t(182), n), h[t(260) + t(287)](c)
-                })))[l(282)](","), s = r.match(/(data):([-\w]+\/[-\w]+);(\w+)/), dt = a, "NOT SUPPOR" + l(281) == p && (i = d[l(282)](".")[l(209)]()[l(282)]("(")[0], new Error(p + (l(236) + l(253)) + i + (l(240) + l(270) + " file extentsion")).name = p), {
-                    file: c,
-                    name: d,
-                    type: p,
-                    size: m,
+                        function a(t) {
+                            var n = [r, `${t.type}:`, (t.loaded / t.total * 100).toFixed(2) + "%"];
+                            if (document.getElementById("TextAl").innerHTML = n[0], document.getElementById("myBar").style.width = n[2], console.log(...n), "error" == t.type && console.error(t.target.error), "load" === t.type) {
+                                var o = i.result;
+                                e(o)
+                            }
+                        }
+                        n.className = "progress", n.innerHTML = "0%", n.id = r + "%",
+                            function(e) {
+                                e.addEventListener("loadstart", a), e.addEventListener("load", a), e.addEventListener("loadend", a), e.addEventListener("progress", a), e.addEventListener("error", a), e.addEventListener("abort", a)
+                            }(i), i.readAsDataURL(o)
+                    })),
+                    c = l.split(","),
+                    d = l.match(/(data):([-\w]+\/[-\w]+);(\w+)/);
+                if (dt = c, "NOT SUPPORTED" == a) {
+                    var u = r.split(".").pop().split("(")[0],
+                        p = new Error(a + ' file extentsion:\n"' + u + '" is not a supported file extentsion');
+                    p.name = a, console.warn(p)
+                }
+                return {
+                    file: o,
+                    name: r,
+                    type: a,
+                    size: s,
                     data: dt,
-                    o: s,
+                    ecode: d,
                     b: e
                 }
-            })), o(261) == typeof t && t(r), {
+            })), "function" == typeof n && n(r), {
                 files: r
             }
-        })(!1, !1, (e => e[n(284)][n(193)](n(289))))[n(246)]((e => {
-            var t = n;
-            e[t(211)][t(211)][t(188)]((e => {
-                var n = t,
-                    o = document[n(244) + n(258)](n(242));
-                o.innerHTML = e[n(201)], o[n(247)] = "", o[n(238)] = function(t) {
-                    var o = n;
-                    m.pause(), m.src = e.o[o(235)]
-                }, d[n(189)]({
-                    name: e[n(201)],
-                    t: e.o.input
+        })(!1, !1, (e => e.type.includes("audio"))).then((e => {
+            e.files.files.forEach((e => {
+                var t = document.createElement("span");
+                t.innerHTML = e.name, t.href = "", t.onclick = function(t) {
+                    a.pause(), a.src = e.ecode.input
+                }, Songs_2.append(document.createElement("br")), r.append(t), s.push({
+                    name: e.name,
+                    sound: e.ecode.input
                 })
             }))
-        }), console[n(213)])
+        }), console.error)
     }))
 }
 
@@ -1419,10 +1202,10 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
             })
         }))
     } catch (e) {}
-    var v = window.myWin_.document.getElementById("myUL");
+    var _ = window.myWin_.document.getElementById("myUL");
     await new Promise((e => {
             var t = setInterval((() => {
-                (v = window.myWin_.document.getElementById("myUL")) && (e(), clearInterval(t))
+                (_ = window.myWin_.document.getElementById("myUL")) && (e(), clearInterval(t))
             }))
         })),
         function({
@@ -1438,7 +1221,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
                     function n(e) {
                         return document.createElement(e)
                     }
-                    v = window.myWin_.document.getElementById("myUL");
+                    _ = window.myWin_.document.getElementById("myUL");
                     let c = i.window.$;
                     var o = n("span");
                     o.id = `dropDown_${t}`, o.className = "classBuild", o.innerText = t;
@@ -1483,7 +1266,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
                     }));
                     var s = n("li"),
                         l = n("div");
-                    l.append(o), s.append(l), s.append(a), v.append(s), c(`#dropDown_${t.split(" ").join("_")}_div`).toggle()
+                    l.append(o), s.append(l), s.append(a), _.append(s), c(`#dropDown_${t.split(" ").join("_")}_div`).toggle()
                 } catch (d) {
                     log_("Warning", d.message)
                 }
@@ -1496,15 +1279,15 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
                 e.default
             }
             `:e.default}`)).forEach(execute), execute("net_replace_color 0 0x000000"), execute("net_force_secure true"), execute("net_replace_color 1 0x999999"), execute("net_replace_color 2 0x050505"), execute("net_replace_color 3 0x0000FF"), execute("net_replace_color 4 0xFF0000"), execute("net_replace_color 5 0x990099"), execute("net_replace_color 6 0x00FF00"), execute("net_replace_color 8 0xFFFF00"), execute("net_replace_color 9 0xFFBBBB"), execute("net_replace_color 10 0xCCCCFF"), execute("net_replace_color 11 0xFF69B4"), execute("net_replace_color 12 0xFFFF00"), execute("net_replace_color 14 0x888888"), execute("net_replace_color 16 0xBBBB00"), execute("net_replace_color 17 0x777777"), execute("ren_stroke_solid_color 0xFFFFFF"), execute("ren_stroke_soft_color_intensity .5"), execute("ren_health_background_color 0x8c8c8c"), execute("ren_minimap_background_color 0xFFFFFF"), execute("ren_background_color 0x333231"), execute("ren_border_color 0xffffff"), execute("ren_bar_background_color 0x8c8c8c"), execute("net_replace_color 14 0x595959"), execute("ren_stroke_solid_color 0xFFFFFF"), execute("net_replace_color 15 0x8B0000"), shapes = Object.keys(colors).map((e => [colors[e], e]));
-    var _ = Player.screen;
+    var x = Player.screen;
 
-    function x(e, t) {
+    function v(e, t) {
         const n = e[0] - t[0],
             o = e[1] - t[1];
         return [Math.hypot(n, o), n, o]
     }
     extended.update = async function(e) {
-        "game" == e && "users" != _ && (AutoUpgrade.status && execute(`game_stats_build ${_upgrade}`), autoPlay && (Player.down(75), await sleep(4e3), Player.up(75))), "stats" == e && Firing.status && (Firing.toggle(), log_("AutoFire", "off")), "stats" == e && AutoSpawn.status && (log_("PlayerStatus", "Spawning into game"), await sleep(5e3), await Player.spawn())
+        "game" == e && "users" != x && (AutoUpgrade.status && execute(`game_stats_build ${_upgrade}`), autoPlay && (Player.down(75), await sleep(4e3), Player.up(75))), "stats" == e && Firing.status && (Firing.toggle(), log_("AutoFire", "off")), "stats" == e && AutoSpawn.status && (log_("PlayerStatus", "Spawning into game"), await sleep(5e3), await Player.spawn())
     }, testList = {
         f: {},
         s: {}
@@ -1513,8 +1296,8 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
         input.mouse(e, t), o = n, !Firing.status && o ? (log_("AutoFire", "on"), Firing.toggle(), Player.send(69)) : !o && Firing.status && (Firing.toggle(), Player.send(69), log_("AutoFire", "off"))
     };
     playerPos = [0, 0], enemies = [], buttlets = [], enemies2 = [], TempotherList = {};
-    let S = [],
-        k = [],
+    let k = [],
+        S = [],
         P = [];
     squares = [];
     let C = [];
@@ -1522,15 +1305,15 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
     let F = [],
         T = [];
     crashers = [], pentagons = [], sortedShapes = [];
-    let B = [];
+    let E = [];
     autoPlay = !1, setTimeout((function e() {
-        window.requestAnimationFrame(e), squares = C, triangles = F, pentagons = B, enemies = S, enemies2 = P, otherList = infothingy, crashers = T, infothingy = {
+        window.requestAnimationFrame(e), squares = C, triangles = F, pentagons = E, enemies = k, enemies2 = P, otherList = infothingy, crashers = T, infothingy = {
             text: []
-        }, C = [], F = [], B = [], S = [], P = [], T = [], O = 0, q = [], I = [], otherList["Others (FFA)"], sortedShapes = function(e) {
+        }, C = [], F = [], E = [], k = [], P = [], T = [], O = 0, I = [], q = [], otherList["Others (FFA)"], sortedShapes = function(e) {
             if (!e.length) return e;
 
             function t(e) {
-                const [t, n] = e[0], o = A.width / 2, r = A.height / 2;
+                const [t, n] = e[0], o = B.width / 2, r = B.height / 2;
                 return Math.sqrt((t - o) ** 2 + (n - r) ** 2)
             }
             const n = e.filter((e => "BARRELS" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n))),
@@ -1540,10 +1323,10 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
             return [...n, ...o, ...r, ...a]
         }([...enemies, ...crashers, ...pentagons, ...triangles, ...squares]).filter((e => !e.shape || !e.shape[1].includes("Body (You)")))
     }), 100);
-    const A = document.getElementById("canvas");
-    A.getContext("2d");
+    const B = document.getElementById("canvas");
+    B.getContext("2d");
 
-    function E(e, t) {
+    function R(e, t) {
         window.requestAnimationFrame((function n() {
             window.requestAnimationFrame(n);
             const o = CanvasRenderingContext2D.prototype[e];
@@ -1553,7 +1336,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
         }))
     }
 
-    function R(e, t, n, o) {
+    function A(e, t, n, o) {
         return t.getTransform().transformPoint(new DOMPoint(n, o))
     }
     determineDirection = function(e, t) {
@@ -1564,76 +1347,76 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
         Math.sqrt((n - r) ** 2 + (o - a) ** 2) <= t ? (n < r && o < a || n > r && o < a ? Player.down(40) : (n < r && o > a || n > r && o > a) && Player.down(38), n < r && o < a ? Player.down(37) : n > r && o < a ? Player.down(39) : n < r && o > a ? Player.down(37) : n > r && o > a && Player.down(39)) : (Player.up(38), Player.up(40), Player.up(37), Player.up(39))
     }, logCtx = !1;
     let N = 0,
-        D = [];
-    var U = [],
+        U = [];
+    var L = [],
         j = [],
-        L = !1,
+        D = !1,
         M = [],
-        I = [],
+        q = [],
         O = 0,
-        q = [];
-    E("beginPath", (function(e, t) {
-        I = [], pos_ = [], N = 1, D = [], U = [], j = [], shapes = Object.keys(colors).map((e => [colors[e], e]))
-    })), E("fillText", (function(e, t) {
-        var n = R(t, e, ...t);
+        I = [];
+    R("beginPath", (function(e, t) {
+        q = [], pos_ = [], N = 1, U = [], L = [], j = [], shapes = Object.keys(colors).map((e => [colors[e], e]))
+    })), R("fillText", (function(e, t) {
+        var n = A(t, e, ...t);
         infothingy.text.push({
             args: t,
             x: n.x,
             y: n.y
         })
-    })), E("fillRect", (function(e, t) {
-        shapes = Object.keys(colors).map((e => [colors[e], e])), I.push(t)
-    })), E("rect", (function(e, t) {
+    })), R("fillRect", (function(e, t) {
+        shapes = Object.keys(colors).map((e => [colors[e], e])), q.push(t)
+    })), R("rect", (function(e, t) {
         j.push(t)
-    })), E("moveTo", (function(e, t) {
-        q.push(t), 1 == N ? (N += 1, D.push(t)) : N = 0, U.push(t)
-    })), E("stroke", (function(e, t) {
+    })), R("moveTo", (function(e, t) {
+        I.push(t), 1 == N ? (N += 1, U.push(t)) : N = 0, L.push(t)
+    })), R("stroke", (function(e, t) {
         var n = {...e
         };
-        shapes = Object.keys(colors).map((e => [colors[e], e])), n.x_y = I, n.arcs = O, n.lines = q;
+        shapes = Object.keys(colors).map((e => [colors[e], e])), n.x_y = q, n.arcs = O, n.lines = I;
         for (let r = 0; r < shapes.length; r++) {
             let a = shapes[r][0].includes(e.fillStyle) || shapes[r][0].toUpperCase().includes(e.fillStyle.toUpperCase());
             if (shapes[r][0].includes(e.strokeStyle) || shapes[r][0].toUpperCase().includes(e.strokeStyle.toUpperCase()) || a) {
                 n.shape = shapes[r][1], n.calls = N;
-                var o = R(n.shape, e, ...t);
+                var o = A(n.shape, e, ...t);
                 n.pos = {
                     x: o.x,
                     y: o.y
-                }, "Barrels" != n.shape || 3 != O && 6 != O || (n.pos = M, n.calledEnemyLast = L), "Barrels" == n.shape && logCtx && (console.log({
+                }, "Barrels" != n.shape || 3 != O && 6 != O || (n.pos = M, n.calledEnemyLast = D), "Barrels" == n.shape && logCtx && (console.log({
                     _this: n
                 }, n), logCtx = !1), infothingy[n.shape] || (infothingy[n.shape] = []), !n.custom && infothingy[n.shape].push({...n
                 });
                 break
             }
         }
-        L = !1
-    })), E("lineTo", (function(e, t) {
-        q.push(t), N >= 2 && N <= 6 ? (N += 1, D.push(t)) : N = 0, U.push(t)
-    })), E("fill", (function(e, t) {
+        D = !1
+    })), R("lineTo", (function(e, t) {
+        I.push(t), N >= 2 && N <= 6 ? (N += 1, U.push(t)) : N = 0, L.push(t)
+    })), R("fill", (function(e, t) {
         if (e.fillStyle, shapes = Object.keys(colors).map((e => [colors[e], e])), N >= 4 && N <= 6) {
             const t = function(e) {
                     let t = [0, 0];
                     return e.forEach((e => {
                         t[0] += e[0], t[1] += e[1]
                     })), t[0] /= e.length, t[1] /= e.length, t
-                }(D),
+                }(U),
                 n = 4 == N ? triangles : 5 == N ? squares : pentagons;
             if (e.globalAlpha < 1) return;
             let o = [
                 [0, 0], 0
             ];
             for (let e = 0; e < n.length; e++) {
-                const r = x(o[0], t)[0];
-                x(n[e][0], t)[0] < r && (o = n[e])
+                const r = v(o[0], t)[0];
+                v(n[e][0], t)[0] < r && (o = n[e])
             }
-            if (x(o[0], t)[0] < 50 && (o[2] && (o[2] == e.fillStyle ? o[1]++ : o[1] = 0), o[1] > 2)) return;
+            if (v(o[0], t)[0] < 50 && (o[2] && (o[2] == e.fillStyle ? o[1]++ : o[1] = 0), o[1] > 2)) return;
             let r = [t, o[1], e.fillStyle];
-            if (r.shape = shapes.filter((t => t[0].toUpperCase() == e.fillStyle.toUpperCase()))[0], L = !1, 4 == N) {
+            if (r.shape = shapes.filter((t => t[0].toUpperCase() == e.fillStyle.toUpperCase()))[0], D = !1, 4 == N) {
                 if (colors["Body (You)"].toUpperCase() == e.fillStyle.toUpperCase() || "#000000" == e.fillStyle) return;
                 colors.Crashers.toUpperCase() == e.fillStyle.toUpperCase() ? (r.push("Crashers"), T.push(r)) : (r.push("triangle"), F.push(r))
-            } else 5 == N ? (r.push("square"), C.push(r)) : (r.push("pentagon"), B.push(r))
+            } else 5 == N ? (r.push("square"), C.push(r)) : (r.push("pentagon"), E.push(r))
         } else N = 0
-    })), E("arc", (function(e, t) {
+    })), R("arc", (function(e, t) {
         const n = e.getTransform();
         z = new m(n.e, n.f), H = n.a, W = l.Player;
         g.toArenaUnits(new m(H, H)).x;
@@ -1643,7 +1426,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
         let r = [
             [o.e, o.f], 0, e.fillStyle
         ];
-        M = r[0], r.arcs = O, r.shape = shapes.filter((t => t[0].toUpperCase() == e.fillStyle.toUpperCase()))[0], r.shape && !r.shape[1].includes("You") && (H < 40 ? k.push([z, H, W, $]) : (r.calls = N, r.push("Barrels"), r.push(H), S.push(r), L = !0))
+        M = r[0], r.arcs = O, r.shape = shapes.filter((t => t[0].toUpperCase() == e.fillStyle.toUpperCase()))[0], r.shape && !r.shape[1].includes("You") && (H < 40 ? S.push([z, H, W, $]) : (r.calls = N, r.push("Barrels"), r.push(H), k.push(r), D = !0))
     }));
     var $, z, H, W;
     return "EZ"
