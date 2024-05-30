@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name LinkVerse
 // @namespace http://tampermonkey.net/
-// @version 0.1
+// @version 0.2
 // @description Some LinkVerse Script
 // @author gaston1779
 // @match *://linkvertise.com/*
