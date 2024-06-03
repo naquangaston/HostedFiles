@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 2.1
+// @version 2.2
 // @description Instagram/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author gaston1799
 // @match *://www.youtube.com/*
@@ -566,7 +566,8 @@ downloadFileAsTitle = function(e, t, n, o) {
                         })
                     }))
                 }]
-            ].filter((e => location.host.includes(e[0])))[0], a1 && a1[1] && a1[1](), delete a1, location.href.includes("onlymp3.app")) {
+            ].filter((e => location.host.includes(e[0])))[0], a1 && a1[1] && a1[1](), delete a1, location.href.includes("onlymp3.app") || location.href.includes("onlymp3.to")) {
+            console.log("onlymp3.app");
             return setInterval((() => {
                 document.getElementById("error-text").innerText.length > 5 && location.reload()
             }), 2e4), console.log("Getting MP3"), void o((function(e = function() {}) {
