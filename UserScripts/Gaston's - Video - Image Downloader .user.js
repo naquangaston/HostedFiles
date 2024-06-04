@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 2.2
+// @version 2.4
 // @description Instagram/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author gaston1799
 // @match *://www.youtube.com/*
@@ -348,11 +348,11 @@ downloadFileAsTitle = function(e, t, n, o) {
             }(n), o.length ? 1 == o.length ? o[0] : o || !1 : null
         }
 
-        function m() {
+        function h() {
             (u("Mute", "title") && u("Mute", "title")[0] || u("Mute (m)", "title")).click()
         }
 
-        function h() {
+        function m() {
             (query("#right-controls") && query("#right-controls").querySelectorAll("path")[0].getAttribute("d") == UnmutePath && u("Mute", "title")[0] || u("Unmute", "title") || u("Unmute (m)", "title")).click()
         }
         _getIds = function() {
@@ -443,7 +443,7 @@ downloadFileAsTitle = function(e, t, n, o) {
                     }
                 } else console.log("Unhandled Post", e)
             }, r = open("https://savetik.co/en", [`https://www.tiktok.com/${l}/video/${o}`, e + !1], "width=400,height=500")
-        }, abc_ = u, M = m, Um = h;
+        }, abc_ = u, M = h, Um = m;
         var f = 0;
 
         function p(e) {
@@ -497,14 +497,20 @@ downloadFileAsTitle = function(e, t, n, o) {
             })),
             k = new e("button").set("innerText", "Get MP4").on("click", (function(e) {
                 downloadTikTok(!0, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
-            })),
+            })).style({
+                color: "white"
+            }),
             E = (new e("button", {
                 id: "tt1"
             }).set("innerText", "Get MP4").on("click", (function(e) {
                 downloadTikTok(!0, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
-            })), new e("button").set("innerText", "Get MP3").on("click", (function(e) {
+            })).style({
+                color: "white"
+            }), new e("button").set("innerText", "Get MP3").on("click", (function(e) {
                 downloadTikTok(!1, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
-            })));
+            })).style({
+                color: "white"
+            }));
 
         function T() {
             return query("#end") || query("#right-content")
@@ -743,9 +749,9 @@ downloadFileAsTitle = function(e, t, n, o) {
         }) {
             ["INPUT", "TEXTAREA"].includes(i) || t || n || !e || "KeyI" != o || (abc_("Close player page") || abc_("Open player page")[1]).click()
         }))), setInterval((e => {
-            document.getElementsByClassName("ytp-ad-button-icon")[0] && !f && (console.log("muted ad"), f = 1, m()), !document.getElementsByClassName("ytp-ad-button-icon")[0] && f && (console.log("unmuted video"), function() {
+            document.getElementsByClassName("ytp-ad-button-icon")[0] && !f && (console.log("muted ad"), f = 1, h()), !document.getElementsByClassName("ytp-ad-button-icon")[0] && f && (console.log("unmuted video"), function() {
                 try {
-                    h()
+                    m()
                 } catch (e) {
                     console.warn("Failed unmuting")
                 }
