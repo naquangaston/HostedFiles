@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 2.5
+// @version 2.6
 // @description Instagram/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author gaston1799
 // @match *://www.youtube.com/*
@@ -396,56 +396,58 @@ downloadFileAsTitle = function(e, t, n, o) {
                 var c = new URL(location.href);
                 return c.host = c.host.replace(".com", "mz.com"), info[e] = l ? open(location.pathname.startsWith("/shorts/") ? "https://yt5s.biz/enxj100/" : "https://en3.onlinevideoconverter.pro/112Ei/youtube-downloader-mp4", [e, location.pathname.startsWith("/shorts/") ? 1 : 0, l + !1], "width=400,height=500") : open([c.protocol, "//", c.host, c.pathname, "?v=", e].join(""), [e, location.pathname.startsWith("/shorts/") ? 1 : 0], "width=400,height=500")
             }
-        }, downloadTikTok = async function(e, o) {
-            await async function() {
-                for (; !t.closed;) await sleep(0);
-                return 1
-            }();
-            let l = o.videoID,
-                i = o.username,
-                r = function() {
-                    try {
-                        return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > div.css-1d7krfw-DivOverflowContainer.e1mzilcj5 > h1").innerText.replace("Replying to ", "")
-                    } catch {
+        }, downloadTikTok = function(e, o) {
+            (async function(e, o) {
+                await async function() {
+                    for (; t && !t.closed;) await sleep(0);
+                    return 1
+                }(), console.log("ez");
+                let l = o.videoID,
+                    i = o.username,
+                    r = function() {
                         try {
-                            return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0").innerText.replace("Replying to ", "")
-                        } catch (e) {
-                            return document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace("Replying to ", "")
-                        }
-                    }
-                }();
-            onmessage = function(e) {
-                if (e.origin == n || e.origin.match(/https?:\/{2}savetik\.csavetik.coo/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://savetik.co" == e.origin) {
-                    var {
-                        data: {
-                            href: o,
-                            links: l,
-                            title: i,
-                            length: c,
-                            id: a,
-                            mp4: s,
-                            info: {
-                                username: d
+                            return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > div.css-1d7krfw-DivOverflowContainer.e1mzilcj5 > h1").innerText.replace("Replying to ", "")
+                        } catch {
+                            try {
+                                return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0").innerText.replace("Replying to ", "")
+                            } catch (e) {
+                                return h("browse-video-desc", "data-e2e") ? h("browse-video-desc", "data-e2e").innerText : document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace("Replying to ", "")
                             }
                         }
-                    } = e;
-                    if (console.log("Handled", {
-                            href: o,
-                            title: i,
-                            length: c,
-                            id: a,
-                            links: l,
-                            mp4: s
-                        }, e), "https://savetik.co" == e.origin) i = r, downloadFileAsTitle(s ? l[0] : l.pop(), d + " - " + i + (s ? ".mp4" : ".mp3"), t);
-                    else {
-                        if (useT) {
-                            let e = document.createElement("a");
-                            e.download = i + ".mp3", e.href = o, document.body.appendChild(e), e.click(), e.remove()
-                        } else open(o);
-                        localStorage[_] = o
-                    }
-                } else console.log("Unhandled Post", e)
-            }, t = open("https://savetik.co/en", [`https://www.tiktok.com/${i}/video/${l}`, e + !1], "width=400,height=500")
+                    }();
+                onmessage = function(e) {
+                    if (e.origin == n || e.origin.match(/https?:\/{2}savetik\.csavetik.coo/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://savetik.co" == e.origin) {
+                        var {
+                            data: {
+                                href: o,
+                                links: l,
+                                title: i,
+                                length: c,
+                                id: a,
+                                mp4: s,
+                                info: {
+                                    username: d
+                                }
+                            }
+                        } = e;
+                        if (console.log("Handled", {
+                                href: o,
+                                title: i,
+                                length: c,
+                                id: a,
+                                links: l,
+                                mp4: s
+                            }, e), "https://savetik.co" == e.origin) i = r, downloadFileAsTitle(s ? l[0] : l.pop(), d + " - " + i + (s ? ".mp4" : ".mp3"), t);
+                        else {
+                            if (useT) {
+                                let e = document.createElement("a");
+                                e.download = i + ".mp3", e.href = o, document.body.appendChild(e), e.click(), e.remove()
+                            } else open(o);
+                            localStorage[_] = o
+                        }
+                    } else console.log("Unhandled Post", e)
+                }, t = open("https://savetik.co/en", [`https://www.tiktok.com/${i}/video/${l}`, e + !1], "width=400,height=500")
+            })(e, o).then(console.log, console.warn)
         }, abc_ = h, M = m, Um = f;
         var p = 0;
 
