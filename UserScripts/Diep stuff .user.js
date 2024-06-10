@@ -2,7 +2,7 @@
 // @name Diep stuff
 // @namespace http://tampermonkey.net/
 // @version 2.4
-// @description Gastons diep script - Replaced the MySrc function
+// @description Gastons diep script
 // @author You
 // @match *://diep.io/*
 // @icon https://www.google.com/s2/favicons?sz=64&domain=diep.io
@@ -75,144 +75,6 @@ function get(e, t = document.body) {
     return null
 }
 
-function Mysrc() {
-    const e = document.getElementById("chooseFile");
-
-    function t(e, t) {
-        a.src = e, t && a.addEventListener("ended", t)
-    }
-    Array.prototype.forEachAsync = async function(e = function() {}) {
-        for (let t = 0; t < this.length; t++) await e(this[t], t, this.length);
-        return null
-    }, Array.prototype.mapAsync = async function(e = function() {}) {
-        for (let t = 0; t < this.length; t++) this[t] = await e(this[t], t, this.length);
-        return this
-    };
-    var n = 0;
-
-    function o(e) {
-        ! function o() {
-            n + 1 === e.length ? (console.log("Now playing", e[n].name), t(e[n].sound, null)) : (console.log("Now playing", e[n].name), t(e[n].sound, (function() {
-                n++, o()
-            })))
-        }()
-    }
-    var r = document.getElementById("Songs_");
-    const a = new Audio;
-    var s = [];
-    a.volume = .3, [
-        ["Shuffle", () => (s.shuffle(), a.pause(), o(s))],
-        ["play all", function() {
-            o(s)
-        }],
-        ["Skip", () => {
-            a.currentTime = a.duration - 10
-        }],
-        ["Previous", () => {
-            n -= 2, a.currentTime = a.duration - 10
-        }],
-        ["play", () => a.play()],
-        ["pause", () => a.pause()],
-        ["loop", function(e) {
-            a.loop = !a.loop, e.innerText = "loop:" + (a.loop ? "on" : "off")
-        }],
-        ["volume", () => {
-            a.volume = prompt("Enter volume", "50") / 100
-        }]
-    ].forEach((e => {
-        var t = "function" == typeof e[1] ? e[1] : function() {
-                alert(`The "${e[0]}" button is W.I.P`)
-            },
-            n = document.createElement("button");
-        n.innerText = e[0], n.onclick = t, r.append(n), console.log(n)
-    })), a.oncanplaythrough = e => {
-        a.play()
-    }, e.addEventListener("change", (t => {
-        (async function(t, n, o = function() {
-            return !0
-        }) {
-            var r = new class {
-                constructor() {
-                    this.files = []
-                }
-                push(...e) {
-                    this.files.push(...e)
-                }
-            };
-            const a = (e => {
-                var t = [];
-                for (const n of e) {
-                    const e = n.name ? n.name : "NOT SUPPORTED",
-                        o = n.type ? n.type : "NOT SUPPORTED",
-                        r = n.size ? n.size : "NOT SUPPORTED";
-                    t.push({
-                        file: n,
-                        name: e,
-                        type: o,
-                        size: r
-                    })
-                }
-                return t
-            })([...(t && t.files ? t.files : 0) || e.files]);
-            return r.files = await a.filter(o).mapAsync((async(e, t, n) => {
-                const {
-                    file: o,
-                    name: r,
-                    type: a,
-                    size: s
-                } = e;
-                console.log("Unloading:" + r, "\nFiles left", n - t);
-                const i = new FileReader;
-                var l = await new Promise((e => {
-                        var t = document.createElement("span");
-                        t.className = "file", t.innerHTML = r, t.id = r;
-                        var n = document.createElement("span");
-
-                        function a(t) {
-                            var n = [r, `${t.type}:`, (t.loaded / t.total * 100).toFixed(2) + "%"];
-                            if (document.getElementById("TextAl").innerHTML = n[0], document.getElementById("myBar").style.width = n[2], console.log(...n), "error" == t.type && console.error(t.target.error), "load" === t.type) {
-                                var o = i.result;
-                                e(o)
-                            }
-                        }
-                        n.className = "progress", n.innerHTML = "0%", n.id = r + "%",
-                            function(e) {
-                                e.addEventListener("loadstart", a), e.addEventListener("load", a), e.addEventListener("loadend", a), e.addEventListener("progress", a), e.addEventListener("error", a), e.addEventListener("abort", a)
-                            }(i), i.readAsDataURL(o)
-                    })),
-                    c = l.split(","),
-                    d = l.match(/(data):([-\w]+\/[-\w]+);(\w+)/);
-                if (dt = c, "NOT SUPPORTED" == a) {
-                    var u = r.split(".").pop().split("(")[0],
-                        p = new Error(a + ' file extentsion:\n"' + u + '" is not a supported file extentsion');
-                    p.name = a, console.warn(p)
-                }
-                return {
-                    file: o,
-                    name: r,
-                    type: a,
-                    size: s,
-                    data: dt,
-                    ecode: d,
-                    b: e
-                }
-            })), "function" == typeof n && n(r), {
-                files: r
-            }
-        })(!1, !1, (e => e.type.includes("audio"))).then((e => {
-            e.files.files.forEach((e => {
-                var t = document.createElement("span");
-                t.innerHTML = e.name, t.href = "", t.onclick = function(t) {
-                    a.pause(), a.src = e.ecode.input
-                }, Songs_2.append(document.createElement("br")), r.append(t), s.push({
-                    name: e.name,
-                    sound: e.ecode.input
-                })
-            }))
-        }), console.error)
-    }))
-}
-
 function log_(e, t) {
     new CustomLog(e).log(t)
 }
@@ -280,6 +142,142 @@ getClose = function(e) {
                 o.addColorStop("0", "magenta"), o.addColorStop("0.5", "blue"), o.addColorStop("1.0", "red"), e.strokeStyle = o, e.lineWidth = 5, e.moveTo(t, n), e.arc(t, n, 50, 0, 2 * Math.PI), e.stroke(), e.custom = !1
             }
         } catch (e) {}
+    }, MySrc = function() {
+        const e = document.getElementById("chooseFile");
+
+        function t(e, t) {
+            a.src = e, t && a.addEventListener("ended", t)
+        }
+        Array.prototype.forEachAsync = async function(e = function() {}) {
+            for (let t = 0; t < this.length; t++) await e(this[t], t, this.length);
+            return null
+        }, Array.prototype.mapAsync = async function(e = function() {}) {
+            for (let t = 0; t < this.length; t++) this[t] = await e(this[t], t, this.length);
+            return this
+        };
+        var n = 0;
+
+        function o(e) {
+            ! function o() {
+                n + 1 === e.length ? (console.log("Now playing", e[n].name), t(e[n].sound, null)) : (console.log("Now playing", e[n].name), t(e[n].sound, (function() {
+                    n++, o()
+                })))
+            }()
+        }
+        var r = document.getElementById("Songs_");
+        const a = new Audio;
+        var s = [];
+        a.volume = .3, [
+            ["Shuffle", () => (s.shuffle(), a.pause(), o(s))],
+            ["play all", function() {
+                o(s)
+            }],
+            ["Skip", () => {
+                a.currentTime = a.duration - 10
+            }],
+            ["Previous", () => {
+                n -= 2, a.currentTime = a.duration - 10
+            }],
+            ["play", () => a.play()],
+            ["pause", () => a.pause()],
+            ["loop", function(e) {
+                a.loop = !a.loop, e.innerText = "loop:" + (a.loop ? "on" : "off")
+            }],
+            ["volume", () => {
+                a.volume = prompt("Enter volume", "50") / 100
+            }]
+        ].forEach((e => {
+            var t = "function" == typeof e[1] ? e[1] : function() {
+                    alert(`The "${e[0]}" button is W.I.P`)
+                },
+                n = document.createElement("button");
+            n.innerText = e[0], n.onclick = t, r.append(n), console.log(n)
+        })), a.oncanplaythrough = e => {
+            a.play()
+        }, e.addEventListener("change", (t => {
+            (async function(t, n, o = function() {
+                return !0
+            }) {
+                var r = new class {
+                    constructor() {
+                        this.files = []
+                    }
+                    push(...e) {
+                        this.files.push(...e)
+                    }
+                };
+                const a = (e => {
+                    var t = [];
+                    for (const n of e) {
+                        const e = n.name ? n.name : "NOT SUPPORTED",
+                            o = n.type ? n.type : "NOT SUPPORTED",
+                            r = n.size ? n.size : "NOT SUPPORTED";
+                        t.push({
+                            file: n,
+                            name: e,
+                            type: o,
+                            size: r
+                        })
+                    }
+                    return t
+                })([...(t && t.files ? t.files : 0) || e.files]);
+                return r.files = await a.filter(o).mapAsync((async(e, t, n) => {
+                    const {
+                        file: o,
+                        name: r,
+                        type: a,
+                        size: s
+                    } = e;
+                    console.log("Unloading:" + r, "\nFiles left", n - t);
+                    const i = new FileReader;
+                    var l = await new Promise((e => {
+                            var t = document.createElement("span");
+                            t.className = "file", t.innerHTML = r, t.id = r;
+                            var n = document.createElement("span");
+
+                            function a(t) {
+                                var n = [r, `${t.type}:`, (t.loaded / t.total * 100).toFixed(2) + "%"];
+                                if (document.getElementById("TextAl").innerHTML = n[0], document.getElementById("myBar").style.width = n[2], console.log(...n), "error" == t.type && console.error(t.target.error), "load" === t.type) {
+                                    var o = i.result;
+                                    e(o)
+                                }
+                            }
+                            n.className = "progress", n.innerHTML = "0%", n.id = r + "%",
+                                function(e) {
+                                    e.addEventListener("loadstart", a), e.addEventListener("load", a), e.addEventListener("loadend", a), e.addEventListener("progress", a), e.addEventListener("error", a), e.addEventListener("abort", a)
+                                }(i), i.readAsDataURL(o)
+                        })),
+                        c = l.split(","),
+                        d = l.match(/(data):([-\w]+\/[-\w]+);(\w+)/);
+                    if (dt = c, "NOT SUPPORTED" == a) {
+                        var u = r.split(".").pop().split("(")[0],
+                            p = new Error(a + ' file extentsion:\n"' + u + '" is not a supported file extentsion');
+                        p.name = a, console.warn(p)
+                    }
+                    return {
+                        file: o,
+                        name: r,
+                        type: a,
+                        size: s,
+                        data: dt,
+                        ecode: d,
+                        b: e
+                    }
+                })), "function" == typeof n && n(r), {
+                    files: r
+                }
+            })(!1, !1, (e => e.type.includes("audio"))).then((e => {
+                e.files.files.forEach((e => {
+                    var t = document.createElement("span");
+                    t.innerHTML = e.name, t.href = "", t.onclick = function(t) {
+                        a.pause(), a.src = e.ecode.input
+                    }, Songs_2.append(document.createElement("br")), r.append(t), s.push({
+                        name: e.name,
+                        sound: e.ecode.input
+                    })
+                }))
+            }), console.error)
+        }))
     }, set_convar = function(e, t) {
         console.log("Set", e, t), input.set_convar(e, t)
     }, execute = function(e) {
@@ -930,7 +928,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
             AutoReload: AutoReload
         }), setInterval((() => {
             AutoReload.status && ["loading", "captcha"].includes(Player.screen) && (alert("Auto reload is on\n page will reload in 5 seconds"), setTimeout((() => {
-                location.reload()
+                AutoReload.status && ["loading", "captcha"].includes(Player.screen) ? location.reload() : consolelog("Reload ABprted")
             }), 5e3))
         }), 1e4), _window = window;
     class u {
