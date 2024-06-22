@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 2.7
+// @version 2.9
 // @description Instagram/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author gaston1799
 // @match *://www.youtube.com/*
@@ -13,6 +13,8 @@
 // @match *://en.onlymp3.app/*
 // @match *://studio.youtube.com/*
 // @match *://www.yt2conv.com/*
+// @match *://soundcloud.com/*
+// @match *://sclouddownloader.net/*
 // @match *://www.tiktok.com/*
 // @match *://en3.onlinevideoconverter.pro/*
 // @match *://savetik.co/*
@@ -30,10 +32,31 @@
 // @grant GM_removeValueChangeListener
 // @license MIT
 // ==/UserScript==
+function getV(e, t) {
+    return GM_getValue(e) || (GM_setValue(e, t), t)
+}
+
+function setV(e, t) {
+    GM_setValue(e, t)
+}
+var adev, set_;
+
 function sleep(e) {
     return new Promise((t => setTimeout(t, e)))
 }
-GM_setValue_ = GM_setValue, GM_getValue_ = GM_getValue, GM_info_ = GM_info;
+_getV = getV, _setV = setV, Number.prototype.decimal = function(e) {
+    return Number(this.toFixed(places))
+}, getSoundCloudUrl = () => {
+    try {
+        return findhref2(document.querySelector("#app > div.playControls.g-z-index-control-bar.m-visible > section > div > div.playControls__elements > div.playControls__soundBadge.sc-ml-3x > div"))[0].href
+    } catch {
+        return
+    }
+}, downloadSC = function() {
+    GM_setValue("tdl", null), !set_ && (set_ = 1, GM_addValueChangeListener("tldl", (function(e, t, n, o) {
+        n && n.title && downloadFile_(n.url, n.title)
+    }))), open()
+}, GM_setValue_ = GM_setValue, GM_getValue_ = GM_getValue, GM_info_ = GM_info;
 var UnmutePath = "M3.15,3.85l4.17,4.17L6.16,9H3v6h3.16L12,19.93v-7.22l2.45,2.45c-0.15,0.07-0.3,0.13-0.45,0.18v1.04 c0.43-0.1,0.83-0.27,1.2-0.48l1.81,1.81c-0.88,0.62-1.9,1.04-3.01,1.2v1.01c1.39-0.17,2.66-0.71,3.73-1.49l2.42,2.42l0.71-0.71 l-17-17L3.15,3.85z M11,11.71v6.07L6.52,14H4v-4h2.52l1.5-1.27L11,11.71z M10.33,6.79L9.62,6.08L12,4.07v4.39l-1-1V6.22L10.33,6.79 z M14,8.66V7.62c2,0.46,3.5,2.24,3.5,4.38c0,0.58-0.13,1.13-0.33,1.64l-0.79-0.79c0.07-0.27,0.12-0.55,0.12-0.85 C16.5,10.42,15.44,9.1,14,8.66z M14,5.08V4.07c3.95,0.49,7,3.85,7,7.93c0,1.56-0.46,3.01-1.23,4.24l-0.73-0.73 C19.65,14.48,20,13.28,20,12C20,8.48,17.39,5.57,14,5.08z",
     mutePath = "M17.5,12c0,2.14-1.5,3.92-3.5,4.38v-1.04c1.44-0.43,2.5-1.76,2.5-3.34c0-1.58-1.06-2.9-2.5-3.34V7.62 C16,8.08,17.5,9.86,17.5,12z M12,4.07v15.86L6.16,15H3V9h3.16L12,4.07z M11,6.22L6.52,10H4v4h2.52L11,17.78V6.22z M21,12 c0,4.08-3.05,7.44-7,7.93v-1.01c3.39-0.49,6-3.4,6-6.92s-2.61-6.43-6-6.92V4.07C17.95,4.56,21,7.92,21,12z";
 
@@ -299,6 +322,11 @@ downloadFileAsTitle = function(e, t, n, o) {
             }(".button--filled").then((e => e.href)))
         };
         else {
+            if ("soundcloud.com" == document.domain) return void(getSoundCloadI = function() {
+                _setV("SC", getSoundCloudUrl()), open("https://sclouddownloader.net/", "SC").onclose = function(e) {
+                    console.log("Win closed")
+                }
+            });
             if ("studio.youtube.com" == document.domain) return void setInterval((() => {
                 var e;
                 try {
@@ -309,7 +337,7 @@ downloadFileAsTitle = function(e, t, n, o) {
                 t != e && (t = e, console.log("Change?", e ? "Found" : "Not FOund"))
             }), 0);
             if ("www.instagram.com" == document.domain) {
-                function h() {
+                function m() {
                     console.log("Appended buttons man");
                     var t = new e(document.querySelectorAll(".xh8yej3.x1iyjqo2")[0]),
                         n = new e("button", {
@@ -324,8 +352,8 @@ downloadFileAsTitle = function(e, t, n, o) {
                     document.querySelectorAll(".xh8yej3.x1iyjqo2")[0].children
                 }), {
                     callback: function() {
-                        h(), setInterval((() => {
-                            document.querySelector("#MediaButton") || h(), document.querySelector("._aaqy") && !document.querySelector("._aaqy").querySelector("#MediaButton") && function() {
+                        m(), setInterval((() => {
+                            document.querySelector("#MediaButton") || m(), document.querySelector("._aaqy") && !document.querySelector("._aaqy").querySelector("#MediaButton") && function() {
                                 var t = new e(document.querySelector("._aaqy")),
                                     n = new e("button", {
                                         id: "MediaButton"
@@ -339,9 +367,40 @@ downloadFileAsTitle = function(e, t, n, o) {
                     }
                 }), void console.log("Insta ballz")
             }
+            "sclouddownloader.net" == document.domain && async function() {
+                var e = _getV("SC");
+                async function t(e, t) {
+                    let n = e => new Promise((t => setTimeout(t, e)));
+                    return await new Promise((async(o, l) => {
+                        var i = !1;
+                        setTimeout((() => (i = 0, l())), t);
+                        for (; !document.querySelector(e);)
+                            if (await n(), i) {
+                                l();
+                                break
+                            }
+                        return o()
+                    })).then((e => !0), (e => !1))
+                }
+                if ("/download-sound-track" == location.pathname) {
+                    for (await t("#trackTitle"); !trackTitle.innerText.length;) await sleep(0);
+                    for (await t("#trackLink"); !trackLink.href.length;) await sleep(0);
+                    _setV("SCinfo", {
+                        name: trackTitle.innerText,
+                        href: trackLink.href
+                    }), close()
+                } else {
+                    if (!_getV("SC")) throw "Bruv";
+                    var n = "#urlInput";
+                    if (await t(n, 2e3), await t(n, 2e3)) {
+                        for (document.querySelector(n).value = e, console.log("EZ url", !!window.formSubmit); !window.formSubmit;) await sleep(0);
+                        formSubmit(), console.warn("Got"), setTimeout(formSubmit, 1e3)
+                    }
+                }
+            }().then(console.log, console.warn)
         }
 
-        function m(e, t = "aria-label", n = document.body) {
+        function h(e, t = "aria-label", n = document.body) {
             var o = [];
             return function n(l) {
                 var i = !1;
@@ -361,11 +420,11 @@ downloadFileAsTitle = function(e, t, n, o) {
         }
 
         function f() {
-            (m("Mute", "title") && m("Mute", "title")[0] || m("Mute (m)", "title")).click()
+            (h("Mute", "title") && h("Mute", "title")[0] || h("Mute (m)", "title")).click()
         }
 
         function p() {
-            (query("#right-controls") && query("#right-controls").querySelectorAll("path")[0].getAttribute("d") == UnmutePath && m("Mute", "title")[0] || m("Unmute", "title") || m("Unmute (m)", "title")).click()
+            (query("#right-controls") && query("#right-controls").querySelectorAll("path")[0].getAttribute("d") == UnmutePath && h("Mute", "title")[0] || h("Unmute", "title") || h("Unmute (m)", "title")).click()
         }
         _getIds = function() {
             if (document.domain.includes("music")) throw alert("These button dont work on youtube music yet"), ".";
@@ -423,7 +482,7 @@ downloadFileAsTitle = function(e, t, n, o) {
                             try {
                                 return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0").innerText.replace("Replying to ", "")
                             } catch (e) {
-                                return m("browse-video-desc", "data-e2e") ? m("browse-video-desc", "data-e2e").innerText : document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace("Replying to ", "")
+                                return h("browse-video-desc", "data-e2e") ? h("browse-video-desc", "data-e2e").innerText : document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace("Replying to ", "")
                             }
                         }
                     }();
@@ -460,7 +519,7 @@ downloadFileAsTitle = function(e, t, n, o) {
                     } else console.log("Unhandled Post", e)
                 }, n = open("https://savetik.co/en", [`https://www.tiktok.com/${i}/video/${l}`, e + !1], "width=400,height=500")
             })(e, t).then(console.log, console.warn)
-        }, abc_ = m, M = f, Um = p;
+        }, abc_ = h, M = f, Um = p;
         var g = 0;
 
         function w(e) {
@@ -517,7 +576,7 @@ downloadFileAsTitle = function(e, t, n, o) {
             })).style({
                 color: "white"
             }),
-            q = (new e("button", {
+            C = (new e("button", {
                 id: "tt1"
             }).set("innerText", "Get MP4").on("click", (function(e) {
                 downloadTikTok(!0, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
@@ -529,12 +588,12 @@ downloadFileAsTitle = function(e, t, n, o) {
                 color: "white"
             }));
 
-        function C() {
+        function q() {
             return query("#end") || query("#right-content")
         }
 
-        function x() {
-            const t = C();
+        function S() {
+            const t = q();
 
             function n() {
                 try {
@@ -554,17 +613,17 @@ downloadFileAsTitle = function(e, t, n, o) {
         if (a1 = [
                 ["youtube", function() {
                     i((function() {
-                        if (!C()) throw "Cant append buttons yet";
+                        if (!q()) throw "Cant append buttons yet";
                         return !0
                     }), {
-                        callback: x
+                        callback: S
                     })
                 }],
                 ["tiktok", function() {
                     addEventListener("load", (function() {
                         i((function() {
                             if (!abc_("browse-copy", "data-e2e")) throw "Cant Append";
-                            T.appendTo(document.querySelectorAll(".e1mecfx011")), q.appendTo(document.querySelectorAll(".e1mecfx011"))
+                            T.appendTo(document.querySelectorAll(".e1mecfx011")), C.appendTo(document.querySelectorAll(".e1mecfx011"))
                         }), {
                             callback: function() {}
                         }), i((function() {
@@ -577,11 +636,11 @@ downloadFileAsTitle = function(e, t, n, o) {
                                     return !1
                                 }
                             }
-                            T.appendTo(document.getElementsByClassName("e13wiwn60")[0]), q.appendTo(document.getElementsByClassName("e13wiwn60")[0]), console.log("Posted Buttons");
+                            T.appendTo(document.getElementsByClassName("e13wiwn60")[0]), C.appendTo(document.getElementsByClassName("e13wiwn60")[0]), console.log("Posted Buttons");
                             var n = !1;
                             setInterval((() => {
                                 n != t() && t() ? (console.log("Added playlist buttons"), setTimeout((() => {
-                                    t().append(e.br.element), t().append(T.element), t().append(q.element)
+                                    t().append(e.br.element), t().append(T.element), t().append(C.element)
                                 }), 100)) : n == t() || t() || console.log("buttons are gone?!?!"), n = t()
                             }), 100)
                         }), {
@@ -620,9 +679,9 @@ downloadFileAsTitle = function(e, t, n, o) {
         }
         if (location.href.includes("www.yt2conv.com")) {
             console.log("Getting MP4");
-            let [L, A] = name.split(",");
+            let [P, A] = name.split(",");
             i((function(e = function() {}) {
-                document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==A?"shorts/":"watch?v="}${L}`, document.getElementById("btn-submit").click(), console.log(L, A)
+                document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==A?"shorts/":"watch?v="}${P}`, document.getElementById("btn-submit").click(), console.log(P, A)
             }), {
                 callback: function() {}
             }), i((function(e = function() {}) {
@@ -638,7 +697,7 @@ downloadFileAsTitle = function(e, t, n, o) {
                 var e = $(".media-heading")[0].innerText,
                     t = downloadbtn.href,
                     n = {
-                        id: L,
+                        id: P,
                         href: t,
                         title: e,
                         length: {}
@@ -649,14 +708,14 @@ downloadFileAsTitle = function(e, t, n, o) {
             })
         }
         if (location.href.includes("yt5s.biz")) {
-            async function S(e) {
+            async function x(e) {
                 for (; !document.querySelector(e);) await sleep(0);
                 return !0
             }(async function() {
                 let [e, t] = name.split(",");
                 if (!e.length || !t.length) return console.warn("No info Preset");
                 var n = `https://www.youtube.com/${"1"==t?"shorts/":"watch?v="}${e}`;
-                await S("#txt-url"), console.log("Input Loaded"), document.querySelector("#txt-url").value = n, await S("#btn-submit"), console.log("GEtting res"), await sleep(100), document.querySelector("#btn-submit").click(), await S("#video_title"), console.log("Got Res");
+                await x("#txt-url"), console.log("Input Loaded"), document.querySelector("#txt-url").value = n, await x("#btn-submit"), console.log("GEtting res"), await sleep(100), document.querySelector("#btn-submit").click(), await x("#video_title"), console.log("Got Res");
                 var o = document.querySelector("#video_title").innerText,
                     l = [0];
                 return [...document.querySelector("#result").querySelector("table").querySelectorAll("tr")].forEach((e => {
@@ -686,18 +745,18 @@ downloadFileAsTitle = function(e, t, n, o) {
                     };
                 (opener || window).postMessage(t, "*")
             }().then(close, console.warn), location.href.includes("en3.onlinevideoconverter.pro")) {
-            let [B, j] = name.split(",");
-            if (!B.length || !j.length) return console.Warn("NO info Preset");
-            let D = function() {};
+            let [B, V] = name.split(",");
+            if (!B.length || !V.length) return console.Warn("NO info Preset");
+            let G = function() {};
             i((function(e = function() {}) {
-                document.getElementById("texturl").value = `https://www.youtube.com/${"1"==j?"shorts/":"watch?v="}${B}`, document.getElementById("convert1").click(), console.log("Searched")
+                document.getElementById("texturl").value = `https://www.youtube.com/${"1"==V?"shorts/":"watch?v="}${B}`, document.getElementById("convert1").click(), console.log("Searched")
             }), {
-                callback: D
+                callback: G
             }), i((function() {
                 if ("none" == stepProcess.style.display) throw document.getElementById("convert1").click(), "this";
                 console.log("Searching")
             }), {
-                callback: D
+                callback: G
             }), i((function() {
                 if (0 == document.getElementById("form-app-root").children.length) throw "";
                 console.log("loaded");
@@ -716,7 +775,7 @@ downloadFileAsTitle = function(e, t, n, o) {
             })
         }
         if (location.href.includes("savetik.co")) {
-            var [I, P] = name.split(",");
+            var [I, L] = name.split(",");
             addEventListener("load", (function() {
                 i((function() {
                     s_input.value = I, ksearchvideo(), setTimeout(ksearchvideo, 1e3)
@@ -730,7 +789,7 @@ downloadFileAsTitle = function(e, t, n, o) {
                         let e = {
                             title: document.getElementsByClassName("clearfix")[0].innerText,
                             links: findhref2(document.getElementsByClassName("tik-video")[0]).map((e => e.href)),
-                            mp4: 1 == P,
+                            mp4: 1 == L,
                             info: setElement2(I)
                         };
                         onmessage = function(e) {
