@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 3.0
+// @version 3.1
 // @description Instagram/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author gaston1799
 // @match *://www.youtube.com/*
@@ -330,7 +330,13 @@ downloadFileAsTitle = function(e, t, n, o) {
             if ("studio.youtube.com" == document.domain) return void setInterval((() => {
                 var e;
                 try {
-                    [...[...document.querySelectorAll("#video-list")].map((e => [e, [...e.classList]])).filter((e => e[1].includes("ytcp-video-section")))[0][0].children[1].children].map((e => [e, [...e.classList], e.tagName])).filter((e => "YTCP-VIDEO-ROW" == e[2]))[0][0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row"), e = !0
+                    [...[...document.querySelectorAll("#video-list")].map((e => [e, [...e.classList]])).filter((e => e[1].includes("ytcp-video-section")))[0][0].children[1].children].map((e => [e, [...e.classList], e.tagName])).filter((e => "YTCP-VIDEO-ROW" == e[2])).filter((e => "Public" == e[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0].innerText)).map((e => e[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0])).forEach((e => {
+                        console.log(e), e.append(new _e("br").element);
+                        var t = new _e("button").set("innerText", "Get").on("click", (function() {
+                            alert("Doesnt work yet")
+                        }));
+                        e.append(t.element)
+                    })), e = !0
                 } catch {
                     e = !1
                 }
@@ -683,9 +689,9 @@ downloadFileAsTitle = function(e, t, n, o) {
         }
         if (location.href.includes("www.yt2conv.com")) {
             console.log("Getting MP4");
-            let [P, A] = name.split(",");
+            let [L, A] = name.split(",");
             i((function(e = function() {}) {
-                document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==A?"shorts/":"watch?v="}${P}`, document.getElementById("btn-submit").click(), console.log(P, A)
+                document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==A?"shorts/":"watch?v="}${L}`, document.getElementById("btn-submit").click(), console.log(L, A)
             }), {
                 callback: function() {}
             }), i((function(e = function() {}) {
@@ -701,7 +707,7 @@ downloadFileAsTitle = function(e, t, n, o) {
                 var e = $(".media-heading")[0].innerText,
                     t = downloadbtn.href,
                     n = {
-                        id: P,
+                        id: L,
                         href: t,
                         title: e,
                         length: {}
@@ -779,7 +785,7 @@ downloadFileAsTitle = function(e, t, n, o) {
             })
         }
         if (location.href.includes("savetik.co")) {
-            var [I, L] = name.split(",");
+            var [I, P] = name.split(",");
             addEventListener("load", (function() {
                 i((function() {
                     s_input.value = I, ksearchvideo(), setTimeout(ksearchvideo, 1e3)
@@ -793,7 +799,7 @@ downloadFileAsTitle = function(e, t, n, o) {
                         let e = {
                             title: document.getElementsByClassName("clearfix")[0].innerText,
                             links: findhref2(document.getElementsByClassName("tik-video")[0]).map((e => e.href)),
-                            mp4: 1 == L,
+                            mp4: 1 == P,
                             info: setElement2(I)
                         };
                         onmessage = function(e) {
