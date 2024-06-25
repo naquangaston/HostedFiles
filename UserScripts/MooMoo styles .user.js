@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 2.1
+// @version 2.2
 // @description Gastons moomoo script
 // @author Gaston
 // @match *://moomoo.io/*
@@ -613,8 +613,11 @@ function SetUpSploop() {
                                     alignItems: "center"
                                 }).appendTo(h);
                                 t.forEach((e => {
-                                    const t = new element("span").set("innerText", `Hat (${e}) Key: `),
-                                        o = new element("input").set("type", "text").set("value", "").on("keydown", (function(t) {
+                                    const t = new element("span").set("innerText", `Hat ${e} Key: `),
+                                        o = new element("input", {
+                                            maxLength: 8,
+                                            id: `${key}_key`
+                                        }).set("type", "text").set("value", "").on("keydown", (function(t) {
                                             t.preventDefault(), this.value = t.code, keybinds[e] = t.code
                                         }));
                                     o.element.value = keybinds[e] || "Add key", n.append(t, o), o.on("blur", (function() {
@@ -652,7 +655,6 @@ const localStorage_ = {
     }
 };
 window.once = window.on;
-const DefaultDisplay = {};
 let moomooMenu = "#mainMenu",
     sploopMenu = "#homepage";
 document.addEventListener("keydown", (function(e) {
