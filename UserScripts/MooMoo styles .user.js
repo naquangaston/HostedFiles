@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 2.3
+// @version 2.4
 // @description Gastons moomoo script
 // @author Gaston
 // @match *://moomoo.io/*
