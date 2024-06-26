@@ -260,7 +260,7 @@ function SetUpSploop() {
             window.onkeyup = function(e) {
                 t !== document.activeElement && n !== document.activeElement && i && i(e)
             }, window.onkeydown = function(e) {
-                t !== document.activeElement && n !== document.activeElement && l && l(e)
+                t !== document.activeElement && n !== document.activeElement && "input" != e.target.tagName && l && l(e)
             }, n.addEventListener("keypress", (({
                 target: e,
                 key: a
@@ -624,32 +624,42 @@ function SetUpSploop() {
                     setTimeout((() => {
                         setTimeout((() => {
                             id("reset-button").click(), id("reset-button").click(), setTimeout((() => {
-                                id("nav-game").click(), id("reset-button").click(), e.update();
-                                const t = Object.keys(e).splice(1);
-                                keybinds = GM_getValue("keybinds") || {}, t.forEach((e => {
-                                    const t = new element("span").set("innerText", `Hat ${e} Key: `),
-                                        n = new element("input", {
-                                            maxLength: 8,
-                                            id: `${e}_key`
-                                        }).set("type", "text").set("value", "").on("keydown", (function(t) {
-                                            t.preventDefault(), this.value = t.code, keybinds[e] = t.code
-                                        }));
-                                    n.element.value = keybinds[e] || "Add key", v.append(t, n), n.on("blur", (function() {
-                                        const t = this.value.toLowerCase();
-                                        t && console.log(`Keybind set for ${e}: ${t}`)
-                                    }))
-                                })), document.addEventListener("keydown", (function(n) {
-                                    const o = n.code;
-                                    t.forEach((t => {
-                                        keybinds[t] && keybinds[t] === o && (console.log(`Equipping ${t} with key: ${o}`), e[t].equip())
-                                    }))
-                                }))
+                                id("nav-game").click(), id("reset-button").click()
                             }), 250)
                         }), 250)
                     }), 250)
                 }), 250)
             }), 250)
-        }), 500)
+        }), 500), async function() {
+            for (; !Object.keys(e).splice(1).length;) e.update(), await m(0);
+            const t = Object.keys(e).splice(1);
+            return keybinds = GM_getValue("keybinds") || {}, t.forEach((e => {
+                const t = new element("span").set("innerText", `Hat ${e} Key: `),
+                    n = new element("input", {
+                        size: 8,
+                        id: `${e}_key`
+                    }).set("type", "text").set("value", "").on("keydown", (function(t) {
+                        t.preventDefault(), this.value = t.code, keybinds[e] = t.code
+                    })).style({
+                        "background-color": "rgba(0,0,0,0)",
+                        color: "white"
+                    }).set("value", keybinds[e] || "Add key..."),
+                    o = new element("button", {
+                        id: `Remove_${e}_key`
+                    }).set("innerText", "Remove X Binding").on("click", (function(t) {
+                        delete keybinds[e], n.set("value", "Add key...")
+                    }));
+                v.append(t, n, o), n.on("blur", (function() {
+                    const t = this.value.toLowerCase();
+                    t && console.log(`Keybind set for ${e}: ${t}`)
+                }))
+            })), document.addEventListener("keydown", (function(n) {
+                const o = n.code;
+                t.forEach((t => {
+                    keybinds[t] && keybinds[t] === o && (console.log(`Equipping ${t} with key: ${o}`), e[t].equip())
+                }))
+            })), "Loaded Hats keys"
+        }().then(console.log, console.warn)
     }
 }
 findhref2 = function(e, t) {
