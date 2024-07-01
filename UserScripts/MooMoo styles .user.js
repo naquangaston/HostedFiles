@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 2.4
+// @version 2.5
 // @description Gastons moomoo script
 // @author Gaston
 // @match *://moomoo.io/*
@@ -222,7 +222,7 @@ function SetUpSploop() {
                     e[n].e.scrollIntoView(), e.update(), t.equiped || (e[n].canBuy && e[n].buy(), e[n].button.onmouseup({
                         target: e[n].button,
                         isTrusted: !0
-                    }), e.update())
+                    }), setTimeout(e.update, 100))
                 }, e[n] = t
             }))
         }
