@@ -551,4 +551,4 @@ function Csc2(){
         window.stoped=1;
     }
 };
-document.hasFocus()?onload=Csc2:Csc2()
+document.hasFocus()?(oldLoad=onload,onload=Csc2,_randomStuff=document.addEventListener('focus',function(){console.log('Skipping Load');document.removeEventListener(fs);onload=oldLoad;delete window.oldLoad,Csc2()})):Csc2()
