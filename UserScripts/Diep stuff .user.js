@@ -12,6 +12,7 @@
 // @grant GM_addStyle
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
+// @grant GM_xmlhttpRequest
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // @require http://code.createjs.com/easeljs-0.5.0.min.js
