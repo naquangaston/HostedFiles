@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Diep stuff
 // @namespace http://tampermonkey.net/
-// @version 2.4
+// @version 2.5
 // @description Gastons diep script
 // @author You
 // @match *://diep.io/*
@@ -21,7 +21,7 @@
 // @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
 // @license MIT
 // ==/UserScript==
-infothingy = {}, inf = {}, _upgrade = "";
+infothingy = {}, inf = {}, _upgrade = "", autoPlay_ = !1;
 const Settings = GM_getValue("Settings") || {},
     extended = {
         update: function(e) {}
@@ -1294,8 +1294,8 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
         input.mouse(e, t), o = n, !Firing.status && o ? (log_("AutoFire", "on"), Firing.toggle(), Player.send(69)) : !o && Firing.status && (Firing.toggle(), Player.send(69), log_("AutoFire", "off"))
     };
     playerPos = [0, 0], enemies = [], buttlets = [], enemies2 = [], TempotherList = {};
-    let k = [],
-        S = [],
+    let S = [],
+        k = [],
         P = [];
     squares = [];
     let C = [];
@@ -1305,9 +1305,9 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
     crashers = [], pentagons = [], sortedShapes = [];
     let E = [];
     autoPlay = !1, setTimeout((function e() {
-        window.requestAnimationFrame(e), squares = C, triangles = F, pentagons = E, enemies = k, enemies2 = P, otherList = infothingy, crashers = T, infothingy = {
+        window.requestAnimationFrame(e), squares = C, triangles = F, pentagons = E, enemies = S, enemies2 = P, otherList = infothingy, crashers = T, infothingy = {
             text: []
-        }, C = [], F = [], E = [], k = [], P = [], T = [], O = 0, I = [], q = [], otherList["Others (FFA)"], sortedShapes = function(e) {
+        }, C = [], F = [], E = [], S = [], P = [], T = [], O = 0, I = [], q = [], otherList["Others (FFA)"], sortedShapes = function(e) {
             if (!e.length) return e;
 
             function t(e) {
@@ -1319,7 +1319,12 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
                 r = e.filter((e => "TRIANGLE" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n))),
                 a = e.filter((e => "SQUARE" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n)));
             return [...n, ...o, ...r, ...a]
-        }([...enemies, ...crashers, ...pentagons, ...triangles, ...squares]).filter((e => !e.shape || !e.shape[1].includes("Body (You)")))
+        }([...enemies, ...crashers, ...pentagons, ...triangles, ...squares]).filter((e => !e.shape || !e.shape[1].includes("Body (You)"))), rt = {
+            screen: _Player || Player ? (window._Player || Player).screen : null,
+            autoPlay_: !!autoPlay_,
+            targetShape: sortedShapes && sortedShapes[0] ? sortedShapes[0] : [],
+            shape: sortedShapes && sortedShapes[0] ? sortedShapes[0].shape : []
+        }
     }), 100);
     const B = document.getElementById("canvas");
     B.getContext("2d");
@@ -1424,7 +1429,7 @@ _Player = Player, document.getElementsByClassName("aa left")[0].remove(), docume
         let r = [
             [o.e, o.f], 0, e.fillStyle
         ];
-        M = r[0], r.arcs = O, r.shape = shapes.filter((t => t[0].toUpperCase() == e.fillStyle.toUpperCase()))[0], r.shape && !r.shape[1].includes("You") && (H < 40 ? S.push([z, H, W, $]) : (r.calls = N, r.push("Barrels"), r.push(H), k.push(r), D = !0))
+        M = r[0], r.arcs = O, r.shape = shapes.filter((t => t[0].toUpperCase() == e.fillStyle.toUpperCase()))[0], r.shape && !r.shape[1].includes("You") && (H < 40 ? k.push([z, H, W, $]) : (r.calls = N, r.push("Barrels"), r.push(H), S.push(r), D = !0))
     }));
     var $, z, H, W;
     return "EZ"
