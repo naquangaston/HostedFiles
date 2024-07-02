@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Diep stuff
 // @namespace http://tampermonkey.net/
-// @version 2.5
+// @version 2.6
 // @description Gastons diep script
 // @author You
 // @match *://diep.io/*
