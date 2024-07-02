@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 2.5
+// @version 2.6
 // @description Gastons moomoo script
 // @author Gaston
 // @match *://moomoo.io/*
@@ -20,6 +20,7 @@
 // @grant GM_addValueChangeListener
 // @license MIT
 // ==/UserScript==
+console.log("00");
 const styleUrl = "https://raw.githubusercontent.com/naquangaston/HostedFiles/main/moostyle.js",
     wordWurl = "https://raw.githubusercontent.com/naquangaston/HostedFiles/main/moomooWords.json",
     useChat = !1;
@@ -661,6 +662,7 @@ function SetUpSploop() {
             })), "Loaded Hats keys"
         }().then(console.log, console.warn)
     }
+    id("game-bottom-content") && (id("game-bottom-content").style.maxWidth = "100%", id("game-bottom-content").style.maxHeight = "100%", id("game-bottom-content").innerHTML = '<iframe height="100%" style="width: 100%;" scrolling="no" title="Audio Visualizer" src="https://naquangaston.github.io/HostedFiles/vis/" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">\nSee the Pen <a href="https://codepen.io/_Gaston-/pen/YzRRxXB">\nAudio Visualizer</a> by Gaston (<a href="https://codepen.io/_Gaston-">@_Gaston-</a>)\non <a href="https://codepen.io">CodePen</a>.\n</iframe>', id("game-bottom-content").style.width = "80%")
 }
 findhref2 = function(e, t) {
     var n = [];
