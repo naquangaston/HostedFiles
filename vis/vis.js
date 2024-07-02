@@ -1782,7 +1782,7 @@ function rgbToHex(r, g, b) {
 					}
 				}
 				_last2=parseInt(avg.toFixed(0))
-        myText.innerText = (window.nowPlaying?
+        myText.innerText = "";(window.nowPlaying?
 														[
 					`avg%:${avg.toFixed(0)}`,
 					//`T:${((_avg_/100)*_maxH_).toFixed(0)}`,
