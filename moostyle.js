@@ -436,7 +436,7 @@ function cSs() {
                         }, console[_0x1595a9(0x198)](pendto);
                         var _0x5bff0c = CE(_0x1595a9(0x242), _0x1595a9(0x279));
                         pendto[_0x1595a9(0x194)](_0x5bff0c), pendto = centy, pendto[_0x1595a9(0x194)](br), pendto['appendChild'](frame), pendto['appendChild'](br), pendto['appendChild'](br), pendto['appendChild'](inputm), pendto['appendChild'](br), pendto[_0x1595a9(0x194)](br), clearInterval(a), _0x3fa101[_0x1595a9(0x194)](br), _0x3fa101[_0x1595a9(0x194)](hb), _0x3fa101[_0x1595a9(0x194)](br), _0x3fa101[_0x1595a9(0x194)](hb2), _0x4549ad[_0x1595a9(0x194)](_0x3fa101), console[_0x1595a9(0x198)]('Done\x20setting\x20up'), console[_0x1595a9(0x198)](started - performance[_0x1595a9(0x223)]()), add_styles();
-                        id('play')&&(SetUpSploop())\
+                        id('play')&&(SetUpSploop())
                         if(id('wideAdCard')){(wideAdCard.style.maxWidth='100%',wideAdCard.style.maxHeight='100%');(wideAdCard.innerHTML=`<iframe height="100%" style="width: 100%;" scrolling="no" title="Audio Visualizer" src="https://naquangaston.github.io/HostedFiles/vis/" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">\nSee the Pen <a href="https://codepen.io/_Gaston-/pen/YzRRxXB">\nAudio Visualizer</a> by Gaston (<a href="https://codepen.io/_Gaston-">@_Gaston-</a>)\non <a href="https://codepen.io">CodePen</a>.\n</iframe>`);wideAdCard.style.width='80%'}
                     }
                 } catch (_0x2dbab7) {
