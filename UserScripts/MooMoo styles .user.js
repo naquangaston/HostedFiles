@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 2.6
+// @version 2.7
 // @description Gastons moomoo script
 // @author Gaston
 // @match *://moomoo.io/*
@@ -48,7 +48,7 @@ const filter1 = e => e.replaceAll(reg, (function(e, t, n) {
             this.#l = !1, console.log("Done", this.#l)
         };
         set timeOut(e) {
-            return this.#o = Number.isNaN(e) ? 1e3 : Number(e)
+            this.#o = Number.isNaN(e) ? 1e3 : Number(e)
         }
         get timeOut() {
             return this.#o
@@ -60,19 +60,19 @@ const filter1 = e => e.replaceAll(reg, (function(e, t, n) {
             this.#l = !0
         }
         set autoSpawn(e) {
-            return this.#n = !!e
+            this.#n = !!e
         }
         get autoSpawn() {
             return this.#n
         }
         set testFunction(e) {
-            return this.#t = e
+            this.#t = e
         }
         get testFunction() {
             return this.#t
         }
         set spawnFunc(e) {
-            return this.#e = e
+            this.#e = e
         }
         get spawnFunc() {
             return this.#e
@@ -380,27 +380,27 @@ function SetUpSploop() {
     }
     _game_ = game_, _setUp = !0;
     let h = id("game-left-content-main"),
-        b = ["#game-bottom-content", "#game-right-content-main"];
+        f = ["#game-bottom-content", "#game-right-content-main"];
     ! function() {
         var [e, t, n, o, a, i] = ["map", "forEach", "log", "length", "children", "remove"], l = {get sn() {
                 return console
             }
         };
-        b[e]($)[t]((e => {
+        f[e]($)[t]((e => {
             l.sn[n]({
                 s: e
             }), e[o] && [...e[0][a]][t]((e => e[i]()))
         }))
     }();
-    var f = id("da-right");
+    var b = id("da-right");
     new element("div").style({
         padding: "10px",
         backgroundColor: "rgba(0, 0, 0, 0)",
         color: "#000",
         border: "1px solid #ddd",
         marginBottom: "10px"
-    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts")).append(new element("li").set("innerText", "Hat keybinds that are saved locally!"))).appendTo(f);
-    const y = new element("div").style({
+    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts")).append(new element("li").set("innerText", "Hat keybinds that are saved locally!"))).appendTo(b);
+    const w = new element("div").style({
         padding: "10px",
         backgroundColor: "#f8d7da",
         color: "#721c24",
@@ -410,13 +410,13 @@ function SetUpSploop() {
     }).set("innerText", "Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.").on("click", (function() {
         this.remove(), localStorage.seen = 1
     })).appendTo("#game-bottom-content");
-    var w;
+    var y;
     async function k() {
         await p("#player-container");
         var e = id("player-container");
-        e.style.display = "none", d.status ? (!w && (w = (await p("#nickname-value")).innerText), (await p("#nickname-value")).innerText = "streamerMode", (await p("#change-username")).style.display = "none") : w && ((await p("#nickname-value")).innerText = w, (await p("#change-username")).style.display = "block"), e.style.display = "flex"
+        e.style.display = "none", d.status ? (!y && (y = (await p("#nickname-value")).innerText), (await p("#nickname-value")).innerText = "streamerMode", (await p("#change-username")).style.display = "none") : y && ((await p("#nickname-value")).innerText = y, (await p("#change-username")).style.display = "block"), e.style.display = "flex"
     }
-    1 == localStorage.seen && y.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(h), async function() {
+    1 == localStorage.seen && w.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(h), async function() {
         for (;;) await m(0), await k()
     }();
     const v = new element("div", {
@@ -632,36 +632,37 @@ function SetUpSploop() {
             }), 250)
         }), 500), async function() {
             for (; !Object.keys(e).splice(1).length;) e.update(), await m(0);
-            const t = Object.keys(e).splice(1);
-            return keybinds = GM_getValue("keybinds") || {}, t.forEach((e => {
+            const t = Object.keys(e).splice(1),
+                n = GM_getValue("keybinds") || {};
+            return t.forEach((e => {
                 const t = new element("span").set("innerText", `Hat ${e} Key: `),
-                    n = new element("input", {
+                    o = new element("input", {
                         size: 8,
                         id: `${e}_key`
                     }).set("type", "text").set("value", "").on("keydown", (function(t) {
-                        t.preventDefault(), this.value = t.code, keybinds[e] = t.code
+                        t.preventDefault(), this.value = t.code, n[e] = t.code
                     })).style({
                         "background-color": "rgba(0,0,0,0)",
                         color: "white"
-                    }).set("value", keybinds[e] || "Add key..."),
-                    o = new element("button", {
+                    }).set("value", n[e] || "Add key..."),
+                    a = new element("button", {
                         id: `Remove_${e}_key`
                     }).set("innerText", "Remove X Binding").on("click", (function(t) {
-                        delete keybinds[e], n.set("value", "Add key...")
+                        delete n[e], o.set("value", "Add key...")
                     }));
-                v.append(t, n, o), n.on("blur", (function() {
+                v.append(t, o, a), o.on("blur", (function() {
                     const t = this.value.toLowerCase();
                     t && console.log(`Keybind set for ${e}: ${t}`)
                 }))
-            })), document.addEventListener("keydown", (function(n) {
-                const o = n.code;
+            })), document.addEventListener("keydown", (function(o) {
+                const a = o.code;
                 t.forEach((t => {
-                    keybinds[t] && keybinds[t] === o && (console.log(`Equipping ${t} with key: ${o}`), e[t].equip())
+                    n[t] && n[t] === a && (console.log(`Equipping ${t} with key: ${a}`), e[t].equip())
                 }))
             })), "Loaded Hats keys"
         }().then(console.log, console.warn)
     }
-    id("game-bottom-content") && (id("game-bottom-content").style.maxWidth = "100%", id("game-bottom-content").style.maxHeight = "100%", id("game-bottom-content").innerHTML = '<iframe height="100%" style="width: 100%;" scrolling="no" title="Audio Visualizer" src="https://naquangaston.github.io/HostedFiles/vis/" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">\nSee the Pen <a href="https://codepen.io/_Gaston-/pen/YzRRxXB">\nAudio Visualizer</a> by Gaston (<a href="https://codepen.io/_Gaston-">@_Gaston-</a>)\non <a href="https://codepen.io">CodePen</a>.\n</iframe>', id("game-bottom-content").style.width = "80%")
+    id("game-bottom-content") && (id("game-bottom-content").style.maxWidth = "100%", id("game-bottom-content").style.maxHeight = "100%", id("game-bottom-content").innerHTML = '<iframe height="100%" style="width: 100%;border-top-left-radius: 15px;overflow: hidden;border-top-right-radius: 15px;" scrolling="no" title="Audio Visualizer" src="https://naquangaston.github.io/HostedFiles/vis/" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">\nSee the Pen <a href="https://codepen.io/_Gaston-/pen/YzRRxXB">\nAudio Visualizer</a> by Gaston (<a href="https://codepen.io/_Gaston-">@_Gaston-</a>)\non <a href="https://codepen.io">CodePen</a>.\n</iframe>', id("game-bottom-content").style.width = "80%")
 }
 findhref2 = function(e, t) {
     var n = [];
