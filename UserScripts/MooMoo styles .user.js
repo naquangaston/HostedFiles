@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 2.9
+// @version 3.0
 // @description Moomoo/sploop mod [MUSIC PLAYER/HET KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK]
 // @author Gaston
 // @match *://moomoo.io/*
@@ -36,11 +36,11 @@ const filter1 = e => e.replaceAll(reg, (function(e, t, n) {
     })).replace(/s/g, "z").replace(/th/g, "d").replace(/e^d/g, (function(e, t, n) {
         return n.slice(t - 1, t + 1), "e"
     })).replace(/w{2,}/g, "wl").replaceAll(/e{2,}/gi, "ee").replaceAll(/.r/gi, (e => e.replace("r", "w"))),
-    game_ = new class {#e = function() {};#t = function() {};#n = !1;#o = 1e3;#i = function(e) {
+    game_ = new class {#e = function() {};#t = function() {};#n = !1;#o = 1e3;#a = function(e) {
             return new Promise((t => setTimeout(t, e)))
-        };#a = 0;#l = 0;#s = async function() {
+        };#i = 0;#l = 0;#s = async function() {
             for (;;) {
-                let e = this.#i,
+                let e = this.#a,
                     t = this.#t,
                     n = this.#e;
                 if (await e(0), this.#l) break;
@@ -79,7 +79,10 @@ const filter1 = e => e.replaceAll(reg, (function(e, t, n) {
             return this.#e
         }
     };
-class bool {#r = !1;
+class bool {
+    constructor(e) {
+        e && this.toggle()
+    }#r = !1;
     toggle() {
         this.#r = !this.#r
     }
@@ -199,11 +202,11 @@ function dispatchAllInputEvents(e, t) {
 var _setUp = !1;
 
 function add_Style(e) {
-    var [t, n, o, i] = ["createElement", "textContent", "head", "appendChild"], a = {get k() {
+    var [t, n, o, a] = ["createElement", "textContent", "head", "appendChild"], i = {get k() {
             return document
         }
-    }, l = a.k[t]("style");
-    l[n] = e, a.k[o][i](l)
+    }, l = i.k[t]("style");
+    l[n] = e, i.k[o][a](l)
 }
 
 function copyElm(e) {
@@ -236,14 +239,14 @@ async function SetUpSploop() {
         }
     };
     _hats = t;
-    const n = new bool,
-        o = new bool,
-        i = new bool,
-        a = ({
+    const n = new bool(!!GM_getValue("chatFilter")),
+        o = new bool(!!GM_getValue("lolFilter")),
+        a = new bool(!!GM_getValue("rainbowFit")),
+        i = (new bool(!!GM_getValue("autoConnectOldServer")), ({
             target: e
         }) => {
             n.status && (e.value = filter1(e.value))
-        },
+        }),
         l = ({
             target: e
         }) => {
@@ -256,7 +259,7 @@ async function SetUpSploop() {
                 useChat && (n.focus(), t.parentElement.style.display = "block", n.focus())
             };
             let o = window.onkeyup,
-                i = window.onkeydown;
+                a = window.onkeydown;
 
             function s(e) {
                 return /^[a-zA-Z0-9]$/.test(e)
@@ -264,12 +267,12 @@ async function SetUpSploop() {
             window.onkeyup = function(e) {
                 t !== document.activeElement && n !== document.activeElement && o && o(e)
             }, window.onkeydown = function(e) {
-                t !== document.activeElement && n !== document.activeElement && "input" != e.target.tagName && i && i(e)
+                t !== document.activeElement && n !== document.activeElement && "input" != e.target.tagName && a && a(e)
             }, n.addEventListener("keypress", (({
                 target: e,
                 key: o
             }) => {
-                s(o) && (t.value = e.value, [a].forEach((t => t({
+                s(o) && (t.value = e.value, [i].forEach((t => t({
                         target: e
                     })))),
                     function(e) {
@@ -283,17 +286,17 @@ async function SetUpSploop() {
                 const {
                     target: n,
                     key: o,
-                    code: i
+                    code: a
                 } = e;
                 console.log(e);
-                t.value = n.value, s(o) && [a, l].forEach((e => e({
+                t.value = n.value, s(o) && [i, l].forEach((e => e({
                     target: t
                 })))
             })), (useChat ? n : t).addEventListener("keydown", (({
                 target: e,
                 key: n
             }) => {
-                s(n) && (t.value = e.value, [a].forEach((e => e({
+                s(n) && (t.value = e.value, [i].forEach((e => e({
                     target: t
                 }))))
             }))
@@ -367,44 +370,44 @@ async function SetUpSploop() {
             } = r;
             c(e, n, t)
         }
-        play.click(), setTimeout(b, 200)
+        play.click(), setTimeout(f, 200)
     };
     var g = e => new Promise((t => setTimeout(t, e)));
     async function h(e, t = 3e3) {
         return await new Promise(((n, o) => {
-            let i = performance.now();
-            ! function a() {
-                document.querySelector(e) ? n(document.querySelector(e)) : performance.now() - i >= t ? o(new Error("Timeout waiting for selector")) : requestAnimationFrame(a)
+            let a = performance.now();
+            ! function i() {
+                document.querySelector(e) ? n(document.querySelector(e)) : performance.now() - a >= t ? o(new Error("Timeout waiting for selector")) : requestAnimationFrame(i)
             }()
         }))
     }
-
-    function b() {
-        dispatchAllInputEvents(nickname, GM_getValue("nn")), d(0), !Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`)))[0].click(), d(1), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`)))[0].click(), d(2), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`)))[0].click(), d(0)
+    var b = !1;
+    async function f() {
+        dispatchAllInputEvents(nickname, GM_getValue("nn")), d(0), !b && await g(2e3), !Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`)))[0].click(), d(1), !b && await g(100), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`)))[0].click(), !b && await g(100), d(2), !b && await g(100), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`)))[0].click(), !b && await g(100), b && d(0), b = 1
     }
     _game_ = game_, _setUp = !0;
-    let f = id("game-left-content-main"),
-        y = ["#game-bottom-content", "#game-right-content-main"];
+    let y = id("game-left-content-main"),
+        w = ["#game-bottom-content", "#game-right-content-main"];
     ! function() {
-        var [e, t, n, o, i, a] = ["map", "forEach", "log", "length", "children", "remove"], l = {get sn() {
+        var [e, t, n, o, a, i] = ["map", "forEach", "log", "length", "children", "remove"], l = {get sn() {
                 return console
             }
         };
-        y[e]($)[t]((e => {
+        w[e]($)[t]((e => {
             l.sn[n]({
                 s: e
-            }), e[o] && [...e[0][i]][t]((e => e[a]()))
+            }), e[o] && [...e[0][a]][t]((e => e[i]()))
         }))
     }();
-    var w = id("da-right");
+    var k = id("da-right");
     new element("div").style({
         padding: "10px",
         backgroundColor: "rgba(0, 0, 0, 0)",
         color: "#000",
         border: "1px solid #ddd",
         marginBottom: "10px"
-    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts")).append(new element("li").set("innerText", "Hat keybinds that are saved locally!"))).appendTo(w);
-    const k = new element("div").style({
+    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts")).append(new element("li").set("innerText", "Hat keybinds that are saved locally!"))).appendTo(k);
+    const v = new element("div").style({
         padding: "10px",
         backgroundColor: "#f8d7da",
         color: "#721c24",
@@ -414,32 +417,32 @@ async function SetUpSploop() {
     }).set("innerText", "Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.").on("click", (function() {
         this.remove(), localStorage.seen = 1
     })).appendTo("#game-bottom-content");
-    var v;
-    async function _() {
+    var _;
+    async function x() {
         await h("#player-container");
         var e = id("player-container");
-        e.style.display = "none", m.status ? (!v && (v = (await h("#nickname-value")).innerText), (await h("#nickname-value")).innerText = "streamerMode", (await h("#change-username")).style.display = "none") : v && ((await h("#nickname-value")).innerText = v, (await h("#change-username")).style.display = "block"), e.style.display = "flex"
+        e.style.display = "none", m.status ? (!_ && (_ = (await h("#nickname-value")).innerText), (await h("#nickname-value")).innerText = "streamerMode", (await h("#change-username")).style.display = "none") : _ && ((await h("#nickname-value")).innerText = _, (await h("#change-username")).style.display = "block"), e.style.display = "flex"
     }
-    1 == localStorage.seen && k.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(f), async function() {
-        for (;;) await g(0), await _()
+    1 == localStorage.seen && v.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(y), async function() {
+        for (;;) await g(0), await x()
     }();
-    const x = new element("div", {
+    const M = new element("div", {
         id: "keybinds"
     }).style({
         display: "flex",
         flexDirection: "column",
         alignItems: "center"
-    }).appendTo(f);
+    }).appendTo(y);
     var T = new element("button").set("innerText", "AntiKick:false").on("click", (function(e) {
         u.toggle(), e.target.innerText = `AntiKick:${u.status}`, u.status ? game_.start() : game_.stop()
-    })).appendTo(x);
+    })).appendTo(M);
     new element("button").set("innerText", "chatFilter:false").on("click", (function(e) {
         n.toggle(), e.target.innerText = `chatFilter:${n.status}`
-    })).appendTo(x), new element("button").set("innerText", "lolFilter:false").on("click", (function(e) {
+    })).appendTo(M), new element("button").set("innerText", "lolFilter:false").on("click", (function(e) {
         o.toggle(), e.target.innerText = `lolFilter:${o.status}`
-    })).appendTo(x), new element("button").set("innerText", `StreamerMode:${m.status}`).on("click", (function(e) {
-        m.toggle(), e.target.innerText = `StreamerMode:${m.status}`, GM_setValue("sm", m.status), _()
-    })).appendTo(x), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
+    })).appendTo(M), new element("button").set("innerText", `StreamerMode:${m.status}`).on("click", (function(e) {
+        m.toggle(), e.target.innerText = `StreamerMode:${m.status}`, GM_setValue("sm", m.status), x()
+    })).appendTo(M), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
         GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("server", id("server-select").selectedOptions[0].getAttribute("region")), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0));
         var t = id("create_clan");
         id("leave_clan"), id("clan-menu-clan-name-input");
@@ -463,13 +466,13 @@ async function SetUpSploop() {
             }))
         }
         open(location.href, "alt" + Date.now())
-    })).appendTo(x), new element(findhref2(id("skin-message"))[0]);
-    randomFit = new element("button").appendTo(x).on("click", (function(e) {
+    })).appendTo(M), new element(findhref2(id("skin-message"))[0]);
+    randomFit = new element("button").appendTo(M).on("click", (function(e) {
         var [t, n] = ["forEach", "click"];
         findhref2(id("skins-categories"), "img")[t](((e, t) => {
             e[n](), random(findhref2(id("skins-middle-main"), "img"))[n]()
         }))
-    })).set("innerText", "Generate Random Fit"), new element("span").set("innerText", "Rainbow Fit Speed:").appendTo(x);
+    })).set("innerText", "Generate Random Fit"), new element("span").set("innerText", "Rainbow Fit Speed:").appendTo(M);
     new element("input", {
         id: "rainbowInt",
         value: e || 1e3,
@@ -481,9 +484,9 @@ async function SetUpSploop() {
             value: n
         } = t;
         e = n
-    })).appendTo(x);
-    if (new element("br").appendTo(x), new element("br").appendTo(x), function() {
-            var [e, t, n, o, i, a] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
+    })).appendTo(M);
+    if (new element("br").appendTo(M), new element("br").appendTo(M), function() {
+            var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
             id("skin-message")[e][1][t]("afterend", new element("button", {
                 class: "button-type-1 blue-discord-button text-shadowed-3"
             })[n]({
@@ -495,9 +498,9 @@ async function SetUpSploop() {
                 findhref2(id("skins-categories"), "img")[t](((e, t) => {
                     e[n](), random(findhref2(id("skins-middle-main"), "img"))[n]()
                 }))
-            }))[i]("innerText", "Generate Random Fit")[a])
+            }))[a]("innerText", "Generate Random Fit")[i])
         }(), function() {
-            var [e, t, n, o, i, a] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
+            var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
             let l = new element("button", {
                 class: "button-type-1 blue-discord-button text-shadowed-3",
                 id: "reset-button"
@@ -506,11 +509,11 @@ async function SetUpSploop() {
                 left: "8%",
                 position: "absolute"
             })[o]("click", (function(e) {
-                b()
-            }))[i]("innerText", "Reset Fit");
-            __a = l, id("skin-message")[e][1][t]("afterend", l[a])
+                f()
+            }))[a]("innerText", "Reset Fit");
+            __a = l, id("skin-message")[e][1][t]("afterend", l[i])
         }(), function() {
-            var [e, t, n, o, i, a] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
+            var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
             id("skin-message")[e][1][t]("afterend", new element("button", {
                 class: "button-type-1 blue-discord-button text-shadowed-3"
             })[n]({
@@ -528,22 +531,22 @@ async function SetUpSploop() {
                     back: n,
                     accessory: o
                 }, GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0)
-            }))[i]("innerText", "Save Fit")[a])
+            }))[a]("innerText", "Save Fit")[i])
         }(), function() {
-            var [t, n, o, a, l, s, r, c, d] = ["element", "style", "set", "status", "appendTo", "on", "toggle", "innerText", "click"];
+            var [t, n, o, i, l, s, r, c, d] = ["element", "style", "set", "status", "appendTo", "on", "toggle", "innerText", "click"];
             new element(copyElm(__a[t]))[n]({
                 left: "19%",
                 top: "60%"
-            })[o]("innerText", `rainbowFit:${i[a]}`)[l]("#skin-message")[s]("click", (async function({
+            })[o]("innerText", `rainbowFit:${a[i]}`)[l]("#skin-message")[s]("click", (async function({
                 target: n
             }) {
-                for (i[r](), n[c] = `rainbowFit:${i[a]}`; i[a];) await g(e), randomFit[t][d]()
+                for (a[r](), n[c] = `rainbowFit:${a[i]}`; a[i];) await g(e), randomFit[t][d]()
             }))
         }(), addEventListener("unload", (function() {
             GM_setValue("keybinds", keybinds), GM_setValue("rbi", e), GM_getValue("skin") && (localStorage.skin = GM_getValue("skin")), GM_getValue("accessory") && (localStorage.accessory = GM_getValue("accessory")), GM_getValue("back") && (localStorage.accessory = GM_getValue("accessory"))
         })), alt) {
         let e = GM_getValue("server");
-        var M = id("server-select");
+        var E = id("server-select");
         new Promise((e => {
             var t = setInterval((() => {
                 "none" == id("small-waiting").style.display && (clearInterval(t), e())
@@ -554,8 +557,8 @@ async function SetUpSploop() {
                     "none" == id("small-waiting").style.display && (clearInterval(t), e())
                 }), 200)
             })).then((t => {
-                let n = M.selectedIndex = [...id("server-select").options].map((e => e.getAttribute("region"))).indexOf(e);
-                M.dispatchEvent(new Event("click")), M.selectedIndex = n, M.dispatchEvent(new Event("change")), T.element.dispatchEvent(new Event("click")), new Promise((e => {
+                let n = E.selectedIndex = [...id("server-select").options].map((e => e.getAttribute("region"))).indexOf(e);
+                E.dispatchEvent(new Event("click")), E.selectedIndex = n, E.dispatchEvent(new Event("change")), T.element.dispatchEvent(new Event("click")), new Promise((e => {
                     var t = setInterval((() => {
                         "flex" != document.querySelector(sploopMenu).style.display && (clearInterval(t), e(id("clan-menu")))
                     }), 200)
@@ -575,17 +578,17 @@ async function SetUpSploop() {
                             isTrusted: !0
                         })
                     } else console.warn("Cant find clan", t, "Or", _GM_getValue("clan_") ? _GM_getValue("clan_").name : null);
-                    let i = e => new Promise((t => setTimeout(t, e)));
-                    async function a() {
+                    let a = e => new Promise((t => setTimeout(t, e)));
+                    async function i() {
                         for (dispatchAllMouseEvents(id("leave-clan-button"));
-                            "block" != id("create_clan").style.display;) await i(100);
+                            "block" != id("create_clan").style.display;) await a(100);
                         return !0
                     }
                     GM_addValueChangeListener("clan_", (function(e, t, n) {
                         console.log({
                             c: n,
                             SelfClan: "block" != id("create_clan").style.display
-                        }), n.inCLan && ("block" != id("create_clan").style.display ? (console.log("Leaving Existing clan"), a().then((async e => {
+                        }), n.inCLan && ("block" != id("create_clan").style.display ? (console.log("Leaving Existing clan"), i().then((async e => {
                             for (;
                                 "block" == id("create_clan").style.display;) {
                                 let e = [...id("clan_menu_content").children].filter((e => e.getElementsByTagName("p")[0].innerText == n.name));
@@ -612,12 +615,12 @@ async function SetUpSploop() {
                 nickname: t,
                 skin: n,
                 back: o,
-                accessory: i
+                accessory: a
             } = localStorage;
             !c && (r = {
                 skin: n,
                 back: o,
-                accessory: i
+                accessory: a
             }, console.log("Saved LocalFit"))
         })), document.title = "Sploop.io - Fast Alt"
     } else {
@@ -626,31 +629,20 @@ async function SetUpSploop() {
                 nickname: t,
                 skin: n,
                 back: o,
-                accessory: i
+                accessory: a
             } = localStorage;
-            GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("nn", localStorage.nickname)
+            GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("nn", localStorage.nickname), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0))
         }));
-        var E = "";
+        var G = "";
         _loop = setInterval((() => {
-            p.children[0].innerText != E && (E = p.children[0].innerText, GM_setValue("clan_", {
+            p.children[0].innerText != G && (G = p.children[0].innerText, GM_setValue("clan_", {
                 inCLan: "block" != id("create_clan").style.display,
                 name: p.children[0].innerText
             }))
         })), document.title = "Sploop.io - Fast Main";
-        setTimeout((() => {
-            id("nav-skins").click(), setTimeout((() => {
-                id("reset-button").click(), setTimeout((() => {
-                    setTimeout((() => {
-                        setTimeout((() => {
-                            id("reset-button").click(), id("reset-button").click(), setTimeout((() => {
-                                id("nav-game").click(), id("reset-button").click()
-                            }), 250)
-                        }), 250)
-                    }), 250)
-                }), 250)
-            }), 250)
-        }), 500), async function() {
+        (async function() {
             for (; !Object.keys(t).splice(1).length;) t.update(), await g(0);
+            console.log("hats loaded"), id("nav-skins").click(), await g(100), id("nav-game").click(), id("reset-button").click();
             const e = Object.keys(t).splice(1);
             return e.forEach((e => {
                 const t = new element("span").set("innerText", `Hat ${e} Key: `),
@@ -668,7 +660,7 @@ async function SetUpSploop() {
                     }).set("innerText", "Remove X Binding").on("click", (function(t) {
                         delete keybinds[e], n.set("value", "Add key...")
                     }));
-                x.append(t, n, o), n.on("blur", (function() {
+                M.append(t, n, o), n.on("blur", (function() {
                     const t = this.value.toLowerCase();
                     t && console.log(`Keybind set for ${e}: ${t}`)
                 }))
@@ -678,7 +670,7 @@ async function SetUpSploop() {
                     keybinds[e] && keybinds[e] === o && (console.log(`Equipping ${e} with key: ${o}`), t[e].equip())
                 }))
             })), "Loaded Hats keys"
-        }().then(console.log, console.warn)
+        })().then(console.log, console.warn)
     }
     id("game-bottom-content") && (id("game-bottom-content").style.maxWidth = "100%", id("game-bottom-content").style.maxHeight = "100%", id("game-bottom-content").innerHTML = '<iframe height="100%" style="width: 100%;border-top-left-radius: 15px;overflow: hidden;border-top-right-radius: 15px;" scrolling="no" title="Audio Visualizer" src="https://naquangaston.github.io/HostedFiles/vis/" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">\nSee the Pen <a href="https://codepen.io/_Gaston-/pen/YzRRxXB">\nAudio Visualizer</a> by Gaston (<a href="https://codepen.io/_Gaston-">@_Gaston-</a>)\non <a href="https://codepen.io">CodePen</a>.\n</iframe>', id("game-bottom-content").style.width = "80%")
 }
