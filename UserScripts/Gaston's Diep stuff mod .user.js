@@ -518,7 +518,7 @@ function findColor(e) {
         if (o == t && n == r) return e
     }
 }
-_Player = Player, otherStuff = {
+_Player = Player, alert("OK"), otherStuff = {
     toggles: [{
         name: "net_predict_movement",
         bool: "true",
