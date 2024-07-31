@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 3.1
+// @version 3.2
 // @description Moomoo/sploop mod [MUSIC PLAYER/HET KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK]
 // @author Gaston
 // @match *://moomoo.io/*
@@ -216,6 +216,14 @@ function copyElm(e) {
     return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
 }
 async function SetUpSploop() {
+    try {
+        const e = await _SetUpSploop();
+        console.log("Sploop Returned:", e)
+    } catch (e) {
+        console.error("Sploop Error:", e)
+    }
+}
+async function _SetUpSploop() {
     let e = GM_getValue("rbi") || 100;
     const t = {
         update() {
@@ -255,7 +263,17 @@ async function SetUpSploop() {
         }) => {
             l.status && (e.value = filter2(e.value))
         };
-    if (b("#chat").then((e => {
+    let d = id("game-left-content-main"),
+        u = ["#game-bottom-content", "#game-right-content-main"];
+    var p = await v("#pop-login"),
+        m = await v("#main-login-button"),
+        g = p.querySelector("#login");
+    if (g.addEventListener("click", (() => {
+            GM_setValue("PI", {
+                p: id("enter-password").value,
+                e: id("enter-mail").value
+            })
+        })), v("#chat").then((e => {
             const t = document.getElementById("chat");
             var n = copyElm(t);
             n.id = "chat2", t.parentNode.append(document.createElement("br")), t.parentNode.append(n), t.onfocus = function(e) {
@@ -304,76 +322,76 @@ async function SetUpSploop() {
                 }))))
             }))
         })).then(console.log, console.warn), alt) {
-        var d;
+        var h;
         "number" == typeof GM_getValue("alts") && GM_setValue("alts", {});
         for (let e = 1;; e++)
             if (!GM_getValue("alts")[e]) {
-                d = e;
+                h = e;
                 let t = GM_getValue("alts");
                 t[e] = !0, GM_setValue("alts", t);
                 break
             }
-        console.log("alt:", d), addEventListener("unload", (function() {
+        console.log("alt:", h), addEventListener("unload", (function() {
             if (alt) {
                 let e = GM_getValue("alts");
-                e[d] = !1, GM_setValue("alts", e)
+                e[h] = !1, GM_setValue("alts", e)
             }
         }))
     }
     console.log("Set called", SetUpSploop.callee);
-    var u = null;
+    var b = null;
 
-    function m(e = 0, t = 0, n = 0) {
-        p(0);
+    function f(e = 0, t = 0, n = 0) {
+        w(0);
         try {
             !Number.isNaN(e) && findhref2(id("skins-middle-main"), "img").filter((t => t.src.includes(`skin${e}`)))[0].click()
         } catch (t) {
             console.warn("Failed to Skin", e)
         }
-        p(1);
+        w(1);
         try {
             !Number.isNaN(t) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${t}`)))[0].click()
         } catch (t) {
             console.warn("Failed to accessory$", e)
         }
-        p(2), !Number.isNaN(n) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${n}`)))[0].click(), p(0)
+        w(2), !Number.isNaN(n) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${n}`)))[0].click(), w(0)
     }
 
-    function p(e) {
+    function w(e) {
         findhref2(id("skins-categories"), "img")[e].click()
     }
-    if (_loadFit = m, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async e => {
-            await h(1e3), alt || m(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
+    if (_loadFit = f, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async e => {
+            await k(1e3), alt || f(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
         })), id("game-left-content-main").style.overflow = "scroll", id("da-right").parentNode.style.overflow = "scroll", _setUp) return;
-    add_Style("\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}"), GM_getValue("sm") && i.toggle(), await b("#clan-menu"), await b("#pop-login");
-    let g = id("clan-menu");
+    add_Style("\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}"), GM_getValue("sm") && i.toggle(), await v("#clan-menu"), await v("#pop-login");
+    let y = id("clan-menu");
     game_.autoSpawn = !0, game_.timeOut = 5e3, game_.testFunction = function() {
         return !isHidden(play)
     }, game_.spawnFunc = function() {
         if (alt) {
-            dispatchAllInputEvents(nickname, `${GM_getValue("nn")}'s alt${d}`), randomFit.element.click();
+            dispatchAllInputEvents(nickname, `${GM_getValue("nn")}'s alt${h}`), randomFit.element.click();
             const {
                 skin: e,
                 back: t,
                 accessory: n
             } = localStorage;
-            u = {
+            b = {
                 skin: e,
                 back: t,
                 accessory: n
-            }, console.log("Got fit", u)
-        } else if (u) {
+            }, console.log("Got fit", b)
+        } else if (b) {
             const {
                 skin: e,
                 back: t,
                 accessory: n
-            } = u;
-            m(e, n, t)
+            } = b;
+            f(e, n, t)
         }
-        play.click(), setTimeout(y, 200)
+        play.click(), setTimeout(x, 200)
     };
-    var h = e => new Promise((t => setTimeout(t, e)));
-    async function b(e, t = 3e3) {
+    var k = e => new Promise((t => setTimeout(t, e)));
+    async function v(e, t = 3e3) {
         return await new Promise(((n, o) => {
             let a = performance.now();
             ! function i() {
@@ -381,38 +399,37 @@ async function SetUpSploop() {
             }()
         }))
     }
-    var f = !1;
-    async function y() {
-        dispatchAllInputEvents(nickname, GM_getValue("nn")), p(0), !f && await h(2e3), !Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`)))[0].click(), p(1), !f && await h(100), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`)))[0].click(), !f && await h(100), p(2), !f && await h(100), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`)))[0].click(), !f && await h(100), f && p(0), f = 1
+    var _ = !1;
+    async function x() {
+        dispatchAllInputEvents(nickname, GM_getValue("nn")), w(0), !_ && await k(2e3), !Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`)))[0].click(), w(1), !_ && await k(100), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`)))[0].click(), !_ && await k(100), w(2), !_ && await k(100), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`)))[0].click(), !_ && await k(100), _ && w(0), _ = 1
     }
     _game_ = game_, _setUp = !0;
-    let w = id("game-left-content-main"),
-        k = ["#game-bottom-content", "#game-right-content-main"];
-    var v = id("pop-login").children[1],
-        _ = new element(_copyElm(v.children.login)).set("innerText", `Stay Signed In:${o.status}`).on("click", (e => {
-            o.toggle(), e.target.innerText = `Stay Signed In:${o.status}`, GM_getValue("StaySignedIn", o.status)
-        })).element;
-    v.insertBefore(_, v.children.login),
+    var M = new element(_copyElm(g)).set("id", "login2").set("innerText", `Stay Signed In:${o.status}`).on("click", (e => {
+        o.toggle(), e.target.innerText = `Stay Signed In:${o.status}`, GM_setValue("StaySignedIn", o.status)
+    })).style({
+        display: "inline-block"
+    }).element;
+    p.children[1].insertBefore(M, g),
         function() {
             var [e, t, n, o, a, i] = ["map", "forEach", "log", "length", "children", "remove"], l = {get sn() {
                     return console
                 }
             };
-            k[e]($)[t]((e => {
+            u[e]($)[t]((e => {
                 l.sn[n]({
                     s: e
                 }), e[o] && [...e[0][a]][t]((e => e[i]()))
             }))
         }();
-    var x = id("da-right");
+    var T = id("da-right");
     new element("div").style({
         padding: "10px",
         backgroundColor: "rgba(0, 0, 0, 0)",
         color: "#000",
         border: "1px solid #ddd",
         marginBottom: "10px"
-    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts")).append(new element("li").set("innerText", "Hat keybinds that are saved locally!"))).appendTo(x);
-    const M = new element("div").style({
+    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts")).append(new element("li").set("innerText", "Hat keybinds that are saved locally!"))).appendTo(T);
+    const E = new element("div").style({
         padding: "10px",
         backgroundColor: "#f8d7da",
         color: "#721c24",
@@ -422,32 +439,32 @@ async function SetUpSploop() {
     }).set("innerText", "Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.").on("click", (function() {
         this.remove(), localStorage.seen = 1
     })).appendTo("#game-bottom-content");
-    var T;
-    async function E() {
-        await b("#player-container");
+    var G;
+    async function V() {
+        await v("#player-container");
         var e = id("player-container");
-        e.style.display = "none", i.status ? (!T && (T = (await b("#nickname-value")).innerText), (await b("#nickname-value")).innerText = "streamerMode", (await b("#change-username")).style.display = "none") : T && ((await b("#nickname-value")).innerText = T, (await b("#change-username")).style.display = "block"), e.style.display = "flex"
+        e.style.display = "none", i.status ? (!G && (G = (await v("#nickname-value")).innerText), (await v("#nickname-value")).innerText = "streamerMode", (await v("#change-username")).style.display = "none") : G && ((await v("#nickname-value")).innerText = G, (await v("#change-username")).style.display = "block"), e.style.display = "flex"
     }
-    1 == localStorage.seen && M.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(w), async function() {
-        for (;;) await h(0), await E()
+    1 == localStorage.seen && E.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(d), async function() {
+        for (;;) await k(0), await V()
     }();
-    const G = new element("div", {
+    const S = new element("div", {
         id: "keybinds"
     }).style({
         display: "flex",
         flexDirection: "column",
         alignItems: "center"
-    }).appendTo(w);
-    var V = new element("button").set("innerText", `AntiKick:${a.status}`).on("click", (function(e) {
+    }).appendTo(d);
+    var F = new element("button").set("innerText", `AntiKick:${a.status}`).on("click", (function(e) {
         a.toggle(), e.target.innerText = `AntiKick:${a.status}`, a.status ? game_.start() : game_.stop()
-    })).appendTo(G);
+    })).appendTo(S);
     new element("button").set("innerText", `chatFilter:${n.status}`).on("click", (function(e) {
         n.toggle(), e.target.innerText = `chatFilter:${n.status}`
-    })).appendTo(G), new element("button").set("innerText", `lolFilter:${l.status}`).on("click", (function(e) {
+    })).appendTo(S), new element("button").set("innerText", `lolFilter:${l.status}`).on("click", (function(e) {
         l.toggle(), e.target.innerText = `lolFilter:${l.status}`
-    })).appendTo(G), new element("button").set("innerText", `StreamerMode:${i.status}`).on("click", (function(e) {
-        i.toggle(), e.target.innerText = `StreamerMode:${i.status}`, GM_setValue("sm", i.status), E()
-    })).appendTo(G), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
+    })).appendTo(S), new element("button").set("innerText", `StreamerMode:${i.status}`).on("click", (function(e) {
+        i.toggle(), e.target.innerText = `StreamerMode:${i.status}`, GM_setValue("sm", i.status), V()
+    })).appendTo(S), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
         GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("server", id("server-select").selectedOptions[0].getAttribute("region")), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0));
         var t = id("create_clan");
         id("leave_clan"), id("clan-menu-clan-name-input");
@@ -464,20 +481,20 @@ async function SetUpSploop() {
                 bubbles: !0
             })), n.click(), n.dispatchEvent(new Event("click")), new Promise((e => {
                 var t = setInterval((() => {
-                    "Clans" != g.children[0].innerText && (clearInterval(t), e())
+                    "Clans" != y.children[0].innerText && (clearInterval(t), e())
                 }), 200)
             })).then((e => {
-                _GM_setValue("clan", g.children[0].innerText)
+                _GM_setValue("clan", y.children[0].innerText)
             }))
         }
         open(location.href, "alt" + Date.now())
-    })).appendTo(G), new element(findhref2(id("skin-message"))[0]);
-    randomFit = new element("button").appendTo(G).on("click", (function(e) {
+    })).appendTo(S), new element(findhref2(id("skin-message"))[0]);
+    randomFit = new element("button").appendTo(S).on("click", (function(e) {
         var [t, n] = ["forEach", "click"];
         findhref2(id("skins-categories"), "img")[t](((e, t) => {
             e[n](), random(findhref2(id("skins-middle-main"), "img"))[n]()
         }))
-    })).set("innerText", "Generate Random Fit"), new element("span").set("innerText", "Rainbow Fit Speed:").appendTo(G);
+    })).set("innerText", "Generate Random Fit"), new element("span").set("innerText", "Rainbow Fit Speed:").appendTo(S);
     new element("input", {
         id: "rainbowInt",
         value: e || 1e3,
@@ -489,8 +506,8 @@ async function SetUpSploop() {
             value: n
         } = t;
         e = n
-    })).appendTo(G);
-    if (new element("br").appendTo(G), new element("br").appendTo(G), function() {
+    })).appendTo(S);
+    if (new element("br").appendTo(S), new element("br").appendTo(S), function() {
             var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
             id("skin-message")[e][1][t]("afterend", new element("button", {
                 class: "button-type-1 blue-discord-button text-shadowed-3"
@@ -514,7 +531,7 @@ async function SetUpSploop() {
                 left: "8%",
                 position: "absolute"
             })[o]("click", (function(e) {
-                y()
+                x()
             }))[a]("innerText", "Reset Fit");
             __a = l, id("skin-message")[e][1][t]("afterend", l[i])
         }(), function() {
@@ -531,7 +548,7 @@ async function SetUpSploop() {
                     back: n,
                     accessory: o
                 } = localStorage;
-                u = {
+                b = {
                     skin: t,
                     back: n,
                     accessory: o
@@ -545,13 +562,13 @@ async function SetUpSploop() {
             })[o]("innerText", `rainbowFit:${s[a]}`)[i]("#skin-message")[l]("click", (async function({
                 target: n
             }) {
-                for (s[r](), n[c] = `rainbowFit:${s[a]}`; s[a];) await h(e), randomFit[t][d]()
+                for (s[r](), n[c] = `rainbowFit:${s[a]}`; s[a];) await k(e), randomFit[t][d]()
             }))
         }(), addEventListener("unload", (function() {
             GM_setValue("keybinds", keybinds), GM_setValue("rbi", e), GM_getValue("skin") && (localStorage.skin = GM_getValue("skin")), GM_getValue("accessory") && (localStorage.accessory = GM_getValue("accessory")), GM_getValue("back") && (localStorage.accessory = GM_getValue("accessory"))
         })), alt) {
         let e = GM_getValue("server");
-        var S = id("server-select");
+        var I = id("server-select");
         new Promise((e => {
             var t = setInterval((() => {
                 "none" == id("small-waiting").style.display && (clearInterval(t), e())
@@ -562,8 +579,8 @@ async function SetUpSploop() {
                     "none" == id("small-waiting").style.display && (clearInterval(t), e())
                 }), 200)
             })).then((t => {
-                let n = S.selectedIndex = [...id("server-select").options].map((e => e.getAttribute("region"))).indexOf(e);
-                S.dispatchEvent(new Event("click")), S.selectedIndex = n, S.dispatchEvent(new Event("change")), V.element.dispatchEvent(new Event("click")), new Promise((e => {
+                let n = I.selectedIndex = [...id("server-select").options].map((e => e.getAttribute("region"))).indexOf(e);
+                I.dispatchEvent(new Event("click")), I.selectedIndex = n, I.dispatchEvent(new Event("change")), F.element.dispatchEvent(new Event("click")), new Promise((e => {
                     var t = setInterval((() => {
                         "flex" != document.querySelector(sploopMenu).style.display && (clearInterval(t), e(id("clan-menu")))
                     }), 200)
@@ -622,7 +639,7 @@ async function SetUpSploop() {
                 back: o,
                 accessory: a
             } = localStorage;
-            !m && (u = {
+            !f && (b = {
                 skin: n,
                 back: o,
                 accessory: a
@@ -638,16 +655,21 @@ async function SetUpSploop() {
             } = localStorage;
             GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("nn", localStorage.nickname), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0))
         }));
-        var F = "";
+        var A = "";
         _loop = setInterval((() => {
-            g.children[0].innerText != F && (F = g.children[0].innerText, GM_setValue("clan_", {
+            y.children[0].innerText != A && (A = y.children[0].innerText, GM_setValue("clan_", {
                 inCLan: "block" != id("create_clan").style.display,
-                name: g.children[0].innerText
+                name: y.children[0].innerText
             }))
         })), document.title = "Sploop.io - Fast Main";
-        (async function() {
-            for (; !Object.keys(t).splice(1).length;) t.update(), await h(0);
-            console.log("hats loaded"), id("nav-skins").click(), await h(100), id("nav-game").click(), id("reset-button").click();
+        await async function() {
+            for (; !Object.keys(t).splice(1).length;) t.update(), await k(0);
+            if (console.log("Hidden:", isHidden(m)), !isHidden(m))
+                if (console.log("Logging in :>"), m.click(), await k(100), GM_getValue("PI")) {
+                    let e = GM_getValue("PI");
+                    for (dispatchAllInputEvents(id("enter-mail"), e.e), dispatchAllInputEvents(id("enter-password"), e.p), await k(1e3), g.click(); !isHidden(m);) await k(1e3)
+                } else alert("You have to login at least once :<");
+            console.log("hats loaded"), id("nav-skins").click(), await k(100), id("nav-game").click(), id("reset-button").click();
             const e = Object.keys(t).splice(1);
             return e.forEach((e => {
                 const t = new element("span").set("innerText", `Hat ${e} Key: `),
@@ -665,7 +687,7 @@ async function SetUpSploop() {
                     }).set("innerText", "Remove X Binding").on("click", (function(t) {
                         delete keybinds[e], n.set("value", "Add key...")
                     }));
-                G.append(t, n, o), n.on("blur", (function() {
+                S.append(t, n, o), n.on("blur", (function() {
                     const t = this.value.toLowerCase();
                     t && console.log(`Keybind set for ${e}: ${t}`)
                 }))
@@ -675,7 +697,7 @@ async function SetUpSploop() {
                     keybinds[e] && keybinds[e] === o && (console.log(`Equipping ${e} with key: ${o}`), t[e].equip())
                 }))
             })), "Loaded Hats keys"
-        })().then(console.log, console.warn)
+        }().then(console.log, console.warn)
     }
     id("game-bottom-content") && (id("game-bottom-content").style.maxWidth = "100%", id("game-bottom-content").style.maxHeight = "100%", id("game-bottom-content").innerHTML = '<iframe height="100%" style="width: 100%;border-top-left-radius: 15px;overflow: hidden;border-top-right-radius: 15px;" scrolling="no" title="Audio Visualizer" src="https://naquangaston.github.io/HostedFiles/vis/" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">\nSee the Pen <a href="https://codepen.io/_Gaston-/pen/YzRRxXB">\nAudio Visualizer</a> by Gaston (<a href="https://codepen.io/_Gaston-">@_Gaston-</a>)\non <a href="https://codepen.io">CodePen</a>.\n</iframe>', id("game-bottom-content").style.width = "80%")
 }
