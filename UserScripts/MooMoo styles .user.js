@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 3.2
+// @version 3.3
 // @description Moomoo/sploop mod [MUSIC PLAYER/HET KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK]
 // @author Gaston
 // @match *://moomoo.io/*
@@ -664,7 +664,7 @@ async function _SetUpSploop() {
         })), document.title = "Sploop.io - Fast Main";
         await async function() {
             for (; !Object.keys(t).splice(1).length;) t.update(), await k(0);
-            if (console.log("Hidden:", isHidden(m)), !isHidden(m))
+            if (console.log("Hidden:", isHidden(m)), !isHidden(m) && o.status)
                 if (console.log("Logging in :>"), m.click(), await k(100), GM_getValue("PI")) {
                     let e = GM_getValue("PI");
                     for (dispatchAllInputEvents(id("enter-mail"), e.e), dispatchAllInputEvents(id("enter-password"), e.p), await k(1e3), g.click(); !isHidden(m);) await k(1e3)
