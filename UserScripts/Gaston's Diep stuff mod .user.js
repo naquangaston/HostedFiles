@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's Diep stuff mod
 // @namespace http://tampermonkey.net/
-// @version 2.7
+// @version 2.8
 // @description This is a internal script for bigger project but it has its own custome theme auto upgrades/auto respawn as well as custom stats upgrades that can be request to be add to the builds list
 // @author gaton1779
 // @match *://diep.io/*
@@ -1337,6 +1337,7 @@ _Player = Player, alert("OK"), otherStuff = {
                 a = e.filter((e => "SQUARE" === e[3].toUpperCase())).sort(((e, n) => t(e) - t(n)));
             return [...n, ...o, ...r, ...a]
         }([...enemies, ...crashers, ...pentagons, ...triangles, ...squares]).filter((e => !e.shape || !e.shape[1].includes("Body (You)"))), rt = {
+            Screens: Screens,
             screen: _Player || Player ? (window._Player || Player).screen : null,
             autoPlay_: !!autoPlay_,
             targetShape: sortedShapes && sortedShapes[0] ? sortedShapes[0] : [],
