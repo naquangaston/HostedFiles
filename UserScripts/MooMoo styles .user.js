@@ -2,7 +2,7 @@
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
 // @version 3.3
-// @description Moomoo/sploop mod [MUSIC PLAYER/HET KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK]
+// @description Moomoo/sploop mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK]
 // @author Gaston
 // @match *://moomoo.io/*
 // @match *://dev.moomoo.io/*
@@ -443,11 +443,9 @@ async function _SetUpSploop() {
     async function V() {
         await v("#player-container");
         var e = id("player-container");
-        e.style.display = "none", i.status ? (!G && (G = (await v("#nickname-value")).innerText), (await v("#nickname-value")).innerText = "streamerMode", (await v("#change-username")).style.display = "none") : G && ((await v("#nickname-value")).innerText = G, (await v("#change-username")).style.display = "block"), e.style.display = "flex"
+        e.style.display = "none", i.status ? (!G && (G = (await v("#nickname-value")).innerText), "SPLOOP.IO" == G ? G = null : (await v("#nickname-value")).innerText = "streamerMode", (await v("#change-username")).style.display = "none") : G && ((await v("#nickname-value")).innerText = G, (await v("#change-username")).style.display = "block"), e.style.display = "flex"
     }
-    1 == localStorage.seen && E.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(d), async function() {
-        for (;;) await k(0), await V()
-    }();
+    1 == localStorage.seen && E.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(d);
     const S = new element("div", {
         id: "keybinds"
     }).style({
@@ -697,7 +695,9 @@ async function _SetUpSploop() {
                     keybinds[e] && keybinds[e] === o && (console.log(`Equipping ${e} with key: ${o}`), t[e].equip())
                 }))
             })), "Loaded Hats keys"
-        }().then(console.log, console.warn)
+        }().then(console.log, console.warn), async function() {
+            for (;;) await k(0), await V()
+        }()
     }
     id("game-bottom-content") && (id("game-bottom-content").style.maxWidth = "100%", id("game-bottom-content").style.maxHeight = "100%", id("game-bottom-content").innerHTML = '<iframe height="100%" style="width: 100%;border-top-left-radius: 15px;overflow: hidden;border-top-right-radius: 15px;" scrolling="no" title="Audio Visualizer" src="https://naquangaston.github.io/HostedFiles/vis/" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">\nSee the Pen <a href="https://codepen.io/_Gaston-/pen/YzRRxXB">\nAudio Visualizer</a> by Gaston (<a href="https://codepen.io/_Gaston-">@_Gaston-</a>)\non <a href="https://codepen.io">CodePen</a>.\n</iframe>', id("game-bottom-content").style.width = "80%")
 }
