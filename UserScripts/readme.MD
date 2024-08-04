@@ -88,7 +88,7 @@ Some LinkVerse Script
 
 **Daily Installs:** 4
 
-**Total Installs:** 94
+**Total Installs:** 95
 
 **Author:** [Gaston2](https://greasyfork.org/users/689441-gaston2)
 
