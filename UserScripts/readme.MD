@@ -86,9 +86,9 @@ Gastons diep script
 
 **Short URL:** [Short URL](https://shorturl.at/WTT9e)
 
-**Daily Installs:** 5
+**Daily Installs:** 6
 
-**Total Installs:** 121
+**Total Installs:** 122
 
 **Author:** [Gaston2](https://greasyfork.org/users/689441-gaston2)
 
@@ -136,9 +136,9 @@ This is a internal script for bigger project but it has its own custome theme au
 
 **Short URL:** [Short URL](https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Gaston's%20Diep%20stuff%20mod%20.user.js)
 
-**Daily Installs:** 5
+**Daily Installs:** 6
 
-**Total Installs:** 121
+**Total Installs:** 122
 
 **Author:** [Gaston2](https://greasyfork.org/users/689441-gaston2)
 
@@ -161,9 +161,9 @@ Some LinkVerse Script
 
 **Short URL:** [Short URL](https://shorturl.at/lplt8)
 
-**Daily Installs:** 3
+**Daily Installs:** 4
 
-**Total Installs:** 93
+**Total Installs:** 94
 
 **Author:** [Gaston2](https://greasyfork.org/users/689441-gaston2)
 
@@ -186,9 +186,9 @@ Moomoo/sploop mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI
 
 **Short URL:** [Short URL](https://shorturl.at/MOjWX)
 
-**Daily Installs:** 1
+**Daily Installs:** 2
 
-**Total Installs:** 227
+**Total Installs:** 228
 
 **Author:** [Gaston2](https://greasyfork.org/users/689441-gaston2)
 
