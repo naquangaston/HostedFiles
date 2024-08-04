@@ -11,7 +11,7 @@ Gastons diep script
 
 **Short URL:** [Short URL](https://shorturl.at/WTT9e)
 
-**Daily Installs:** 6
+**Daily Installs:** 3
 
 **Total Installs:** 122
 
@@ -61,7 +61,7 @@ This is a internal script for bigger project but it has its own custome theme au
 
 **Short URL:** [Short URL](https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Gaston's%20Diep%20stuff%20mod%20.user.js)
 
-**Daily Installs:** 6
+**Daily Installs:** 3
 
 **Total Installs:** 122
 
@@ -86,7 +86,7 @@ Some LinkVerse Script
 
 **Short URL:** [Short URL](https://shorturl.at/lplt8)
 
-**Daily Installs:** 4
+**Daily Installs:** 3
 
 **Total Installs:** 95
 
