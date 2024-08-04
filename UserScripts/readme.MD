@@ -1,339 +1,85 @@
-#This folder is in WIP for braking donw tampermonkey exports
-
-
-<details><summary>Youtube mp3 and mp4 download working 2020-2021</summary>
+<details><summary>Diep stuff .user.js</summary>
 <p>
 
+#### Version: 2.6
 
-#### 
-
-```t
-   ```
-
-**Ignore**
+```javascript
+Gastons diep script
 ```
 
-```
+**Install Link:** [Install](https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Diep%20stuff%20.user.js)
+
+**Short URL:** [Short URL](https://shorturl.at/WTT9e)
+
+
+
 </p></details>
-<details><summary>Gaston's diep mod</summary>
+
+<details><summary>ELA Userscript .user.js</summary>
 <p>
 
+#### Version: 1.0
 
-#### 
-
-```t
-   ```
-
-**Ignore**
+```javascript
+Idk i was vboard and made this
 ```
 
-```
+**Install Link:** [Install](https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/ELA%20Userscript%20.user.js)
+
+**Short URL:** [Short URL](https://shorturl.at/OpLNm)
+
+
+
 </p></details>
-<details><summary>Project NOZO</summary>
+
+<details><summary>Gaston's Diep stuff mod .user.js</summary>
 <p>
 
+#### Version: 2.8
 
-#### 
-
-```t
-   ```
-
-**Ignore**
+```javascript
+This is a internal script for bigger project but it has its own custome theme auto upgrades/auto respawn as well as custom stats upgrades that can be request to be add to the builds list
 ```
 
-```
+**Install Link:** [Install](https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Gaston's%20Diep%20stuff%20mod%20.user.js)
+
+**Short URL:** [Short URL](https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Gaston's%20Diep%20stuff%20mod%20.user.js)
+
+
+
 </p></details>
-<details><summary>gaston Userscript</summary>
+
+<details><summary>LinkVerse .user.js</summary>
 <p>
 
+#### Version: 0.2
 
-#### 
-
-```t
-   ```
-
-**Ignore**
+```javascript
+Some LinkVerse Script
 ```
 
-```
+**Install Link:** [Install](https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/LinkVerse%20.user.js)
+
+**Short URL:** [Short URL](https://shorturl.at/lplt8)
+
+
+
 </p></details>
-<details><summary>DiepBox by Cazka</summary>
+
+<details><summary>MooMoo styles .user.js</summary>
 <p>
 
+#### Version: 3.4
 
-#### 
-
-```t
-   ```
-
-**Ignore**
+```javascript
+Moomoo/sploop mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK]
 ```
 
-```
+**Install Link:** [Install](https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/MooMoo%20styles%20.user.js)
+
+**Short URL:** [Short URL](https://shorturl.at/MOjWX)
+
+
+
 </p></details>
-<details><summary>DiepBox by Cazka</summary>
-<p>
 
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>Auto download</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>Poser</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>New Userscript</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>.Discord profile ripper</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>AutoStuff diep</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>MOOMOO.IO/KRUNKER/MOPE/ALLSITES/&MORE SUPER MOD! INSTA, ALL UPGRADES, AUTOHEAL, PRO CURSOR, +100 RES</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>MooMoo.io Bots (browser)</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>Diep.io Clones (Eng)</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>2020-2021 Music player for io games & Dsicrdo profile ripper& youtube download free</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>smth random</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>Ba7 Beta</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>Script finder</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>big ppro</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>Poser</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>New Userscript</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>Github Userscript</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>Diep Packet Logger</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
-<details><summary>Diep Packet & Memory Analyzer</summary>
-<p>
-
-
-#### 
-
-```t
-   ```
-
-**Ignore**
-```
-
-```
-</p></details>
