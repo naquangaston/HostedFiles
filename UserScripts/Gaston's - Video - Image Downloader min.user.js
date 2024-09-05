@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 5.0
+// @version 5.1
 // @description Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author gaston1799
 // @match *://www.youtube.com/*
@@ -10,6 +10,7 @@
 // @match *://y2mate.nu/*
 // @match *://www.twitch.tv/*
 // @match *://onlymp3.app/*
+// @match *://qdownloader.cc/*
 // @match *://tubemp4.is/*
 // @match *://snapsave.io/*
 // @match *://clips.twitch.tv/*
@@ -140,8 +141,8 @@ async function downloadVideo(e, t) {
         const n = o.url,
             l = await o.blob(),
             i = window.URL.createObjectURL(l),
-            r = document.createElement("a");
-        r.href = i, r.download = t, document.body.appendChild(r), r.click(), document.body.removeChild(r), window.URL.revokeObjectURL(i), console.log(`Video downloaded from: ${n}`)
+            c = document.createElement("a");
+        c.href = i, c.download = t, document.body.appendChild(c), c.click(), document.body.removeChild(c), window.URL.revokeObjectURL(i), console.log(`Video downloaded from: ${n}`)
     } catch (e) {
         console.error("Failed to download video:", e)
     }
@@ -149,8 +150,8 @@ async function downloadVideo(e, t) {
 _downloadFileAsTitle = async function(e, t, o, n) {
         const l = document.createElement("a");
         return l.style.display = "none", document.body.appendChild(l), fetch(e).then((e => e.blob())).then((i => {
-            const r = URL.createObjectURL(i);
-            l.href = r, l.download = t, l.target = "_blank", l.click(), URL.revokeObjectURL(r), (o || opener || window).postMessage({
+            const c = URL.createObjectURL(i);
+            l.href = c, l.download = t, l.target = "_blank", l.click(), URL.revokeObjectURL(c), (o || opener || window).postMessage({
                 url: e,
                 title: t,
                 s: !0
@@ -292,11 +293,11 @@ _downloadFileAsTitle = async function(e, t, o, n) {
             return e.parentNode
         }
 
-        function r() {
+        function c() {
             return get_aria_label("Go back") && get_aria_label("Go back").click ? get_aria_label("Go back") : document.querySelector("._afxv")
         }
 
-        function c() {
+        function r() {
             return get_aria_label("Next") && get_aria_label("Next").click ? get_aria_label("Next") : document.querySelector("._afxw")
         }
 
@@ -316,29 +317,29 @@ _downloadFileAsTitle = async function(e, t, o, n) {
 
         function s() {
             (async function() {
-                for (var e = e => new Promise((t => setTimeout(t, e))), t = new Set, o = {}; r();) {
-                    if (await e(100), !r()) {
+                for (var e = e => new Promise((t => setTimeout(t, e))), t = new Set, o = {}; c();) {
+                    if (await e(100), !c()) {
                         await e(1e3);
                         break
                     }
-                    r().click()
+                    c().click()
                 }[...getInstalImages()].forEach((e => {
                     let o = findhref2(e, "img")[0];
                     t.add([o.src, o.getAttribute("alt")])
-                })), c().click();
+                })), r().click();
                 try {
-                    c().click()
+                    r().click()
                 } catch (e) {}
-                for (; c();) {
+                for (; r();) {
                     await e(300), [...getInstalImages()].forEach((e => {
                         let o = findhref2(e, "img")[0];
                         t.add([o.src, o.getAttribute("alt")])
                     }));
                     try {
-                        c().click()
+                        r().click()
                     } catch (e) {}
                 }
-                for (; await e(100), r();) r().click();
+                for (; await e(100), c();) c().click();
                 [...t].forEach((e => {
                     o[e[0]] = e[1]
                 })), (t = Object.keys(o).map((e => ({
@@ -549,38 +550,7 @@ _downloadFileAsTitle = async function(e, t, o, n) {
                         } else console.warn("No id Found")
                     }().then(console.log, console.warn)
                 }
-                if ("snapsave.io" == document.domain) {
-                    async function m(e, t = 2e4) {
-                        let o = !1;
-                        for (setTimeout((() => {
-                                console.log("TimeOut for", e), o = !0
-                            }), t); !document.querySelector(e) && (console.log("_", e, o), await d(500), !o););
-                        if (console.log(e, o), o) throw "NotFound";
-                        return document.querySelector(e)
-                    }
-                    return _wfs = m, void async function() {
-                        var e = await m("#s_input");
-                        if (e) {
-                            console.log("Converting"), id_ = new URL(location.href).searchParams.get("v"), e.value = `https://www.youtube.com/watch?v=${id_}`, ksearchvideo(), setTimeout(ksearchvideo(), 1e3);
-                            var t = await m("#formatSelect");
-                            await m("#btn-action");
-                            t.selectedIndex = 0, t.options[0].selected = !0;
-                            for (var o = await m("#asuccess"); !(o = await m("#asuccess"));) await d(0);
-                            for (convertFile(0);
-                                "#" == o.getAttribute("href");) await d(0), o = await m("#asuccess");
-                            console.log(o.href);
-                            var n = (await _wfs(".clearfix")).querySelector("h3").innerText,
-                                l = {
-                                    id: id_,
-                                    href: o.href,
-                                    title: n,
-                                    length: {}
-                                };
-                            console.log("Posted", l), (opener || window).postMessage(l, "*")
-                        } else alert("Input was not Found"), console.warn("?!!")
-                    }().then(console.log).catch(console.warn)
-                }
-                if ("clips.twitch.tv" == document.domain) {
+                if ("qdownloader.cc" == document.domain) {
                     const G = e => new Promise((t => setTimeout(t, e)));
                     async function m(e, t = 2e4) {
                         let o = !1;
@@ -590,178 +560,274 @@ _downloadFileAsTitle = async function(e, t, o, n) {
                         if (console.log(e, o), o) throw "NotFound";
                         return document.querySelector(e)
                     }
-
-                    function h(e) {
-                        if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
-                        const t = document.createElement(e.tagName);
-                        for (let o of e.attributes) t.setAttribute(o.name, o.value);
-                        return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
-                    }
-                    _wfs = m, _copyElm = h, async function() {
-                        location.href;
-                        let e = (await _wfs(".ScCoreButtonLabel-sc-s7h2b7-0")).parentElement.parentElement.parentElement.parentElement;
-                        new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "1080")
-                        })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "1080P", new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "720")
-                        })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "720P", new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "480")
-                        })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "480P", new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "360")
-                        })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "360P", new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "VOD")
-                        })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "1080P"
-                    }().catch(console.warn)
-                } else if ("www.twitch.tv" == document.domain) {
-                    let [j, O, F, W] = location.pathname.split("/");
-                    if ("clip" != F) return console.warn("User isnt wathcing a clip");
-                    console.log("User is Watching a CLip");
-                    const H = e => new Promise((t => setTimeout(t, e)));
-                    async function m(e, t = 2e4) {
-                        let o = !1;
-                        for (setTimeout((() => {
-                                console.log("TimeOut for", e), o = !0
-                            }), t); !document.querySelector(e) && (console.log("_", e, o), await H(500), !o););
-                        if (console.log(e, o), o) throw "NotFound";
-                        return document.querySelector(e)
-                    }
-
-                    function h(e) {
-                        if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
-                        const t = document.createElement(e.tagName);
-                        for (let o of e.attributes) t.setAttribute(o.name, o.value);
-                        return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
-                    }
-                    _wfs = m, _wfs_ = m, _copyElm = h, async function() {
-                        location.href;
-                        await _wfs(".Layout-sc-1xcs6mc-0 .bMOhzu");
-                        let e = document.querySelectorAll(".Layout-sc-1xcs6mc-0 .bMOhzu")[1],
-                            t = "a";
-                        new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + O + "/clip", ""), e.search = "", e).href, "1080")
-                        })).appendTo(e.parentNode).element.querySelector(t).innerText = "1080P", new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + O + "/clip", ""), e.search = "", e).href, "720")
-                        })).appendTo(e.parentNode).element.querySelector(t).innerText = "720P", new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + O + "/clip", ""), e.search = "", e).href, "480")
-                        })).appendTo(e.parentNode).element.querySelector(t).innerText = "480P", new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + O + "/clip", ""), e.search = "", e).href, "360")
-                        })).appendTo(e.parentNode).element.querySelector(t).innerText = "360P", new _e(_copyElm(e)).on("click", (function() {
-                            var e;
-                            open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + O + "/clip", ""), e.search = "", e).href, "VOD")
-                        })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD"
-                    }().catch(console.warn)
-                } else {
-                    if ("clipr.xyz" == document.domain) {
-                        ! function() {
-                            Object.assign(this || arguments[0], {
-                                CustomLog: class {
-                                    constructor(e) {
-                                        this.title = {
-                                            body: e || "---",
-                                            color: "darkgrey",
-                                            size: "1rem"
-                                        }, this.body = {
-                                            color: "#008f68",
-                                            size: "1rem"
-                                        }
-                                    }
-                                    setTitleBody(e) {
-                                        return this.title.body = e, this
-                                    }
-                                    setTitleStyle({
-                                        color: e,
-                                        size: t
-                                    }) {
-                                        return void 0 !== e && (this.title.color = e), void 0 !== t && (this.title.size = t), this
-                                    }
-                                    setBodyStyle({
-                                        color: e,
-                                        size: t
-                                    }) {
-                                        return void 0 !== e && (this.body.color = e), void 0 !== t && (this.body.size = t), this
-                                    }
-                                    log(e = "") {
-                                        console.log(`%c${this.title.body} | %c${e}`, `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`, `color: ${this.body.color}; font-weight: bold; font-size: ${this.body.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`)
-                                    }
+                    let j = document.createElement;
+                    document._createElement = function(e, t) {
+                        let o = j.call(document, e, t);
+                        return o._click = o.click, o.click = function() {
+                            if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
+                                console.log("Caught", o);
+                                let e = o.download,
+                                    t = o.href;
+                                f = {
+                                    id: new URL(location.href).searchParams.get("v"),
+                                    href: t,
+                                    title: e
                                 }
-                            })
-                        }(globalThis);
-                        const K = new CustomLog("Script Logger");
+                            } else o._click.apply(o)
+                        }, console.log(o, "was created", o.tagName), o
+                    }, async function() {
+                        if (location.href.includes("vidbutton")) throw "vidbutton";
+                        GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (function(e, t, o, n) {
+                            console.log({
+                                a: e,
+                                b: t,
+                                c: o,
+                                d: n
+                            }), o.includes("video download successful\ncheck downloads folder") && close()
+                        }));
+                        let e = await m("#url"),
+                            t = await m("#downloadBtn");
+                        id_ = new URL(location.href).searchParams.get("v");
+                        let o = `https://www.youtube.com/watch?v=${id_}`;
+                        var n, l;
+                        n = e, l = o, ["focus", "input", "change", "blur"].forEach((e => {
+                            let t = new Event(e, {
+                                bubbles: !0,
+                                isTrusted: !0
+                            });
+                            n[`on${e}`] && n[`on${e}`](t), "input" === e && (n.value = l), n.dispatchEvent(t)
+                        })), t.click()
+                    }().then(console.log, (async e => {
+                        "vidbutton" == e && (console.log("Best Quality Video"), await m("#height").then((e => {
+                            height.selectedIndex = height.options.length - 1, dlbutton.click(), open = window.open, window.open = function(e, t, o) {
+                                console.log({
+                                    a: e,
+                                    b: t,
+                                    c: o
+                                })
+                            }, m("#dlbutton").then((e => {
+                                var t = "";
+                                setInterval((o => {
+                                    t != e.innerText && (t = e.innerText, GM_setValue("dlbutton", t))
+                                }))
+                            }))
+                        })))
+                    }))
+                } else {
+                    if ("snapsave.io" == document.domain) {
                         async function m(e, t = 2e4) {
                             let o = !1;
                             for (setTimeout((() => {
-                                    K.log(`TimeOut for ${e}`), o = !0
-                                }), t); !document.querySelector(e) && (K.log(`_ ${e} ${o}`), await d(500), !o););
-                            if (K.log(`${e} ${o}`), o) throw "NotFound";
+                                    console.log("TimeOut for", e), o = !0
+                                }), t); !document.querySelector(e) && (console.log("_", e, o), await d(500), !o););
+                            if (console.log(e, o), o) throw "NotFound";
                             return document.querySelector(e)
                         }
-
-                        function d(e) {
-                            return new Promise((t => setTimeout(t, e)))
-                        }
-
-                        function p(e, t) {
-                            const o = document.createElement("a");
-                            o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
-                        }
-                        return void async function() {
-                            let e = name;
-                            await async function() {
-                                for (;
-                                    "complete" != document.readyState;) await d(0);
-                                return !0
-                            }(), K.log("Loaded");
-                            let t = {
-                                1080: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(1) > div:nth-child(3) > a").href,
-                                720: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(2) > div:nth-child(3) > a").href,
-                                480: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(3) > div:nth-child(3) > a").href,
-                                360: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(4) > div:nth-child(3) > a").href,
-                                VOD: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(5) > div:nth-child(3) > a").href
-                            }[e];
-                            K.log(1);
-                            let o = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
-                            K.log(2);
-                            let n = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2").innerText;
-                            K.log(3);
-                            let l = `@${o} on Twitch | ${n} - ${e}P.mp4`;
-                            K.log(`Downloading file as: ${l}`), open(t), K.log(4), await d(4e3), close()
-                        }().catch(console.warn)
+                        return _wfs = m, void async function() {
+                            var e = await m("#s_input");
+                            if (e) {
+                                console.log("Converting"), id_ = new URL(location.href).searchParams.get("v"), e.value = `https://www.youtube.com/watch?v=${id_}`, ksearchvideo(), setTimeout(ksearchvideo(), 1e3);
+                                var t = await m("#formatSelect");
+                                await m("#btn-action");
+                                t.selectedIndex = 0, t.options[0].selected = !0;
+                                for (var o = await m("#asuccess"); !(o = await m("#asuccess"));) await d(0);
+                                for (convertFile(0);
+                                    "#" == o.getAttribute("href");) await d(0), o = await m("#asuccess");
+                                console.log(o.href);
+                                var n = (await _wfs(".clearfix")).querySelector("h3").innerText,
+                                    l = {
+                                        id: id_,
+                                        href: o.href,
+                                        title: n,
+                                        length: {}
+                                    };
+                                console.log("Posted", l), (opener || window).postMessage(l, "*")
+                            } else alert("Input was not Found"), console.warn("?!!")
+                        }().then(console.log).catch(console.warn)
                     }
-                    if (location.href.includes("tubemp4.is")) {
-                        async function m(e, t = 3e4) {
-                            var o;
-                            for (d(t).then((e => o = !0)); !document.querySelector(e) && (await d(0), !o););
+                    if ("clips.twitch.tv" == document.domain) {
+                        const O = e => new Promise((t => setTimeout(t, e)));
+                        async function m(e, t = 2e4) {
+                            let o = !1;
+                            for (setTimeout((() => {
+                                    console.log("TimeOut for", e), o = !0
+                                }), t); !document.querySelector(e) && (console.log("_", e, o), await O(500), !o););
+                            if (console.log(e, o), o) throw "NotFound";
                             return document.querySelector(e)
                         }
-                        console.log("ok"), m("#u").then((async e => {
-                            e.value = `https://www.youtube.com/watch?v=${new URL(location.href).searchParams.get("v")}`, convert.click(), await d(200), (await m("#convert")).click(), (await m(".process-button")).click(), m(".download-button").then((e => {
-                                let t = document.createElement;
-                                document.createElement = function(e, o) {
-                                    let n = t.call(document, e, o);
-                                    return n._click = n.click, n.click = function() {
-                                        if (console.log(n, "was clicked", n.tagName), "A" == n.tagName) {
-                                            console.log("Caught", n);
-                                            let e = n.download,
-                                                t = n.href;
-                                            f = {
-                                                id: new URL(location.href).searchParams.get("v"),
-                                                href: t,
-                                                title: e
-                                            }, (opener || window).postMessage(f, "*"), close()
-                                        } else n._click.apply(n)
-                                    }, console.log(n, "was created", n.tagName), n
-                                }, e.click(), console.log("clicked"), setTimeout((() => e.click()), 1e3)
-                            }))
-                        })).then(console.log, console.warn)
+
+                        function h(e) {
+                            if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
+                            const t = document.createElement(e.tagName);
+                            for (let o of e.attributes) t.setAttribute(o.name, o.value);
+                            return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
+                        }
+                        _wfs = m, _copyElm = h, async function() {
+                            location.href;
+                            let e = (await _wfs(".ScCoreButtonLabel-sc-s7h2b7-0")).parentElement.parentElement.parentElement.parentElement;
+                            new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "1080")
+                            })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "1080P", new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "720")
+                            })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "720P", new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "480")
+                            })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "480P", new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "360")
+                            })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "360P", new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "VOD")
+                            })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD"
+                        }().catch(console.warn)
+                    } else if ("www.twitch.tv" == document.domain) {
+                        let [F, W, H, K] = location.pathname.split("/");
+                        if ("clip" != H) return console.warn("User isnt wathcing a clip");
+                        console.log("User is Watching a CLip");
+                        const Q = e => new Promise((t => setTimeout(t, e)));
+                        async function m(e, t = 2e4) {
+                            let o = !1;
+                            for (setTimeout((() => {
+                                    console.log("TimeOut for", e), o = !0
+                                }), t); !document.querySelector(e) && (console.log("_", e, o), await Q(500), !o););
+                            if (console.log(e, o), o) throw "NotFound";
+                            return document.querySelector(e)
+                        }
+
+                        function h(e) {
+                            if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
+                            const t = document.createElement(e.tagName);
+                            for (let o of e.attributes) t.setAttribute(o.name, o.value);
+                            return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
+                        }
+                        _wfs = m, _wfs_ = m, _copyElm = h, async function() {
+                            location.href;
+                            await _wfs(".Layout-sc-1xcs6mc-0 .bMOhzu");
+                            let e = document.querySelectorAll(".Layout-sc-1xcs6mc-0 .bMOhzu")[1],
+                                t = "a";
+                            new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + W + "/clip", ""), e.search = "", e).href, "1080")
+                            })).appendTo(e.parentNode).element.querySelector(t).innerText = "1080P", new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + W + "/clip", ""), e.search = "", e).href, "720")
+                            })).appendTo(e.parentNode).element.querySelector(t).innerText = "720P", new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + W + "/clip", ""), e.search = "", e).href, "480")
+                            })).appendTo(e.parentNode).element.querySelector(t).innerText = "480P", new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + W + "/clip", ""), e.search = "", e).href, "360")
+                            })).appendTo(e.parentNode).element.querySelector(t).innerText = "360P", new _e(_copyElm(e)).on("click", (function() {
+                                var e;
+                                open((e = new URL(location.href), e.host = "clipr.xyz", e.pathname = e.pathname.replace("/" + W + "/clip", ""), e.search = "", e).href, "VOD")
+                            })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD"
+                        }().catch(console.warn)
+                    } else {
+                        if ("clipr.xyz" == document.domain) {
+                            ! function() {
+                                Object.assign(this || arguments[0], {
+                                    CustomLog: class {
+                                        constructor(e) {
+                                            this.title = {
+                                                body: e || "---",
+                                                color: "darkgrey",
+                                                size: "1rem"
+                                            }, this.body = {
+                                                color: "#008f68",
+                                                size: "1rem"
+                                            }
+                                        }
+                                        setTitleBody(e) {
+                                            return this.title.body = e, this
+                                        }
+                                        setTitleStyle({
+                                            color: e,
+                                            size: t
+                                        }) {
+                                            return void 0 !== e && (this.title.color = e), void 0 !== t && (this.title.size = t), this
+                                        }
+                                        setBodyStyle({
+                                            color: e,
+                                            size: t
+                                        }) {
+                                            return void 0 !== e && (this.body.color = e), void 0 !== t && (this.body.size = t), this
+                                        }
+                                        log(e = "") {
+                                            console.log(`%c${this.title.body} | %c${e}`, `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`, `color: ${this.body.color}; font-weight: bold; font-size: ${this.body.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`)
+                                        }
+                                    }
+                                })
+                            }(globalThis);
+                            const Z = new CustomLog("Script Logger");
+                            async function m(e, t = 2e4) {
+                                let o = !1;
+                                for (setTimeout((() => {
+                                        Z.log(`TimeOut for ${e}`), o = !0
+                                    }), t); !document.querySelector(e) && (Z.log(`_ ${e} ${o}`), await d(500), !o););
+                                if (Z.log(`${e} ${o}`), o) throw "NotFound";
+                                return document.querySelector(e)
+                            }
+
+                            function d(e) {
+                                return new Promise((t => setTimeout(t, e)))
+                            }
+
+                            function p(e, t) {
+                                const o = document.createElement("a");
+                                o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
+                            }
+                            return void async function() {
+                                let e = name;
+                                await async function() {
+                                    for (;
+                                        "complete" != document.readyState;) await d(0);
+                                    return !0
+                                }(), Z.log("Loaded");
+                                let t = {
+                                    1080: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(1) > div:nth-child(3) > a").href,
+                                    720: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(2) > div:nth-child(3) > a").href,
+                                    480: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(3) > div:nth-child(3) > a").href,
+                                    360: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(4) > div:nth-child(3) > a").href,
+                                    VOD: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(5) > div:nth-child(3) > a").href
+                                }[e];
+                                Z.log(1);
+                                let o = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
+                                Z.log(2);
+                                let n = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2").innerText;
+                                Z.log(3);
+                                let l = `@${o} on Twitch | ${n} - ${e}P.mp4`;
+                                Z.log(`Downloading file as: ${l}`), open(t), Z.log(4), await d(4e3), close()
+                            }().catch(console.warn)
+                        }
+                        if (location.href.includes("tubemp4.is")) {
+                            async function m(e, t = 3e4) {
+                                var o;
+                                for (d(t).then((e => o = !0)); !document.querySelector(e) && (await d(0), !o););
+                                return document.querySelector(e)
+                            }
+                            console.log("ok"), m("#u").then((async e => {
+                                e.value = `https://www.youtube.com/watch?v=${new URL(location.href).searchParams.get("v")}`, convert.click(), await d(200), (await m("#convert")).click(), (await m(".process-button")).click(), m(".download-button").then((e => {
+                                    let t = document.createElement;
+                                    document.createElement = function(e, o) {
+                                        let n = t.call(document, e, o);
+                                        return n._click = n.click, n.click = function() {
+                                            if (console.log(n, "was clicked", n.tagName), "A" == n.tagName) {
+                                                console.log("Caught", n);
+                                                let e = n.download,
+                                                    t = n.href;
+                                                f = {
+                                                    id: new URL(location.href).searchParams.get("v"),
+                                                    href: t,
+                                                    title: e
+                                                }, (opener || window).postMessage(f, "*"), close()
+                                            } else n._click.apply(n)
+                                        }, console.log(n, "was created", n.tagName), n
+                                    }, e.click(), console.log("clicked"), setTimeout((() => e.click()), 1e3)
+                                }))
+                            })).then(console.log, console.warn)
+                        }
                     }
                 }
             }
@@ -806,15 +872,15 @@ _downloadFileAsTitle = async function(e, t, o, n) {
                 id: setElement(findhref2(i(e))[0].href),
                 e: e
             })))
-        }, info = {}, downloadT = function(e, o = !1, n = !0, l = !1, i = !1, r = "") {
-            let c = e + (l ? "mp4" : "mp3") + n;
+        }, info = {}, downloadT = function(e, o = !1, n = !0, l = !1, i = !1, c = "") {
+            let r = e + (l ? "mp4" : "mp3") + n;
             var a;
-            if (!(a = document.getElementById(c)) || a.remove(), localStorage[c] && !o && (!i || !confirm(`You have already download this video as .${l?"mp4":"mp3"}\nStill download?`))) return;
-            let s = r || location;
+            if (!(a = document.getElementById(r)) || a.remove(), localStorage[r] && !o && (!i || !confirm(`You have already download this video as .${l?"mp4":"mp3"}\nStill download?`))) return;
+            let s = c || location;
             var d = new URL(location.href);
             d.host = d.host.replace(".com", "mz.com"), console.log("o", d);
             let u = ["https://y2mate.nu/Pio1/", "?v=", e, "&s=", d.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", l ? "mp4" : "mp3", "&useT=", n];
-            console.log(c, u);
+            console.log(r, u);
             var m;
             return function(e, t, o = !1) {
                 var n = addEventListener(e, ((...e) => {
@@ -829,24 +895,24 @@ _downloadFileAsTitle = async function(e, t, o, n) {
                             href: t,
                             title: o,
                             length: i,
-                            id: r,
-                            _: c
+                            id: c,
+                            _: r
                         }
                     } = e;
                     let a = o + (l ? ".mp4" : ".mp3");
                     (e => {
                         e && e.remove()
-                    })(document.getElementById(c)), console.log("Handled", {
+                    })(document.getElementById(r)), console.log("Handled", {
                         href: t,
                         title: o,
                         length: i,
-                        id: r,
-                        _: c
-                    }, e), S.set("innerText", "Get MP3"), S.set("disabled", !1), n ? (console.log("Getting video"), p(t, a)) : open(t), localStorage[c] = t
+                        id: c,
+                        _: r
+                    }, e), S.set("innerText", "Get MP3"), S.set("disabled", !1), n ? (console.log("Getting video"), p(t, a)) : open(t), localStorage[r] = t
                 } else console.log("Unhandled Post", e)
-            }, info[e] = l ? open(s.pathname.startsWith("/shorts/") ? "https://yt5s.biz/enxj100/" : `https://tubemp4.is?v=${e}`, [e, s.pathname.startsWith("/shorts/") ? 1 : 0, l + !1], "width=400,height=500") : ((m = new _e("iframe", {
+            }, info[e] = l ? open(s.pathname.startsWith("/shorts/") ? "https://yt5s.biz/enxj100/" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, s.pathname.startsWith("/shorts/") ? 1 : 0, l + !1], "width=400,height=500") : ((m = new _e("iframe", {
                 src: u.join(""),
-                id: c,
+                id: r,
                 useT: n,
                 loading: "lazy",
                 referrerpolicy: "no-referrer",
@@ -887,8 +953,8 @@ _downloadFileAsTitle = async function(e, t, o, n) {
                                 href: o,
                                 links: n,
                                 title: l,
-                                length: r,
-                                id: c,
+                                length: c,
+                                id: r,
                                 mp4: a,
                                 info: {
                                     username: s
@@ -898,8 +964,8 @@ _downloadFileAsTitle = async function(e, t, o, n) {
                         if (console.log("Handled", {
                                 href: o,
                                 title: l,
-                                length: r,
-                                id: c,
+                                length: c,
+                                id: r,
                                 links: n,
                                 mp4: a
                             }, e), "https://savetik.co" == e.origin) l = i, p(a ? n[0] : n.pop(), s + " - " + l + (a ? ".mp4" : ".mp3"), g);
@@ -1074,9 +1140,9 @@ _downloadFileAsTitle = async function(e, t, o, n) {
         }
         if (location.href.includes("www.yt2conv.com")) {
             console.log("Getting MP4");
-            let [Z, Q] = name.split(",");
+            let [Y, J] = name.split(",");
             n((function(e = function() {}) {
-                document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==Q?"shorts/":"watch?v="}${Z}`, document.getElementById("btn-submit").click(), console.log(Z, Q)
+                document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==J?"shorts/":"watch?v="}${Y}`, document.getElementById("btn-submit").click(), console.log(Y, J)
             }), {
                 callback: function() {}
             }), n((function(e = function() {}) {
@@ -1092,7 +1158,7 @@ _downloadFileAsTitle = async function(e, t, o, n) {
                 var e = $(".media-heading")[0].innerText,
                     t = downloadbtn.href,
                     o = {
-                        id: Z,
+                        id: Y,
                         href: t,
                         title: e,
                         length: {}
@@ -1139,18 +1205,18 @@ _downloadFileAsTitle = async function(e, t, o, n) {
             (opener || window).postMessage(t, "*")
         })().then(close, console.warn);
         else if (location.href.includes("en3.onlinevideoconverter.pro")) {
-            let [Y, J] = name.split(",");
-            if (!Y.length || !J.length) return console.Warn("NO info Preset");
-            let X = function() {};
+            let [X, ee] = name.split(",");
+            if (!X.length || !ee.length) return console.Warn("NO info Preset");
+            let te = function() {};
             n((function(e = function() {}) {
-                document.getElementById("texturl").value = `https://www.youtube.com/${"1"==J?"shorts/":"watch?v="}${Y}`, document.getElementById("convert1").click(), console.log("Searched")
+                document.getElementById("texturl").value = `https://www.youtube.com/${"1"==ee?"shorts/":"watch?v="}${X}`, document.getElementById("convert1").click(), console.log("Searched")
             }), {
-                callback: X
+                callback: te
             }), n((function() {
                 if ("none" == stepProcess.style.display) throw document.getElementById("convert1").click(), "this";
                 console.log("Searching")
             }), {
-                callback: X
+                callback: te
             }), n((function() {
                 if (0 == document.getElementById("form-app-root").children.length) throw "";
                 console.log("loaded");
@@ -1158,7 +1224,7 @@ _downloadFileAsTitle = async function(e, t, o, n) {
                     title: e,
                     href: t
                 } = $("#download-720-MP4") && $("#download-720-MP4")[0] ? $("#download-720-MP4")[0] : $("#download-720-MP4"), o = {
-                    id: Y,
+                    id: X,
                     href: t,
                     title: e,
                     length: {}
@@ -1218,12 +1284,12 @@ _downloadFileAsTitle = async function(e, t, o, n) {
             ["INPUT", "TEXTAREA"].includes(i) || t || o || !e || "KeyI" != n || (abc_("Close player page") || abc_("Open player page")[1]).click()
         })));
         setInterval((e => {
-            query("yt-button-view-model#dismiss-button") && !l(query("yt-button-view-model#dismiss-button")) && (query("yt-button-view-model#dismiss-button").click(), console.log("Closed that thing")), document.getElementsByClassName("ytp-ad-button-icon")[0] && !k && (console.log("muted ad"), k = 1, v()), !document.getElementsByClassName("ytp-ad-button-icon")[0] && k && (console.log("unmuted video"), function() {
+            query("yt-button-view-model#dismiss-button") && !l(query("yt-button-view-model#dismiss-button")) && query("yt-button-view-model#dismiss-button").click(), document.getElementsByClassName("ytp-ad-button-icon")[0] && !k && (console.log("muted ad"), k = 1, v()), !document.getElementsByClassName("ytp-ad-button-icon")[0] && k && (console.log("unmuted video"), function() {
                 try {
                     b()
                 } catch (e) {
                     console.warn("Failed unmuting")
                 }
-            }(), k = 0), [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0] && ([...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0].click(), console.log("Skipped d :>")), document.getElementsByClassName("ytp-ad-overlay-close-button")[2] && (document.getElementsByClassName("ytp-ad-overlay-close-button")[2].click(), console.log("Close ad card"))
+            }(), k = 0), [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0] && ([...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0].click(), console.log("Skipped ad :>")), document.getElementsByClassName("ytp-ad-overlay-close-button")[2] && (document.getElementsByClassName("ytp-ad-overlay-close-button")[2].click(), console.log("Close ad card"))
         }), 10)
     }();
