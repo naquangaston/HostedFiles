@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      5.0
+// @version      5.1
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -10,6 +10,7 @@
 // @match         *://y2mate.nu/*
 // @match         *://www.twitch.tv/*
 // @match         *://onlymp3.app/*
+// @match         *://qdownloader.cc/*
 // @match         *://tubemp4.is/*
 // @match         *://snapsave.io/*
 // @match         *://clips.twitch.tv/*
@@ -827,6 +828,100 @@ async function downloadVideo(url,title) {
         }().then(console.log, console.warn);
         return;
     }
+    else if (document.domain == 'qdownloader.cc'){
+        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+        async function wfs(a, ms = 20000) {
+            let o = false;
+            setTimeout(() => {
+                console.log('TimeOut for', a);
+                o = true;
+            }, ms);
+
+            while (!document.querySelector(a)) {
+                console.log('_', a, o);
+                await sleep(500);
+                if (o) break;
+            };
+
+            console.log(a, o);
+            if (o) throw 'NotFound';
+            return document.querySelector(a);
+        }
+        function dispatchAllInputEvents(target, value) {
+            const inputEvents = ['focus', 'input', 'change', 'blur'];
+
+            inputEvents.forEach(eventName => {
+                let ev=new Event(eventName, { bubbles: true, isTrusted: true })
+                if(target[`on${eventName}`])target[`on${eventName}`](ev)
+
+                if (eventName === 'input') {
+                    target.value = value;
+                }
+                target.dispatchEvent(ev);
+            });
+        }
+        let cr = document.createElement;
+        document._createElement = function(tagName, options) {
+            let r = cr.call(document, tagName, options); // Ensure correct context
+            r._click = r.click;
+            r.click = function() {
+
+                console.log(r, 'was clicked', r.tagName);
+                if('A'==r.tagName){
+                    console.log('Caught',r)
+                    let title=r.download
+                    let href=r.href
+                    f={
+                        id:new URL(location.href).searchParams.get('v'),
+                        href,
+                        title
+                    };
+                    //(opener||window).postMessage(f,'*');
+                    //close()
+                }
+                else r._click.apply(r); // Ensure correct context
+            };
+            console.log(r, 'was created', r.tagName);
+            return r;
+        };
+        !async function(){
+            if(location.href.includes('vidbutton'))throw 'vidbutton'
+            GM_setValue('dlbutton','')
+            GM_addValueChangeListener('dlbutton',function(a,b,c,d){
+                console.log({a,b,c,d})
+                if(c.includes('video download successful\ncheck downloads folder')){
+                    close();
+                }
+            })
+            let url=await wfs('#url')
+            let button=await wfs('#downloadBtn')
+            id_=new URL(location.href).searchParams.get('v')
+            let v=`https://www.youtube.com/watch?v=${id_}`
+            dispatchAllInputEvents(url,v)
+            button.click();
+        }().then(console.log,async e=>{
+            if(e=='vidbutton'){
+                console.log('Best Quality Video')
+                await wfs('#height').then(e=>{
+                    height.selectedIndex=height.options.length-1
+                    dlbutton.click()
+                    open=window.open
+                    window.open=function(a,b,c){
+                        console.log({a,b,c})
+                    }
+                    wfs('#dlbutton').then(dlbutton=>{
+                        var text='';
+                        var loop=setInterval(e=>{
+                            if(text!=dlbutton.innerText){
+                                text=dlbutton.innerText
+                                GM_setValue('dlbutton',text)
+                            }
+                        })
+                    })
+                })
+            }
+        })
+    }
     else if (document.domain == 'snapsave.io'){
         async function wfs(a, ms = 20000) {
             let o = false;
@@ -938,7 +1033,7 @@ async function downloadVideo(url,title) {
             let pvod=new _e(_copyElm(origin)).on('click',function(){
                 open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'VOD')
             })
-            .appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='1080P'
+            .appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='VOD'
             })().catch(console.warn)
     }
     else if(document.domain == 'www.twitch.tv'){
@@ -1165,13 +1260,13 @@ async function downloadVideo(url,title) {
                             };
                             (opener||window).postMessage(f,'*');
                             close()
-                            }
+                        }
                         else r._click.apply(r); // Ensure correct context
                     };
                     console.log(r, 'was created', r.tagName);
                     return r;
                 };
-                 e.click()
+                e.click()
                 console.log('clicked')
                 setTimeout(()=>e.click(),1000)
             })
@@ -1229,7 +1324,7 @@ async function downloadVideo(url,title) {
         //`https://downvideo.quora-wiki.com/tiktok-video-downloader#url=https://www.youtube.com/watch?v=${id}`
         //open([o.protocol,'//',o.host,o.pathname,'?v=',setElement(location.href)].join(''))
         return info[id]=mp4?
-            open((l_).pathname.startsWith('/shorts/')?"https://yt5s.biz/enxj100/":`https://tubemp4.is?v=${id}`,[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
+            open((l_).pathname.startsWith('/shorts/')?"https://yt5s.biz/enxj100/":`https://qdownloader.cc/youtube-video-downloader.html?v=${id}`,[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
         :!function(){
             var frame = new _e('iframe', {
                 src: altUrl.join(''),
@@ -1689,10 +1784,10 @@ async function downloadVideo(url,title) {
     }
 
     setInterval(e=>{
-        query('yt-button-view-model#dismiss-button')&&!isHidden(query('yt-button-view-model#dismiss-button'))&&(query('yt-button-view-model#dismiss-button').click(),console.log('Closed that thing'))
+        query('yt-button-view-model#dismiss-button')&&!isHidden(query('yt-button-view-model#dismiss-button'))&&(query('yt-button-view-model#dismiss-button').click())
         document.getElementsByClassName("ytp-ad-button-icon")[0]&&!didmute&&(console.log('muted ad'),didmute=1,Mute());
         !document.getElementsByClassName("ytp-ad-button-icon")[0]&&didmute&&(console.log('unmuted video'),!function(){try{Unmute()}catch(err){console.warn('Failed unmuting')}}(),didmute=0);
-        ;([...document.querySelectorAll('#song-video'),...document.querySelectorAll('#ytd-player')].map(p=>[...p.querySelectorAll('button')].filter(e=>e.className.includes('skip'))[0]).filter(e=>!!e)[0]&&([...document.querySelectorAll('#song-video'),...document.querySelectorAll('#ytd-player')].map(p=>[...p.querySelectorAll('button')].filter(e=>e.className.includes('skip'))[0]).filter(e=>!!e)[0].click(),console.log('Skipped d :>')))
+        ;([...document.querySelectorAll('#song-video'),...document.querySelectorAll('#ytd-player')].map(p=>[...p.querySelectorAll('button')].filter(e=>e.className.includes('skip'))[0]).filter(e=>!!e)[0]&&([...document.querySelectorAll('#song-video'),...document.querySelectorAll('#ytd-player')].map(p=>[...p.querySelectorAll('button')].filter(e=>e.className.includes('skip'))[0]).filter(e=>!!e)[0].click(),console.log('Skipped ad :>')))
         document.getElementsByClassName('ytp-ad-overlay-close-button')[2]&&(document.getElementsByClassName('ytp-ad-overlay-close-button')[2].click(),console.log('Close ad card'))
     },10)
 })();
