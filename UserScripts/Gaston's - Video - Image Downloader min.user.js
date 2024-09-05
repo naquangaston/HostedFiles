@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 5.1
+// @version 5.2
 // @description Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author gaston1799
 // @match *://www.youtube.com/*
@@ -577,13 +577,13 @@ _downloadFileAsTitle = async function(e, t, o, n) {
                         }, console.log(o, "was created", o.tagName), o
                     }, async function() {
                         if (location.href.includes("vidbutton")) throw "vidbutton";
-                        GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (function(e, t, o, n) {
+                        GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (async function(e, t, o, n) {
                             console.log({
                                 a: e,
                                 b: t,
                                 c: o,
                                 d: n
-                            }), o.includes("video download successful\ncheck downloads folder") && close()
+                            }), o.includes("video download successful\ncheck downloads folder") && (await G(1e3), close())
                         }));
                         let e = await m("#url"),
                             t = await m("#downloadBtn");
