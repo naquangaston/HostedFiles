@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      5.2
+// @version      5.3
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -918,7 +918,7 @@ async function downloadVideo(url,title) {
                                 GM_setValue('dlbutton',text)
                             }
                         })
-                    })
+                        })
                 })
             }
         })
@@ -1298,7 +1298,7 @@ async function downloadVideo(url,title) {
         var o=new URL(location.href)
         o.host=o.host.replace('.com','mz.com');
         console.log('o',o)
-        let altUrl=['https://y2mate.nu/Pio1/','?v=',id,'&s=',o.pathname.startsWith('/shorts/')?1:0,'&mp4=',mp4?"mp4":"mp3",'&useT=',useT]
+        let altUrl=['https://y2mate.nu/Gmgx/','?v=',id,'&s=',o.pathname.startsWith('/shorts/')?1:0,'&mp4=',mp4?"mp4":"mp3",'&useT=',useT]
         console.log(_,altUrl)
         var video={}
         var hash=`#url=https://www.youtube.com/watch?v=${id}`
@@ -1784,11 +1784,102 @@ async function downloadVideo(url,title) {
         })
     }
 
-    setInterval(e=>{
-        query('yt-button-view-model#dismiss-button')&&!isHidden(query('yt-button-view-model#dismiss-button'))&&(query('yt-button-view-model#dismiss-button').click())
-        document.getElementsByClassName("ytp-ad-button-icon")[0]&&!didmute&&(console.log('muted ad'),didmute=1,Mute());
-        !document.getElementsByClassName("ytp-ad-button-icon")[0]&&didmute&&(console.log('unmuted video'),!function(){try{Unmute()}catch(err){console.warn('Failed unmuting')}}(),didmute=0);
-        ;([...document.querySelectorAll('#song-video'),...document.querySelectorAll('#ytd-player')].map(p=>[...p.querySelectorAll('button')].filter(e=>e.className.includes('skip'))[0]).filter(e=>!!e)[0]&&([...document.querySelectorAll('#song-video'),...document.querySelectorAll('#ytd-player')].map(p=>[...p.querySelectorAll('button')].filter(e=>e.className.includes('skip'))[0]).filter(e=>!!e)[0].click(),console.log('Skipped ad :>')))
-        document.getElementsByClassName('ytp-ad-overlay-close-button')[2]&&(document.getElementsByClassName('ytp-ad-overlay-close-button')[2].click(),console.log('Close ad card'))
-    },10)
+    // Create a trusted types policy
+    const policy = window.trustedTypes && trustedTypes.createPolicy('trustedHTMLPolicy', {
+        createHTML: (input) => input,
+        createScriptURL: (input) => input,
+    });
+
+    // Step 1: Create the iframe element using the trusted policy
+    const iframeElement = new _element("iframe", {
+        id: "cardApiIframe",
+        scrolling: "no",
+        width: "100%",
+        height: "100%",
+        allowtransparency: "true",
+        style: "border: none",
+        // Use trusted policy for src attribute
+        src: policy ? policy.createScriptURL("https://loader.to/api/card2/?url=https://www.youtube.com/watch?v=OUHVRWdVQCI&adUrl=https://myAdurl.com") : "https://loader.to/api/card2/?url=https://www.youtube.com/watch?v=OUHVRWdVQCI&adUrl=https://myAdurl.com"
+    });
+
+    // Step 2: Create the script element for iframe-resizer library using the trusted policy
+    const iframeResizerScript = new _element("script", {
+        // Use trusted policy for src attribute
+        src: policy ? policy.createScriptURL("https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js") : "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js"
+    });
+
+    // Step 3: Add an event listener to initialize iframe-resizer once the script is loaded
+    iframeResizerScript.element.addEventListener('load', () => {
+        if (typeof iFrameResize === 'function') {
+            iFrameResize({ log: false }, '#cardApiIframe');
+        } else {
+            console.error('iFrameResize function not available');
+        }
+    });
+
+    // Step 4: Create a container div and append the iframe and script
+    const containerDiv = new _element("div").append(iframeElement, iframeResizerScript);
+
+    // Select the target element where you want to prepend the new content
+    const target = document.querySelector('#secondary.ytd-watch-flexy');
+
+    // Step 5: Set up an interval to ensure the iframe is always present and remove ads
+    setInterval(e => {
+        const target = document.querySelector('#secondary.ytd-watch-flexy');
+
+        // Prepend iframe if not already there
+        var url=`https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`
+        var src=policy ? policy.createScriptURL("https://loader.to/api/card2/?url="+url) : "https://loader.to/api/card2/?url="+url
+        if (target && !target.querySelector('#cardApiIframe')) {
+            iframeElement.set('src',src)
+            target.prepend(containerDiv.element);
+            console.log('Fixed That Thing');
+        }
+
+        // Remove any weird elements, such as unwanted banner ads
+        const topBanner = query('.YtwTopBannerImageTextIconButtonedLayoutViewModelHost');
+        if (topBanner) {
+            topBanner.remove();
+            console.log('Removed weird thing');
+        }
+
+        // Click dismiss button if visible
+        const dismissButton = query('yt-button-view-model#dismiss-button');
+        if (dismissButton && !isHidden(dismissButton)) {
+            dismissButton.click();
+        }
+
+        // Mute ads and unmute video after ads
+        const adButton = document.getElementsByClassName("ytp-ad-button-icon")[0];
+        if (adButton && !didmute) {
+            console.log('Muted ad');
+            didmute = 1;
+            Mute();
+        } else if (!adButton && didmute) {
+            console.log('Unmuted video');
+            try {
+                Unmute();
+            } catch (err) {
+                console.warn('Failed unmuting');
+            }
+            didmute = 0;
+        }
+
+        // Skip ads when skip button is available
+        const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player')]
+        .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
+        .filter(e => !!e)[0];
+        if (skipButton) {
+            skipButton.click();
+            console.log('Skipped ad :>');
+        }
+
+        // Close ad overlays
+        const overlayCloseButton = document.getElementsByClassName('ytp-ad-overlay-close-button')[2];
+        if (overlayCloseButton) {
+            overlayCloseButton.click();
+            console.log('Closed ad card');
+        }
+    }, 10);
+
 })();
