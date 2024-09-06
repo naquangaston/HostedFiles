@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      5.3
+// @version      5.5
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -1824,16 +1824,16 @@ async function downloadVideo(url,title) {
     const target = document.querySelector('#secondary.ytd-watch-flexy');
 
     // Step 5: Set up an interval to ensure the iframe is always present and remove ads
+    var yedID=setElement(location.href)
     setInterval(e => {
         const target = document.querySelector('#secondary.ytd-watch-flexy');
 
         // Prepend iframe if not already there
         var url=`https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`
         var src=policy ? policy.createScriptURL("https://loader.to/api/card2/?url="+url) : "https://loader.to/api/card2/?url="+url
-        if (target && !target.querySelector('#cardApiIframe')) {
-            iframeElement.set('src',src)
-            target.prepend(containerDiv.element);
-            console.log('Fixed That Thing');
+        if (target) {
+            !target.querySelector('#cardApiIframe')&&(target.prepend(containerDiv.element),console.log('Added That Thing'));
+            (setElement(location.href)!=yedID)&&(iframeElement.set('src',src),console.log('Fixed That Thing'),yedID=setElement(location.href))
         }
 
         // Remove any weird elements, such as unwanted banner ads
