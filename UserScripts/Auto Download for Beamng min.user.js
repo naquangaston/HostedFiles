@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Auto Download for Beamng
 // @namespace http://tampermonkey.net/
-// @version 2024-08-09
+// @version 1.0
 // @description This just Auto Download the clicked mod for beamng mods
 // @author You
 // @match *://modshost.net/*
@@ -12,21 +12,30 @@
 // ==/UserScript==
 (async function() {
     "use strict";
-    async function t(t, e = 3e4) {
-        return await new Promise(((n, o) => {
-            let a = performance.now();
-            ! function r() {
-                document.querySelector(t) ? n(document.querySelector(t)) : performance.now() - a >= e ? o(new Error("Timeout waiting for selector")) : requestAnimationFrame(r)
+    async function t(t, o = 3e4) {
+        return await new Promise(((e, n) => {
+            let i = performance.now();
+            ! function a() {
+                document.querySelector(t) ? e(document.querySelector(t)) : performance.now() - i >= o ? n(new Error("Timeout waiting for selector")) : requestAnimationFrame(a)
             }()
         }))
     }
-    let e = location.pathname.split("/");
-    "download" == e[1] ? (await t("#dl_btn").then((t => {
-        let e = t.getAttribute("data-attach-id");
-        console.log("Got link:"), open(e), history.back()
+    let o = location.pathname.split("/");
+    "download" == o[1] ? (await async function() {
+        try {
+            const t = await navigator.permissions.query({
+                name: "notifications"
+            });
+            "granted" === t.state ? console.log("Notification permission granted.") : "prompt" === t.state ? console.log("Notification permission is pending. You might need to request it.") : console.log("Notification permission denied.")
+        } catch (t) {
+            console.error("Error checking notification permission:", t)
+        }
+    }(), await t("#dl_btn").then((t => {
+        let o = t.getAttribute("data-attach-id");
+        console.log("Got link:"), open(o), history.back()
     })), await t("#external-button").then((async t => {
         t.getAttribute("data-attach-id");
-        var e;
-        console.log("Got link:"), t.click(), await (e = 200, new Promise((t => setTimeout(t, e)))), history.back()
-    }))) : e[1]
+        var o;
+        console.log("Got link:"), t.click(), await (o = 200, new Promise((t => setTimeout(t, o)))), history.back()
+    }))) : o[1]
 })().catch((t => (alert(t), console.warn(t))));
