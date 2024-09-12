@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      5.7
+// @version      5.9
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -1888,6 +1888,7 @@ async function downloadVideo(url,title) {
     var setPlayerBack=1
     var setPlayerBackAd=0
     setInterval(e => {
+        const player = document.querySelector('video');
         const target = document.querySelector('#secondary.ytd-watch-flexy');
 
         // Prepend iframe if not already there
@@ -1912,11 +1913,11 @@ async function downloadVideo(url,title) {
             if (adButton && !didmute) {
                 console.log('Muted ad');
                 didmute = 1;
-                Mute();
+                player.muted=1
             } else if (!adButton && didmute) {
                 console.log('Unmuted video');
                 try {
-                    Unmute();
+                    player.muted=0
                 } catch (err) {
                     console.warn('Failed unmuting');
                 }
@@ -1929,7 +1930,6 @@ async function downloadVideo(url,title) {
         const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player')]
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
         .filter(e => !!e)[0];
-        const player = document.querySelector('video');
         if (skipButton) {
             if(!setPlayerBackAd){
                 setPlayerBackAd=1
