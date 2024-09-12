@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      5.6
+// @version      5.7
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -1841,6 +1841,8 @@ async function downloadVideo(url,title) {
 
 
     // Step 1: Create the iframe element using the trusted policy
+    var url=`https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`
+    var src=policy ? policy.createScriptURL("https://loader.to/api/card2/?url="+url) : "https://loader.to/api/card2/?url="+url
     const iframeElement = new _element("iframe", {
         id: "cardApiIframe",
         scrolling: "no",
@@ -1849,7 +1851,7 @@ async function downloadVideo(url,title) {
         allowtransparency: "true",
         style: "border: none",
         // Use trusted policy for src attribute
-        src: policy ? policy.createScriptURL("https://loader.to/api/card2/?url=https://www.youtube.com/watch?v=OUHVRWdVQCI&adUrl=https://myAdurl.com") : "https://loader.to/api/card2/?url=https://www.youtube.com/watch?v=OUHVRWdVQCI&adUrl=https://myAdurl.com"
+        src
     });
 
     // Step 2: Create the script element for iframe-resizer library using the trusted policy
@@ -1882,12 +1884,15 @@ async function downloadVideo(url,title) {
         toggleIframeCollapse(false); // Example: Expand the iframe once it's loaded
     });
     toggleIframeCollapse(true);
+    var currentPB=0
+    var setPlayerBack=1
+    var setPlayerBackAd=0
     setInterval(e => {
         const target = document.querySelector('#secondary.ytd-watch-flexy');
 
         // Prepend iframe if not already there
-        var url=`https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`
-        var src=policy ? policy.createScriptURL("https://loader.to/api/card2/?url="+url) : "https://loader.to/api/card2/?url="+url
+        url=`https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`
+        src=policy ? policy.createScriptURL("https://loader.to/api/card2/?url="+url) : "https://loader.to/api/card2/?url="+url
         if (target) {
             !target.querySelector('#cardApiIframe')&&(toggleIframeCollapse(true),target.parentNode.prepend(styleElement),target.prepend(containerDiv.element),console.log('Added That Thing'));
             (setElement(location.href)!=yedID)&&(toggleIframeCollapse(true),iframeElement.set('src',src),console.log('Fixed That Thing'),yedID=setElement(location.href))
@@ -1924,9 +1929,23 @@ async function downloadVideo(url,title) {
         const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player')]
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
         .filter(e => !!e)[0];
+        const player = document.querySelector('video');
         if (skipButton) {
+            if(!setPlayerBackAd){
+                setPlayerBackAd=1
+                player.playbackRate=16
+                console.log('Skipping ad :>');
+            }
             skipButton.click();
-            console.log('Skipped ad :>');
+            setPlayerBack=0
+        }else if(!setPlayerBack&&player){
+            setPlayerBackAd=0
+            setPlayerBack=1
+            player.playbackRate=currentPB
+            console.log('Fixed playBack')
+        }else if(player){
+            setPlayerBackAd=0
+            currentPB=player.playbackRate
         }
 
         // Close ad overlays
