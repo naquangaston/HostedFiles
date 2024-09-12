@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      5.5
+// @version      5.6
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -9,6 +9,7 @@
 // @match         *://music.youtube.com/*
 // @match         *://y2mate.nu/*
 // @match         *://www.twitch.tv/*
+// @match         *://loader.to/*
 // @match         *://onlymp3.app/*
 // @match         *://qdownloader.cc/*
 // @match         *://tubemp4.is/*
@@ -38,6 +39,49 @@
 // @grant   GM_removeValueChangeListener
 // @run-at document-start
 // ==/UserScript==
+(function(){
+    class CustomLogging {
+        constructor(title) {
+            this.title = {
+                body: title || "---",
+                color: "darkgrey",
+                size: "1rem"
+            }
+            this.body = {
+                color: "#008f68",
+                size: "1rem"
+            };
+        }
+
+        setTitleBody(title) {
+            this.title.body = title;
+            return this;
+        }
+
+        setTitleStyle({ color, size }) {
+            if (color !== undefined) this.title.color = color;
+            if (size !== undefined) this.title.size = size;
+            return this;
+        }
+
+        setBodyStyle({ color, size }) {
+            if (color !== undefined) this.body.color = color;
+            if (size !== undefined) this.body.size = size;
+            return this;
+        }
+
+        log(body = "") {
+            console.log(
+                `%c${this.title.body} | %c${body}`,
+                `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`,
+                `color: ${this.body.color}; font-weight: bold; font-size: ${this.body.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
+            );
+        }
+    }
+    Object.assign(this || arguments[0], { CustomLog: CustomLogging })
+})(globalThis);
+
+const logger = new CustomLog("Script Logger");
 function downloadFileAsTitle(url, filename) {
     const anchor = document.createElement('a');
     anchor.href = url;
@@ -239,10 +283,10 @@ function downloadFile_(url, name) {
     document.body.removeChild(a);
 }
 _downloadFile_=downloadFile_
-query=function(a){
+query=function(a,d){
     try{
         let c=typeof $!='undefined'?$:document.querySelectorAll
-        return ((b)=>Object.keys(b).length?b:null)(c(a)?c(a).length?c(a)[0]:c(a):null)
+        return !d?((b)=>Object.keys(b).length?b:null)(c(a)?c(a).length?c(a)[0]:c(a):null):[...document.querySelectorAll(a)].filter(e=>!(el.offsetParent === null))[0]
     }catch{}
 }
 getElementByAttribute=function getElementByAttribute(label,item='aria-label',doc=document.body){
@@ -767,6 +811,7 @@ async function downloadVideo(url,title) {
         })().then(console.log,console.warn)
     }
     else if (document.domain == 'y2mate.nu') {
+        location.pathname.split('/')[1]!=GM_getValue('y2mate.nu')&&(GM_setValue('y2mate.nu',location.pathname.split('/')[1]),console.warn('updated'))
         let id_ = new URL(location.href).searchParams.get('v');
         let IsShort = new URL(location.href).searchParams.get('s') == 1;
         let mp4 = new URL(location.href).searchParams.get('mp4')
@@ -1111,49 +1156,6 @@ async function downloadVideo(url,title) {
             })().catch(console.warn)
     }
     else if (document.domain == 'clipr.xyz'){
-        (function(){
-            class CustomLogging {
-                constructor(title) {
-                    this.title = {
-                        body: title || "---",
-                        color: "darkgrey",
-                        size: "1rem"
-                    }
-                    this.body = {
-                        color: "#008f68",
-                        size: "1rem"
-                    };
-                }
-
-                setTitleBody(title) {
-                    this.title.body = title;
-                    return this;
-                }
-
-                setTitleStyle({ color, size }) {
-                    if (color !== undefined) this.title.color = color;
-                    if (size !== undefined) this.title.size = size;
-                    return this;
-                }
-
-                setBodyStyle({ color, size }) {
-                    if (color !== undefined) this.body.color = color;
-                    if (size !== undefined) this.body.size = size;
-                    return this;
-                }
-
-                log(body = "") {
-                    console.log(
-                        `%c${this.title.body} | %c${body}`,
-                        `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`,
-                        `color: ${this.body.color}; font-weight: bold; font-size: ${this.body.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
-                    );
-                }
-            }
-            Object.assign(this || arguments[0], { CustomLog: CustomLogging })
-        })(globalThis);
-
-        const logger = new CustomLog("Script Logger");
 
         async function wfs(a, ms = 20000) {
             let o = false;
@@ -1290,6 +1292,7 @@ async function downloadVideo(url,title) {
         anchor.click();
         document.body.removeChild(anchor);
     }
+    var ev
     downloadT=function(id,force=false,useT=true,mp4=false,manual=false,urlOBJ=''){
         let _=id+(mp4?"mp4":"mp3") + useT
         !((a)=>a&&a.remove())(document.getElementById(_))
@@ -1298,7 +1301,7 @@ async function downloadVideo(url,title) {
         var o=new URL(location.href)
         o.host=o.host.replace('.com','mz.com');
         console.log('o',o)
-        let altUrl=['https://y2mate.nu/Gmgx/','?v=',id,'&s=',o.pathname.startsWith('/shorts/')?1:0,'&mp4=',mp4?"mp4":"mp3",'&useT=',useT]
+        let altUrl=['https://y2mate.nu/'+(GM_getValue('y2mate.nu')||'0HzX')+'/','?v=',id,'&s=',o.pathname.startsWith('/shorts/')?1:0,'&mp4=',mp4?"mp4":"mp3",'&useT=',useT]
         console.log(_,altUrl)
         var video={}
         var hash=`#url=https://www.youtube.com/watch?v=${id}`
@@ -1350,7 +1353,10 @@ async function downloadVideo(url,title) {
                 // Set maximum opacity
                 opacity: 1
             });
-
+            ev=GM_addValueChangeListener('y2mate.nu',function(a,b,c,d){
+                altUrl=['https://y2mate.nu/'+(GM_getValue('y2mate.nu')||'0HzX')+'/','?v=',id,'&s=',o.pathname.startsWith('/shorts/')?1:0,'&mp4=',mp4?"mp4":"mp3",'&useT=',useT]
+                frame.set('src',altUrl.join(''))
+            })
             frame.appendTo(document.body);
             frame.closed=false;
             return frame
@@ -1783,12 +1789,56 @@ async function downloadVideo(url,title) {
             }
         })
     }
+    else if(document.domain.includes('loader.to')&&location.href.includes('/api/')){
+        console.warn('using loader.to api')
+    }
 
     // Create a trusted types policy
     const policy = window.trustedTypes && trustedTypes.createPolicy('trustedHTMLPolicy', {
         createHTML: (input) => input,
         createScriptURL: (input) => input,
     });
+
+    const styleContent = `
+    /* Default iframe styles */
+    #cardApiIframe {
+        width: 100%;
+        height: 100%;
+        transition: all 2.5s ease-in-out;
+    }
+
+    /* Collapse animation when the class is toggled */
+    .collapse-frame {
+        width: 0;
+        height: 0;
+        margin-left: auto;
+        margin-right: auto;
+        transition: all 2.5s ease-in-out;
+    }
+`;
+
+    // Use the policy to create the <style> element securely
+    const styleElement = document.createElement('style');
+    styleElement.type = 'text/css';
+
+    // Insert trusted CSS content using the policy
+    styleElement.appendChild(
+        document.createTextNode(policy ? policy.createHTML(styleContent) : styleContent)
+    );
+
+
+    function toggleIframeCollapse(collapse) {
+        const iframe = iframeElement.element
+
+        if (collapse) {
+            // Add collapse-frame class to collapse the iframe
+            iframe.classList.add('collapse-frame');
+        } else {
+            // Remove collapse-frame class to expand the iframe
+            iframe.classList.remove('collapse-frame');
+        }
+    }
+
 
     // Step 1: Create the iframe element using the trusted policy
     const iframeElement = new _element("iframe", {
@@ -1825,6 +1875,13 @@ async function downloadVideo(url,title) {
 
     // Step 5: Set up an interval to ensure the iframe is always present and remove ads
     var yedID=setElement(location.href)
+    iframeElement.element.addEventListener('load', () => {
+        console.log('Iframe is fully loaded');
+
+        // You can also call your collapse function here if needed
+        toggleIframeCollapse(false); // Example: Expand the iframe once it's loaded
+    });
+    toggleIframeCollapse(true);
     setInterval(e => {
         const target = document.querySelector('#secondary.ytd-watch-flexy');
 
@@ -1832,16 +1889,11 @@ async function downloadVideo(url,title) {
         var url=`https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`
         var src=policy ? policy.createScriptURL("https://loader.to/api/card2/?url="+url) : "https://loader.to/api/card2/?url="+url
         if (target) {
-            !target.querySelector('#cardApiIframe')&&(target.prepend(containerDiv.element),console.log('Added That Thing'));
-            (setElement(location.href)!=yedID)&&(iframeElement.set('src',src),console.log('Fixed That Thing'),yedID=setElement(location.href))
+            !target.querySelector('#cardApiIframe')&&(toggleIframeCollapse(true),target.parentNode.prepend(styleElement),target.prepend(containerDiv.element),console.log('Added That Thing'));
+            (setElement(location.href)!=yedID)&&(toggleIframeCollapse(true),iframeElement.set('src',src),console.log('Fixed That Thing'),yedID=setElement(location.href))
         }
 
-        // Remove any weird elements, such as unwanted banner ads
-        const topBanner = query('.YtwTopBannerImageTextIconButtonedLayoutViewModelHost');
-        if (topBanner) {
-            topBanner.remove();
-            console.log('Removed weird thing');
-        }
+        ;(_)=>(_&&(logger.log('Removed this?!',_.classname,_.id,_.tagName)))(query('.YtwTopBannerImageTextIconButtonedLayoutViewModelHost')||query('ytd-engagement-panel-section-list-renderer')||query('#companion')||query('ytd-ad-slot-renderer'))
 
         // Click dismiss button if visible
         const dismissButton = query('yt-button-view-model#dismiss-button');
@@ -1851,19 +1903,22 @@ async function downloadVideo(url,title) {
 
         // Mute ads and unmute video after ads
         const adButton = document.getElementsByClassName("ytp-ad-button-icon")[0];
-        if (adButton && !didmute) {
-            console.log('Muted ad');
-            didmute = 1;
-            Mute();
-        } else if (!adButton && didmute) {
-            console.log('Unmuted video');
-            try {
-                Unmute();
-            } catch (err) {
-                console.warn('Failed unmuting');
+        try{
+            if (adButton && !didmute) {
+                console.log('Muted ad');
+                didmute = 1;
+                Mute();
+            } else if (!adButton && didmute) {
+                console.log('Unmuted video');
+                try {
+                    Unmute();
+                } catch (err) {
+                    console.warn('Failed unmuting');
+                }
+                didmute = 0;
             }
-            didmute = 0;
         }
+        catch{}
 
         // Skip ads when skip button is available
         const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player')]
