@@ -8,7 +8,12 @@
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==
-
+query=function(a,d){
+    try{
+        let c=typeof $!='undefined'?$:document.querySelectorAll
+        return !d?((b)=>Object.keys(b).length?b:null)(c(a)?c(a).length?c(a)[0]:c(a):null):[...document.querySelectorAll(a)].filter(e=>!(el.offsetParent === null))[0]
+    }catch{}
+};
 (async function() {
     'use strict';
     var sleep=(ms)=>new Promise(a=>setTimeout(a,ms));
@@ -45,11 +50,13 @@
     let l=location.pathname.split('/')
     if(l[1]=='download'){
         await checkNotificationPermission();
-        await wfs('#dl_btn').then(a=>{let l=a.getAttribute('data-attach-id');console.log('Got link:',);open(l);history.back()})
-        await wfs('#external-button').then(async a=>{let l=a.getAttribute('data-attach-id');console.log('Got link:',);a.click();await sleep(200);history.back()})
+        await wfs('#dl_btn').then(a=>{let l=a.getAttribute('data-attach-id');console.log('Got link:',);open(l);opener?close():history.back();})
+        await wfs('#external-button').then(async a=>{let l=a.getAttribute('data-attach-id');console.log('Got link:',);a.click();await sleep(200);opener?close():history.back();})
+        name.length&&(close())
     }
-    else if(l[1]=='beamng'){
-        
+    else if(l[1]=='beamng'&&['cars','maps'].includes(l[2])&&history.length==1){
+        await wfs('#downloads').then(e=>e.querySelector('.mh-local-btn')&&open(e.querySelector('.mh-local-btn').href,'yes'))
+        close()
     }
     // Your code here...
-})().catch(e=>(alert(e),console.warn(e)))
+})().catch(e=>(close(),console.warn(e)))
