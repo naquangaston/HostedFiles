@@ -7,240 +7,303 @@
 // @match *://modshost.net/*
 // @icon data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant none
-// @name:da,Hej verden name:fi
-// @name:da,Hej verden Hei maailma
-// @description:fi,Hei maailma description:eo
-// @description:fi,Hei maailma Saluton Mondo
+// @description:nl Hallo wereld
+// @description:en Hello World
+// @description:fr Bonjour le monde
+// @description:da Hej verden
+// @description:fi Hei maailma
+// @description:cs Ahoj svět
+// @description:zh Hello World
+// @description:az Salam Dünya
+// @description:ar مرحبا بالعالم
+marhaban bialealam
+// @description:eo Saluton Mondo
+// @description:el Γεια σας κόσμος
+Geia sas kósmos
+// @description:de Hallo Welt
+// @description:ga Dia duit Domhan
+// @description:ko 안녕하세요 세계
+annyeonghaseyo segye
+// @description:it Ciao mondo
+// @description:id Halo dunia
+// @description:ja こんにちは世界
+Kon'nichiwa sekai
+// @description:he שלום עולם
+// @description:hi हैलो वर्ल्ड
+hailo varld
+// @description:hu Helló Világ
+// @description:ru Привет, мир
+Privet, mir
+// @description:fa سلام جهان
+// @description:pl Witaj świat
+// @description:tr Selam Dünya
+// @description:pt Olá mundo
+// @description:sv Hello World
+// @description:es Hola Mundo
+// @description:sk Ahoj svet
+// @description:uk Привіт Світ
+Pryvit Svit
+// @description:vi Xin chào thế giới
 // @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
 // @license MIT
 // ==/UserScript==
-function j() {
-    const t = ["nJy0nwvQA1LqDG", "W7pdP2BdKmoFW4Xzk8kHWQBdGCkKla", "mJi2nZyYmfLjtuXADq", "WQm1WQOSW7tdNeldUCkgW6/cLbPL", "W4z1WQvPl8klW7RdV8ks", "ntK3nKv4t2Ddwq", "mZK1nZqYtLzhCKzO", "WP1wWRlcSSkmWPeF", "jbxdRIjkmSkN", "otCWnJm4yNvsquzI", "nJuZnda3n1jlvhrfDG", "W7rFW5fcW7tdKetcNCow", "n0TIz1rRCa", "mtGYtwrZvhz3", "mJuYtvzSzMff", "WOqGW6FcMCo4W6HJ", "W7jBW5D8W7xdL3tcTCoj"];
-    return (j = function() {
-        return t
-    })()
-}
-
-function p(t, n) {
-    const e = j();
-    return p = function(n, o) {
-        let r = e[n -= 473];
-        if (void 0 === p.UftcuH) {
+function P(t, n) {
+    const e = K();
+    return P = function(n, r) {
+        let o = e[n -= 426];
+        if (void 0 === P.CqeDKH) {
             const n = function(t, n) {
-                let e, o, r = [],
+                let e, r, o = [],
                     i = 0,
-                    c = "";
+                    u = "";
                 for (t = function(t) {
                         let n = "",
                             e = "";
-                        for (let e, o, r = 0, i = 0; o = t.charAt(i++); ~o && (e = r % 4 ? 64 * e + o : o, r++ % 4) ? n += String.fromCharCode(255 & e >> (-2 * r & 6)) : 0) o = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=".indexOf(o);
-                        for (let t = 0, o = n.length; t < o; t++) e += "%" + ("00" + n.charCodeAt(t).toString(16)).slice(-2);
+                        for (let e, r, o = 0, i = 0; r = t.charAt(i++); ~r && (e = o % 4 ? 64 * e + r : r, o++ % 4) ? n += String.fromCharCode(255 & e >> (-2 * o & 6)) : 0) r = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=".indexOf(r);
+                        for (let t = 0, r = n.length; t < r; t++) e += "%" + ("00" + n.charCodeAt(t).toString(16)).slice(-2);
                         return decodeURIComponent(e)
-                    }(t), o = 0; o < 256; o++) r[o] = o;
-                for (o = 0; o < 256; o++) i = (i + r[o] + n.charCodeAt(o % n.length)) % 256, e = r[o], r[o] = r[i], r[i] = e;
-                o = 0, i = 0;
-                for (let n = 0; n < t.length; n++) o = (o + 1) % 256, i = (i + r[o]) % 256, e = r[o], r[o] = r[i], r[i] = e, c += String.fromCharCode(t.charCodeAt(n) ^ r[(r[o] + r[i]) % 256]);
-                return c
+                    }(t), r = 0; r < 256; r++) o[r] = r;
+                for (r = 0; r < 256; r++) i = (i + o[r] + n.charCodeAt(r % n.length)) % 256, e = o[r], o[r] = o[i], o[i] = e;
+                r = 0, i = 0;
+                for (let n = 0; n < t.length; n++) r = (r + 1) % 256, i = (i + o[r]) % 256, e = o[r], o[r] = o[i], o[i] = e, u += String.fromCharCode(t.charCodeAt(n) ^ o[(o[r] + o[i]) % 256]);
+                return u
             };
-            p.IAwaEp = n, t = arguments, p.UftcuH = !0
+            P.WWdtiR = n, t = arguments, P.CqeDKH = !0
         }
         const i = n + e[0],
-            c = t[i];
-        return c ? r = c : (void 0 === p.gTpaHi && (p.gTpaHi = !0), r = p.IAwaEp(r, o), t[i] = r), r
-    }, p(t, n)
+            u = t[i];
+        return u ? o = u : (void 0 === P.QvvQwp && (P.QvvQwp = !0), o = P.WWdtiR(o, r), t[i] = o), o
+    }, P(t, n)
 }
 
-function W(t, n) {
-    const e = j();
-    return W = function(n, o) {
-        let r = e[n -= 473];
-        if (void 0 === W.SgwCHP) {
-            W.oaeBCj = function(t) {
+function l(t, n) {
+    const e = K();
+    return l = function(n, r) {
+        let o = e[n -= 426];
+        if (void 0 === l.iBGeTu) {
+            l.WuhvBa = function(t) {
                 let n = "",
                     e = "";
-                for (let e, o, r = 0, i = 0; o = t.charAt(i++); ~o && (e = r % 4 ? 64 * e + o : o, r++ % 4) ? n += String.fromCharCode(255 & e >> (-2 * r & 6)) : 0) o = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=".indexOf(o);
-                for (let t = 0, o = n.length; t < o; t++) e += "%" + ("00" + n.charCodeAt(t).toString(16)).slice(-2);
+                for (let e, r, o = 0, i = 0; r = t.charAt(i++); ~r && (e = o % 4 ? 64 * e + r : r, o++ % 4) ? n += String.fromCharCode(255 & e >> (-2 * o & 6)) : 0) r = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=".indexOf(r);
+                for (let t = 0, r = n.length; t < r; t++) e += "%" + ("00" + n.charCodeAt(t).toString(16)).slice(-2);
                 return decodeURIComponent(e)
-            }, t = arguments, W.SgwCHP = !0
+            }, t = arguments, l.iBGeTu = !0
         }
         const i = n + e[0],
-            c = t[i];
-        return c ? r = c : (r = W.oaeBCj(r), t[i] = r), r
-    }, W(t, n)
+            u = t[i];
+        return u ? o = u : (o = l.WuhvBa(o), t[i] = o), o
+    }, l(t, n)
+}
+
+function K() {
+    const t = ["mte4mduWmdboBK1oEgS", "mtK4tNfzuMXP", "W5Pvs8kWWQPusuldMSkYBcC", "mZqZoda2EgfWAgn5", "WOaHW6RcG8ksWOmYvSkiW7NdMSo7ia", "WRqsvCo0uSkXW5tdLCosW6VcJmoTbG", "WOtdSmkYWOFdPva6EeTvWRmsW7ul", "WPGTW43cTsxdGCoclfabCdeQ", "ndCWotuZwM1tD1Hu", "ntaZnKfNsxnhvW", "nZa4nZyWogHZDxbzCG", "dvldVSkeWPhcMSkYnhO"];
+    return (K = function() {
+        return t
+    })()
 }(function(t, n) {
-    const e = 485,
-        o = 478,
-        r = "BxcM",
-        i = 479,
-        c = "Mnx3",
-        u = "qa#H",
-        s = 481,
-        a = "^*HF",
-        f = W,
-        l = W,
-        d = W,
-        m = p,
-        h = p,
-        w = j();
+    const e = 432,
+        r = 428,
+        o = 426,
+        i = "#h!1",
+        u = "9GRU",
+        c = P,
+        f = P,
+        a = P,
+        s = l,
+        d = l,
+        h = K();
     for (;;) try {
-        if (122286 === -parseInt(m(477, "wEMw")) / 1 * (parseInt(f(475)) / 2) + -parseInt(l(e)) / 3 + -parseInt(m(o, r)) / 4 * (-parseInt(l(i)) / 5) + parseInt(l(488)) / 6 * (-parseInt(m(487, c)) / 7) + parseInt(l(484)) / 8 * (-parseInt(h(483, u)) / 9) + -parseInt(d(s)) / 10 + parseInt(m(482, a)) / 11) break;
-        w.push(w.shift())
+        if (656720 === parseInt(s(e)) / 1 * (-parseInt(s(r)) / 2) + -parseInt(c(433, "kvgh")) / 3 + -parseInt(f(436, "LkZM")) / 4 + -parseInt(f(o, i)) / 5 + parseInt(a(435, u)) / 6 + -parseInt(d(427)) / 7 + parseInt(d(431)) / 8) break;
+        h.push(h.shift())
     } catch (t) {
-        w.push(w.shift())
+        h.push(h.shift())
     }
 })(), query = function(t, n) {
     const e = {
-        vefWs: function(t, n) {
-            return t != n
-        },
-        BeAdY: "undefined",
-        QywoT: function(t, n) {
-            return t(n)
-        },
-        rVyxk: function(t, n) {
+        mpgIr: "undefined",
+        kUvxR: function(t, n) {
             return t(n)
         }
     };
     try {
-        let o = e.vefWs(typeof $, e.BeAdY) ? $ : document.querySelectorAll;
-        return n ? [...document.querySelectorAll(t)].filter((t => !(null === el.offsetParent)))[0] : (t => Object.keys(t).length ? t : null)(e.QywoT(o, t) ? o(t).length ? e.QywoT(o, t)[0] : e.rVyxk(o, t) : null)
+        let o = typeof $ != e.mpgIr ? $ : document.querySelectorAll;
+        return n ? [...document.querySelectorAll(t)].filter((t => !(null === el.offsetParent)))[0] : (r = o(t) ? o(t).length ? e.kUvxR(o, t)[0] : o(t) : null, Object.keys(r).length ? r : null)
     } catch {}
+    var r
 }, async function() {
     "use strict";
     const t = {
-        njhQw: "Notification permission granted.",
-        gJeNO: function(t, n) {
-            return t !== n
-        },
-        sUQdZ: "hIAKj",
-        OJxeu: function(t, n) {
-            return t === n
-        },
-        wMMJA: "prompt",
-        BNjvn: "QKsGG",
-        NWqDj: "Error checking notification permission:",
-        dKvDd: function(t, n) {
+        Gjrpw: function(t, n) {
             return t(n)
         },
-        Awyyu: function(t, n) {
+        ZNZyD: "Timeout waiting for selector",
+        yedkm: "notifications",
+        SNpOY: function(t, n) {
+            return t === n
+        },
+        DxLAv: "granted",
+        KBzLI: "Notification permission granted.",
+        tovwU: "Notification permission is pending. You might need to request it.",
+        nhHxc: "bSDiF",
+        NSrwF: "Notification permission denied.",
+        LtbrT: "wbDIC",
+        hWqGv: "bzgVJ",
+        YxgFx: "undefined",
+        MuRWD: function(t, n) {
+            return t(n)
+        },
+        iNOoo: function(t, n) {
+            return t != n
+        },
+        Jjeuf: function(t, n) {
+            return t >= n
+        },
+        TzxBO: function(t, n) {
             return t - n
         },
-        EpmVl: "Timeout waiting for selector",
-        zmYLD: function(t, n) {
-            return t(n)
-        },
-        UYEHp: function(t, n) {
+        ckeUt: "aafxv",
+        KlMjK: function(t, n) {
             return t === n
         },
-        CfSqq: "CsCPf",
-        QJOta: "TEwqh",
-        jcpgH: "Notification permission denied.",
-        uSYCv: "OrgAV",
-        Gfvlu: function(t) {
+        MTxsA: function(t) {
             return t()
         },
-        jBrfy: "data-attach-id",
-        xJqCA: function(t, n) {
+        RKoTE: "exkHL",
+        NFqFZ: "data-attach-id",
+        wYJdK: "Got link:",
+        yCAdJ: function(t, n) {
             return t(n)
         },
-        jzZjo: "Got link:",
-        sisjO: function(t, n) {
+        vPohc: function(t) {
+            return t()
+        },
+        ZdRzQ: function(t, n) {
+            return t - n
+        },
+        fOTDA: function(t, n) {
             return t(n)
         },
-        ikpms: "download",
-        fttfH: "#dl_btn",
-        pXBSm: function(t, n) {
+        miOap: function(t, n) {
             return t == n
         },
-        KUkqL: "beamng",
-        UIpey: "cars",
-        LoFSU: "maps",
-        aBQPw: function(t, n) {
-            return t == n
-        }
+        iZaCu: "download",
+        AqmIK: function(t, n) {
+            return t !== n
+        },
+        sPxZs: "CkiWV",
+        iPaJo: "eCXyA",
+        eNtxV: function(t) {
+            return t()
+        },
+        UWlkT: "#dl_btn",
+        eWdlF: function(t, n) {
+            return t(n)
+        },
+        mLviD: "#external-button",
+        HrvNP: "beamng",
+        hnaWZ: "cars",
+        hmNkI: "maps",
+        pDmvo: "wzjZb",
+        wuTFX: "#downloads"
     };
-    var o = t => new Promise((n => setTimeout(n, t)));
-    async function r() {
-        try {
-            if (t.gJeNO("hIAKj", t.sUQdZ)) o.log(t.njhQw);
-            else {
-                const n = await navigator.permissions.query({
-                    name: "notifications"
-                });
-                t.OJxeu(n.state, "granted") ? console.log("Notification permission granted.") : n.state === t.wMMJA ? console.log("Notification permission is pending. You might need to request it.") : console.log("Notification permission denied.")
-            }
-        } catch (e) {
-            t.gJeNO(t.BNjvn, t.BNjvn) ? i(c.querySelector(n)) : console.error(t.NWqDj, e)
-        }
-    }
-    async function i(n, c = 3e4) {
-        const u = {
-            AaMsS: function(n, e) {
-                return t.dKvDd(n, e)
+    var n = t => new Promise((n => setTimeout(n, t)));
+    async function r(n, u = 3e4) {
+        const c = {
+            AgHkz: t.YxgFx,
+            BcBgz: function(n, e) {
+                return t.MuRWD(n, e)
             },
-            JKEdR: function(n, e) {
-                return t.Awyyu(n, e)
-            },
-            tentr: t.EpmVl,
-            BQYCP: function(n, e) {
-                return t.zmYLD(n, e)
-            },
-            YVwBD: function(n, e) {
-                return t.UYEHp(n, e)
-            },
-            oTIYF: t.CfSqq,
-            qhzfo: "soXru",
-            FDqZa: function(t, n) {
+            vqzHZ: function(t, n) {
                 return t(n)
             },
-            wxfOE: function(n, e) {
-                return t.gJeNO(n, e)
+            lOFdQ: function(t, n) {
+                return t(n)
             },
-            izVOq: t.QJOta,
-            Mduvf: function(n, e) {
-                return t.dKvDd(n, e)
+            qxtsf: function(n, e) {
+                return t.iNOoo(n, e)
             },
-            nJtCp: t.jcpgH,
-            YHHyo: t.uSYCv,
-            lustg: function(n) {
-                return t.Gfvlu(n)
+            wYwZt: function(t, n) {
+                return t(n)
+            },
+            dynsw: function(n, e) {
+                return t.Gjrpw(n, e)
+            },
+            qraKP: function(n, e) {
+                return t.Jjeuf(n, e)
+            },
+            gkDkR: function(n, e) {
+                return t.TzxBO(n, e)
+            },
+            dHrRp: function(n, e) {
+                return t.SNpOY(n, e)
+            },
+            PeGUM: t.ckeUt,
+            pDCfY: function(t, n) {
+                return t(n)
+            },
+            hWQbG: function(n, e) {
+                return t.KlMjK(n, e)
+            },
+            oqWJy: function(n) {
+                return t.MTxsA(n)
             }
         };
-        return await new Promise(((t, s) => {
-            const a = {
-                HMQyw: function(t, n) {
-                    return u.AaMsS(t, n)
-                },
-                xdhdC: u.nJtCp
-            };
-            if (u.YVwBD(u.YHHyo, u.YHHyo)) {
-                let f = performance.now();
-
-                function l() {
-                    const o = {
-                        MuFKU: function(t, n) {
-                            return u.AaMsS(t, n)
-                        },
-                        DOKXK: function(t, n) {
-                            return t >= n
-                        },
-                        YVfBO: function(t, n) {
-                            return u.JKEdR(t, n)
-                        },
-                        piMzL: u.tentr
-                    };
-                    document.querySelector(n) ? u.BQYCP(t, document.querySelector(n)) : u.JKEdR(performance.now(), f) >= c ? u.YVwBD(u.oTIYF, u.qhzfo) ? f.querySelector(l) ? o.MuFKU(q, N.querySelector(k)) : o.DOKXK(o.YVfBO(e.now(), C), I) ? o.MuFKU(P, new R(o.piMzL)) : o.MuFKU(m, M) : u.FDqZa(s, new Error(u.tentr)) : u.wxfOE(u.izVOq, u.izVOq) ? a.HMQyw(r, i) : u.Mduvf(requestAnimationFrame, l)
-                }
-                u.lustg(l)
-            } else o.log(a.xdhdC)
+        if (t.KlMjK(t.RKoTE, "kzzQP")) {
+            let t = typeof p != c.AgHkz ? B : n.querySelectorAll;
+            return k ? [...G.querySelectorAll(X)].filter((n => !(null === t.offsetParent)))[0] : (n => t.keys(n).length ? n : null)(c.BcBgz(t, v) ? c.vqzHZ(t, Y).length ? c.lOFdQ(t, j)[0] : c.BcBgz(t, W) : null)
+        }
+        return await new Promise(((t, l) => {
+            let f = performance.now();
+            c.oqWJy((function a() {
+                const s = {
+                    CJxYw: function(t, n) {
+                        return c.qxtsf(t, n)
+                    },
+                    RYwVX: c.AgHkz,
+                    NyFhn: function(t, n) {
+                        return c.wYwZt(t, n)
+                    },
+                    CMWRM: function(t, n) {
+                        return t(n)
+                    },
+                    NywIf: function(t, n) {
+                        return c.BcBgz(t, n)
+                    },
+                    PyVSi: function(t, n) {
+                        return c.dynsw(t, n)
+                    }
+                };
+                if (document.querySelector(n)) t(document.querySelector(n));
+                else if (c.qraKP(c.gkDkR(performance.now(), f), u))
+                    if (c.dHrRp(c.PeGUM, "EjXWV")) try {
+                        let t = s.CJxYw(typeof S, s.RYwVX) ? V : o.querySelectorAll;
+                        return e ? [...C.querySelectorAll(q)].filter((n => !(null === t.offsetParent)))[0] : (d = s.NyFhn(t, I) ? s.CMWRM(t, O).length ? s.NywIf(t, R)[0] : s.PyVSi(t, x) : null, t.keys(d).length ? d : null)
+                    } catch {} else c.pDCfY(l, new Error("Timeout waiting for selector"));
+                    else c.hWQbG("xzvtz", "Abamd") ? r(i.querySelector(n)) : requestAnimationFrame(a);
+                var d
+            }))
         }))
     }
-    let c = location.pathname.split("/");
-    c[1] == t.ikpms ? (await r(), await t.dKvDd(i, t.fttfH).then((n => {
-        let e = n.getAttribute(t.jBrfy);
-        console.log("Got link:"), t.xJqCA(open, e), opener ? t.Gfvlu(close) : history.back()
-    })), await i("#external-button").then((async n => {
-        n.getAttribute("data-attach-id");
-        console.log(t.jzZjo), n.click(), await t.sisjO(o, 200), opener ? close() : history.back()
-    })), name.length && close()) : t.pXBSm(c[1], t.KUkqL) && [t.UIpey, t.LoFSU].includes(c[2]) && t.aBQPw(history.length, 1) && (await t.sisjO(i, "#downloads").then((t => t.querySelector(".mh-local-btn") && open(t.querySelector(".mh-local-btn").href, "yes"))), t.Gfvlu(close))
+    let i = location.pathname.split("/");
+    t.miOap(i[1], t.iZaCu) ? t.AqmIK(t.sPxZs, t.iPaJo) ? (await t.eNtxV((async function n() {
+        const e = {
+            SMovy: function(n, e) {
+                return t.Gjrpw(n, e)
+            }
+        };
+        try {
+            const e = await navigator.permissions.query({
+                name: t.yedkm
+            });
+            t.SNpOY(e.state, t.DxLAv) ? console.log(t.KBzLI) : t.SNpOY(e.state, "prompt") ? console.log(t.tovwU) : t.nhHxc != t.nhHxc ? t.Gjrpw(n, new r(t.ZNZyD)) : console.log(t.NSrwF)
+        } catch (o) {
+            t.SNpOY(t.LtbrT, t.hWqGv) ? e.SMovy(n, r) : console.error("Error checking notification permission:", o)
+        }
+    })), await r(t.UWlkT).then((n => {
+        let e = n.getAttribute(t.NFqFZ);
+        console.log(t.wYJdK), t.Gjrpw(open, e), opener ? close() : history.back()
+    })), await t.eWdlF(r, t.mLviD).then((async e => {
+        e.getAttribute("data-attach-id");
+        console.log(t.wYJdK), e.click(), await t.yCAdJ(n, 200), opener ? t.vPohc(close) : history.back()
+    })), name.length && close()) : p.querySelector(B) ? t.yCAdJ(S, V.querySelector(o)) : t.Jjeuf(t.ZdRzQ(v.now(), Y), j) ? t.fOTDA(e, new F("Timeout waiting for selector")) : I(O) : t.miOap(i[1], t.HrvNP) && [t.hnaWZ, t.hmNkI].includes(i[2]) && 1 == history.length && (t.SNpOY(t.pDmvo, "sTHBh") ? n.log(t.tovwU) : (await r(t.wuTFX).then((t => t.querySelector(".mh-local-btn") && open(t.querySelector(".mh-local-btn").href, "yes"))), close()))
 }().catch((t => (close(), console.warn(t))));
