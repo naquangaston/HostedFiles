@@ -1859,6 +1859,7 @@ async function downloadVideo(url,title) {
         width: "100%",
         height: "100%",
         allowtransparency: "true",
+        //sandbox: "true",
         style: "border: none",
         // Use trusted policy for src attribute
         src
@@ -1897,9 +1898,10 @@ async function downloadVideo(url,title) {
     var currentPB=0
     var setPlayerBack=1
     var setPlayerBackAd=0
+    var isReloading=0
     setInterval(e => {
         const player = document.querySelector('video');
-        const target = document.querySelector('#secondary.ytd-watch-flexy');
+        const target = document.querySelector('#video-companion-root')||document.querySelector('#secondary-inner')||document.querySelector('#secondary.ytd-watch-flexy');
 
         // Prepend iframe if not already there
         url=`https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`
@@ -1924,6 +1926,7 @@ async function downloadVideo(url,title) {
             if (adButton && !didmute) {
                 console.log('Muted ad');
                 didmute = 1;
+                player.playbackRate=16
                 player.muted=1
             } else if (!adButton && didmute) {
                 console.log('Unmuted video');
@@ -1944,7 +1947,6 @@ async function downloadVideo(url,title) {
         if (skipButton) {
             if(!setPlayerBackAd||player.playbackRate!=16){
                 setPlayerBackAd=1
-                player.playbackRate=16
                 console.log('Skipping ad :>');
             }
             skipButton.click();
@@ -1967,7 +1969,7 @@ async function downloadVideo(url,title) {
         }
         //anti ad block
         let adBlockBtn=[...document.querySelectorAll('.yt-spec-button-shape-next')].filter(e=>e.innerText.includes('Ads'))[0]
-        adBlockBtn&&(adBlockBtn.click(),location.href.includes('watch')&&(location.reload()))
+        adBlockBtn&&(adBlockBtn.click(),!isReloading&&location.href.includes('watch')&&(isReloading=1,location.reload()))
     }, 10);
 
 })();
