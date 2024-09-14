@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      6.2
+// @version      6.3
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -1528,11 +1528,11 @@ async function downloadVideo(url,title) {
     var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),true,true,true,true)})
     var button3 = (new element('button')).set("innerText","PlayList MP3").on('click',function(e){WIP_(2,false,false)})
     var button4 = (new element('button')).set("innerText","PlayList MP4").on('click',function(e){WIP_(2,true,false)})
-    var tiktokButton=(new element('button')).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'white'})
-    var tiktokButton3=(new element('button',{id:"tt1"})).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'white'})
+    var tiktokButton=(new element('button')).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'blue'})
+    var tiktokButton3=(new element('button',{id:"tt1"})).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'blue'})
     var tiktokButton2=(new element('button')).set("innerText","Get MP3").on('click',function(e){
         downloadTikTok(false,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))
-    }).style({color:'white'})
+    }).style({color:'blue'})
     function _ex_(){
         return document.querySelector('#end')||document.querySelector('#right-content')
     }
