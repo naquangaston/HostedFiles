@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      6.0
+// @version      6.1
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -15,6 +15,7 @@
 // @match         *://tubemp4.is/*
 // @match         *://snapsave.io/*
 // @match         *://clips.twitch.tv/*
+// @match         *://twitch.tv/*
 // @match         *://onlymp3.to/*
 // @match         *://fastdl.app/*
 // @match         *://en.onlymp3.app/*
@@ -283,7 +284,7 @@ function downloadFile_(url, name) {
     document.body.removeChild(a);
 }
 _downloadFile_=downloadFile_
-query=function(a,d){
+const query=function(a,d){
     try{
         let c=typeof $!='undefined'?$:document.querySelectorAll
         return !d?((b)=>Object.keys(b).length?b:null)(c(a)?c(a).length?c(a)[0]:c(a):null):[...document.querySelectorAll(a)].filter(e=>!(el.offsetParent === null))[0]
@@ -1132,28 +1133,38 @@ async function downloadVideo(url,title) {
         }
         _copyElm=copyElm
         ;(async function(){
-            let l=location.href
-            await _wfs('.Layout-sc-1xcs6mc-0 .bMOhzu')
-            let origin =(document.querySelectorAll('.Layout-sc-1xcs6mc-0 .bMOhzu')[1])
-            let qs='a'
+            let l = location.href;
+            await _wfs('.Layout-sc-1xcs6mc-0.bMOhzu');
+            let origin = (document.querySelectorAll('.Layout-sc-1xcs6mc-0.bMOhzu')[1]);
+            let qs = '.bFxzAY';
 
-            let p1080=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>(o.host='clipr.xyz',o.pathname=o.pathname.replace('/'+user+'/clip',''),o.search='',o))(new URL(location.href)).href,'1080')
-            }).appendTo(origin.parentNode).element.querySelector(qs).innerText='1080P'
-            let p720=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>(o.host='clipr.xyz',o.pathname=o.pathname.replace('/'+user+'/clip',''),o.search='',o))(new URL(location.href)).href,'720')
-            }).appendTo(origin.parentNode).element.querySelector(qs).innerText='720P'
-            let p480=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>(o.host='clipr.xyz',o.pathname=o.pathname.replace('/'+user+'/clip',''),o.search='',o))(new URL(location.href)).href,'480')
-            }).appendTo(origin.parentNode).element.querySelector(qs).innerText='480P'
-            let p4360=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>(o.host='clipr.xyz',o.pathname=o.pathname.replace('/'+user+'/clip',''),o.search='',o))(new URL(location.href)).href,'360')
-            }).appendTo(origin.parentNode).element.querySelector(qs).innerText='360P'
-            let pvod=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>(o.host='clipr.xyz',o.pathname=o.pathname.replace('/'+user+'/clip',''),o.search='',o))(new URL(location.href)).href,'VOD')
-            })
-            .appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='VOD'
-            })().catch(console.warn)
+            // Array of resolutions to loop through
+            const resolutions = [
+                { label: '1080P', resolution: '1080' },
+                { label: '720P', resolution: '720' },
+                { label: '480P', resolution: '480' },
+                { label: '360P', resolution: '360' },
+                { label: 'VOD', resolution: 'VOD' }
+            ];
+
+            // Loop through the resolutions array to create elements dynamically
+            resolutions.forEach(({ label, resolution }) => {
+                let elem = new _e(_copyElm(origin)).on('click', function(){
+                    [None,user,clip,clipID]=location.pathname.split('/')
+                    open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))), resolution);
+                }).appendTo(origin.parentNode);
+
+                // Change the inner text for VOD or the regular resolution
+                if (resolution === 'VOD') {
+                    elem.element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = label;
+                } else {
+                    elem.element.querySelector(qs).innerText = label;
+                }
+            });
+
+        })().catch(console.warn);
+
+        return
     }
     else if (document.domain == 'clipr.xyz'){
 
@@ -1188,13 +1199,12 @@ async function downloadVideo(url,title) {
             let p = name;
             await wfl();
             logger.log('Loaded');
-            let href = ({
-                1080: document.querySelector('body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(1) > div:nth-child(3) > a').href,
-                720: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(2) > div:nth-child(3) > a").href,
-                480: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(3) > div:nth-child(3) > a").href,
-                360: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(4) > div:nth-child(3) > a").href,
-                VOD: document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.overflow-hidden.bg-white.rounded-xl.shadow > div > div > div:nth-child(2) > ul > div > li:nth-child(5) > div:nth-child(3) > a").href
-            })[p];
+            let href = (((r={})=>{
+                [...document.querySelectorAll('.flex.items-center.space-x-4')].filter(e=>findhref2(e)[0]).filter(e=>findhref2(e)[0].href.includes('clips.twitchcdn.net')).forEach(e=>{
+                    r[e.querySelector('.space-x-1').innerText.replace('p','')]=findhref2(e)[0].href
+                });return r
+            })()
+            )[p];
 
             logger.log(1);
             let user = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
