@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      6.1
+// @version      6.2
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -1135,7 +1135,7 @@ async function downloadVideo(url,title) {
         ;(async function(){
             let l = location.href;
             await _wfs('.Layout-sc-1xcs6mc-0.bMOhzu');
-            let origin = (document.querySelectorAll('.Layout-sc-1xcs6mc-0.bMOhzu')[1]);
+            let origin = [...document.querySelectorAll('.Layout-sc-1xcs6mc-0 .bMOhzu')].filter(e=>e.querySelector('button')&&!e.querySelector('button').disabled)[0]
             let qs = '.bFxzAY';
 
             // Array of resolutions to loop through
