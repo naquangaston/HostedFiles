@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      5.9
+// @version      6.0
 // @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -1909,6 +1909,7 @@ async function downloadVideo(url,title) {
 
         // Mute ads and unmute video after ads
         const adButton = document.getElementsByClassName("ytp-ad-button-icon")[0];
+
         try{
             if (adButton && !didmute) {
                 console.log('Muted ad');
@@ -1931,7 +1932,7 @@ async function downloadVideo(url,title) {
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
         .filter(e => !!e)[0];
         if (skipButton) {
-            if(!setPlayerBackAd){
+            if(!setPlayerBackAd||player.playbackRate!=16){
                 setPlayerBackAd=1
                 player.playbackRate=16
                 console.log('Skipping ad :>');
@@ -1954,6 +1955,9 @@ async function downloadVideo(url,title) {
             overlayCloseButton.click();
             console.log('Closed ad card');
         }
+        //anti ad block
+        let adBlockBtn=[...document.querySelectorAll('.yt-spec-button-shape-next')].filter(e=>e.innerText.includes('Ads'))[0]
+        adBlockBtn&&(adBlockBtn.click(),location.href.includes('watch')&&(location.reload()))
     }, 10);
 
 })();
