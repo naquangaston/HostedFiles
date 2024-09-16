@@ -1,6 +1,6 @@
 param (
     [Parameter()][string]$id,
-    [Parameter()][bool]$install = $false
+    [Parameter()][switch]$install = $false
 )
 
 Write-Output "ID: $id"
