@@ -13,8 +13,7 @@ if not exist "%hellowFolder%" mkdir "%hellowFolder%"
 :: Initialize npm project
 echo Initializing npm project...
 cd "%autoShortsFolder%"
-npm init -y
-echo NPM project initialized with name 'Auto Shorts'.
+
 
 :: Install Node.js modules
 echo Installing Node.js modules...
