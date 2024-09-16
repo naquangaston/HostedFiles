@@ -10,8 +10,14 @@ set "hellowFolder=%autoShortsFolder%\hellow"
 if not exist "%autoShortsFolder%" mkdir "%autoShortsFolder%"
 if not exist "%hellowFolder%" mkdir "%hellowFolder%"
 
+echo winget install Schniz.fnm
+echo fnm env --use-on-cd ^| Out-String ^| Invoke-Expression
+echo fnm use --install-if-missing 20
+echo node -v
+echo npm -v
 :: Initialize npm project
 echo Initializing npm project...
+npm init -1
 cd "%autoShortsFolder%"
 
 
