@@ -443,6 +443,15 @@ var browser
         await waitForSelector(firefoxPage, '[data-testid="property-panel-button-effects"]')
         await clickSelector(firefoxPage, '[data-testid="property-panel-button-effects"]')
         await sleep(1000)
+        var downLoaded = 0
+        firefoxPage.on('download', async (download) => {
+            console.log(`Downloading file: ${download.suggestedFilename()}`);
+
+            // Save the file to the specified folder
+            await download.saveAs(path.resolve(__dirname, videosFolder, download.suggestedFilename()));
+            console.log('Fin')
+            downLoaded = 1
+        });
         while (!await firefoxPage.evaluate(() => {
             const tiles = document.querySelectorAll('[data-testid="filter-tile"]');
             var found = 0
@@ -454,37 +463,7 @@ var browser
             });
             return !!found
         })) await sleep(1000);
-        const sliderSelector = '[data-testid="slider"]';
-        const SliderThing = await firefoxPage.evaluate(selector => {
-            const element = document.querySelector(selector);
-            const rect = element.getBoundingClientRect();
-            return {
-                x: rect.left + (rect.width / 2) + window.scrollX,
-                y: rect.top + (rect.height / 2) + window.scrollY
-            };
-        }, sliderSelector);
-
-        // Calculate the maximum and desired values
-        const maxValue = await firefoxPage.evaluate(selector => {
-            return document.querySelector(selector).getAttribute('max');
-        }, sliderSelector);
-
-        const halfMaxValue = maxValue / 2;
-
-        // Calculate the x position to drag to
-        const sliderWidth = await firefoxPage.evaluate(selector => {
-            const element = document.querySelector(selector);
-            return element.offsetWidth;
-        }, sliderSelector);
-
-        const targetX = SliderThing.x - (sliderWidth / 2) + (sliderWidth * (halfMaxValue / maxValue));
-
-        // Simulate dragging the slider handle
-        await firefoxPage.mouse.move(SliderThing.x, SliderThing.y);
-        await firefoxPage.mouse.down();
-        await sleep(100)
-        await firefoxPage.mouse.move(targetX, SliderThing.y, { steps: 10 });
-        await firefoxPage.mouse.up();
+        
         try {
             // Wait for the element with a timeout of 2 seconds
             await firefoxPage.waitForSelector('[aria-label="Show pane"]', { timeout: 2000 });
@@ -526,15 +505,6 @@ var browser
         // wait for and click data-testid="id-1080p"
         await waitForSelector(firefoxPage, '[data-testid="id-1080p"]')
         await clickSelector(firefoxPage, '[data-testid="id-1080p"]')
-        var downLoaded = 0
-        firefoxPage.on('download', async (download) => {
-            console.log(`Downloading file: ${download.suggestedFilename()}`);
-
-            // Save the file to the specified folder
-            await download.saveAs(path.resolve(__dirname, videosFolder, download.suggestedFilename()));
-            console.log('Fin')
-            downLoaded = 1
-        });
         while (!downLoaded) await sleep(1000);
         //wait for and click data-testid="keep-editing-button"
         await waitForSelector(firefoxPage, '[data-testid="keep-editing-button"]')
