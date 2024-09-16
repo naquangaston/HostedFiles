@@ -5,10 +5,6 @@ const { exec } = require('child_process');
 const fs = require('fs-extra'); // You need to install fs-extra for copying directories
 const { firefox, chromium } = require('playwright');
 const path = require('path');
-const pass="";
-const email=""
-if(!pass)throw('Invalid password')
-if(!email)throw('Invalid email')
 
 
 /**
@@ -340,7 +336,7 @@ var browser
     //wait for and click aria-describedby="usernameTitle" this si where the email goes
     await waitForSelector(firefoxPage, '[aria-describedby="usernameTitle"]')
     await sleep(1000)
-    await type(firefoxPage, '[aria-describedby="usernameTitle"]', email)
+    await type(firefoxPage, '[aria-describedby="usernameTitle"]', 'videokeysbinds7@gmail.com')
     await simulateEnterKey(firefoxPage);
 
 
@@ -352,7 +348,7 @@ var browser
             if (done) return;
             // wait for and type this input this is where the password goes
             await sleep(1000)
-            await type(firefoxPage, '[type="password"]', pass)
+            await type(firefoxPage, '[type="password"]', 'SoccerkidLOL!')
             await simulateEnterKey(firefoxPage);
             !done && (done = 1, fin(), done = 1)
         }()).then(e => e, b => b).catch(e => e)
@@ -390,10 +386,10 @@ var browser
     await clickSelector(firefoxPage, '[aria-label="Create a video"]')
 
 
-
+    const videos=await getAllFilePaths(videosFolder)
     // this button wil ask for the files id="splitButton-r55__primaryActionButton" in ${videosFolder}
     await waitForSelector(firefoxPage, '.fui-SplitButton__primaryActionButton')
-    await setInputFiles(firefoxPage, '.fui-SplitButton__primaryActionButton', await getAllFilePaths(videosFolder))
+    await setInputFiles(firefoxPage, '.fui-SplitButton__primaryActionButton', videos)
     await sleep(1000)
     // wait for and click data-testid="aspect-ratio-selector"
     await waitForSelector(firefoxPage, '[data-testid="aspect-ratio-selector"]')
@@ -529,6 +525,17 @@ var browser
         await waitForSelector(firefoxPage, '[data-testid="delete-asset-confirm"]')
         await clickSelector(firefoxPage, '[data-testid="delete-asset-confirm"]')
     }
+    videos.forEach(filePath=>{
+        console.log(`Deleting file: ${filePath}`)
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error('Error deleting the file:', err);
+            } else {
+                console.log('File deleted successfully.');
+            }
+        });
+    })
+    
     await firefoxPage.close()
     console.log('Finished')
     await browser.close()
