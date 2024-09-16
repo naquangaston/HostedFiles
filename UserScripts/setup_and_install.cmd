@@ -36,6 +36,9 @@ echo Downloading the PowerShell script...
 curl -o "%autoShortsFolder%\check_and_install.ps1" "https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/check_and_install.ps1"
 curl -o "%autoShortsFolder%\Start.cmd" "https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/start.cmd"
 curl -o "%autoShortsFolder%\autoShorts.js" "https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/autoShort.js"
+powershell -ExecutionPolicy Bypass -File "%autoShortsFolder%\check_and_install.ps1" -id "Google.Chrome.Dev" -install $true
+powershell -ExecutionPolicy Bypass -File "%autoShortsFolder%\check_and_install.ps1" -id "Mozilla.Firefox" -install $true
+
 echo Installing Node.js modules...
 echo test2
 npm install readline express cors fs-extra playwright && npx playwright install && start "" "%autoShortsFolder%"
