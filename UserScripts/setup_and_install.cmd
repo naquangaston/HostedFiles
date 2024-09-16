@@ -10,11 +10,23 @@ set "hellowFolder=%autoShortsFolder%\hellow"
 if not exist "%autoShortsFolder%" mkdir "%autoShortsFolder%"
 if not exist "%hellowFolder%" mkdir "%hellowFolder%"
 
-echo winget install Schniz.fnm
-echo fnm env --use-on-cd ^| Out-String ^| Invoke-Expression
-echo fnm use --install-if-missing 20
-echo node -v
-echo npm -v
+REM installs fnm (Fast Node Manager)
+winget install Schniz.fnm
+
+REM configure fnm environment
+fnm env --use-on-cd > temp_env.bat
+call temp_env.bat
+del temp_env.bat
+
+REM download and install Node.js
+fnm use --install-if-missing 20
+
+REM verifies the right Node.js version is in the environment
+node -v
+
+REM verifies the right npm version is in the environment
+npm -v
+
 :: Initialize npm project
 echo Initializing npm project...
 npm init -1
