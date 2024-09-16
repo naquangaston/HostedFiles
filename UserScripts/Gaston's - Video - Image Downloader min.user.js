@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 6.4
-// @description Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
+// @version 6.5
+// @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author gaston1799
 // @match *://www.youtube.com/*
 // @match *://www.instagram.com/*
@@ -41,124 +41,177 @@
 // @name:en Gaston's - Video/Image Downloader
 // @name:zh Gaston's - Video/Image Downloader
 // @name:ar Gaston's - Video/Image Downloader Gaston's - Video/Image Downloader
-// @name:de Gaston's - Video/Image Downloader
-// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर gaistan - veediyo/chhavi daunalodar
-// @name:ru Gaston's - Video/Image Скачатель Gaston's - Video/Image Skachatel'
 // @name:pt Gaston's - Downloader de vídeo/imagem
 // @name:fr Gaston's - téléchargeur vidéo / image
 // @name:ja Gaston's -Video/Image Downloader Gaston' s - vu~ideo/ Image daunrōdā
+// @name:ru Gaston's - Video/Image Скачатель Gaston's - Video/Image Skachatel'
+// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर gaistan - veediyo/chhavi daunalodar
+// @name:de Gaston's - Video/Image Downloader
 // @name:es Gaston's - Video/Image Descarger
-// @name:vi Gaston's - Trình tải xuống video/hình ảnh
-// @name:nl Gaston's - Video/Image Downloader
 // @name:it Gaston's - Downloader di video/immagine
+// @name:pl Gaston - pobierca wideo/obrazu
 // @name:tr Gaston's - Video/Resim İndirici
 // @name:ko Gaston 's- 비디오/이미지 다운로더 Gaston 's- bidio/imiji daunlodeo
-// @name:id Gaston's - Video/Image Downloader
-// @name:th Gaston's - Video/Image Downloader Gaston's - Video/Image Downloader
-// @name:ro Gaston's - descărcător video/imagini
 // @name:uk GASTON'S - Відео/зображення завантажувача GASTON'S - Video/zobrazhennya zavantazhuvacha
-// @name:pl Gaston - pobierca wideo/obrazu
-// @name:el Gaston's - Video/Image Downloader Gaston's - Video/Image Downloader
-// @name:fi Gaston's - Video/kuvan lataaja
-// @name:hu Gaston's - Videó/kép letöltő
-// @name:cs Gaston's - Video/Image Downloader
-// @name:da Gastons - Video/Image Downloader
-// @name:sk Gaston's - Video/Image Downloader
+// @name:nl Gaston's - Video/Image Downloader
+// @name:ro Gaston's - descărcător video/imagini
+// @name:th Gaston's - Video/Image Downloader Gaston's - Video/Image Downloader
+// @name:id Gaston's - Video/Image Downloader
+// @name:vi Gaston's - Trình tải xuống video/hình ảnh
 // @name:bg Gaston's - видео/изтегляне на изображения Gaston's - video/izteglyane na izobrazheniya
-// @name:no Gaston's - Video/Image Downloader
-// @name:he Gaston's - הורדת וידאו/תמונה
 // @name:sv Gaston's - Video/Image Downloader
-// @description:zh Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
-// @description:en Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
-// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio toujours mis à jour
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader sempre atualizado
-// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Alwayts Aktualisiert
-// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Alwayts Actualizado
-// @description:ar Instagram/twitch/youtube/tiktok video/audio downloader alwayts updated Instagram/twitch/youtube/tiktok video/audio downloader alwayts updated
-// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Allwayts Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Allwayts
-// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダーAlwayts更新 Instagram/ Twitch/ yūchūbu/ Tiktok bideo/ ōdio daunrōdā Alwayts kōshin
-// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर Alwayts अपडेट किया गया instagram/twitchh/youtubai/tiktok veediyo/odiyo daunalodar alwayts apadet kiya gaya
-// @description:id Instagram/twitch/youtube/tiktok video/audio downloader alwayts diperbarui
-// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Descărcător audio Alwayts Actualizat
-// @description:th Instagram/twitch/youtube/tiktok วิดีโอ/ดาวน์โหลดเสียงดาวน์โหลดทุกครั้งอัปเดต Instagram/twitch/youtube/tiktok widīxo/dāwn̒h̄old s̄eīyng dāwn̒h̄old thuk khrậng xạpdet
-// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader Alwayts Güncellendi
-// @description:pl Instagram/twitch/youtube/tiktok wideo/audio pobrań
-// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Ally Wayts bijgewerkt
-// @description:uk Instagram/twitch/youtube/tiktok video/audio завантажувач Alwayts оновлений Instagram/twitch/youtube/tiktok video/audio zavantazhuvach Alwayts onovlenyy
-// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 Alwayts 업데이트 Instagram/Twitch/YouTube/Tiktok bidio/odio daunlodeo Alwayts eobdeiteu
-// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Alwayts Aggiornato
-// @description:vi Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader đã cập nhật
-// @description:fi Instagram/twitch/youtube/tiktok -video/äänen latausohjelma ALWAYTS
-// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader alwayts frissítve
-// @description:he אינסטגרם/טוויץ
-// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Alwayts Aktualizováno
-// @description:el Ενημέρωση Instagram/Twitch/YouTube/Tiktok/Audio Downloader Alwealts Ενημερώθηκε Enimérosi Instagram/Twitch/YouTube/Tiktok/Audio Downloader Alwealts Enimeróthike
-// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Alwayts Aktualizovaný
-// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Always uppdaterad
-// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Alwats Opdateret
-// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Alwayyts Oppdatert
-// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Always Актуализиран Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader Always Aktualiziran
+// @name:el Gaston's - Video/Image Downloader Gaston's - Video/Image Downloader
+// @name:da Gastons - Video/Image Downloader
+// @name:he Gaston's - הורדת וידאו/תמונה
+// @name:cs Gaston's - Video/Image Downloader
+// @name:no Gaston's - Video/Image Downloader
+// @name:hu Gaston's - Videó/kép letöltő
+// @name:sk Gaston's - Video/Image Downloader
+// @name:fi Gaston's - Video/kuvan lataaja
+// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
+// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
+// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (chasto obnovlyayetsya)
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (tama tahdithuh bishakl mutakariri)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया) instagram/twitchh/youtubai/tiktok veediyo/odiyo daunalodar (aksar apadet kiya gaya)
+// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新） Instagram/ Twitch/ yūchūbu/ Tiktok bideo/ ōdio daunrōdā (hinpan ni kōshin)
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트) Instagram/Twitch/YouTube/Tiktok bidio/odio daunlodeo (jaju eobdeiteu)
+// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
+// @description:uk Instagram/twitch/youtube/tiktok відео/аудіо завантажувач (часто оновлений) Instagram/twitch/youtube/tiktok video/audio zavantazhuvach (chasto onovlenyy)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (xạpdet b̀xy khrậng)
+// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
+// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
+// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (chesto aktualiziran)
+// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
+// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sychná enimeroméno)
 // @license MIT
 // ==/UserScript==
-(function(e, n) {
-    for (var t = 310, r = 301, o = "wSS!", i = 313, c = "6bT!", u = 305, l = 318, a = 314, s = 309, d = Q, h = Q, m = R, p = R, g = f();;) try {
-        if (339351 === parseInt(m(302)) / 1 + parseInt(p(304)) / 2 * (parseInt(m(t)) / 3) + parseInt(d(r, o)) / 4 * (parseInt(d(i, "KcnD")) / 5) + -parseInt(d(317, "6bT!")) / 6 + -parseInt(d(311, c)) / 7 * (parseInt(m(u)) / 8) + -parseInt(h(l, "&rfa")) / 9 * (parseInt(p(a)) / 10) + parseInt(m(307)) / 11 * (parseInt(p(s)) / 12)) break;
-        g.push(g.shift())
+function A(e, n) {
+    var t = u();
+    return A = function(n, r) {
+        var o = t[n -= 173];
+        if (void 0 === A.ADdPBh) {
+            A.BgFbEM = function(e) {
+                for (var n, t, r = "", o = "", i = 0, c = 0; t = e.charAt(c++); ~t && (n = i % 4 ? 64 * n + t : t, i++ % 4) ? r += String.fromCharCode(255 & n >> (-2 * i & 6)) : 0) t = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=".indexOf(t);
+                for (var u = 0, l = r.length; u < l; u++) o += "%" + ("00" + r.charCodeAt(u).toString(16)).slice(-2);
+                return decodeURIComponent(o)
+            }, e = arguments, A.ADdPBh = !0
+        }
+        var i = n + t[0],
+            c = e[i];
+        return c ? o = c : (o = A.BgFbEM(o), e[i] = o), o
+    }, A(e, n)
+}(function(e, n) {
+    for (var t = 183, r = "gN&x", o = "1l3v", i = "Y^[A", c = 179, l = "bV(X", a = A, s = A, f = G, d = G, h = G, m = u();;) try {
+        if (495387 === parseInt(f(178, "1l3v")) / 1 + parseInt(d(176, "X#XJ")) / 2 + -parseInt(d(t, r)) / 3 + -parseInt(d(177, o)) / 4 * (-parseInt(a(181)) / 5) + parseInt(d(184, i)) / 6 + -parseInt(a(173)) / 7 * (parseInt(h(c, l)) / 8) + -parseInt(s(180)) / 9) break;
+        m.push(m.shift())
     } catch (e) {
-        g.push(g.shift())
+        m.push(m.shift())
     }
 })(),
 function() {
     var e = {
-        ovjfK: function(e, n) {
-            return e || n
-        },
-        zLnLq: "1rem",
-        IsfGk: "#008f68",
-        PaTFX: function(e, n) {
+        zLzmZ: "Replying to ",
+        lxLIZ: "CyWdu",
+        WWuYM: "nuFZt",
+        lxmRs: "---",
+        HOPeH: "darkgrey",
+        IpgHf: "1rem",
+        amwfY: "#008f68",
+        lVQXq: function(e, n) {
             return e !== n
         },
-        vZZXW: function(e, n) {
+        SeCxg: function(e, n) {
             return e !== n
         },
-        nDRlJ: function(e, n) {
+        DSqmo: "AhPVS",
+        OdSrU: "PpRKq",
+        eVwvP: function(e, n) {
             return e !== n
         },
-        nxvjV: function(e, n) {
+        Aeeaw: function(e, n) {
+            return e === n
+        },
+        yEbtS: function(e, n) {
             return e !== n
-        }
+        },
+        MrtcH: function(e) {
+            return e()
+        },
+        VCsXo: function(e) {
+            return e()
+        },
+        woOJk: "Added playlist buttons",
+        APOne: function(e, n, t) {
+            return e(n, t)
+        },
+        dLvdI: "gPPPl"
     };
-    Object.assign(this || arguments[0], {
-        CustomLog: class {
-            constructor(n) {
-                this.title = {
-                    body: e.ovjfK(n, "---"),
-                    color: "darkgrey",
-                    size: e.zLnLq
-                }, this.body = {
-                    color: e.IsfGk,
-                    size: e.zLnLq
-                }
-            }
-            setTitleBody(e) {
-                return this.title.body = e, this
-            }
-            setTitleStyle({
-                color: n,
-                size: t
-            }) {
-                return e.PaTFX(n, void 0) && (this.title.color = n), e.vZZXW(t, void 0) && (this.title.size = t), this
-            }
-            setBodyStyle({
-                color: n,
-                size: t
-            }) {
-                return e.nDRlJ(n, void 0) && (this.body.color = n), e.nxvjV(t, void 0) && (this.body.size = t), this
-            }
-            log(e = "") {
-                console.log("%c" + this.title.body + " | %c" + e, "color: " + this.title.color + "; font-weight: bold; font-size: " + this.title.size + ";", "color: " + this.body.color + "; font-weight: bold; font-size: " + this.body.size + "; text-shadow: 0 0 5px rgba(0,0,0,0.2);")
+    class n {
+        constructor(t) {
+            var r = {
+                WTvmG: e.zLzmZ
+            };
+            if (e.lxLIZ === e.WWuYM) return n.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0").innerText.replace(r.WTvmG, "");
+            this.title = {
+                body: t || e.lxmRs,
+                color: e.HOPeH,
+                size: e.IpgHf
+            }, this.body = {
+                color: e.amwfY,
+                size: e.IpgHf
             }
         }
+        setTitleBody(n) {
+            return e.SeCxg(e.DSqmo, e.OdSrU) ? (this.title.body = n, this) : (t !== I && (this.body.color = S), e.lVQXq(p, J) && (this.body.size = k), this)
+        }
+        setTitleStyle({
+            color: n,
+            size: t
+        }) {
+            return void 0 !== n && (this.title.color = n), e.eVwvP(t, void 0) && (this.title.size = t), this
+        }
+        setBodyStyle({
+            color: n,
+            size: t
+        }) {
+            if (e.Aeeaw("AQTsf", "AQTsf")) return void 0 !== n && (this.body.color = n), e.yEbtS(t, void 0) && (this.body.size = t), this;
+            t.setAttribute(P.name, x.value)
+        }
+        log(n = "") {
+            var t = {
+                LFMKQ: function(n) {
+                    return e.MrtcH(n)
+                },
+                YrOgm: function(n) {
+                    return e.VCsXo(n)
+                },
+                fvbpT: e.woOJk,
+                gnfwW: function(n, t, r) {
+                    return e.APOne(n, t, r)
+                }
+            };
+            e.Aeeaw(e.dLvdI, "ZKPIl") ? (S.log(t.fvbpT), t.gnfwW(p, (() => {
+                t.LFMKQ(f).append(y.br.element), Q().append(l.element), t.YrOgm(B).append(v.element)
+            }), 100)) : console.log("%c" + this.title.body + " | %c" + n, "color: " + this.title.color + "; font-weight: bold; font-size: " + this.title.size + ";", "color: " + this.body.color + "; font-weight: bold; font-size: " + this.body.size + "; text-shadow: 0 0 5px rgba(0,0,0,0.2);")
+        }
+    }
+    Object.assign(this || arguments[0], {
+        CustomLog: n
     })
 }(globalThis);
 const logger = new CustomLog("Script Logger");
@@ -167,342 +220,20 @@ function downloadFileAsTitle(e, n) {
     const t = document.createElement("a");
     t.href = e, t.download = n, document.body.appendChild(t), t.click(), document.body.removeChild(t)
 }
-var sleep = e => new Promise((n => setTimeout(n, e)));
-console.log("ok");
-var adev, set_, CurrentPlayingSymbol = "▶";
 
-function R(e, n) {
-    var t = f();
-    return R = function(n, r) {
-        var o = t[n -= 300];
-        if (void 0 === R.EnyNBY) {
-            R.XvbyZF = function(e) {
-                for (var n, t, r = "", o = "", i = 0, c = 0; t = e.charAt(c++); ~t && (n = i % 4 ? 64 * n + t : t, i++ % 4) ? r += String.fromCharCode(255 & n >> (-2 * i & 6)) : 0) t = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=".indexOf(t);
-                for (var u = 0, l = r.length; u < l; u++) o += "%" + ("00" + r.charCodeAt(u).toString(16)).slice(-2);
-                return decodeURIComponent(o)
-            }, e = arguments, R.EnyNBY = !0
-        }
-        var i = n + t[0],
-            c = e[i];
-        return c ? o = c : (o = R.XvbyZF(o), e[i] = o), o
-    }, R(e, n)
+function u() {
+    var e = ["WRdcPHOKkCk0w8oqEsS", "WR3cOX0LDmoYvCoiyXddRMa", "W7fhc8ooW6ZcLhpdLq", "mtqWmdG4nJL4rgDnEg4", "mtGZmgTrv0PoCG", "WRpcMCktrehcUCoDsCo0lW", "F8kGyYhdLCk6FCkdWPLLW4ioW78", "WRO8e8oGWQBdVSo/yJaYW5tcSZy", "mta5mZa4oxvLr0LvEq", "ntaYmtfOtMPut3u", "EYbEqMldTtVdMHhcHmk3DKa", "W4/dSmoqBIpdRaTF", "W43dUSk8hvNcVf5IsrWenmkZ"];
+    return (u = function() {
+        return e
+    })()
 }
 
-function getV(e, n) {
-    var t = {
-        siizI: function(e, n) {
-            return e(n)
-        },
-        qWoQL: function(e, n, t) {
-            return e(n, t)
-        }
-    };
-    return t.siizI(GM_getValue, e) || (t.qWoQL(GM_setValue, e, n), n)
-}
-
-function setV(e, n) {
-    ! function(e, n, t) {
-        e(n, t)
-    }(GM_setValue, e, n)
-}
-async function getFinalUrlFromServer(e) {
-    var n = {
-        EhJrj: function(e, n, t) {
-            return e(n, t)
-        },
-        AQqpQ: "dlbutton",
-        QYGAi: function(e, n) {
-            return e(n)
-        },
-        cjlJb: function(e, n) {
-            return e === n
-        },
-        uwFDL: "frlus",
-        uvuVu: "WSpvV",
-        hPyWD: "http://localhost:3000/get-final-url",
-        KwfNb: "POST",
-        FWofH: "application/json",
-        JeAor: "Failed to fetch final URL",
-        UdrPB: function(e, n) {
-            return e === n
-        },
-        QZaoQ: "XycNC",
-        DjmXM: "Error:"
-    };
-    try {
-        if (!n.cjlJb(n.uwFDL, n.uvuVu)) {
-            const t = await fetch(n.hPyWD, {
-                method: n.KwfNb,
-                headers: {
-                    "Content-Type": n.FWofH
-                },
-                body: JSON.stringify({
-                    url: e
-                })
-            });
-            if (!t.ok) throw new Error(n.JeAor);
-            return (await t.json()).finalUrl
-        } {
-            const e = A.createElement("a");
-            e.href = r, e.download = t, Y.body.appendChild(e), e.click(), o.body.removeChild(e)
-        }
-    } catch (e) {
-        if (n.UdrPB(n.QZaoQ, n.QZaoQ)) return console.error(n.DjmXM, e), null;
-        var t = {
-                MCvPh: function(e, t, r) {
-                    return n.EhJrj(e, t, r)
-                },
-                zZmMs: n.AQqpQ
-            },
-            i = "",
-            c = n.QYGAi(z, (e => {
-                i != i.innerText && (i = c.innerText, t.MCvPh(N, t.zZmMs, i))
-            }))
-    }
-}
-
-function getCurrentVideoID() {
-    var e, n = {
-        fupyz: "ytp-video-menu-item ytp-button",
-        OiSlc: "Opening",
-        mLsxz: "ytp-playlist-menu-button ytp-button",
-        EGjva: "Closiung",
-        YBTmO: "Not Found!"
-    };
-    return [...document.getElementsByClassName(n.fupyz)].forEach(((n, t) => {
-        n.innerText.startsWith(CurrentPlayingSymbol) && (e = new URL(n.href).searchParams.get("v"))
-    })), !e && document.getElementsByClassName("ytp-playlist-menu-button ytp-button")[0] ? (console.log(n.OiSlc), document.getElementsByClassName(n.mLsxz)[0].click(), getCurrentVideoID()) : e ? (console.log(n.EGjva), document.getElementsByClassName("ytp-playlist-menu-button ytp-button")[0].click(), e) : console.warn(n.YBTmO)
-}
-
-function sleep(e) {
-    return new Promise((n => setTimeout(n, e)))
-}
-_getV = getV, _setV = setV, Number.prototype.decimal = function(e) {
-    return function(e, n) {
-        return e(n)
-    }(Number, this.toFixed(e))
-}, getSoundCloudUrl = () => {
-    try {
-        return findhref2(document.querySelector("#app > div.playControls.g-z-index-control-bar.m-visible > section > div > div.playControls__elements > div.playControls__soundBadge.sc-ml-3x > div"))[0].href
-    } catch {
-        return
-    }
-}, async function() {
-    var e = {
-        kJRfk: function(e, n) {
-            return e(n)
-        },
-        FTJhv: "collapse-frame",
-        DfrFC: function(e) {
-            return e()
-        },
-        YRELw: function(e, n, t, r, o, i) {
-            return e(n, t, r, o, i)
-        },
-        gefsl: function(e, n) {
-            return e === n
-        },
-        JPAQy: "WpiCL",
-        rpZdC: "embedMP3",
-        KUDtO: "innerText",
-        qWDBT: "fixed",
-        mKusD: "50%",
-        mdxiX: ".ytp-right-controls",
-        aBzaa: "hSOGJ",
-        Kejfp: "Appended",
-        ncxkm: "Added Button",
-        CPCIe: "button",
-        SzeWO: "GetAudio",
-        ipPVL: "click",
-        XVRQE: function(e, n, t) {
-            return e(n, t)
-        },
-        YmHsS: "Attaching to embeder >:]",
-        UqTIl: function(e, n) {
-            return e(n)
-        },
-        syjLg: ".playbackSoundBadge__actions"
-    };
-    async function n(n, t = 3e4) {
-        var r;
-        for (sleep(t).then((e => r = !0)); !document.querySelector(n) && (await e.kJRfk(sleep, 0), !r););
-        return document.querySelector(n)
-    }
-    return location.href.includes("/embed/") ? (console.log(e.YmHsS), e.UqTIl(n, e.mdxiX).then((async n => {
-        if (!e.gefsl(e.JPAQy, "pMjpv")) {
-            let t = new _e("button", {
-                id: e.rpZdC
-            }).appendTo(n).set(e.KUDtO, "MP3").on("click", (function() {
-                let n = e.DfrFC(getCurrentVideoID) || e.kJRfk(setElement, location.href);
-                e.YRELw(downloadT, n, !1, !0, !1, !0)
-            })).style({
-                position: e.qWDBT,
-                right: e.mKusD,
-                top: "80%"
-            });
-            for (; !document.getElementById(e.rpZdC) && document.querySelector(e.mdxiX);) e.gefsl("hSOGJ", e.aBzaa) ? (console.log(e.Kejfp), t.appendTo(e.mdxiX)) : (n.push(z), t = 1)
-        }
-    }))) : (document.querySelector(e.mdxiX), await n(e.syjLg, 5e3).then((async t => {
-        var r = {
-            CppwP: function(n) {
-                return e.DfrFC(n)
-            }
-        };
-        let o = new _e(e.CPCIe, {
-            id: e.SzeWO
-        }).appendTo(t).set(e.KUDtO, "Download MP3").on(e.ipPVL, (function() {
-            r.CppwP(downloadSC)
-        }), (e => e));
-        for (;;) !document.getElementById(e.SzeWO) && await e.XVRQE(n, ".playbackSoundBadge__actions", 5e3) && await e.XVRQE(n, ".playbackSoundBadge__actions", 5e3).then((n => {
-            o.appendTo(n), console.log(e.ncxkm)
-        })), await e.kJRfk(sleep, 0)
-    })))
-}().then(console.log, console.warn), downloadSC = function() {
-    var n = {
-        ysiiB: "Error downloading file:",
-        tJTqP: function(e) {
-            return e()
-        },
-        keTOj: function(e, n) {
-            return e !== n
-        },
-        HUJpS: "iHrCj",
-        EDxLC: "cFtOE",
-        sUHHk: "UrEeh",
-        YipBz: "IhxKt",
-        vuGgI: function(e, n, t) {
-            return e(n, t)
-        },
-        yZvYr: "SCinfo",
-        uzcjs: function(e, n, t) {
-            return e(n, t)
-        },
-        VJcDI: function(e) {
-            return e()
-        },
-        lXGkQ: function(e, n, t) {
-            return e(n, t)
-        },
-        GyJvY: function(e, n) {
-            return e(n)
-        },
-        yPbuu: "https://sclouddownloader.net/"
-    };
-    n.vuGgI(GM_setValue, n.yZvYr, null), n.uzcjs(GM_setValue, "sc", n.VJcDI(getSoundCloudUrl)), set_ || (set_ = 1, n.lXGkQ(GM_addValueChangeListener, n.yZvYr, (function(t, i, c, u) {
-        var l = {
-            HXguw: function(e) {
-                return n.tJTqP(e)
-            },
-            FcYqU: function(e, n) {
-                return e(n)
-            }
-        };
-        n.keTOj(n.HUJpS, n.EDxLC) ? (console.log({
-            a: t,
-            b: i,
-            c: c,
-            d: u
-        }), c && c.name && (n.sUHHk === n.YipBz ? (P.error(n.ysiiB, Y), (o || e || K).postMessage({
-            url: N,
-            title: O,
-            s: !1
-        }, "*")) : _downloadFileAsTitle(c.href, c.name))) : (l.HXguw(u), l.HXguw(l), l.FcYqU(r, P))
-    }))), n.GyJvY(open, n.yPbuu)
-}, GM_setValue_ = GM_setValue, GM_getValue_ = GM_getValue, GM_info_ = GM_info;
-var UnmutePath = "M3.15,3.85l4.17,4.17L6.16,9H3v6h3.16L12,19.93v-7.22l2.45,2.45c-0.15,0.07-0.3,0.13-0.45,0.18v1.04 c0.43-0.1,0.83-0.27,1.2-0.48l1.81,1.81c-0.88,0.62-1.9,1.04-3.01,1.2v1.01c1.39-0.17,2.66-0.71,3.73-1.49l2.42,2.42l0.71-0.71 l-17-17L3.15,3.85z M11,11.71v6.07L6.52,14H4v-4h2.52l1.5-1.27L11,11.71z M10.33,6.79L9.62,6.08L12,4.07v4.39l-1-1V6.22L10.33,6.79 z M14,8.66V7.62c2,0.46,3.5,2.24,3.5,4.38c0,0.58-0.13,1.13-0.33,1.64l-0.79-0.79c0.07-0.27,0.12-0.55,0.12-0.85 C16.5,10.42,15.44,9.1,14,8.66z M14,5.08V4.07c3.95,0.49,7,3.85,7,7.93c0,1.56-0.46,3.01-1.23,4.24l-0.73-0.73 C19.65,14.48,20,13.28,20,12C20,8.48,17.39,5.57,14,5.08z",
-    mutePath = "M17.5,12c0,2.14-1.5,3.92-3.5,4.38v-1.04c1.44-0.43,2.5-1.76,2.5-3.34c0-1.58-1.06-2.9-2.5-3.34V7.62 C16,8.08,17.5,9.86,17.5,12z M12,4.07v15.86L6.16,15H3V9h3.16L12,4.07z M11,6.22L6.52,10H4v4h2.52L11,17.78V6.22z M21,12 c0,4.08-3.05,7.44-7,7.93v-1.01c3.39-0.49,6-3.4,6-6.92s-2.61-6.43-6-6.92V4.07C17.95,4.56,21,7.92,21,12z";
-
-function downloadFile_(e, n) {
-    const t = document.createElement("a");
-    t.href = e, t.download = n, document.body.appendChild(t), t.click(), document.body.removeChild(t)
-}
-_downloadFileAsTitle = async function(e, n, t, r) {
-    var o = {
-        lIuBp: "_blank",
-        lSoST: "function",
-        GQLcU: function(e) {
-            return e()
-        },
-        MHLwW: "Error downloading file:",
-        imXDK: function(e, n) {
-            return e || n
-        },
-        qsoqx: "none",
-        LHJHq: function(e, n) {
-            return e(n)
-        }
-    };
-    const i = document.createElement("a");
-    return i.style.display = o.qsoqx, document.body.appendChild(i), o.LHJHq(fetch, e).then((e => e.blob())).then((c => {
-        const u = URL.createObjectURL(c);
-        i.href = u, i.download = n, i.target = o.lIuBp, i.click(), URL.revokeObjectURL(u), (t || opener || window).postMessage({
-            url: e,
-            title: n,
-            s: !0
-        }, "*"), (typeof r).includes(o.lSoST) && o.GQLcU(r)
-    })).catch((r => {
-        console.error(o.MHLwW, r), (o.imXDK(t, opener) || window).postMessage({
-            url: e,
-            title: n,
-            s: !1
-        }, "*")
-    }))
-}, _downloadFile_ = downloadFile_;
-const query = function(e, n) {
-    var t = {
-        mGbNJ: function(e, n) {
-            return e != n
-        },
-        uNCgL: "undefined",
-        YeHLm: function(e, n) {
-            return e(n)
-        },
-        fbiEM: function(e, n) {
-            return e(n)
-        }
-    };
-    try {
-        let r = t.mGbNJ(typeof $, t.uNCgL) ? $ : document.querySelectorAll;
-        return n ? [...document.querySelectorAll(e)].filter((e => !(null === el.offsetParent)))[0] : (e => Object.keys(e).length ? e : null)(r(e) ? r(e).length ? t.YeHLm(r, e)[0] : t.fbiEM(r, e) : null)
-    } catch {}
-};
-async function downloadVideo(e, n) {
-    var t = {
-        glKUn: "._acaz",
-        NZgnW: function(e, n) {
-            return e !== n
-        },
-        whWmY: "EeAJi",
-        KsCjx: function(e, n) {
-            return e(n)
-        },
-        RKgVE: function(e, n) {
-            return e === n
-        },
-        RHCUP: "rVhbL"
-    };
-    try {
-        if (t.NZgnW(t.whWmY, t.whWmY)) return n.querySelectorAll(t.glKUn); {
-            const r = await t.KsCjx(fetch, e);
-            if (!r.ok) throw new Error("HTTP error! Status: " + r.status);
-            const o = r.url,
-                i = await r.blob(),
-                c = window.URL.createObjectURL(i),
-                u = document.createElement("a");
-            u.href = c, u.download = n, document.body.appendChild(u), u.click(), document.body.removeChild(u), window.URL.revokeObjectURL(c), console.log("Video downloaded from: " + o)
-        }
-    } catch (e) {
-        if (!t.RKgVE(t.RHCUP, "rVhbL")) return new J((e => r(e, P)));
-        console.error("Failed to download video:", e)
-    }
-}
-
-function Q(e, n) {
-    var t = f();
-    return Q = function(n, r) {
-        var o = t[n -= 300];
-        if (void 0 === Q.TmPkjU) {
-            Q.DCooiN = function(e, n) {
+function G(e, n) {
+    var t = u();
+    return G = function(n, r) {
+        var o = t[n -= 173];
+        if (void 0 === G.XMoJbo) {
+            G.sUmFUE = function(e, n) {
                 var t, r, o = [],
                     i = 0,
                     c = "";
@@ -515,1346 +246,1705 @@ function Q(e, n) {
                 r = 0, i = 0;
                 for (var u = 0; u < e.length; u++) i = (i + o[r = (r + 1) % 256]) % 256, t = o[r], o[r] = o[i], o[i] = t, c += String.fromCharCode(e.charCodeAt(u) ^ o[(o[r] + o[i]) % 256]);
                 return c
-            }, e = arguments, Q.TmPkjU = !0
+            }, e = arguments, G.XMoJbo = !0
         }
         var i = n + t[0],
             c = e[i];
-        return c ? o = c : (void 0 === Q.UxjOnN && (Q.UxjOnN = !0), o = Q.DCooiN(o, r), e[i] = o), o
-    }, Q(e, n)
+        return c ? o = c : (void 0 === G.JKlVxK && (G.JKlVxK = !0), o = G.sUmFUE(o, r), e[i] = o), o
+    }, G(e, n)
+}
+var sleep = e => new Promise((n => setTimeout(n, e)));
+console.log("ok");
+var adev, set_, CurrentPlayingSymbol = "▶";
+
+function getV(e, n) {
+    var t = {
+        sMzvS: function(e, n) {
+            return e(n)
+        },
+        tQlMS: function(e, n, t) {
+            return e(n, t)
+        }
+    };
+    return t.sMzvS(GM_getValue, e) || (t.tQlMS(GM_setValue, e, n), n)
 }
 
-function f() {
-    var e = ["u8oJEmkbBaT2dZFcHSkRW4L1", "mtuZmZK1mgjhvhLOtW", "bComBCoCWQbkgmo4WQpdK8k3nq", "mtjZDKrIuMq", "nZvuBMrpwgO", "pbtdP8oIiCoMjqzQ", "WRpcGmoZxCocW7O1zW", "vmkbsKZdRSoxemo+", "mtbMChLJCe4", "WPuTFwZdTwhcGK1hWRJcJmoTW6S", "tCoxWOlcNSoUW6mqW4bnq1ZcGa", "pXldRSkeqCk0uaHudmkKW4aj", "W65LWPZdJmoLWRJdMLdcLCoSu8ogzG", "W4JdUL3cTSkPWRddM8kD", "pbdcSCofamoKgam", "WRiGp8oZoYuLgCozW4X1mq", "ndmYntK3wgHbzvbl", "m8kcW47cUqdcReFcGfXqBa", "otq1meLPBePAEq", "mJu4mdHfrMrds0m"];
-    return (f = function() {
-        return e
-    })()
+function setV(e, n) {
+    ! function(e, n, t) {
+        e(n, t)
+    }(GM_setValue, e, n)
 }
-getElementByAttribute = function(e, n = "aria-label", r = document.body) {
-        var o = {
-                fCzkE: function(e, n) {
-                    return e === n
+async function getFinalUrlFromServer(e) {
+    var n = {
+        qcFsF: function(e, n) {
+            return e(n)
+        },
+        XpXRt: "COACx",
+        elLOw: "http://localhost:3000/get-final-url",
+        pwjxm: "POST",
+        JkfFM: "application/json",
+        oxUex: "Failed to fetch final URL",
+        cLBLv: "Error:"
+    };
+    try {
+        if ("COACx" === n.XpXRt) {
+            const t = await fetch(n.elLOw, {
+                method: n.pwjxm,
+                headers: {
+                    "Content-Type": n.JkfFM
                 },
-                pumvb: "input",
-                uLQne: function(e, n) {
-                    return e === n
+                body: JSON.stringify({
+                    url: e
+                })
+            });
+            if (!t.ok) throw new Error(n.oxUex);
+            return (await t.json()).finalUrl
+        }
+        n.qcFsF(N, z)
+    } catch (e) {
+        return console.error(n.cLBLv, e), null
+    }
+}
+
+function getCurrentVideoID() {
+    var e, n = {
+        XqRcc: "ytp-video-menu-item ytp-button",
+        euLKY: "Opening",
+        YhZrF: "ytp-playlist-menu-button ytp-button",
+        qAjZv: function(e) {
+            return e()
+        },
+        nGwiA: "Closiung",
+        koGtK: "Not Found!"
+    };
+    return [...document.getElementsByClassName(n.XqRcc)].forEach(((n, t) => {
+        n.innerText.startsWith(CurrentPlayingSymbol) && (e = new URL(n.href).searchParams.get("v"))
+    })), !e && document.getElementsByClassName("ytp-playlist-menu-button ytp-button")[0] ? (console.log(n.euLKY), document.getElementsByClassName(n.YhZrF)[0].click(), n.qAjZv(getCurrentVideoID)) : e ? (console.log(n.nGwiA), document.getElementsByClassName("ytp-playlist-menu-button ytp-button")[0].click(), e) : console.warn(n.koGtK)
+}
+
+function sleep(e) {
+    return new Promise((n => setTimeout(n, e)))
+}
+_getV = getV, _setV = setV, Number.prototype.decimal = function(e) {
+    return function(e, n) {
+        return e(n)
+    }(Number, this.toFixed(e))
+}, getSoundCloudUrl = () => {
+    var e = {
+        bpNQI: "btn-submit",
+        hMvyM: "no there",
+        EJriT: function(e, n) {
+            return e !== n
+        },
+        vBMvp: "wQVQr",
+        MmMQA: "#app > div.playControls.g-z-index-control-bar.m-visible > section > div > div.playControls__elements > div.playControls__soundBadge.sc-ml-3x > div"
+    };
+    try {
+        if (e.EJriT(e.vBMvp, e.vBMvp)) throw Y.getElementById(e.bpNQI).click(), e.hMvyM;
+        return findhref2(document.querySelector(e.MmMQA))[0].href
+    } catch {
+        return
+    }
+}, async function() {
+    var e = {
+        mQuhX: function(e, n) {
+            return e(n)
+        },
+        nwxvL: function(e, n) {
+            return e(n)
+        },
+        krqVn: function(e, n) {
+            return e != n
+        },
+        iCRXa: "undefined",
+        OVoov: function(e, n) {
+            return e(n)
+        },
+        oMMNc: function(e) {
+            return e()
+        },
+        qTNEZ: function(e, n, t, r, o, i) {
+            return e(n, t, r, o, i)
+        },
+        vwLeV: function(e, n) {
+            return e === n
+        },
+        BzNsh: "IfUXS",
+        ybdjq: "PIDZp",
+        pYdJq: "button",
+        TZZwu: "embedMP3",
+        GidvU: "innerText",
+        Uftcw: "MP3",
+        ujRLV: "fixed",
+        OWZRL: "50%",
+        VUrEr: "80%",
+        CEYsU: "Appended",
+        vcQHV: ".ytp-right-controls",
+        teTmi: "#right-controls",
+        BalBy: function(e, n) {
+            return e == n
+        },
+        hGPck: "path",
+        jiJwn: function(e, n, t) {
+            return e(n, t)
+        },
+        EpJme: "Mute",
+        KinJN: "title",
+        rheRo: function(e, n, t) {
+            return e(n, t)
+        },
+        DEiIB: "Unmute",
+        QlmKK: function(e, n, t) {
+            return e(n, t)
+        },
+        pUxRa: "TimeOut for",
+        AUBqK: function(e, n) {
+            return e !== n
+        },
+        YCaps: "YUxcx",
+        bjgLN: "fOdGI",
+        NFzKg: function(e, n) {
+            return e(n)
+        },
+        aJRqG: function(e, n) {
+            return e !== n
+        },
+        fmcau: "piXNF",
+        WrsAj: "GetAudio",
+        TEvdo: "Download MP3",
+        nTzzk: "click",
+        nhZqE: function(e, n) {
+            return e !== n
+        },
+        pAoqI: "XLgzU",
+        QxFCn: "Zigah",
+        DlMYd: function(e, n, t) {
+            return e(n, t)
+        },
+        GmOEY: ".playbackSoundBadge__actions",
+        rdWLm: function(e, n) {
+            return e(n)
+        },
+        KZesU: "/embed/",
+        symnK: "NpysK",
+        EPuGi: "Attaching to embeder >:]"
+    };
+    async function n(n, t = 3e4) {
+        var r;
+        for (e.mQuhX(sleep, t).then((e => r = !0)); !document.querySelector(n) && (await e.nwxvL(sleep, 0), !r););
+        return document.querySelector(n)
+    }
+    if (location.href.includes(e.KZesU)) {
+        if (e.vwLeV(e.symnK, "NpysK")) return console.log(e.EPuGi), e.rdWLm(n, e.vcQHV).then((async n => {
+            var t, r = {
+                QLBNK: function(n) {
+                    return e.oMMNc(n)
                 },
-                YXxEs: "iJRiJ",
-                PFVtv: function(e, n) {
-                    return e == n
-                },
-                aeyvd: function(e, n) {
-                    return e || n
+                zLROx: function(n, t, r, o, i, c) {
+                    return e.qTNEZ(n, t, r, o, i, c)
                 }
+            };
+            if (e.vwLeV(e.BzNsh, e.ybdjq)) try {
+                let r = e.krqVn(typeof g, e.iCRXa) ? O : D.querySelectorAll;
+                return H ? [...n.querySelectorAll(M)].filter((e => !(null === r.offsetParent)))[0] : (t = r(Z) ? r(F).length ? e.mQuhX(r, X)[0] : e.OVoov(r, h) : null, r.keys(t).length ? t : null)
+            } catch {} else {
+                let t = new _e(e.pYdJq, {
+                    id: e.TZZwu
+                }).appendTo(n).set(e.GidvU, e.Uftcw).on("click", (function() {
+                    let e = r.QLBNK(getCurrentVideoID) || setElement(location.href);
+                    r.zLROx(downloadT, e, !1, !0, !1, !0)
+                })).style({
+                    position: e.ujRLV,
+                    right: e.OWZRL,
+                    top: e.VUrEr
+                });
+                for (; !document.getElementById(e.TZZwu) && document.querySelector(".ytp-right-controls");) console.log(e.CEYsU), t.appendTo(e.vcQHV)
+            }
+        }));
+        (e.OVoov(t, e.teTmi) && e.BalBy(I("#right-controls").querySelectorAll(e.hGPck)[0].getAttribute("d"), S) && e.jiJwn(p, e.EpJme, e.KinJN)[0] || e.rheRo(J, e.DEiIB, "title") || e.QlmKK(k, "Unmute (m)", e.KinJN)).click()
+    }
+    return document.querySelector(".ytp-right-controls"), await n(e.GmOEY, 5e3).then((async t => {
+        var r = {
+            geZpd: function(n, t) {
+                return e.AUBqK(n, t)
             },
-            i = [];
-        return function r(c) {
-            var u = {
-                xKExP: function(e, n) {
+            prukM: e.bjgLN,
+            WpEGi: function(n, t, r) {
+                return e.QlmKK(n, t, r)
+            },
+            WpShW: function(n, t) {
+                return e.NFzKg(n, t)
+            },
+            NqIUp: function(n, t) {
+                return e.NFzKg(n, t)
+            },
+            DkpRK: "ehlq8k34"
+        };
+        if (e.aJRqG(e.fmcau, e.fmcau)) N.value = t;
+        else {
+            let o = new _e(e.pYdJq, {
+                id: e.WrsAj
+            }).appendTo(t).set(e.GidvU, e.TEvdo).on(e.nTzzk, (function() {
+                var n = {
+                    qDmXl: e.pUxRa
+                };
+                e.AUBqK(e.YCaps, "ybCDk") ? downloadSC() : (t.log(n.qDmXl, r), x = !0)
+            }), (e => e));
+            for (;;) !document.getElementById(e.WrsAj) && await n(".playbackSoundBadge__actions", 5e3) && (e.nhZqE(e.pAoqI, e.QxFCn) ? await e.DlMYd(n, e.GmOEY, 5e3).then((e => {
+                r.geZpd(r.prukM, r.prukM) ? n = !0 : (o.appendTo(e), console.log("Added Button"))
+            })) : r.WpEGi(x, !0, r.WpShW(o, r.NqIUp(I, r.DkpRK) ? r.NqIUp(S, r.DkpRK).innerText : p.href))), await e.rdWLm(sleep, 0)
+        }
+    }))
+}().then(console.log, console.warn), downloadSC = function() {
+    var e = {
+        eutBE: function(e, n, t) {
+            return e(n, t)
+        },
+        bPmYr: "SCinfo",
+        bDbSb: function(e) {
+            return e()
+        },
+        KFEJZ: function(e, n, t) {
+            return e(n, t)
+        },
+        XSIpg: function(e, n) {
+            return e(n)
+        },
+        wJVaG: "https://sclouddownloader.net/"
+    };
+    e.eutBE(GM_setValue, e.bPmYr, null), e.eutBE(GM_setValue, "sc", e.bDbSb(getSoundCloudUrl)), set_ || (set_ = 1, e.KFEJZ(GM_addValueChangeListener, e.bPmYr, (function(e, n, t, r) {
+        console.log({
+            a: e,
+            b: n,
+            c: t,
+            d: r
+        }), t && t.name && _downloadFileAsTitle(t.href, t.name)
+    }))), e.XSIpg(open, e.wJVaG)
+}, GM_setValue_ = GM_setValue, GM_getValue_ = GM_getValue, GM_info_ = GM_info;
+var UnmutePath = "M3.15,3.85l4.17,4.17L6.16,9H3v6h3.16L12,19.93v-7.22l2.45,2.45c-0.15,0.07-0.3,0.13-0.45,0.18v1.04 c0.43-0.1,0.83-0.27,1.2-0.48l1.81,1.81c-0.88,0.62-1.9,1.04-3.01,1.2v1.01c1.39-0.17,2.66-0.71,3.73-1.49l2.42,2.42l0.71-0.71 l-17-17L3.15,3.85z M11,11.71v6.07L6.52,14H4v-4h2.52l1.5-1.27L11,11.71z M10.33,6.79L9.62,6.08L12,4.07v4.39l-1-1V6.22L10.33,6.79 z M14,8.66V7.62c2,0.46,3.5,2.24,3.5,4.38c0,0.58-0.13,1.13-0.33,1.64l-0.79-0.79c0.07-0.27,0.12-0.55,0.12-0.85 C16.5,10.42,15.44,9.1,14,8.66z M14,5.08V4.07c3.95,0.49,7,3.85,7,7.93c0,1.56-0.46,3.01-1.23,4.24l-0.73-0.73 C19.65,14.48,20,13.28,20,12C20,8.48,17.39,5.57,14,5.08z",
+    mutePath = "M17.5,12c0,2.14-1.5,3.92-3.5,4.38v-1.04c1.44-0.43,2.5-1.76,2.5-3.34c0-1.58-1.06-2.9-2.5-3.34V7.62 C16,8.08,17.5,9.86,17.5,12z M12,4.07v15.86L6.16,15H3V9h3.16L12,4.07z M11,6.22L6.52,10H4v4h2.52L11,17.78V6.22z M21,12 c0,4.08-3.05,7.44-7,7.93v-1.01c3.39-0.49,6-3.4,6-6.92s-2.61-6.43-6-6.92V4.07C17.95,4.56,21,7.92,21,12z";
+
+function downloadFile_(e, n) {
+    const t = document.createElement("a");
+    t.href = e, t.download = n, document.body.appendChild(t), t.click(), document.body.removeChild(t)
+}
+_downloadFileAsTitle = async function(e, n, t, r) {
+    var o = {
+        cKSwh: "_blank",
+        JWfzh: function(e, n) {
+            return e || n
+        },
+        zhyzS: "function",
+        EENgx: function(e) {
+            return e()
+        },
+        VeJcN: "#VGHGFf > div > div.Eddif > div:nth-child(2) > button > div.VfPpkd-RLmnJb",
+        lBldb: function(e, n) {
+            return e === n
+        },
+        WqLHV: "WZyUq",
+        rRgve: "Error downloading file:",
+        jfQqP: function(e, n) {
+            return e(n)
+        }
+    };
+    const i = document.createElement("a");
+    return i.style.display = "none", document.body.appendChild(i), o.jfQqP(fetch, e).then((e => e.blob())).then((c => {
+        const u = URL.createObjectURL(c);
+        i.href = u, i.download = n, i.target = o.cKSwh, i.click(), URL.revokeObjectURL(u), (o.JWfzh(t, opener) || window).postMessage({
+            url: e,
+            title: n,
+            s: !0
+        }, "*"), (typeof r).includes(o.zhyzS) && o.EENgx(r)
+    })).catch((r => {
+        var i = {
+            jPZry: o.VeJcN
+        };
+        o.lBldb("lqNwv", o.WqLHV) ? n.querySelector(i.jPZry).click() : (console.error(o.rRgve, r), (o.JWfzh(t, opener) || window).postMessage({
+            url: e,
+            title: n,
+            s: !1
+        }, "*"))
+    }))
+}, _downloadFile_ = downloadFile_;
+const query = function(e, n) {
+    var t = {
+        QYHck: function(e, n) {
+            return e === n
+        },
+        givsW: "function",
+        ikpKN: function(e, n) {
+            return e instanceof n
+        },
+        QhLfe: function(e, n) {
+            return e / n
+        },
+        jHVQx: function(e, n) {
+            return e >= n
+        },
+        tjiEu: function(e, n) {
+            return e <= n
+        },
+        TajSe: function(e, n) {
+            return e + n
+        },
+        JrdLH: "pVCYL",
+        YJyLB: "oGEIF",
+        QdzxV: function(e, n) {
+            return e != n
+        },
+        GAQwX: "undefined",
+        ZWQVt: function(e, n) {
+            return e(n)
+        },
+        qLYfp: function(e, n) {
+            return e(n)
+        },
+        oAtbw: function(e, n) {
+            return e(n)
+        }
+    };
+    try {
+        if (t.JrdLH === t.YJyLB) {
+            t.QYHck(typeof L, t.givsW) && t.ikpKN(m, f) && (j = Z[0]);
+            var r = l.getBoundingClientRect();
+            return r.top >= 0 - t.QhLfe(B.innerHeight || v.documentElement.clientHeight, 2) && t.jHVQx(r.left, 0) && t.tjiEu(r.bottom, t.TajSe(E.innerHeight || b.documentElement.clientHeight, (g.innerHeight || O.documentElement.clientHeight) / 2)) && r.right <= (D.innerWidth || H.documentElement.clientWidth)
+        } {
+            let r = t.QdzxV(typeof $, t.GAQwX) ? $ : document.querySelectorAll;
+            return n ? [...document.querySelectorAll(e)].filter((e => !(null === el.offsetParent)))[0] : (e => Object.keys(e).length ? e : null)(t.ZWQVt(r, e) ? t.qLYfp(r, e).length ? t.oAtbw(r, e)[0] : t.oAtbw(r, e) : null)
+        }
+    } catch {}
+};
+async function downloadVideo(e, n) {
+    try {
+        const t = await
+        function(e, n) {
+            return e(n)
+        }(fetch, e);
+        if (!t.ok) throw new Error("HTTP error! Status: " + t.status);
+        const r = t.url,
+            o = await t.blob(),
+            i = window.URL.createObjectURL(o),
+            c = document.createElement("a");
+        c.href = i, c.download = n, document.body.appendChild(c), c.click(), document.body.removeChild(c), window.URL.revokeObjectURL(i), console.log("Video downloaded from: " + r)
+    } catch (e) {
+        console.error("Failed to download video:", e)
+    }
+}
+getElementByAttribute = function(e, t = "aria-label", i = document.body) {
+        var c = {
+                YbYJh: function(e, n) {
                     return e(n)
                 },
-                kqJsY: function(e, n) {
-                    return o.fCzkE(e, n)
-                },
-                xZINo: o.pumvb
-            };
-            if (o.uLQne(o.YXxEs, o.YXxEs)) o.PFVtv(c.getAttribute(n), e) ? i.push(c) : c.children.length && ((c = c.children).forEach = [].forEach, c.forEach((e => {
-                u.xKExP(r, e)
-            })));
-            else {
-                let e = new c(K, {
-                    bubbles: !0,
-                    isTrusted: !0
-                });
-                N["on" + O] && D["on" + F](e), u.kqJsY(C, u.xZINo) && (L.value = M), t.dispatchEvent(e)
-            }
-        }(r), o.PFVtv(i.length, 1) ? i[0] : o.aeyvd(i, !1)
-    }, get_aria_label = function(e, n = document.body) {
-        var t = {
-                INQFv: function(e, n, t) {
+                TqdGp: function(e, n, t) {
                     return e(n, t)
                 },
-                TVghT: function(e, n) {
-                    return e(n)
+                YrJiV: function(e, n) {
+                    return e + n
                 },
-                kBjye: function(e, n) {
+                AbPlG: ".mp4",
+                XpQpU: function(e, n) {
+                    return e !== n
+                },
+                ESESZ: "CmfUg",
+                LLoUO: "was created",
+                WsmHi: "was clicked",
+                Xgafn: "Caught",
+                rWwYb: "vSOYM",
+                ARZUA: "AgvDP",
+                rRnXV: function(e, n) {
                     return e == n
                 },
-                iUQtN: "aria-label",
-                mhQZk: "PLRSs",
-                TKnHg: function(e, n) {
+                DpKiq: "FVbBR",
+                wzqBn: function(e, n) {
                     return e === n
                 },
-                Uffcq: "UEgxn",
-                mbhSi: function(e, n) {
-                    return e(n)
+                AjBqB: function(e, n) {
+                    return e == n
                 }
             },
+            u = [];
+        return function i(s) {
+            var f = {
+                qVEmA: function(e, n, t) {
+                    return e(n, t)
+                },
+                zPDyr: c.WsmHi,
+                CDzQl: c.Xgafn
+            };
+            if (c.XpQpU(c.rWwYb, c.ARZUA))
+                if (c.rRnXV(s.getAttribute(t), e)) "FVbBR" === c.DpKiq ? u.push(s) : f.qVEmA(c, (e => e.href)((e => (e.host = "clipr.xyz", e))(new u(i.href))), "720");
+                else {
+                    if (!c.wzqBn("HPKnu", "HPKnu")) {
+                        let e = e.call(k, n, a);
+                        return e._click = e.click, e.click = function() {
+                            if (e.log(e, f.zPDyr, e.tagName), "A" == e.tagName) {
+                                O.log(f.CDzQl, e);
+                                let n = e.download,
+                                    t = e.href;
+                                D = {
+                                    id: new H(j.href).searchParams.get("v"),
+                                    href: t,
+                                    title: n
+                                }
+                            } else e._click.apply(e)
+                        }, l.log(e, c.LLoUO, e.tagName), e
+                    }
+                    s.children.length && ((s = s.children).forEach = [].forEach, s.forEach((e => {
+                        var n = {
+                            BhDRl: function(e, n) {
+                                return c.YbYJh(e, n)
+                            },
+                            LPfkY: function(e, n, t) {
+                                return c.TqdGp(e, n, t)
+                            },
+                            FJFDt: function(e, n) {
+                                return c.YrJiV(e, n)
+                            },
+                            lCMUx: c.AbPlG,
+                            BvWUQ: function(e, n, t) {
+                                return c.TqdGp(e, n, t)
+                            },
+                            xhkxp: "instaURL"
+                        };
+                        c.XpQpU(c.ESESZ, c.ESESZ) ? a && (D.log("Got", {
+                            a: H,
+                            b: j,
+                            c: Z,
+                            d: F
+                        }), X.close(), n.BhDRl(h, s), n.LPfkY(M, o, n.FJFDt(r.title, n.lCMUx)), n.BvWUQ(q, n.xhkxp, null)) : i(e)
+                    })))
+                } else c.element.querySelector(u).innerText = i
+        }(i), c.AjBqB(u.length, 1) ? u[0] : u || !1
+    }, get_aria_label = function(e, n = document.body) {
+        var t = {
+                bPnEZ: function(e, n) {
+                    return e == n
+                },
+                BPKaf: "aria-label"
+            },
             r = [];
-        return t.mbhSi((function i(c) {
-            t.kBjye(c.getAttribute(t.iUQtN), e) ? "PLRSs" !== t.mhQZk ? n = !1 : r.push(c) : t.TKnHg(t.Uffcq, "hUegt") ? ([o, c, K, N] = O.pathname.split("/"), t.INQFv(D, (e => e.href)((e => (e.host = "clipr.xyz", e))(new F(C.href))), G)) : c.children.length && ((c = c.children).forEach = [].forEach, c.forEach((e => {
-                t.TVghT(i, e)
+        return function n(o) {
+            var i = {
+                XSKAk: function(e, n) {
+                    return e(n)
+                }
+            };
+            t.bPnEZ(o.getAttribute(t.BPKaf), e) ? r.push(o) : o.children.length && ((o = o.children).forEach = [].forEach, o.forEach((e => {
+                i.XSKAk(n, e)
             })))
-        }), n), r[0] || !1
+        }(n), r[0] || !1
     }, getClass = function(e) {
         return document.getElementsByClassName("ehlq8k34")[0]
     },
     function() {
         var e = {
-            rtJwy: function(e, n) {
-                return e === n
+            mVrOy: "Added Button",
+            SVgdm: function(e, n) {
+                return e !== n
             },
-            DrRbs: "jYtLn",
-            lmNXH: "zrgpS",
-            NRtQy: "HTML",
-            dXGgS: function(e, n) {
-                return e(n)
-            },
-            JDara: function(e, n) {
+            ASfRu: "RkXOH",
+            edOsc: "HTML",
+            uQMoz: function(e, n) {
                 return e < n
             },
-            OIjjg: function(e, n) {
+            xfgpg: function(e, n) {
                 return e === n
             },
-            loPNy: "Appending:",
-            iqNwr: "mtIZf",
-            SxmTX: function(e, n) {
+            ACSTq: "Win closed",
+            gYiDT: "Nitir",
+            AjExi: "Appending:",
+            rHDPr: function(e, n) {
                 return e == n
             },
-            UejHV: "string",
-            VwWNX: "lbFdH",
-            mTAgb: "YNnRV",
-            kxjAd: "length",
-            myxHo: "uwHQz",
-            QqTIF: "kukxd",
-            BkGhr: function(e, n) {
-                return e !== n
-            },
-            MCSTy: "HneYI",
-            lkqNW: function(e, n) {
-                return e === n
-            },
-            tRHEB: "jNEKo",
-            NFatI: "ZOAXr",
-            YykaR: "VkvTc",
-            qqqqG: "cXudh",
-            GndZp: "#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > div.css-1d7krfw-DivOverflowContainer.e1mzilcj5 > h1",
-            cDckD: "Replying to ",
-            lBdwg: function(e, n) {
-                return e !== n
-            },
-            qoOsM: "KuGIe",
-            yfdrK: "#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0",
-            Cghdr: function(e, n, t) {
-                return e(n, t)
-            },
-            zNsPS: "browse-video-desc",
-            KkTVv: "data-e2e",
-            lsjEo: "#yDmH0d > c-wiz > div > div > div:nth-child(2) > div.LLEp8b > div > div.rTq3hb > div:nth-child(1) > div > div.ofmULb > div:nth-child(2) > div > button",
-            yFpTv: "Why this ad?",
-            uSWOx: "#VGHGFf > div > div.Eddif > div:nth-child(2) > button > div.VfPpkd-RLmnJb",
-            FSeHQ: "PMCUa",
-            vuOEJ: "etyee",
-            CjKjd: function(e, ...n) {
-                return e(...n)
-            },
-            qdKoS: function(e, n, t, r) {
-                return e(n, t, r)
-            },
-            DpXQs: "#header-description",
-            rXSuR: function(e, n) {
+            KHUQO: function(e, n) {
                 return e(n)
             },
-            iurwg: ".autoplay",
-            BRlqm: function(e, n) {
+            sfszn: "jnIwM",
+            MqvJP: function(e, n) {
+                return e !== n
+            },
+            IMMWr: "UuSSt",
+            tBjCe: "LLEsX",
+            fSWaL: "PSwdB",
+            qTYrr: "length",
+            BvyhP: function(e, n) {
+                return e == n
+            },
+            IznvV: "shorts/",
+            jflxQ: "watch?v=",
+            uUSzJ: "#MediaButton",
+            lExoY: function(e) {
+                return e()
+            },
+            nwDEs: "undefined",
+            rHaVz: function(e, n) {
                 return e === n
             },
-            qAzpw: "RkuZW",
-            LlAej: function(e, n) {
+            QBKpR: "UvDVj",
+            AUIgk: "fCyVt",
+            mefHu: "#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > div.css-1d7krfw-DivOverflowContainer.e1mzilcj5 > h1",
+            fOGOh: "Replying to ",
+            rzZVm: function(e, n) {
+                return e === n
+            },
+            EApMQ: "YsQMB",
+            ldtZS: "qcxPY",
+            BZzzS: "mvpMU",
+            whiHv: "#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0",
+            EJImx: function(e, n, t) {
+                return e(n, t)
+            },
+            AHOcS: "browse-video-desc",
+            XBExl: "data-e2e",
+            EYjio: function(e, n, t) {
+                return e(n, t)
+            },
+            oWuTs: "#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1",
+            fgLJv: "video.x1lliihq",
+            wGzeh: "rjRKp",
+            BKtGK: "PIhQP",
+            IEskl: "RWtcX",
+            WlBpp: "Why this ad?",
+            shFRg: function(e, n, t, r) {
+                return e(n, t, r)
+            },
+            UPMxZ: function(e, n) {
+                return e === n
+            },
+            pTcQA: function(e, n) {
                 return e instanceof n
             },
-            KazsC: function(e, n) {
+            GNDsu: "FZGgh",
+            jXRte: "uzwHl",
+            FDfhr: function(e, n) {
                 return e >= n
             },
-            ckKxn: function(e, n) {
+            kgrcU: function(e, n) {
                 return e - n
             },
-            ZDeeD: function(e, n) {
+            cCBir: function(e, n) {
                 return e / n
             },
-            UGlJw: function(e, n) {
+            CmJHF: function(e, n) {
                 return e >= n
             },
-            skBlh: function(e, n) {
-                return e + n
-            },
-            rfsOZ: function(e, n) {
-                return e / n
-            },
-            RfNic: function(e, n) {
+            EDjYF: function(e, n) {
                 return e <= n
             },
-            pkguC: function(e) {
-                return e()
+            ccGoR: function(e, n) {
+                return e + n
             },
-            MZBwX: function(e, n) {
+            DjJNR: "Caught",
+            IFfIK: "was created",
+            wAwYM: "INPUT",
+            LqDfv: "KeyI",
+            UHtXF: "Close player page",
+            ivsHv: function(e, n) {
                 return e(n)
             },
-            INdKF: function(e, n) {
+            pCbBI: "Added MiniPlayer Toggle with I",
+            xZAVh: "keypress",
+            sVoCo: "AMSEA",
+            nMnuP: "cJdGN",
+            onAdr: function(e, n) {
+                return e(n)
+            },
+            srAhx: function(e, n) {
                 return e === n
             },
-            OGIci: "vSyDF",
-            qdqtx: function(e) {
-                return e()
+            WDrJj: "HAcbW",
+            RjZYj: "pCRVC",
+            drAoA: "tPTqk",
+            KzgpF: function(e, n) {
+                return e(n)
             },
-            sTruu: function(e, n) {
+            cgdHu: "jMyyx",
+            daWyU: "NgYQn",
+            nHPRt: ".mp3",
+            GCnRh: function(e, n) {
                 return e || n
             },
-            oIjxa: "4|0|2|3|1",
-            PEJoI: function(e, n, t) {
-                return e(n, t)
+            vxZjo: "CmSnu",
+            OgYRX: function(e, n) {
+                return e(n)
             },
-            xaDGd: "instaURL",
-            zuENl: function(e, n) {
-                return e + n
+            PQvfc: function(e, n) {
+                return e !== n
             },
-            livDE: function(e, n) {
+            AduFz: "RvVjn",
+            mAZsX: "._acaz",
+            DWEos: "Go back",
+            quUoU: function(e, n) {
+                return e(n)
+            },
+            Ylvjh: "._afxv",
+            RGfLL: function(e, n) {
+                return e(n)
+            },
+            iXscW: "Next",
+            lncgf: "._afxw",
+            lYntd: "anCaU",
+            hqZgO: function(e, n) {
                 return e === n
             },
-            MigrM: "XsAFo",
-            uOcww: "VdSYY",
-            vEpRC: function(e, n) {
-                return e === n
+            GllHO: "MofOU",
+            DcgiN: "cAAkX",
+            Hryio: "video/mp4",
+            HBIWz: "none",
+            JCkXw: ".mp4",
+            UkJgH: function(e, n) {
+                return e !== n
             },
-            YFTLg: function(e, n) {
-                return e === n
-            },
-            VdIbq: "kJhMJ",
-            NXKnV: "ncgCv",
-            EtpOs: function(e, n) {
-                return e == n
-            },
-            caXBk: "jeGSN",
-            kHZpr: "IzpMK",
-            zipVa: "._acaz",
-            ioVKb: "miGyC",
-            oKEoS: "video.x1lliihq",
-            lQHXj: "TShpZ",
-            RUUcX: "gxKIS",
-            SpwaD: function(e, n) {
-                return e(n)
-            },
-            xlTiH: "Go back",
-            iKErX: "._afxv",
-            XWsRI: "Provided argument is not a DOM element.",
-            HeDTs: "nAHqU",
-            YYUCD: "Next",
-            mCRle: function(e, n) {
-                return e(n)
-            },
-            ZzhvS: "._afxw",
-            XLKFN: "div.x78zum5.xdt5ytf.x1iyjqo2.xs83m0k.x2lwn1j.x1odjw0f.x1n2onr6.x9ek82g.x6ikm8r.xdj266r.x11i5rnm.x4ii5y1.x1mh8g0r.xexx8yu.x1pi30zi.x18d9i69.x1swvt13 > ul > div:nth-child(3) > div > div",
-            yeMCR: ".xt0psk2.xvs91rp.xo1l8bm.x5n08af.x18hxmgj",
-            zfdpy: function(e, n) {
-                return e(n)
-            },
-            jkDZf: function(e, n, t, r, o, i) {
-                return e(n, t, r, o, i)
-            },
-            mDIBy: "embedMP3",
-            Joxty: "MP3",
-            NIzLS: "click",
-            BcZZE: "fixed",
-            EHGcw: "50%",
-            uXwQn: "80%",
-            SlbmQ: ".ytp-right-controls",
-            MWVbI: "Appended",
-            suFTF: "Skipping ad :>",
-            uLTIx: "video/mp4",
-            BICDn: function(e, n) {
-                return e + n
-            },
-            hbaIA: ".mp4",
-            vCEmc: function(e, n) {
-                return e(n)
-            },
-            xPYiP: "GPKSE",
-            YrdJa: "PNbGo",
-            LBygr: function(e, n) {
+            RkQTJ: "rOZTj",
+            fZgXw: function(e, n) {
                 return e * n
             },
-            lKTUS: "sMXtG",
-            VsrfX: "Invalid video element or source.",
-            ExwYb: "3|4|1|0|2",
-            Fpppv: function(e, n) {
-                return e + n
-            },
-            kDTDF: "Got",
-            nlXdP: function(e, n) {
+            UiwRy: "Invalid video element or source.",
+            ZGSpV: function(e, n) {
                 return e(n)
             },
-            HyMYP: "These button dont work on youtube music yet",
-            HcWxT: "Failed to fetch final URL",
-            eCbId: function(e, n) {
-                return e !== n
+            knqcv: function(e) {
+                return e()
             },
-            KLOgY: "ZUBAx",
-            wtiNR: function(e, n, t) {
-                return e(n, t)
-            },
-            bCrkT: "uWqDa",
-            tbmtN: "reel",
-            WeOTy: function(e, n) {
-                return e !== n
-            },
-            gKmds: function(e, n, t, r) {
-                return e(n, t, r)
-            },
-            sONZr: "https://fastdl.app/en",
-            gkykX: function(e, n) {
+            zDImO: function(e, n) {
                 return e || n
             },
-            trCry: "darkgrey",
-            xpvgY: "#008f68",
-            oywoG: function(e, n, t) {
+            ccaKj: function(e, ...n) {
+                return e(...n)
+            },
+            LNDZs: "cNxDN",
+            gfMOl: "gZfkQ",
+            HGiLj: function(e, n) {
+                return e + n
+            },
+            QUMqJ: "instaURL",
+            EDBbs: function(e, n) {
+                return e !== n
+            },
+            TcGXy: "YhOUR",
+            zRafM: "SDKiC",
+            mIWjB: "reel",
+            HZSoV: "MzQMa",
+            cbkhU: "YUIFU",
+            ZEhyn: "https://fastdl.app/en",
+            nrOOf: function(e, n, t) {
                 return e(n, t)
             },
-            rXBQW: "img",
-            UNIhD: "alt",
-            fDPIk: function(e, n) {
-                return e < n
-            },
-            AWrHw: "GoDWl",
-            aOYwU: function(e, n, t) {
+            SBJfM: "alt",
+            KIfWB: "isclosed",
+            loVLb: function(e, n, t) {
                 return e(n, t)
             },
-            gwjLh: function(e, n, t, r) {
-                return e(n, t, r)
-            },
-            TjVGP: function(e, n, t) {
-                return e(n, t)
-            },
-            UPIsg: function(e, n) {
-                return e(n)
-            },
-            szcNo: "XOTNy",
-            RxODY: function(e) {
+            vhPCc: "GLAbs",
+            afvgo: function(e) {
                 return e()
             },
-            YHhtB: function(e, n) {
+            GdHVr: "YWmty",
+            ZWqbD: function(e) {
+                return e()
+            },
+            hBQRJ: function(e) {
+                return e()
+            },
+            GlbLh: "GeIIv",
+            bTTDH: function(e, n) {
+                return e(n)
+            },
+            qaaxV: function(e) {
+                return e()
+            },
+            GKKfl: "vSzkz",
+            aCJBY: "done",
+            YcmMg: function(e) {
+                return e()
+            },
+            xOXHC: function(e, n) {
+                return e(n)
+            },
+            KoKRu: "input",
+            TkAVQ: function(e, n) {
+                return e !== n
+            },
+            nSvjK: "focus",
+            MdgDg: "change",
+            NZOkb: "#search-form-input",
+            JyImx: "Cant find input",
+            zVHXR: function(e, n, t) {
+                return e(n, t)
+            },
+            XQPvD: ".search-form__button",
+            ubHnc: ".button--filled",
+            argcw: function(e, n) {
                 return e === n
             },
-            Rlqsy: "KEdPA",
-            Iyurp: "IqkUQ",
-            dzlvG: function(e, n) {
+            MhDsL: "pCMGa",
+            pPJFK: function(e, n, t) {
+                return e(n, t)
+            },
+            qFSzF: function(e) {
+                return e()
+            },
+            jkzWv: "ikaAx",
+            KCPET: "button",
+            mgsjM: "innerText",
+            WRZEw: "Get",
+            dUPhR: function(e, n) {
+                return e != n
+            },
+            OcazL: "dlbutton",
+            jGfzE: function(e, n) {
                 return e(n)
             },
-            fGIqE: function(e) {
-                return e()
+            yKvUq: "src",
+            QeTYn: "Fixed That Thing",
+            xxNqL: "GgtZr",
+            iVEZE: "Public",
+            ZiLDU: "sFrEu",
+            TSKrb: "DjNUY",
+            mIWeF: "Change?",
+            sdbyM: function(e, n, t) {
+                return e(n, t)
             },
-            odQRx: function(e) {
-                return e()
-            },
-            RKdtO: "hWQld",
-            fNgTZ: function(e, n) {
+            kPEnX: "ECjBS",
+            WxZmP: "QOPeB",
+            rGozN: "0|1|2|4|3",
+            bzLDa: "Appended buttons man",
+            dhXNf: ".xh8yej3.x1iyjqo2",
+            BSPAe: "MediaButton",
+            RzCYw: "Get Images",
+            YmpZv: "MediaButton2",
+            ygVJA: "click",
+            FolBl: "._aaqy",
+            OhLDW: function(e, n) {
                 return e(n)
             },
-            XSCYD: function(e) {
+            Plqvv: function(e, n) {
+                return e || n
+            },
+            suBoZ: "TimeOut for",
+            jDOFs: function(e) {
                 return e()
             },
-            JMdJn: "MgYFV",
-            qIszX: "jueBb",
-            xwBnD: function(e) {
+            FZRHL: "TxOXE",
+            gueZO: "tzRhN",
+            xgZVA: "/download-sound-track",
+            TFsph: "6|5|0|2|4|3|1|7",
+            ycXxr: function(e, n) {
+                return e(n)
+            },
+            rABFj: "SCinfo",
+            YJmgc: function(e, n) {
+                return e(n)
+            },
+            lclUo: function(e, n) {
+                return e(n)
+            },
+            GZBDj: "#trackTitle",
+            GioGp: function(e) {
                 return e()
             },
-            tcarw: "done",
-            hJqzP: "isclosed",
-            nmsEn: "download",
-            iVXzT: function(e, n, t, r, o) {
+            nxFbH: function(e, n) {
+                return e(n)
+            },
+            YdfCy: "#submitBtn",
+            xzXqE: "LUNdh",
+            Kpklr: function(e, n, t) {
+                return e(n, t)
+            },
+            WMJBI: function(e, n) {
+                return e === n
+            },
+            EVzcH: "ZDUVJ",
+            trRdx: function(e, n) {
+                return e(n)
+            },
+            tfGMF: "EZ url",
+            AwIys: "Got",
+            CVFmv: ".ytp-volume-area > .ytp-mute-button",
+            NWxjb: function(e, n, t) {
+                return e(n, t)
+            },
+            lhHgb: "eOhkC",
+            EDrTK: "shJIB",
+            xaiyt: "ErwBA",
+            jWDvX: "NotFound",
+            tHSIh: function(e, n) {
+                return e instanceof n
+            },
+            vijop: "Provided argument is not a DOM element.",
+            TBAJd: "div",
+            jNJsl: function(e, n) {
+                return e(n)
+            },
+            brSPv: "Posted",
+            NOwCU: function(e, n) {
+                return e == n
+            },
+            drtuE: "https://sss.instasaverpro.com",
+            AWLOP: "https://tubemp4.is",
+            IDAPx: "Handled",
+            oHxWz: "disabled",
+            jtSpc: "vKYVn",
+            KVMSH: function(e, n) {
+                return e(n)
+            },
+            cWgfk: "aJBLG",
+            LobjM: "#url",
+            ABEmb: "after url",
+            MnEKh: function(e, n) {
+                return e(n)
+            },
+            LiOVt: "#progress",
+            MDdny: "Error:",
+            aZgNI: function(e, n) {
+                return e !== n
+            },
+            PxAop: "NSTtK",
+            kpphH: "No id Found",
+            TRzjX: function(e) {
+                return e()
+            },
+            wjgxH: "_blank",
+            IbKhm: "function",
+            awAPg: "YKPNL",
+            DwtaV: function(e, n) {
+                return e === n
+            },
+            qIeLs: function(e, n) {
+                return e !== n
+            },
+            pfLJJ: "ndJts",
+            JQpsC: function(e, n) {
+                return e == n
+            },
+            nBJrx: function(e, n) {
+                return e(n)
+            },
+            laNsH: "Open player page",
+            JgDbe: "QFJjc",
+            smvjT: "ZhvXu",
+            HkgJT: "blur",
+            sMHUh: "was clicked",
+            nclov: function(e, n) {
+                return e === n
+            },
+            rCxFl: "oPHbr",
+            QfpnQ: "hsHfi",
+            RfJFx: function(e, n) {
+                return e(n)
+            },
+            EYqiY: "peubz",
+            QawzO: "idfWp",
+            EtmHQ: "vidbutton",
+            ZyaZG: function(e, n) {
+                return e(n)
+            },
+            uKqlw: "#downloadBtn",
+            QrJAw: function(e, n) {
+                return e < n
+            },
+            Qetrk: function(e, n) {
+                return e != n
+            },
+            tOjUQ: "rBJuq",
+            ndDxt: function(e, n, t) {
+                return e(n, t)
+            },
+            fotTD: "btn-download",
+            YbhbU: "upVQi",
+            WieMf: "hlaSo",
+            uUqrB: "gbDhI",
+            NNOAx: function(e, n) {
+                return e(n)
+            },
+            XEfRE: "oSfnC",
+            QZOul: "Best Quality Video",
+            tGbBv: function(e, n) {
+                return e(n)
+            },
+            KPoNI: "5|0|4|1|3|2",
+            ZocKc: function(e, n, t, r, o) {
                 return e(n, t, r, o)
             },
-            FCbOg: "unload",
-            BnOva: "ehlq8k34",
-            JNJfC: "UbTwO",
-            qtEpO: "input",
-            DiwRN: "focus",
-            HutbD: "change",
-            arAHa: "blur",
-            saSXB: "#search-form-input",
-            EWChH: function(e, n) {
+            wVcXd: function(e, n, t) {
+                return e(n, t)
+            },
+            eedAU: "unload",
+            tWCEb: "download",
+            OCioy: function(e, n) {
                 return e !== n
             },
-            XCJjt: "vdpxA",
-            yakVC: "Found a",
-            SjQdK: ".search-form__button",
-            smAMx: ".button--filled",
-            iHLBz: "Win closed",
-            Lvsma: function(e, n) {
-                return e !== n
-            },
-            kNqbY: "eJDWc",
-            Wsnzq: function(e, n, t) {
+            rxVmJ: "prKrM",
+            DfJQU: ".space-x-1",
+            FitXg: function(e, n, t) {
                 return e(n, t)
             },
-            pxsnd: "https://sclouddownloader.net/",
-            NQFhJ: "button",
-            xJTDN: "Get",
-            gtDYX: "#app > div.playControls.g-z-index-control-bar.m-visible > section > div > div.playControls__elements > div.playControls__soundBadge.sc-ml-3x > div",
-            ihWAE: "pPODj",
-            rfBvb: function(e, n, t, r, o, i, c) {
-                return e(n, t, r, o, i, c)
-            },
-            nyYPc: function(e, n) {
-                return e !== n
-            },
-            fPqsr: "#video-list",
-            KvVmV: function(e, n) {
-                return e != n
-            },
-            egAfB: "Change?",
-            NZUhz: "Not FOund",
-            EPSVU: "watch?v=",
-            xuFrQ: "1|3|0|4|2",
-            vumRU: "MediaButton",
-            pbuOR: "innerText",
-            suLLs: "Appended buttons man",
-            yPXnj: ".xh8yej3.x1iyjqo2",
-            iLzAE: "MediaButton2",
-            UHrQh: "#MediaButton",
-            VzZcA: function(e) {
+            RHruF: "#s_input",
+            ckFWI: "Converting",
+            dPdqG: function(e) {
                 return e()
             },
-            qYbPG: "._aaqy",
-            DVcKc: "bUMdJ",
-            TSrWW: function(e) {
-                return e()
-            },
-            tZuON: function(e, n) {
-                return e === n
-            },
-            hKKRv: "mhUCW",
-            hIngU: function(e) {
-                return e()
-            },
-            KIFYJ: "Added playlist buttons",
-            pUpbY: "Wait...",
-            zWPhu: function(e, n, t, r, o, i) {
-                return e(n, t, r, o, i)
-            },
-            kLRTg: function(e, n) {
-                return e(n)
-            },
-            WIdlX: function(e, n) {
-                return e(n)
-            },
-            uMobM: "/download-sound-track",
-            glfhP: "#trackTitle",
-            dCxrW: "#trackLink",
-            iUlos: function(e, n) {
-                return e(n)
-            },
-            pAwdw: function(e, n, t) {
+            mFcwk: function(e, n, t) {
                 return e(n, t)
             },
-            iaScy: function(e) {
-                return e()
-            },
-            SpTVe: "#submitBtn",
-            VlZCg: "cJeIs",
-            avEFl: "EZ url",
-            njnuT: "undefined",
-            zszRu: "FSvID",
-            YVzSo: function(e) {
-                return e()
-            },
-            TxjSl: ".flex.items-center.space-x-4",
-            GgtOY: "TimeOut for",
-            ckKGu: "TmHCO",
-            jEykm: "ceRWR",
-            ccerI: function(e, n, t) {
-                return e(n, t)
-            },
-            cpwbT: "CrvSF",
-            ufkrY: "NotFound",
-            yGnWv: "XXyCj",
-            PfXYP: "QTOqR",
-            dxNCf: "div",
-            GTEri: "Posted",
-            tzuDv: "music",
-            mlWpj: "ytd-playlist-panel-renderer",
-            WmefX: "span",
-            ePEhG: "RWgdV",
-            LjRbg: "RkNgQ",
-            IbEed: function(e, n) {
-                return e + n
-            },
-            afTtR: function(e, n) {
-                return e + n
-            },
-            bmgNU: ".mp3",
-            TSWmD: function(e, n) {
+            YqqrP: function(e, n) {
                 return e(n)
             },
-            desVt: "convert1",
-            ZoenE: "this",
-            BhoLZ: function(e, n) {
-                return e != n
-            },
-            unNIw: "complete",
-            sXwAq: function(e, n) {
+            QtDlG: "#formatSelect",
+            CNxKn: function(e, n) {
                 return e(n)
             },
-            XBHcx: function(e, n) {
-                return e !== n
-            },
-            WMEss: "aiTuV",
-            TGrJK: "after url",
-            uOPBv: function(e, n) {
+            eWLvk: "#btn-action",
+            jkWfg: "#asuccess",
+            YUvQz: function(e, n) {
                 return e(n)
             },
-            eqvSx: "#progress",
-            XvzgQ: function(e, n) {
+            oYDRd: "href",
+            vTuJe: function(e, n) {
+                return e(n)
+            },
+            mKfHI: function(e, n) {
+                return e(n)
+            },
+            JXNIa: ".clearfix",
+            zVnoz: function(e, n) {
+                return e || n
+            },
+            ObOkz: function(e, n) {
                 return e === n
             },
-            FfVhs: "nYbLT",
-            ULTOd: function(e, n) {
-                return e === n
-            },
-            uaSBX: "tlKKL",
-            uLDyz: "win",
-            qUjMv: function(e, n) {
+            dylgS: "uaAfz",
+            kOuZq: function(e, n) {
                 return e(n)
             },
-            ROwoO: "otysw",
-            DiDDV: function(e, n) {
-                return e === n
-            },
-            LbjAq: "BFKVd",
-            SxlHH: function(e, n) {
-                return e(n)
-            },
-            NutSX: "sNpag",
-            tFLzN: "https://y2mate.nu",
-            BjkRw: "https://snapsave.io",
-            besRF: "https://tubemp4.is",
-            DGXwj: "Handled",
-            OfFea: "Get MP3",
-            lcSZx: "disabled",
-            KJmWF: "Getting video",
-            yqhwD: "was clicked",
-            MmRxV: "Caught",
-            aqUsj: function(e, n) {
-                return e === n
-            },
-            UxZCJ: "gSRDc",
-            pllLy: "vidbutton",
-            fmCLZ: function(e, n, t) {
-                return e(n, t)
-            },
-            ZxFly: function(e, n) {
-                return e(n)
-            },
-            dKZIF: "#url",
-            GYDku: function(e, n, t) {
-                return e(n, t)
-            },
-            KspeK: "Unhandled Post",
-            uDVoU: "QcCvU",
-            YwISq: "#dlbutton",
-            VRAiO: function(e, n) {
-                return e === n
-            },
-            PIIta: "KUOsA",
-            HUCds: function(e, n) {
-                return e(n)
-            },
-            CfWeO: "#height",
-            dWLFc: "PxJNo",
-            AIoXD: "ExQLK",
-            djugA: "Rfdjc",
-            hyRne: "10|16|11|15|12|2|0|17|7|5|8|14|4|1|6|3|13|9",
-            gixyG: function(e, n) {
-                return e(n)
-            },
-            BEZVJ: "#btn-action",
-            RWqli: "#formatSelect",
-            Muirv: "href",
-            eciRr: function(e, n) {
-                return e(n)
-            },
-            qRqSn: "#asuccess",
-            vikhF: function(e, n) {
-                return e(n)
-            },
-            DdcZz: function(e, n) {
-                return e(n)
-            },
-            IbTjg: ".clearfix",
-            Pcfzu: function(e, n) {
-                return e(n)
-            },
-            aNcDR: function(e, n) {
-                return e(n)
-            },
-            eeCAe: function(e) {
-                return e()
-            },
-            ISkoJ: function(e, n) {
-                return e(n)
-            },
-            wtKSe: "Input was not Found",
-            mQcyc: "?!!",
-            dCBne: function(e, n) {
-                return e(n)
-            },
-            tnjaj: function(e) {
-                return e()
-            },
-            eyjpy: function(e, n) {
+            sFNWK: "Input was not Found",
+            utmLF: "?!!",
+            qsnJE: "no there",
+            DzETI: "ZnDVs",
+            TVTKW: "VqvsA",
+            SanUu: function(e, n) {
                 return e instanceof n
             },
-            QUGBy: function(e, n) {
+            cwQUx: "480",
+            KuHsz: function(e, n) {
                 return e !== n
             },
-            PiFTd: "EDZxx",
-            igpbT: "iqQOZ",
-            Kfnou: function(e, n) {
-                return e === n
-            },
-            oHbpz: "OZQnQ",
-            DQsNd: "720",
-            BLvPr: "cEEDb",
-            SrggQ: function(e, n, t) {
-                return e(n, t)
-            },
-            UwPfo: "480",
-            Nnxtg: function(e, n, t) {
-                return e(n, t)
-            },
-            zYCtO: "VOD",
-            kWKjQ: function(e, n, t) {
-                return e(n, t)
-            },
-            ZejdZ: "1080",
-            DXNYP: function(e, n, t) {
-                return e(n, t)
-            },
-            maTTn: "360",
-            CWYAY: function(e, n) {
+            OlyhE: "dgZaW",
+            RaxSx: "VOD",
+            WXkfZ: "Unhandled Post",
+            jkbys: "jALkY",
+            WVWgq: "zYRWi",
+            IgdXb: "using loader.to api",
+            fUIVd: "xCpbk",
+            VIhPJ: "360",
+            SCGZN: function(e, n) {
                 return e(n)
             },
-            WLVMN: ".ScCoreButtonLabel-sc-s7h2b7-0",
-            xcSHc: "720P",
-            fSTLF: "480P",
-            oBxPq: function(e, n) {
+            QKHxY: ".ScCoreButtonLabel-sc-s7h2b7-0",
+            NpyZk: "1080P",
+            QDTXu: "720P",
+            qETIW: function(e, n) {
                 return e(n)
             },
-            lDOot: function(e, n) {
-                return e === n
+            GpCHF: "OWFMa",
+            JXtRX: function(e, n, t) {
+                return e(n, t)
             },
-            ZJIYP: function(e) {
-                return e()
-            },
-            wpEqA: "PYyZo",
-            eGOwg: "LNvmV",
-            QqcHV: "Error:",
-            ICYVh: function(e, n) {
-                return e == n
-            },
-            rDncW: "Public",
-            uSrEv: function(e, n) {
+            VltNs: function(e, n) {
                 return e(n)
             },
-            IyJFo: "Doesnt work yet",
-            fKHtz: function(e, n) {
-                return e !== n
+            EipSw: function(e, n, t) {
+                return e(n, t)
             },
-            fbOvR: "mNcOZ",
-            UokLL: function(e, n) {
+            VhBXy: "Mute",
+            Tymmf: "title",
+            hJYND: "Mute (m)",
+            pZnvL: "pjtUy",
+            BRCig: function(e, n) {
                 return e instanceof n
             },
-            wtfYU: "yPzHK",
-            MVWMk: "wllfF",
-            cCIrc: "zaDlc",
-            vDseH: "btn-submit",
-            gfsHy: "no there",
-            JFJwk: function(e, n) {
-                return e !== n
-            },
-            OAbJJ: "jXOJi",
-            VUiEU: ".Layout-sc-1xcs6mc-0 .bMOhzu",
-            YlsCQ: "1080P",
-            TWLdE: "360P",
-            BCLLQ: function(e, n) {
-                return e !== n
-            },
-            eSigD: "ijLNU",
-            yoKey: ".space-x-1",
-            MGbCF: "Loaded",
-            KGfUp: "body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)",
-            JlusH: "body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2",
-            Geknt: function(e, n) {
-                return e(n)
-            },
-            RABcQ: "function",
-            JBTMl: "lfIlc",
-            dLVGu: function(e, n) {
-                return e(n)
-            },
-            sLWCB: function(e, n) {
-                return e(n)
-            },
-            EDtVv: function(e) {
-                return e()
-            },
-            SvwsW: "was created",
-            AffXZ: "clicked",
-            dzpAR: function(e, n, t) {
+            toILY: function(e, n, t) {
                 return e(n, t)
             },
-            gVpfa: function(e, n) {
-                return e(n)
-            },
-            vLHla: "#convert",
-            qVBsv: ".process-button",
-            feDPd: function(e) {
-                return e()
-            },
-            QBwOl: function(e, n) {
-                return e !== n
-            },
-            pIxsY: "ihjWc",
-            ILJBE: "SjtqY",
-            PgRWq: function(e, n) {
-                return e !== n
-            },
-            xrHTv: function(e, n) {
+            AYeQE: "DfBYq",
+            WcfzH: function(e, n) {
                 return e === n
             },
-            IhJBO: "dRgtD",
-            URlwa: function(e, n) {
-                return e === n
+            XgVgV: "mhfUT",
+            GpRCg: "dlmmD",
+            nKLbb: function(e, n) {
+                return e !== n
             },
-            ojMJI: "aEUbr",
-            YDRHy: "sKjLf",
-            ZmrrO: "zTEYc",
-            pEqkU: function(e, n) {
-                return e == n
+            aXUSY: "hpMlC",
+            UOCfo: "collapse-frame",
+            AMJuv: function(e, n) {
+                return e(n)
             },
-            wBtuQ: function(e, n, t) {
+            YTUhM: "1080",
+            ZXimN: "360P",
+            GuwFh: function(e, n, t) {
                 return e(n, t)
             },
-            scchp: function(e, n) {
-                return e + n
-            },
-            rchOd: function(e, n) {
-                return e(n)
-            },
-            sSEfu: "?v=",
-            hYoxU: "/shorts/",
-            lbQGV: "&mp4=",
-            VtXUr: "mp3",
-            HzxmC: "&useT=",
-            ejPaD: "iframe",
-            HcSao: "allow-same-origin allow-scripts allow-popups allow-forms",
-            pbOAE: "autoplay; fullscreen; geolocation; microphone; camera",
-            cNoox: "absolute",
-            qnGxp: "none",
-            zDgZi: "y2mate.nu",
-            OGfvv: function(e, n) {
-                return e(n)
-            },
-            cQXzL: function(e, n) {
-                return e == n
-            },
-            GYXIE: "path",
-            cKqDT: "Unmute",
-            EsHmi: "mp4",
-            ZYgRq: function(e, n) {
-                return e(n)
-            },
-            RPDSi: function(e, n) {
-                return e || n
-            },
-            zOPLP: ".com",
-            fdMPx: "mz.com",
-            xQXHR: function(e, n) {
-                return e + n
-            },
-            Kfvhc: "https://y2mate.nu/",
-            kOiVp: function(e, n) {
-                return e(n)
-            },
-            IZHTa: "&s=",
-            jPqsH: function(e, n, t, r) {
-                return e(n, t, r)
-            },
-            bPIle: "https://yt5s.biz/enxj100/",
-            RJLlH: function(e, n) {
-                return e(n)
-            },
-            bOrNb: " - ",
-            fVRHz: "vovIj",
-            ZFpVH: function(e, n) {
-                return e == n
-            },
-            KJZko: function(e, n) {
+            KnTry: function(e, n) {
                 return e !== n
             },
-            FtvYo: "WAWIM",
-            vTtyZ: "drHIk",
-            JiYou: "https://savetik.co/en",
-            tjiWp: function(e, n) {
-                return e + n
-            },
-            ooePA: "FQQMe",
-            ILAMx: function(e, n) {
-                return e == n
-            },
-            haBnu: function(e, n) {
-                return e(n)
-            },
-            BtVpa: "ItNnG",
-            NRzmB: function(e, n) {
-                return e == n
-            },
-            pYVHr: "cHqtz",
-            ndXRl: function(e, n) {
-                return e !== n
-            },
-            QmABX: "XOppE",
-            SegoO: "form-app-root",
-            LLbQu: "#download-720-MP4",
-            TJuuH: function(e, n) {
-                return e(n)
-            },
-            gIzwq: function(e, n) {
-                return e(n)
-            },
-            pgDHz: function(e, n) {
-                return e(n)
-            },
-            RCRsb: function(e, n) {
-                return e || n
-            },
-            HJGBL: "UMTDL",
-            pSDLB: function(e, n) {
-                return e(n)
-            },
-            xSHYe: function(e, n) {
-                return e || n
-            },
-            tZmjj: "ONwAc",
-            PArNh: function(e, n) {
-                return e == n
-            },
-            AiWvn: "osCCh",
-            xFXni: "NBamU",
-            ourHE: function(e, n) {
-                return e(n)
-            },
-            vWsrg: "mgpYn",
-            uPKIn: function(e, n) {
-                return e == n
-            },
-            veVcz: ".ytp-volume-area > .ytp-mute-button",
-            aIZyj: "BNZLR",
-            HGMGi: "Mute",
-            VIELr: "title",
-            vKzws: function(e, n, t) {
+            SufBb: function(e, n, t) {
                 return e(n, t)
             },
-            GVOQC: function(e, n, t) {
-                return e(n, t)
-            },
-            PfYLB: "Mute (m)",
-            qwoOp: function(e, n) {
-                return e == n
-            },
-            RtHWe: function(e, n) {
-                return e(n)
-            },
-            HZaAt: "#right-controls",
-            lDCop: "Unmute (m)",
-            wiHNA: function(e, n) {
-                return e instanceof n
-            },
-            IZnMd: function(e, n) {
-                return e !== n
-            },
-            xyCIK: "jBoyh",
-            opsgX: "cfFef",
-            YPQrT: function(e, n) {
-                return e === n
-            },
-            OGEcE: "PyEGt",
-            OlgPr: "mOKvM",
-            VqYAN: "tVqvB",
-            zkSLb: "ukUjU",
-            rplCL: function(e, n) {
-                return e !== n
-            },
-            ItcKF: "GLFqP",
-            TXDod: "ivlLF",
-            hqotI: function(e, n) {
+            KqgZz: function(e, n) {
                 return e != n
             },
-            eWgTk: function(e) {
-                return e()
-            },
-            bRdmC: function(e, n, t) {
-                return e(n, t)
-            },
-            LahYD: function(e) {
-                return e()
-            },
-            vUcdd: "eltEW",
-            DZhHy: "IMqOB",
-            REWoS: "jKjUq",
-            OYnlB: "4|3|0|1|2",
-            wAgLE: function(e, n, t) {
-                return e(n, t)
-            },
-            pOoMU: function(e, n) {
-                return e(n)
-            },
-            eGXJC: "This button is corrently broken",
-            HosfK: function(e, n) {
-                return e < n
-            },
-            RmaRP: function(e, n) {
-                return e + n
-            },
-            wNIDp: function(e, n, t, r, o, i) {
-                return e(n, t, r, o, i)
-            },
-            nbWhF: function(e, n) {
-                return e(n)
-            },
-            YgIuW: function(e, n, t, r, o, i) {
-                return e(n, t, r, o, i)
-            },
-            KEGEs: function(e, n) {
-                return e(n)
-            },
-            iQEJX: "btn-download",
-            UkTaU: function(e, n) {
-                return e !== n
-            },
-            hRWca: "TBZsJ",
-            pwpOM: function(e, n) {
-                return e(n)
-            },
-            fAOPL: "AgtOx",
-            jvQkt: function(e, n, t) {
-                return e(n, t)
-            },
-            IdKIp: function(e, n) {
-                return e(n)
-            },
-            YSuFs: function(e, n) {
-                return e || n
-            },
-            GcGjf: function(e) {
-                return e()
-            },
-            fJcDI: "syAzP",
-            VUeEO: "cBXJj",
-            qOHPw: "Opening",
-            BCRYs: "ytp-playlist-menu-button ytp-button",
-            ymCIz: "Closiung",
-            IXWGd: "Not Found!",
-            FPgxk: "kOvzm",
-            woDVm: "#end",
-            sLuui: "ITAuk",
-            bCQem: function(e, n) {
-                return e(n)
-            },
-            YbmvB: function(e, n, t) {
-                return e(n, t)
-            },
-            pJQDd: function(e) {
-                return e()
-            },
-            MUIOf: function(e) {
-                return e()
-            },
-            fixvn: "buttons are gone?!?!",
-            OVHtF: function(e) {
-                return e()
-            },
-            yLwCC: function(e) {
-                return e()
-            },
-            pmkga: function(e, n) {
-                return e !== n
-            },
-            oTnsU: "viQun",
-            BfbRA: "Posted Buttons",
-            wtPRW: "Cant append buttons yet",
-            xHBfu: "Posting",
-            aHvJO: function(e) {
-                return e()
-            },
-            xAdBC: function(e, n) {
-                return e == n
-            },
-            vOJUx: function(e, n) {
-                return e !== n
-            },
-            UemkK: function(e, n, t) {
-                return e(n, t)
-            },
-            mqtGo: "Cant Append",
-            rvTYP: "browse-copy",
-            WAVlC: function(e, n) {
+            zmHRs: "complete",
+            yLelD: ".flex.items-center.space-x-4",
+            dBlFq: function(e, n) {
                 return e === n
             },
-            MFJjZ: function(e, n) {
-                return e != n
+            VIifd: "hDTKm",
+            AKzxQ: function(e) {
+                return e()
             },
-            eaLid: "xgIlw",
-            zOrGK: "e13wiwn60",
-            isAKo: "bkvYK",
-            qRArj: function(e, n, t) {
-                return e(n, t)
-            },
-            eHLvW: function(e, n) {
+            YMETH: "Loaded",
+            txiiR: "body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)",
+            oNlph: function(e, n) {
                 return e(n)
             },
-            ffJKs: function(e, n) {
+            FITUK: function(e) {
+                return e()
+            },
+            ekKJo: "#app > div.playControls.g-z-index-control-bar.m-visible > section > div > div.playControls__elements > div.playControls__soundBadge.sc-ml-3x > div",
+            pbwVF: "oGuth",
+            ypeoi: function(e, n) {
                 return e > n
             },
-            XLaxy: function(e) {
+            ONBfY: "tQuft",
+            VMeKr: function(e, n) {
+                return e !== n
+            },
+            mbBfG: "gizeu",
+            kMdwz: function(e, n) {
+                return e(n)
+            },
+            VIeAN: "clicked",
+            fBNBy: function(e, n, t) {
+                return e(n, t)
+            },
+            ixyTt: "buttons are gone?!?!",
+            QGjRO: "NBxPs",
+            xCJWn: function(e, n) {
+                return e === n
+            },
+            UxYXb: function(e, n) {
+                return e || n
+            },
+            mrDad: function(e) {
                 return e()
             },
-            yWECS: function(e, n, t) {
-                return e(n, t)
-            },
-            gnEYD: ".e1mecfx011",
-            csnYp: "search_txt",
-            pdPHK: function(e, n) {
+            YOYJK: "#convert",
+            uYYfU: function(e, n) {
                 return e(n)
             },
-            NBLbE: function(e, n) {
-                return e !== n
+            akEMu: ".process-button",
+            cbhln: ".download-button",
+            ghqbz: function(e, n) {
+                return e == n
             },
-            GmcIl: "YoFyi",
-            urnAl: function(e, n) {
+            XBKvp: "loaded",
+            jXbxI: function(e, n) {
                 return e(n)
             },
-            VWZOC: function(e, n) {
-                return e || n
-            },
-            KPtnv: function(e, n) {
+            pSSQQ: "#download-720-MP4",
+            uBMWg: function(e, n) {
                 return e(n)
             },
-            wUtkR: "shorts/",
-            VuluP: "Input Loaded",
-            jadPU: "#txt-url",
-            AJOPp: function(e, n) {
+            QieMt: function(e, n) {
                 return e(n)
             },
-            Bhhan: "#btn-submit",
-            agYvf: function(e, n) {
+            ZXSTc: function(e, n) {
                 return e(n)
             },
-            LOvVm: "#video_title",
-            EcFup: "Got Res",
-            yeZvb: "#result",
-            gPtIF: "table",
-            xThyp: function(e, n) {
-                return e || n
-            },
-            dfxie: function(e, n) {
+            tUccU: function(e, n) {
                 return e(n)
             },
-            DcBFx: "#A_downloadUrl",
-            NZuuZ: "Done",
-            XOKEV: "#myModalLabel",
-            wGxuu: function(e, n) {
+            zngxl: "ivQuk",
+            ArQLU: "rarAf",
+            ryIiu: "music",
+            KjjtD: function(e, n) {
                 return e === n
             },
-            JPDmK: "tOgtV",
-            eSjfN: "texturl",
-            SEwxb: "Searched",
-            IagDf: function(e, n, t) {
-                return e(n, t)
-            },
-            rKsdf: function(e, n) {
-                return e !== n
-            },
-            REfmd: "JVBlI",
-            ErxVV: function(e, n) {
+            bnHZV: "rHEKk",
+            vGQFS: "zujvY",
+            ntIku: "These button dont work on youtube music yet",
+            pAInJ: "ytd-playlist-panel-renderer",
+            Sfhcc: "span",
+            OEsrV: function(e, n) {
                 return e == n
             },
-            Fovtc: function(e, n) {
-                return e === n
-            },
-            cwSSw: "rRFQR",
-            iDUkh: "Searching",
-            ubjoX: "1|2|4|0|5|3",
-            rBWrL: "loaded",
-            wWakn: function(e, n) {
-                return e || n
-            },
-            ePXKV: function(e, n) {
-                return e(n)
-            },
-            guCaS: function(e, n) {
-                return e(n)
-            },
-            dJWjh: function(e, n, t) {
-                return e(n, t)
-            },
-            zcrfz: "dSvAv",
-            iJkMx: "clearfix",
-            hSlsL: function(e, n) {
-                return e(n)
-            },
-            uHkUS: "https://www.tiktok.com",
-            ZvNbo: function(e, n) {
-                return e || n
-            },
-            SkqlT: function(e) {
-                return e()
-            },
-            wpGGs: function(e, n) {
-                return e === n
-            },
-            VIlqd: "#cardApiIframe",
-            DHpgL: "iFrameResize function not available",
-            cLFkc: function(e, n) {
-                return e !== n
-            },
-            szXIH: function(e, n) {
-                return e(n)
-            },
-            TCWLq: "Close player page",
-            PDIOh: function(e, n) {
-                return e(n)
-            },
-            ReEEM: "Open player page",
-            wqave: "CjHxg",
-            YcprG: "collapse-frame",
-            xGrzE: function(e, n, t) {
-                return e(n, t)
-            },
-            wdjVK: "Iframe is fully loaded",
-            oYNSu: function(e, n) {
-                return e(n)
-            },
-            dlXDN: function(e, n) {
-                return e(n)
-            },
-            hjcMh: function(e, n, t, r, o, i, c) {
-                return e(n, t, r, o, i, c)
-            },
-            iMgse: "Found",
-            cHtCo: "tik-video",
-            upuEi: "#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1",
-            gpAOl: "video",
-            sefNR: "#video-companion-root",
-            YyGRH: "#secondary-inner",
-            nnXtG: "#secondary.ytd-watch-flexy",
-            ArgCO: "https://loader.to/api/card2/?url=",
-            MZaoD: "src",
-            CXWAQ: "Fixed That Thing",
-            ghhYU: function(e, n) {
-                return e(n)
-            },
-            hnOQM: "FNSBv",
-            qBZof: "yvVpR",
-            nMKHc: "ytp-ad-button-icon",
-            RGfyR: function(e, n) {
-                return e && n
-            },
-            EkoKH: function(e, n) {
-                return e !== n
-            },
-            MaoUP: "huTgA",
-            zQMku: "Muted ad",
-            QgPjo: "HydRG",
-            Oeogb: "fRbXK",
-            jBauP: "Unmuted video",
-            mkKdR: "UNLxw",
-            DMnni: "Failed unmuting",
-            KRcSd: "#song-video",
-            wcIca: function(e, n) {
-                return e !== n
-            },
-            fPGGv: "urnxe",
-            YIviq: function(e, n) {
-                return e != n
-            },
-            mzWQM: "Fixed playBack",
-            OKiGl: "ytp-ad-overlay-close-button",
-            Uuwyb: "Closed ad card",
-            yzmfV: ".yt-spec-button-shape-next",
-            YSojH: "fastdl.app",
-            cBIOG: function(e, n) {
-                return e === n
-            },
-            uVUeJ: "FgbLG",
-            KxYDA: "VPTbL",
-            IGdck: function(e, n) {
-                return e == n
-            },
-            Udyhl: "soundcloud.com",
-            LhYoo: function(e, n) {
-                return e == n
-            },
-            laEYK: "studio.youtube.com",
-            GSMMz: "PupLS",
-            ozUlS: "fGXWm",
-            baszI: "Insta ballz",
-            hcLeT: function(e, n) {
-                return e == n
-            },
-            rinPo: "sclouddownloader.net",
-            MGUcy: function(e, n) {
-                return e == n
-            },
-            KfAUi: "updated",
-            anNkC: "useT",
-            AYxCB: function(e, n) {
-                return e == n
-            },
-            pbTgu: "qdownloader.cc",
-            kdXDA: "snapsave.io",
-            YuOCo: "clips.twitch.tv",
-            JTmaY: "hRqVg",
-            wSDqi: "EzPoa",
-            oXzwe: "www.twitch.tv",
-            MtbKx: "rwzNj",
-            IwJcz: "jGHhy",
-            ybubJ: function(e, n) {
-                return e != n
-            },
-            IMSsl: "clip",
-            tCcqF: "User isnt wathcing a clip",
-            FAZzl: function(e, n) {
-                return e == n
-            },
-            IDIjL: "clipr.xyz",
-            ceqGW: "tubemp4.is",
-            LCZDy: "wWDxU",
-            kyXOd: "PlayList MP4",
-            hpagw: "blue",
-            LBleQ: "tt1",
-            OsMpL: "bruh",
-            aTjVR: "youtube",
-            waVgI: "tiktok",
-            eRyUL: "onlymp3.app",
-            Mubnu: "onlymp3.to",
-            lmbKj: function(e, n, t) {
-                return e(n, t)
-            },
-            UexHs: "Getting MP3",
-            btoPF: "www.yt2conv.com",
-            tkjRb: "Jbwyg",
-            GslNY: "MTDxj",
-            WRoMF: function(e, n, t) {
-                return e(n, t)
-            },
-            MSLCH: "yt5s.biz",
-            eYOSO: "sss.instasaverpro.com",
-            RWAXW: "en3.onlinevideoconverter.pro",
-            JlbAM: "NO info Preset",
-            qMxmf: function(e, n) {
-                return e == n
-            },
-            svKGh: "savetik.co",
-            WzaeA: "load",
-            pDkPT: "Added MiniPlayer Toggle with I",
-            XMRfM: function(e, n, t) {
-                return e(n, t)
-            },
-            kCJOe: "keypress",
-            YPDjp: "/api/",
-            sTqcz: function(e, n) {
-                return e === n
-            },
-            GNLxH: "hzdoR",
-            gtUmK: "style",
-            FkCJy: "text/css",
-            CxydR: function(e, n) {
+            IfpPL: function(e, n) {
                 return e + n
             },
-            TUJze: "cardApiIframe",
-            dzupy: "100%",
-            hVVwS: "border: none",
-            cPZhb: "script",
-            hfxWC: "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js",
-            phBLB: function(e, n) {
+            QVXJj: "Get MP3",
+            kQlbJ: function(e, n) {
+                return e !== n
+            },
+            ZpuFU: "PiMzK",
+            iYJkd: "aMoYC",
+            edDon: "Getting video",
+            RRtbb: function(e, n) {
+                return e + n
+            },
+            OApED: "y2mate.nu",
+            zSLLd: "?v=",
+            eEcet: "&s=",
+            zEExw: "/shorts/",
+            ljbLe: "&mp4=",
+            gKvfH: "mp3",
+            YOekn: "&useT=",
+            zPDGs: "iframe",
+            HkKiu: "lazy",
+            ARMqj: "no-referrer",
+            NgZuN: "allow-same-origin allow-scripts allow-popups allow-forms",
+            zOckN: "autoplay; fullscreen; geolocation; microphone; camera",
+            WEMrZ: "absolute",
+            BZuqf: "WnOqR",
+            kHbub: function(e, n) {
+                return e + n
+            },
+            FeMzu: "mp4",
+            ZQFOU: function(e, n) {
                 return e(n)
             },
-            BetAY: function(e, n) {
+            ddIuQ: function(e, n) {
+                return e || n
+            },
+            pwehV: function(e, n) {
+                return e + n
+            },
+            BgZjF: "https://y2mate.nu/",
+            RUAlu: "0HzX",
+            WjzRp: function(e, n, t, r) {
+                return e(n, t, r)
+            },
+            IVzvx: function(e, n, t, r) {
+                return e(n, t, r)
+            },
+            VyfHw: "Searching",
+            zZQoN: "Error downloading file:",
+            mJbtU: function(e, n) {
+                return e === n
+            },
+            YjPWn: "ZFDUd",
+            mmWvK: function(e, n) {
+                return e + n
+            },
+            XpoTv: "ehlq8k34",
+            JHmak: "QtMJv",
+            TuYdh: "https://savetik.co",
+            oUxbY: "gQAZK",
+            PSOwA: "slipr",
+            gNJIx: " - ",
+            vEGYd: "pLKBL",
+            MRRib: "jKjSs",
+            cswQd: "LekoA",
+            YxWDS: function(e) {
+                return e()
+            },
+            EUSxz: function(e, n) {
+                return e(n)
+            },
+            RaRtq: function(e, n) {
+                return e == n
+            },
+            OxHIv: "yAMTN",
+            CebEe: function(e, n) {
+                return e == n
+            },
+            shRrS: function(e, n) {
+                return e || n
+            },
+            fKDlh: function(e, n, t) {
+                return e(n, t)
+            },
+            wLSSp: "GltcW",
+            DfyXY: "jnQJt",
+            CBfDx: "cCrBU",
+            beduz: "hulvT",
+            iAlwR: function(e, n) {
+                return e || n
+            },
+            ARrpp: function(e) {
+                return e()
+            },
+            HztCV: function(e, n, t) {
+                return e(n, t)
+            },
+            JqGDZ: function(e, n) {
+                return e(n)
+            },
+            pYnyK: "#right-controls",
+            ldSqQ: "path",
+            tPWRQ: function(e, n, t) {
+                return e(n, t)
+            },
+            pMoKh: function(e, n, t) {
+                return e(n, t)
+            },
+            pFXcS: function(e, n, t) {
+                return e(n, t)
+            },
+            wwqCt: "browse-copy",
+            NOcCa: function(e, n) {
+                return e !== n
+            },
+            UVJVC: "XuVFy",
+            KqoAQ: "fPBBa",
+            rOTiW: function(e, n) {
+                return e === n
+            },
+            HbgJq: "cNuZg",
+            jQtcL: function(e, n) {
+                return e === n
+            },
+            eGZET: "WxGAK",
+            WjChG: function(e, n) {
+                return e(n)
+            },
+            BFAjG: function(e, n) {
+                return e(n)
+            },
+            SpDSf: function(e, n) {
+                return e !== n
+            },
+            xWSLl: "TcAzr",
+            nYQbE: "HwSkt",
+            vrHhH: function(e, n) {
+                return e === n
+            },
+            IliGp: "FaNzg",
+            EAoXW: function(e, n, t, r, o) {
+                return e(n, t, r, o)
+            },
+            wFXed: function(e, n) {
+                return e(n)
+            },
+            YmUil: function(e, n) {
+                return e(n)
+            },
+            rvlMk: function(e, n) {
+                return e < n
+            },
+            XohHI: function(e, n) {
+                return e + n
+            },
+            WuEvQ: function(e, n) {
+                return e + n
+            },
+            dJtBd: "win",
+            YtUbe: function(e, n, t, r, o, i) {
+                return e(n, t, r, o, i)
+            },
+            uhMaD: ".cell-body.tablecell-visibility.style-scope.ytcp-video-row",
+            vQnzj: function(e, n) {
+                return e !== n
+            },
+            HLpkD: "MwwyG",
+            iwzgO: function(e, n) {
+                return e !== n
+            },
+            JCRNm: "FVgIC",
+            swqQE: function(e, n, t, r) {
+                return e(n, t, r)
+            },
+            Qmncb: function(e, n, t) {
+                return e(n, t)
+            },
+            LqMXX: function(e, n) {
+                return e(n)
+            },
+            YzZns: function(e, n) {
+                return e(n)
+            },
+            WUhvb: function(e, n) {
+                return e === n
+            },
+            viAzk: "MWLqU",
+            tFHzT: function(e, n) {
+                return e(n)
+            },
+            QfXgs: function(e, n) {
+                return e(n)
+            },
+            dtXqw: "#end",
+            ANtoF: "#right-content",
+            FcHiv: function(e) {
+                return e()
+            },
+            mojLv: "oWURG",
+            OUoux: "FDJHE",
+            GGVxo: "Added playlist buttons",
+            cxJlf: function(e, n, t) {
+                return e(n, t)
+            },
+            LjJyO: function(e, n) {
+                return e != n
+            },
+            ZLHaV: "#header-description",
+            PFnXD: ".autoplay",
+            BqofB: function(e, n) {
+                return e + n
+            },
+            MYFgP: "expyI",
+            vElLD: "MOdJA",
+            iLKuK: function(e) {
+                return e()
+            },
+            WWeDR: function(e, n, t) {
+                return e(n, t)
+            },
+            cmpyS: "Cant Append",
+            uisgJ: "nTYwy",
+            AsFBc: "e13wiwn60",
+            BbEsO: "Posted Buttons",
+            Vklnv: "PxONT",
+            npmOD: "load",
+            yqEqC: function(e, n) {
+                return e > n
+            },
+            UwELa: "Title: ",
+            GVPkr: function(e, n) {
+                return e > n
+            },
+            Xrhwm: "error-text",
+            fRSEw: "dMiPp",
+            bCIyg: "VASFr",
+            jvSzJ: function(e, n) {
+                return e(n)
+            },
+            hRlYL: "YRVkM",
+            EaDys: "NyWor",
+            nWXQT: "search_txt",
+            yqeAi: function(e, n) {
+                return e(n)
+            },
+            MAshv: function(e, n, t, r, o, i, c) {
+                return e(n, t, r, o, i, c)
+            },
+            gUqRW: "Azbxr",
+            jVCwB: "1|3|2|0|4",
+            QbTKb: function(e, n) {
+                return e || n
+            },
+            Zstkz: function(e, n) {
+                return e(n)
+            },
+            KhEuF: function(e) {
+                return e()
+            },
+            WaHLB: function(e, n) {
+                return e != n
+            },
+            aNTYR: function(e, n) {
+                return e === n
+            },
+            nwRJf: "cnJJe",
+            cqamk: function(e, n) {
+                return e(n)
+            },
+            aZLXD: "No info Preset",
+            WEQyq: function(e, n) {
+                return e == n
+            },
+            qHNkL: function(e, n) {
+                return e(n)
+            },
+            cIbkN: "#txt-url",
+            aVUPS: "Input Loaded",
+            ksApE: "#btn-submit",
+            dNMvK: "GEtting res",
+            NmrRO: function(e, n) {
+                return e(n)
+            },
+            gixbI: "#video_title",
+            odYEn: "Got Res",
+            XXPrM: "#result",
+            zekpy: "#video-list",
+            VoewD: "ekWzP",
+            oweBe: "TEVmP",
+            IklvS: function(e, n) {
+                return e(n)
+            },
+            efYPR: "#A_downloadUrl",
+            sungu: function(e, n) {
+                return e(n)
+            },
+            asCor: "#myModalLabel",
+            WTSoV: "#cardApiIframe",
+            gaqmB: "iFrameResize function not available",
+            YkGeY: "texturl",
+            gMkid: "convert1",
+            fWUqT: "Searched",
+            bELNM: "this",
+            QxNUA: "2|0|5|1|3|4",
+            Cwxqs: function(e, n) {
+                return e == n
+            },
+            EvdVa: "form-app-root",
+            IuxWC: function(e, n) {
+                return e(n)
+            },
+            XqOtN: function(e, n) {
+                return e(n)
+            },
+            ApUkP: function(e, n) {
+                return e(n)
+            },
+            QvSKQ: "#VGHGFf > div > div.Eddif > div:nth-child(2) > button > div.VfPpkd-RLmnJb",
+            zvxbZ: "#yDmH0d > c-wiz > div > div > div:nth-child(2) > div.LLEp8b > div > div.rTq3hb > div:nth-child(1) > div > div.ofmULb > div:nth-child(2) > div > button",
+            etYmz: function(e) {
+                return e()
+            },
+            diKhy: "avNsl",
+            RtPpf: function(e, n) {
+                return e == n
+            },
+            ooJhs: function(e, n) {
+                return e !== n
+            },
+            eVYxL: "gOwJu",
+            cNoqo: "Wait...",
+            JLahG: function(e, n, t, r, o, i) {
+                return e(n, t, r, o, i)
+            },
+            LyQXE: function(e, n) {
+                return e(n)
+            },
+            bpUYG: "oQoAn",
+            WxxjF: function(e, n) {
+                return e(n)
+            },
+            jCmaN: "RBulZ",
+            HXihp: "clearfix",
+            geobo: function(e, n) {
+                return e === n
+            },
+            FdaMg: "OGAbd",
+            hBzyR: "TEXTAREA",
+            FFtlT: function(e, n) {
+                return e == n
+            },
+            SeGZg: function(e, n) {
+                return e(n)
+            },
+            QPcaV: function(e, n) {
+                return e(n)
+            },
+            RfZxf: function(e, n, t) {
+                return e(n, t)
+            },
+            uiQOM: function(e, n) {
+                return e(n)
+            },
+            ZSkNQ: "https://sclouddownloader.net/",
+            NRJyo: "QyZaH",
+            peNKG: function(e, n) {
+                return e === n
+            },
+            eBoGy: function(e, n) {
+                return e(n)
+            },
+            vskSs: "video",
+            xmpFB: "#video-companion-root",
+            SItUS: "#secondary-inner",
+            enCdj: "#secondary.ytd-watch-flexy",
+            JVpYd: "https://loader.to/api/card2/?url=",
+            HUhkU: function(e, n) {
+                return e(n)
+            },
+            stltL: "Added That Thing",
+            hNUwA: function(e, n) {
+                return e(n)
+            },
+            fCwXK: "yt-button-view-model#dismiss-button",
+            IWBNF: function(e, n) {
+                return e(n)
+            },
+            yapIs: "tdCtV",
+            YMvnX: "KDffm",
+            gYxPR: "ytp-ad-button-icon",
+            bUHsT: function(e, n) {
+                return e && n
+            },
+            zLuFR: "Muted ad",
+            BlDnS: "Unmuted video",
+            uGhGJ: "Failed unmuting",
+            PNyxS: "#song-video",
+            dCUDK: function(e, n) {
+                return e != n
+            },
+            GOFHQ: "Skipping ad :>",
+            lHuvu: "ytp-ad-overlay-close-button",
+            xcenL: ".yt-spec-button-shape-next",
+            CEYVJ: "watch",
+            uUlUn: "https://onlymp3.app",
+            HHZZQ: "/watch?=",
+            cZSBc: function(e, n) {
+                return e == n
+            },
+            HcRdO: "fastdl.app",
+            lYjhi: function(e, n) {
+                return e == n
+            },
+            jYncz: "soundcloud.com",
+            kBYcQ: "studio.youtube.com",
+            ruPww: "www.instagram.com",
+            dfNZO: "Insta ballz",
+            FCcVV: "Gguzi",
+            yPuBG: function(e, n) {
+                return e !== n
+            },
+            wzeoy: "WRBui",
+            sfoBw: "NjLXw",
+            dBmRF: function(e, n) {
+                return e(n)
+            },
+            hAPRE: function(e, n) {
+                return e == n
+            },
+            VEoVg: "useT",
+            yHFoB: function(e, n) {
+                return e + n
+            },
+            icdyQ: "LZmTT",
+            RDEXL: "snapsave.io",
+            gCHDK: function(e, n) {
+                return e === n
+            },
+            rTtOj: "wFUAm",
+            fjUGT: function(e, n) {
+                return e == n
+            },
+            qMTdZ: "clips.twitch.tv",
+            SQlmo: function(e, n) {
+                return e == n
+            },
+            ipktl: "clip",
+            ZeNEF: function(e, n) {
+                return e == n
+            },
+            JRUdV: function(e, n) {
+                return e(n)
+            },
+            aSWeh: "Get MP4",
+            TDwkY: "PlayList MP3",
+            TKptI: "PlayList MP4",
+            aSTjT: "blue",
+            sLwUt: "bruh",
+            XPDWY: "youtube",
+            GYVXI: "tiktok",
+            jAWHE: "onlymp3.to",
+            WihxW: function(e, n) {
+                return e !== n
+            },
+            LURcV: "LstCM",
+            eJYxt: "Getting MP3",
+            cTsts: "Getting MP4",
+            XBUEn: function(e, n, t) {
+                return e(n, t)
+            },
+            wGNQG: "yt5s.biz",
+            KTKLx: function(e, n) {
+                return e !== n
+            },
+            DXQtJ: "qJKAu",
+            gYqJp: "sss.instasaverpro.com",
+            yqkUV: "MevfH",
+            TrMHI: function(e, n) {
+                return e === n
+            },
+            FIdeE: "DQudG",
+            TLKpr: "NO info Preset",
+            VTxJD: function(e, n) {
+                return e == n
+            },
+            Drxii: function(e, n, t) {
+                return e(n, t)
+            },
+            gBPKe: "savetik.co",
+            lvFvn: function(e, n) {
+                return e !== n
+            },
+            zNTAm: "UwYYb",
+            FIeLa: "ASGLa",
+            aLRIE: function(e, n, t) {
+                return e(n, t)
+            },
+            hCLgh: "loader.to",
+            uwbvr: "/api/",
+            TSKUS: "trustedHTMLPolicy",
+            ciKZx: "style",
+            tYlqi: function(e, n) {
+                return e(n)
+            },
+            oMAeq: function(e, n) {
+                return e + n
+            },
+            OPtbh: "cardApiIframe",
+            IWsbi: "100%",
+            dPPNE: "border: none",
+            wnTmr: "script",
+            FttXH: "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js",
+            ZIaMU: function(e, n) {
                 return e(n)
             }
         };
         class n {
             static get br() {
-                if (e.rtJwy(e.DrRbs, "jYtLn")) return new n("br"); {
-                    const e = i.createElement("a");
-                    e.href = c, e.download = u, l.body.appendChild(e), e.click(), a.body.removeChild(e)
-                }
+                return new n("br")
             }
             constructor(n, t) {
-                this.element = n.constructor.name.includes(e.NRtQy) && n || function() {
-                    if ("ElziO" !== e.lmNXH) {
-                        for (let e in arguments[1]) arguments[0].setAttribute(e, arguments[1][e]);
-                        return arguments[0]
-                    }[...i.attributes].map((e => {
-                        const {
-                            name: n,
-                            value: t
-                        } = e;
-                        return {
-                            name: n,
-                            value: t
-                        }
-                    })).filter((e => e.value == e)).length && (u.push(l), a = 1)
+                this.element = n.constructor.name.includes(e.edOsc) && n || function() {
+                    var n = {
+                        YXwPk: e.mVrOy
+                    };
+                    for (let t in arguments[1]) e.SVgdm(e.ASfRu, "RVjJQ") ? arguments[0].setAttribute(t, arguments[1][t]) : (r.appendTo(o), i.log(n.YXwPk));
+                    return arguments[0]
                 }(document.createElement(arguments[0]), arguments[1])
             }
-            style(e) {
-                for (let n in e) this.element.style[n] = e[n];
+            style(n) {
+                for (let r in n) {
+                    if (!e.xfgpg("bvGbP", "bvGbP")) {
+                        for (var t = 0; e.uQMoz(t, this.length); t += 1)
+                            if (e.xfgpg(this[t].id, o) || e.xfgpg(this[t].name, i)) return this[t];
+                        return null
+                    }
+                    this.element.style[r] = n[r]
+                }
                 return this
             }
-            append(n, ...t) {
-                var r = {
-                    CPybT: function(n, t) {
-                        return e.dXGgS(n, t)
-                    }
+            append(t, ...r) {
+                var o = {
+                    dIYQZ: e.ACSTq
                 };
-                this.element.append(n.element || n), console.log("T:", {
-                    targets: t,
-                    fe: t && t.forEach
+                this.element.append(t.element || t), console.log("T:", {
+                    targets: r,
+                    fe: r && r.forEach
                 });
-                for (let n = 0; e.JDara(n, t.length); n++)
-                    if (e.OIjjg("IhEXo", "IhEXo")) {
-                        let r = t[n];
-                        console.log(e.loPNy, {
-                            element: r,
+                for (let t = 0; t < r.length; t++)
+                    if ("eQBEC" === e.gYiDT) n.log(o.dIYQZ);
+                    else {
+                        let n = r[t];
+                        console.log(e.AjExi, {
+                            element: n,
                             target: this
-                        }), this.element.append(r.element || r)
-                    } else {
-                        var o = {
-                            fMwYZ: function(e, n) {
-                                return r.CPybT(e, n)
-                            }
-                        };
-                        i = c.children, u.forEach = [].forEach, l.forEach((e => {
-                            o.fMwYZ(s, e)
-                        }))
+                        }), this.element.append(n.element || n)
                     }
                 return this
             }
             appendTo(n) {
-                return "DTPMv" === e.iqNwr || ((n.element || e.SxmTX(typeof n, e.UejHV) ? document.querySelector(n) : n).append(this.element), this)
+                return (n.element || e.rHDPr(typeof n, "string") ? document.querySelector(n) : n).append(this.element), this
             }
-            on(n, o) {
-                if ("lbFdH" === e.VwWNX) return this.element["on" + n] = o, this;
-                t(r)
+            on(e, n) {
+                return this.element["on" + e] = n, this
             }
             set(e, n) {
                 return this.element[e] = n, this
@@ -1863,2743 +1953,2396 @@ getElementByAttribute = function(e, n = "aria-label", r = document.body) {
                 return this.element.remove(), this
             }
             get() {
-                return this.element[arguments[0]]
+                var n = {
+                    hACef: function(n, t) {
+                        return e.KHUQO(n, t)
+                    }
+                };
+                if ("jnIwM" === e.sfszn) return this.element[arguments[0]];
+                i = c.children, u.forEach = [].forEach, l.forEach((e => {
+                    n.hACef(s, e)
+                }))
             }
             get children() {
-                var t = {
-                    hUFUu: function(e, n, t) {
-                        return e(n, t)
+                var c = {
+                    Xpmqg: function(e, n) {
+                        return e < n
                     },
-                    KCRFW: e.myxHo,
-                    LeARA: e.QqTIF,
-                    iDxIt: function(n, t) {
-                        return e.BkGhr(n, t)
+                    JxzVq: e.fSWaL,
+                    irMUG: e.qTYrr,
+                    vKaYQ: function(n, t) {
+                        return e.BvyhP(n, t)
                     },
-                    sNvvz: e.MCSTy,
-                    hzfAy: function(n, t) {
-                        return e.JDara(n, t)
-                    },
-                    tPCVs: function(n, t) {
-                        return e.lkqNW(n, t)
-                    },
-                    VcOfu: function(e, n) {
-                        return e === n
-                    },
-                    AVJiL: e.tRHEB,
-                    wzVVi: e.NFatI
+                    iRAPI: e.IznvV,
+                    OBRaa: e.jflxQ
                 };
-                if (!e.BkGhr("VkvTc", e.YykaR)) return new class {
-                    constructor(n) {
-                        for (var c = 0; e.JDara(c, n.length); c += 1) e.OIjjg("YNnRV", e.mTAgb) ? this[c] = n[c] : (r.log("TimeOut for", o), i = !0);
-                        Object.defineProperty(this, e.kxjAd, {
+                return new class {
+                    constructor(e) {
+                        for (var n = 0; c.Xpmqg(n, e.length); n += 1) c.JxzVq == c.JxzVq ? this[n] = e[n] : arguments[0].setAttribute(t, arguments[1][r]);
+                        Object.defineProperty(this, c.irMUG, {
                             get: function() {
-                                var e = {
-                                    lsnjN: function(e, n, r) {
-                                        return t.hUFUu(e, n, r)
-                                    }
-                                };
-                                if (t.KCRFW !== t.LeARA) return n.length;
-                                s.log({
-                                    a: d,
-                                    b: h,
-                                    c: m,
-                                    d: p
-                                }), g && v.name && e.lsnjN(D, N.href, z.name)
+                                return e.length
                             }
                         }), Object.freeze(this)
                     }
                     item(e) {
-                        if (!t.iDxIt(t.sNvvz, t.sNvvz)) return null != this[e] ? this[e] : null;
-                        (function(e) {
-                            return e()
-                        })(n).click()
+                        return null != this[e] ? this[e] : null
                     }
-                    namedItem(e) {
-                        for (var n = 0; t.hzfAy(n, this.length); n += 1)
-                            if (this[n].id === e || t.tPCVs(this[n].name, e)) return this[n];
+                    namedItem(t) {
+                        for (var u = {
+                                nvBSz: ".xh8yej3.x1iyjqo2"
+                            }, l = 0; l < this.length; l += 1)
+                            if (e.MqvJP(e.IMMWr, e.IMMWr)) {
+                                var [a, s] = r.split(",");
+                                o.value = "https://www.youtube.com/" + (c.vKaYQ(s, "1") ? c.iRAPI : c.OBRaa) + a, i()
+                            } else if (this[l].id === t || this[l].name === t) {
+                            if (e.xfgpg(e.tBjCe, "LLEsX")) return this[l];
+                            n.querySelectorAll(u.nvBSz)[0].children
+                        }
                         return null
                     }
                     get toArray() {
-                        if (t.VcOfu(t.AVJiL, t.wzVVi)) {
-                            for (let e in arguments[1]) arguments[0].setAttribute(e, arguments[1][e]);
-                            return arguments[0]
-                        }
                         return [...this]
                     }
-                }([...this.element.children]);
-                n.muted = 0
+                }([...this.element.children])
             }
         }
 
         function t() {
-            if (!e.rtJwy(e.qqqqG, e.qqqqG)) {
-                const {
-                    name: e,
-                    value: t
-                } = n;
-                return {
-                    name: e,
-                    value: t
+            var n = {
+                EfSpA: e.uUSzJ,
+                uSIQV: function(n) {
+                    return e.lExoY(n)
+                },
+                EofAq: "._aaqy",
+                ZAwdF: function(n) {
+                    return e.lExoY(n)
+                },
+                AOFRd: function(e, n) {
+                    return e != n
+                },
+                frQDn: e.nwDEs,
+                GNIJs: function(e, n) {
+                    return e(n)
+                },
+                qplsw: function(e, n) {
+                    return e(n)
+                },
+                RfjyN: function(e, n) {
+                    return e(n)
                 }
-            }
+            };
             try {
-                return document.querySelector(e.GndZp).innerText.replace(e.cDckD, "")
+                if (!e.rHaVz(e.QBKpR, e.AUIgk)) return document.querySelector(e.mefHu).innerText.replace(e.fOGOh, "");
+                t = 1, r.log("Skipping ad :>")
             } catch {
-                if (!e.lBdwg(e.qoOsM, "kIIal")) return (i.element || typeof c == e.UejHV ? u.querySelector(l) : a).append(this.element), this;
-                try {
-                    return document.querySelector(e.yfdrK).innerText.replace("Replying to ", "")
+                if (e.rzZVm(e.EApMQ, e.ldtZS)) i.querySelector(n.EfSpA) || n.uSIQV(c), u.querySelector(n.EofAq) && !l.querySelector(n.EofAq).querySelector(n.EfSpA) && n.ZAwdF(a);
+                else try {
+                    if ("SQzym" === e.BZzzS) {
+                        let e = n.AOFRd(typeof d, n.frQDn) ? h : m.querySelectorAll;
+                        return p ? [...M.querySelectorAll(I)].filter((n => !(null === e.offsetParent)))[0] : (n => e.keys(n).length ? n : null)(n.GNIJs(e, v) ? n.qplsw(e, w).length ? n.RfjyN(e, C)[0] : n.RfjyN(e, z) : null)
+                    }
+                    return document.querySelector(e.whiHv).innerText.replace(e.fOGOh, "")
                 } catch (n) {
-                    return e.Cghdr(G, e.zNsPS, "data-e2e") ? e.Cghdr(G, "browse-video-desc", e.KkTVv).innerText : document.querySelector("#main-content-video_detail > div > div.css-12kupwv-DivContentContainer.ege8lhx2 > div.css-1senhbu-DivLeftContainer.ege8lhx3 > div.css-1sb4dwc-DivPlayerContainer.eqrezik4 > div.css-3lfoqn-DivDescriptionContentWrapper-StyledDetailContentWrapper.eqrezik15 > div.css-r4nwrj-DivVideoInfoContainer.eqrezik3 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > h1").innerText.replace("Replying to ", "")
+                    return e.EJImx(D, e.AHOcS, e.XBExl) ? e.EYjio(D, e.AHOcS, e.XBExl).innerText : document.querySelector(e.oWuTs).innerText.replace(e.fOGOh, "")
                 }
             }
         }
 
         function r() {
-            var n = {
-                YNGah: "#VGHGFf > div > div.Eddif > div:nth-child(2) > button > div.VfPpkd-RLmnJb"
+            var t = {
+                kqygB: "These button dont work on youtube music yet"
             };
-            e.dXGgS(get_aria_label, e.yFpTv).click(), e.Cghdr(setTimeout, (() => {
-                document.querySelector(e.lsjEo).click(), e.Cghdr(setTimeout, (() => {
-                    document.querySelector(n.YNGah).click()
+            if (e.rHaVz(e.BKtGK, e.IEskl)) return n.querySelector(e.fgLJv);
+            e.KHUQO(get_aria_label, e.WlBpp).click(), setTimeout((() => {
+                if ("UbUkl" === e.wGzeh) throw n(t.kqygB), ".";
+                document.querySelector("#yDmH0d > c-wiz > div > div > div:nth-child(2) > div.LLEp8b > div > div.rTq3hb > div:nth-child(1) > div > div.ofmULb > div:nth-child(2) > div > button").click(), e.EJImx(setTimeout, (() => {
+                    document.querySelector("#VGHGFf > div > div.Eddif > div:nth-child(2) > button > div.VfPpkd-RLmnJb").click()
                 }), 1e3)
             }), 1e3)
         }
-        _element = _e = n, setElement2 = function(n) {
-            if (e.BkGhr(e.FSeHQ, e.vuOEJ)) return n.match(/(?<host>https?\:\/\/www\.tiktok\.com)\/(?<username>@[^\/]+)\/video\/(?<videoID>\d+)/i).groups;
-            var t = {
-                WbJTX: e.uSWOx
-            };
-            r.querySelector("#yDmH0d > c-wiz > div > div > div:nth-child(2) > div.LLEp8b > div > div.rTq3hb > div:nth-child(1) > div > div.ofmULb > div:nth-child(2) > div > button").click(), e.Cghdr(o, (() => {
-                c.querySelector(t.WbJTX).click()
-            }), 1e3)
+        _element = _e = n, setElement2 = function(e) {
+            return e.match(/(?<host>https?\:\/\/www\.tiktok\.com)\/(?<username>@[^\/]+)\/video\/(?<videoID>\d+)/i).groups
         };
-        var o = "https://onlymp3.app",
-            i = "/watch?=";
+        var o = e.uUlUn,
+            i = e.HHZZQ;
 
         function c(n, t, r = !1) {
-            var o = e.qdKoS(addEventListener, n, ((...n) => {
-                e.CjKjd(t, ...n), r && e.dXGgS(removeEventListener, o)
-            }), !0);
-            return o
+            var o = {
+                    NfzcX: function(n, ...t) {
+                        return e.KHUQO(n, ...t)
+                    }
+                },
+                i = e.shFRg(addEventListener, n, ((...e) => {
+                    o.NfzcX(t, ...e), r && o.NfzcX(removeEventListener, i)
+                }), !0);
+            return i
         }
 
         function u(n) {
-            if (!e.BRlqm("gYyCz", e.qAzpw)) {
-                e.BRlqm(typeof jQuery, "function") && e.LlAej(n, jQuery) && (n = n[0]);
-                var t = n.getBoundingClientRect();
-                return e.KazsC(t.top, e.ckKxn(0, e.ZDeeD(window.innerHeight || document.documentElement.clientHeight, 2))) && e.UGlJw(t.left, 0) && t.bottom <= e.skBlh(window.innerHeight || document.documentElement.clientHeight, e.rfsOZ(window.innerHeight || document.documentElement.clientHeight, 2)) && e.RfNic(t.right, window.innerWidth || document.documentElement.clientWidth)
+            if (e.UPMxZ(typeof jQuery, "function") && e.pTcQA(n, jQuery)) {
+                if (e.UPMxZ(e.GNDsu, e.jXRte)) return e.KHUQO(t, this.toFixed(r));
+                n = n[0]
             }
-            try {
-                return !(![...v.querySelectorAll(e.DpXQs)].filter(w).filter((e => !G(e)))[0] && !e.rXSuR(R, ".autoplay")) && ([...D.querySelectorAll(e.DpXQs)].filter(N).filter((e => !G(e)))[0] || O(e.iurwg))
-            } catch (e) {
-                return !1
-            }
+            var o = n.getBoundingClientRect();
+            return e.FDfhr(o.top, e.kgrcU(0, e.cCBir(window.innerHeight || document.documentElement.clientHeight, 2))) && e.CmJHF(o.left, 0) && e.EDjYF(o.bottom, e.ccGoR(window.innerHeight || document.documentElement.clientHeight, e.cCBir(window.innerHeight || document.documentElement.clientHeight, 2))) && e.EDjYF(o.right, window.innerWidth || document.documentElement.clientWidth)
         }
 
         function l(t, {
-            callback: c,
-            int: u
+            callback: r,
+            int: c
         }) {
-            var l = {
-                yhwlp: function(e) {
+            var g = {
+                lIfNo: e.DjJNR,
+                usnyL: e.IFfIK,
+                SdSOE: e.wAwYM,
+                fJmTP: "TEXTAREA",
+                oPBxH: function(e, n) {
+                    return e == n
+                },
+                jlbNa: e.LqDfv,
+                MqOnm: e.UHtXF,
+                sBOdU: function(n, t) {
+                    return e.ivsHv(n, t)
+                },
+                rdkAX: "Open player page",
+                bWOoj: e.pCbBI,
+                YHull: function(n, t, r) {
+                    return e.EYjio(n, t, r)
+                },
+                KTuLW: e.xZAVh,
+                oXUAi: function(e, n, t, r) {
+                    return e(n, t, r)
+                },
+                Xmpth: e.IznvV,
+                TyHTV: e.jflxQ,
+                daYyr: function(n, t) {
+                    return e.MqvJP(n, t)
+                },
+                dCJFJ: e.sVoCo,
+                hsInX: e.nMnuP,
+                jfKEU: "BSlDj",
+                ZDEEM: function(e) {
                     return e()
                 },
-                PbLwQ: function(n, t) {
-                    return e.MZBwX(n, t)
+                erVYX: function(n) {
+                    return e.lExoY(n)
+                },
+                BFKaZ: function(n, t) {
+                    return e.onAdr(n, t)
                 }
             };
-            if (!e.BkGhr("SkrgT", "SkrgT")) {
-                !c && (c = function() {}), !u && (u = 100), console.log({
-                    f: t,
-                    callback: c,
-                    int: u
-                });
-                try {
-                    if (e.INdKF(e.OGIci, e.OGIci)) return e.qdqtx(t), void e.qdqtx(c);
-                    e.pkguC(n)
-                } catch (e) {}
-                var a = e.Cghdr(setInterval, (() => {
-                    try {
-                        l.yhwlp(t), l.yhwlp(c), l.PbLwQ(clearInterval, a)
-                    } catch (e) {}
-                }), e.sTruu(u, 100));
-                return a
-            }
-            this.element.style[r] = o[i]
+            if (e.srAhx(e.WDrJj, e.RjZYj)) {
+                var w = {
+                    KSITq: function(e, n) {
+                        return e == n
+                    },
+                    TPrme: g.lIfNo,
+                    HVgLZ: function(e, n) {
+                        return e || n
+                    }
+                };
+                let e = m.call(p, t, v);
+                return e._click = e.click, e.click = function() {
+                    if (e.log(e, "was clicked", e.tagName), w.KSITq("A", e.tagName)) {
+                        Z.log(w.TPrme, e);
+                        let n = e.download,
+                            t = e.href;
+                        X = {
+                            id: new ee(ne.href).searchParams.get("v"),
+                            href: t,
+                            title: n
+                        }, w.HVgLZ(te, ce).postMessage(ue, "*"), le()
+                    } else e._click.apply(e)
+                }, j.log(e, g.usnyL, e.tagName), e
+            }!r && (r = function() {}), !c && (c = 100), console.log({
+                f: t,
+                callback: r,
+                int: c
+            });
+            try {
+                if (e.drAoA == e.drAoA) return e.lExoY(t), void e.lExoY(r);
+                var y = {
+                    XfxwQ: g.SdSOE,
+                    HwGNb: g.fJmTP,
+                    UtRUy: function(e, n) {
+                        return g.oPBxH(e, n)
+                    },
+                    NPpbz: g.jlbNa,
+                    OSVDr: g.MqOnm,
+                    dQyGV: function(e, n) {
+                        return g.sBOdU(e, n)
+                    },
+                    MtSjb: g.rdkAX
+                };
+                o.log(g.bWOoj), g.YHull(i, g.KTuLW, (function({
+                    isTrusted: e,
+                    ctrlKey: n,
+                    shiftKey: t,
+                    code: r,
+                    target: o,
+                    target: {
+                        tagName: i
+                    }
+                }) {
+                    ![y.XfxwQ, y.HwGNb].includes(i) && !n && !t && e && y.UtRUy(r, y.NPpbz) && (s(y.OSVDr) || y.dQyGV(f, y.MtSjb)[1]).click()
+                }))
+            } catch (y) {}
+            var b = e.EYjio(setInterval, (() => {
+                var e = {
+                    EOzuO: function(e, n, t, r) {
+                        return g.oXUAi(e, n, t, r)
+                    },
+                    UULKe: "search_txt",
+                    sAXpB: function(e, n) {
+                        return g.oPBxH(e, n)
+                    },
+                    IYOLJ: g.Xmpth,
+                    LNINe: g.TyHTV,
+                    wtYeV: "btn-submit"
+                };
+                if (g.daYyr(g.dCJFJ, g.hsInX)) try {
+                    g.daYyr("BSlDj", g.jfKEU) ? e.EOzuO(n, 2, !0, !1) : (g.ZDEEM(t), g.erVYX(r), g.BFKaZ(clearInterval, b))
+                } catch (e) {} else u.getElementById(e.UULKe).value = "https://www.youtube.com/" + (e.sAXpB(l, "1") ? e.IYOLJ : e.LNINe) + a, s.getElementById(e.wtYeV).click(), f.log(d, h)
+            }), c || 100);
+            return b
         }
 
-        function a(n) {
-            var t = {
-                YqXxf: e.oIjxa,
-                kBYSR: function(n, t, r) {
-                    return e.PEJoI(n, t, r)
-                },
-                fhHOV: e.xaDGd,
-                jhZJB: function(n, t) {
-                    return e.zuENl(n, t)
-                },
-                jLtWB: ".mp4",
-                oyLJI: "Got"
-            };
-            if (!e.livDE(e.MigrM, e.uOcww)) return e.vEpRC(n.offsetParent, null);
-            if (m)
-                for (var r = t.YqXxf.split("|"), o = 0;;) {
-                    switch (r[o++]) {
-                        case "0":
-                            j.close();
-                            continue;
-                        case "1":
-                            t.kBYSR(K, t.fhHOV, null);
-                            continue;
-                        case "2":
-                            Y(H);
-                            continue;
-                        case "3":
-                            F(X, t.jhZJB(J.title, t.jLtWB));
-                            continue;
-                        case "4":
-                            W.log(t.oyLJI, {
-                                a: M,
-                                b: U,
-                                c: V,
-                                d: A
-                            });
-                            continue
-                    }
-                    break
-                }
+        function a(e) {
+            return null === e.offsetParent
         }
 
         function s(e) {
             return e.parentNode
         }
 
+        function f() {
+            return get_aria_label(e.DWEos) ? e.OgYRX(get_aria_label, e.DWEos).click ? e.quUoU(get_aria_label, e.DWEos) : document.querySelector("._afxv") : document.querySelector(e.Ylvjh)
+        }
+
         function d() {
-            return e.BkGhr(e.lQHXj, e.RUUcX) ? e.SpwaD(get_aria_label, "Go back") ? e.MZBwX(get_aria_label, e.xlTiH).click ? get_aria_label(e.xlTiH) : document.querySelector("._afxv") : document.querySelector(e.iKErX) : n.getElementsByClassName("ehlq8k34")[0]
+            return get_aria_label("Next") ? e.RGfLL(get_aria_label, e.iXscW).click ? get_aria_label(e.iXscW) : document.querySelector("._afxw") : document.querySelector(e.lncgf)
         }
 
         function h() {
-            if (e.HeDTs != e.HeDTs) throw new n(e.XWsRI);
-            return get_aria_label(e.YYUCD) ? e.CjKjd(get_aria_label, e.YYUCD).click ? e.mCRle(get_aria_label, e.YYUCD) : document.querySelector("._afxw") : document.querySelector(e.ZzhvS)
+            var t = {
+                DnFIG: function(n, t) {
+                    return e.KzgpF(n, t)
+                }
+            };
+            try {
+                if (!e.srAhx(e.lYntd, "UmqPH")) return document.querySelector("div.x78zum5.xdt5ytf.x1iyjqo2.xs83m0k.x2lwn1j.x1odjw0f.x1n2onr6.x9ek82g.x6ikm8r.xdj266r.x11i5rnm.x4ii5y1.x1mh8g0r.xexx8yu.x1pi30zi.x18d9i69.x1swvt13 > ul > div:nth-child(3) > div > div").children[0].innerText.split("\n")[1];
+                l.push(a), s.children.length && (g = v.children, w.forEach = [].forEach, C.forEach((e => {
+                    t.DnFIG(M, e)
+                })))
+            } catch {
+                return e.hqZgO(e.GllHO, e.DcgiN) ? n.length : [...document.querySelectorAll(".xt0psk2.xvs91rp.xo1l8bm.x5n08af.x18hxmgj")].pop().innerText.split("\n")[0]
+            }
         }
 
         function m() {
-            try {
-                return document.querySelector(e.XLKFN).children[0].innerText.split("\n")[1]
-            } catch {
-                return [...document.querySelectorAll(e.yeMCR)].pop().innerText.split("\n")[0]
-            }
-        }
-
-        function p() {
             var t = {
-                vNgmu: function(n, t) {
-                    return e.nlXdP(n, t)
+                YXNwN: ".media-heading",
+                TaHVL: function(n, t) {
+                    return e.zDImO(n, t)
                 },
-                veHWR: e.HyMYP,
-                SNNQf: e.HcWxT,
-                WmNaO: function(n, t) {
-                    return e.eCbId(n, t)
+                IfEYA: function(n, ...t) {
+                    return e.ccaKj(n, ...t)
                 },
-                geEWu: e.KLOgY,
-                mhrRV: function(e, n, t) {
-                    return e(n, t)
+                ruidm: function(n, t) {
+                    return e.MqvJP(n, t)
                 },
-                bqscS: function(n, t) {
-                    return e.Fpppv(n, t)
+                PTCwi: "jHFsf",
+                Gdoyp: e.LNDZs,
+                zyTkU: "fJavW",
+                bxpez: e.gfMOl,
+                bjBJP: "Got",
+                eDukr: function(n, t, r) {
+                    return e.EJImx(n, t, r)
                 },
-                vrTKd: e.hbaIA,
-                wkPxs: function(n, t, r) {
-                    return e.wtiNR(n, t, r)
+                piKDm: function(n, t) {
+                    return e.HGiLj(n, t)
                 },
-                FGIgu: "Got"
+                UoEim: e.JCkXw,
+                muYgH: e.QUMqJ
             };
-            if (e.OIjjg(e.bCrkT, e.bCrkT)) {
-                if (location.href.includes(e.tbmtN)) {
-                    if (e.WeOTy("nxSYH", "nxSYH")) throw t.vNgmu(n, t.veHWR), "."; {
-                        let o = e.gKmds(open, e.sONZr, location.href, "width=400,height=500");
-                        var r = GM_addValueChangeListener(e.xaDGd, (function(e, i, c, u) {
-                            if (!t.WmNaO("TbQHr", t.geEWu)) throw new n(t.SNNQf);
-                            if (c)
-                                for (var l = "3|2|4|0|1".split("|"), a = 0;;) {
-                                    switch (l[a++]) {
-                                        case "0":
-                                            t.mhrRV(downloadFile_, c, t.bqscS(document.title, t.vrTKd));
-                                            continue;
-                                        case "1":
-                                            t.wkPxs(GM_setValue, "instaURL", null);
-                                            continue;
-                                        case "2":
-                                            o.close();
-                                            continue;
-                                        case "3":
-                                            console.log(t.FGIgu, {
-                                                a: e,
-                                                b: i,
-                                                c: c,
-                                                d: u
-                                            });
-                                            continue;
-                                        case "4":
-                                            GM_removeValueChangeListener(r);
-                                            continue
-                                    }
-                                    break
-                                }
-                        }))
-                    }
-                }
-            } else
-                for (var o = e.ExwYb.split("|"), i = 0;;) {
-                    switch (o[i++]) {
-                        case "0":
-                            e.Cghdr(D, N, e.Fpppv(z.title, e.hbaIA));
-                            continue;
-                        case "1":
-                            e.rXSuR(x, R);
-                            continue;
-                        case "2":
-                            e.PEJoI(O, e.xaDGd, null);
-                            continue;
-                        case "3":
-                            h.log(e.kDTDF, {
-                                a: m,
-                                b: p,
-                                c: g,
-                                d: v
-                            });
-                            continue;
-                        case "4":
-                            w.close();
-                            continue
-                    }
-                    break
-                }
-        }
-        async function g() {
-            var t = {
-                ZbVXZ: function(n, t) {
-                    return e.UPIsg(n, t)
-                }
-            };
-            if (e.WeOTy(e.szcNo, "XOTNy")) this.title = {
-                body: e.gkykX(n, "---"),
-                color: e.trCry,
-                size: "1rem"
-            }, this.body = {
-                color: e.xpvgY,
-                size: "1rem"
-            };
-            else {
-                for (var f = e => new Promise((n => setTimeout(n, e))), m = new Set, p = {}; e.pkguC(d);)
-                    if (await e.nlXdP(f, 100), e.RxODY(d)) e.RxODY(d).click();
-                    else {
-                        if (!e.YHhtB(e.Rlqsy, e.Iyurp)) {
-                            await e.dzlvG(f, 1e3);
-                            break
-                        } {
-                            let n = r[o];
-                            i.log(e.loPNy, {
-                                element: n,
-                                target: this
-                            }), this.element.append(n.element || n)
-                        }
-                    }[...e.RxODY(getInstalImages)].forEach((n => {
-                    let t = e.oywoG(findhref2, n, e.rXBQW)[0];
-                    m.add([t.src, t.getAttribute(e.UNIhD)])
-                })), e.fGIqE(h).click();
-                try {
-                    e.odQRx(h).click()
-                } catch (e) {}
-                for (; e.RxODY(h);)
-                    if (e.INdKF(e.RKdtO, e.RKdtO)) {
-                        await e.fNgTZ(f, 300), [...e.fGIqE(getInstalImages)].forEach((n => {
-                            var t = {
-                                UuypA: function(n, t) {
-                                    return e.dXGgS(n, t)
+            if (e.EDBbs(e.TcGXy, e.zRafM)) {
+                if (location.href.includes(e.mIWjB))
+                    if (e.HZSoV === e.cbkhU) {
+                        d.log("a", h);
+                        var r = e.ZGSpV(m, p.forms[0])[0].href,
+                            o = e.EYjio(g, v.forms[0], "div")[0].innerText,
+                            g = {
+                                _: w,
+                                id: C,
+                                href: r,
+                                title: o,
+                                length: {}
+                            };
+                        z.log("Posted", g), (M || I.parent).postMessage(g, "*"), e.knqcv(H)
+                    } else {
+                        let n = open(e.ZEhyn, location.href, "width=400,height=500");
+                        var y = e.EJImx(GM_addValueChangeListener, e.QUMqJ, (function(e, r, o, d) {
+                            var h = {
+                                IQfwv: t.YXNwN,
+                                oUyZa: function(e, n) {
+                                    return t.TaHVL(e, n)
                                 },
-                                JVbaB: function(n, t) {
-                                    return e.fDPIk(n, t)
+                                OJuqx: function(e, ...n) {
+                                    return t.IfEYA(e, ...n)
                                 }
                             };
-                            if (e.eCbId("CvkWs", e.AWrHw)) {
-                                let t = e.aOYwU(findhref2, n, e.rXBQW)[0];
-                                m.add([t.src, t.getAttribute(e.UNIhD)])
-                            } else {
-                                var r = a.innerText.match(/(?<res>\d+)(p|P)/i) || {};
-                                r.groups && (r = t.UuypA(x, r.groups.res), t.JVbaB(R[0], r) && (D[0] = r, N[1] = t.UuypA(z, O)[0].href, G[2] = B))
-                            }
-                        }));
-                        try {
-                            e.XSCYD(h).click()
-                        } catch (e) {}[...m].length
-                    } else i = c.children, u.forEach = [].forEach, l.forEach((e => {
-                        t.ZbVXZ(s, e)
+                            if (t.ruidm(t.PTCwi, t.Gdoyp)) {
+                                if (o)
+                                    if (t.zyTkU === t.bxpez)
+                                        for (var m = "0|1|2|3|4".split("|"), p = 0;;) {
+                                            switch (m[p++]) {
+                                                case "0":
+                                                    var g = c(h.IQfwv)[0].innerText;
+                                                    continue;
+                                                case "1":
+                                                    var v = u.href;
+                                                    continue;
+                                                case "2":
+                                                    var w = {
+                                                        id: l,
+                                                        href: v,
+                                                        title: g,
+                                                        length: {}
+                                                    };
+                                                    continue;
+                                                case "3":
+                                                    a.log("Posted");
+                                                    continue;
+                                                case "4":
+                                                    h.oUyZa(s, f).postMessage(w, "*");
+                                                    continue
+                                            }
+                                            break
+                                        } else console.log(t.bjBJP, {
+                                            a: e,
+                                            b: r,
+                                            c: o,
+                                            d: d
+                                        }), n.close(), GM_removeValueChangeListener(y), t.eDukr(downloadFile_, o, t.piKDm(document.title, t.UoEim)), t.eDukr(GM_setValue, t.muYgH, null)
+                            } else h.OJuqx(i, ...c), u && h.OJuqx(l, a)
+                        }))
+                    }
+            } else n.stop()
+        }
+        async function p() {
+            var t = {
+                Klfdl: function(n, t, r) {
+                    return e.nrOOf(n, t, r)
+                },
+                uGnOp: "img",
+                PkAOe: e.SBJfM,
+                gFtDi: e.KIfWB,
+                lrrjB: function(n, t, r) {
+                    return e.nrOOf(n, t, r)
+                },
+                GDvdy: function(n, t, r) {
+                    return e.loVLb(n, t, r)
+                }
+            };
+            if ("QFkLT" === e.vhPCc) return n.parentNode;
+            for (var r = e => new Promise((n => setTimeout(n, e))), o = new Set, i = {}; e.knqcv(f);) {
+                if (await e.ivsHv(r, 100), !e.knqcv(f)) {
+                    await r(1e3);
+                    break
+                }
+                e.lExoY(f).click()
+            }[...e.afvgo(getInstalImages)].forEach((e => {
+                let n = t.Klfdl(findhref2, e, t.uGnOp)[0];
+                o.add([n.src, n.getAttribute(t.PkAOe)])
+            })), e.afvgo(d).click();
+            try {
+                e.MqvJP(e.GdHVr, e.GdHVr) ? (!s[f] || d[h].closed) && (z[M] = null, I(H), D.log(R, t.gFtDi)) : e.ZWqbD(d).click()
+            } catch (e) {}
+            for (; e.hBQRJ(d);)
+                if (e.rHaVz("Jkmbf", e.GlbLh)) n();
+                else {
+                    await e.bTTDH(r, 300), [...getInstalImages()].forEach((e => {
+                        let n = t.lrrjB(findhref2, e, "img")[0];
+                        o.add([n.src, n.getAttribute(t.PkAOe)])
                     }));
-                for (;;)
-                    if (e.JMdJn !== e.qIszX) {
-                        if (await e.zfdpy(f, 100), !e.xwBnD(d)) break;
-                        d().click()
-                    } else e.gwjLh(n, 2, !1, !1);
-                    [...m].forEach((e => {
-                    p[e[0]] = e[1]
-                })), (m = Object.keys(p).map((e => ({
-                    src: e,
-                    name: p[e]
-                })))).forEach((n => {
-                    var t = new URL(n.src).pathname.split(".").pop();
-                    e.TjVGP(D, n.src, n.name + "." + t)
-                })), console.log(e.tcarw, m)
-            }
+                    try {
+                        e.qaaxV(d).click()
+                    } catch (e) {}[...o].length
+                }
+            for (;;) {
+                if ("vSzkz" !== e.GKKfl) return this.element[arguments[0]];
+                if (await e.ZGSpV(r, 100), !e.ZWqbD(f)) break;
+                f().click()
+            }[...o].forEach((e => {
+                i[e[0]] = e[1]
+            })), (o = Object.keys(i).map((e => ({
+                src: e,
+                name: i[e]
+            })))).forEach((e => {
+                var n = new URL(e.src).pathname.split(".").pop();
+                t.GDvdy(z, e.src, e.name + "." + n)
+            })), console.log(e.aCJBY, o)
         }
 
-        function v() {
-            e.xwBnD(g).then(console.log, console.warn)
+        function g() {
+            e.YcmMg(p).then(console.log, console.warn)
         }
         setElement = function(n) {
-            return !(!e.rXSuR(String, n).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/) || !e.SxmTX(String(n).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length, 11)) && e.CjKjd(String, n).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8]
-        }, findhref2 = function(t, r) {
-            var o = {
-                cahHT: function(n, t) {
-                    return e.YFTLg(n, t)
-                },
-                kwITw: e.VdIbq,
-                bnXwM: e.NXKnV,
-                YiXVU: function(n, t) {
-                    return e.EtpOs(n, t)
-                }
-            };
-            if ("VmvTj" !== e.caXBk) {
-                var u = [];
-                return e.dXGgS((function e(t) {
-                    var l = {
-                        tbBdg: function(e, n, t, r) {
-                            return e(n, t, r)
-                        },
-                        hFapI: "YBWiq",
-                        IfumH: function(e, n) {
-                            return e(n)
-                        }
-                    };
-                    o.cahHT(o.kwITw, o.bnXwM) ? n.warn("Failed unmuting") : o.YiXVU(t.tagName.toLowerCase(), r || "a") ? (u.push(t), t.children.length && ((t = t.children).forEach = [].forEach, t.forEach((n => {
-                        if ("YBWiq" !== l.hFapI) {
-                            var t = l.tbBdg(i, c, ((...e) => {
-                                t(...e), d && h(t)
-                            }), !0);
-                            return t
-                        }
-                        l.IfumH(e, n)
-                    })))) : t.children.length && ((t = t.children).forEach = [].forEach, t.forEach((n => {
-                        e(n)
-                    })))
-                }), t), u
-            } {
-                let e = new s(d, {
-                    bubbles: !0,
-                    isTrusted: !0
-                });
-                h["on" + m] && p["on" + g](e), "input" === v && (D.value = N), R.dispatchEvent(e)
-            }
-        }, getInstalImages = function() {
-            return "IzpMK" === e.kHZpr ? document.querySelectorAll(e.zipVa) : [...n.querySelectorAll(".xt0psk2.xvs91rp.xo1l8bm.x5n08af.x18hxmgj")].pop().innerText.split("\n")[0]
-        }, getInstaVideo = function() {
-            if ("hLiQs" !== e.ioVKb) return document.querySelector(e.oKEoS);
-            e.dXGgS(i, ...c), u && l(a)
-        }, downloadVideoFromBlob = function(n, o) {
-            var i = {
-                RFFJr: e.uLTIx,
-                xoHUT: function(n, t) {
-                    return e.BICDn(n, t)
-                },
-                hpvec: e.hbaIA,
-                WcMXd: function(n, t) {
-                    return e.vCEmc(n, t)
-                }
-            };
-            if (e.vEpRC(e.xPYiP, "GPKSE"))
-                if (n && n.src && n.src.startsWith("blob:"))
-                    if (e.rtJwy(e.YrdJa, e.YrdJa)) {
-                        const t = n.captureStream(),
-                            r = new MediaRecorder(t),
-                            c = [];
-                        r.ondataavailable = e => {
-                            e.data.size > 0 && (c.push(e.data), console.log(e.data))
-                        }, r.onstop = () => {
-                            const e = new Blob(c, {
-                                    type: i.RFFJr
-                                }),
-                                n = URL.createObjectURL(e),
-                                t = document.createElement("a");
-                            t.style.display = "none", t.href = n, t.download = i.xoHUT(o, i.hpvec), document.body.appendChild(t), t.click(), document.body.removeChild(t), URL.revokeObjectURL(n)
-                        }, r.start(), e.Cghdr(setTimeout, (() => {
-                            r.stop()
-                        }), e.LBygr(n.duration, 1e3))
-                    } else {
-                        var u = {
-                            MTkRA: function(n) {
-                                return e.pkguC(n)
-                            },
-                            jqAYq: function(n, t) {
-                                return e.zfdpy(n, t)
-                            },
-                            BItlI: function(n, t, r, o, i, c) {
-                                return e.jkDZf(n, t, r, o, i, c)
-                            }
-                        };
-                        let n = new a("button", {
-                            id: e.mDIBy
-                        }).appendTo(s).set("innerText", e.Joxty).on(e.NIzLS, (function() {
-                            let e = u.MTkRA(x) || u.jqAYq(n, D.href);
-                            u.BItlI(N, e, !1, !0, !1, !0)
-                        })).style({
-                            position: e.BcZZE,
-                            right: e.EHGcw,
-                            top: e.uXwQn
-                        });
-                        for (; !g.getElementById(e.mDIBy) && v.querySelector(e.SlbmQ);) x.log(e.MWVbI), n.appendTo(e.SlbmQ)
-                    } else e.BRlqm(e.lKTUS, e.lKTUS) ? console.error(e.VsrfX) : c.children.length && (h = m.children, p.forEach = [].forEach, g.forEach((e => {
-                i.WcMXd(w, e)
-            })));
-            else t = 1, r.log(e.suFTF)
-        }, console.log("A?");
-        const w = e => new Promise((n => setTimeout(n, e)));
-        if (document.domain == e.YSojH)
-            if (e.cBIOG(e.uVUeJ, e.KxYDA)) {
-                var y = {
-                    NWHZQ: function(e, n) {
-                        return e(n)
-                    },
-                    hSpTu: e.hJqzP
-                };
-                if ((M[U] || V[A]) && !j) return;
-                Y.log(e.nmsEn, H, F), X[J] = e.iVXzT(K, Q, Z, !0, !!ee), ne.addEventListener(e.FCbOg, (function(e) {
-                    b[ye].close()
-                }));
-                var b = e.PEJoI(ue, (e => {
-                    (!b[ye] || be[xe].closed) && (k[fJ] = null, y.NWHZQ(fz, b), fA.log(fr, y.hSpTu))
-                }), 300)
-            } else onload = async function() {
-                const n = {
-                    url: name,
-                    input: null
-                };
-                var t = !1;
-                for (e.Cghdr(setTimeout, (() => {
-                        t = !0
-                    }), 2e4); !document.querySelector(e.saSXB);)
-                    if (e.EWChH(e.XCJjt, e.XCJjt)) i = !0, c = u[1], l.log(a);
-                    else if (await w(0), t) throw "Cant find input";
-                n.input = document.querySelector(e.saSXB), console.log(e.yakVC), e.Cghdr((function(n, t) {
-                    var r = {
-                        kGMRA: function(e, n, t) {
-                            return e(n, t)
-                        },
-                        eXngX: function(e, n) {
-                            return e(n)
-                        },
-                        QDeQP: e.BnOva,
-                        NTEph: function(e, n) {
-                            return e === n
-                        },
-                        ihdIF: e.JNJfC,
-                        BZIhf: e.qtEpO
-                    };
-                    [e.DiwRN, e.qtEpO, e.HutbD, e.arAHa].forEach((e => {
-                        if (r.NTEph("UbTwO", r.ihdIF)) {
-                            let o = new Event(e, {
-                                bubbles: !0,
-                                isTrusted: !0
-                            });
-                            n["on" + e] && n["on" + e](o), r.NTEph(e, r.BZIhf) && (n.value = t), n.dispatchEvent(o)
-                        } else r.kGMRA(i, !0, c(r.eXngX(u, r.QDeQP) ? l(r.QDeQP).innerText : a.href))
-                    }))
-                }), n.input, n.url), document.querySelector(e.SjQdK).click(), GM_setValue(e.xaDGd, await async function(n) {
-                    for (; !document.querySelector(n);) await e.dXGgS(w, 0);
-                    return document.querySelector(n)
-                }(e.smAMx).then((e => e.href)))
-            };
-        else {
-            if (e.IGdck(document.domain, e.Udyhl)) return void(getSoundCloadI = function() {
-                var n = {
-                    lAYmD: function(n, t, r) {
-                        return e.PEJoI(n, t, r)
-                    },
-                    xPeWb: "https://sclouddownloader.net/",
-                    bLUyT: e.iHLBz
-                };
-                e.Lvsma("eJDWc", e.kNqbY) ? i = function() {
-                    n.lAYmD(s, "SC", d());
-                    var e = n.lAYmD(h, n.xPeWb, "SC");
-                    e.onclose = function(n) {
-                        e.log("Win closed")
-                    }
-                } : (_setV("SC", e.pkguC(getSoundCloudUrl)), e.Wsnzq(open, e.pxsnd, "SC").onclose = function(e) {
-                    console.log(n.bLUyT)
-                })
-            });
-            if (e.LhYoo(document.domain, e.laEYK)) return void
-            function() {
-                var n, t = {
-                    ZIPdW: e.NQFhJ,
-                    rMCIm: "innerText",
-                    dEVRf: e.xJTDN,
-                    gyrNl: e.NIzLS,
-                    lNisc: function(n, t) {
-                        return e.vCEmc(n, t)
-                    },
-                    lIAib: e.gtDYX,
-                    CduZY: function(e, n) {
+            return !(!e.KzgpF(String, n).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/) || 11 != e.KHUQO(String, n).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length) && String(n).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8]
+        }, findhref2 = function(n, t) {
+            var r = {
+                    EjoLQ: function(e, n) {
                         return e === n
                     },
-                    pABeK: e.ihWAE,
-                    rCQNJ: function(n, t, r, o, i, c, u) {
-                        return e.rfBvb(n, t, r, o, i, c, u)
+                    AFoXG: e.cgdHu,
+                    pTLiR: e.daWyU,
+                    efDEF: function(n, t) {
+                        return e.ivsHv(n, t)
                     },
-                    PkcyY: function(n, t) {
-                        return e.nyYPc(n, t)
+                    DQuza: e.nHPRt,
+                    LYYcb: function(n, t) {
+                        return e.BvyhP(n, t)
                     },
-                    caeQl: e.fPqsr,
-                    FaOIM: function(n, t) {
-                        return e.KvVmV(n, t)
+                    dFxaJ: function(n, t) {
+                        return e.GCnRh(n, t)
                     },
-                    YNoTT: e.egAfB,
-                    lNMnf: e.NZUhz
+                    LwWto: function(e, n) {
+                        return e !== n
+                    },
+                    cCzIT: e.vxZjo
+                },
+                o = [];
+            return e.OgYRX((function e(n) {
+                var c = {
+                    SgSzp: r.DQuza,
+                    FsAGb: function(e, n) {
+                        return r.efDEF(e, n)
+                    }
                 };
-                e.oywoG(setInterval, (() => {
-                    var e = {
-                        NpSdc: function(e, n) {
-                            return t.CduZY(e, n)
+                r.LYYcb(n.tagName.toLowerCase(), r.dFxaJ(t, "a")) ? (o.push(n), n.children.length && ((n = n.children).forEach = [].forEach, n.forEach((n => {
+                    if (r.EjoLQ(r.AFoXG, r.pTLiR)) {
+                        if (s) {
+                            let e = z.createElement("a");
+                            e.download = M + c.SgSzp, e.href = I, t.body.appendChild(e), e.click(), e.remove()
+                        } else c.FsAGb(p, g);
+                        v[w] = C
+                    } else r.efDEF(e, n)
+                })))) : r.LwWto(r.cCzIT, "XhiJr") ? n.children.length && ((n = n.children).forEach = [].forEach, n.forEach((n => {
+                    r.efDEF(e, n)
+                }))) : [...i.attributes].map((e => {
+                    const {
+                        name: n,
+                        value: t
+                    } = e;
+                    return {
+                        name: n,
+                        value: t
+                    }
+                })).filter((e => e.value == s)).length && (u.push(l), a = 1)
+            }), n), o
+        }, getInstalImages = function() {
+            if (!e.PQvfc(e.AduFz, e.AduFz)) return document.querySelectorAll(e.mAZsX); {
+                const e = i.createElement("a");
+                e.href = c, e.download = u, l.body.appendChild(e), e.click(), a.body.removeChild(e)
+            }
+        }, getInstaVideo = function() {
+            return document.querySelector(e.fgLJv)
+        }, downloadVideoFromBlob = function(n, t) {
+            var r = {
+                KLukm: e.Hryio,
+                sGZhT: e.HBIWz,
+                aaSXL: e.JCkXw
+            };
+            if (!e.UkJgH(e.RkQTJ, "DZiQm")) {
+                for (let e in arguments[1]) arguments[0].setAttribute(e, arguments[1][e]);
+                return arguments[0]
+            }
+            if (n && n.src && n.src.startsWith("blob:")) {
+                const o = n.captureStream(),
+                    i = new MediaRecorder(o),
+                    c = [];
+                i.ondataavailable = e => {
+                    e.data.size > 0 && (c.push(e.data), console.log(e.data))
+                }, i.onstop = () => {
+                    const e = new Blob(c, {
+                            type: r.KLukm
+                        }),
+                        n = URL.createObjectURL(e),
+                        o = document.createElement("a");
+                    o.style.display = r.sGZhT, o.href = n, o.download = t + r.aaSXL, document.body.appendChild(o), o.click(), document.body.removeChild(o), URL.revokeObjectURL(n)
+                }, i.start(), setTimeout((() => {
+                    i.stop()
+                }), e.fZgXw(n.duration, 1e3))
+            } else console.error(e.UiwRy)
+        }, console.log("A?");
+        const v = e => new Promise((n => setTimeout(n, e)));
+        if (e.cZSBc(document.domain, e.HcRdO)) onload = async function() {
+            var n = {
+                FFZeD: function(n, t) {
+                    return e.ivsHv(n, t)
+                },
+                Uczmz: function(e, n) {
+                    return e < n
+                },
+                ffMyt: e.KoKRu,
+                BgtkS: function(n, t) {
+                    return e.TkAVQ(n, t)
+                },
+                pvrFC: e.nSvjK,
+                xITdH: e.MdgDg,
+                sinmf: "blur"
+            };
+            const t = {
+                url: name,
+                input: null
+            };
+            var r = !1;
+            for (setTimeout((() => {
+                    r = !0
+                }), 2e4); !document.querySelector(e.NZOkb);)
+                if (await e.ZGSpV(v, 0), r) throw e.JyImx;
+            t.input = document.querySelector(e.NZOkb), console.log("Found a"), e.zVHXR((function(e, t) {
+                var r = {
+                    qaKcR: function(e, t) {
+                        return n.FFZeD(e, t)
+                    },
+                    TFfjJ: function(e, t) {
+                        return n.Uczmz(e, t)
+                    },
+                    VubkZ: n.ffMyt
+                };
+                if (n.BgtkS("sFVqY", "eaujc")) {
+                    [n.pvrFC, n.ffMyt, n.xITdH, n.sinmf].forEach((n => {
+                        let o = new Event(n, {
+                            bubbles: !0,
+                            isTrusted: !0
+                        });
+                        e["on" + n] && e["on" + n](o), n === r.VubkZ && (e.value = t), e.dispatchEvent(o)
+                    }))
+                } else i.innerText.startsWith(c) && (u = new l(a.href).searchParams.get("v"))
+            }), t.input, t.url), document.querySelector(e.XQPvD).click(), GM_setValue(e.QUMqJ, await async function(n) {
+                for (; !document.querySelector(n);) await e.xOXHC(v, 0);
+                return document.querySelector(n)
+            }(e.ubHnc).then((e => e.href)))
+        };
+        else {
+            if (e.lYjhi(document.domain, e.jYncz)) return void(getSoundCloadI = function() {
+                var t = {
+                    vHocI: function(n, t) {
+                        return e.argcw(n, t)
+                    },
+                    bLLlO: e.MhDsL,
+                    XzMwc: e.ACSTq
+                };
+                e.pPJFK(_setV, "SC", e.qFSzF(getSoundCloudUrl)), e.pPJFK(open, "https://sclouddownloader.net/", "SC").onclose = function(e) {
+                    if (t.vHocI("HjqNv", t.bLLlO)) return new n("br");
+                    console.log(t.XzMwc)
+                }
+            });
+            if (document.domain == e.kBYcQ) return void
+            function() {
+                var t, o = {
+                    dMytP: function(n, t) {
+                        return e.UkJgH(n, t)
+                    },
+                    NfZgi: e.jkzWv,
+                    jsHND: e.KCPET,
+                    mtpIx: e.mgsjM,
+                    whaKZ: e.WRZEw,
+                    oAxhw: "click",
+                    TiKjr: function(n, t) {
+                        return e.dUPhR(n, t)
+                    },
+                    vFQHr: function(n, t, r) {
+                        return e.zVHXR(n, t, r)
+                    },
+                    SrrLs: e.OcazL,
+                    UTSUG: "#cardApiIframe",
+                    vrIrm: "Added That Thing",
+                    pmrPj: function(n, t) {
+                        return e.jGfzE(n, t)
+                    },
+                    MbvDI: e.yKvUq,
+                    DDiJK: e.QeTYn,
+                    VwHPi: e.xxNqL,
+                    INATn: function(n, t) {
+                        return e.rHDPr(n, t)
+                    },
+                    WQXbI: e.iVEZE,
+                    mdUre: function(n, t) {
+                        return e.rHaVz(n, t)
+                    },
+                    MzNQj: e.ZiLDU,
+                    vzbzs: e.TSKrb,
+                    TgpsL: function(e, n) {
+                        return e === n
+                    },
+                    GBGMC: "iskcq",
+                    HSjuo: "#video-list",
+                    wUafp: e.mIWeF,
+                    GAgse: "Not FOund"
+                };
+                e.sdbyM(setInterval, (() => {
+                    var e, i = {
+                        LCDNg: o.UTSUG,
+                        XhMnw: o.vrIrm,
+                        HallL: function(e, n) {
+                            return o.TiKjr(e, n)
                         },
-                        WBdPq: t.pABeK,
-                        touAP: function(e, n) {
-                            return e == n
+                        PRFuY: function(e, n) {
+                            return o.pmrPj(e, n)
                         },
-                        KvfRp: function(e, n, r, o, i, c, u) {
-                            return t.rCQNJ(e, n, r, o, i, c, u)
+                        nOtcz: o.MbvDI,
+                        okfKX: o.DDiJK,
+                        efuGO: o.VwHPi,
+                        aCRAi: function(e, n) {
+                            return o.INATn(e, n)
+                        },
+                        USpJZ: o.WQXbI,
+                        RLATr: function(e, n) {
+                            return o.mdUre(e, n)
+                        },
+                        kiCvf: o.MzNQj,
+                        szzvj: "Doesnt work yet",
+                        VQPGx: function(e, n) {
+                            return o.pmrPj(e, n)
+                        },
+                        PoPvo: function(e, n, t, r, o, i, c) {
+                            return e(n, t, r, o, i, c)
                         }
                     };
-                    if (t.PkcyY("byGnJ", "BpTRk")) {
-                        var r;
-                        try {
-                            [...[...document.querySelectorAll(t.caeQl)].map((e => [e, [...e.classList]])).filter((e => e[1].includes("ytcp-video-section")))[0][0].children[1].children].map((e => [e, [...e.classList], e.tagName])).filter((e => "YTCP-VIDEO-ROW" == e[2])).filter((n => !!e.NpSdc(e.WBdPq, e.WBdPq) && e.touAP(n[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0].innerText, "Public"))).map((e => e[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0])).forEach((n => {
-                                console.log(n), n.append(new _e("br").element);
-                                var r = new _e(t.ZIPdW).set(t.rMCIm, t.dEVRf).on(t.gyrNl, (function(n) {
-                                    alert("Doesnt work yet");
+                    if (o.dMytP("DjNUY", o.vzbzs)) return n.match(/(?<host>https?\:\/\/www\.tiktok\.com)\/(?<username>@[^\/]+)\/video\/(?<videoID>\d+)/i).groups;
+                    try {
+                        if (o.TgpsL("iskcq", o.GBGMC))[...[...document.querySelectorAll(o.HSjuo)].map((e => [e, [...e.classList]])).filter((e => e[1].includes("ytcp-video-section")))[0][0].children[1].children].map((e => [e, [...e.classList], e.tagName])).filter((e => "YTCP-VIDEO-ROW" == e[2])).filter((n => {
+                            if ("tIoxC" !== i.efuGO) return i.aCRAi(n[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0].innerText, i.USpJZ);
+                            !v.querySelector(i.LCDNg) && (w(!0), e.parentNode.prepend(z), M.prepend(I.element), H.log(i.XhMnw)), i.HallL(D(R.href), B) && (i.PRFuY(j, !0), O.set(i.nOtcz, N), Q.log(i.okfKX), K = i.PRFuY(W, n.href))
+                        })).map((e => e[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0])).forEach((e => {
+                            if (o.dMytP(o.NfZgi, o.NfZgi)) n.warn("Failed unmuting");
+                            else {
+                                console.log(e), e.append(new _e("br").element);
+                                var t = new _e(o.jsHND).set(o.mtpIx, o.whaKZ).on(o.oAxhw, (function(e) {
+                                    if (!i.RLATr(i.kiCvf, i.kiCvf)) return new r((e => c(e, u)));
+                                    alert(i.szzvj);
                                     var {
-                                        id: t,
-                                        href: r,
+                                        id: n,
+                                        href: t,
                                         isShort: o
-                                    } = findhref2(n.target.parentElement.parentElement).map((e => ({
+                                    } = i.VQPGx(findhref2, e.target.parentElement.parentElement).map((e => ({
                                         href: e.href,
                                         short: e.href.includes("/short"),
                                         id: setElement(e.href)
                                     }))).filter((e => e.id))[0];
-                                    e.KvfRp(downloadT, t, !1, !0, !1, !1, o ? new URL(r) : null)
+                                    i.PoPvo(downloadT, n, !1, !0, !1, !1, o ? new URL(t) : null)
                                 }));
-                                n.append(r.element)
-                            })), r = !0
-                        } catch {
-                            r = !1
-                        }
-                        t.FaOIM(n, r) && (n = r, console.log(t.YNoTT, r ? "Found" : t.lNMnf))
-                    } else try {
-                        return t.lNisc(o, i.querySelector(t.lIAib))[0].href
+                                e.append(t.element)
+                            }
+                        })), e = !0;
+                        else o.TiKjr(c, u.innerText) && (d = h.innerText, o.vFQHr(m, o.SrrLs, p))
                     } catch {
-                        return
+                        e = !1
                     }
+                    t != e && (t = e, console.log(o.wUafp, e ? "Found" : o.GAgse))
                 }), 0)
             }();
-            if (e.ILAMx(document.domain, "www.instagram.com")) {
-                if (!e.DiDDV(e.GSMMz, e.ozUlS)) {
-                    var x;
+            if (document.domain == e.ruPww) {
+                var w;
 
-                    function b() {
-                        for (var t = e.xuFrQ.split("|"), r = 0;;) {
-                            switch (t[r++]) {
-                                case "0":
-                                    var o = new n("button", {
-                                        id: e.vumRU
-                                    }).set(e.pbuOR, "Get Images").on("click", v);
-                                    continue;
-                                case "1":
-                                    console.log(e.suLLs);
-                                    continue;
-                                case "2":
-                                    i.append(o, c);
-                                    continue;
-                                case "3":
-                                    var i = new n(document.querySelectorAll(e.yPXnj)[0]);
-                                    continue;
-                                case "4":
-                                    var c = new n(e.NQFhJ, {
-                                        id: e.iLzAE
-                                    }).set("innerText", "Get Videos").on("click", p);
-                                    continue
-                            }
-                            break
-                        }
-                    }
-
-                    function k() {
-                        var t = new n(document.querySelector("._aaqy")),
-                            r = new n(e.NQFhJ, {
-                                id: "MediaButton"
-                            }).set("innerText", "Get Images").on(e.NIzLS, v),
-                            o = new n("button", {
-                                id: e.iLzAE
-                            }).set(e.pbuOR, "Get Videos").on(e.NIzLS, p);
-                        t.append(r, o)
-                    }
-                    return l((function() {
-                        document.querySelectorAll(".xh8yej3.x1iyjqo2")[0].children
-                    }), {
-                        callback: function() {
-                            var t = {
-                                drfop: e.yfdrK
-                            };
-                            if (!e.YFTLg(e.DVcKc, e.DVcKc)) return n.querySelector(t.drfop).innerText.replace("Replying to ", "");
-                            e.TSrWW(b), e.MZBwX(setInterval, (() => {
-                                document.querySelector(e.UHrQh) || e.VzZcA(b), document.querySelector("._aaqy") && !document.querySelector(e.qYbPG).querySelector("#MediaButton") && e.qdqtx(k)
-                            }))
-                        }
-                    }), void console.log(e.baszI)
-                }
-                var [b, k] = r.split(",");
-                o.value = "https://www.youtube.com/" + ("1" == k ? "shorts/" : e.EPSVU) + b, e.XSCYD(i)
-            } else if (e.hcLeT(document.domain, e.rinPo))(async function() {
-                var n = {
-                        fFgcc: function(e) {
-                            return e()
+                function y() {
+                    var t = {
+                        iEkMi: function(n, t) {
+                            return e.bTTDH(n, t)
                         },
-                        CuMKN: function(e) {
-                            return e()
+                        MdPnq: function(e, n) {
+                            return e == n
                         },
-                        jsQVo: function(n) {
-                            return e.hIngU(n)
-                        },
-                        uRQiO: function(n, t) {
-                            return e.KvVmV(n, t)
-                        },
-                        LbxOS: function(n) {
-                            return e.xwBnD(n)
-                        },
-                        FZSJe: function(n) {
-                            return e.odQRx(n)
-                        },
-                        lAupw: e.KIFYJ,
-                        XzGvf: function(n, t, r) {
-                            return e.Wsnzq(n, t, r)
-                        },
-                        jDOUg: function(n, t) {
-                            return e.KvVmV(n, t)
-                        },
-                        gdRkh: "buttons are gone?!?!",
-                        wLwZD: e.pUpbY,
-                        UFNkM: "disabled",
-                        Effmy: function(n, t, r, o, i, c) {
-                            return e.zWPhu(n, t, r, o, i, c)
-                        },
-                        zOGgx: function(n, t) {
-                            return e.kLRTg(n, t)
-                        }
-                    },
-                    t = e.WIdlX(_getV, "sc");
-                async function r(n, t) {
-                    var r = {
-                        SvCIl: function(n, t) {
-                            return e.SxmTX(n, t)
-                        },
-                        KZBoz: function(n, t, r) {
-                            return e.Wsnzq(n, t, r)
-                        },
-                        wwzZn: function(n, t) {
-                            return e.tZuON(n, t)
-                        },
-                        dHDsY: e.hKKRv,
-                        eAVgI: "ooxuO",
-                        AxcqG: function(n) {
-                            return e.XSCYD(n)
-                        },
-                        UMyjM: function(n) {
-                            return e.xwBnD(n)
+                        yEpDn: function(e, n) {
+                            return e(n)
                         }
                     };
-                    let o = e => new Promise((n => setTimeout(n, e)));
-                    return await new Promise((async(e, i) => {
-                        var f = {
-                                xQaWM: function(e, n) {
-                                    return e(n)
-                                },
-                                OERGB: function(e, n) {
-                                    return r.SvCIl(e, n)
-                                }
+                    if (!e.MqvJP(e.kPEnX, e.WxZmP)) return !(!t.iEkMi(c, u).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/) || !t.MdPnq(l(a).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length, 11)) && t.yEpDn(s, f).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8];
+                    for (var r = e.rGozN.split("|"), o = 0;;) {
+                        switch (r[o++]) {
+                            case "0":
+                                console.log(e.bzLDa);
+                                continue;
+                            case "1":
+                                var i = new n(document.querySelectorAll(e.dhXNf)[0]);
+                                continue;
+                            case "2":
+                                var d = new n(e.KCPET, {
+                                    id: e.BSPAe
+                                }).set(e.mgsjM, e.RzCYw).on("click", g);
+                                continue;
+                            case "3":
+                                i.append(d, h);
+                                continue;
+                            case "4":
+                                var h = new n(e.KCPET, {
+                                    id: e.YmpZv
+                                }).set(e.mgsjM, "Get Videos").on(e.ygVJA, m);
+                                continue
+                        }
+                        break
+                    }
+                }
+
+                function b() {
+                    var t = new n(document.querySelector(e.FolBl)),
+                        r = new n("button", {
+                            id: e.BSPAe
+                        }).set(e.mgsjM, "Get Images").on("click", g),
+                        o = new n(e.KCPET, {
+                            id: "MediaButton2"
+                        }).set(e.mgsjM, "Get Videos").on("click", m);
+                    t.append(r, o)
+                }
+                return l((function() {
+                    document.querySelectorAll(e.dhXNf)[0].children
+                }), {
+                    callback: function() {
+                        var n = {
+                            JuKob: e.uUSzJ,
+                            jVssL: function(e) {
+                                return e()
                             },
-                            h = !1;
-                        r.KZBoz(setTimeout, (() => (h = 0, i())), t);
-                        for (; !document.querySelector(n);)
-                            if (await o(), h) {
-                                if (r.wwzZn(r.dHDsY, r.eAVgI)) return !(!f.xQaWM(c, u).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/) || !f.OERGB(l(a).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length, 11)) && f.xQaWM(s, d).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8];
-                                r.AxcqG(i);
-                                break
+                            PwAoD: e.FolBl
+                        };
+                        y(), e.OhLDW(setInterval, (() => {
+                            document.querySelector(n.JuKob) || n.jVssL(y), document.querySelector(n.PwAoD) && !document.querySelector(n.PwAoD).querySelector(n.JuKob) && n.jVssL(b)
+                        }))
+                    }
+                }), void console.log(e.dfNZO)
+            }
+            if (e.OEsrV(document.domain, "sclouddownloader.net")) e.FCcVV == e.FCcVV ? async function() {
+                var n = {
+                        kewTR: e.suBoZ,
+                        uDpXO: function(n) {
+                            return e.jDOFs(n)
+                        },
+                        TSXKe: function(n, t, r) {
+                            return e.zVHXR(n, t, r)
+                        },
+                        vtDxM: e.FZRHL,
+                        JHasj: e.gueZO
+                    },
+                    d = e.KHUQO(_getV, "sc");
+                async function h(e, c) {
+                    var d = {
+                        Lxgdq: n.kewTR,
+                        WviSx: function(e) {
+                            return e()
+                        },
+                        ZarAo: function(e) {
+                            return n.uDpXO(e)
+                        },
+                        ANwJO: function(e, n) {
+                            return e !== n
+                        },
+                        WuHXA: function(e, t, r) {
+                            return n.TSXKe(e, t, r)
+                        },
+                        Luuyx: "OVpSB",
+                        MxKFV: n.vtDxM,
+                        AAfSt: n.JHasj
+                    };
+                    let h = e => new Promise((n => setTimeout(n, e)));
+                    return await new Promise((async(n, m) => {
+                        var p = {
+                            lMWAt: function(e) {
+                                return e()
+                            },
+                            Gvacb: function(e) {
+                                return d.WviSx(e)
+                            },
+                            uxTES: function(e) {
+                                return d.ZarAo(e)
                             }
-                        return r.UMyjM(e)
+                        };
+                        if (d.ANwJO("jZuOX", "DQtDe")) {
+                            var g = !1;
+                            d.WuHXA(setTimeout, (() => (g = 0, m())), c);
+                            for (; !document.querySelector(e);)
+                                if (d.Luuyx !== d.MxKFV) {
+                                    if (await h(), g) {
+                                        if ("tzRhN" === d.AAfSt) {
+                                            m();
+                                            break
+                                        }
+                                        p.lMWAt(c).append(u.br.element), p.Gvacb(l).append(a.element), p.uxTES(s).append(f.element)
+                                    }
+                                } else t.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = r;
+                            return d.WviSx(n)
+                        }
+                        r.log(d.Lxgdq, o), i = !0
                     })).then((e => !0), (e => !1))
                 }
-                if (e.SxmTX(location.pathname, e.uMobM)) {
-                    for (await e.rXSuR(r, e.glfhP); !trackTitle.innerText.length;) await w(0);
-                    for (await e.dXGgS(r, e.dCxrW); !trackLink.href.length;) await e.iUlos(w, 0);
-                    var o = {
-                        name: trackTitle.innerText,
-                        href: trackLink.href
-                    };
-                    console.log(o), e.pAwdw(_setV, "SCinfo", o), e.iaScy(close)
-                } else {
-                    if (!e.mCRle(_getV, "SC")) throw "Bruv";
-                    var f = "#urlInput";
-                    e.SpTVe;
-                    if (await e.oywoG(r, f, 2e3), await r(f, 2e3))
-                        if ("mQaPe" === e.VlZCg) n.uRQiO(w, n.LbxOS(x)) && n.FZSJe(R) ? (F.log(n.lAupw), n.XzGvf(X, (() => {
-                            n.fFgcc(ie).append(ce.br.element), n.CuMKN(ue).append(ae.element), n.jsQVo(se).append(fe.element)
-                        }), 100)) : n.jDOUg(U, V()) && !n.CuMKN(A) && ie.log(n.gdRkh), Y = H();
-                        else {
-                            for (document.querySelector(f).value = t, console.log(e.avEFl, !!window.formSubmit); e.SxmTX(typeof formSubmit, e.njnuT);)
-                                if (e.WeOTy(e.zszRu, e.zszRu)) i.set("innerText", n.wLwZD), c.set(n.UFNkM, !0), n.Effmy(u, n.zOGgx(l, a.href), !0, !0, !1, !0);
-                                else try {
-                                    await e.nlXdP(w, 0), console.log(e.avEFl, formSubmit)
-                                } catch {}
-                                console.log("EZ url", formSubmit), e.YVzSo(formSubmit), console.warn(e.kDTDF), e.Wsnzq(setInterval, formSubmit, 1e3)
+                if (e.rHDPr(location.pathname, e.xgZVA))
+                    for (var m = e.TFsph.split("|"), p = 0;;) {
+                        switch (m[p++]) {
+                            case "0":
+                                await e.ycXxr(h, "#trackLink");
+                                continue;
+                            case "1":
+                                _setV(e.rABFj, g);
+                                continue;
+                            case "2":
+                                for (; !trackLink.href.length;) await e.YJmgc(v, 0);
+                                continue;
+                            case "3":
+                                console.log(g);
+                                continue;
+                            case "4":
+                                var g = {
+                                    name: trackTitle.innerText,
+                                    href: trackLink.href
+                                };
+                                continue;
+                            case "5":
+                                for (; !trackTitle.innerText.length;) await e.lclUo(v, 0);
+                                continue;
+                            case "6":
+                                await e.OhLDW(h, e.GZBDj);
+                                continue;
+                            case "7":
+                                e.GioGp(close);
+                                continue
                         }
-                }
-            })().then(console.log, console.warn);
-            else {
-                if (e.MGUcy(document.domain, "y2mate.nu")) {
-                    e.hqotI(location.pathname.split("/")[1], GM_getValue(e.zDgZi)) && (e.GYDku(GM_setValue, e.zDgZi, location.pathname.split("/")[1]), console.warn(e.KfAUi));
+                        break
+                    } else {
+                        if (!e.nxFbH(_getV, "SC")) throw "Bruv";
+                        var w = "#urlInput";
+                        e.YdfCy;
+                        if (await h(w, 2e3), await h(w, 2e3))
+                            if ("LUNdh" !== e.xzXqE) e.Plqvv(i, c).postMessage(u, "*"), l.href = a.href;
+                            else
+                                for (var y = "4|5|2|6|1|3|0".split("|"), b = 0;;) {
+                                    switch (y[b++]) {
+                                        case "0":
+                                            e.Kpklr(setInterval, formSubmit, 1e3);
+                                            continue;
+                                        case "1":
+                                            formSubmit();
+                                            continue;
+                                        case "2":
+                                            for (; e.rHDPr(typeof formSubmit, "undefined");) try {
+                                                e.WMJBI("ZDUVJ", e.EVzcH) ? (await e.trRdx(v, 0), console.log(e.tfGMF, formSubmit)) : t = r[0]
+                                            } catch {}
+                                            continue;
+                                        case "3":
+                                            console.warn(e.AwIys);
+                                            continue;
+                                        case "4":
+                                            document.querySelector(w).value = d;
+                                            continue;
+                                        case "5":
+                                            console.log("EZ url", !!window.formSubmit);
+                                            continue;
+                                        case "6":
+                                            console.log(e.tfGMF, formSubmit);
+                                            continue
+                                    }
+                                    break
+                                }
+                    }
+            }().then(console.log, console.warn) : n.querySelector(e.CVFmv).click();
+            else if (document.domain == e.OApED) {
+                if (e.yPuBG(e.wzeoy, e.sfoBw)) {
+                    e.dCUDK(location.pathname.split("/")[1], e.dBmRF(GM_getValue, e.OApED)) && (e.loVLb(GM_setValue, e.OApED, location.pathname.split("/")[1]), console.warn("updated"));
                     let Se = new URL(location.href).searchParams.get("v"),
-                        Ee = 1 == new URL(location.href).searchParams.get("s"),
-                        Ce = new URL(location.href).searchParams.get(e.EsHmi),
-                        qe = new URL(location.href).searchParams.get(e.anNkC),
-                        Le = e.BICDn(e.tjiWp(Se, Ce), qe);
-                    const Ie = e => new Promise((n => setTimeout(n, e)));
-                    async function T(t, r = 5e3) {
-                        var o = {
-                            wJBQA: e.GgtOY,
-                            Edbxk: e.XWsRI
+                        Te = e.hAPRE(new URL(location.href).searchParams.get("s"), 1),
+                        qe = new URL(location.href).searchParams.get(e.FeMzu),
+                        Ae = new URL(location.href).searchParams.get(e.VEoVg),
+                        Le = e.yHFoB(e.pwehV(Se, qe), Ae);
+                    const Ue = e => new Promise((n => setTimeout(n, e)));
+                    async function x(n, t = 5e3) {
+                        var r = {
+                            EjIpf: function(e, n) {
+                                return e !== n
+                            },
+                            rwUeM: function(n, t, r) {
+                                return e.NWxjb(n, t, r)
+                            }
                         };
-                        if (e.ckKGu !== e.jEykm) {
-                            let n = !1;
-                            for (e.ccerI(setTimeout, (() => {
-                                    console.log(o.wJBQA, t), n = !0
-                                }), r); !document.querySelector(t);) {
-                                if (e.Lvsma(e.cpwbT, e.cpwbT)) {
-                                    var i = {
-                                        ThUaQ: ".space-x-1",
-                                        xGOHw: function(n, t) {
-                                            return e.mCRle(n, t)
+                        if ("aUPgk" !== e.lhHgb) {
+                            let a = !1;
+                            for (setTimeout((() => {
+                                    r.EjIpf("OmtwZ", "OmtwZ") || (console.log("TimeOut for", n), a = !0)
+                                }), t); !document.querySelector(n);)
+                                if (e.EDrTK !== e.xaiyt) {
+                                    if (console.log("_", n, a), await e.YJmgc(Ue, 500), a) break
+                                } else {
+                                    var o = {
+                                        glpZO: function(e, n) {
+                                            return e(n)
                                         }
                                     };
-                                    return [...c.querySelectorAll(e.TxjSl)].filter((e => h(e)[0])).filter((e => h(e)[0].href.includes("clips.twitchcdn.net"))).forEach((e => {
-                                        h[e.querySelector(i.ThUaQ).innerText.replace("p", "")] = i.xGOHw(m, e)[0].href
-                                    })), d
+                                    i = c.children, u.forEach = [].forEach, l.forEach((e => {
+                                        o.glpZO(s, e)
+                                    }))
                                 }
-                                if (console.log("_", t, n), await e.rXSuR(Ie, 500), n) break
-                            }
-                            if (console.log(t, n), n) throw e.ufkrY;
-                            return document.querySelector(t)
+                            if (console.log(n, a), a) throw e.jWDvX;
+                            return document.querySelector(n)
                         }
-                        throw new n(o.Edbxk)
+                        r.rwUeM(c, (function() {
+                            d.value = n, m(), p(g, 1e3)
+                        }), {
+                            callback() {}
+                        })
                     }
                     return void async function() {
-                        for (var o = {
-                                PTmdB: function(e, n) {
-                                    return e instanceof n
+                        for (var t = {
+                                mwumm: "3|1|0|6|5|2|4",
+                                WILUA: function(n, t, r) {
+                                    return e.EYjio(n, t, r)
                                 },
-                                omWfb: "Provided argument is not a DOM element."
-                            }; e.BhoLZ(document.readyState, e.unNIw);) await e.sXwAq(Ie, 0);
+                                CtNml: e.TBAJd,
+                                sATpX: function(n, t) {
+                                    return e.jNJsl(n, t)
+                                },
+                                iIHCx: e.brSPv,
+                                bNtOa: function(n, t) {
+                                    return e.NOwCU(n, t)
+                                },
+                                KhpKp: function(e, n) {
+                                    return e == n
+                                },
+                                UjAdn: e.drtuE,
+                                TdDtz: function(e, n) {
+                                    return e == n
+                                },
+                                LxGAy: e.AWLOP,
+                                HWnmA: function(n, t) {
+                                    return e.ccGoR(n, t)
+                                },
+                                ANAvA: e.nHPRt,
+                                FpGsH: e.IDAPx,
+                                sHcUr: e.mgsjM,
+                                kBHJZ: "Get MP3",
+                                ePxwn: e.oHxWz,
+                                CFjTR: "Getting video",
+                                PsuWW: function(e, n) {
+                                    return e !== n
+                                },
+                                YlRiI: "EPepS",
+                                ZOqBa: e.jtSpc,
+                                QopOR: function(n, t) {
+                                    return e.KVMSH(n, t)
+                                },
+                                CWZyW: "convert1"
+                            }; e.dUPhR(document.readyState, "complete");) await e.RGfLL(Ue, 0);
                         if (Se) {
-                            let n = async n => {
-                                if (e.yGnWv === e.PfXYP) t(r);
-                                else {
-                                    console.log("a", n);
-                                    var o = e.CjKjd(findhref2, document.forms[0])[0].href,
-                                        i = e.Wsnzq(findhref2, document.forms[0], e.dxNCf)[0].innerText,
-                                        c = {
-                                            _: Le,
-                                            id: Se,
-                                            href: o,
-                                            title: i,
-                                            length: {}
-                                        };
-                                    console.log(e.GTEri, c), (opener || window.parent).postMessage(c, "*"), close()
-                                }
-                            };
-                            try {
-                                if (e.XBHcx(e.WMEss, e.WMEss)) {
-                                    if (m.domain.includes(e.tzuDv)) throw e.nlXdP(W, "These button dont work on youtube music yet"), ".";
-                                    var i = [...g.getElementsByTagName(e.mlWpj)].filter(v).filter((e => !i(e)))[0],
-                                        c = e.oywoG(x, i, e.WmefX).filter((e => !i(e))).filter(D).filter((e => "video-title" == e.id)).map(N).map(z).map((e => ({
-                                            id: i(c(V(e))[0].href),
-                                            e: e
-                                        })));
-                                    return c
-                                }
-                                await e.rXSuR(T, "#url").then((e => {
-                                    console.log("e", e), e.value = Ee ? "https://www.youtube.com/watch?v=" + Se : "https://www.youtube.com/shorts/" + Se, e.parentElement.children[1].click()
-                                })).catch(n), console.log(e.TGrJK), await e.uOPBv(T, e.eqvSx).then((async n => {
-                                    for (; document.querySelector("#" + n.id);) {
-                                        if (!e.WeOTy(e.ePEhG, e.LjRbg)) {
-                                            if (!o.PTmdB(a, n)) throw new x(o.omWfb);
-                                            const e = h.createElement(m.tagName);
-                                            for (let n of R.attributes) e.setAttribute(n.name, n.value);
-                                            return e.style.cssText = g.style.cssText, e.className = v.className, e.innerHTML = w.innerHTML, e
+                            if ("aJBLG" !== e.cWgfk) {
+                                if (!e.tHSIh(a, s)) throw new w(e.vijop);
+                                const n = d.createElement(h.tagName);
+                                for (let e of C.attributes) n.setAttribute(e.name, e.value);
+                                return n.style.cssText = p.style.cssText, n.className = g.className, n.innerHTML = v.innerHTML, n
+                            } {
+                                let n = async e => {
+                                    for (var n = t.mwumm.split("|"), r = 0;;) {
+                                        switch (n[r++]) {
+                                            case "0":
+                                                var o = t.WILUA(findhref2, document.forms[0], t.CtNml)[0].innerText;
+                                                continue;
+                                            case "1":
+                                                var i = t.sATpX(findhref2, document.forms[0])[0].href;
+                                                continue;
+                                            case "2":
+                                                (opener || window.parent).postMessage(c, "*");
+                                                continue;
+                                            case "3":
+                                                console.log("a", e);
+                                                continue;
+                                            case "4":
+                                                close();
+                                                continue;
+                                            case "5":
+                                                console.log(t.iIHCx, c);
+                                                continue;
+                                            case "6":
+                                                var c = {
+                                                    _: Le,
+                                                    id: Se,
+                                                    href: i,
+                                                    title: o,
+                                                    length: {}
+                                                };
+                                                continue
                                         }
-                                        await e.nlXdP(Ie, 0)
+                                        break
                                     }
-                                    console.log("a_")
-                                })).catch(n), console.log("b")
-                            } catch (i) {
-                                if (e.XvzgQ(e.FfVhs, e.FfVhs)) console.warn("Error:", i);
-                                else {
-                                    var {
-                                        data: {
-                                            href: u,
-                                            links: l,
-                                            title: s,
-                                            length: f,
-                                            id: d,
-                                            mp4: y,
-                                            info: {
-                                                username: b
-                                            }
-                                        }
-                                    } = m;
-                                    if (p.log("Handled", {
-                                            href: u,
-                                            title: s,
-                                            length: f,
-                                            id: d,
-                                            links: l,
-                                            mp4: y
-                                        }, g), e.SxmTX(v.origin, "https://savetik.co")) s = W, e.gKmds(M, y ? l[0] : l.pop(), e.IbEed(e.Fpppv(e.zuENl(b, " - "), s), y ? e.hbaIA : ".mp3"), U);
-                                    else {
-                                        if (V) {
-                                            let n = X.createElement("a");
-                                            n.download = e.afTtR(s, e.bmgNU), n.href = u, J.body.appendChild(n), n.click(), n.remove()
-                                        } else e.TSWmD(Y, u);
-                                        H[F] = u
-                                    }
+                                };
+                                try {
+                                    await x(e.LobjM).then((e => {
+                                        console.log("e", e), e.value = Te ? "https://www.youtube.com/watch?v=" + Se : "https://www.youtube.com/shorts/" + Se, e.parentElement.children[1].click()
+                                    })).catch(n), console.log(e.ABEmb), await e.MnEKh(x, e.LiOVt).then((async e => {
+                                        if (t.PsuWW(t.YlRiI, t.ZOqBa)) {
+                                            for (; document.querySelector("#" + e.id);) await t.QopOR(Ue, 0);
+                                            console.log("a_")
+                                        } else if (t.bNtOa(H.origin, D) || R.origin.match(/https?:\/{2}onlymp3\.to/) || B.origin.match(/https?:\/{2}en\.onlymp3\.to/) || j.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || t.KhpKp(O.origin, t.UjAdn) || t.bNtOa(N.origin, "https://y2mate.nu") || t.TdDtz(Q.origin, "https://snapsave.io") || K.origin == t.LxGAy) {
+                                            const {
+                                                data: {
+                                                    href: e,
+                                                    title: n,
+                                                    length: r,
+                                                    id: o,
+                                                    _: i
+                                                }
+                                            } = fe;
+                                            let c = t.HWnmA(n, de ? ".mp4" : t.ANAvA);
+                                            (e => {
+                                                e && e.remove()
+                                            })(he.getElementById(i)), me.log(t.FpGsH, {
+                                                href: e,
+                                                title: n,
+                                                length: r,
+                                                id: o,
+                                                _: i
+                                            }, pe), ge.set(t.sHcUr, t.kBHJZ), ve.set(t.ePxwn, !1), we ? (Ee.log(t.CFjTR), t.WILUA(ke, e, c)) : t.sATpX(be, e), xe[i] = e
+                                        } else le.log("Unhandled Post", se)
+                                    })).catch(n), console.log("b")
+                                } catch (n) {
+                                    console.warn(e.MDdny, n)
                                 }
                             }
                         } else {
-                            if (e.ULTOd("qoNss", e.uaSBX)) throw n.getElementById(e.desVt).click(), e.ZoenE;
-                            console.warn("No id Found")
+                            if (e.aZgNI(e.PxAop, e.PxAop)) throw n.getElementById(t.CWZyW).click(), "this";
+                            console.warn(e.kpphH)
                         }
                     }().then(console.log, console.warn)
                 }
-                if (e.AYxCB(document.domain, e.pbTgu)) {
-                    const Pe = e => new Promise((n => setTimeout(n, e)));
-                    async function S(n, t = 2e4) {
-                        var c = {
-                            ckGRh: function(n, t) {
-                                return e.qUjMv(n, t)
-                            },
-                            WPotL: function(e, n) {
-                                return e !== n
-                            },
-                            QYMab: e.ROwoO,
-                            dEjUV: e.GgtOY
+                try {
+                    e.GioGp(l), e.TRzjX(a), e.lclUo(s, f)
+                } catch (Pe) {}
+            } else if (e.cZSBc(document.domain, "qdownloader.cc"))
+                if (e.mJbtU(e.icdyQ, e.icdyQ)) {
+                    const Ve = e => new Promise((n => setTimeout(n, e)));
+                    async function E(n, t = 2e4) {
+                        var r = {
+                            JDavM: e.wjgxH,
+                            lQclx: e.IbKhm,
+                            rAPTG: function(e) {
+                                return e()
+                            }
                         };
-                        let u = !1;
-                        for (e.aOYwU(setTimeout, (() => {
-                                var e = {
-                                    anaQq: function(e, n) {
-                                        return c.ckGRh(e, n)
-                                    }
-                                };
-                                c.WPotL(c.QYMab, "WrFto") ? (console.log(c.dEjUV, n), u = !0) : (l.push(u), s.children.length && (v = w.children, x.forEach = [].forEach, R.forEach((n => {
-                                    e.anaQq(N, n)
-                                }))))
+                        let o = !1;
+                        for (e.sdbyM(setTimeout, (() => {
+                                console.log(e.suBoZ, n), o = !0
                             }), t); !document.querySelector(n);)
-                            if (e.DiDDV(e.LbjAq, e.LbjAq)) {
-                                if (console.log("_", n, u), await e.SxlHH(Pe, 500), u) break
-                            } else r.push([e.skBlh("w", o), e.IbEed(e.uLDyz, i)]);
-                        if (console.log(n, u), u) throw e.ufkrY;
+                            if (e.rHaVz("YKPNL", e.awAPg)) {
+                                if (console.log("_", n, o), await Ve(500), o) break
+                            } else {
+                                const e = p.createObjectURL(g);
+                                v.href = e, w.download = C, z.target = r.JDavM, M.click(), I.revokeObjectURL(e), (H || D || R).postMessage({
+                                    url: B,
+                                    title: j,
+                                    s: !0
+                                }, "*"), (typeof O).includes(r.lQclx) && r.rAPTG(N)
+                            }
+                        if (console.log(n, o), o) throw e.jWDvX;
                         return document.querySelector(n)
                     }
 
-                    function E(t, r) {
-                        ["focus", "input", e.HutbD, e.arAHa].forEach((o => {
-                            var i = {
-                                tQyyK: e.iHLBz
-                            };
-                            if (e.eCbId(e.NutSX, "sNpag")) n.log(i.tQyyK);
-                            else {
-                                let n = new Event(o, {
+                    function k(n, t) {
+                        var r = {
+                            fDhUI: e.wAwYM,
+                            siwgI: function(n, t) {
+                                return e.JQpsC(n, t)
+                            },
+                            VFUbR: e.LqDfv,
+                            gGNhK: function(e, n) {
+                                return e(n)
+                            },
+                            NYZrC: e.UHtXF,
+                            NSGJq: function(n, t) {
+                                return e.nBJrx(n, t)
+                            },
+                            ybWOg: e.laNsH
+                        };
+                        if (e.TkAVQ(e.JgDbe, e.smvjT)) {
+                            [e.nSvjK, e.KoKRu, e.MdgDg, e.HkgJT].forEach((r => {
+                                let o = new Event(r, {
                                     bubbles: !0,
                                     isTrusted: !0
                                 });
-                                t["on" + o] && t["on" + o](n), e.YHhtB(o, "input") && (t.value = r), t.dispatchEvent(n)
-                            }
-                        }))
+                                if (n["on" + r] && n["on" + r](o), e.DwtaV(r, e.KoKRu))
+                                    if (e.qIeLs("LZvzw", e.pfLJJ)) n.value = t;
+                                    else {
+                                        var s = new i(c.src).pathname.split(".").pop();
+                                        u(l.src, a.name + "." + s)
+                                    }
+                                n.dispatchEvent(o)
+                            }))
+                        } else ![r.fDhUI, "TEXTAREA"].includes(u) && !l && !a && s && r.siwgI(f, r.VFUbR) && (r.gGNhK(m, r.NYZrC) || r.NSGJq(p, r.ybWOg)[1]).click()
                     }
-                    let Re = document.createElement;
+                    let Ce = document.createElement;
                     document._createElement = function(n, t) {
                         var r = {
-                            bkWbS: e.tFLzN,
-                            CZoAe: function(n, t) {
-                                return e.EtpOs(n, t)
+                            UlJqC: e.sMHUh,
+                            FIUTE: function(n, t) {
+                                return e.JQpsC(n, t)
                             },
-                            Brxpm: e.BjkRw,
-                            PcuWG: e.besRF,
-                            fMqWj: e.hbaIA,
-                            fNjmq: e.DGXwj,
-                            IGLgZ: e.OfFea,
-                            OhDgJ: e.lcSZx,
-                            aPNEt: e.KJmWF,
-                            UnNOj: function(n, t, r) {
-                                return e.oywoG(n, t, r)
-                            },
-                            WWEmz: function(e, n) {
-                                return e(n)
-                            },
-                            xgsjc: "WotRY",
-                            YYfYV: e.yqhwD,
-                            eAMqP: function(n, t) {
-                                return e.EtpOs(n, t)
-                            },
-                            qkIAP: e.MmRxV
+                            GNXPH: e.DjJNR
                         };
-                        let o = Re.call(document, n, t);
-                        return o._click = o.click, o.click = function() {
-                            var e = {
-                                gHTIq: function(e, n) {
-                                    return e == n
-                                },
-                                GLoMe: "https://sss.instasaverpro.com",
-                                GVkEv: r.bkWbS,
-                                nqVLm: function(e, n) {
-                                    return r.CZoAe(e, n)
-                                },
-                                xpShn: r.Brxpm,
-                                CtkqA: r.PcuWG,
-                                aFITf: r.fMqWj,
-                                wFmyy: ".mp3",
-                                nzmDn: r.fNjmq,
-                                KAxSD: r.IGLgZ,
-                                bMNqP: r.OhDgJ,
-                                UTZbt: r.aPNEt,
-                                ffQsF: function(e, n, t) {
-                                    return r.UnNOj(e, n, t)
-                                },
-                                okZhv: function(e, n) {
-                                    return r.WWEmz(e, n)
-                                }
-                            };
-                            if (r.xgsjc == r.xgsjc)
-                                if (console.log(o, r.YYfYV, o.tagName), r.eAMqP("A", o.tagName)) {
-                                    console.log(r.qkIAP, o);
+                        if (!e.nclov(e.rCxFl, e.QfpnQ)) {
+                            let o = Ce.call(document, n, t);
+                            return o._click = o.click, o.click = function() {
+                                if (console.log(o, r.UlJqC, o.tagName), r.FIUTE("A", o.tagName)) {
+                                    console.log(r.GNXPH, o);
                                     let e = o.download,
                                         n = o.href;
-                                    f = {
+                                    g = {
                                         id: new URL(location.href).searchParams.get("v"),
                                         href: n,
                                         title: e
                                     }
-                                } else o._click.apply(o);
-                            else if (O.origin == G || B.origin.match(/https?:\/{2}onlymp3\.to/) || W.origin.match(/https?:\/{2}en\.onlymp3\.to/) || M.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || e.gHTIq(U.origin, e.GLoMe) || V.origin == e.GVkEv || e.nqVLm(A.origin, e.xpShn) || e.nqVLm(j.origin, e.CtkqA)) {
-                                const {
-                                    data: {
-                                        href: n,
-                                        title: t,
-                                        length: r,
-                                        id: o,
-                                        _: i
-                                    }
-                                } = se;
-                                let c = t + (fe ? e.aFITf : e.wFmyy);
-                                (e => {
-                                    e && e.remove()
-                                })(de.getElementById(i)), he.log(e.nzmDn, {
-                                    href: n,
-                                    title: t,
-                                    length: r,
-                                    id: o,
-                                    _: i
-                                }, me), pe.set("innerText", e.KAxSD), ge.set(e.bMNqP, !1), ve ? (ke.log(e.UTZbt), e.ffQsF(Te, n, c)) : e.okZhv(be, n), xe[i] = n
-                            } else ue.log("Unhandled Post", ae)
-                        }, console.log(o, "was created", o.tagName), o
+                                } else o._click.apply(o)
+                            }, console.log(o, e.IFfIK, o.tagName), o
+                        }
+                        this[d[0]] = h(m[p[1]]), !g[v[1]] && !w && (D = !0, R = B[1], j.log(O))
                     }, async function() {
-                        var n = {
-                            Gobyh: "video download successful\ncheck downloads folder",
-                            zrhfN: function(e, n) {
-                                return e === n
-                            },
-                            ufxjk: "qxdAx"
-                        };
-                        if (!e.aqUsj("gSRDc", e.UxZCJ)) return this.element[t] = r, this; {
-                            if (location.href.includes(e.pllLy)) throw "vidbutton";
-                            GM_setValue("dlbutton", ""), e.fmCLZ(GM_addValueChangeListener, "dlbutton", (async function(e, t, r, l) {
+                        if (e.WMJBI(e.EYqiY, e.QawzO))[a, s, f, d] = h.pathname.split("/"), e.loVLb(m, (e => e.href)((e => (e.host = "clipr.xyz", e))(new p(g.href))), v);
+                        else {
+                            if (location.href.includes(e.EtmHQ)) throw "vidbutton";
+                            GM_setValue(e.OcazL, ""), GM_addValueChangeListener(e.OcazL, (async function(n, t, r, o) {
                                 console.log({
-                                    a: e,
+                                    a: n,
                                     b: t,
                                     c: r,
-                                    d: l
-                                }), r.includes(n.Gobyh) && (n.zrhfN(n.ufxjk, n.ufxjk) ? (await Pe(1e3), close()) : (o.push(i.data), c.log(u.data)))
+                                    d: o
+                                }), r.includes("video download successful\ncheck downloads folder") && (await e.RfJFx(Ve, 1e3), close())
                             }));
-                            let t = await e.ZxFly(S, e.dKZIF),
-                                r = await e.kLRTg(S, "#downloadBtn");
+                            let n = await e.ZyaZG(E, e.LobjM),
+                                t = await E(e.uKqlw);
                             id_ = new URL(location.href).searchParams.get("v");
-                            let l = "https://www.youtube.com/watch?v=" + id_;
-                            e.Cghdr(E, t, l), r.click()
+                            let r = "https://www.youtube.com/watch?v=" + id_;
+                            e.pPJFK(k, n, r), t.click()
                         }
-                    }().then(console.log, (async n => {
-                        var t = {
-                            FWOQC: e.UHrQh,
-                            ecvcO: e.qYbPG
-                        };
-                        "vidbutton" == n && (e.VRAiO(e.PIIta, e.PIIta) ? (console.log("Best Quality Video"), await e.HUCds(S, e.CfWeO).then((n => {
-                            var t = {
-                                toIjN: function(e, n) {
-                                    return e == n
+                    }().then(console.log, (async o => {
+                        e.MqvJP(e.XEfRE, e.XEfRE) ? n.classList.add("collapse-frame") : o == e.EtmHQ && (console.log(e.QZOul), await e.tGbBv(E, "#height").then((o => {
+                            var i = {
+                                oyriq: function(n, t) {
+                                    return e.QrJAw(n, t)
                                 },
-                                uHyvp: "Handled",
-                                KjLhm: function(e, n, t, r, o) {
-                                    return e(n, t, r, o)
+                                cTlGV: e.AjExi,
+                                Umrhk: function(n, t) {
+                                    return e.Qetrk(n, t)
                                 },
-                                TpIdM: function(n, t, r) {
-                                    return e.GYDku(n, t, r)
+                                Dkirc: function(n, t) {
+                                    return e.UkJgH(n, t)
                                 },
-                                lCjcW: e.KspeK,
-                                hwQOr: function(n, t) {
-                                    return e.EWChH(n, t)
+                                CRdmp: e.tOjUQ,
+                                JITJi: function(n, t, r) {
+                                    return e.ndDxt(n, t, r)
                                 },
-                                DBOeD: function(n, t) {
-                                    return e.KvVmV(n, t)
-                                },
-                                GyTDT: "dlbutton",
-                                mnZoi: e.hJqzP
+                                mberk: e.OcazL,
+                                DaysO: e.fotTD,
+                                fxIOh: e.YbhbU,
+                                WVUvT: e.WieMf,
+                                nMDtu: function(e, n) {
+                                    return e(n)
+                                }
                             };
-                            e.EWChH(e.uDVoU, "fnmhD") ? (height.selectedIndex = e.ckKxn(height.options.length, 1), dlbutton.click(), open = window.open, window.open = function(e, n, t) {
+                            if ("ZYqiV" === e.uUqrB) {
+                                this.element.append(a.element || s), f.log("T:", {
+                                    targets: d,
+                                    fe: h && m.forEach
+                                });
+                                for (let e = 0; i.oyriq(e, w.length); e++) {
+                                    let n = M[e];
+                                    I.log(i.cTlGV, {
+                                        element: n,
+                                        target: this
+                                    }), this.element.append(n.element || n)
+                                }
+                                return this
+                            }
+                            height.selectedIndex = e.kgrcU(height.options.length, 1), dlbutton.click(), open = window.open, window.open = function(e, n, t) {
                                 console.log({
                                     a: e,
                                     b: n,
                                     c: t
                                 })
-                            }, e.mCRle(S, e.YwISq).then((e => {
-                                var n = {
-                                        DdBdC: function(e, n) {
-                                            return t.toIjN(e, n)
-                                        },
-                                        VXekO: t.uHyvp,
-                                        cMqnl: function(e, n, r, o, i) {
-                                            return t.KjLhm(e, n, r, o, i)
-                                        },
-                                        cRuDe: function(e, n, r) {
-                                            return t.TpIdM(e, n, r)
-                                        },
-                                        jdFeG: t.lCjcW,
-                                        qdNGN: function(e, n) {
-                                            return t.hwQOr(e, n)
-                                        },
-                                        DGOpD: function(e, n) {
-                                            return t.DBOeD(e, n)
-                                        },
-                                        UcAAr: function(e, n, r) {
-                                            return t.TpIdM(e, n, r)
-                                        },
-                                        GsQme: t.GyTDT
-                                    },
-                                    r = "";
-                                setInterval((t => {
-                                    if (n.qdNGN("yuEjC", "JcBVK")) n.DGOpD(r, e.innerText) && (r = e.innerText, n.UcAAr(GM_setValue, n.GsQme, r));
-                                    else if (n.DdBdC(d.origin, h)) {
-                                        var {
-                                            data: {
-                                                s: o,
-                                                url: i,
-                                                title: c
-                                            }
-                                        } = z;
-                                        O.log(n.VXekO, {
-                                            s: o,
-                                            url: i,
-                                            title: c
-                                        }, G), o ? n.cRuDe(M, U, 100) : n.cMqnl(V, i, c, null, A)
-                                    } else D.log(n.jdFeG, N)
+                            }, e.NNOAx(E, "#dlbutton").then((e => {
+                                var o = {
+                                    WtfNm: i.DaysO
+                                };
+                                if (!i.Dkirc(i.fxIOh, i.WVUvT)) throw new t("HTTP error! Status: " + r.status);
+                                var c = "";
+                                i.nMDtu(setInterval, (t => {
+                                    i.Umrhk(c, e.innerText) && (i.Dkirc(i.CRdmp, "rBJuq") ? n.getElementById(o.WtfNm).click() : (c = e.innerText, i.JITJi(GM_setValue, i.mberk, c)))
                                 }))
-                            }))) : (c[u] = null, l(a), n.log(d, t.mnZoi))
-                        }))) : (i.querySelector(t.FWOQC) || c(), u.querySelector(t.ecvcO) && !l.querySelector(t.ecvcO).querySelector(t.FWOQC) && a()))
+                            }))
+                        })))
                     }))
-                } else {
-                    if (e.ILAMx(document.domain, e.kdXDA)) {
-                        async function C(t, r = 2e4) {
-                            if (e.dWLFc == e.dWLFc) {
-                                let o = !1;
-                                for (setTimeout((() => {
-                                        console.log(e.GgtOY, t), o = !0
-                                    }), r); !document.querySelector(t);) {
-                                    if ("ExQLK" !== e.AIoXD) return n.querySelector("div.x78zum5.xdt5ytf.x1iyjqo2.xs83m0k.x2lwn1j.x1odjw0f.x1n2onr6.x9ek82g.x6ikm8r.xdj266r.x11i5rnm.x4ii5y1.x1mh8g0r.xexx8yu.x1pi30zi.x18d9i69.x1swvt13 > ul > div:nth-child(3) > div > div").children[0].innerText.split("\n")[1];
-                                    if (console.log("_", t, o), await e.iUlos(w, 500), o) break
-                                }
-                                if (console.log(t, o), o) throw e.ufkrY;
-                                return document.querySelector(t)
-                            }
-                            n.error("iFrameResize function not available")
-                        }
-                        return _wfs = C, void async function() {
-                            var n = await e.GYDku(C, "#s_input", 3e4);
-                            if (n)
-                                if (e.XBHcx("Rfdjc", e.djugA))(function(e, n) {
-                                    return e > n
-                                })(t.getElementById("error-text").innerText.length, 5) && r.reload();
-                                else
-                                    for (var o = e.hyRne.split("|"), i = 0;;) {
-                                        switch (o[i++]) {
-                                            case "0":
-                                                await e.gixyG(C, e.BEZVJ);
-                                                continue;
-                                            case "1":
-                                                console.log(l.href);
-                                                continue;
-                                            case "2":
-                                                var c = await e.WIdlX(C, e.RWqli);
-                                                continue;
-                                            case "3":
-                                                var u = {
-                                                    id: id_,
-                                                    href: l.href,
-                                                    title: a,
-                                                    length: {}
-                                                };
-                                                continue;
-                                            case "4":
-                                                for (; e.EtpOs(l.getAttribute(e.Muirv), "#");) await e.eciRr(w, 0), l = await e.uOPBv(C, e.qRqSn);
-                                                continue;
-                                            case "5":
-                                                var l = await e.vikhF(C, e.qRqSn);
-                                                continue;
-                                            case "6":
-                                                var a = (await e.DdcZz(_wfs, e.IbTjg)).querySelector("h3").innerText;
-                                                continue;
-                                            case "7":
-                                                c.options[0].selected = !0;
-                                                continue;
-                                            case "8":
-                                                for (; !(l = await e.Pcfzu(C, e.qRqSn));) await w(0);
-                                                continue;
-                                            case "9":
-                                                e.gkykX(opener, window).postMessage(u, "*");
-                                                continue;
-                                            case "10":
-                                                console.log("Converting");
-                                                continue;
-                                            case "11":
-                                                n.value = "https://www.youtube.com/watch?v=" + id_;
-                                                continue;
-                                            case "12":
-                                                setTimeout(e.iaScy(ksearchvideo), 1e3);
-                                                continue;
-                                            case "13":
-                                                console.log("Posted", u);
-                                                continue;
-                                            case "14":
-                                                e.aNcDR(convertFile, 0);
-                                                continue;
-                                            case "15":
-                                                e.eeCAe(ksearchvideo);
-                                                continue;
-                                            case "16":
-                                                id_ = new URL(location.href).searchParams.get("v");
-                                                continue;
-                                            case "17":
-                                                c.selectedIndex = 0;
-                                                continue
-                                        }
-                                        break
-                                    } else e.ISkoJ(alert, e.wtKSe), console.warn(e.mQcyc)
-                        }().then(console.log).catch(console.warn)
-                    }
-                    if (e.uPKIn(document.domain, e.YuOCo)) {
-                        if (!e.nyYPc(e.JTmaY, e.wSDqi)) return [...this]; {
-                            const De = e => new Promise((n => setTimeout(n, e)));
-                            _wfs = async function(n, t = 2e4) {
-                                var r = {
-                                    OCpPG: e.GgtOY
+                } else
+                    for (var S = e.KPoNI.split("|"), T = 0;;) {
+                        switch (S[T++]) {
+                            case "0":
+                                if ((j[O] || N[Q]) && !K) return;
+                                continue;
+                            case "1":
+                                F[Y] = e.ZocKc(Z, X, ee, !0, !!ne);
+                                continue;
+                            case "2":
+                                var q = e.wVcXd(le, (e => {
+                                    (!q[ye] || be[xe].closed) && (uN[uz] = null, A.ZPRPf(uP, q), us.log(ux, A.XUeRf))
+                                }), 300);
+                                continue;
+                            case "3":
+                                te.addEventListener(e.eedAU, (function(e) {
+                                    q[ye].close()
+                                }));
+                                continue;
+                            case "4":
+                                W.log(e.tWCEb, J, G);
+                                continue;
+                            case "5":
+                                var A = {
+                                    ZPRPf: function(n, t) {
+                                        return e.ZGSpV(n, t)
+                                    },
+                                    XUeRf: e.KIfWB
                                 };
-                                let o = !1;
-                                for (e.fmCLZ(setTimeout, (() => {
-                                        console.log(r.OCpPG, n), o = !0
-                                    }), t); !document.querySelector(n) && (console.log("_", n, o), await e.dCBne(De, 500), !o););
-                                if (console.log(n, o), o) throw "NotFound";
+                                continue
+                        }
+                        break
+                    } else if (e.Cwxqs(document.domain, e.RDEXL)) {
+                        if (!e.gCHDK(e.rTtOj, "WhMXw")) {
+                            async function T(n, t = 2e4) {
+                                var c = {
+                                    lCbOW: function(n, t) {
+                                        return e.OCioy(n, t)
+                                    },
+                                    doxQT: "rjzXU",
+                                    KMhDY: e.rxVmJ,
+                                    XLQZy: "TimeOut for"
+                                };
+                                let u = !1;
+                                for (e.NWxjb(setTimeout, (() => {
+                                        c.lCbOW(c.doxQT, c.KMhDY) ? (console.log(c.XLQZy, n), u = !0) : this[r] = o[i]
+                                    }), t); !document.querySelector(n) && (console.log("_", n, u), await v(500), !u););
+                                if (console.log(n, u), u) throw e.jWDvX;
                                 return document.querySelector(n)
-                            }, _copyElm = function(n) {
-                                var t = {
-                                    rRtLM: function(n) {
-                                        return e.tnjaj(n)
-                                    },
-                                    uzFYO: e.KIFYJ,
-                                    uijoq: function(e, n, t) {
-                                        return e(n, t)
-                                    },
-                                    GRzFq: "#VGHGFf > div > div.Eddif > div:nth-child(2) > button > div.VfPpkd-RLmnJb",
-                                    CtoEp: function(e, n) {
-                                        return e(n)
-                                    }
-                                };
-                                if (!e.eyjpy(n, Element)) {
-                                    if (e.QUGBy(e.PiFTd, e.igpbT)) throw new Error(e.XWsRI);
-                                    l.log(t.uzFYO), t.uijoq(a, (() => {
-                                        t.rRtLM(v).append(w.br.element), x().append(R.element), D().append(N.element)
-                                    }), 100)
-                                }
-                                const r = document.createElement(n.tagName);
-                                for (let o of n.attributes) e.Kfnou(e.oHbpz, e.oHbpz) ? r.setAttribute(o.name, o.value) : (t.CtoEp(i, "Why this ad?").click(), t.uijoq(c, (() => {
-                                    var e = {
-                                        nleLD: t.GRzFq
-                                    };
-                                    s.querySelector("#yDmH0d > c-wiz > div > div > div:nth-child(2) > div.LLEp8b > div > div.rTq3hb > div:nth-child(1) > div > div.ofmULb > div:nth-child(2) > div > button").click(), d((() => {
-                                        m.querySelector(e.nleLD).click()
-                                    }), 1e3)
-                                }), 1e3));
-                                return r.style.cssText = n.style.cssText, r.className = n.className, r.innerHTML = n.innerHTML, r
-                            }, async function() {
-                                var t = {
-                                    xMFQK: function(n, t, r) {
-                                        return e.kWKjQ(n, t, r)
-                                    },
-                                    UeItu: e.ZejdZ,
-                                    nxQZL: function(e, n) {
-                                        return e === n
-                                    },
-                                    fYYmD: function(n, t, r) {
-                                        return e.DXNYP(n, t, r)
-                                    },
-                                    eeNWd: e.maTTn
-                                };
-                                location.href;
-                                let r = (await e.CWYAY(_wfs, e.WLVMN)).parentElement.parentElement.parentElement.parentElement;
-                                new _e(e.sXwAq(_copyElm, r)).on(e.NIzLS, (function() {
-                                    t.xMFQK(open, (e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), t.UeItu)
-                                })).appendTo(r.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "1080P", new _e(e.kLRTg(_copyElm, r)).on("click", (function() {
-                                    e.pAwdw(open, (e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), e.DQsNd)
-                                })).appendTo(r.parentNode).element.querySelector(e.WLVMN).innerText = e.xcSHc, new _e(e.vCEmc(_copyElm, r)).on(e.NIzLS, (function() {
-                                    if (!e.XvzgQ("cEEDb", e.BLvPr)) return t.nxQZL(n.offsetParent, null);
-                                    e.SrggQ(open, (e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), e.UwPfo)
-                                })).appendTo(r.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = e.fSTLF, new _e(e.fNgTZ(_copyElm, r)).on(e.NIzLS, (function() {
-                                    t.fYYmD(open, (e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), t.eeNWd)
-                                })).appendTo(r.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "360P", new _e(e.oBxPq(_copyElm, r)).on(e.NIzLS, (function() {
-                                    e.Nnxtg(open, (e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), e.zYCtO)
-                                })).appendTo(r.parentNode).element.querySelector(e.WLVMN).innerText = e.zYCtO
-                            }().catch(console.warn)
-                        }
-                    } else if (e.qwoOp(document.domain, e.oXzwe)) {
-                        if (e.MtbKx !== e.IwJcz) {
-                            let [Ne, ze, Oe, Ge] = location.pathname.split("/");
-                            if (e.ybubJ(Oe, e.IMSsl)) return console.warn(e.tCcqF);
-                            console.log("User is Watching a CLip");
-                            const Be = e => new Promise((n => setTimeout(n, e)));
-                            async function q(n, t = 2e4) {
-                                var a = {
-                                    RLFNq: function(e, n, t) {
-                                        return e(n, t)
-                                    },
-                                    NCKFj: function(n, t) {
-                                        return e.Pcfzu(n, t)
-                                    },
-                                    MnMOs: e.BnOva
-                                };
-                                if (e.OIjjg(e.wpEqA, e.wpEqA)) {
-                                    let r = !1;
-                                    for (setTimeout((() => {
-                                            console.log(e.GgtOY, n), r = !0
-                                        }), t); !document.querySelector(n);)
-                                        if (e.eCbId(e.eGOwg, "RMcPu")) {
-                                            if (console.log("_", n, r), await e.SxlHH(Be, 500), r) break
-                                        } else a.RLFNq(i, !0, c(a.NCKFj(u, a.MnMOs) ? a.NCKFj(l, a.MnMOs).innerText : r.href));
-                                    if (console.log(n, r), r) throw e.ufkrY;
-                                    return document.querySelector(n)
-                                }
-                                e.ZJIYP(r).then(o.log, i.warn)
                             }
-                            return _wfs = q, _wfs_ = q, _copyElm = function(o) {
-                                var i = {
-                                    HQQTB: function(n, t) {
-                                        return e.ICYVh(n, t)
-                                    },
-                                    tsWYJ: e.rDncW,
-                                    JWKii: function(n, t) {
-                                        return e.uSrEv(n, t)
-                                    },
-                                    ujyMX: e.IyJFo,
-                                    EvWnU: function(n, t, r, o, i, c, u) {
-                                        return e.rfBvb(n, t, r, o, i, c, u)
-                                    },
-                                    tPLnH: "button",
-                                    PNNia: e.xJTDN,
-                                    HprUS: "click",
-                                    zMDtg: e.fPqsr
-                                };
-                                if (e.fKHtz(e.fbOvR, e.fbOvR)) return t.error(e.QqcHV, r), null; {
-                                    if (!e.UokLL(o, Element)) {
-                                        if (e.lBdwg(e.wtfYU, "yPzHK")) return n.match(/(?<host>https?\:\/\/www\.tiktok\.com)\/(?<username>@[^\/]+)\/video\/(?<videoID>\d+)/i).groups;
-                                        throw new Error(e.XWsRI)
-                                    }
-                                    const t = document.createElement(o.tagName);
-                                    for (let n of o.attributes)
-                                        if ("RcRxp" !== e.MVWMk) t.setAttribute(n.name, n.value);
-                                        else {
-                                            var c = [...s.querySelectorAll(i.zMDtg)].map((e => [e, [...e.classList]])).filter((e => e[1].includes("ytcp-video-section")))[0][0],
-                                                u = [...c.children[1].children].map((e => [e, [...e.classList], e.tagName])).filter((e => "YTCP-VIDEO-ROW" == e[2]));
-                                            u.filter((e => i.HQQTB(e[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0].innerText, i.tsWYJ))).map((e => e[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0])).forEach((e => {
-                                                var n = {
-                                                    numVQ: function(e, n) {
-                                                        return i.JWKii(e, n)
-                                                    },
-                                                    gAuJN: i.ujyMX,
-                                                    IhXhc: function(e, n, t, r, o, c, u) {
-                                                        return i.EvWnU(e, n, t, r, o, c, u)
-                                                    }
-                                                };
-                                                c.log(e), e.append(new u("br").element);
-                                                var t = new z(i.tPLnH).set("innerText", i.PNNia).on(i.HprUS, (function(r) {
-                                                    n.numVQ(e, n.gAuJN);
-                                                    const {
-                                                        id: o,
-                                                        href: i,
-                                                        isShort: c
-                                                    } = t(r.target.parentElement.parentElement).map((e => ({
-                                                        href: e.href,
-                                                        short: e.href.includes("/short"),
-                                                        id: r(e.href)
-                                                    }))).filter((e => e.id))[0];
-                                                    n.IhXhc(j, o, !1, !0, !1, !1, c ? new Y(i) : null)
-                                                }));
-                                                e.append(t.element)
-                                            })), R = !0
-                                        }
-                                    return t.style.cssText = o.style.cssText, t.className = o.className, t.innerHTML = o.innerHTML, t
-                                }
-                            }, void async function() {
+                            return _wfs = T, void async function() {
                                 var n = {
-                                    PzrDa: e.NRtQy,
-                                    seevj: function(e, n) {
-                                        return e !== n
+                                        OCWuI: e.DfJQU,
+                                        NUAET: ".flex.items-center.space-x-4"
                                     },
-                                    JnQEu: e.cCIrc,
-                                    QDTyB: function(n, t) {
-                                        return e.dzlvG(n, t)
-                                    },
-                                    fbuZG: "click",
-                                    aHROl: e.zYCtO,
-                                    dLffR: e.vDseH,
-                                    mgqio: e.gfsHy
-                                };
-                                if (e.JFJwk(e.OAbJJ, "KERwG")) {
-                                    location.href;
-                                    await e.DdcZz(_wfs, ".Layout-sc-1xcs6mc-0.bMOhzu");
-                                    let t = [...document.querySelectorAll(e.VUiEU)].filter((e => e.querySelector("button") && !e.querySelector("button").disabled))[0],
-                                        c = ".bFxzAY";
-                                    [{
-                                        label: e.YlsCQ,
-                                        resolution: "1080"
-                                    }, {
-                                        label: e.xcSHc,
-                                        resolution: e.DQsNd
-                                    }, {
-                                        label: e.fSTLF,
-                                        resolution: "480"
-                                    }, {
-                                        label: e.TWLdE,
-                                        resolution: "360"
-                                    }, {
-                                        label: e.zYCtO,
-                                        resolution: e.zYCtO
-                                    }].forEach((({
-                                        label: e,
-                                        resolution: u
-                                    }) => {
+                                    t = await e.FitXg(T, e.RHruF, 3e4);
+                                if (t) {
+                                    console.log(e.ckFWI), id_ = new URL(location.href).searchParams.get("v"), t.value = "https://www.youtube.com/watch?v=" + id_, e.dPdqG(ksearchvideo), e.mFcwk(setTimeout, e.qFSzF(ksearchvideo), 1e3);
+                                    var r = await e.YqqrP(T, e.QtDlG);
+                                    await e.CNxKn(T, e.eWLvk);
+                                    r.selectedIndex = 0, r.options[0].selected = !0;
+                                    for (var o = await e.jNJsl(T, e.jkWfg); !(o = await e.jNJsl(T, e.jkWfg));) await e.ZyaZG(v, 0);
+                                    for (e.YUvQz(convertFile, 0);
+                                        "#" == o.getAttribute(e.oYDRd);) await e.quUoU(v, 0), o = await e.vTuJe(T, e.jkWfg);
+                                    console.log(o.href);
+                                    var i = (await e.mKfHI(_wfs, e.JXNIa)).querySelector("h3").innerText,
+                                        u = {
+                                            id: id_,
+                                            href: o.href,
+                                            title: i,
+                                            length: {}
+                                        };
+                                    console.log("Posted", u), e.zVnoz(opener, window).postMessage(u, "*")
+                                } else {
+                                    if (e.ObOkz("bcOHW", e.dylgS)) {
                                         var l = {
-                                            iYGya: n.PzrDa,
-                                            CZDAT: function(e, t) {
-                                                return n.seevj(e, t)
-                                            },
-                                            mpIAT: n.JnQEu
+                                            ndpPg: n.OCWuI
                                         };
-                                        let a = new _e(n.QDTyB(_copyElm, t)).on(n.fbuZG, (function() {
-                                            var e, n = {
-                                                AhZoG: l.iYGya
-                                            };
-                                            l.CZDAT(l.mpIAT, "TRFLK") ? ([Ne, ze, Oe, Ge] = location.pathname.split("/"), open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), u)) : this.element = r.constructor.name.includes(n.AhZoG) && o || function() {
-                                                for (let e in arguments[1]) arguments[0].setAttribute(e, arguments[1][e]);
-                                                return arguments[0]
-                                            }(i.createElement(arguments[0]), arguments[1])
-                                        })).appendTo(t.parentNode);
-                                        u === n.aHROl ? a.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = e : a.element.querySelector(c).innerText = e
-                                    }))
-                                } else if (o.log(i.children.length), !c.children.length) throw l.getElementById(n.dLffR).click(), n.mgqio
-                            }().catch(console.warn)
+                                        return [...c.querySelectorAll(n.NUAET)].filter((e => d(e)[0])).filter((e => d(e)[0].href.includes("clips.twitchcdn.net"))).forEach((e => {
+                                            d[e.querySelector(l.ndpPg).innerText.replace("p", "")] = h(e)[0].href
+                                        })), f
+                                    }
+                                    e.kOuZq(alert, e.sFNWK), console.warn(e.utmLF)
+                                }
+                            }().then(console.log).catch(console.warn)
                         }
-                        if (this[i].id === c || e.lDOot(this[u].name, l)) return this[s]
-                    } else {
-                        if (e.FAZzl(document.domain, e.IDIjL)) {
-                            async function L() {
-                                var n = {
-                                    voNim: function(n) {
-                                        return e.XSCYD(n)
-                                    },
-                                    yWrCX: e.KIFYJ,
-                                    llCAj: function(n, t, r) {
-                                        return e.aOYwU(n, t, r)
+                        if (this[i].id === c || e.rzZVm(this[u].name, l)) return this[s]
+                    } else if (e.fjUGT(document.domain, e.qMTdZ)) {
+                const ze = e => new Promise((n => setTimeout(n, e)));
+                async function A(n, u = 2e4) {
+                    var a = {
+                        OdWqC: "Closed ad card",
+                        NPbgM: e.suBoZ
+                    };
+                    if (!e.hqZgO("usumj", e.DzETI)) {
+                        let t = !1;
+                        for (e.wVcXd(setTimeout, (() => {
+                                console.log(a.NPbgM, n), t = !0
+                            }), u); !document.querySelector(n);)
+                            if (e.rzZVm("XtEII", e.TVTKW)) {
+                                if (o.log(i.children.length), !c.children.length) throw l.getElementById("btn-submit").click(), e.qsnJE
+                            } else if (console.log("_", n, t), await e.xOXHC(ze, 500), t) break;
+                        if (console.log(n, t), t) throw e.jWDvX;
+                        return document.querySelector(n)
+                    }
+                    t.click(), r.log(a.OdWqC)
+                }
+                _wfs = A, _copyElm = function(n) {
+                    if (!e.SanUu(n, Element)) throw new Error("Provided argument is not a DOM element.");
+                    const t = document.createElement(n.tagName);
+                    for (let e of n.attributes) t.setAttribute(e.name, e.value);
+                    return t.style.cssText = n.style.cssText, t.className = n.className, t.innerHTML = n.innerHTML, t
+                }, async function() {
+                    var t = {
+                        wmvPz: e.IDAPx,
+                        IsroF: e.WXkfZ,
+                        PhQUe: e.jkbys,
+                        BTnVi: e.WVWgq,
+                        gACpj: function(n, t, r) {
+                            return e.ndDxt(n, t, r)
+                        },
+                        pqtqG: "1080",
+                        yPaGs: e.IgdXb,
+                        pVGpK: function(e, n) {
+                            return e === n
+                        },
+                        Kwybo: e.fUIVd,
+                        NobBi: function(n, t, r) {
+                            return e.pPJFK(n, t, r)
+                        },
+                        evRng: e.VIhPJ
+                    };
+                    location.href;
+                    let r = (await e.SCGZN(_wfs, e.QKHxY)).parentElement.parentElement.parentElement.parentElement;
+                    new _e(e.nxFbH(_copyElm, r)).on("click", (function() {
+                        if (t.PhQUe === t.BTnVi)
+                            if (f.origin == d) {
+                                var {
+                                    data: {
+                                        s: e,
+                                        url: n,
+                                        title: r
+                                    }
+                                } = I;
+                                H.log(t.wmvPz, {
+                                    s: e,
+                                    url: n,
+                                    title: r
+                                }, D), e ? j() : N(n, r, null, Q)
+                            } else z.log(t.IsroF, M);
+                        else t.gACpj(open, (e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), t.pqtqG)
+                    })).appendTo(r.parentNode).element.querySelector(e.QKHxY).innerText = e.NpyZk, new _e(_copyElm(r)).on(e.ygVJA, (function() {
+                        var e, r = {
+                            EfOjO: t.yPaGs
+                        };
+                        t.pVGpK(t.Kwybo, t.Kwybo) ? t.gACpj(open, (e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "720") : n.warn(r.EfOjO)
+                    })).appendTo(r.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = e.QDTXu, new _e(e.CNxKn(_copyElm, r)).on(e.ygVJA, (function() {
+                        e.loVLb(open, (e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), e.cwQUx)
+                    })).appendTo(r.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "480P", new _e(e.qETIW(_copyElm, r)).on(e.ygVJA, (function() {
+                        t.NobBi(open, (e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), t.evRng)
+                    })).appendTo(r.parentNode).element.querySelector(e.QKHxY).innerText = "360P", new _e(_copyElm(r)).on(e.ygVJA, (function() {
+                        var n = {
+                            MwYkc: function(n, t, r) {
+                                return e.EYjio(n, t, r)
+                            },
+                            xqtzs: e.OcazL
+                        };
+                        e.KuHsz(e.OlyhE, e.OlyhE) ? (o = i.innerText, n.MwYkc(c, n.xqtzs, u)) : open((e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), e.RaxSx)
+                    })).appendTo(r.parentNode).element.querySelector(e.QKHxY).innerText = "VOD"
+                }().catch(console.warn)
+            } else {
+                if (e.SQlmo(document.domain, "www.twitch.tv")) {
+                    let [Me, Ie, He, De] = location.pathname.split("/");
+                    if (e.Qetrk(He, e.ipktl)) return console.warn("User isnt wathcing a clip");
+                    console.log("User is Watching a CLip");
+                    const Re = e => new Promise((n => setTimeout(n, e)));
+                    async function L(t, r = 2e4) {
+                        var o = {
+                            bcaus: "MbnOh",
+                            nPgVX: e.GpCHF
+                        };
+                        let i = !1;
+                        for (e.JXtRX(setTimeout, (() => {
+                                o.bcaus !== o.nPgVX ? (console.log("TimeOut for", t), i = !0) : n.warn("No id Found")
+                            }), r); !document.querySelector(t) && (console.log("_", t, i), await e.VltNs(Re, 500), !i););
+                        if (console.log(t, i), i) throw "NotFound";
+                        return document.querySelector(t)
+                    }
+                    return _wfs = L, _wfs_ = L, _copyElm = function(n) {
+                        if (!e.UkJgH("pjtUy", e.pZnvL)) {
+                            if (!e.BRCig(n, Element)) throw new Error(e.vijop);
+                            const t = document.createElement(n.tagName);
+                            for (let e of n.attributes) t.setAttribute(e.name, e.value);
+                            return t.style.cssText = n.style.cssText, t.className = n.className, t.innerHTML = n.innerHTML, t
+                        }(e.EipSw(r, "Mute", "title") && e.Kpklr(o, e.VhBXy, e.Tymmf)[0] || e.FitXg(i, e.hJYND, e.Tymmf)).click()
+                    }, void async function() {
+                        var c = {
+                            mAhid: e.UOCfo
+                        };
+                        location.href;
+                        await e.AMJuv(_wfs, ".Layout-sc-1xcs6mc-0.bMOhzu");
+                        let u = [...document.querySelectorAll(".Layout-sc-1xcs6mc-0 .bMOhzu")].filter((e => e.querySelector("button") && !e.querySelector("button").disabled))[0];
+                        [{
+                            label: "1080P",
+                            resolution: e.YTUhM
+                        }, {
+                            label: "720P",
+                            resolution: "720"
+                        }, {
+                            label: "480P",
+                            resolution: e.cwQUx
+                        }, {
+                            label: e.ZXimN,
+                            resolution: e.VIhPJ
+                        }, {
+                            label: e.RaxSx,
+                            resolution: "VOD"
+                        }].forEach((({
+                            label: l,
+                            resolution: a
+                        }) => {
+                            var s = {
+                                IlEou: function(n, t, r) {
+                                    return e.toILY(n, t, r)
+                                }
+                            };
+                            if (!e.rzZVm(e.AYeQE, e.AYeQE)) return this.element["on" + t] = r, this; {
+                                let t = new _e(e.RfJFx(_copyElm, u)).on(e.ygVJA, (function() {
+                                    [Me, Ie, He, De] = location.pathname.split("/"), s.IlEou(open, (e => e.href)((e => (e.host = "clipr.xyz", e))(new URL(location.href))), a)
+                                })).appendTo(u.parentNode);
+                                e.WcfzH(a, e.RaxSx) ? e.XgVgV !== e.GpRCg ? t.element.querySelector(e.QKHxY).innerText = l : (r.push(o), i = 1) : e.nKLbb(e.aXUSY, e.aXUSY) ? n.classList.remove(c.mAhid) : t.element.querySelector(".bFxzAY").innerText = l
+                            }
+                        }))
+                    }().catch(console.warn)
+                }
+                if (e.ZeNEF(document.domain, "clipr.xyz")) {
+                    async function U() {
+                        for (; e.KqgZz(document.readyState, e.zmHRs);) await e.ivsHv(P, 0);
+                        return !0
+                    }
+
+                    function P(n) {
+                        var o = {
+                            tpOfU: function(e, n) {
+                                return e(n)
+                            },
+                            knFeu: e.ekKJo
+                        };
+                        return "VEeCh" === e.pbwVF ? o.tpOfU(t, r.querySelector(o.knFeu))[0].href : new Promise((e => setTimeout(e, n)))
+                    }
+                    return void async function() {
+                        if (e.dBlFq(e.VIifd, "bYpmo")) o.push(i.data), c.log(u.data);
+                        else {
+                            let n = name;
+                            await e.AKzxQ(U), logger.log(e.YMETH);
+                            let t = ((n = {}) => {
+                                var t = {
+                                    yajkK: e.DfJQU,
+                                    pIsxC: function(n, t) {
+                                        return e.nBJrx(n, t)
                                     }
                                 };
-                                if (!e.BCLLQ(e.eSigD, "ijLNU")) {
-                                    for (; e.BhoLZ(document.readyState, e.unNIw);) await e.fNgTZ(I, 0);
-                                    return !0
-                                }
-                                l.log(n.yWrCX), n.llCAj(a, (() => {
-                                    n.voNim(v).append(w.br.element), n.voNim(x).append(R.element), D().append(N.element)
-                                }), 100)
-                            }
-
-                            function I(e) {
-                                return new Promise((n => setTimeout(n, e)))
-                            }
-                            return void async function() {
-                                var n = {
-                                    KQasQ: e.yoKey,
-                                    fSsUr: function(e, n) {
-                                        return e(n)
-                                    },
-                                    zweBf: ".flex.items-center.space-x-4"
-                                };
-                                let t = name;
-                                await e.xwBnD(L), logger.log(e.MGbCF);
-                                let r = ((e = {}) => {
-                                    var t = {
-                                        EUzJj: n.KQasQ,
-                                        xQiZJ: function(e, t) {
-                                            return n.fSsUr(e, t)
-                                        }
-                                    };
-                                    return [...document.querySelectorAll(n.zweBf)].filter((e => findhref2(e)[0])).filter((e => findhref2(e)[0].href.includes("clips.twitchcdn.net"))).forEach((n => {
-                                        e[n.querySelector(t.EUzJj).innerText.replace("p", "")] = t.xQiZJ(findhref2, n)[0].href
-                                    })), e
-                                })()[t];
-                                logger.log(1);
-                                let o = document.querySelector(e.KGfUp).innerText;
-                                logger.log(2);
-                                let i = document.querySelector(e.JlusH).innerText;
-                                logger.log(3);
-                                let c = "@" + o + " on Twitch | " + i + " - " + t + "P.mp4";
-                                logger.log("Downloading file as: " + c), e.Geknt(open, r), logger.log(4), await I(4e3), e.RxODY(close)
-                            }().catch(console.warn)
+                                return [...document.querySelectorAll(e.yLelD)].filter((e => findhref2(e)[0])).filter((e => findhref2(e)[0].href.includes("clips.twitchcdn.net"))).forEach((e => {
+                                    n[e.querySelector(t.yajkK).innerText.replace("p", "")] = t.pIsxC(findhref2, e)[0].href
+                                })), n
+                            })()[n];
+                            logger.log(1);
+                            let r = document.querySelector(e.txiiR).innerText;
+                            logger.log(2);
+                            let o = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2").innerText;
+                            logger.log(3);
+                            let i = "@" + r + " on Twitch | " + o + " - " + n + "P.mp4";
+                            logger.log("Downloading file as: " + i), e.xOXHC(open, t), logger.log(4), await e.oNlph(P, 4e3), e.FITUK(close)
                         }
-                        if (location.href.includes(e.ceqGW))
-                            if (e.LCZDy == e.LCZDy) {
-                                async function P(n, t = 3e4) {
-                                    var r;
-                                    for (e.dLVGu(w, t).then((e => r = !0)); !document.querySelector(n) && (await e.sLWCB(w, 0), !r););
-                                    return document.querySelector(n)
-                                }
-                                console.log("ok"), P("#u").then((async n => {
-                                    n.value = "https://www.youtube.com/watch?v=" + new URL(location.href).searchParams.get("v"), convert.click(), await e.gVpfa(w, 200), (await P(e.vLHla)).click(), (await P(e.qVBsv)).click(), P(".download-button").then((n => {
-                                        var t = {
-                                            PZtUH: function(n, t) {
-                                                return e.ICYVh(n, t)
-                                            },
-                                            MiCkY: function(n, t) {
-                                                return e.sTruu(n, t)
-                                            },
-                                            FsXBl: function(n) {
-                                                return e.EDtVv(n)
-                                            },
-                                            tkyGW: e.SvwsW
-                                        };
-                                        let r = document.createElement;
-                                        document.createElement = function(e, n) {
-                                            let o = r.call(document, e, n);
-                                            return o._click = o.click, o.click = function() {
-                                                if (console.log(o, "was clicked", o.tagName), t.PZtUH("A", o.tagName)) {
-                                                    console.log("Caught", o);
-                                                    let e = o.download,
-                                                        n = o.href;
-                                                    f = {
-                                                        id: new URL(location.href).searchParams.get("v"),
-                                                        href: n,
-                                                        title: e
-                                                    }, t.MiCkY(opener, window).postMessage(f, "*"), t.FsXBl(close)
-                                                } else o._click.apply(o)
-                                            }, console.log(o, t.tkyGW, o.tagName), o
-                                        }, n.click(), console.log(e.AffXZ), e.dzpAR(setTimeout, (() => n.click()), 1e3)
-                                    }))
-                                })).then(console.log, console.warn)
-                            } else r.setAttribute(o.name, i.value)
+                    }().catch(console.warn)
+                }
+                if (location.href.includes("tubemp4.is")) {
+                    async function V(n, t = 3e4) {
+                        var r, l = {
+                            plAAu: function(n) {
+                                return e.qFSzF(n)
+                            },
+                            QraOB: function(n, t) {
+                                return e.MnEKh(n, t)
+                            }
+                        };
+                        for (v(t).then((e => r = !0)); !document.querySelector(n);)
+                            if (e.VMeKr(e.mbBfG, "gizeu")) l.plAAu(o), i(), l.QraOB(c, u);
+                            else if (await e.kMdwz(v, 0), r) break;
+                        return document.querySelector(n)
                     }
+                    console.log("ok"), e.JRUdV(V, "#u").then((async t => {
+                        var r = {
+                            yoYrX: e.ixyTt,
+                            uMPnn: e.QGjRO,
+                            VlSmo: function(e, n) {
+                                return e == n
+                            },
+                            OXeim: function(n, t) {
+                                return e.xCJWn(n, t)
+                            },
+                            BbOVz: function(n, t) {
+                                return e.UxYXb(n, t)
+                            },
+                            JxhZa: function(n) {
+                                return e.mrDad(n)
+                            },
+                            fUlpF: e.IFfIK
+                        };
+                        t.value = "https://www.youtube.com/watch?v=" + new URL(location.href).searchParams.get("v"), convert.click(), await e.kOuZq(v, 200), (await V(e.YOYJK)).click(), (await e.uYYfU(V, e.akEMu)).click(), V(e.cbhln).then((t => {
+                            let o = document.createElement;
+                            document.createElement = function(e, t) {
+                                var i = {
+                                    MYdQj: r.yoYrX,
+                                    xmdZX: r.uMPnn,
+                                    HtVtQ: function(e, n) {
+                                        return r.VlSmo(e, n)
+                                    },
+                                    aCvPg: function(e, n) {
+                                        return r.OXeim(e, n)
+                                    },
+                                    NgMxq: "kClxu",
+                                    qsmAr: function(e, n) {
+                                        return r.BbOVz(e, n)
+                                    },
+                                    PNABB: function(e) {
+                                        return r.JxhZa(e)
+                                    }
+                                };
+                                let c = o.call(document, e, t);
+                                return c._click = c.click, c.click = function() {
+                                    var e = {
+                                        IBSVi: i.MYdQj
+                                    };
+                                    if (i.xmdZX != i.xmdZX) return this.title.body = n, this;
+                                    if (console.log(c, "was clicked", c.tagName), i.HtVtQ("A", c.tagName))
+                                        if (i.aCvPg("kClxu", i.NgMxq)) {
+                                            console.log("Caught", c);
+                                            let e = c.download,
+                                                n = c.href;
+                                            g = {
+                                                id: new URL(location.href).searchParams.get("v"),
+                                                href: n,
+                                                title: e
+                                            }, i.qsmAr(opener, window).postMessage(g, "*"), i.PNABB(close)
+                                        } else n.log(e.IBSVi);
+                                    else c._click.apply(c)
+                                }, console.log(c, r.fUlpF, c.tagName), c
+                            }, t.click(), console.log(e.VIeAN), e.fBNBy(setTimeout, (() => t.click()), 1e3)
+                        }))
+                    })).then(console.log, console.warn)
                 }
             }
         }
 
-        function R() {
-            if (document.domain.includes(e.tzuDv)) {
-                if (e.QBwOl(e.pIxsY, e.ILJBE)) throw e.zfdpy(alert, "These button dont work on youtube music yet"), ".";
-                e.feDPd(n).click()
+        function C() {
+            if (!e.argcw(e.zngxl, e.ArQLU)) {
+                if (document.domain.includes(e.ryIiu)) {
+                    if (!e.KjjtD(e.bnHZV, e.vGQFS)) throw e.ZyaZG(alert, e.ntIku), ".";
+                    if (e.ghqbz(f.getElementById("form-app-root").children.length, 0)) throw "";
+                    d.log(e.XBKvp);
+                    var {
+                        title: n,
+                        href: t
+                    } = e.jXbxI(h, e.pSSQQ) ? e.uBMWg(m, e.pSSQQ)[0] ? e.QieMt(p, "#download-720-MP4")[0] : e.ZXSTc(r, e.pSSQQ) : e.tUccU(v, e.pSSQQ), r = {
+                        id: w,
+                        href: t,
+                        title: n,
+                        length: {}
+                    };
+                    C.log(e.brSPv), e.Plqvv(z, M).postMessage(r, "*")
+                }
+                var o = [...document.getElementsByTagName(e.pAInJ)].filter(u).filter((e => !a(e)))[0],
+                    g = e.FitXg(findhref2, o, e.Sfhcc).filter((e => !a(e))).filter(u).filter((e => "video-title" == e.id)).map(s).map(s).map((e => ({
+                        id: setElement(findhref2(s(e))[0].href),
+                        e: e
+                    })));
+                return g
             }
-            var t = [...document.getElementsByTagName("ytd-playlist-panel-renderer")].filter(u).filter((e => !a(e)))[0];
-            return findhref2(t, "span").filter((e => !a(e))).filter(u).filter((e => "video-title" == e.id)).map(s).map(s).map((e => ({
-                id: setElement(findhref2(s(e))[0].href),
-                e: e
-            })))
+            i = !0, c = u[1], l.log(a)
         }
 
-        function D(n, t) {
-            if (!e.xrHTv("dRgtD", e.IhJBO)) return c !== u && (this.body.color = l), e.PgRWq(a, s) && (this.body.size = d), this; {
-                const e = document.createElement("a");
-                e.href = n, e.download = t, document.body.appendChild(e), e.click(), document.body.removeChild(e)
-            }
+        function z(e, n) {
+            const t = document.createElement("a");
+            t.href = e, t.download = n, document.body.appendChild(t), t.click(), document.body.removeChild(t)
         }
-        var N, z;
-        async function O() {
-            for (; z && !z.closed;) await e.RJLlH(w, 0);
+        var M, I;
+        async function H() {
+            for (; I && !I.closed;) await e.ivsHv(v, 0);
             return 1
         }
 
-        function G(o, i = "aria-label", c = document.body) {
-            var u = {
-                aWflJ: e.SegoO,
-                rOYQQ: e.LLbQu,
-                HdAfd: function(n, t) {
-                    return e.TJuuH(n, t)
-                },
-                swPGa: function(n, t) {
-                    return e.gIzwq(n, t)
-                },
-                PUzmB: function(n, t) {
-                    return e.pgDHz(n, t)
-                },
-                TXish: e.GTEri,
-                FaDvW: function(n, t) {
-                    return e.RCRsb(n, t)
-                },
-                asFKb: e.GndZp
-            };
-            if (!e.DiDDV("mOybz", e.HJGBL)) {
-                var l = [];
-                return e.pSDLB((function t(r) {
-                    var c = {
-                            KPYTi: e.DiwRN,
-                            WpzQC: e.qtEpO,
-                            PkGmX: function(n, t) {
-                                return e.xrHTv(n, t)
-                            },
-                            rjnYB: e.ooePA,
-                            RKdar: "YCUdM",
-                            HmlgS: function(n, t) {
-                                return e.ILAMx(n, t)
-                            },
-                            VgIHs: e.rDncW,
-                            qFOMK: function(n, t) {
-                                return e.haBnu(n, t)
-                            }
+        function D(n, t = "aria-label", r = document.body) {
+            var o = [];
+            return e.kOuZq((function r(i) {
+                var d = {
+                        PBlmZ: function(n) {
+                            return e.YxWDS(n)
                         },
-                        a = !1;
-                    if (i) {
-                        if (e.NRzmB(r.getAttribute(i), o)) {
-                            if (e.QBwOl(e.pYVHr, e.pYVHr)) return n.querySelector(u.asFKb).innerText.replace("Replying to ", "");
-                            l.push(r), a = 1
+                        CvdLo: function(n) {
+                            return e.knqcv(n)
+                        },
+                        VjnKu: function(e) {
+                            return e()
+                        },
+                        wqTxV: function(n, t) {
+                            return e.EUSxz(n, t)
                         }
-                    } else if (e.DiDDV(e.BtVpa, "gXNYz")) {
-                        if (0 == d.getElementById(u.aWflJ).children.length) throw "";
-                        h.log("loaded");
-                        var {
-                            title: s,
-                            href: f
-                        } = m(u.rOYQQ) ? u.HdAfd(p, u.rOYQQ)[0] ? u.swPGa(g, u.rOYQQ)[0] : u.swPGa(v, u.rOYQQ) : u.PUzmB(w, "#download-720-MP4"), y = {
-                            id: x,
-                            href: f,
-                            title: s,
-                            length: {}
-                        };
-                        R.log(u.TXish), u.FaDvW(D, N).postMessage(y, "*")
-                    } else [...r.attributes].map((e => {
-                        var n = {
-                            nLUzN: function(e, n) {
-                                return e === n
-                            },
-                            STnNb: c.KPYTi,
-                            zieUh: c.WpzQC,
-                            qVvPw: "change"
-                        };
-                        if (!c.PkGmX(c.rjnYB, c.RKdar)) {
-                            const {
-                                name: n,
-                                value: t
-                            } = e;
-                            return {
-                                name: n,
-                                value: t
-                            }
-                        } {
-                            var t = {
-                                REYcs: function(e, t) {
-                                    return n.nLUzN(e, t)
-                                }
-                            };
-                            const e = [n.STnNb, n.zieUh, n.qVvPw, "blur"];
-                            e.forEach((n => {
-                                let r = new e(n, {
-                                    bubbles: !0,
-                                    isTrusted: !0
-                                });
-                                m["on" + n] && p["on" + n](r), t.REYcs(n, "input") && (x.value = R), w.dispatchEvent(r)
-                            }))
-                        }
-                    })).filter((e => e.value == o)).length && (l.push(r), a = 1);
-                    if (r.children.length && !a) {
-                        if (e.ndXRl(e.QmABX, "XOppE")) return c.HmlgS(n[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0].innerText, c.VgIHs);
-                        (r = r.children).forEach = [].forEach, r.forEach((e => {
-                            c.qFOMK(t, e)
-                        }))
+                    },
+                    h = !1;
+                t ? e.RaRtq(i.getAttribute(t), n) && (e.KnTry(e.OxHIv, e.OxHIv) ? (d.PBlmZ(c).append(u.br.element), d.CvdLo(l).append(a.element), d.VjnKu(s).append(f.element)) : (o.push(i), h = 1)) : [...i.attributes].map((e => {
+                    const {
+                        name: n,
+                        value: t
+                    } = e;
+                    return {
+                        name: n,
+                        value: t
                     }
-                }), c), l.length ? 1 == l.length ? l[0] : e.xSHYe(l, !1) : null
-            }
-            t.getElementsByClassName("clearfix")[0].innerText, e.iaScy(r)
+                })).filter((e => e.value == n)).length && (o.push(i), h = 1), i.children.length && !h && ((i = i.children).forEach = [].forEach, i.forEach((e => {
+                    d.wqTxV(r, e)
+                })))
+            }), r), o.length ? e.CebEe(o.length, 1) ? o[0] : e.shRrS(o, !1) : null
         }
 
-        function B(n, o = "aria-label", i = document.body) {
-            var c = {
-                HvTxv: function(e, n) {
-                    return e + n
+        function R(n, t = "aria-label", c = document.body) {
+            var u = [];
+            return e.KVMSH((function c(l) {
+                var a = {
+                    wZcfy: function(n, t, r) {
+                        return e.fKDlh(n, t, r)
+                    }
+                };
+                l.getAttribute(t) == n ? u.push(l) : e.hqZgO(e.wLSSp, e.DfyXY) ? a.wZcfy(r, (e => e.href)((e => (e.host = "clipr.xyz", e))(new o(i.href))), "360") : l.children.length && (e.CBfDx === e.beduz ? r[o[0]] = i[1] : ((l = l.children).forEach = [].forEach, l.forEach((e => {
+                    c(e)
+                }))))
+            }), c), e.NOwCU(u.length, 1) ? u[0] : e.iAlwR(u, !1)
+        }
+
+        function B() {
+            document.querySelector(".ytp-volume-area > .ytp-mute-button").click()
+        }
+
+        function j() {
+            var n = {
+                aZsop: function(n) {
+                    return e.ARrpp(n)
                 },
-                fawbZ: ".mp4",
-                kMNHQ: e.kDTDF,
-                WwRBm: function(n, t, r) {
-                    return e.wBtuQ(n, t, r)
-                },
-                jDbVf: function(n, t) {
-                    return e.ourHE(n, t)
-                },
-                LWyoZ: function(e, n, t, r) {
-                    return e(n, t, r)
-                },
-                hNstc: e.sONZr,
-                wdznP: "instaURL",
-                AfSsP: function(e, n) {
-                    return e(n)
+                SgiGb: function(e) {
+                    return e()
                 }
             };
-            if (!e.YHhtB(e.vWsrg, "pOfzk")) {
-                var u = [];
-                return function i(l) {
-                    var a = {
-                        FrgTl: function(e, n, t) {
-                            return e(n, t)
-                        },
-                        tSSIj: e.KkTVv,
-                        bDPPe: function(n, t) {
-                            return e.afTtR(n, t)
-                        },
-                        lZokX: function(n, t) {
-                            return e.TJuuH(n, t)
-                        }
-                    };
-                    if (e.vEpRC(e.tZmjj, e.tZmjj))
-                        if (e.PArNh(l.getAttribute(o), n)) {
-                            if (e.VRAiO(e.AiWvn, "swHMh")) return !!t("browse-copy", "data-e2e").parentNode && a.FrgTl(r, "browse-copy", a.tSSIj).parentNode;
-                            u.push(l)
-                        } else if (e.EWChH(e.xFXni, "NBamU")) {
-                        if (l) {
-                            let e = D.createElement("a");
-                            e.download = a.bDPPe(N, ".mp3"), e.href = z, O.body.appendChild(e), e.click(), e.remove()
-                        } else a.lZokX(g, v);
-                        w[x] = R
-                    } else l.children.length && ((l = l.children).forEach = [].forEach, l.forEach((e => {
-                        c.AfSsP(i, e)
-                    })));
-                    else t[r].close()
-                }(i), e.uPKIn(u.length, 1) ? u[0] : u || !1
-            }
-            c.LWyoZ(l, c.hNstc, a.href, "width=400,height=500");
-            s(c.wdznP)
+            if (e.argcw("ZxoiG", "fNfXO")) return n.aZsop(t), void n.SgiGb(r);
+            (D(e.VhBXy, "title") && D(e.VhBXy, e.Tymmf)[0] || e.HztCV(D, e.hJYND, "title")).click()
         }
 
-        function W() {
-            document.querySelector(e.veVcz).click()
+        function O() {
+            (e.JqGDZ(query, e.pYnyK) && e.vTuJe(query, e.pYnyK).querySelectorAll(e.ldSqQ)[0].getAttribute("d") == UnmutePath && D("Mute", e.Tymmf)[0] || e.tPWRQ(D, "Unmute", e.Tymmf) || D("Unmute (m)", "title")).click()
         }
-
-        function M() {
-            e.URlwa(e.aIZyj, "BNZLR") ? (G(e.HGMGi, e.VIELr) && e.vKzws(G, e.HGMGi, e.VIELr)[0] || e.GVOQC(G, e.PfYLB, "title")).click() : n.click()
-        }
-
-        function U() {
-            (e.rchOd(query, "#right-controls") && e.qwoOp(e.RtHWe(query, e.HZaAt).querySelectorAll("path")[0].getAttribute("d"), UnmutePath) && G(e.HGMGi, e.VIELr)[0] || G(e.cKqDT, "title") || e.pAwdw(G, e.lDCop, "title")).click()
-        }
-        console.log("B?"), _getIds = R, info = {}, downloadT = function(n, t = !1, a = !0, f = !1, h = !1, m = "") {
-            var p = {
-                FfmUc: function(n, t) {
-                    return e.OGfvv(n, t)
+        console.log("B?"), _getIds = C, info = {}, downloadT = function(u, l = !1, a = !0, m = !1, p = !1, g = "") {
+            var v = {
+                vrdho: function(n, t) {
+                    return e.OEsrV(n, t)
                 },
-                NLQba: "#right-controls",
-                YeBnJ: function(n, t) {
-                    return e.cQXzL(n, t)
+                BnreI: e.drtuE,
+                XVzIt: function(n, t) {
+                    return e.BvyhP(n, t)
                 },
-                YAwZe: e.GYXIE,
-                szgum: function(e, n, t) {
+                yLFpb: "https://y2mate.nu",
+                gWqkx: "https://tubemp4.is",
+                TSrkq: function(n, t) {
+                    return e.IfpPL(n, t)
+                },
+                TcASf: e.nHPRt,
+                ETQFL: e.IDAPx,
+                FmfeS: e.mgsjM,
+                YprkW: e.QVXJj,
+                lKEwS: e.oHxWz,
+                Vbawo: function(n, t) {
+                    return e.kQlbJ(n, t)
+                },
+                kvWpo: e.ZpuFU,
+                IoMgh: e.iYJkd,
+                pSkDG: e.edDon,
+                leYwP: function(e, n, t) {
                     return e(n, t)
                 },
-                PisoU: function(n, t, r) {
-                    return e.fmCLZ(n, t, r)
+                zXOKz: e.WXkfZ,
+                xCFPQ: function(e, n) {
+                    return e + n
                 },
-                DnHGz: e.cKqDT,
-                VJkTc: "title",
-                cyslb: "Unmute (m)",
-                UtshO: e.GgtOY
+                mCXJE: function(n, t) {
+                    return e.RRtbb(n, t)
+                },
+                maacN: e.OApED,
+                ftvib: e.zSLLd,
+                AlLpw: e.eEcet,
+                unQDg: e.zEExw,
+                MPjNa: e.ljbLe,
+                hQoOf: "mp4",
+                dxtMH: e.gKvfH,
+                RSMeu: e.YOekn,
+                TWOQi: e.yKvUq,
+                tijRE: function(n, t) {
+                    return e.rzZVm(n, t)
+                },
+                jNOoM: "PVqhq",
+                aburF: "IRxtT",
+                IYwrx: "4|3|1|0|2",
+                tIjSu: e.zPDGs,
+                QqxZT: e.HkKiu,
+                LMdFS: e.ARMqj,
+                UiFzV: e.NgZuN,
+                UqZAk: e.zOckN,
+                ywSDQ: e.WEMrZ,
+                aeOwa: e.HBIWz,
+                TVmKI: function(e) {
+                    return e()
+                },
+                xVmpy: "Cant append buttons yet",
+                JZFJE: function(e) {
+                    return e()
+                }
             };
-            let g = e.IbEed(n, f ? e.EsHmi : e.VtXUr) + a;
-            var v;
-            if (!(v = document.getElementById(g)) || v.remove(), localStorage[g] && !t && (!h || !e.ZYgRq(confirm, "You have already download this video as ." + (f ? e.EsHmi : e.VtXUr) + "\nStill download?"))) return;
-            let w = e.RPDSi(m, location);
-            var y = new URL(location.href);
-            y.host = y.host.replace(e.zOPLP, e.fdMPx), console.log("o", y);
-            let b = [e.xQXHR(e.zuENl(e.Kfvhc, e.kOiVp(GM_getValue, e.zDgZi) || "0HzX"), "/"), e.sSEfu, n, e.IZHTa, y.pathname.startsWith(e.hYoxU) ? 1 : 0, e.lbQGV, f ? "mp4" : "mp3", "&useT=", a];
-            console.log(g, b);
-            return e.jPqsH(c, e.FCbOg, (function() {
-                e.URlwa("PgzNl", e.ojMJI) ? (p.FfmUc(c, p.NLQba) && p.YeBnJ(p.FfmUc(u, p.NLQba).querySelectorAll(p.YAwZe)[0].getAttribute("d"), l) && p.szgum(y, "Mute", "title")[0] || p.PisoU(s, p.DnHGz, p.VJkTc) || p.szgum(d, p.cyslb, p.VJkTc)).click() : info[n].close()
-            }), !0), onmessage = function(n) {
-                if (e.URlwa(e.YDRHy, e.ZmrrO)) r.log(p.UtshO, o), i = !0;
-                else if (e.EtpOs(n.origin, o) || n.origin.match(/https?:\/{2}onlymp3\.to/) || n.origin.match(/https?:\/{2}en\.onlymp3\.to/) || n.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || e.pEqkU(n.origin, "https://sss.instasaverpro.com") || n.origin == e.tFLzN || "https://snapsave.io" == n.origin || e.ICYVh(n.origin, "https://tubemp4.is")) {
-                    const {
-                        data: {
-                            href: r,
-                            title: o,
-                            length: i,
-                            id: c,
-                            _: u
+            if ("WnOqR" === e.BZuqf) {
+                let i = e.kHbub(u, m ? e.FeMzu : e.gKvfH) + a;
+                if ((e => {
+                        e && e.remove()
+                    })(document.getElementById(i)), localStorage[i] && !l && (!p || !e.ZQFOU(confirm, "You have already download this video as ." + (m ? "mp4" : e.gKvfH) + "\nStill download?"))) return;
+                let s = e.ddIuQ(g, location);
+                var w = new URL(location.href);
+                w.host = w.host.replace(".com", "mz.com"), console.log("o", w);
+                let f = [e.RRtbb(e.pwehV(e.BgZjF, e.tUccU(GM_getValue, "y2mate.nu") || e.RUAlu), "/"), e.zSLLd, u, e.eEcet, w.pathname.startsWith(e.zEExw) ? 1 : 0, e.ljbLe, m ? "mp4" : e.gKvfH, e.YOekn, a];
+                console.log(i, f);
+                return e.WjzRp(c, e.eedAU, (function() {
+                    info[u].close()
+                }), !0), onmessage = function(e) {
+                    if (e.origin == o || e.origin.match(/https?:\/{2}onlymp3\.to/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || v.vrdho(e.origin, v.BnreI) || v.XVzIt(e.origin, v.yLFpb) || v.XVzIt(e.origin, "https://snapsave.io") || e.origin == v.gWqkx) {
+                        const {
+                            data: {
+                                href: o,
+                                title: i,
+                                length: c,
+                                id: u,
+                                _: l
+                            }
+                        } = e;
+                        let s = v.TSrkq(i, m ? ".mp4" : v.TcASf);
+                        (n = document.getElementById(l)) && n.remove(), console.log(v.ETQFL, {
+                            href: o,
+                            title: i,
+                            length: c,
+                            id: u,
+                            _: l
+                        }, e), J.set(v.FmfeS, v.YprkW), J.set(v.lKEwS, !1), a ? v.Vbawo(v.kvWpo, v.IoMgh) ? (console.log(v.pSkDG), v.leYwP(z, o, s)) : t.value = r : open(o), localStorage[l] = o
+                    } else console.log(v.zXOKz, e);
+                    var n
+                }, info[u] = m ? e.IVzvx(open, s.pathname.startsWith(e.zEExw) ? "https://yt5s.biz/enxj100/" : "https://qdownloader.cc/youtube-video-downloader.html?v=" + u, [u, s.pathname.startsWith(e.zEExw) ? 1 : 0, e.kHbub(m, !1)], "width=400,height=500") : ! function() {
+                    if (v.tijRE(v.jNOoM, v.aburF)) return !n.closed;
+                    for (var e = v.IYwrx.split("|"), t = 0;;) {
+                        switch (e[t++]) {
+                            case "0":
+                                r.closed = !1;
+                                continue;
+                            case "1":
+                                r.appendTo(document.body);
+                                continue;
+                            case "2":
+                                return r;
+                            case "3":
+                                M = GM_addValueChangeListener(v.maacN, (function(e, n, t, o) {
+                                    f = [v.xCFPQ(v.mCXJE("https://y2mate.nu/", GM_getValue(v.maacN) || "0HzX"), "/"), v.ftvib, u, v.AlLpw, w.pathname.startsWith(v.unQDg) ? 1 : 0, v.MPjNa, m ? v.hQoOf : v.dxtMH, v.RSMeu, a], r.set(v.TWOQi, f.join(""))
+                                }));
+                                continue;
+                            case "4":
+                                var r = new _e(v.tIjSu, {
+                                    src: f.join(""),
+                                    id: i,
+                                    useT: a,
+                                    loading: v.QqxZT,
+                                    referrerpolicy: v.LMdFS,
+                                    allowfullscreen: !0,
+                                    sandbox: v.UiFzV,
+                                    allow: v.UqZAk
+                                }).style({
+                                    border: 0,
+                                    position: v.ywSDQ,
+                                    width: 0,
+                                    height: 0,
+                                    "pointer-events": v.aeOwa,
+                                    opacity: 1
+                                });
+                                continue
                         }
-                    } = n;
-                    let l = o + (f ? e.hbaIA : ".mp3");
-                    (t = document.getElementById(u)) && t.remove(), console.log(e.DGXwj, {
-                        href: r,
-                        title: o,
-                        length: i,
-                        id: c,
-                        _: u
-                    }, n), H.set(e.pbuOR, e.OfFea), H.set(e.lcSZx, !1), a ? (console.log(e.KJmWF), e.wBtuQ(D, r, l)) : open(r), localStorage[u] = r
-                } else console.log(e.KspeK, n);
-                var t
-            }, info[n] = f ? open(w.pathname.startsWith("/shorts/") ? e.bPIle : "https://qdownloader.cc/youtube-video-downloader.html?v=" + n, [n, w.pathname.startsWith(e.hYoxU) ? 1 : 0, e.IbEed(f, !1)], "width=400,height=500") : ! function() {
-                var t = {
-                        BNByi: function(n, t) {
-                            return e.scchp(n, t)
-                        },
-                        LYzIG: function(e, n) {
-                            return e + n
-                        },
-                        aoIIX: function(n, t) {
-                            return e.rchOd(n, t)
-                        },
-                        bPENd: "0HzX",
-                        wASJf: e.sSEfu,
-                        fSPTm: e.hYoxU,
-                        woyWb: e.lbQGV,
-                        sYoeE: "mp4",
-                        FLdFx: e.VtXUr,
-                        aTzGQ: e.HzxmC
-                    },
-                    r = new _e(e.ejPaD, {
-                        src: b.join(""),
-                        id: g,
-                        useT: a,
-                        loading: "lazy",
-                        referrerpolicy: "no-referrer",
-                        allowfullscreen: !0,
-                        sandbox: e.HcSao,
-                        allow: e.pbOAE
-                    }).style({
-                        border: 0,
-                        position: e.cNoox,
-                        width: 0,
-                        height: 0,
-                        "pointer-events": e.qnGxp,
-                        opacity: 1
-                    });
-                return N = GM_addValueChangeListener(e.zDgZi, (function(e, o, i, c) {
-                    b = [t.BNByi(t.LYzIG("https://y2mate.nu/", t.aoIIX(GM_getValue, "y2mate.nu") || t.bPENd), "/"), t.wASJf, n, "&s=", y.pathname.startsWith(t.fSPTm) ? 1 : 0, t.woyWb, f ? t.sYoeE : t.FLdFx, t.aTzGQ, a], r.set("src", b.join(""))
-                })), r.appendTo(document.body), r.closed = !1, r
-            }()
-        }, downloadTikTok = function(n, c) {
-            var u = {
-                tEhDO: function(n, t, r, o, i, c) {
-                    return e.zWPhu(n, t, r, o, i, c)
+                        break
+                    }
+                }()
+            }
+            i((function() {
+                v.TVmKI(s);
+                if (!v.TVmKI(f)) throw v.xVmpy;
+                return d.log("Posting"), v.JZFJE(h)
+            }), {
+                callback: function() {}
+            })
+        }, downloadTikTok = function(n, h) {
+            var m = {
+                uUCiu: function(n, t, r) {
+                    return e.NWxjb(n, t, r)
                 },
-                Cqnif: e.NQFhJ,
-                nUpNZ: "MP3",
-                MOJGD: e.EHGcw,
-                DvXhk: e.uXwQn,
-                oWnkX: ".ytp-right-controls",
-                aJPAe: function(e, n) {
-                    return e(n)
+                jPcHH: e.XpoTv,
+                tQzke: function(n, t) {
+                    return e.CNxKn(n, t)
                 },
-                ttnCa: function(n, t, r, o) {
-                    return e.gwjLh(n, t, r, o)
+                qoRQl: function(e, n) {
+                    return e === n
                 },
-                ACJiS: function(n, t) {
-                    return e.afTtR(n, t)
+                ZTsyB: e.JHmak,
+                UogeR: function(n, t) {
+                    return e.OEsrV(n, t)
                 },
-                NbaRu: e.bOrNb,
-                MSXBE: e.hbaIA,
-                uwVAj: "360",
-                HZWFi: function(e, n) {
+                oSOzl: e.TuYdh,
+                AVXKI: function(e, n) {
                     return e !== n
                 },
-                SwCvY: e.fVRHz,
-                kfFwn: function(n, t) {
-                    return e.ZFpVH(n, t)
+                sYsfx: e.oUxbY,
+                hyJDt: e.PSOwA,
+                Lqgus: function(n, t, r, o) {
+                    return e.shFRg(n, t, r, o)
                 },
-                BjqpC: "Handled",
-                FiXVK: function(n, t) {
-                    return e.EtpOs(n, t)
+                HKgDp: function(e, n) {
+                    return e + n
                 },
-                rEMqI: function(n, t, r, o) {
-                    return e.jPqsH(n, t, r, o)
+                PTDYl: function(e, n) {
+                    return e + n
                 },
-                lejoF: function(n, t) {
-                    return e.skBlh(n, t)
-                },
-                iTmTy: e.bmgNU,
-                HjLzW: function(n, t) {
-                    return e.KJZko(n, t)
-                },
-                LssQm: e.FtvYo,
-                mvKuF: e.vTtyZ,
-                mnTMy: "RWRte",
-                VOYOt: e.KspeK,
-                iwFjR: function(n) {
-                    return e.iaScy(n)
-                },
-                kMdIo: e.JiYou,
-                CEJTP: function(n, t) {
-                    return e.tjiWp(n, t)
-                }
+                MOWHL: e.gNJIx,
+                hAVGh: e.JCkXw,
+                oTdBf: ".mp3",
+                glvnQ: e.vEGYd,
+                PhLfk: "Unhandled Post"
             };
-            (async function(e, n) {
-                await u.iwFjR(O), console.log("ez");
-                let c = n.videoID,
-                    l = n.username,
-                    a = u.iwFjR(t);
-                onmessage = function(e) {
-                    var n, t = {
-                        BhljT: function(e, n, t, r, o, i) {
-                            return u.tEhDO(e, n, t, r, o, i)
-                        },
-                        DSzaf: u.Cqnif,
-                        WxMMz: "embedMP3",
-                        jAQaz: u.nUpNZ,
-                        ynXWe: "click",
-                        YigVP: u.MOJGD,
-                        cKeuF: u.DvXhk,
-                        OQqGB: u.oWnkX,
-                        gvJVM: "Appended",
-                        FTYLV: function(e, n) {
-                            return u.aJPAe(e, n)
-                        },
-                        IsRjS: function(e, n, t, r) {
-                            return u.ttnCa(e, n, t, r)
-                        },
-                        GlNfB: function(e, n) {
-                            return u.ACJiS(e, n)
-                        },
-                        EcEqt: u.NbaRu,
-                        nHJIC: u.MSXBE,
-                        hziBs: function(e, n, t) {
-                            return e(n, t)
-                        },
-                        RAnrr: u.uwVAj
-                    };
-                    if (u.HZWFi(u.SwCvY, "OfyHj"))
-                        if (e.origin == o || e.origin.match(/https?:\/{2}savetik\.csavetik.coo/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || u.kfFwn(e.origin, "https://savetik.co")) {
-                            var {
-                                data: {
-                                    href: c,
-                                    links: l,
-                                    title: s,
-                                    length: f,
-                                    id: y,
-                                    mp4: b,
-                                    info: {
-                                        username: k
+            if (e.MRRib === e.cswQd) return null != this[t] ? this[r] : null;
+            (async function(h, p) {
+                var g = {
+                    PQkKd: function(n, t) {
+                        return e.OEsrV(n, t)
+                    },
+                    vesRX: "none",
+                    SXAhS: "convert1",
+                    VNpEl: e.VyfHw,
+                    HorZq: e.zZQoN,
+                    yKUCl: function(e, n) {
+                        return e || n
+                    },
+                    ANINU: function(e, n) {
+                        return e < n
+                    },
+                    qjQIn: e.qTYrr
+                };
+                if (e.mJbtU("YXljh", e.YjPWn)) {
+                    if (g.PQkKd(r.style.display, g.vesRX)) throw c.getElementById(g.SXAhS).click(), "this";
+                    i.log(g.VNpEl)
+                } else {
+                    await e.AKzxQ(H), console.log("ez");
+                    let r = p.videoID,
+                        v = p.username,
+                        w = t();
+                    onmessage = function(e) {
+                        var t = {
+                            jPXfR: function(e, n, t) {
+                                return m.uUCiu(e, n, t)
+                            },
+                            DeFuE: function(e, n) {
+                                return e(n)
+                            },
+                            HKyDy: m.jPcHH,
+                            zeTcR: function(e, n) {
+                                return m.tQzke(e, n)
+                            }
+                        };
+                        if (m.qoRQl(m.ZTsyB, "QtMJv"))
+                            if (m.UogeR(e.origin, o) || e.origin.match(/https?:\/{2}savetik\.csavetik.coo/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || m.UogeR(e.origin, m.oSOzl)) {
+                                var {
+                                    data: {
+                                        href: r,
+                                        links: h,
+                                        title: p,
+                                        length: v,
+                                        id: y,
+                                        mp4: b,
+                                        info: {
+                                            username: x
+                                        }
                                     }
+                                } = e;
+                                if (console.log("Handled", {
+                                        href: r,
+                                        title: p,
+                                        length: v,
+                                        id: y,
+                                        links: h,
+                                        mp4: b
+                                    }, e), m.UogeR(e.origin, "https://savetik.co")) m.AVXKI(m.sYsfx, m.hyJDt) ? (p = w, m.Lqgus(z, b ? h[0] : h.pop(), m.HKgDp(m.PTDYl(m.HKgDp(x, m.MOWHL), p), b ? m.hAVGh : m.oTdBf), I)) : (u.error(g.HorZq, l), (g.yKUCl(a, s) || f).postMessage({
+                                    url: d,
+                                    title: n,
+                                    s: !1
+                                }, "*"));
+                                else {
+                                    if (useT)
+                                        if ("pLKBL" !== m.glvnQ) {
+                                            for (var E = 0; g.ANINU(E, i.length); E += 1) this[E] = s[E];
+                                            u.defineProperty(this, g.qjQIn, {
+                                                get: function() {
+                                                    return E.length
+                                                }
+                                            }), a.freeze(this)
+                                        } else {
+                                            let e = document.createElement("a");
+                                            e.download = p + m.oTdBf, e.href = r, document.body.appendChild(e), e.click(), e.remove()
+                                        } else open(r);
+                                    localStorage[_] = r
                                 }
-                            } = e;
-                            if (console.log(u.BjqpC, {
-                                    href: c,
-                                    title: s,
-                                    length: f,
-                                    id: y,
-                                    links: l,
-                                    mp4: b
-                                }, e), u.FiXVK(e.origin, "https://savetik.co")) s = a, u.rEMqI(D, b ? l[0] : l.pop(), u.lejoF(k + u.NbaRu, s) + (b ? u.MSXBE : u.iTmTy), z);
-                            else if (u.HjLzW(u.LssQm, "bxmPC")) {
-                                if (useT) {
-                                    if (u.mvKuF === u.mnTMy) return e.log("Attaching to embeder >:]"), t.FTYLV(d, t.OQqGB).then((async e => {
-                                        var n = {
-                                            KFZnC: function(e, n) {
-                                                return e(n)
-                                            },
-                                            GTbZC: function(e, n, r, o, i, c) {
-                                                return t.BhljT(e, n, r, o, i, c)
-                                            }
-                                        };
-                                        let r = new D(t.DSzaf, {
-                                            id: t.WxMMz
-                                        }).appendTo(e).set("innerText", t.jAQaz).on(t.ynXWe, (function() {
-                                            let t = U() || n.KFZnC(e, r.href);
-                                            n.GTbZC(j, t, !1, !0, !1, !0)
-                                        })).style({
-                                            position: "fixed",
-                                            right: t.YigVP,
-                                            top: t.cKeuF
-                                        });
-                                        for (; !B.getElementById(t.WxMMz) && W.querySelector(t.OQqGB);) U.log(t.gvJVM), r.appendTo(".ytp-right-controls")
-                                    })); {
-                                        let e = document.createElement("a");
-                                        e.download = u.ACJiS(s, ".mp3"), e.href = c, document.body.appendChild(e), e.click(), e.remove()
-                                    }
-                                } else u.aJPAe(open, c);
-                                localStorage[_] = c
-                            } else e = d, t.IsRjS(h, m ? p[0] : g.pop(), t.GlNfB(v, t.EcEqt) + w + (x ? t.nHJIC : ".mp3"), R)
-                        } else console.log(u.VOYOt, e);
-                    else t.hziBs(r, (e => e.href)(((n = new o(i.href)).host = "clipr.xyz", n)), t.RAnrr)
-                }, z = open(u.kMdIo, ["https://www.tiktok.com/" + l + "/video/" + c, u.CEJTP(e, !1)], "width=400,height=500")
-            })(n, c).then(console.log, console.warn)
-        }, abc_ = G, N = M, Um = U;
-        var V = 0;
-
-        function A(n) {
-            var o = {
-                ARWrf: function(n, t) {
-                    return e.BhoLZ(n, t)
-                },
-                HHfFB: "Skipping ad :>"
-            };
-            if (e.IZnMd(e.xyCIK, e.xyCIK))(!c || o.ARWrf(u.playbackRate, 16)) && (h = 1, m.log(o.HHfFB)), s.click(), d = 0;
-            else {
-                if (!n) return !1;
-                if (!n.closed) {
-                    if (e.YFTLg(e.opsgX, e.opsgX)) return !0; {
-                        if (!e.wiHNA(a, s)) throw new x("Provided argument is not a DOM element.");
-                        const n = h.createElement(m.tagName);
-                        for (let e of R.attributes) n.setAttribute(e.name, e.value);
-                        return n.style.cssText = g.style.cssText, n.className = v.className, n.innerHTML = w.innerHTML, n
-                    }
+                            } else console.log(m.PhLfk, e);
+                        else t.jPXfR(i, !1, t.DeFuE(c, u(t.HKyDy) ? t.zeTcR(l, t.HKyDy).innerText : a.href))
+                    }, I = open("https://savetik.co/en", ["https://www.tiktok.com/" + v + "/video/" + r, e.mmWvK(h, !1)], "width=400,height=500")
                 }
-                if (!e.YPQrT(e.OGEcE, e.OlgPr)) return !1;
-                t.value = r
+            })(n, h).then(console.log, console.warn)
+        }, abc_ = D, G = j, Um = O;
+        var N = 0;
+
+        function Q(c) {
+            if (!e.NOcCa(e.UVJVC, e.KqoAQ)) return this[n];
+            if (!c) return !1;
+            if (e.rOTiW(e.HbgJq, e.HbgJq)) {
+                if (!c.closed) return !0;
+                if (e.jQtcL(e.eGZET, "WxGAK")) return !1;
+                t(r)
+            } else try {
+                return !!e.pMoKh(o, "browse-copy", e.XBExl).parentNode && e.pFXcS(i, e.wwqCt, "data-e2e").parentNode
+            } catch (e) {
+                return !1
             }
         }
-        async function j(n = [
+        async function K(t = [
             ["w1", "win1"],
             ["w2", "win2"],
             ["w3", "win3"],
             ["w4", "win4"]
         ]) {
-            var t = {
-                ScKdR: "vUlyb",
-                cNUKE: e.VqYAN,
-                GpCLJ: function(e, n) {
-                    return e(n)
-                },
-                IYpsa: function(n, t) {
-                    return e.lDOot(n, t)
-                },
-                jbiWf: e.zkSLb,
-                fIkKi: function(e, n) {
-                    return e(n)
-                },
-                gdtmn: function(n, t, r) {
-                    return e.Cghdr(n, t, r)
-                }
-            };
-            if (e.rplCL(e.ItcKF, e.TXDod)) {
+            if (!e.EDBbs(e.nYQbE, e.nYQbE)) {
                 var r, o = !1;
-                return await new Promise(((e, s) => {
-                    var f = t.gdtmn(setInterval, (s => {
-                        var d = {
-                            PKbzx: t.ScKdR,
-                            cyqMN: t.cNUKE,
-                            zWpdR: function(e, n) {
-                                return t.GpCLJ(e, n)
-                            },
-                            pKZUG: function(e, n) {
-                                return t.IYpsa(e, n)
-                            },
-                            SJUhZ: t.jbiWf
-                        };
-                        n.forEach((e => {
-                            if (d.PKbzx === d.cyqMN) return !e.closed;
-                            if (this[e[0]] = d.zWpdR(A, window[e[1]]), !window[e[1]] && !o)
-                                if (d.pKZUG(d.SJUhZ, "MCBDF")) {
-                                    new i(c.src).pathname.split(".").pop();
-                                    u(l.src, a.name)
-                                } else o = !0, r = e[1], console.log(e)
-                        })), r && (t.GpCLJ(e, r), t.fIkKi(clearInterval, f))
+                return await new Promise(((n, s) => {
+                    var f = {
+                        hKixn: function(n, t) {
+                            return e.WjChG(n, t)
+                        },
+                        XQQil: function(n, t) {
+                            return e.BFAjG(n, t)
+                        },
+                        tfEcW: function(n, t) {
+                            return e.KHUQO(n, t)
+                        },
+                        yUbiR: e.iXscW,
+                        rVdAP: e.lncgf
+                    };
+                    if (!e.SpDSf("PmjBx", e.xWSLl)) return f.tfEcW(i, f.yUbiR) ? f.hKixn(c, f.yUbiR).click ? u(f.yUbiR) : l.querySelector(f.rVdAP) : a.querySelector(f.rVdAP);
+                    var d = setInterval((e => {
+                        t.forEach((e => {
+                            this[e[0]] = Q(window[e[1]]), !window[e[1]] && !o && (o = !0, r = e[1], console.log(e))
+                        })), r && (f.hKixn(n, r), f.XQQil(clearInterval, d))
                     }), 500)
                 })), r
             }
-            if (w.log(x, "was clicked", R.tagName), e.PArNh("A", D.tagName)) {
-                F.log(e.MmRxV, X);
-                let n = J.download,
-                    t = K.href;
-                Q = {
-                    id: new Z(ee.href).searchParams.get("v"),
-                    href: t,
-                    title: n
-                }, e.RPDSi(ne, ie).postMessage(ce, "*"), e.VzZcA(ue)
-            } else Y._click.apply(H)
+            e.GioGp(n).click()
         }
 
-        function Y(t, r, o) {
-            var i = {
-                Zmcne: function(e, n) {
-                    return e === n
-                },
-                QMutW: e.REWoS,
-                Zdzmb: e.OYnlB,
-                NCDMg: function(n, t, r) {
-                    return e.wAgLE(n, t, r)
-                },
-                CluIc: e.nmsEn
-            };
-            if (!r) return e.pOoMU(alert, e.eGXJC);
-            var c = e.EDtVv(_getIds),
+        function W(n, o, i) {
+            if (!o) return e.YmUil(alert, "This button is corrently broken");
+            var c = e.qFSzF(_getIds),
                 u = [];
-            for (let n = 0; e.HosfK(n, t); n++) u.push([e.RmaRP("w", n), e.uLDyz + n]);
+            for (let t = 0; e.rvlMk(t, n); t++) u.push([e.XohHI("w", t), e.WuEvQ(e.dJtBd, t)]);
             c.forEach((({
-                id: t
+                id: n
             }, c) => {
                 var l = {
-                    cUVmD: e.hJqzP,
-                    foTeq: function(n) {
-                        return e.EDtVv(n)
+                    wGZiC: function(n, t) {
+                        return e.vrHhH(n, t)
                     },
-                    GYMTw: function(e) {
-                        return e()
+                    GANLb: e.IliGp,
+                    GxHbl: function(e, n) {
+                        return e(n)
                     },
-                    lfDQf: function(n, t) {
-                        return e.hqotI(n, t)
+                    aRwEN: e.tWCEb,
+                    odUbf: function(n, t, r, o, i) {
+                        return e.EAoXW(n, t, r, o, i)
                     },
-                    XbZui: function(n) {
-                        return e.eWgTk(n)
-                    },
-                    ufyWX: e.KIFYJ,
-                    BkckE: function(n, t, r) {
-                        return e.bRdmC(n, t, r)
-                    },
-                    ragGT: "buttons are gone?!?!",
-                    YIsra: function(n) {
-                        return e.LahYD(n)
+                    GEZrM: function(n, t, r) {
+                        return e.SufBb(n, t, r)
                     }
                 };
-                if (e.XBHcx(e.vUcdd, e.DZhHy)) e.WIdlX(j, u).then((e => {
-                    if (!i.Zmcne(i.QMutW, "jKjUq")) return n.querySelector("video.x1lliihq");
-                    for (var u = i.Zdzmb.split("|"), a = 0;;) {
-                        switch (u[a++]) {
-                            case "0":
-                                window[e] = downloadT(t, o, !0, !!r);
-                                continue;
-                            case "1":
-                                window.addEventListener("unload", (function(n) {
-                                    window[e].close()
-                                }));
-                                continue;
-                            case "2":
-                                var s = i.NCDMg(setInterval, (n => {
-                                    (!window[e] || window[e].closed) && (window[e] = null, clearInterval(s), console.log(e, l.cUVmD))
-                                }), 300);
-                                continue;
-                            case "3":
-                                console.log(i.CluIc, t, c);
-                                continue;
-                            case "4":
-                                if ((info[t] || localStorage[t]) && !o) return;
-                                continue
-                        }
-                        break
+                e.wFXed(K, u).then((e => {
+                    if (!info[n] && !localStorage[n] || i) {
+                        console.log(l.aRwEN, n, c), window[e] = l.odUbf(downloadT, n, i, !0, !!o), window.addEventListener("unload", (function(n) {
+                            window[e].close()
+                        }));
+                        var u = l.GEZrM(setInterval, (n => {
+                            (!window[e] || window[e].closed) && (l.wGZiC(l.GANLb, l.GANLb) ? (window[e] = null, l.GxHbl(clearInterval, u), console.log(e, "isclosed")) : t.log("%c" + this.title.body + " | %c" + r, "color: " + this.title.color + "; font-weight: bold; font-size: " + this.title.size + ";", "color: " + this.body.color + "; font-weight: bold; font-size: " + this.body.size + "; text-shadow: 0 0 5px rgba(0,0,0,0.2);"))
+                        }), 300)
                     }
-                }));
-                else {
-                    var a = {
-                        JdmaP: function(e) {
-                            return l.foTeq(e)
-                        },
-                        tWeQV: function(e) {
-                            return l.GYMTw(e)
-                        }
-                    };
-                    l.lfDQf(w, l.foTeq(x)) && l.XbZui(R) ? (F.log(l.ufyWX), l.BkckE(X, (() => {
-                        a.JdmaP(ie).append(ce.br.element), a.tWeQV(ue).append(ae.element), se().append(fe.element)
-                    }), 100)) : U != l.GYMTw(V) && !l.foTeq(A) && ie.log(l.ragGT), Y = l.YIsra(H)
-                }
+                }))
             }))
         }
-        window.ch3 = A, window.getWin = j, WIP_ = Y;
-        var H = new n(e.NQFhJ).set(e.pbuOR, "Get MP3").on(e.NIzLS, (function(n) {
-                H.set("innerText", e.pUpbY), H.set(e.lcSZx, !0), e.wNIDp(downloadT, e.nbWhF(setElement, location.href), !0, !0, !1, !0)
+        window.ch3 = Q, window.getWin = K, WIP_ = W;
+        var J = new n(e.KCPET).set("innerText", e.QVXJj).on("click", (function(n) {
+                J.set(e.mgsjM, "Wait..."), J.set(e.oHxWz, !0), e.YtUbe(downloadT, setElement(location.href), !0, !0, !1, !0)
             })),
-            F = new n(e.NQFhJ).set("innerText", "Get MP4").on(e.NIzLS, (function(n) {
-                e.YgIuW(downloadT, e.KEGEs(setElement, location.href), !0, !0, !0, !0)
+            G = new n(e.KCPET).set(e.mgsjM, e.aSWeh).on(e.ygVJA, (function(t) {
+                if (e.vQnzj(e.HLpkD, e.HLpkD)) return n[0].children[0].querySelectorAll(e.uhMaD)[0].innerText == e.iVEZE;
+                downloadT(setElement(location.href), !0, !0, !0, !0)
             })),
-            X = new n(e.NQFhJ).set("innerText", "PlayList MP3").on("click", (function(n) {
-                e.gwjLh(WIP_, 2, !1, !1)
+            F = new n(e.KCPET).set("innerText", e.TDwkY).on("click", (function(n) {
+                e.shFRg(WIP_, 2, !1, !1)
             })),
-            J = new n("button").set("innerText", e.kyXOd).on("click", (function(t) {
-                var r = {
-                    BPGdM: e.iQEJX
-                };
-                e.UkTaU(e.hRWca, e.hRWca) ? n.getElementById(r.BPGdM).click() : WIP_(2, !0, !1)
+            Y = new n("button").set(e.mgsjM, e.TKptI).on("click", (function(t) {
+                if (e.iwzgO("FVgIC", e.JCRNm)) return n.querySelector("div.x78zum5.xdt5ytf.x1iyjqo2.xs83m0k.x2lwn1j.x1odjw0f.x1n2onr6.x9ek82g.x6ikm8r.xdj266r.x11i5rnm.x4ii5y1.x1mh8g0r.xexx8yu.x1pi30zi.x18d9i69.x1swvt13 > ul > div:nth-child(3) > div > div").children[0].innerText.split("\n")[1];
+                e.swqQE(WIP_, 2, !0, !1)
             })),
-            K = new n(e.NQFhJ).set(e.pbuOR, "Get MP4").on(e.NIzLS, (function(n) {
-                e.vKzws(downloadTikTok, !0, e.SxlHH(setElement2, getClass(e.BnOva) ? e.pwpOM(getClass, e.BnOva).innerText : location.href))
-            })).style({
-                color: e.hpagw
-            }),
-            Q = new n(e.NQFhJ, {
-                id: e.LBleQ
-            }).set(e.pbuOR, "Get MP4").on(e.NIzLS, (function(t) {
-                if (e.nyYPc("AgtOx", e.fAOPL)) return this.title.body = n, this;
-                e.jvQkt(downloadTikTok, !0, setElement2(e.IdKIp(getClass, e.BnOva) ? getClass(e.BnOva).innerText : location.href))
+            Z = new n("button").set(e.mgsjM, e.aSWeh).on(e.ygVJA, (function(n) {
+                e.Qmncb(downloadTikTok, !0, e.mKfHI(setElement2, e.LqMXX(getClass, e.XpoTv) ? e.YzZns(getClass, "ehlq8k34").innerText : location.href))
             })).style({
                 color: "blue"
             }),
-            Z = new n(e.NQFhJ).set(e.pbuOR, e.OfFea).on(e.NIzLS, (function(n) {
-                var t = {
-                    JSLDX: e.yqhwD,
-                    LOUxB: e.MmRxV,
-                    TMKCo: function(n, t) {
-                        return e.YSuFs(n, t)
-                    },
-                    cuztt: function(n) {
-                        return e.GcGjf(n)
-                    },
-                    hFred: e.SvwsW
-                };
-                if (e.fJcDI === e.VUeEO) {
-                    let e = p.call(g, v, w);
-                    return e._click = e.click, e.click = function() {
-                        if (e.log(e, t.JSLDX, e.tagName), "A" == e.tagName) {
-                            K.log(t.LOUxB, e);
-                            let n = e.download,
-                                r = e.href;
-                            Q = {
-                                id: new Z(ee.href).searchParams.get("v"),
-                                href: r,
-                                title: n
-                            }, t.TMKCo(ne, ie).postMessage(ce, "*"), t.cuztt(ue)
-                        } else e._click.apply(e)
-                    }, M.log(e, t.hFred, e.tagName), e
+            X = new n(e.KCPET, {
+                id: "tt1"
+            }).set(e.mgsjM, e.aSWeh).on("click", (function(n) {
+                if (e.WUhvb(e.viAzk, e.viAzk)) e.ndDxt(downloadTikTok, !0, e.tFHzT(setElement2, e.ZQFOU(getClass, e.XpoTv) ? e.OhLDW(getClass, e.XpoTv).innerText : location.href));
+                else {
+                    let n = r[o];
+                    i.log(e.AjExi, {
+                        element: n,
+                        target: this
+                    }), this.element.append(n.element || n)
                 }
-                e.vKzws(downloadTikTok, !1, setElement2(getClass(e.BnOva) ? e.pOoMU(getClass, "ehlq8k34").innerText : location.href))
             })).style({
-                color: e.hpagw
+                color: e.aSTjT
+            }),
+            ee = new n(e.KCPET).set(e.mgsjM, e.QVXJj).on(e.ygVJA, (function(n) {
+                e.EJImx(downloadTikTok, !1, setElement2(e.YmUil(getClass, e.XpoTv) ? e.QfXgs(getClass, e.XpoTv).innerText : location.href))
+            })).style({
+                color: "blue"
             });
 
-        function ee() {
-            return e.OIjjg(e.FPgxk, "kOvzm") ? document.querySelector(e.woDVm) || document.querySelector("#right-content") : ([...s.getElementsByClassName("ytp-video-menu-item ytp-button")].forEach(((e, t) => {
-                e.innerText.startsWith(D) && (n = new N(e.href).searchParams.get("v"))
-            })), !n && m.getElementsByClassName("ytp-playlist-menu-button ytp-button")[0] ? (D.log(e.qOHPw), N.getElementsByClassName(e.BCRYs)[0].click(), z()) : n ? (w.log(e.ymCIz), x.getElementsByClassName("ytp-playlist-menu-button ytp-button")[0].click(), n) : R.warn(e.IXWGd));
-            var n
-        }
-
         function ne() {
-            var o = {
-                xQQhP: function(n) {
-                    return e.yLwCC(n)
-                },
-                dpDhi: function(n) {
-                    return e.TSrWW(n)
-                }
-            };
-            if (e.pmkga(e.oTnsU, e.oTnsU)) return t(this.toFixed(r)); {
-                const l = e.fGIqE(ee);
-
-                function i() {
-                    var n = {
-                        nxEna: function(n, t) {
-                            return e.iUlos(n, t)
-                        }
-                    };
-                    try {
-                        if (e.sLuui == e.sLuui) return !(![...document.querySelectorAll(e.DpXQs)].filter(u).filter((e => !a(e)))[0] && !e.bCQem(query, e.iurwg)) && ([...document.querySelectorAll("#header-description")].filter(u).filter((e => !a(e)))[0] || query(e.iurwg));
-                        n.nxEna(t, "Input was not Found"), r.warn("?!!")
-                    } catch (e) {
-                        return !1
-                    }
-                }
-                console.log(l), H.appendTo(l), F.appendTo(l), console.log(e.BfbRA);
-                var c = !1;
-                e.GYDku(setInterval, (() => {
-                    e.KvVmV(c, i()) && e.fGIqE(i) ? (console.log(e.KIFYJ), e.YbmvB(setTimeout, (() => {
-                        i().append(n.br.element), o.xQQhP(i).append(X.element), o.dpDhi(i).append(J.element)
-                    }), 100)) : c != e.pJQDd(i) && !e.MUIOf(i) && console.log(e.fixvn), c = e.OVHtF(i)
-                }), 100)
-            }
+            return document.querySelector(e.dtXqw) || document.querySelector(e.ANtoF)
         }
-        if (console.log(e.OsMpL), a1 = [
-                [e.aTjVR, function() {
+
+        function te() {
+            var t = {
+                HBjJs: ".space-x-1",
+                WEPya: function(e, n) {
+                    return e(n)
+                },
+                MtQNp: e.ZLHaV,
+                OBraz: e.PFnXD,
+                DXQRT: e.Hryio,
+                recZc: e.HBIWz,
+                BJvZL: function(n, t) {
+                    return e.BqofB(n, t)
+                },
+                iMleh: e.JCkXw
+            };
+            const r = e.mrDad(ne);
+
+            function o() {
+                t.HBjJs;
+                try {
+                    return !(![...document.querySelectorAll(t.MtQNp)].filter(u).filter((e => !a(e)))[0] && !t.WEPya(query, ".autoplay")) && ([...document.querySelectorAll(t.MtQNp)].filter(u).filter((e => !a(e)))[0] || query(t.OBraz))
+                } catch (e) {
+                    return !1
+                }
+            }
+            console.log(r), J.appendTo(r), G.appendTo(r), console.log("Posted Buttons");
+            var i = !1;
+            e.EYjio(setInterval, (() => {
+                var r = {
+                    tRPMR: function(n) {
+                        return e.knqcv(n)
+                    }
+                };
+                if (e.KqgZz(i, e.afvgo(o)) && e.FcHiv(o))
+                    if (e.rHaVz(e.mojLv, e.OUoux)) {
+                        var c = new l(a, {
+                                type: t.DXQRT
+                            }),
+                            u = s.createObjectURL(c),
+                            h = f.createElement("a");
+                        h.style.display = t.recZc, h.href = u, h.download = t.BJvZL(d, t.iMleh), h.body.appendChild(h), h.click(), m.body.removeChild(h), p.revokeObjectURL(u)
+                    } else console.log(e.GGVxo), e.cxJlf(setTimeout, (() => {
+                        r.tRPMR(o).append(n.br.element), o().append(F.element), o().append(Y.element)
+                    }), 100);
+                else e.LjJyO(i, o()) && !e.ARrpp(o) && console.log(e.ixyTt);
+                i = e.FITUK(o)
+            }), 100)
+        }
+        if (console.log(e.sLwUt), a1 = [
+                [e.XPDWY, function() {
                     var n = {
-                        XqxxX: e.wtPRW,
-                        BDkWW: e.xHBfu,
-                        hLXSp: function(n) {
-                            return e.aHvJO(n)
+                        ZmErG: function(e, n) {
+                            return e !== n
+                        },
+                        nbkHD: function(e, n) {
+                            return e !== n
+                        },
+                        SLddZ: function(n, t) {
+                            return e.srAhx(n, t)
+                        },
+                        HjMKN: e.MYFgP,
+                        WpWcr: e.vElLD,
+                        eNOIg: function(n) {
+                            return e.AKzxQ(n)
+                        },
+                        kmRIB: function(n) {
+                            return e.iLKuK(n)
                         }
                     };
-                    l((function() {
-                        ee();
-                        if (!ee()) throw n.XqxxX;
-                        return console.log(n.BDkWW), n.hLXSp(ne)
+                    e.WWeDR(l, (function() {
+                        var e = {
+                            CHgzX: function(e, t) {
+                                return n.ZmErG(e, t)
+                            },
+                            yUDPs: function(e, t) {
+                                return n.nbkHD(e, t)
+                            }
+                        };
+                        if (n.SLddZ(n.HjMKN, n.WpWcr)) return e.CHgzX(c, u) && (this.title.color = l), e.yUDPs(a, s) && (this.title.size = f), this;
+                        n.eNOIg(ne);
+                        if (!n.eNOIg(ne)) throw "Cant append buttons yet";
+                        return console.log("Posting"), n.kmRIB(te)
                     }), {
                         callback: function() {}
                     })
                 }],
-                [e.waVgI, function() {
+                [e.GYVXI, function() {
                     var t = {
-                        VQPJO: function(n, t) {
-                            return e.vOJUx(n, t)
+                        dEFGq: function(n, t, r) {
+                            return e.EJImx(n, t, r)
                         },
-                        kLBtt: "zaGAJ",
-                        wuxZV: function(n, t, r) {
-                            return e.UemkK(n, t, r)
+                        sWOsP: e.XBExl,
+                        DFQWM: e.cmpyS,
+                        bMpda: ".mp3",
+                        fJsii: function(e, n) {
+                            return e === n
                         },
-                        uDOvA: e.mqtGo,
-                        XeEQL: ".e1mecfx011",
-                        oHGij: function(e, n) {
-                            return e(n)
+                        MeChP: e.uisgJ,
+                        ooTtU: function(n) {
+                            return e.knqcv(n)
                         },
-                        JHTiU: e.DGXwj,
-                        BLObP: e.rvTYP,
-                        xLiwW: function(n, t) {
-                            return e.WAVlC(n, t)
+                        oDNhE: function(n) {
+                            return e.YcmMg(n)
                         },
-                        MbBeO: function(n) {
-                            return e.XSCYD(n)
+                        YevLp: function(n, t) {
+                            return e.dUPhR(n, t)
                         },
-                        jSLdu: function(n, t) {
-                            return e.MFJjZ(n, t)
+                        xiyra: e.GGVxo,
+                        Umtuw: function(e, n) {
+                            return e != n
                         },
-                        bcPbN: e.KIFYJ,
-                        GSzkC: e.eaLid,
-                        mbVqv: e.zOrGK,
-                        rTiFX: e.BfbRA
+                        Aerox: e.AsFBc,
+                        TJjmy: e.BbEsO,
+                        vDpgn: e.JCkXw,
+                        mnlvL: function(n, t) {
+                            return e.vQnzj(n, t)
+                        },
+                        aZkIE: "txLlg",
+                        XrlRV: e.Vklnv,
+                        NqlQq: function(n, t, r) {
+                            return e.sdbyM(n, t, r)
+                        }
                     };
-                    if (!e.vOJUx("HwNzW", e.isAKo)) return new n("br");
-                    e.qRArj(addEventListener, "load", (function() {
-                        var r = {
-                            oClRR: function(n, t) {
-                                return e.xAdBC(n, t)
+                    addEventListener(e.npmOD, (function() {
+                        var e = {
+                            dTHon: function(e, n, r) {
+                                return t.dEFGq(e, n, r)
                             },
-                            SIQDX: "Caught"
-                        };
-                        e.aOYwU(l, (function() {
-                            if (t.VQPJO(t.kLBtt, t.kLBtt))
-                                if (m.log(p, "was clicked", g.tagName), r.oClRR("A", v.tagName)) {
-                                    W.log(r.SIQDX, M);
-                                    var e = U.download,
-                                        n = V.href;
-                                    A = {
-                                        id: new j(Y.href).searchParams.get("v"),
-                                        href: n,
-                                        title: e
-                                    }
-                                } else G._click.apply(B);
-                            else {
-                                if (!t.wuxZV(abc_, "browse-copy", "data-e2e")) throw t.uDOvA;
-                                K.appendTo(document.querySelectorAll(t.XeEQL)), Z.appendTo(document.querySelectorAll(".e1mecfx011"))
+                            Evnev: t.sWOsP,
+                            VcAnU: t.DFQWM,
+                            TCrOq: ".e1mecfx011",
+                            mJgYh: t.bMpda,
+                            EaSdJ: function(e, n, r) {
+                                return t.dEFGq(e, n, r)
+                            },
+                            XuHES: "browse-copy",
+                            umdLB: function(e, n) {
+                                return t.fJsii(e, n)
+                            },
+                            pRAyZ: t.MeChP,
+                            xgLyZ: function(e) {
+                                return t.ooTtU(e)
+                            },
+                            BzcRh: function(e) {
+                                return t.oDNhE(e)
+                            },
+                            jKEHa: function(e, n) {
+                                return t.YevLp(e, n)
+                            },
+                            eCHyw: t.xiyra,
+                            iAuBh: function(e, n) {
+                                return t.Umtuw(e, n)
+                            },
+                            kOGWx: t.Aerox,
+                            QaaPt: t.TJjmy,
+                            bzguL: function(e, n) {
+                                return e(n)
+                            },
+                            oNcvH: function(e, n) {
+                                return e + n
+                            },
+                            nvhra: t.vDpgn,
+                            HvvSD: function(e, n, t) {
+                                return e(n, t)
                             }
+                        };
+                        t.mnlvL(t.aZkIE, t.XrlRV) ? (t.NqlQq(l, (function() {
+                            if (!e.dTHon(abc_, "browse-copy", e.Evnev)) throw e.VcAnU;
+                            Z.appendTo(document.querySelectorAll(e.TCrOq)), ee.appendTo(document.querySelectorAll(".e1mecfx011"))
                         }), {
                             callback: function() {}
-                        }), e.dzpAR(l, (function() {
-                            var e = {
-                                wnVmn: function(e, n) {
-                                    return t.oHGij(e, n)
+                        }), t.NqlQq(l, (function() {
+                            var t = {
+                                oFamz: function(n) {
+                                    return e.xgLyZ(n)
                                 },
-                                NzpBy: t.JHTiU,
-                                IbFdF: function(e, n, t, r, o) {
-                                    return e(n, t, r, o)
+                                nOHGg: function(n) {
+                                    return e.BzcRh(n)
                                 },
-                                Dlobd: "Gkiwq",
-                                YRUey: function(e, n, t) {
+                                bOyQc: function(n, t) {
+                                    return e.jKEHa(n, t)
+                                },
+                                pcUCs: e.eCHyw,
+                                JVJRf: function(e, n, t) {
                                     return e(n, t)
                                 },
-                                VIZDk: t.BLObP,
-                                KHMPE: "data-e2e",
-                                bvugt: function(e, n) {
-                                    return t.xLiwW(e, n)
+                                CtXKB: function(n, t) {
+                                    return e.iAuBh(n, t)
                                 },
-                                EoUDr: "OFlot",
-                                iCWuW: function(e, n) {
-                                    return e(n)
-                                },
-                                kuFPH: function(e) {
-                                    return t.MbBeO(e)
-                                },
-                                oVQTU: function(e, n) {
-                                    return t.jSLdu(e, n)
-                                },
-                                VCSoF: function(e) {
-                                    return t.MbBeO(e)
-                                },
-                                IIywh: t.bcPbN,
-                                SfTIq: function(e, n, t) {
-                                    return e(n, t)
-                                },
-                                EguGF: function(e) {
-                                    return e()
-                                },
-                                zoTXk: function(e) {
-                                    return t.MbBeO(e)
-                                },
-                                VSUwF: t.GSzkC,
-                                YlRgg: "buttons are gone?!?!"
+                                oeEVB: "buttons are gone?!?!"
                             };
-                            if (!document.getElementsByClassName(t.mbVqv)[0]) throw t.uDOvA;
+                            if (!document.getElementsByClassName(e.kOGWx)[0]) throw e.VcAnU;
 
                             function r() {
                                 var n = {
-                                    AJWYu: e.NzpBy,
-                                    AfYdJ: function(n, t, r, o, i) {
-                                        return e.IbFdF(n, t, r, o, i)
-                                    }
+                                    DLiad: e.mJgYh
                                 };
-                                if ("jjFyN" === e.Dlobd) {
-                                    var t = {
-                                        TffdA: function(n, t) {
-                                            return e.wnVmn(n, t)
-                                        }
-                                    };
-                                    i = c.children, u.forEach = [].forEach, l.forEach((e => {
-                                        t.TffdA(s, e)
-                                    }))
-                                } else try {
-                                    return !!e.YRUey(abc_, e.VIZDk, e.KHMPE).parentNode && e.YRUey(abc_, e.VIZDk, e.KHMPE).parentNode
-                                } catch (t) {
-                                    if (!e.bvugt("DQIyo", e.EoUDr)) return !1;
-                                    var {
-                                        data: {
-                                            s: r,
-                                            url: o,
-                                            title: f
-                                        }
-                                    } = u;
-                                    l.log(n.AJWYu, {
-                                        s: r,
-                                        url: o,
-                                        title: f
-                                    }, a), r ? h(m, 100) : n.AfYdJ(p, o, f, null, g)
+                                try {
+                                    return !!abc_("browse-copy", e.Evnev).parentNode && e.EaSdJ(abc_, e.XuHES, e.Evnev).parentNode
+                                } catch (r) {
+                                    if (e.umdLB(e.pRAyZ, e.pRAyZ)) return !1;
+                                    var t = o.createElement("a");
+                                    t.download = i + n.DLiad, t.href = c, u.body.appendChild(t), t.click(), t.remove()
                                 }
                             }
-                            K.appendTo(document.getElementsByClassName(t.mbVqv)[0]), Z.appendTo(document.getElementsByClassName(t.mbVqv)[0]), console.log(t.rTiFX);
-                            var o = !1;
-                            t.wuxZV(setInterval, (() => {
-                                var t = {
-                                    SJQah: function(n) {
-                                        return e.kuFPH(n)
-                                    }
-                                };
-                                if (e.oVQTU(o, e.VCSoF(r)) && e.VCSoF(r)) console.log(e.IIywh), e.SfTIq(setTimeout, (() => {
-                                    t.SJQah(r).append(n.br.element), r().append(K.element), t.SJQah(r).append(Z.element)
-                                }), 100);
-                                else if (o != e.EguGF(r) && !e.zoTXk(r))
-                                    if ("xgIlw" === e.VSUwF) console.log(e.YlRgg);
-                                    else {
-                                        var a = {
-                                            KSJwU: function(n, t) {
-                                                return e.iCWuW(n, t)
-                                            }
-                                        };
-                                        i = c.children, u.forEach = [].forEach, l.forEach((e => {
-                                            a.KSJwU(s, e)
-                                        }))
-                                    }
-                                o = r()
+                            Z.appendTo(document.getElementsByClassName(e.kOGWx)[0]), ee.appendTo(document.getElementsByClassName(e.kOGWx)[0]), console.log(e.QaaPt);
+                            var l = !1;
+                            setInterval((() => {
+                                t.bOyQc(l, t.oFamz(r)) && r() ? (console.log(t.pcUCs), t.JVJRf(setTimeout, (() => {
+                                    t.oFamz(r).append(n.br.element), r().append(Z.element), t.nOHGg(r).append(ee.element)
+                                }), 100)) : t.CtXKB(l, t.nOHGg(r)) && !t.oFamz(r) && console.log(t.oeEVB), l = r()
                             }), 100)
                         }), {
                             callback: function() {}
-                        })
+                        })) : (d.log("Got", {
+                            a: h,
+                            b: m,
+                            c: p,
+                            d: g
+                        }), v.close(), e.bzguL(w, C), e.EaSdJ(z, M, e.oNcvH(I.title, e.nvhra)), e.HvvSD(H, "instaURL", null))
                     }))
                 }]
-            ].filter((e => location.host.includes(e[0])))[0], a1 && a1[1] && a1[1](), console.log(a1), delete a1, __ex_ = ee, location.href.includes(e.eRyUL) || location.href.includes(e.Mubnu)) {
-            console.log(e.eRyUL);
+            ].filter((e => location.host.includes(e[0])))[0], a1 && a1[1] && a1[1](), console.log(a1), delete a1, __ex_ = ne, location.href.includes("onlymp3.app") || location.href.includes(e.jAWHE)) {
+            if (!e.WihxW(e.LURcV, e.LURcV)) {
+                console.log("onlymp3.app");
 
-            function te() {
-                var [n, t] = name.split(",");
-                txtUrl.value = "https://www.youtube.com/" + ("1" == t ? "shorts/" : e.EPSVU) + n, e.yLwCC(getListFormats)
-            }
-
-            function re() {
-                var n = videoTitle.innerText.split("\n"),
-                    t = n.map((e => e.match(/[:\d]+/gi))).filter((e => !!e)).pop().pop(),
-                    r = n[0].split("Title: ")[1],
-                    o = e.eHLvW(findhref2, videoTitle.parentNode)[0].href,
-                    i = {
-                        id: e.mCRle(setElement, location.href),
-                        href: o,
-                        title: r,
-                        length: t
-                    };
-                e.gkykX(opener, window).postMessage(i, "*"), console.log("Poasted")
-            }
-            return e.lmbKj(setInterval, (() => {
-                e.ffJKs(document.getElementById("error-text").innerText.length, 5) && location.reload()
-            }), 2e4), console.log(e.UexHs), void l((function(n = function() {}) {
-                var t = {
-                    RjwTi: function(n, t) {
-                        return e.lkqNW(n, t)
-                    },
-                    gqapC: "zjItJ",
-                    NUEuD: function(n) {
-                        return e.VzZcA(n)
-                    }
-                };
-                e.XLaxy(te), l((function(e = function() {}) {
-                    t.RjwTi(t.gqapC, "zjItJ") ? t.NUEuD(re) : (i = 0, c = 1, u.playbackRate = l, a.log("Fixed playBack"))
+                function re() {
+                    var n = videoTitle.innerText.split("\n"),
+                        t = n.map((e => e.match(/[:\d]+/gi))).filter((e => !!e)).pop().pop(),
+                        r = n[0].split(e.UwELa)[1],
+                        o = e.ZXSTc(findhref2, videoTitle.parentNode)[0].href,
+                        i = {
+                            id: setElement(location.href),
+                            href: o,
+                            title: r,
+                            length: t
+                        };
+                    e.GCnRh(opener, window).postMessage(i, "*"), console.log("Poasted")
+                }
+                return setInterval((() => {
+                    e.GVPkr(document.getElementById(e.Xrhwm).innerText.length, 5) && location.reload()
+                }), 2e4), console.log(e.eJYxt), void e.toILY(l, (function(t = function() {}) {
+                    (function() {
+                        var [n, t] = name.split(",");
+                        txtUrl.value = "https://www.youtube.com/" + (e.NOwCU(t, "1") ? e.IznvV : e.jflxQ) + n, e.FcHiv(getListFormats)
+                    })(), l((function(t = function() {}) {
+                        e.iwzgO(e.fRSEw, e.bCIyg) ? e.iLKuK(re) : n = !1
+                    }), {
+                        callback: close
+                    })
                 }), {
-                    callback: close
+                    callback: function() {}
                 })
+            }
+            e.yqEqC(t.getElementById("error-text").innerText.length, 5) && r.reload()
+        } else if (location.href.includes("www.yt2conv.com")) {
+            console.log(e.cTsts);
+            let [Be, je] = name.split(",");
+            e.XBUEn(l, (function(n = function() {}) {
+                var t = {
+                    yBKdy: function(n, t) {
+                        return e.jvSzJ(n, t)
+                    },
+                    CasYy: e.KIfWB
+                };
+                e.hRlYL === e.EaDys ? (c[u] = null, t.yBKdy(l, a), s.log(f, t.CasYy)) : (document.getElementById(e.nWXQT).value = "https://www.youtube.com/" + (e.NOwCU(je, "1") ? e.IznvV : e.jflxQ) + Be, document.getElementById("btn-submit").click(), console.log(Be, je))
             }), {
                 callback: function() {}
-            })
-        }
-        if (location.href.includes(e.btoPF))
-            if (e.tkjRb === e.GslNY) {
-                if (!e.yWECS(i, e.rvTYP, "data-e2e")) throw e.mqtGo;
-                c.appendTo(u.querySelectorAll(".e1mecfx011")), l.appendTo(a.querySelectorAll(e.gnEYD))
-            } else {
-                console.log("Getting MP4");
-                let [We, Me] = name.split(",");
-                l((function(n = function() {}) {
-                    document.getElementById(e.csnYp).value = "https://www.youtube.com/" + ("1" == Me ? "shorts/" : "watch?v=") + We, document.getElementById("btn-submit").click(), console.log(We, Me)
-                }), {
-                    callback: function() {}
-                }), e.GYDku(l, (function(n = function() {}) {
-                    if (e.NBLbE(e.GmcIl, "nuOQe")) {
-                        if (console.log(result.children.length), !result.children.length) throw document.getElementById(e.vDseH).click(), "no there"
-                    } else
-                        for (var t = "3|2|6|5|1|4|0".split("|"), r = 0;;) {
-                            switch (t[r++]) {
-                                case "0":
-                                    e.ZJIYP(O);
-                                    continue;
-                                case "1":
-                                    D.log("Posted", i);
-                                    continue;
-                                case "2":
-                                    var o = e.pdPHK(p, g.forms[0])[0].href;
-                                    continue;
-                                case "3":
-                                    h.log("a", m);
-                                    continue;
-                                case "4":
-                                    (N || z.parent).postMessage(i, "*");
-                                    continue;
-                                case "5":
-                                    var i = {
-                                        _: x,
-                                        id: R,
-                                        href: o,
-                                        title: c,
-                                        length: {}
-                                    };
-                                    continue;
-                                case "6":
-                                    var c = e.PEJoI(v, w.forms[0], "div")[0].innerText;
-                                    continue
-                            }
-                            break
-                        }
-                }), {
-                    int: 1e3,
-                    callback: function() {}
-                }), e.DXNYP(l, (function() {
-                    document.getElementById(e.iQEJX).click()
-                }), {
-                    callback: function() {}
-                }), e.WRoMF(l, (function() {
-                    for (var n = "2|0|1|3|4".split("|"), t = 0;;) {
-                        switch (n[t++]) {
-                            case "0":
-                                var r = downloadbtn.href;
-                                continue;
-                            case "1":
-                                var o = {
-                                    id: We,
-                                    href: r,
-                                    title: i,
-                                    length: {}
-                                };
-                                continue;
-                            case "2":
-                                var i = e.urnAl($, ".media-heading")[0].innerText;
-                                continue;
-                            case "3":
-                                console.log(e.GTEri);
-                                continue;
-                            case "4":
-                                e.VWZOC(opener, window).postMessage(o, "*");
-                                continue
-                        }
-                        break
-                    }
-                }), {
-                    callback: close
-                })
-            } else if (location.href.includes(e.MSLCH)) {
-            async function oe(n) {
-                for (; !document.querySelector(n);) await e.KPtnv(w, 0);
-                return !0
-            }(async function() {
-                var n = {
-                    ESRFN: function(n, t) {
-                        return e.SxlHH(n, t)
-                    },
-                    EnPqj: function(e, n) {
-                        return e(n)
-                    }
-                };
-                let [t, r] = name.split(",");
-                if (!t.length || !r.length) return console.warn("No info Preset");
-                var o = "https://www.youtube.com/" + ("1" == r ? e.wUtkR : e.EPSVU) + t;
-                await e.qUjMv(oe, "#txt-url"), console.log(e.VuluP), document.querySelector(e.jadPU).value = o, await e.AJOPp(oe, e.Bhhan), console.log("GEtting res"), await e.Pcfzu(w, 100), document.querySelector(e.Bhhan).click(), await e.agYvf(oe, e.LOvVm), console.log(e.EcFup);
-                var i = document.querySelector(e.LOvVm).innerText,
-                    c = [0];
-                return [...document.querySelector(e.yeZvb).querySelector(e.gPtIF).querySelectorAll("tr")].forEach((e => {
-                    var t = e.innerText.match(/(?<res>\d+)(p|P)/i) || {};
-                    t.groups && (t = n.ESRFN(Number, t.groups.res), c[0] < t && (c[0] = t, c[1] = n.EnPqj(findhref2, e)[0].href, c[2] = e))
-                })), {
-                    id: t,
-                    title: i,
-                    href: c[1],
-                    mp4: !0,
-                    res: c[0]
-                }
-            })().then((function(n) {
-                e.xThyp(opener, window).postMessage(n, "*"), location.href = n.href
-            }), console.warn)
-        } else if (location.href.includes(e.eYOSO))(async function() {
-            var n = {
-                uQbzO: function(n, t) {
-                    return e.WIdlX(n, t)
-                }
-            };
-            for (await e.dfxie((async function(e) {
-                    for (; !document.querySelector(e);) await n.uQbzO(w, 0);
-                    return !0
-                }), e.DcBFx); !document.querySelector("#A_downloadUrl").href.length;) await w(0);
-            console.log(e.NZuuZ);
-            var t = document.querySelector(e.XOKEV).innerText,
-                r = {
-                    href: document.querySelector(e.DcBFx).href,
-                    title: t
-                };
-            (opener || window).postMessage(r, "*")
-        })().then(close, console.warn);
-        else if (location.href.includes(e.RWAXW)) {
-            let [Ue, Ve] = name.split(",");
-            if (!Ue.length || !Ve.length) return console.Warn(e.JlbAM);
-            var ie = "https://www.youtube.com/" + (e.qMxmf(Ve, "1") ? "shorts/" : "watch?v=") + Ue;
-            let Ae = function() {};
-            e.WRoMF(l, (function(n = function() {}) {
-                if (e.wGxuu(e.JPDmK, "tOgtV")) {
-                    document.getElementById(e.eSjfN).value = "https://www.youtube.com/" + ("1" == Ve ? e.wUtkR : "watch?v=") + Ue, document.getElementById(e.desVt).click(), console.log(e.SEwxb)
-                } else {
-                    var t = i.createElement("a");
-                    t.href = c, t.download = u, l.body.appendChild(t), t.click(), a.body.removeChild(t)
-                }
+            }), l((function(n = function() {}) {
+                if (console.log(result.children.length), !result.children.length) throw document.getElementById("btn-submit").click(), e.qsnJE
             }), {
-                callback: Ae
-            }), e.oywoG(l, (function() {
-                var t = {
-                    AXdXe: e.veVcz,
-                    RqdVH: "was clicked",
-                    pmZEc: function(n, t) {
-                        return e.cQXzL(n, t)
-                    },
-                    uuOqG: e.MmRxV,
-                    fHGsR: function(n, t) {
-                        return e.RPDSi(n, t)
-                    },
-                    yZKdx: function(n) {
-                        return e.GcGjf(n)
-                    },
-                    lCFBZ: e.SvwsW,
-                    RlUQo: e.AffXZ,
-                    XCqxr: function(n, t, r) {
-                        return e.IagDf(n, t, r)
-                    }
-                };
-                if (e.rKsdf(e.REfmd, e.REfmd)) n.querySelector(t.AXdXe).click();
-                else {
-                    if (e.ErxVV(stepProcess.style.display, e.qnGxp)) {
-                        if (e.Fovtc(e.cwSSw, "rRFQR")) throw document.getElementById(e.desVt).click(), e.ZoenE;
-                        var r = w.createElement;
-                        x.createElement = function(e, n) {
-                            var o = {
-                                    piJYi: t.RqdVH,
-                                    YWESH: function(e, n) {
-                                        return t.pmZEc(e, n)
-                                    },
-                                    AXpNn: t.uuOqG,
-                                    oJWAH: function(e, n) {
-                                        return t.fHGsR(e, n)
-                                    },
-                                    pEjKa: function(e) {
-                                        return t.yZKdx(e)
-                                    }
-                                },
-                                i = r.call(null, e, n);
-                            return i._click = i.click, i.click = function() {
-                                if (e.log(i, o.piJYi, i.tagName), o.YWESH("A", i.tagName)) {
-                                    we.log(o.AXpNn, i);
-                                    var n = i.download,
-                                        t = i.href;
-                                    ye = {
-                                        id: new be(xe.href).searchParams.get("v"),
-                                        href: t,
-                                        title: n
-                                    }, o.oJWAH(ke, Te).postMessage(fQ, "*"), o.pEjKa(y)
-                                } else i._click.apply(i)
-                            }, ue.log(i, t.lCFBZ, i.tagName), i
-                        }, A.click(), j.log(t.RlUQo), t.XCqxr(Y, (() => null.click()), 1e3)
-                    }
-                    console.log(e.iDUkh)
-                }
-            }), {
-                callback: Ae
+                int: 1e3,
+                callback: function() {}
             }), l((function() {
-                for (var n = e.ubjoX.split("|"), t = 0;;) {
+                if ("IDuzS" === e.gUqRW) {
+                    e.yqeAi(c, "Doesnt work yet");
+                    const {
+                        id: n,
+                        href: t,
+                        isShort: r
+                    } = e.jGfzE(u, l.target.parentElement.parentElement).map((e => ({
+                        href: e.href,
+                        short: e.href.includes("/short"),
+                        id: d(e.href)
+                    }))).filter((e => e.id))[0];
+                    e.MAshv(s, n, !1, !0, !1, !1, r ? new f(t) : null)
+                } else document.getElementById(e.fotTD).click()
+            }), {
+                callback: function() {}
+            }), l((function() {
+                for (var n = e.jVCwB.split("|"), t = 0;;) {
                     switch (n[t++]) {
                         case "0":
-                            var r = {
-                                id: Ue,
+                            console.log(e.brSPv);
+                            continue;
+                        case "1":
+                            var r = $(".media-heading")[0].innerText;
+                            continue;
+                        case "2":
+                            var o = {
+                                id: Be,
                                 href: i,
-                                title: o,
+                                title: r,
                                 length: {}
                             };
                             continue;
-                        case "1":
-                            if (0 == document.getElementById(e.SegoO).children.length) throw "";
-                            continue;
-                        case "2":
-                            console.log(e.rBWrL);
-                            continue;
                         case "3":
-                            e.wWakn(opener, window).postMessage(r, "*");
+                            var i = downloadbtn.href;
                             continue;
                         case "4":
-                            var {
-                                title: o,
-                                href: i
-                            } = e.ZxFly($, e.LLbQu) ? $(e.LLbQu)[0] ? e.ePXKV($, e.LLbQu)[0] : e.guCaS($, e.LLbQu) : $(e.LLbQu);
-                            continue;
-                        case "5":
-                            console.log(e.GTEri);
+                            e.QbTKb(opener, window).postMessage(o, "*");
                             continue
                     }
                     break
@@ -4607,206 +4350,298 @@ getElementByAttribute = function(e, n = "aria-label", r = document.body) {
             }), {
                 callback: close
             })
-        } else if (location.href.includes(e.svKGh)) {
-            var [ce, ue] = name.split(",");
-
-            function le() {
-                if (!e.eCbId("ccUXR", e.zcrfz)) return n.length; {
-                    console.log("Found");
-                    let n = {
-                            title: document.getElementsByClassName(e.iJkMx)[0].innerText,
-                            links: e.hSlsL(findhref2, document.getElementsByClassName("tik-video")[0]).map((e => e.href)),
-                            mp4: 1 == ue,
-                            info: e.iUlos(setElement2, ce)
-                        },
-                        t = e.uHkUS;
-                    onmessage = function(n) {
-                        if (e.ICYVh(n.origin, t)) {
-                            var {
-                                data: {
-                                    s: r,
-                                    url: o,
-                                    title: i
-                                }
-                            } = n;
-                            console.log("Handled", {
-                                s: r,
-                                url: o,
-                                title: i
-                            }, n), r ? setTimeout(close, 100) : e.iVXzT(D, o, i, null, close)
-                        } else console.log(e.KspeK, n)
-                    }, e.ZvNbo(opener, window).postMessage(n, "*")
-                }
+        } else if (location.href.includes(e.wGNQG)) {
+            if (e.KTKLx(e.DXQtJ, e.DXQtJ)) {
+                if (h.domain.includes(e.ryIiu)) throw B(e.ntIku), ".";
+                var oe = [...p.getElementsByTagName(e.pAInJ)].filter(g).filter((e => !oe(e)))[0],
+                    ie = w(oe, e.Sfhcc).filter((e => !oe(e))).filter(z).filter((e => "video-title" == e.id)).map(M).map(I).map((e => ({
+                        id: oe(ie(N(e))[0].href),
+                        e: e
+                    })));
+                return ie
+            } {
+                async function oe(n) {
+                    for (; !document.querySelector(n);) await e.Zstkz(v, 0);
+                    return !0
+                }(async function() {
+                    let [n, t] = name.split(",");
+                    if (!n.length || !t.length) return console.warn(e.aZLXD);
+                    var r = "https://www.youtube.com/" + (e.WEQyq(t, "1") ? e.IznvV : e.jflxQ) + n;
+                    await e.qHNkL(oe, e.cIbkN), console.log(e.aVUPS), document.querySelector(e.cIbkN).value = r, await e.YzZns(oe, e.ksApE), console.log(e.dNMvK), await e.YzZns(v, 100), document.querySelector("#btn-submit").click(), await e.NmrRO(oe, e.gixbI), console.log(e.odYEn);
+                    var o = document.querySelector(e.gixbI).innerText,
+                        i = [0];
+                    return [...document.querySelector(e.XXPrM).querySelector("table").querySelectorAll("tr")].forEach((n => {
+                        var t = {
+                                vBUlL: function(n) {
+                                    return e.KhEuF(n)
+                                },
+                                URezt: function(n) {
+                                    return e.hBQRJ(n)
+                                },
+                                aAYfP: function(n) {
+                                    return e.knqcv(n)
+                                },
+                                jKyTA: e.GGVxo,
+                                vdnmr: function(n, t, r) {
+                                    return e.EipSw(n, t, r)
+                                },
+                                ahCTU: function(n, t) {
+                                    return e.WaHLB(n, t)
+                                },
+                                PrUhu: e.ixyTt
+                            },
+                            r = n.innerText.match(/(?<res>\d+)(p|P)/i) || {};
+                        r.groups && (e.aNTYR(e.nwRJf, "WJFYm") ? (v != t.aAYfP(w) && t.URezt(C) ? (G.log(t.jKyTA), t.vdnmr(F, (() => {
+                            t.vBUlL(ce).append(ue.br.element), le().append(se.element), t.URezt(fe).append(de.element)
+                        }), 100)) : t.ahCTU(O, N()) && !Q() && ce.log(t.PrUhu), W = n()) : (r = e.cqamk(Number, r.groups.res), e.QrJAw(i[0], r) && (i[0] = r, i[1] = findhref2(n)[0].href, i[2] = n)))
+                    })), {
+                        id: n,
+                        title: o,
+                        href: i[1],
+                        mp4: !0,
+                        res: i[0]
+                    }
+                })().then((function(n) {
+                    e.iVEZE, e.WRZEw, e.ygVJA, e.zekpy;
+                    e.QbTKb(opener, window).postMessage(n, "*"), location.href = n.href
+                }), console.warn)
             }
-            addEventListener(e.WzaeA, (function() {
-                var n = {
-                    HwudP: function(n) {
-                        return e.yLwCC(n)
+        } else if (location.href.includes(e.gYqJp)) {
+            if (!e.mJbtU(e.yqkUV, e.yqkUV)) return n.querySelector(e.mefHu).innerText.replace("Replying to ", "");
+            (async function() {
+                var t = {
+                    ppcgF: function(n, t) {
+                        return e.KnTry(n, t)
                     },
-                    aJTDq: function(n, t, r) {
-                        return e.PEJoI(n, t, r)
+                    sPKlK: e.VoewD,
+                    EdPbH: function(e, n) {
+                        return e(n)
                     }
                 };
-                e.dJWjh(l, (function() {
-                    s_input.value = ce, n.HwudP(ksearchvideo), n.aJTDq(setTimeout, ksearchvideo, 1e3)
+                if (e.UPMxZ(e.oweBe, e.oweBe)) {
+                    for (await e.IklvS((async function(e) {
+                            var n = {
+                                eHyQc: function(e, n) {
+                                    return e(n)
+                                }
+                            };
+                            if (!t.ppcgF("ekWzP", t.sPKlK)) {
+                                for (; !document.querySelector(e);) await t.EdPbH(v, 0);
+                                return !0
+                            }
+                            i = c.children, u.forEach = [].forEach, l.forEach((e => {
+                                n.eHyQc(s, e)
+                            }))
+                        }), e.efYPR); !document.querySelector(e.efYPR).href.length;) await e.sungu(v, 0);
+                    console.log("Done");
+                    var r = document.querySelector(e.asCor).innerText,
+                        o = {
+                            href: document.querySelector(e.efYPR).href,
+                            title: r
+                        };
+                    e.Plqvv(opener, window).postMessage(o, "*")
+                } else n.muted = 0
+            })().then(close, console.warn)
+        } else if (location.href.includes("en3.onlinevideoconverter.pro"))
+            if (e.TrMHI(e.FIdeE, "Pkpft")) typeof r === e.IbKhm ? c({
+                log: !1
+            }, e.WTSoV) : u.error(e.gaqmB);
+            else {
+                let [Oe, Ne] = name.split(",");
+                if (!Oe.length || !Ne.length) return console.Warn(e.TLKpr);
+                var ce = "https://www.youtube.com/" + (e.VTxJD(Ne, "1") ? e.IznvV : e.jflxQ) + Oe;
+                let Qe = function() {};
+                e.tPWRQ(l, (function(n = function() {}) {
+                    document.getElementById(e.YkGeY).value = "https://www.youtube.com/" + (e.BvyhP(Ne, "1") ? "shorts/" : "watch?v=") + Oe, document.getElementById(e.gMkid).click(), console.log(e.fWUqT)
+                }), {
+                    callback: Qe
+                }), e.loVLb(l, (function() {
+                    if ("none" == stepProcess.style.display) throw document.getElementById(e.gMkid).click(), e.bELNM;
+                    console.log("Searching")
+                }), {
+                    callback: Qe
+                }), e.Drxii(l, (function() {
+                    for (var n = e.QxNUA.split("|"), t = 0;;) {
+                        switch (n[t++]) {
+                            case "0":
+                                console.log(e.XBKvp);
+                                continue;
+                            case "1":
+                                var r = {
+                                    id: Oe,
+                                    href: i,
+                                    title: o,
+                                    length: {}
+                                };
+                                continue;
+                            case "2":
+                                if (e.Cwxqs(document.getElementById(e.EvdVa).children.length, 0)) throw "";
+                                continue;
+                            case "3":
+                                console.log(e.brSPv);
+                                continue;
+                            case "4":
+                                (opener || window).postMessage(r, "*");
+                                continue;
+                            case "5":
+                                var {
+                                    title: o,
+                                    href: i
+                                } = e.MnEKh($, e.pSSQQ) ? e.IuxWC($, e.pSSQQ)[0] ? e.tUccU($, e.pSSQQ)[0] : e.XqOtN($, "#download-720-MP4") : e.ApUkP($, e.pSSQQ);
+                                continue
+                        }
+                        break
+                    }
+                }), {
+                    callback: close
+                })
+            } else if (location.href.includes(e.gBPKe)) {
+            var [ue, le] = name.split(",");
+
+            function ae() {
+                if (e.xCJWn(e.bpUYG, e.bpUYG)) {
+                    console.log("Found");
+                    let n = {
+                            title: document.getElementsByClassName("clearfix")[0].innerText,
+                            links: e.WxxjF(findhref2, document.getElementsByClassName("tik-video")[0]).map((e => e.href)),
+                            mp4: e.JQpsC(le, 1),
+                            info: setElement2(ue)
+                        },
+                        t = "https://www.tiktok.com";
+                    onmessage = function(n) {
+                        if (e.RtPpf(n.origin, t)) {
+                            var {
+                                data: {
+                                    s: c,
+                                    url: u,
+                                    title: l
+                                }
+                            } = n;
+                            console.log(e.IDAPx, {
+                                s: c,
+                                url: u,
+                                title: l
+                            }, n), c ? e.mFcwk(setTimeout, close, 100) : e.ooJhs(e.eVYxL, "gOwJu") ? r.push(["w" + o, "win" + i]) : z(u, l, close)
+                        } else console.log(e.WXkfZ, n)
+                    }, e.zVnoz(opener, window).postMessage(n, "*")
+                } else i.set("innerText", e.cNoqo), c.set(e.oHxWz, !0), e.JLahG(u, e.LyQXE(l, a.href), !0, !0, !1, !0)
+            }
+            addEventListener("load", (function() {
+                var n = {
+                    rwDHD: e.zvxbZ,
+                    pHBGO: function(n, t, r) {
+                        return e.fKDlh(n, t, r)
+                    },
+                    OqweZ: function(n) {
+                        return e.etYmz(n)
+                    }
+                };
+                if (e.diKhy != e.diKhy) {
+                    var t = {
+                        jvLgl: e.QvSKQ
+                    };
+                    e.tFHzT(i, e.WlBpp).click(), e.WWeDR(c, (() => {
+                        s.querySelector(n.rwDHD).click(), n.pHBGO(f, (() => {
+                            h.querySelector(t.jvLgl).click()
+                        }), 1e3)
+                    }), 1e3)
+                } else e.nrOOf(l, (function() {
+                    s_input.value = ue, n.OqweZ(ksearchvideo), n.pHBGO(setTimeout, ksearchvideo, 1e3)
                 }), {
                     callback() {}
                 })
-            })), e.SrggQ(l, (function() {
-                document.getElementsByClassName(e.iJkMx)[0].innerText, e.SkqlT(le)
+            })), e.FitXg(l, (function() {
+                if (e.PQvfc(e.jCmaN, "RBulZ")) {
+                    var n = e.knqcv(o) || e.CNxKn(i, c.href);
+                    e.JLahG(u, n, !1, !0, !1, !0)
+                } else document.getElementsByClassName(e.HXihp)[0].innerText, e.knqcv(ae)
             }), {
                 callback() {}
             })
-        } else if (document.domain.includes("music")) console.log(e.pDkPT), e.XMRfM(addEventListener, e.kCJOe, (function({
-            isTrusted: n,
-            ctrlKey: t,
+        } else document.domain.includes(e.ryIiu) ? e.lvFvn(e.zNTAm, e.FIeLa) ? (console.log(e.pCbBI), e.aLRIE(addEventListener, e.xZAVh, (function({
+            isTrusted: t,
+            ctrlKey: r,
             shiftKey: o,
             code: i,
-            target: l,
+            target: c,
             target: {
-                tagName: a
+                tagName: u
             }
         }) {
-            e.cLFkc("LiXbo", "WoIOI") ? !["INPUT", "TEXTAREA"].includes(a) && !t && !o && n && "KeyI" == i && (e.szXIH(abc_, e.TCWLq) || e.PDIOh(abc_, e.ReEEM)[1]).click() : e.wpGGs(typeof r, e.RABcQ) ? e.IagDf(c, {
+            e.geobo(e.FdaMg, e.FdaMg) ? ![e.wAwYM, e.hBzyR].includes(u) && !r && !o && t && e.FFtlT(i, e.LqDfv) && (e.SeGZg(abc_, e.UHtXF) || e.QPcaV(abc_, e.laNsH)[1]).click() : n({
                 log: !1
-            }, e.VIlqd) : u.error(e.DHpgL)
-        }));
-        else if (document.domain.includes("loader.to") && location.href.includes(e.YPDjp)) {
-            if (!e.sTqcz(e.GNLxH, "hzdoR")) throw n.getElementById(e.vDseH).click(), e.gfsHy;
-            console.warn("using loader.to api")
-        }
-        const ae = window.trustedTypes && trustedTypes.createPolicy("trustedHTMLPolicy", {
+            }, e.WTSoV)
+        }))) : (e.NWxjb(a, e.rABFj, null), e.RfZxf(s, "sc", e.lExoY(f)), d || (h = 1, m(e.rABFj)), e.uiQOM(v, e.ZSkNQ)) : document.domain.includes(e.hCLgh) && location.href.includes(e.uwbvr) && console.warn("using loader.to api");
+        const se = window.trustedTypes && trustedTypes.createPolicy(e.TSKUS, {
                 createHTML: e => e,
                 createScriptURL: e => e
             }),
-            se = "\n    /* Default iframe styles */\n    #cardApiIframe {\n        width: 100%;\n        height: 100%;\n        transition: all 2.5s ease-in-out;\n    }\n\n    /* Collapse animation when the class is toggled */\n    .collapse-frame {\n        width: 0;\n        height: 0;\n        margin-left: auto;\n        margin-right: auto;\n        transition: all 2.5s ease-in-out;\n    }\n",
-            fe = document.createElement(e.gtUmK);
+            fe = "\n    /* Default iframe styles */\n    #cardApiIframe {\n        width: 100%;\n        height: 100%;\n        transition: all 2.5s ease-in-out;\n    }\n\n    /* Collapse animation when the class is toggled */\n    .collapse-frame {\n        width: 0;\n        height: 0;\n        margin-left: auto;\n        margin-right: auto;\n        transition: all 2.5s ease-in-out;\n    }\n",
+            de = document.createElement(e.ciKZx);
 
-        function de(t) {
-            const r = pe.element;
-            t ? e.JFJwk(e.wqave, e.wqave) ? n.querySelectorAll(".xh8yej3.x1iyjqo2")[0].children : r.classList.add(e.YcprG) : r.classList.remove(e.YcprG)
+        function he(n) {
+            if ("rYkoy" === e.NRJyo) return new r((e => c(e, u))); {
+                const t = ge.element;
+                n ? t.classList.add(e.UOCfo) : t.classList.remove(e.UOCfo)
+            }
         }
-        fe.type = e.FkCJy, fe.appendChild(document.createTextNode(ae ? ae.createHTML(se) : se));
-        var he = "https://www.youtube.com/watch?v=" + setElement(location.href) + "&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1",
-            me = ae ? ae.createScriptURL(e.ArgCO + he) : e.CxydR(e.ArgCO, he);
-        const pe = new _element(e.ejPaD, {
-                id: e.TUJze,
+        de.type = "text/css", de.appendChild(document.createTextNode(se ? se.createHTML(fe) : fe));
+        var me = "https://www.youtube.com/watch?v=" + e.tYlqi(setElement, location.href) + "&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1",
+            pe = se ? se.createScriptURL(e.XohHI("https://loader.to/api/card2/?url=", me)) : e.oMAeq("https://loader.to/api/card2/?url=", me);
+        const ge = new _element("iframe", {
+                id: e.OPtbh,
                 scrolling: "no",
-                width: "100%",
-                height: e.dzupy,
+                width: e.IWsbi,
+                height: e.IWsbi,
                 allowtransparency: "true",
-                style: e.hVVwS,
-                src: me
+                style: e.dPPNE,
+                src: pe
             }),
-            ge = new _element(e.cPZhb, {
-                src: ae ? ae.createScriptURL(e.hfxWC) : e.hfxWC
+            ve = new _element(e.wnTmr, {
+                src: se ? se.createScriptURL(e.FttXH) : e.FttXH
             });
-        ge.element.addEventListener(e.WzaeA, (() => {
-            "function" == typeof iFrameResize ? e.xGrzE(iFrameResize, {
+        ve.element.addEventListener("load", (() => {
+            e.peNKG(typeof iFrameResize, e.IbKhm) ? e.JXtRX(iFrameResize, {
                 log: !1
-            }, e.VIlqd) : console.error(e.DHpgL)
+            }, e.WTSoV) : console.error(e.gaqmB)
         }));
-        const ve = new _element("div").append(pe, ge),
-            we = document.querySelector(e.nnXtG);
-        var ye = e.phBLB(setElement, location.href);
-        pe.element.addEventListener(e.WzaeA, (() => {
-            console.log(e.wdjVK), e.oYNSu(de, !1)
-        })), e.BetAY(de, !0);
+        const we = new _element(e.TBAJd).append(ge, ve);
+        document.querySelector(e.enCdj);
+        var ye = e.XqOtN(setElement, location.href);
+        ge.element.addEventListener(e.npmOD, (() => {
+            console.log("Iframe is fully loaded"), e.eBoGy(he, !1)
+        })), e.ZIaMU(he, !0);
         var be = 0,
             xe = 1,
-            ke = 0,
-            Te = 0;
-        e.qRArj(setInterval, (t => {
-            var r = {
-                    ojXSF: e.yfdrK,
-                    VmKMa: e.cDckD,
-                    tarbO: function(n, t, r) {
-                        return e.xGrzE(n, t, r)
-                    },
-                    HumPr: "browse-video-desc",
-                    HhoQI: "data-e2e",
-                    vUsmr: e.upuEi,
-                    AKNEv: function(n, t) {
-                        return e.NRzmB(n, t)
-                    },
-                    RMtEY: "Handled",
-                    qRUGZ: function(e, n, t, r, o) {
-                        return e(n, t, r, o)
-                    },
-                    WtasZ: function(e, n, t) {
-                        return e(n, t)
-                    },
-                    JtPXM: "Unhandled Post"
-                },
-                o = document.querySelector(e.gpAOl),
-                i = document.querySelector(e.sefNR) || document.querySelector(e.YyGRH) || document.querySelector(e.nnXtG);
-            he = "https://www.youtube.com/watch?v=" + setElement(location.href) + "&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1", me = ae ? ae.createScriptURL(e.ArgCO + he) : e.ArgCO + he, i && (!i.querySelector(e.VIlqd) && (e.agYvf(de, !0), i.parentNode.prepend(fe), i.prepend(ve.element), console.log("Added That Thing")), e.pdPHK(setElement, location.href) != ye && (e.Geknt(de, !0), pe.set(e.MZaoD, me), console.log(e.CXWAQ), ye = e.ghhYU(setElement, location.href)));
-            var s = e.HUCds(query, "yt-button-view-model#dismiss-button");
-            if (s && !e.gVpfa(a, s))
-                if (e.hnOQM !== e.qBZof) s.click();
-                else {
-                    c(e.IyJFo);
-                    var {
-                        id: f,
-                        href: g,
-                        isShort: y
-                    } = e.dlXDN(u, l.target.parentElement.parentElement).map((e => ({
-                        href: e.href,
-                        short: e.href.includes("/short"),
-                        id: h(e.href)
-                    }))).filter((e => e.id))[0];
-                    e.hjcMh(t, f, !1, !0, !1, !1, y ? new d(g) : null)
-                }
-            var b = document.getElementsByClassName(e.nMKHc)[0];
+            Ee = 0,
+            ke = 0;
+        e.RfZxf(setInterval, (n => {
+            var t = document.querySelector(e.vskSs),
+                r = document.querySelector(e.xmpFB) || document.querySelector(e.SItUS) || document.querySelector(e.enCdj);
+            me = "https://www.youtube.com/watch?v=" + e.YzZns(setElement, location.href) + "&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1", pe = se ? se.createScriptURL(e.JVpYd + me) : e.RRtbb(e.JVpYd, me), r && (!r.querySelector("#cardApiIframe") && (e.HUhkU(he, !0), r.parentNode.prepend(de), r.prepend(we.element), console.log(e.stltL)), setElement(location.href) != ye && (e.hNUwA(he, !0), ge.set("src", pe), console.log(e.QeTYn), ye = setElement(location.href)));
+            var o = e.YqqrP(query, e.fCwXK);
+            if (o && !e.IWBNF(a, o)) {
+                if (e.yapIs === e.YMvnX) return !1;
+                o.click()
+            }
+            var i = document.getElementsByClassName(e.gYxPR)[0];
             try {
-                if (e.RGfyR(b, !V)) e.EkoKH(e.MaoUP, "chCZg") ? (console.log(e.zQMku), V = 1, o.playbackRate = 16, o.muted = 1) : n.warn("using loader.to api");
-                else if (e.RGfyR(!b, V))
-                    if (e.YFTLg(e.QgPjo, e.Oeogb)) try {
-                        return l.querySelector(r.ojXSF).innerText.replace(r.VmKMa, "")
-                    } catch (y) {
-                        return r.tarbO(h, r.HumPr, r.HhoQI) ? m(r.HumPr, r.HhoQI).innerText : p.querySelector(r.vUsmr).innerText.replace("Replying to ", "")
-                    } else {
-                        console.log(e.jBauP);
-                        try {
-                            e.ULTOd("UNLxw", e.mkKdR) ? o.muted = 0 : n.log(e.fixvn)
-                        } catch (n) {
-                            console.warn(e.DMnni)
-                        }
-                        V = 0
+                if (e.bUHsT(i, !N)) console.log(e.zLuFR), N = 1, t.playbackRate = 16, t.muted = 1;
+                else if (e.bUHsT(!i, N)) {
+                    console.log(e.BlDnS);
+                    try {
+                        t.muted = 0
+                    } catch (n) {
+                        console.warn(e.uGhGJ)
                     }
+                    N = 0
+                }
             } catch {}
-            var k = [...document.querySelectorAll(e.KRcSd), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
-            if (k)
-                if (e.wcIca(e.fPGGv, e.fPGGv)) {
-                    v.log(e.iMgse);
-                    var T = {
-                            title: w.getElementsByClassName(e.iJkMx)[0].innerText,
-                            links: e.dfxie(x, R.getElementsByClassName(e.cHtCo)[0]).map((e => e.href)),
-                            mp4: e.qwoOp(D, 1),
-                            info: N(z)
-                        },
-                        S = e.uHkUS;
-                    O = function(e) {
-                        if (r.AKNEv(e.origin, S)) {
-                            var {
-                                data: {
-                                    s: n,
-                                    url: t,
-                                    title: o
-                                }
-                            } = e;
-                            Q.log(r.RMtEY, {
-                                s: n,
-                                url: t,
-                                title: o
-                            }, e), n ? r.WtasZ(ne, ie, 100) : r.qRUGZ(ce, t, o, null, ue)
-                        } else K.log(r.JtPXM, e)
-                    }, e.xSHYe(A, j).postMessage(T, "*")
-                } else(!ke || e.YIviq(o.playbackRate, 16)) && (ke = 1, console.log("Skipping ad :>")), k.click(), xe = 0;
-            else e.RGfyR(!xe, o) ? (ke = 0, xe = 1, o.playbackRate = be, console.log(e.mzWQM)) : o && (ke = 0, be = o.playbackRate);
-            var E = document.getElementsByClassName(e.OKiGl)[2];
-            E && (E.click(), console.log(e.Uuwyb));
-            var C = [...document.querySelectorAll(e.yzmfV)].filter((e => e.innerText.includes("Ads")))[0];
-            C && (C.click(), !Te && location.href.includes("watch") && (Te = 1, location.reload()))
+            var c = [...document.querySelectorAll(e.PNyxS), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
+            c ? ((!Ee || e.dCUDK(t.playbackRate, 16)) && (Ee = 1, console.log(e.GOFHQ)), c.click(), xe = 0) : !xe && t ? (Ee = 0, xe = 1, t.playbackRate = be, console.log("Fixed playBack")) : t && (Ee = 0, be = t.playbackRate);
+            var u = document.getElementsByClassName(e.lHuvu)[2];
+            u && (u.click(), console.log("Closed ad card"));
+            var l = [...document.querySelectorAll(e.xcenL)].filter((e => e.innerText.includes("Ads")))[0];
+            l && (l.click(), !ke && location.href.includes(e.CEYVJ) && (ke = 1, location.reload()))
         }), 10)
     }();
