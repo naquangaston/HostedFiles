@@ -5,7 +5,8 @@ const { exec } = require('child_process');
 const fs = require('fs-extra'); // You need to install fs-extra for copying directories
 const { firefox, chromium } = require('playwright');
 const path = require('path');
-
+const pass="";
+const email=""
 
 
 
@@ -338,7 +339,7 @@ var browser
     //wait for and click aria-describedby="usernameTitle" this si where the email goes
     await waitForSelector(firefoxPage, '[aria-describedby="usernameTitle"]')
     await sleep(1000)
-    await type(firefoxPage, '[aria-describedby="usernameTitle"]', 'videokeysbinds7@gmail.com')
+    await type(firefoxPage, '[aria-describedby="usernameTitle"]', email)
     await simulateEnterKey(firefoxPage);
 
 
@@ -350,7 +351,7 @@ var browser
             if (done) return;
             // wait for and type this input this is where the password goes
             await sleep(1000)
-            await type(firefoxPage, '[type="password"]', 'SoccerkidLOL!')
+            await type(firefoxPage, '[type="password"]', pass)
             await simulateEnterKey(firefoxPage);
             !done && (done = 1, fin(), done = 1)
         }()).then(e => e, b => b).catch(e => e)
