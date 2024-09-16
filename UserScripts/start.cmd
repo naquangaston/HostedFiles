@@ -1,1 +1,2 @@
 node autoShort.js
+pause
