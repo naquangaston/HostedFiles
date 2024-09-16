@@ -5,6 +5,7 @@ const { exec } = require('child_process');
 const fs = require('fs-extra'); // You need to install fs-extra for copying directories
 const { firefox, chromium } = require('playwright');
 const path = require('path');
+let email, password;
 
 
 /**
@@ -135,6 +136,44 @@ function prompt(question) {
             resolve(answer);
         });
     });
+}
+// Function to handle the checking of credentials
+async function checkCreds() {
+
+    // Check if creds.json exists
+    if (fs.existsSync('creds.json')) {
+        const creds = JSON.parse(fs.readFileSync('creds.json', 'utf8'));
+        email = creds.email;
+        password = creds.password;
+
+        // If both email and password exist
+        if (email && password) {
+            const userInput = await prompt(`You have \nEmail:${email}\nPassword:${password}\nAre these credentials correct? (yes/no): `);
+            if (userInput.toLowerCase().startsWith('y')) {
+                console.log('Credentials are correct.');
+            } else {
+                console.log('Please re-enter your credentials.');
+                await enterAndSaveCreds();
+            }
+        } else {
+            console.log('Missing email or password. Please enter new credentials.');
+            await enterAndSaveCreds();
+        }
+    } else {
+        console.log('creds.json not found. Please enter your credentials.');
+        await enterAndSaveCreds();
+    }
+}
+
+// Function to prompt for credentials and save them to creds.json
+async function enterAndSaveCreds() {
+    const email = await prompt("Enter your email: ");
+    const password = await prompt("Enter your password: ");
+    
+    const creds = { email, password };
+    
+    fs.writeFileSync('creds.json', JSON.stringify(creds, null, 2), 'utf8');
+    console.log('Credentials saved.');
 }
 
 async function simulateEnterKey(page) {
@@ -312,14 +351,15 @@ class Keyboards {
         }
     }
 }
+
 var browser
 !(async function () {
     //log booting up
-
     console.log('booting up')
+    await checkCreds();
     browser = await chromium.launch({
         downloadsPath: path.resolve(__dirname, videosFolder),
-        headless: !!1,
+        headless: (await prompt('Start headless?(y|n)')).startsWith('y'),
         executablePath: "C:\\Program Files\\Google\\Chrome Dev\\Application\\chrome.exe"
     });
     //create firefox page
@@ -331,42 +371,70 @@ var browser
     console.log('loading page')
     //wait for button with this tage data-testid="provider-google"
     await waitForSelector(firefoxPage, '[data-testid="provider-Microsoft1P"]')
+    console.log('Logging in with provider Microsoft')
     //click itg
     await clickSelector(firefoxPage, '[data-testid="provider-Microsoft1P"]')
     //wait for and click aria-describedby="usernameTitle" this si where the email goes
     await waitForSelector(firefoxPage, '[aria-describedby="usernameTitle"]')
+    console.log("Entrering email")
     await sleep(1000)
-    await type(firefoxPage, '[aria-describedby="usernameTitle"]', 'videokeysbinds7@gmail.com')
+    await type(firefoxPage, '[aria-describedby="usernameTitle"]', email)
     await simulateEnterKey(firefoxPage);
 
 
-    await new Promise(async fin => {
-        let done = 0
+    await new Promise(async (fin) => {
+        let done = 0;
+    
+        // First async function to input the password
         await (async function () {
-            //wait for type="password" 
-            await waitForSelector(firefoxPage, '[type="password"]')
-            if (done) return;
-            // wait for and type this input this is where the password goes
-            await sleep(1000)
-            await type(firefoxPage, '[type="password"]', 'SoccerkidLOL!')
-            await simulateEnterKey(firefoxPage);
-            !done && (done = 1, fin(), done = 1)
-        }()).then(e => e, b => b).catch(e => e)
+            try {
+                await waitForSelector(firefoxPage, '[type="password"]');
+                if (done) return; // If done, exit the function early
 
-
+                console.log("Entrering password")
+                // Wait for the password input and simulate typing
+                await sleep(1000);
+                await type(firefoxPage, '[type="password"]', password);
+                await simulateEnterKey(firefoxPage);
+    
+                // Mark the process as complete and finalize
+                if (!done) {
+                    done = 1;
+                    fin();
+                }
+            } catch (e) {
+                console.error('Error while entering password:', e);
+            }
+        })();
+    
+        if (done) return; // If the password process was successful, stop further execution
+    
+        // Second async function to input the code
         await (async function () {
-            //wait for placeholder="Enter code"
-            await waitForSelector(firefoxPage, '[placeholder="Enter code"]')
-            if (done) return;
-            //wait for and type this input this is where the code goes
-            await sleep(1000)
-            await type(firefoxPage, '[placeholder="Enter code"]', await prompt('What is the code:'))
-            await simulateEnterKey(firefoxPage);
-            !done && (done = 1, fin())
-        }()).then(e => e, b => b).catch(e => e)
-    })
+            try {
+                await waitForSelector(firefoxPage, '[placeholder="Enter code"]');
+                if (done) return; // If done, exit the function early
+    
+                // Wait for the code input and simulate typing
+                await sleep(1000);
+                const code = await prompt('What is the code:');
+                await type(firefoxPage, '[placeholder="Enter code"]', code);
+                await simulateEnterKey(firefoxPage);
+                console.log("Thanks")
+    
+                // Mark the process as complete and finalize
+                if (!done) {
+                    done = 1;
+                    fin();
+                }
+            } catch (e) {
+                console.error('Error while entering code:', e);
+            }
+        })();
+    });
+    
 
-
+    console.log("Skipping nonsene")
     //wait for and ehck the input box id="checkboxField"
     await waitForSelector(firefoxPage, '#checkboxField')
     // wait for and click this checkbox
@@ -377,7 +445,7 @@ var browser
 
 
 
-
+    console.log("Creating new project")
     // wait for and click this button aria-label="Create a video"
     await waitForSelector(firefoxPage, '[aria-label="Create a video"]')
     await clickSelector(firefoxPage, '[aria-label="Create a video"]')
@@ -385,19 +453,20 @@ var browser
     await waitForSelector(firefoxPage, '[aria-label="Create a video"]')
     await clickSelector(firefoxPage, '[aria-label="Create a video"]')
 
-
+    console.log("Getting files...")
     const videos=await getAllFilePaths(videosFolder)
     // this button wil ask for the files id="splitButton-r55__primaryActionButton" in ${videosFolder}
     await waitForSelector(firefoxPage, '.fui-SplitButton__primaryActionButton')
     await setInputFiles(firefoxPage, '.fui-SplitButton__primaryActionButton', videos)
-    await sleep(1000)
+    await sleep(300)
     // wait for and click data-testid="aspect-ratio-selector"
+    console.log("Changing Aspect Ratio to 9:16")
     await waitForSelector(firefoxPage, '[data-testid="aspect-ratio-selector"]')
     await clickSelector(firefoxPage, '[data-testid="aspect-ratio-selector"]')
-    await sleep(1000)
+    await sleep(300)
     // wait for and click aria-label="9:16"
     await waitForSelector(firefoxPage, '[aria-label="9:16"]')
-    await sleep(1000)
+    await sleep(300)
     await clickSelector(firefoxPage, '[aria-label="9:16"]')
 
     await sleep(500)
@@ -420,11 +489,15 @@ var browser
         //await for [data-testid="asset"]
         await waitForSelector(firefoxPage, '[data-testid="asset-draggable"]')
         await sleep(1000)
+        console.log("Dragging video...")
         await dragAndDropToCenter(firefoxPage, '[data-testid="asset-draggable"]', '[data-testid="timeline-scroll-container"]')
         await sleep(100)
+        console.log("Dragging second video...")
         await dragAndDropToBottomLeft(firefoxPage, '[data-testid="asset-draggable"]', '[data-right-click="track-empty-state-audio"]')
         //wait for .fui-Toolbar
+        console.log('Wating for tool bar...')
         await waitForSelector(firefoxPage, '.fui-Toolbar')
+        console.log('Found Toolbar')
         await sleep(1000)
         await firefoxPage.evaluate(() => {
             const toolbar = document.querySelector('.fui-Toolbar');
@@ -438,10 +511,12 @@ var browser
         });
         await sleep(1000)
         //wait for and click data-testid="property-panel-button-effects"
+        console.log("Waiting for effects panel")
         await waitForSelector(firefoxPage, '[data-testid="property-panel-button-effects"]')
         await clickSelector(firefoxPage, '[data-testid="property-panel-button-effects"]')
         await sleep(1000)
         var downLoaded = 0
+        console.log("Added event listener for Download")
         firefoxPage.on('download', async (download) => {
             console.log(`Downloading file: ${download.suggestedFilename()}`);
 
@@ -450,11 +525,12 @@ var browser
             console.log('Fin')
             downLoaded = 1
         });
+        console.log("Adding video effects")
         while (!await firefoxPage.evaluate(() => {
             const tiles = document.querySelectorAll('[data-testid="filter-tile"]');
             var found = 0
             tiles.forEach(tile => {
-                if (tile.innerText.trim() === 'Glass') {
+                if (tile.innerText.trim() === 'Glass'||tile.innerText.trim() === 'Blur') {
                     tile.click();
                     found = 1
                 }
@@ -473,7 +549,7 @@ var browser
         } catch (error) {
             console.log('Element not found within the timeout period');
         }
-
+        console.log('getting clip tittle')
         const clipTitle = await firefoxPage.evaluate(async (s) => {
             // Locate the asset-draggable element
             let p = document.querySelector('[aria-label="Show pane"]')
@@ -491,20 +567,26 @@ var browser
             }
             return null; // Return null if the element is not found
         }, sleep.toString());
-
+        console.log(`Clip title:${clipTitle}`)
         // type in this input the clip name aria-label="Video name"
+        console.log('Entering Video name',clipTitle)
         await waitForSelector(firefoxPage, '[aria-label="Video name"]')
         await sleep(1000)
         await type(firefoxPage, '[aria-label="Video name"]', clipTitle.split('.').slice(0, -1).join('.'))
         await sleep(100)
         //await for and click data-testid="button-export"
+        console.log('Exporting...')
         await waitForSelector(firefoxPage, '[data-testid="button-export"]')
         await clickSelector(firefoxPage, '[data-testid="button-export"]')
         // wait for and click data-testid="id-1080p"
+        console.log('Choosing 1080p')
+
         await waitForSelector(firefoxPage, '[data-testid="id-1080p"]')
         await clickSelector(firefoxPage, '[data-testid="id-1080p"]')
+        console.log('Waiting for Video to Download')
         while (!downLoaded) await sleep(1000);
         //wait for and click data-testid="keep-editing-button"
+        console.log('Going Back to Editor...')
         await waitForSelector(firefoxPage, '[data-testid="keep-editing-button"]')
         await clickSelector(firefoxPage, '[data-testid="keep-editing-button"]')
         await waitForSelector(firefoxPage, '[data-testid="asset-draggable"]')
@@ -519,9 +601,11 @@ var browser
         await firefoxPage.mouse.move(draggableCenter.x, draggableCenter.y);
         // await for `aria-label="Delete ${cliptitle}"`
         await sleep(100)
+        console.log('Deleting used clip...')
         await waitForSelector(firefoxPage, `[aria-label="Delete ${clipTitle}"]`)
         await clickSelector(firefoxPage, `[aria-label="Delete ${clipTitle}"]`)
         //await for and click data-testid="delete-asset-confirm"
+        console.log('Deleted...')
         await waitForSelector(firefoxPage, '[data-testid="delete-asset-confirm"]')
         await clickSelector(firefoxPage, '[data-testid="delete-asset-confirm"]')
     }
@@ -531,7 +615,7 @@ var browser
             if (err) {
                 console.error('Error deleting the file:', err);
             } else {
-                console.log('File deleted successfully.');
+                console.log('File deleted successfully.',filePath.split(/[\/\\]/).pop());
             }
         });
     })
