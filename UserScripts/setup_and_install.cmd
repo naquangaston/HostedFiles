@@ -44,4 +44,4 @@ echo del "%autoShortsFolder%\check_and_install.ps1"
 start "" "%autoShortsFolder%\delete_after.bat"
 
 echo All tasks completed successfully!
-timeout /t 5 /nobreak >nul
+pause
