@@ -7,7 +7,8 @@ const { firefox, chromium } = require('playwright');
 const path = require('path');
 const pass="";
 const email=""
-
+if(!pass)throw('Invalid password')
+if(!email)throw('Invalid email')
 
 
 /**
