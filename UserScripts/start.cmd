@@ -1,2 +1,2 @@
-node autoShort.js
+node autoShorts.js
 pause
