@@ -10,22 +10,40 @@ set "hellowFolder=%autoShortsFolder%\hellow"
 if not exist "%autoShortsFolder%" mkdir "%autoShortsFolder%"
 if not exist "%hellowFolder%" mkdir "%hellowFolder%"
 
-REM installs fnm (Fast Node Manager)
-winget install Schniz.fnm
 
-REM configure fnm environment
-fnm env --use-on-cd > temp_env.bat
-call temp_env.bat
-del temp_env.bat
+REM Define the URL for the Node.js MSI package
+set "NODE_MSI_URL=https://nodejs.org/dist/v20.17.0/node-v20.17.0-x64.msi"
 
-REM download and install Node.js
-fnm use --install-if-missing 20
+REM Define the local filename for the downloaded MSI package
+set "NODE_MSI_FILE=node-v20.17.0-x64.msi"
 
-REM verifies the right Node.js version is in the environment
+REM Define the installation command
+set "INSTALL_CMD=MsiExec.exe /i %NODE_MSI_FILE% /quiet /norestart"
+
+REM Download the MSI package
+echo Downloading Node.js MSI package...
+powershell -Command "Invoke-WebRequest -Uri %NODE_MSI_URL% -OutFile %NODE_MSI_FILE%"
+
+REM Check if the download was successful
+if not exist "%NODE_MSI_FILE%" (
+    echo Download failed.
+    exit /b 1
+)
+
+REM Install Node.js
+echo Installing Node.js...
+%INSTALL_CMD%
+
+REM Verify the installation
+echo Verifying Node.js installation...
 node -v
-
-REM verifies the right npm version is in the environment
 npm -v
+
+REM Clean up
+del "%NODE_MSI_FILE%"
+
+echo Node.js installation completed.
+pause
 
 :: Initialize npm project
 echo Initializing npm project...
