@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      6.4
-// @description  Instagram/Twitch/Youtube/tiktok Video/Audio Downloader alwayts updated
+// @version      6.5
+// @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author       gaston1799
 // @match         *://www.youtube.com/*
 // @match         *://www.instagram.com/*
