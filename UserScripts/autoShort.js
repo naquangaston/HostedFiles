@@ -482,6 +482,7 @@ var browser
      */
     const dragselector = '[data-testid="asset-draggable"]'
     //loop starts here
+    await waitForSelector(firefoxPage, dragselector)
 
     while (await firefoxPage.evaluate((a) => {
         return !!document.querySelector(a)
