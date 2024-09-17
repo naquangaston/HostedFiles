@@ -174,6 +174,7 @@ async function enterAndSaveCreds() {
     
     fs.writeFileSync('creds.json', JSON.stringify(creds, null, 2), 'utf8');
     console.log('Credentials saved.');
+    await checkCreds();
 }
 
 async function simulateEnterKey(page) {
