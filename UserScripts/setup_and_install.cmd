@@ -41,4 +41,5 @@ powershell -ExecutionPolicy Bypass -File "%autoShortsFolder%\check_and_install.p
 
 echo Installing Node.js modules...
 echo test2
-npm install readline express cors fs-extra playwright && npx playwright install && start "" "%autoShortsFolder%"
+start "" "%autoShortsFolder%"
+npm install readline express cors fs-extra playwright && npx playwright install
