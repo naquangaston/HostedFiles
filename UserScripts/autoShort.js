@@ -169,9 +169,9 @@ async function checkCreds() {
 async function enterAndSaveCreds() {
     const email = await prompt("Enter your email: ");
     const password = await prompt("Enter your password: ");
-    
+
     const creds = { email, password };
-    
+
     fs.writeFileSync('creds.json', JSON.stringify(creds, null, 2), 'utf8');
     console.log('Credentials saved.');
     await checkCreds();
@@ -385,7 +385,7 @@ var browser
 
     await new Promise(async (fin) => {
         let done = 0;
-    
+
         // First async function to input the password
         await (async function () {
             try {
@@ -397,7 +397,7 @@ var browser
                 await sleep(1000);
                 await type(firefoxPage, '[type="password"]', password);
                 await simulateEnterKey(firefoxPage);
-    
+
                 // Mark the process as complete and finalize
                 if (!done) {
                     done = 1;
@@ -407,22 +407,22 @@ var browser
                 console.error('Error while entering password:', e);
             }
         })();
-    
+
         if (done) return; // If the password process was successful, stop further execution
-    
+
         // Second async function to input the code
         await (async function () {
             try {
                 await waitForSelector(firefoxPage, '[placeholder="Enter code"]');
                 if (done) return; // If done, exit the function early
-    
+
                 // Wait for the code input and simulate typing
                 await sleep(1000);
                 const code = await prompt('What is the code:');
                 await type(firefoxPage, '[placeholder="Enter code"]', code);
                 await simulateEnterKey(firefoxPage);
                 console.log("Thanks")
-    
+
                 // Mark the process as complete and finalize
                 if (!done) {
                     done = 1;
@@ -433,7 +433,7 @@ var browser
             }
         })();
     });
-    
+
 
     console.log("Skipping nonsene")
     //wait for and ehck the input box id="checkboxField"
@@ -455,7 +455,7 @@ var browser
     await clickSelector(firefoxPage, '[aria-label="Create a video"]')
 
     console.log("Getting files...")
-    const videos=await getAllFilePaths(videosFolder)
+    const videos = await getAllFilePaths(videosFolder)
     // this button wil ask for the files id="splitButton-r55__primaryActionButton" in ${videosFolder}
     await waitForSelector(firefoxPage, '.fui-SplitButton__primaryActionButton')
     await setInputFiles(firefoxPage, '.fui-SplitButton__primaryActionButton', videos)
@@ -492,10 +492,17 @@ var browser
         await waitForSelector(firefoxPage, '[data-testid="asset-draggable"]')
         await sleep(1000)
         console.log("Dragging video...")
-        await dragAndDropToCenter(firefoxPage, '[data-testid="asset-draggable"]', '[data-testid="timeline-scroll-container"]')
-        await sleep(100)
-        console.log("Dragging second video...")
-        await dragAndDropToBottomLeft(firefoxPage, '[data-testid="asset-draggable"]', '[data-right-click="track-empty-state-audio"]')
+        for (; ;) {
+            try {
+                await dragAndDropToCenter(firefoxPage, '[data-testid="asset-draggable"]', '[data-testid="timeline-scroll-container"]')
+                await sleep(100)
+                console.log("Dragging second video...")
+                await dragAndDropToBottomLeft(firefoxPage, '[data-testid="asset-draggable"]', '[data-right-click="track-empty-state-audio"]')
+                break;
+            } catch (err) {
+                console.warn(err)
+            };
+        }
         //wait for .fui-Toolbar
         console.log('Wating for tool bar...')
         await waitForSelector(firefoxPage, '.fui-Toolbar')
@@ -507,7 +514,7 @@ var browser
                 const buttons = toolbar.querySelectorAll('button');
                 if (buttons[1]) {
                     buttons[1].click();
-                    setTimeout(()=>{buttons[1].click();},400)
+                    setTimeout(() => { buttons[1].click(); }, 400)
                 }
             }
         });
@@ -532,14 +539,14 @@ var browser
             const tiles = document.querySelectorAll('[data-testid="filter-tile"]');
             var found = 0
             tiles.forEach(tile => {
-                if (tile.innerText.trim() === 'Glass'||tile.innerText.trim() === 'Blur') {
+                if (tile.innerText.trim() === 'Glass' || tile.innerText.trim() === 'Blur') {
                     tile.click();
                     found = 1
                 }
             });
             return !!found
         })) await sleep(1000);
-        
+
         try {
             // Wait for the element with a timeout of 2 seconds
             await firefoxPage.waitForSelector('[aria-label="Show pane"]', { timeout: 2000 });
@@ -571,7 +578,7 @@ var browser
         }, sleep.toString());
         console.log(`Clip title:${clipTitle}`)
         // type in this input the clip name aria-label="Video name"
-        console.log('Entering Video name',clipTitle)
+        console.log('Entering Video name', clipTitle)
         await waitForSelector(firefoxPage, '[aria-label="Video name"]')
         await sleep(1000)
         await type(firefoxPage, '[aria-label="Video name"]', clipTitle.split('.').slice(0, -1).join('.'))
@@ -622,7 +629,7 @@ var browser
             }
         });
     })*/
-    
+
     await firefoxPage.close()
     console.log('Finished')
     await browser.close()
