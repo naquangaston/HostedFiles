@@ -609,6 +609,7 @@ var browser
         await waitForSelector(firefoxPage, '[data-testid="delete-asset-confirm"]')
         await clickSelector(firefoxPage, '[data-testid="delete-asset-confirm"]')
     }
+    /*
     videos.forEach(filePath=>{
         console.log(`Deleting file: ${filePath}`)
         fs.unlink(filePath, (err) => {
@@ -618,7 +619,7 @@ var browser
                 console.log('File deleted successfully.',filePath.split(/[\/\\]/).pop());
             }
         });
-    })
+    })*/
     
     await firefoxPage.close()
     console.log('Finished')
