@@ -490,12 +490,14 @@ var browser
         console.log('Converting video')
         //await for [data-testid="asset"]
         await waitForSelector(firefoxPage, '[data-testid="asset-draggable"]')
+        await waitForSelector(firefoxPage, '[data-testid="timeline-scroll-container"]')
         await sleep(1000)
         console.log("Dragging video...")
         for (; ;) {
             try {
                 await dragAndDropToCenter(firefoxPage, '[data-testid="asset-draggable"]', '[data-testid="timeline-scroll-container"]')
                 await sleep(100)
+                await waitForSelector(firefoxPage, '[data-right-click="track-empty-state-audio"]')
                 console.log("Dragging second video...")
                 await dragAndDropToBottomLeft(firefoxPage, '[data-testid="asset-draggable"]', '[data-right-click="track-empty-state-audio"]')
                 break;
