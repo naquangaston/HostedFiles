@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      6.5
+// @version      6.6
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -1018,6 +1018,7 @@ async function downloadVideo(url,title) {
         return
     }
     else if (document.domain == 'clips.twitch.tv'){
+        let auto=1
         const sleep=ms=>new Promise(a=>setTimeout(a,ms))
         async function wfs(a, ms = 20000) {
             let o = false;
@@ -1081,88 +1082,101 @@ async function downloadVideo(url,title) {
                 open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'VOD')
             })
             .appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='VOD'
-            })().catch(console.warn)
+
+            if(auto){
+                setTimeout(()=>{close},200)
+                open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'1080')
+            }
+        })().catch(console.warn)
     }
     else if(document.domain == 'www.twitch.tv'){
-        let [None,user,clip,clipID]=location.pathname.split('/')
-        if(clip!='clip') return console.warn('User isnt wathcing a clip')
-        console.log('User is Watching a CLip')
-        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
-        async function wfs(a, ms = 20000) {
-            let o = false;
-            setTimeout(() => {
-                console.log('TimeOut for', a);
-                o = true;
-            }, ms);
 
-            while (!document.querySelector(a)) {
-                console.log('_', a, o);
-                await sleep(500);
-                if (o) break;
-            };
+        async function go(){
+            let [None,user,clip,clipID]=location.pathname.split('/')
+            if(clip!='clip') return console.warn('User isnt wathcing a clip')
+            console.log('User is Watching a CLip')
+            const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+            async function wfs(a, ms = 20000) {
+                let o = false;
+                setTimeout(() => {
+                    console.log('TimeOut for', a);
+                    o = true;
+                }, ms);
 
-            console.log(a, o);
-            if (o) throw 'NotFound';
-            return document.querySelector(a);
-        }
-        _wfs=wfs
-        _wfs_=wfs
-        function copyElm(element) {
-            if (!(element instanceof Element)) {
-                throw new Error("Provided argument is not a DOM element.");
+                while (!document.querySelector(a)) {
+                    console.log('_', a, o);
+                    await sleep(500);
+                    if (o) break;
+                };
+
+                console.log(a, o);
+                if (o) throw 'NotFound';
+                return document.querySelector(a);
             }
-
-            // Create a new element of the same type
-            const newElement = document.createElement(element.tagName);
-
-            // Copy all attributes
-            for (let attr of element.attributes) {
-                newElement.setAttribute(attr.name, attr.value);
-            }
-
-            // Copy all styles
-            newElement.style.cssText = element.style.cssText;
-
-            // Copy class list
-            newElement.className = element.className;
-
-            // Copy inner HTML content
-            newElement.innerHTML = element.innerHTML;
-
-            return newElement;
-        }
-        _copyElm=copyElm
-        ;(async function(){
-            let l = location.href;
-            await _wfs('.Layout-sc-1xcs6mc-0.bMOhzu');
-            let origin = [...document.querySelectorAll('.Layout-sc-1xcs6mc-0 .bMOhzu')].filter(e=>e.querySelector('button')&&!e.querySelector('button').disabled)[0]
-            let qs = '.bFxzAY';
-
-            // Array of resolutions to loop through
-            const resolutions = [
-                { label: '1080P', resolution: '1080' },
-                { label: '720P', resolution: '720' },
-                { label: '480P', resolution: '480' },
-                { label: '360P', resolution: '360' },
-                { label: 'VOD', resolution: 'VOD' }
-            ];
-
-            // Loop through the resolutions array to create elements dynamically
-            resolutions.forEach(({ label, resolution }) => {
-                let elem = new _e(_copyElm(origin)).on('click', function(){
-                    [None,user,clip,clipID]=location.pathname.split('/')
-                    open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))), resolution);
-                }).appendTo(origin.parentNode);
-
-                // Change the inner text for VOD or the regular resolution
-                if (resolution === 'VOD') {
-                    elem.element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = label;
-                } else {
-                    elem.element.querySelector(qs).innerText = label;
+            _wfs=wfs
+            _wfs_=wfs
+            function copyElm(element) {
+                if (!(element instanceof Element)) {
+                    throw new Error("Provided argument is not a DOM element.");
                 }
-            });
 
-        })().catch(console.warn);
+                // Create a new element of the same type
+                const newElement = document.createElement(element.tagName);
+
+                // Copy all attributes
+                for (let attr of element.attributes) {
+                    newElement.setAttribute(attr.name, attr.value);
+                }
+
+                // Copy all styles
+                newElement.style.cssText = element.style.cssText;
+
+                // Copy class list
+                newElement.className = element.className;
+
+                // Copy inner HTML content
+                newElement.innerHTML = element.innerHTML;
+
+                return newElement;
+            }
+            _copyElm=copyElm
+            ;await (async function(){
+                let l = location.href;
+                await _wfs('.Layout-sc-1xcs6mc-0.bMOhzu');
+                let origin = [...document.querySelectorAll('.Layout-sc-1xcs6mc-0 .bMOhzu')].filter(e=>e.querySelector('button')&&!e.querySelector('button').disabled)[0]
+                let qs = '.bFxzAY';
+
+                // Array of resolutions to loop through
+                const resolutions = [
+                    { label: '1080P', resolution: '1080' },
+                    { label: '720P', resolution: '720' },
+                    { label: '480P', resolution: '480' },
+                    { label: '360P', resolution: '360' },
+                    { label: 'VOD', resolution: 'VOD' }
+                ];
+
+                // Loop through the resolutions array to create elements dynamically
+                resolutions.forEach(({ label, resolution }) => {
+                    let elem = new _e(_copyElm(origin)).on('click', function(){
+                        [None,user,clip,clipID]=location.pathname.split('/')
+                        open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))), resolution);
+                    }).appendTo(document.querySelector('.Layout-sc-1xcs6mc-0.hZUoPp'));
+
+                    // Change the inner text for VOD or the regular resolution
+                    if (resolution === 'VOD') {
+                        elem.element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = label;
+                    } else {
+                        elem.element.querySelector(qs).innerText = label;
+                    }
+                });
+
+            })().catch(console.warn);
+        }
+        var c
+        setInterval(()=>{
+            if(c!=location.href)go();
+            c=location.href;
+        },100)
 
         return
     }
@@ -1204,7 +1218,7 @@ async function downloadVideo(url,title) {
                     r[e.querySelector('.space-x-1').innerText.replace('p','')]=findhref2(e)[0].href
                 });return r
             })()
-            )[p];
+                       )[p];
 
             logger.log(1);
             let user = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
@@ -1926,7 +1940,7 @@ async function downloadVideo(url,title) {
             if (adButton && !didmute) {
                 console.log('Muted ad');
                 didmute = 1;
-                player.playbackRate=16
+                player.playbackRate=12
                 player.muted=1
             } else if (!adButton && didmute) {
                 console.log('Unmuted video');
