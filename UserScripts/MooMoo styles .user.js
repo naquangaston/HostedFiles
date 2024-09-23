@@ -1,747 +1,1354 @@
 // ==UserScript==
-// @name MooMoo styles
-// @namespace http://tampermonkey.net/
-// @version 3.4
-// @description Moomoo/sploop mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK]
-// @author Gaston
-// @match *://moomoo.io/*
-// @match *://dev.moomoo.io/*
-// @match *://sploop.io/*
-// @match *://sandbox.moomoo.io/*
-// @match *://tjmoomoo.ml/*
-// @icon https://www.google.com/s2/favicons?sz=64&domain=moomoo.io
+// @name         MooMoo styles
+// @namespace    http://tampermonkey.net/
+// @version      3.5
+// @description  Moomoo.io/Sploop.io mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK/AUTO LOGIN]
+// @author       Gaston
+// @match        *://moomoo.io/*
+// @match        *://dev.moomoo.io/*
+// @match        *://sploop.io/*
+// @match        *://sandbox.moomoo.io/*
+// @match        *://tjmoomoo.ml/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=moomoo.io
 // @require http://code.jquery.com/jquery-3.3.1.min.js
 // @require https://code.jquery.com/ui/1.12.0/jquery-ui.min.js
 // @require https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js
-// @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
-// @grant GM_getValue
-// @grant GM_setValue
-// @grant GM_addValueChangeListener
-// @license MIT
+// @grant   GM_getValue
+// @grant   GM_setValue
+// @grant   GM_addValueChangeListener
 // ==/UserScript==
-console.log("00");
-let keybinds = GM_getValue("keybinds") || {};
-const styleUrl = "https://raw.githubusercontent.com/naquangaston/HostedFiles/main/moostyle.js",
-    wordWurl = "https://raw.githubusercontent.com/naquangaston/HostedFiles/main/moomooWords.json",
-    useChat = !1;
-var badWords = GM_getValue("moowords") || [],
-    reg = new RegExp(`(${[...new Set(badWords.join(" ").match(/[\w\d]+/gi))].join("|")})`, "gi");
-const filter1 = e => e.replaceAll(reg, (function(e, t, n) {
-        return e.length > 1 ? e.split(/[aeiou]+/gi).join("*") : e
-    })),
-    filter2 = e => e.toLowerCase().split("l").join("w").replaceAll(/l/g, "w").replaceAll(/(l|e)(?!d)/gi, (function(e) {
-        return {
-            l: "w"
-        }[e[0]] || e
-    })).replace(/s/g, "z").replace(/th/g, "d").replace(/e^d/g, (function(e, t, n) {
-        return n.slice(t - 1, t + 1), "e"
-    })).replace(/w{2,}/g, "wl").replaceAll(/e{2,}/gi, "ee").replaceAll(/.r/gi, (e => e.replace("r", "w"))),
-    game_ = new class {#e = function() {};#t = function() {};#n = !1;#o = 1e3;#a = function(e) {
-            return new Promise((t => setTimeout(t, e)))
-        };#i = 0;#l = 0;#s = async function() {
-            for (;;) {
-                let e = this.#a,
-                    t = this.#t,
-                    n = this.#e;
-                if (await e(0), this.#l) break;
-                t() && (await e(this.#o), console.log("Spawning into game"), n(), await e(this.#o))
-            }
-            this.#l = !1, console.log("Done", this.#l)
+
+console.log('00')
+///⣿⣿⣿⣿⣿⣿⣟⣷⣿⣿⣿⡀⠹⣟⣾⣟⣆⠹⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢠⡘⣿⣿⡄⠉⢿⣿⣽⡷⣿⣻⣿⣿⣿⣿⡝⣷⣯⢿⣿
+///⣿⣿⣿⣿⣿⣿⣯⢿⣾⢿⣿⡄⢄⠘⢿⣞⡿⣧⡈⢷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣧⠘⣿⣷⠈⣦⠙⢿⣽⣷⣻⣽⣿⣿⣿⣿⣌⢿⣯⢿
+///⣿⣿⣿⣿⣿⣿⣟⣯⣿⢿⣿⡆⢸⡷⡈⢻⡽⣷⡷⡄⠻⣽⣿⣿⡿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣏⢰⣯⢷⠈⣿⡆⢹⢷⡌⠻⡾⢋⣱⣯⣿⣿⣿⣿⡆⢻⡿
+///⣿⣿⣿⣿⣿⣿⡎⣿⢾⡿⣿⡆⢸⣽⢻⣄⠹⣷⣟⣿⣄⠹⣟⣿⣿⣟⣿⣿⣿⣿⣿⣿⣽⣿⣿⣿⡇⢸⣯⣟⣧⠘⣷⠈⡯⠛⢀⡐⢾⣟⣷⣻⣿⣿⣿⡿⡌⢿
+///⣿⣿⣿⣿⣿⣿⣧⢸⡿⣟⣿⡇⢸⣯⣟⣮⢧⡈⢿⣞⡿⣦⠘⠏⣹⣿⣽⢿⣿⣿⣿⣿⣯⣿⣿⣿⡇⢸⣿⣿⣾⡆⠹⢀⣠⣾⣟⣷⡈⢿⣞⣯⢿⣿⣿⣿⢷⠘
+///⣿⣿⣿⣿⣿⣿⣿⡈⣿⢿⣽⡇⠘⠛⠛⠛⠓⠓⠈⠛⠛⠟⠇⢀⢿⣻⣿⣯⢿⣿⣿⣿⣷⢿⣿⣿⠁⣾⣿⣿⣿⣧⡄⠇⣹⣿⣾⣯⣿⡄⠻⣽⣯⢿⣻⣿⣿⡇
+///⣿⣿⣿⣿⣿⣿⣿⡇⢹⣿⡽⡇⢸⣿⣿⣿⣿⣿⣞⣆⠰⣶⣶⡄⢀⢻⡿⣯⣿⡽⣿⣿⣿⢯⣟⡿⢀⣿⣿⣿⣿⣿⣧⠐⣸⣿⣿⣷⣿⣿⣆⠹⣯⣿⣻⣿⣿⣿
+///⣿⣿⣿⣿⣿⣿⣿⣿⠘⣯⡿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣧⡈⢿⣳⠘⡄⠻⣿⢾⣽⣟⡿⣿⢯⣿⡇⢸⣿⣿⣿⣿⣿⣿⡀⢾⣿⣿⣿⣿⣿⣿⣆⠹⣾⣷⣻⣿⡿
+///⣿⣿⣿⣿⣿⣿⣿⣿⡇⢹⣿⠇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠻⡇⢹⣆⠹⣟⣾⣽⣻⣟⣿⣽⠁⣾⣿⣿⣿⣿⣿⣿⣇⣿⣿⠿⠛⠛⠉⠙⠋⢀⠁⢘⣯⣿⣿
+///⣿⣿⣿⣿⣿⣿⣿⣿⣿⡈⣿⡃⢼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡙⠌⣿⣆⠘⣿⣞⡿⣞⡿⡞⢠⣿⣿⣿⣿⣿⡿⠛⠉⠁⢀⣀⣠⣤⣤⣶⣶⣶⡆⢻⣽⣞⡿
+///⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠘⠁⠉⠉⠉⠉⠉⠉⠉⠉⠉⠙⠛⠛⢿⣄⢻⣿⣧⠘⢯⣟⡿⣽⠁⣾⣿⣿⣿⣿⣿⡃⢀⢀⠘⠛⠿⢿⣻⣟⣯⣽⣻⣵⡀⢿⣯⣟
+///⣿⣿⣿⣟⣿⣿⣿⣿⣶⣶⡆⢀⣿⣾⣿⣾⣷⣿⣶⠿⠚⠉⢀⢀⣤⣿⣷⣿⣿⣷⡈⢿⣻⢃⣼⣿⣿⣿⣿⣻⣿⣿⣿⡶⣦⣤⣄⣀⡀⠉⠛⠛⠷⣯⣳⠈⣾⡽
+///⣿⢿⣿⣿⣻⣿⣿⣿⣿⣿⡿⠐⣿⣿⣿⣿⠿⠋⠁⢀⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣌⣥⣾⡿⣿⣿⣷⣿⣿⢿⣷⣿⣿⣟⣾⣽⣳⢯⣟⣶⣦⣤⡾⣟⣦⠘⣿
+///⣿⣻⣿⣿⡷⣿⣿⣿⣿⣿⡗⣦⠸⡿⠋⠁⢀⢀⣠⣴⢿⣿⣽⣻⢽⣾⣟⣷⣿⣟⣿⣿⣿⣳⠿⣵⣧⣼⣿⣿⣿⣿⣿⣾⣿⣿⣿⣿⣿⣽⣳⣯⣿⣿⣿⣽⢀⢷
+///⣿⢷⣻⣿⣿⣷⣻⣿⣿⣿⡷⠛⣁⢀⣀⣤⣶⣿⣛⡿⣿⣮⣽⡻⣿⣮⣽⣻⢯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⢀⢸
+///⠸⣟⣯⣿⣿⣷⢿⣽⣿⣿⣷⣿⣷⣆⠹⣿⣶⣯⠿⣿⣶⣟⣻⢿⣷⣽⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢀⣯
+///⣇⠹⣟⣾⣻⣿⣿⢾⡽⣿⣿⣿⣿⣿⣆⢹⣶⣿⣻⣷⣯⣟⣿⣿⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢀⡿
+///⣿⣆⠹⣷⡻⣽⣿⣯⢿⣽⣻⣿⣿⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⢸⣿
+///⡙⠾⣆⠹⣿⣦⠛⣿⢯⣷⢿⡽⣿⣿⣿⣿⣆⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠎⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⢀⣿⣾
+///⣿⣷⡌⢦⠙⣿⣿⣌⠻⣽⢯⣿⣽⣻⣿⣿⣿⣧⠩⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⢰⢣⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⢀⢀⢿⣞
+///⣿⣽⣆⠹⣧⠘⣿⣿⡷⣌⠙⢷⣯⡷⣟⣿⣿⣿⣷⡀⡹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣈⠃⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢀⣴⡧⢀⠸⣿
+///⢻⣽⣿⡄⢻⣷⡈⢿⣿⣿⢧⢀⠙⢿⣻⡾⣽⣻⣿⣿⣄⠌⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⢁⣰⣾⣟⡿⢀⡄⢿
+///⡄⢿⣿⣷⢀⠹⣟⣆⠻⣿⣿⣆⢀⣀⠉⠻⣿⡽⣯⣿⣿⣷⣈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⢀⣠⠘⣯⣷⣿⡟⢀⢆⠸
+///⣷⡈⢿⣿⣇⢱⡘⢿⣷⣬⣙⠿⣧⠘⣆⢀⠈⠻⣷⣟⣾⢿⣿⣆⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⣠⡞⢡⣿⢀⣿⣿⣿⠇⡄⢸⡄
+///⣿⣷⡈⢿⣿⡆⢣⡀⠙⢾⣟⣿⣿⣷⡈⠂⠘⣦⡈⠿⣯⣿⢾⣿⣆⠙⠻⠿⠿⠿⠿⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢋⣠⣾⡟⢠⣿⣿⢀⣿⣿⡟⢠⣿⢈⣧
+///⣿⣿⣿⣄⠻⣿⡄⢳⡄⢆⡙⠾⣽⣿⣿⣆⡀⢹⡷⣄⠙⢿⣿⡾⣿⣆⢀⡀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⣀⣠⣴⡿⣯⠏⣠⣿⣿⡏⢸⣿⡿⢁⣿⣿⢀⣿
+///⣿⣿⣿⣿⣦⡙⣿⣆⢻⡌⢿⣶⢤⣉⣙⣿⣷⡀⠙⠽⠷⠄⠹⣿⣟⣿⣆⢙⣋⣤⣤⣤⣄⣀⢀⢀⢀⢀⣾⣿⣟⡷⣯⡿⢃⣼⣿⣿⣿⠇⣼⡟⣡⣿⣿⣿⢀⡿
+///⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷
+
+
+let keybinds = GM_getValue('keybinds')||{};
+
+
+// OK OK I KNOW ITS OBFUSCATED BUT I CANT FIND THE ORIGANL ONE I MADE PLS DONT BAN ME
+const styleUrl='https://raw.githubusercontent.com/naquangaston/HostedFiles/main/moostyle.js'
+
+// a list of bad word
+const wordWurl='https://raw.githubusercontent.com/naquangaston/HostedFiles/main/moomooWords.json'
+
+const useChat=false;
+var badWords= GM_getValue('moowords')||[]
+var reg=new RegExp(`(${[...new Set(badWords.join(' ').match(/[\w\d]+/gi))].join('|')})`,'gi')
+
+const filter1=s=>s.replaceAll(reg,function(a,b,c){return a.length>1?a.split(/[aeiou]+/gi).join('*'):a})
+const filter2 = (s) => {
+    return s.toLowerCase().split('l').join('w').replaceAll(/l/g,'w').replaceAll(/(l|e)(?!d)/gi, function(match) {
+        const block = {
+            "l": 'w',
         };
-        set timeOut(e) {
-            this.#o = Number.isNaN(e) ? 1e3 : Number(e)
+        return block[match[0]] || match;
+    }).replace(/s/g, 'z').replace(/th/g, 'd').replace(/e^d/g, function(match, offset, string) {
+        // Check if "ee" is already present in the string
+        if (string.slice(offset - 1, offset + 1) === 'ee') {
+            return 'e';
         }
-        get timeOut() {
-            return this.#o
+        return 'e';
+    }).replace(/w{2,}/g, 'wl').replaceAll(/e{2,}/gi,'ee').replaceAll(/.r/gi,e=>e.replace('r','w'))
+};
+const game_= new class{
+    #spawnFunction=function(){}
+    #testFunction=function(){}
+    #autoSpawn=false
+    #timeOut=1000
+    #sleep=function(ms){return new Promise(a=>setTimeout(a,ms))}
+    #int=0
+    #stopped=0
+    #start_=async function(){
+        while(true){
+            let a=this.#sleep
+            let b=this.#testFunction
+            let c=this.#spawnFunction
+            await a(0)
+            if(this.#stopped)break;
+            b()&&(
+                await a(this.#timeOut),
+                console.log('Spawning into game'),
+                c(),await a(this.#timeOut)
+            )
         }
-        start() {
-            this.#s()
-        }
-        stop() {
-            this.#l = !0
-        }
-        set autoSpawn(e) {
-            this.#n = !!e
-        }
-        get autoSpawn() {
-            return this.#n
-        }
-        set testFunction(e) {
-            this.#t = e
-        }
-        get testFunction() {
-            return this.#t
-        }
-        set spawnFunc(e) {
-            this.#e = e
-        }
-        get spawnFunc() {
-            return this.#e
-        }
-    };
-class bool {
-    constructor(e) {
-        e && this.toggle()
-    }#r = !1;
-    toggle() {
-        this.#r = !this.#r
+        this.#stopped=false
+        console.log('Done',this.#stopped)
     }
-    get status() {
-        return this.#r
+    set timeOut(n){
+        this.#timeOut=Number.isNaN(n)?1000:Number(n)
     }
-    set status(e) {
-        this.#r = !!e
+    get timeOut(){
+        return this.#timeOut
+    }
+    start(){
+        this.#start_()
+    }
+    stop(){
+        this.#stopped=true
+    }
+    set autoSpawn(b){
+        this.#autoSpawn=!!b
+    }
+    get autoSpawn(){
+        return this.#autoSpawn
+    }
+    set testFunction(f){
+        this.#testFunction=f
+    }
+    get testFunction(){
+        return this.#testFunction
+    }
+    set spawnFunc(f){
+        this.#spawnFunction=f
+    }
+    get spawnFunc(){
+        return this.#spawnFunction
+    }
+}
+class bool{
+    constructor(status){
+        if(status)this.toggle();
+    }
+    #status=false
+    toggle(){
+        this.#status=!this.#status
+    }
+    get status(){
+        return this.#status
+    }
+    set status(a){
+        this.#status=!!a
     }
 }
 class element {
     static get br() {
-        return new element("br")
+        return new element("br");
     }
-    constructor(e, t) {
-        this.element = e.constructor.name.includes("HTML") && e || function() {
-            for (let e in arguments[1]) arguments[0].setAttribute(e, arguments[1][e]);
-            return arguments[0]
-        }(document.createElement(arguments[0]), arguments[1])
+    constructor(name, obj) {
+        //findhref2(id('skin-message'))[0].constructor.name
+
+        this.element = name.constructor.name.includes('HTML')&&(name)||(function () {
+            for (let i in arguments[1]) {
+                arguments[0].setAttribute(i, arguments[1][i]);
+            }
+            return arguments[0];
+        })(document.createElement(arguments[0]), arguments[1]);
     }
-    style(e) {
-        for (let t in e) this.element.style[t] = e[t];
-        return this
-    }
-    append(e, ...t) {
-        this.element.append(e.element || e), console.log("T:", {
-            targets: t,
-            fe: t && t.forEach
-        });
-        for (let e = 0; e < t.length; e++) {
-            let n = t[e];
-            console.log("Appending:", {
-                element: n,
-                target: this
-            }), this.element.append(n.element || n)
+    style(obj) {
+        for (let i in obj) {
+            this.element.style[i] = obj[i];
         }
-        return this
+        return this;
     }
-    appendTo(e) {
-        try {
-            (e.element || "string" == typeof e ? document.querySelector(e) : e).append(this.element)
-        } catch {
-            (e.element || e).append(this.element)
-        } finally {
-            console.warn("Failed to appent", {
-                this: this,
-                target: e
-            })
+    append(target,...targets) {
+        this.element.append(target.element || target);
+        console.log("T:",{targets,fe:targets&&targets.forEach})
+        for(let i=0;i<targets.length;i++){
+            let a=targets[i];
+            console.log('Appending:',{element:a,target:this})
+            this.element.append(a.element || a);
         }
-        return this
+        return this;
     }
-    on(e, t) {
-        return this.element[`on${e}`] = t, this
+    appendTo(target) {
+        try{(target.element || typeof target=='string'?document.querySelector(target):target).append(this.element);}
+        catch{
+            (target.element||target).append(this.element)
+        }
+        finally{
+            console.warn('Failed to appent',{this:this,target})
+        }
+        return this;
     }
-    set(e, t) {
-        return this.element[e] = t, this
+    on(event, a) {
+        this.element[`on${event}`] = a;
+        return this;
+    }
+    set(prop, value) {
+        this.element[prop] = value;
+        return this;
     }
     remove() {
-        return this.element.remove(), this
+        this.element.remove();
+        return this;
     }
     get() {
-        return this.element[arguments[0]]
+        return this.element[arguments[0]];
     }
     get children() {
-        return new class {
-            constructor(e) {
-                for (var t = 0; t < e.length; t += 1) this[t] = e[t];
+        return new (class $ {
+            constructor(arr) {
+                for (var i = 0; i < arr.length; i += 1) {
+                    this[i] = arr[i];
+                }
+
+                // length is readonly
                 Object.defineProperty(this, "length", {
-                    get: function() {
-                        return e.length
+                    get: function () {
+                        return arr.length;
                     }
-                }), Object.freeze(this)
+                });
+
+                // a HTMLCollection is immutable
+                Object.freeze(this);
             }
-            item(e) {
-                return null != this[e] ? this[e] : null
+            item(i) {
+                return this[i] != null ? this[i] : null;
             }
-            namedItem(e) {
-                for (var t = 0; t < this.length; t += 1)
-                    if (this[t].id === e || this[t].name === e) return this[t];
-                return null
+            namedItem(name) {
+                for (var i = 0; i < this.length; i += 1) {
+                    if (this[i].id === name || this[i].name === name) {
+                        return this[i];
+                    }
+                }
+                return null;
             }
             get toArray() {
-                return [...this]
+                return [...this];
             }
-        }([...this.element.children])
+        })([...this.element.children]);
     }
 }
-const alt = name.includes("alt");
-
-function isHidden(e) {
-    return null === e.offsetParent
+const alt=name.includes('alt')
+function isHidden(el) {
+    return (el.offsetParent === null)
 }
+function random(arr){return arr[Math.floor(Math.random() * arr.length)];}
+function dispatchAllMouseEvents(target) {
+    const mouseEvents = ['click','mouseover', 'mouseenter', 'mousemove', 'mousedown', 'mouseup', 'mouseout', 'mouseleave'];
 
-function random(e) {
-    return e[Math.floor(Math.random() * e.length)]
+    mouseEvents.forEach(eventName => {
+        let ev=new Event(eventName, { bubbles: true, isTrusted: true })
+        if(target[`on${eventName}`])target[`on${eventName}`](ev);
+        target.dispatchEvent(ev);
+    });
 }
+function dispatchAllInputEvents(target, value) {
+    const inputEvents = ['focus', 'input', 'change', 'blur'];
 
-function dispatchAllMouseEvents(e) {
-    ["click", "mouseover", "mouseenter", "mousemove", "mousedown", "mouseup", "mouseout", "mouseleave"].forEach((t => {
-        let n = new Event(t, {
-            bubbles: !0,
-            isTrusted: !0
-        });
-        e[`on${t}`] && e[`on${t}`](n), e.dispatchEvent(n)
-    }))
-}
+    inputEvents.forEach(eventName => {
+        let ev=new Event(eventName, { bubbles: true, isTrusted: true })
+        if(target[`on${eventName}`])target[`on${eventName}`](ev)
 
-function dispatchAllInputEvents(e, t) {
-    ["focus", "input", "change", "blur"].forEach((n => {
-        let o = new Event(n, {
-            bubbles: !0,
-            isTrusted: !0
-        });
-        e[`on${n}`] && e[`on${n}`](o), "input" === n && (e.value = t), e.dispatchEvent(o)
-    }))
-}
-var _setUp = !1;
-
-function add_Style(e) {
-    var [t, n, o, a] = ["createElement", "textContent", "head", "appendChild"], i = {get k() {
-            return document
+        if (eventName === 'input') {
+            target.value = value;
         }
-    }, l = i.k[t]("style");
-    l[n] = e, i.k[o][a](l)
+        target.dispatchEvent(ev);
+    });
 }
 
-function copyElm(e) {
-    if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
-    const t = document.createElement(e.tagName);
-    for (let n of e.attributes) t.setAttribute(n.name, n.value);
-    return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
+var _setUp=false
+findhref2=function (a,b){
+    var res=[];
+
+    function part2(e){
+        if(e.tagName.toLowerCase()==(b||'a')){
+            res.push(e);
+            if(e.children.length){
+                e=e.children;
+                e.forEach=[].forEach;
+                e.forEach(e2=>{
+                    part2(e2);
+                })
+            }
+        }else{
+            if(e.children.length){
+                e=e.children;
+                e.forEach=[].forEach;
+                e.forEach(e2=>{
+                    part2(e2);
+                })
+            }
+        }
+    };
+    part2(a);
+    return res
 }
+
+function add_Style(f){
+    var[uc,j,p,w]=["\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006c\u0065\u006d\u0065\u006e\u0074","\u0074\u0065\u0078\u0074\u0043\u006f\u006e\u0074\u0065\u006e\u0074","\u0068\u0065\u0061\u0064","\u0061\u0070\u0070\u0065\u006e\u0064\u0043\u0068\u0069\u006c\u0064"],
+        yd={get k(){return document}}
+    var d=yd["k"][uc]("style")
+    d[j]=f
+    yd["k"][p][w](d)
+}
+function copyElm(element) {
+    if (!(element instanceof Element)) {
+        throw new Error("Provided argument is not a DOM element.");
+    }
+
+    // Create a new element of the same type
+    const newElement = document.createElement(element.tagName);
+
+    // Copy all attributes
+    for (let attr of element.attributes) {
+        newElement.setAttribute(attr.name, attr.value);
+    }
+
+    // Copy all styles
+    newElement.style.cssText = element.style.cssText;
+
+    // Copy class list
+    newElement.className = element.className;
+
+    // Copy inner HTML content
+    newElement.innerHTML = element.innerHTML;
+
+    return newElement;
+}
+_copyElm=copyElm
 async function SetUpSploop() {
     try {
-        const e = await _SetUpSploop();
-        console.log("Sploop Returned:", e)
+        const result = await _SetUpSploop();
+        console.log('Sploop Returned:', result);
     } catch (e) {
-        console.error("Sploop Error:", e)
+        console.error('Sploop Error:', e);
     }
 }
-async function _SetUpSploop() {
-    let e = GM_getValue("rbi") || 100;
-    const t = {
-        update() {
-            [...document.getElementsByClassName("menu-item")].map((e => ({
-                name: e.className,
-                e: e
-            }))).filter((e => "menu-item" == e.name)).map((e => (e.button = findhref2(e.e, "button")[0], e.canBuy = "BUY" == findhref2(e.e, "button")[0].innerText, e))).forEach((e => {
-                var n = e.e.children[1].children[0].innerText.split(" ").join("");
-                e.bn = findhref2(e.e, "button")[0].innerText, e.equiped = "UNEQUIP" == e.bn, e.buy = function() {
-                    t[n].e.scrollIntoView(), t.update(), t[n].canBuy && (t[n].button.onmouseup({
-                        target: t[n].button,
-                        isTrusted: !0
-                    }), t.update())
-                }, e.equip = function() {
-                    t[n].e.scrollIntoView(), t.update(), e.equiped || (t[n].canBuy && t[n].buy(), t[n].button.onmouseup({
-                        target: t[n].button,
-                        isTrusted: !0
-                    }), setTimeout(t.update, 100))
-                }, t[n] = e
-            }))
-        }
-    };
-    _hats = t;
-    const n = new bool(!!GM_getValue("chatFilter")),
-        o = new bool(!!GM_getValue("StaySignedIn")),
-        a = new bool(!!GM_getValue("AntiKickTOggle")),
-        i = new bool(!!GM_getValue("StreamerMode")),
-        l = new bool(!!GM_getValue("lolFilter")),
-        s = new bool(!!GM_getValue("rainbowFit")),
-        r = (new bool(!!GM_getValue("autoConnectOldServer")), ({
-            target: e
-        }) => {
-            n.status && (e.value = filter1(e.value))
-        }),
-        c = ({
-            target: e
-        }) => {
-            l.status && (e.value = filter2(e.value))
+
+async function _SetUpSploop(){
+    var spinSpeed = 3.1; //Change the speed that the spikes rotate
+
+    (function() {
+        const spikeUrls = new Set([
+
+            //Remove spikes that you do not want to spin
+            "https://sploop.io/img/entity/spike.png?v=1923912", ////////wood spike
+            "https://sploop.io/img/entity/hard_spike.png?v=1923912", //hard spike
+            "https://sploop.io/img/entity/big_spike.png?v=1923912", //castle spike
+        ]);
+        const spikeUpdate = (ctx, img, x, y, width, height, rotation) => {
+            ctx.save();
+            ctx.translate(x + width / 2, y + height / 2);
+            ctx.rotate(rotation);
+            ogdraw.call(ctx, img, -width / 2, -height / 2, width, height);
+            ctx.restore();
         };
-    let d = id("game-left-content-main"),
-        u = ["#game-bottom-content", "#game-right-content-main"];
-    var p = await v("#pop-login"),
-        m = await v("#main-login-button"),
-        g = p.querySelector("#login");
-    if (g.addEventListener("click", (() => {
-            GM_setValue("PI", {
-                p: id("enter-password").value,
-                e: id("enter-mail").value
-            })
-        })), v("#chat").then((e => {
-            const t = document.getElementById("chat");
-            var n = copyElm(t);
-            n.id = "chat2", t.parentNode.append(document.createElement("br")), t.parentNode.append(n), t.onfocus = function(e) {
-                useChat && (n.focus(), t.parentElement.style.display = "block", n.focus())
-            };
-            let o = window.onkeyup,
-                a = window.onkeydown;
-
-            function i(e) {
-                return /^[a-zA-Z0-9]$/.test(e)
-            }
-            window.onkeyup = function(e) {
-                t !== document.activeElement && n !== document.activeElement && o && o(e)
-            }, window.onkeydown = function(e) {
-                t !== document.activeElement && n !== document.activeElement && "input" != e.target.tagName && a && a(e)
-            }, n.addEventListener("keypress", (({
-                target: e,
-                key: o
-            }) => {
-                i(o) && (t.value = e.value, [r].forEach((t => t({
-                        target: e
-                    })))),
-                    function(e) {
-                        if ("Enter" === e.key) {
-                            console.log("Enter key pressed in chat"), t.focus(), t.value = n.value;
-                            const o = new KeyboardEvent(e.type, e);
-                            t.dispatchEvent(o)
-                        }
-                    }(event)
-            })), (useChat ? n : t).addEventListener("keyup", (e => {
-                const {
-                    target: n,
-                    key: o,
-                    code: a
-                } = e;
-                console.log(e);
-                t.value = n.value, i(o) && [r, c].forEach((e => e({
-                    target: t
-                })))
-            })), (useChat ? n : t).addEventListener("keydown", (({
-                target: e,
-                key: n
-            }) => {
-                i(n) && (t.value = e.value, [r].forEach((e => e({
-                    target: t
-                }))))
-            }))
-        })).then(console.log, console.warn), alt) {
-        var h;
-        "number" == typeof GM_getValue("alts") && GM_setValue("alts", {});
-        for (let e = 1;; e++)
-            if (!GM_getValue("alts")[e]) {
-                h = e;
-                let t = GM_getValue("alts");
-                t[e] = !0, GM_setValue("alts", t);
-                break
-            }
-        console.log("alt:", h), addEventListener("unload", (function() {
-            if (alt) {
-                let e = GM_getValue("alts");
-                e[h] = !1, GM_setValue("alts", e)
-            }
-        }))
-    }
-    console.log("Set called", SetUpSploop.callee);
-    var b = null;
-
-    function f(e = 0, t = 0, n = 0) {
-        w(0);
-        try {
-            !Number.isNaN(e) && findhref2(id("skins-middle-main"), "img").filter((t => t.src.includes(`skin${e}`)))[0].click()
-        } catch (t) {
-            console.warn("Failed to Skin", e)
-        }
-        w(1);
-        try {
-            !Number.isNaN(t) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${t}`)))[0].click()
-        } catch (t) {
-            console.warn("Failed to accessory$", e)
-        }
-        w(2), !Number.isNaN(n) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${n}`)))[0].click(), w(0)
-    }
-
-    function w(e) {
-        findhref2(id("skins-categories"), "img")[e].click()
-    }
-    if (_loadFit = f, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async e => {
-            await k(1e3), alt || f(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
-        })), id("game-left-content-main").style.overflow = "scroll", id("da-right").parentNode.style.overflow = "scroll", _setUp) return;
-    add_Style("\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}"), GM_getValue("sm") && i.toggle(), await v("#clan-menu"), await v("#pop-login");
-    let y = id("clan-menu");
-    game_.autoSpawn = !0, game_.timeOut = 5e3, game_.testFunction = function() {
-        return !isHidden(play)
-    }, game_.spawnFunc = function() {
-        if (alt) {
-            dispatchAllInputEvents(nickname, `${GM_getValue("nn")}'s alt${h}`), randomFit.element.click();
-            const {
-                skin: e,
-                back: t,
-                accessory: n
-            } = localStorage;
-            b = {
-                skin: e,
-                back: t,
-                accessory: n
-            }, console.log("Got fit", b)
-        } else if (b) {
-            const {
-                skin: e,
-                back: t,
-                accessory: n
-            } = b;
-            f(e, n, t)
-        }
-        play.click(), setTimeout(x, 200)
-    };
-    var k = e => new Promise((t => setTimeout(t, e)));
-    async function v(e, t = 3e3) {
-        return await new Promise(((n, o) => {
-            let a = performance.now();
-            ! function i() {
-                document.querySelector(e) ? n(document.querySelector(e)) : performance.now() - a >= t ? o(new Error("Timeout waiting for selector")) : requestAnimationFrame(i)
-            }()
-        }))
-    }
-    var _ = !1;
-    async function x() {
-        dispatchAllInputEvents(nickname, GM_getValue("nn")), w(0), !_ && await k(2e3), !Number.isNaN(GM_getValue("skin")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`skin${GM_getValue("skin")}`)))[0].click(), w(1), !_ && await k(100), !Number.isNaN(GM_getValue("accessory")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`accessory${GM_getValue("accessory")}`)))[0].click(), !_ && await k(100), w(2), !_ && await k(100), !Number.isNaN(GM_getValue("back")) && findhref2(id("skins-middle-main"), "img").filter((e => e.src.includes(`back${GM_getValue("back")}`)))[0].click(), !_ && await k(100), _ && w(0), _ = 1
-    }
-    _game_ = game_, _setUp = !0;
-    var M = new element(_copyElm(g)).set("id", "login2").set("innerText", `Stay Signed In:${o.status}`).on("click", (e => {
-        o.toggle(), e.target.innerText = `Stay Signed In:${o.status}`, GM_setValue("StaySignedIn", o.status)
-    })).style({
-        display: "inline-block"
-    }).element;
-    p.children[1].insertBefore(M, g),
-        function() {
-            var [e, t, n, o, a, i] = ["map", "forEach", "log", "length", "children", "remove"], l = {get sn() {
-                    return console
+        const ogdraw = CanvasRenderingContext2D.prototype.drawImage;
+        CanvasRenderingContext2D.prototype.drawImage = function(img, ...args) {
+            if (this.canvas && this.canvas.id === "game-canvas" && img instanceof HTMLImageElement && img.src && spikeUrls.has(img.src)) {
+                let x, y, width, height;
+                if (args.length === 2) {
+                    [x, y] = args;
+                    width = img.width;
+                    height = img.height;
+                } else if (args.length === 4) {
+                    [x, y, width, height] = args;
+                } else if (args.length === 8) {
+                    [,,,, x, y, width, height] = args;
+                } else {
+                    return ogdraw.apply(this, [img, ...args]);
                 }
-            };
-            u[e]($)[t]((e => {
-                l.sn[n]({
-                    s: e
-                }), e[o] && [...e[0][a]][t]((e => e[i]()))
-            }))
-        }();
-    var T = id("da-right");
-    new element("div").style({
-        padding: "10px",
-        backgroundColor: "rgba(0, 0, 0, 0)",
-        color: "#000",
-        border: "1px solid #ddd",
-        marginBottom: "10px"
-    }).append(new element("h2").set("innerText", "MooMoo/Sploop styles")).append(new element("p").set("innerText", "This script can:")).append(new element("ul").append(new element("li").set("innerText", "Change the game's look")).append(new element("li").set("innerText", "Add a built-in YouTube embed video player")).append(new element("li").set("innerText", "Include a random fit generator button")).append(new element("li").set("innerText", "Implement anti-kick functionality from being AFK")).append(new element("li").set("innerText", "Create alts")).append(new element("li").set("innerText", "Automatically join the game and turn on antikick for alts")).append(new element("li").set("innerText", "Hat keybinds that are saved locally!"))).appendTo(T);
-    const E = new element("div").style({
-        padding: "10px",
-        backgroundColor: "#f8d7da",
-        color: "#721c24",
-        border: "1px solid #f5c6cb",
-        borderRadius: "5px",
-        cursor: "pointer"
-    }).set("innerText", "Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.").on("click", (function() {
-        this.remove(), localStorage.seen = 1
-    })).appendTo("#game-bottom-content");
-    var G;
-    async function V() {
-        await v("#player-container");
-        var e = id("player-container");
-        e.style.display = "none", i.status ? (!G && (G = (await v("#nickname-value")).innerText), "SPLOOP.IO" == G ? G = null : (await v("#nickname-value")).innerText = "streamerMode", (await v("#change-username")).style.display = "none") : G && ((await v("#nickname-value")).innerText = G, (await v("#change-username")).style.display = "block"), e.style.display = "flex"
-    }
-    1 == localStorage.seen && E.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(d);
-    const S = new element("div", {
-        id: "keybinds"
-    }).style({
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-    }).appendTo(d);
-    var F = new element("button").set("innerText", `AntiKick:${a.status}`).on("click", (function(e) {
-        a.toggle(), e.target.innerText = `AntiKick:${a.status}`, a.status ? game_.start() : game_.stop()
-    })).appendTo(S);
-    new element("button").set("innerText", `chatFilter:${n.status}`).on("click", (function(e) {
-        n.toggle(), e.target.innerText = `chatFilter:${n.status}`
-    })).appendTo(S), new element("button").set("innerText", `lolFilter:${l.status}`).on("click", (function(e) {
-        l.toggle(), e.target.innerText = `lolFilter:${l.status}`
-    })).appendTo(S), new element("button").set("innerText", `StreamerMode:${i.status}`).on("click", (function(e) {
-        i.toggle(), e.target.innerText = `StreamerMode:${i.status}`, GM_setValue("sm", i.status), V()
-    })).appendTo(S), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
-        GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("server", id("server-select").selectedOptions[0].getAttribute("region")), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0));
-        var t = id("create_clan");
-        id("leave_clan"), id("clan-menu-clan-name-input");
-        if (!("none" == t.style.display)) {
-            var n = id("create-clan-button"),
-                o = id("clan-menu-clan-name-input");
-            o.dispatchEvent(new Event("focus", {
-                bubbles: !0
-            })), o.dispatchEvent(new Event("input", {
-                bubbles: !0
-            })), o.dispatchEvent(new Event("change", {
-                bubbles: !0
-            })), o.value = "Alts", o.dispatchEvent(new Event("blur", {
-                bubbles: !0
-            })), n.click(), n.dispatchEvent(new Event("click")), new Promise((e => {
-                var t = setInterval((() => {
-                    "Clans" != y.children[0].innerText && (clearInterval(t), e())
-                }), 200)
-            })).then((e => {
-                _GM_setValue("clan", y.children[0].innerText)
-            }))
+                this.globalAlpha = 0;
+                ogdraw.apply(this, [img, ...args]);
+                this.globalAlpha = 1;
+                const rotation = (performance.now() / 1000 * spinSpeed) % (2 * Math.PI);
+                spikeUpdate(this, img, x, y, width, height, rotation);
+            } else {
+                return ogdraw.apply(this, [img, ...args]);
+            }};var textElement = document.createElement('span');var data = atob('YnkgZml6eml4d3c=');
+        textElement.textContent = data;textElement.style.position = 'absolute';
+        textElement.style.top = '0';
+        textElement.style.left = '80px';
+        textElement.style.zIndex = '9999';
+        textElement.style.color = 'rgba(0, 0, 0, 0.05)';document.body.appendChild(textElement);
+    })();
+    _log=console.log
+
+
+    let rainbowInt=GM_getValue('rbi')||100
+    const hats={
+        update(){
+            [...document.getElementsByClassName('menu-item')].map(e=>({name:e.className,e})).filter(e=>e.name=="menu-item").map(e=>(e.button=findhref2(e.e,'button')[0],e.canBuy=findhref2(e.e,'button')[0].innerText=='BUY',e)).forEach(e=>{
+                var n=e.e.children[1].children[0].innerText.split(' ').join('')
+                e.bn=findhref2(e.e,'button')[0].innerText;
+                e.equiped=e.bn=='UNEQUIP'
+                e.buy=function(){
+                    hats[n].e.scrollIntoView()
+                    hats.update();
+                    if(!hats[n].canBuy)return;
+                    hats[n].button.onmouseup({target:hats[n].button,isTrusted:true})
+                    hats.update()
+                }
+                e.equip=function(){
+                    hats[n].e.scrollIntoView()
+                    hats.update()
+                    if(e.equiped){
+                        return
+                    };
+                    if(hats[n].canBuy)hats[n].buy();
+                    hats[n].button.onmouseup({target:hats[n].button,isTrusted:true})
+                    setTimeout(hats.update,100)
+                }
+                hats[n]=e
+            })
+        }}
+    _hats=hats
+    const chatFilter=new bool(!!GM_getValue('chatFilter'))
+    const StaySignedIn=new bool(!!GM_getValue('StaySignedIn'))
+    const AntiKickTOggle=new bool(!!GM_getValue('AntiKickTOggle'))
+    const StreamerMode=new bool(!!GM_getValue('StreamerMode'))
+    const lolFilter=new bool(!!GM_getValue('lolFilter'))
+    const rainbowFit=new bool(!!GM_getValue('rainbowFit'))
+    const autoConnectOldServer=new bool(!!GM_getValue('autoConnectOldServer'))
+    const filterF=({target})=>{!chatFilter.status?null:target.value=filter1(target.value)}
+    const filterA=({target})=>{!lolFilter.status?null:target.value=filter2(target.value)}
+    let parent=id('game-left-content-main')
+    let getPS=()=>id('enter-password').value;
+    let getE=()=>id('enter-mail').value;
+    let ad_spots=["#game-bottom-content",'#game-right-content-main']
+    var loginForm=await wfs('#pop-login')
+    var loginButton=await wfs('#main-login-button')
+    var login=loginForm.querySelector('#login')
+    login.addEventListener('click',()=>{
+        console.log('updated stuff')
+        GM_setValue('PI',{p:getPS(),e:getE()})
+    })
+    wfs('#chat').then(e => {
+        const chat = document.getElementById('chat');
+        var c = copyElm(chat);
+        function handleChatInput(event) {
+            // Log when Enter key is pressed
+            if (event.key === 'Enter') {
+                console.log('Enter key pressed in chat');
+                chat.focus();
+                chat.value=c.value;
+                const newEvent = new KeyboardEvent(event.type, event);
+                chat.dispatchEvent(newEvent);
+            }
         }
-        open(location.href, "alt" + Date.now())
-    })).appendTo(S), new element(findhref2(id("skin-message"))[0]);
-    randomFit = new element("button").appendTo(S).on("click", (function(e) {
-        var [t, n] = ["forEach", "click"];
-        findhref2(id("skins-categories"), "img")[t](((e, t) => {
-            e[n](), random(findhref2(id("skins-middle-main"), "img"))[n]()
-        }))
-    })).set("innerText", "Generate Random Fit"), new element("span").set("innerText", "Rainbow Fit Speed:").appendTo(S);
-    new element("input", {
-        id: "rainbowInt",
-        value: e || 1e3,
-        size: 3
-    }).on("change", (function({
-        target: t
-    }) {
-        let {
-            value: n
-        } = t;
-        e = n
-    })).appendTo(S);
-    if (new element("br").appendTo(S), new element("br").appendTo(S), function() {
-            var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
-            id("skin-message")[e][1][t]("afterend", new element("button", {
-                class: "button-type-1 blue-discord-button text-shadowed-3"
-            })[n]({
-                height: "15%",
-                position: "absolute",
-                top: "15%"
-            })[o]("click", (function(e) {
-                var [t, n] = ["forEach", "click"];
-                findhref2(id("skins-categories"), "img")[t](((e, t) => {
-                    e[n](), random(findhref2(id("skins-middle-main"), "img"))[n]()
-                }))
-            }))[a]("innerText", "Generate Random Fit")[i])
-        }(), function() {
-            var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
-            let l = new element("button", {
-                class: "button-type-1 blue-discord-button text-shadowed-3",
-                id: "reset-button"
-            })[n]({
-                height: "15%",
-                left: "8%",
-                position: "absolute"
-            })[o]("click", (function(e) {
-                x()
-            }))[a]("innerText", "Reset Fit");
-            __a = l, id("skin-message")[e][1][t]("afterend", l[i])
-        }(), function() {
-            var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
-            id("skin-message")[e][1][t]("afterend", new element("button", {
-                class: "button-type-1 blue-discord-button text-shadowed-3"
-            })[n]({
-                height: "15%",
-                left: "50%",
-                position: "absolute"
-            })[o]("click", (function(e) {
-                const {
-                    skin: t,
-                    back: n,
-                    accessory: o
-                } = localStorage;
-                b = {
-                    skin: t,
-                    back: n,
-                    accessory: o
-                }, GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0)
-            }))[a]("innerText", "Save Fit")[i])
-        }(), function() {
-            var [t, n, o, a, i, l, r, c, d] = ["element", "style", "set", "status", "appendTo", "on", "toggle", "innerText", "click"];
-            new element(copyElm(__a[t]))[n]({
-                left: "19%",
-                top: "60%"
-            })[o]("innerText", `rainbowFit:${s[a]}`)[i]("#skin-message")[l]("click", (async function({
-                target: n
-            }) {
-                for (s[r](), n[c] = `rainbowFit:${s[a]}`; s[a];) await k(e), randomFit[t][d]()
-            }))
-        }(), addEventListener("unload", (function() {
-            GM_setValue("keybinds", keybinds), GM_setValue("rbi", e), GM_getValue("skin") && (localStorage.skin = GM_getValue("skin")), GM_getValue("accessory") && (localStorage.accessory = GM_getValue("accessory")), GM_getValue("back") && (localStorage.accessory = GM_getValue("accessory"))
-        })), alt) {
-        let e = GM_getValue("server");
-        var I = id("server-select");
-        new Promise((e => {
-            var t = setInterval((() => {
-                "none" == id("small-waiting").style.display && (clearInterval(t), e())
-            }), 200)
-        })).then((t => {
-            [id("ffa-mode"), id("sandbox-mode"), id("event-mode")][GM_getValue("gm")].click(), new Promise((e => {
-                var t = setInterval((() => {
-                    "none" == id("small-waiting").style.display && (clearInterval(t), e())
-                }), 200)
-            })).then((t => {
-                let n = I.selectedIndex = [...id("server-select").options].map((e => e.getAttribute("region"))).indexOf(e);
-                I.dispatchEvent(new Event("click")), I.selectedIndex = n, I.dispatchEvent(new Event("change")), F.element.dispatchEvent(new Event("click")), new Promise((e => {
-                    var t = setInterval((() => {
-                        "flex" != document.querySelector(sploopMenu).style.display && (clearInterval(t), e(id("clan-menu")))
-                    }), 200)
-                })).then((e => {
-                    e.style.display = "block";
-                    let t = GM_getValue("clan"),
-                        n = [...id("clan_menu_content").children].filter((e => e.getElementsByTagName("p")[0].innerText == _GM_getValue("clan"))),
-                        o = (_GM_getValue("clan_") && _GM_getValue("clan_").name, [...id("clan_menu_content").children].filter((e => e.getElementsByTagName("p")[0].innerText == _GM_getValue("clan_").name)));
-                    if (n.length) {
-                        n[0].children[1].children[0].onmouseup({
-                            bubbles: !0,
-                            isTrusted: !0
-                        })
-                    } else if (o.length) {
-                        o[0].children[1].children[0].onmouseup({
-                            bubbles: !0,
-                            isTrusted: !0
-                        })
-                    } else console.warn("Cant find clan", t, "Or", _GM_getValue("clan_") ? _GM_getValue("clan_").name : null);
-                    let a = e => new Promise((t => setTimeout(t, e)));
-                    async function i() {
-                        for (dispatchAllMouseEvents(id("leave-clan-button"));
-                            "block" != id("create_clan").style.display;) await a(100);
-                        return !0
+        c.id = 'chat2';
+        chat.parentNode.append(document.createElement('br'));
+        chat.parentNode.append(c);
+
+        chat.onfocus = function (e) {
+            if(useChat){
+                c.focus();
+                chat.parentElement.style.display = 'block';
+                c.focus();
+            }
+            //c.focus();
+            //chat.parentElement.style.display = 'block';
+            //c.focus();
+        };
+
+        let onkeyupOld = window.onkeyup;
+        let onkeydownOld = window.onkeydown;
+
+        window.onkeyup = function (event) {
+            if (chat === document.activeElement || c === document.activeElement) {
+                // Chat is focused, do nothing
+                return;
+            }
+            if (onkeyupOld) {
+                onkeyupOld(event);
+            }
+        };
+
+        window.onkeydown = function (event) {
+            if (chat === document.activeElement || c === document.activeElement || event.target.tagName=='input') {
+                // Chat is focused, do nothing
+                return;
+            }
+            if (onkeydownOld) {
+                onkeydownOld(event);
+            }
+        };
+
+
+        function isLetterOrNumberKey(key) {
+            return /^[a-zA-Z0-9]$/.test(key);
+        }
+
+        // Add event listener to handle chat input
+        c.addEventListener('keypress', ({ target, key }) => {
+            if (isLetterOrNumberKey(key)) {
+                chat.value = target.value;
+                [filterF].forEach(f => f({ target }));
+            }
+            handleChatInput(event);
+        });
+
+        ;(useChat?c:chat).addEventListener('keyup', (e) => {
+            const { target, key, code } = e;
+            console.log(e);
+            let i = true; // code != 'KeyL'
+            chat.value = target.value;
+            isLetterOrNumberKey(key) && i && ([filterF, filterA].forEach(f => f({ target: chat })));
+        });
+
+        ;(useChat?c:chat).addEventListener('keydown', ({ target, key }) => {
+            if (isLetterOrNumberKey(key)) {
+                chat.value = target.value;
+                [filterF].forEach(f => f({ target: chat }));
+            }
+        });
+    }).then(console.log,console.warn)
+
+    function isLetterOrNumberKey(key) {
+        return /^[0-9a-zA-Z]$/.test(key)&&key.length==1
+    }
+
+    if(alt){
+        if(typeof GM_getValue('alts')=='number'){GM_setValue('alts',{})}
+        var ThisAlt
+        for(let i=1;true;i++){
+            if(!GM_getValue('alts')[i]){
+                ThisAlt=i
+                let o=GM_getValue('alts')
+                o[i]=true
+                GM_setValue('alts',o)
+                break;
+            }
+        }
+        console.log('alt:',ThisAlt)
+        addEventListener('unload',function(){
+            if(alt){
+                let o=GM_getValue('alts')
+                o[ThisAlt]=false;
+                GM_setValue('alts',o)
+            }
+        })
+    }
+    console.log('Set called',SetUpSploop.callee)
+    var localFit=null
+    function loadFit(a=0,b=0,c=0){
+        skinIndex(0)
+        try{!Number.isNaN(a)&&(findhref2(id('skins-middle-main'),'img').filter(e=>e.src.includes(`skin${a}`))[0].click());}catch(err){
+            console.warn('Failed to Skin',a)
+        }
+        skinIndex(1)
+        try{!Number.isNaN(b)&&(findhref2(id('skins-middle-main'),'img').filter(e=>e.src.includes(`accessory${b}`))[0].click());}catch(err){
+            console.warn('Failed to accessory$',a)
+        }
+        skinIndex(2)
+        !Number.isNaN(c)&&(findhref2(id('skins-middle-main'),'img').filter(e=>e.src.includes(`back${c}`))[0].click());
+        skinIndex(0)
+    }
+    _loadFit=loadFit
+    _GM_setValue=GM_setValue
+    _GM_getValue=GM_getValue
+    function skinIndex(index){
+        findhref2(id('skins-categories'),'img')[index].click()
+    }
+    new Promise((a,b)=>(b=setInterval(()=>(findhref2(id('skins-middle-main'),'img').length&&(clearInterval(b),a())),100))).then(async e=>{
+        await sleep(1000)
+        if(!alt){
+            loadFit(GM_getValue('skin'),GM_getValue('accessory$'),GM_getValue('BACK'))
+        }
+    })
+    id('game-left-content-main').style.overflow='scroll'
+    id('da-right').parentNode.style.overflow='scroll'
+    if(_setUp)return;
+    var css_=`
+#log{
+    background-color: rgba(0,0,0,0);
+    color: lightgreen;
+}
+.empty{
+    content: attr(value);
+}
+select,select:focus{
+    background-color: rgba(0,0,0,0);
+    outline: none;
+    border: none;
+    color: rgb(255, 136, 0);
+}
+button{
+    background-color: rgba(0,0,0,0);
+    outline: none;
+    border: 2px solid rgb(208, 255, 0);
+    color: rgb(94, 255, 0);
+}
+button:hover,input:focus{
+    background-color: rgba(0,0,0,0);
+    outline: none;
+    border: 2px solid rgb(255, 0, 0);
+    color: rgb(0, 132, 255);
+}
+#skin-message{
+	border: 2px solid red;
+    background-color: rgba(0,0,0,0);
+}
+.green{border: 2px solid green;}
+.red{border: 2px solid blue;}
+::-webkit-scrollbar{
+    display:none;
+}
+span.first{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+}
+span.middle{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+span.last{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+}
+del{
+    text-decoration: line-through;
+    color: red;
+    border-radius: 3px;
+    border: 1px solid coral;
+    background-color: rgba(111,8,8,1);
+}
+ins{
+    background-color: rgba(7,92,7,1);
+    color: rgba(56,233,56,1);
+    border-radius: 3px;
+    border: 1px solid lightgreen;
+}
+textarea{
+    text-overflow: clip;
+
+}`
+    add_Style(css_)
+    GM_getValue('sm')&&(StreamerMode.toggle())
+    await wfs('#clan-menu')
+    await wfs('#pop-login')
+    let clans=id('clan-menu')
+    game_.autoSpawn=true
+    game_.timeOut=5000
+    game_.testFunction=function(){
+        return !isHidden(play)
+    }
+    game_.spawnFunc=function(){
+        if(alt){
+            dispatchAllInputEvents(nickname,`${GM_getValue('nn')}'s alt${ThisAlt}`)
+            randomFit.element.click()
+            const{skin,back,accessory}=localStorage
+            localFit={skin,back,accessory}
+            console.log('Got fit',localFit)
+        }else if(localFit){
+            const{skin,back,accessory}=localFit
+            loadFit(skin,accessory,back)
+        }
+        play.click()
+        setTimeout(resetSkin,200)
+    }
+    var sleep=(ms)=>new Promise(a=>setTimeout(a,ms));
+    async function wfs(s, timeout = 3000) {
+        return await new Promise((resolve, reject) => {
+            let startTime = performance.now();
+            function checkSelector() {
+                if (document.querySelector(s)) {
+                    resolve(document.querySelector(s));
+                } else if (performance.now() - startTime >= timeout) {
+                    reject(new Error("Timeout waiting for selector"));
+                } else {
+                    requestAnimationFrame(checkSelector);
+                }
+            }
+            checkSelector();
+        });
+    }
+    var resetted=false
+    async function resetSkin(){
+        dispatchAllInputEvents(nickname,GM_getValue('nn'))
+        skinIndex(0)
+        !resetted&&(await sleep(2000))
+        !Number.isNaN(GM_getValue('skin'))&&(findhref2(id('skins-middle-main'),'img').filter(e=>e.src.includes(`skin${GM_getValue('skin')}`))[0].click());
+        skinIndex(1)
+        !resetted&&(await sleep(100))
+        !Number.isNaN(GM_getValue('accessory'))&&(findhref2(id('skins-middle-main'),'img').filter(e=>e.src.includes(`accessory${GM_getValue('accessory')}`))[0].click());
+        !resetted&&(await sleep(100))
+        skinIndex(2)
+        !resetted&&(await sleep(100))
+        !Number.isNaN(GM_getValue('back'))&&(findhref2(id('skins-middle-main'),'img').filter(e=>e.src.includes(`back${GM_getValue('back')}`))[0].click());
+        !resetted&&(await sleep(100))
+        resetted&&(skinIndex(0))
+        resetted=1
+    }
+    _game_=game_
+    _setUp=true
+
+    var staySign= new element(_copyElm(login)).set('id','login2').set('innerText',`Stay Signed In:${StaySignedIn.status}`).on('click',e=>{StaySignedIn.toggle();e.target.innerText=`Stay Signed In:${StaySignedIn.status}`;GM_setValue('StaySignedIn',StaySignedIn.status)}).style({display:'inline-block'}).element
+    loginForm.children[1].insertBefore(staySign,login)
+    !function(){
+        var[o,k,z,d,f,j]=["\u006d\u0061\u0070","\u0066\u006f\u0072\u0045\u0061\u0063\u0068","\u006c\u006f\u0067","\u006c\u0065\u006e\u0067\u0074\u0068","\u0063\u0068\u0069\u006c\u0064\u0072\u0065\u006e","\u0072\u0065\u006d\u006f\u0076\u0065"],hu={get sn(){return console}};ad_spots[o]($)[k](s=>{hu["sn"][z]({s});s[d]&&([...s[0][f]][k](x=>x[j]()))})
+    }()
+    var mainAd=id('da-right')
+    // Create script description element
+    const scriptDescription = new element('div').style({ padding: '10px', backgroundColor: 'rgba(0, 0, 0, 0)', color: '#000', border: '1px solid #ddd', marginBottom: '10px' }).append(
+        new element('h2').set('innerText', 'MooMoo/Sploop styles')
+    ).append(
+        new element('p').set('innerText', 'This script can:')
+    )  .append(
+        new element('ul')
+        .append(new element('li').set('innerText', 'Change the game\'s look'))
+        .append(new element('li').set('innerText', 'Add a built-in YouTube embed video player'))
+        .append(new element('li').set('innerText', 'Include a random fit generator button'))
+        .append(new element('li').set('innerText', 'Implement anti-kick functionality from being AFK'))
+        .append(new element('li').set('innerText', 'Create alts'))
+        .append(new element('li').set('innerText', 'Automatically join the game and turn on antikick for alts'))
+        .append(new element('li').set('innerText', 'Hat keybinds that are saved locally!'))
+    );
+
+    // Append script description to the mainAd parent node
+    scriptDescription.appendTo(mainAd);
+
+    // Create disclaimer element with click-to-hide functionality
+    const disclaimer = new element('div')
+    .style({ padding: '10px', backgroundColor: '#f8d7da', color: '#721c24', border: '1px solid #f5c6cb', borderRadius: '5px', cursor: 'pointer' })
+    .set('innerText', 'Using this script may have consequences, including but not limited to account banning. Use at your own risk. Click to hide.')
+    .on('click', function () {
+        this.remove();
+        localStorage.seen=1
+    }).appendTo("#game-bottom-content")
+    if(localStorage.seen==1)disclaimer.element.remove();
+
+    id('lostworld-io_300x250_2').remove()
+    new element('br').appendTo(parent)
+    var userName
+    async function tsm(){
+        await wfs('#player-container')
+        var s=id('player-container')
+        s.style.display='none'
+        if(StreamerMode.status){
+            !userName&&(
+                userName=(await wfs('#nickname-value')).innerText
+            );
+            userName=='SPLOOP.IO'?(userName=null):(await wfs('#nickname-value')).innerText='streamerMode';
+            (await wfs('#change-username')).style.display='none';
+        }else if(userName){
+            (await wfs('#nickname-value')).innerText=userName;
+            (await wfs('#change-username')).style.display='block';
+        }
+        s.style.display='flex'
+    }
+    const menu = new element('div',{id:"keybinds"}).style({
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    }).appendTo(parent);
+    var AntiKickButton=new element('button').set('innerText',`AntiKick:${AntiKickTOggle.status}`).on('click',function(e){AntiKickTOggle.toggle();e.target.innerText=`AntiKick:${AntiKickTOggle.status}`;AntiKickTOggle.status?game_.start():game_.stop()}).appendTo(menu)
+    //new element('br').appendTo(menu)
+    var chatFilterButton=new element('button').set('innerText',`chatFilter:${chatFilter.status}`).on('click',function(e){chatFilter.toggle();e.target.innerText=`chatFilter:${chatFilter.status}`;}).appendTo(menu)
+    var chatFilterButton2=new element('button').set('innerText',`lolFilter:${lolFilter.status}`).on('click',function(e){lolFilter.toggle();e.target.innerText=`lolFilter:${lolFilter.status}`;}).appendTo(menu)
+    //new element('br').appendTo(menu)
+
+    var StreamerModeToggle=new element('button').set('innerText',`StreamerMode:${StreamerMode.status}`).on('click',function(e){
+        StreamerMode.toggle();e.target.innerText=`StreamerMode:${StreamerMode.status}`;
+        GM_setValue('sm',StreamerMode.status)
+        tsm()
+    }).appendTo(menu)
+    //new element('br').appendTo(menu)
+    var SpawnAlt=new element('button').set('innerText','SpawnAlt').on('click',function(e){
+        GM_setValue('skin',localStorage.skin||0)
+        GM_setValue('accessory',localStorage.accessory||0)
+        GM_setValue('back',localStorage.back||0)
+
+        GM_setValue('server',id('server-select').selectedOptions[0].getAttribute('region'))
+        GM_setValue('gm',[id('ffa-mode'),id('sandbox-mode'),id('event-mode')].map(e=>[...e.classList].includes('dark-blue-button-3-active')).indexOf(true))
+        var create = id('create_clan');
+        var leave = id('leave_clan');
+        var clanName = id('clan-menu-clan-name-input');
+        var inclan = create.style.display == 'none';
+        if (!inclan) {
+            var createButton = id('create-clan-button');
+            var clanNameInput = id('clan-menu-clan-name-input');
+
+            // Dispatch various events on the clan name input element
+            clanNameInput.dispatchEvent(new Event('focus', { bubbles: true }));
+            clanNameInput.dispatchEvent(new Event('input', { bubbles: true }));
+            clanNameInput.dispatchEvent(new Event('change', { bubbles: true }));
+            clanNameInput.value = 'Alts';  // Set the value of the input
+            clanNameInput.dispatchEvent(new Event('blur', { bubbles: true }));
+
+            // Click the create button
+            createButton.click();
+            createButton.dispatchEvent(new Event('click'));
+            new Promise(a=>{
+                var int=setInterval(()=>{
+                    if(clans.children[0].innerText!="Clans")(clearInterval(int),a())
+                },200)
+                }).then(a=>{
+                _GM_setValue('clan',clans.children[0].innerText)
+            })
+        }
+        open(location.href,'alt'+Date.now())
+
+    }).appendTo(menu)
+    //new element('br').appendTo(menu)
+    var discordJoinButton=new element(findhref2(id('skin-message'))[0])
+
+    randomFit=new element('button').appendTo(menu).on('click',function(e){var[v,k]=["\u0066\u006f\u0072\u0045\u0061\u0063\u0068","\u0063\u006c\u0069\u0063\u006b"];findhref2(id('skins-categories'),'img')[v]((g,f)=>{g[k]();random(findhref2(id('skins-middle-main'),'img'))[k]()})}).set('innerText','Generate Random Fit')
+
+    new element('span').set('innerText','Rainbow Fit Speed:').appendTo(menu)
+    var rainbowIntInput=new element('input',{
+        id:"rainbowInt",
+        value:rainbowInt||1000,size:3
+    }).on('change',function({target}){
+        let{value}=target
+        rainbowInt=value
+    }).appendTo(menu)
+    new element('br').appendTo(menu)
+    new element('br').appendTo(menu)
+
+
+
+
+    !function(){var [j,e,u,l,n,i]=["\u0063\u0068\u0069\u006c\u0064\u0072\u0065\u006e","\u0069\u006e\u0073\u0065\u0072\u0074\u0041\u0064\u006a\u0061\u0063\u0065\u006e\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074","\u0073\u0074\u0079\u006c\u0065","\u006f\u006e","\u0073\u0065\u0074","\u0065\u006c\u0065\u006d\u0065\u006e\u0074"];id('skin-message')[j][1][e]('afterend',new element('button',{class:"button-type-1 blue-discord-button text-shadowed-3",})[u]({height:"15%",position:"absolute",top:"15%"})[l]('click',function(m){var[v,k]=["\u0066\u006f\u0072\u0045\u0061\u0063\u0068","\u0063\u006c\u0069\u0063\u006b"];findhref2(id('skins-categories'),'img')[v]((q,s)=>{q[k]();random(findhref2(id('skins-middle-main'),'img'))[k]()})})[n]('innerText','Generate Random Fit')[i])}()
+
+    ! function() {
+        var [g, w, p, h, k, v] = ["\u0063\u0068\u0069\u006c\u0064\u0072\u0065\u006e", "\u0069\u006e\u0073\u0065\u0072\u0074\u0041\u0064\u006a\u0061\u0063\u0065\u006e\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074", "\u0073\u0074\u0079\u006c\u0065", "\u006f\u006e", "\u0073\u0065\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074"];
+        let _a=new element('button', {
+            class: "button-type-1 blue-discord-button text-shadowed-3",id:"reset-button"
+        })[p]({
+            height: "15%",
+            left: "8%",
+            position: "absolute"
+        })[h]('click', function(a) {
+            resetSkin()
+        })[k]('innerText', 'Reset Fit')
+        __a=_a
+        id('skin-message')[g][1][w]('afterend', _a[v])
+    }()
+    ! function() {
+        var [g, w, p, h, k, v] = ["\u0063\u0068\u0069\u006c\u0064\u0072\u0065\u006e", "\u0069\u006e\u0073\u0065\u0072\u0074\u0041\u0064\u006a\u0061\u0063\u0065\u006e\u0074\u0045\u006c\u0065\u006d\u0065\u006e\u0074", "\u0073\u0074\u0079\u006c\u0065", "\u006f\u006e", "\u0073\u0065\u0074", "\u0065\u006c\u0065\u006d\u0065\u006e\u0074"];
+        id('skin-message')[g][1][w]('afterend', new element('button', {
+            class: "button-type-1 blue-discord-button text-shadowed-3",
+        })[p]({
+            height: "15%",
+            left: "50%",
+            position: "absolute"
+        })[h]('click', function(a) {
+            const{skin,back,accessory}=localStorage
+            localFit={skin,back,accessory}
+            GM_setValue('skin',localStorage.skin||0)
+            GM_setValue('accessory',localStorage.accessory||0)
+            GM_setValue('back',localStorage.back||0)
+        })[k]('innerText', 'Save Fit')[v])
+    }()
+    !function(){
+        var [k,m,s,z,t,e,f,g,n]=["\u0065\u006c\u0065\u006d\u0065\u006e\u0074","\u0073\u0074\u0079\u006c\u0065","\u0073\u0065\u0074","\u0073\u0074\u0061\u0074\u0075\u0073","\u0061\u0070\u0070\u0065\u006e\u0064\u0054\u006f","\u006f\u006e","\u0074\u006f\u0067\u0067\u006c\u0065","\u0069\u006e\u006e\u0065\u0072\u0054\u0065\u0078\u0074","\u0063\u006c\u0069\u0063\u006b"];var c=new element(copyElm(__a[k]))[m]({left:"19%",top:'60%'})[s]('innerText',`rainbowFit:${rainbowFit[z]}`)[t]('#skin-message')[e]('click',async function({target}){rainbowFit[f]();target[g]=`rainbowFit:${rainbowFit[z]}`;while(rainbowFit[z]){await sleep(rainbowInt);randomFit[k][n]()}})
+        }()
+
+    addEventListener('unload',function(){
+        GM_setValue('keybinds',keybinds)
+        GM_setValue('rbi',rainbowInt)
+        if(GM_getValue('skin')){
+            localStorage.skin=GM_getValue('skin')
+        }
+        if(GM_getValue('accessory')){
+            localStorage.accessory=GM_getValue('accessory')
+        }
+        if(GM_getValue('back')){
+            localStorage.accessory=GM_getValue('accessory')
+        }
+    })
+    if(alt){
+        let server=GM_getValue('server')
+        var s=id('server-select')
+        new Promise(a=>{
+            var int=setInterval(()=>{
+                if(id('small-waiting').style.display=='none')(clearInterval(int),a())
+            },200)
+            })
+            .then(a=>{
+            ;[id('ffa-mode'),id('sandbox-mode'),id('event-mode')][GM_getValue('gm')].click()
+            new Promise(a=>{
+                var int=setInterval(()=>{
+                    if(id('small-waiting').style.display=='none')(clearInterval(int),a())
+                },200)
+                }).then(e=>{
+                let index = s.selectedIndex=[...id('server-select').options].map(e=>e.getAttribute('region')).indexOf(server)
+                s.dispatchEvent(new Event('click'));
+
+                // Simulate a change event
+                s.selectedIndex = index;
+                s.dispatchEvent(new Event('change'));
+                AntiKickButton.element.dispatchEvent(new Event('click'));
+                new Promise(a=>{
+                    var int=setInterval(()=>{
+                        if(document.querySelector(sploopMenu).style.display!="flex")(clearInterval(int),a(id('clan-menu')))
+                    },200)
+                    }).then(j=>{
+                    j.style.display='block'
+                    let clanName=GM_getValue('clan')
+                    let clan=[...id('clan_menu_content').children].filter(e=>e.getElementsByTagName('p')[0].innerText==_GM_getValue('clan'))
+                    let clan2=(_GM_getValue('clan_')&&_GM_getValue('clan_').name,[...id('clan_menu_content').children].filter(e=>e.getElementsByTagName('p')[0].innerText==_GM_getValue('clan_').name))
+                    if(clan.length){
+                        let joinButton=clan[0].children[1].children[0]
+                        joinButton.onmouseup({ bubbles: true, isTrusted: true })
+                    }else if(clan2.length){
+                        let joinButton=clan2[0].children[1].children[0]
+                        joinButton.onmouseup({ bubbles: true, isTrusted: true })
+                    }else{
+                        console.warn('Cant find clan',clanName,'Or',(_GM_getValue('clan_')?_GM_getValue('clan_').name:null))
                     }
-                    GM_addValueChangeListener("clan_", (function(e, t, n) {
-                        console.log({
-                            c: n,
-                            SelfClan: "block" != id("create_clan").style.display
-                        }), n.inCLan && ("block" != id("create_clan").style.display ? (console.log("Leaving Existing clan"), i().then((async e => {
-                            for (;
-                                "block" == id("create_clan").style.display;) {
-                                let e = [...id("clan_menu_content").children].filter((e => e.getElementsByTagName("p")[0].innerText == n.name));
-                                e[0].children[1].children[0].onmouseup({
-                                    bubbles: !0,
-                                    isTrusted: !0
-                                }), await n(100)
+                    let c=(ms)=>new Promise(a=>setTimeout(a,ms))
+                    async function leaveClan(){
+                        dispatchAllMouseEvents(id('leave-clan-button'))
+                        while(id('create_clan').style.display!='block'){
+                            await c(100)
+                        }
+                        return true
+                    }
+                    GM_addValueChangeListener('clan_',function(a,b,c){
+                        console.log({c,SelfClan:id('create_clan').style.display!='block'},)
+                        if(c.inCLan){
+                            if(id('create_clan').style.display!='block'){
+                                console.log('Leaving Existing clan')
+                                leaveClan().then(async e=>{
+                                    while(id('create_clan').style.display=='block'){
+                                        let clan=[...id('clan_menu_content').children].filter(e=>e.getElementsByTagName('p')[0].innerText==c.name)
+                                        let joinButton=clan[0].children[1].children[0]
+                                        joinButton.onmouseup({ bubbles: true, isTrusted: true })
+                                        await c(100)
+                                    }
+                                })
+                            }else{
+                                console.log('Joining newCLan')
+                                ;(async e=>{
+                                    while(id('create_clan').style.display=='block'){
+                                        let clan=[...id('clan_menu_content').children].filter(e=>e.getElementsByTagName('p')[0].innerText==c.name)
+                                        let joinButton=clan[0].children[1].children[0]
+                                        joinButton.onmouseup({ bubbles: true, isTrusted: true })
+                                        await c(100)
+                                    }
+                                })()
                             }
-                        }))) : (console.log("Joining newCLan"), (async e => {
-                            for (;
-                                "block" == id("create_clan").style.display;) {
-                                let e = [...id("clan_menu_content").children].filter((e => e.getElementsByTagName("p")[0].innerText == n.name));
-                                e[0].children[1].children[0].onmouseup({
-                                    bubbles: !0,
-                                    isTrusted: !0
-                                }), await n(100)
-                            }
-                        })()))
-                    }))
-                }))
+                        }
+                    })
+                })
+            })
+        })
+        id('play').addEventListener('click',function name(params) {
+            const{nickname,skin,back,accessory}=localStorage
+            !loadFit&&(localFit={skin,back,accessory},console.log('Saved LocalFit'))
+            })
+        document.title='Sploop.io - Fast Alt'
+    }
+    else{
+        id('play').addEventListener('click',function name(params) {
+            const{nickname,skin,back,accessory}=localStorage
+            GM_setValue('skin',localStorage.skin||0)
+            GM_setValue('accessory',localStorage.accessory||0)
+            GM_setValue('back',localStorage.back||0)
+            GM_setValue('nn',localStorage.nickname)
+            GM_setValue('gm',[id('ffa-mode'),id('sandbox-mode'),id('event-mode')].map(e=>[...e.classList].includes('dark-blue-button-3-active')).indexOf(true))
+        })
+        var oldText=''
+        _loop=setInterval(()=>{
+
+            clans.children[0].innerText!=oldText&&(oldText=clans.children[0].innerText,GM_setValue('clan_',{
+                inCLan:id('create_clan').style.display!='block',
+                name:clans.children[0].innerText
             }))
-        })), id("play").addEventListener("click", (function(e) {
-            const {
-                nickname: t,
-                skin: n,
-                back: o,
-                accessory: a
-            } = localStorage;
-            !f && (b = {
-                skin: n,
-                back: o,
-                accessory: a
-            }, console.log("Saved LocalFit"))
-        })), document.title = "Sploop.io - Fast Alt"
-    } else {
-        id("play").addEventListener("click", (function(e) {
-            const {
-                nickname: t,
-                skin: n,
-                back: o,
-                accessory: a
-            } = localStorage;
-            GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("nn", localStorage.nickname), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0))
-        }));
-        var A = "";
-        _loop = setInterval((() => {
-            y.children[0].innerText != A && (A = y.children[0].innerText, GM_setValue("clan_", {
-                inCLan: "block" != id("create_clan").style.display,
-                name: y.children[0].innerText
-            }))
-        })), document.title = "Sploop.io - Fast Main";
-        await async function() {
-            for (; !Object.keys(t).splice(1).length;) t.update(), await k(0);
-            if (console.log("Hidden:", isHidden(m)), !isHidden(m) && o.status)
-                if (console.log("Logging in :>"), m.click(), await k(100), GM_getValue("PI")) {
-                    let e = GM_getValue("PI");
-                    for (dispatchAllInputEvents(id("enter-mail"), e.e), dispatchAllInputEvents(id("enter-password"), e.p), await k(1e3), g.click(); !isHidden(m);) await k(1e3)
-                } else alert("You have to login at least once :<");
-            console.log("hats loaded"), id("nav-skins").click(), await k(100), id("nav-game").click(), id("reset-button").click();
-            const e = Object.keys(t).splice(1);
-            return e.forEach((e => {
-                const t = new element("span").set("innerText", `Hat ${e} Key: `),
-                    n = new element("input", {
-                        size: 8,
-                        id: `${e}_key`
-                    }).set("type", "text").set("value", "").on("keydown", (function(t) {
-                        t.preventDefault(), this.value = t.code, keybinds[e] = t.code
-                    })).style({
-                        "background-color": "rgba(0,0,0,0)",
-                        color: "white"
-                    }).set("value", keybinds[e] || "Add key..."),
-                    o = new element("button", {
-                        id: `Remove_${e}_key`
-                    }).set("innerText", "Remove X Binding").on("click", (function(t) {
-                        delete keybinds[e], n.set("value", "Add key...")
-                    }));
-                S.append(t, n, o), n.on("blur", (function() {
-                    const t = this.value.toLowerCase();
-                    t && console.log(`Keybind set for ${e}: ${t}`)
-                }))
-            })), document.addEventListener("keydown", (function(n) {
-                const o = n.code;
-                e.forEach((e => {
-                    keybinds[e] && keybinds[e] === o && (console.log(`Equipping ${e} with key: ${o}`), t[e].equip())
-                }))
-            })), "Loaded Hats keys"
-        }().then(console.log, console.warn), async function() {
-            for (;;) await k(0), await V()
+
+        })
+        document.title='Sploop.io - Fast Main'
+        var percentSpeed=50
+        await (async function(){
+            while(!Object.keys(hats).splice(1).length)(hats.update(),await sleep(0))
+            console.log('Hidden:',isHidden(loginButton))
+            if(!isHidden(loginButton)&&StaySignedIn.status){
+                console.log('Logging in :>')
+                loginButton.click();
+                await sleep(100)
+                if(GM_getValue('PI')){
+                    let r=GM_getValue('PI')
+                    dispatchAllInputEvents(id('enter-mail'),r.e)
+                    dispatchAllInputEvents(id('enter-password'),r.p)
+                    await sleep(1000)
+                    login.click();
+                    while(!isHidden(loginButton))await sleep(1000)
+                }else alert('You have to login at least once :<')
+            }
+            console.log('hats loaded')
+            id('nav-skins').click()
+            await sleep(100)
+            id('nav-game').click();
+            id('reset-button').click()
+            const hats_  = Object.keys(hats).splice(1);
+            hats_.forEach(hat => {
+                const textElement = new element('span').set('innerText', `Hat ${hat} Key: `)
+
+                const input = new element('input',{size:8,id:`${hat}_key`}).set('type', 'text').set('value', '').on('keydown', function(e) {
+                    e.preventDefault();
+                    // Set the input value to the key code of the key that was pressed
+                    this.value = e.code;
+                    // Set the keybind for the hat to the key code
+                    keybinds[hat] = e.code;
+                }).style({
+                    'background-color':'rgba(0,0,0,0)',
+                    color:'white'
+                }).set('value',keybinds[hat]||'Add key...')
+                const removeB=new element('button',{
+                    id:`Remove_${hat}_key`
+                }).set('innerText','Remove X Binding').on('click',function(e){
+                    delete keybinds[hat]
+                    input.set('value','Add key...')
+                })
+                menu.append(textElement,input,removeB)
+                input.on('blur', function() {
+                    const key = this.value.toLowerCase();
+                    if (key) {
+                        //keybinds[hat] = key;
+                        console.log(`Keybind set for ${hat}: ${key}`);
+                    }
+                });
+            });
+
+            // Event listener to handle key presses
+            document.addEventListener('keydown', function(e) {
+                const key = e.code;
+                // Check if the pressed key is a keybind for any hat
+
+                hats_.forEach(hat => {
+                    if (keybinds[hat] && keybinds[hat] === key) {
+                        // Handle hat equipping logic here
+                        console.log(`Equipping ${hat} with key: ${key}`);
+                        hats[hat].equip()
+                    }
+                });
+            });
+            return 'Loaded Hats keys'
+        })().then(console.log,console.warn)
+        ! async function (){
+            for(;;)(await sleep(0),await tsm())
         }()
     }
-    id("game-bottom-content") && (id("game-bottom-content").style.maxWidth = "100%", id("game-bottom-content").style.maxHeight = "100%", id("game-bottom-content").innerHTML = '<iframe height="100%" style="width: 100%;border-top-left-radius: 15px;overflow: hidden;border-top-right-radius: 15px;" scrolling="no" title="Audio Visualizer" src="https://naquangaston.github.io/HostedFiles/vis/" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">\nSee the Pen <a href="https://codepen.io/_Gaston-/pen/YzRRxXB">\nAudio Visualizer</a> by Gaston (<a href="https://codepen.io/_Gaston-">@_Gaston-</a>)\non <a href="https://codepen.io">CodePen</a>.\n</iframe>', id("game-bottom-content").style.width = "80%")
-}
-findhref2 = function(e, t) {
-    var n = [];
-    return function e(o) {
-        o.tagName.toLowerCase() == (t || "a") ? (n.push(o), o.children.length && ((o = o.children).forEach = [].forEach, o.forEach((t => {
-            e(t)
-        })))) : o.children.length && ((o = o.children).forEach = [].forEach, o.forEach((t => {
-            e(t)
-        })))
-    }(e), n
-}, _copyElm = copyElm;
-const localStorage_ = {
-    getItem: e => GM_getValue(e),
-    setItem(e, t) {
-        return GM_setValue(e, t), GM_setValue("LC", this), this.getItem(e)
-    }
-};
-window.once = window.on;
-let moomooMenu = "#mainMenu",
-    sploopMenu = "#homepage";
-document.addEventListener("keydown", (function(e) {
-    "`" === e.key && ($(moomooMenu) && $(moomooMenu).toggle && ($(moomooMenu).toggle(), console.log("Toggled MooMoo")), $(sploopMenu) && $(sploopMenu).toggle && (document.querySelector(sploopMenu).style.display = "none" == document.querySelector(sploopMenu).style.display ? "flex" : "none", console.log("Toggled Sploop")))
-})), $("#consentBlock").css({
-    display: "none"
-}), $("#mapDisplay").css({
-    background: "url('https://i.imgur.com/fgFsQJp.png')"
-});
-var [info2, myPlayer] = [window.info2 || {}, window.myPlayer || []];
+    if(id('game-bottom-content')){(id('game-bottom-content').style.maxWidth='100%',id('game-bottom-content').style.maxHeight='100%');(id('game-bottom-content').innerHTML=`<iframe height="100%" style="width: 100%;border-top-left-radius: 15px;overflow: hidden;border-top-right-radius: 15px;" scrolling="no" title="Audio Visualizer" src="https://naquangaston.github.io/HostedFiles/vis/" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">\nSee the Pen <a href="https://codepen.io/_Gaston-/pen/YzRRxXB">\nAudio Visualizer</a> by Gaston (<a href="https://codepen.io/_Gaston-">@_Gaston-</a>)\non <a href="https://codepen.io">CodePen</a>.\n</iframe>`);id('game-bottom-content').style.width='80%'}
 
-function pingcheck() {
-    if (!location.href.includes("sploop")) {
-        var e = document.createElement("h1");
-        e.id = "Ping2", topInfoHolder.append(e), setInterval((() => {
-            e.innerText = pingDisplay.innerText + `DPS:${window.dps} Dir:${myPlayer.dir}`, 1 * pingDisplay.innerText.split(" ")[1].split(" m")[0] > window.pchek && chat(`Ping:${pingDisplay.innerText.split(" ")[1].split(" m")[0]}`)
-        }), 500), window.ping = 100, setInterval((() => {
-            ping = 1 * pingDisplay.innerText.split(" ")[1].split(" m")[0], ping > window.pchek && chat(`Ping:${pingDisplay.innerText.split(" ")[1].split(" m")[0]}`)
-        }), 500), ab = 1, i2 = 80, setInterval((() => {
-            ping > pckech && chat(`ping:${ping}`)
-        }), 500), window.pckech = 150
-    }
 }
-window.selects = window.selects || [];
-var code_ = GM_getValue("styles.js"),
-    excuted = !1;
-GM_getValue("styles.js") && (eval(code_), excuted = !0), console.log("Checking for styles updates"), fetch(styleUrl).then((e => e.text())).then((e => (GM_setValue("styles.js", e), e != code_ && console.log("Styles.js as updated"), !excuted && eval(e)))), fetch(wordWurl).then((e => e.json())).then((e => (GM_setValue("moowords", e), e.join() != badWords.join() && console.log("Filtered List updated"), e))).then((e => (badWords = e, reg = new RegExp(`(${[...new Set(badWords.join(" ").match(/[\w\d]+/gi))].join("|")})`, "gi"))));
+const localStorage_={
+    getItem(a){
+        return GM_getValue(a)
+    },
+    setItem(a,b){
+        GM_setValue(a,b)
+        GM_setValue("LC",this)
+        return this.getItem(a)
+    }
+
+}
+
+window.once=window.on;
+let moomooMenu='#mainMenu'
+let sploopMenu='#homepage'
+document.addEventListener('keydown', function (e) {
+    if (e.key === "`") {
+        if($(moomooMenu)&&$(moomooMenu).toggle){$(moomooMenu).toggle();console.log('Toggled MooMoo')}
+        if($(sploopMenu)&&$(sploopMenu).toggle){
+            document.querySelector(sploopMenu).style.display=document.querySelector(sploopMenu).style.display=="none"?"flex":"none"
+            console.log('Toggled Sploop')
+        }
+    };
+}); //spectator mode!
+$("#consentBlock").css({display: "none"});
+//$("#youtuberOf").css({display: "none"});
+$("#mapDisplay").css({background: `url('https://i.imgur.com/fgFsQJp.png')`});
+var [info2,myPlayer]=[window.info2||{},window.myPlayer||[]]
+window.selects=window.selects||[]
+function pingcheck(){
+    if(location.href.includes('sploop'))return;
+    var ping2=document.createElement('h1');ping2.id='Ping2';topInfoHolder.append(ping2);setInterval(()=>{
+        ping2.innerText=pingDisplay.innerText+`DPS:${window.dps} Dir:${myPlayer.dir}`
+        pingDisplay.innerText.split(' ')[1].split(' m')[0]*1>window.pchek&&(chat(`Ping:${pingDisplay.innerText.split(' ')[1].split(' m')[0]}`))
+    },500)
+    window.ping=100;
+    setInterval(()=>{
+        ping=pingDisplay.innerText.split(' ')[1].split(' m')[0]*1
+        ping>window.pchek&&(chat(`Ping:${pingDisplay.innerText.split(' ')[1].split(' m')[0]}`))
+    },500);ab=1;i2=80;setInterval(()=>{ping>pckech&&(chat(`ping:${ping}`))},500)
+    window.pckech=150
+}
+
+var code_=GM_getValue('styles.js')
+var excuted=false
+if(GM_getValue('styles.js')){eval(code_);excuted=true;}
+console.log('Checking for styles updates')
+
+fetch(styleUrl).then(e=>e.text()).then(e=>(GM_setValue('styles.js',e),e!=code_&&(console.log('Styles.js as updated')),!excuted&&(eval(e))))
+
+fetch(wordWurl).then(e=>e.json()).then(e=>(GM_setValue('moowords',e),(e.join()!=badWords.join())&&(console.log('Filtered List updated')),e)).then(e=>(badWords=e,reg=new RegExp(`(${[...new Set(badWords.join(' ').match(/[\w\d]+/gi))].join('|')})`,'gi')));
+
+
+
+return null;
+(function() {
+    const imagesArray = [];
+    var categorizedImages = {
+        inventory: [],
+        players: [],
+        entities: {},
+        buttons: {},
+        boss: null,
+        bossDrop: null,
+        playerDrop: [],
+        animals: [],
+        bossDetected: false,
+        playerPosition: null
+    };
+
+    const buttonNames = ['clan_button_out.png', 'chat_button_out.png', 'hat_button_out.png'];
+    const bossNames = ['mammoth_body.png', 'gcow.png', 'dragon_2_body.png', 'dragon_2_left_wing.png', 'dragon_2_right_wing.png', 'dragon_2_head.png'];
+    const animalNames = ['cow.png', 'wolf.png', 'shark.png', 'duck.png']; // Added duck.png
+    const bossDropName = 'chest.png';
+    const playerDropName = 'lootbox.png';
+    const teamCrownName = 'team_crown.png';
+    const mapName = 'map.png';
+    const playerDotName = 'our_dot.png';
+    const mapDotName = 'map_dot.png';
+
+    const originalDrawImage = CanvasRenderingContext2D.prototype.drawImage;
+    const originalClearRect = CanvasRenderingContext2D.prototype.clearRect;
+
+    const getCanvasCenter = (canvas) => {
+        return { x: canvas.width / 2, y: canvas.height / 2 };
+    };
+
+    const calculateDistanceFromCenter = (imgCenterX, imgCenterY, centerX, centerY) => {
+        const dx = imgCenterX - centerX;
+        const dy = imgCenterY - centerY;
+        return Math.sqrt(dx * dx + dy * dy);
+    };
+
+    const extractImageNameAndType = (src) => {
+        const parts = src.split('/');
+        const filename = parts.pop().split('?')[0]; // Extract the filename without query params
+        const type = parts.pop(); // The directory before the filename is considered the type
+        return { type, name: filename };
+    };
+
+
+    const drawHitbox = (context, x, y, width, height) => {
+        context.strokeStyle = 'red';
+        context.lineWidth = 2;
+        context.strokeRect(x, y, width, height);
+    };
+
+    const updateImageArray = (img, x, y, canvas, context) => {
+        const imageSrc = img.src || img.toDataURL();
+        const { x: centerX, y: centerY } = getCanvasCenter(canvas);
+
+        // Adjust the dimensions for the scaled images
+        const imgWidth = img.width / 2;
+        const imgHeight = img.height / 2;
+
+        // Directly use the provided coordinates
+        var imgX, imgY
+        imgX = x; imgY = y;
+
+
+
+        // Calculate the center of the image
+        const imgCenterX = imgX + imgWidth / 2;
+        const imgCenterY = imgY + imgHeight / 2;
+
+        const distance = calculateDistanceFromCenter(imgCenterX, imgCenterY, centerX, centerY);
+
+        const { type, name } = extractImageNameAndType(imageSrc);
+
+        // Skip images created from data URIs
+        if (name.startsWith('data:')) return;
+
+        // Store the coordinates correctly
+        const imageObject = { src: imageSrc, x: imgX, y: imgY, width: imgWidth, height: imgHeight, distance, name, type };
+
+        // Handle specific buttons
+        if (buttonNames.includes(name)) {
+            categorizedImages.buttons[name] = imageObject;
+        }
+        // Handle inventory items
+        else if (name.startsWith('game-rank')) {
+            categorizedImages.players.push(imageObject);
+        }
+
+        else if (name.includes('inv_') && type === 'entity') {
+            const itemName = name.replace('inv_', '');
+
+            if (imgY < centerY) {
+                // Above the center, it's an upgrade
+                categorizedImages.upgrades = categorizedImages.upgrades || [];
+                categorizedImages.upgrades.push({ ...imageObject, name: itemName });
+            } else {
+                // Below the center, it's actual inventory
+                categorizedImages.inventory.push({ ...imageObject, name: itemName });
+            }
+        }
+
+        // Handle player skins (adjusted for type 'skins')
+        else if (name.includes('body') && type === 'skins') {
+            //categorizedImages.players.push(imageObject);
+
+            // Draw the red hitbox around the player image
+            drawHitbox(context, imgX, imgY, imgWidth, imgHeight);
+        }else if (name.startsWith('game-rank')){
+            categorizedImages.players.push(imageObject);
+
+        }
+        // Handle boss parts
+        else if (bossNames.includes(name)) {
+            if (name.startsWith('dragon_2')) {
+                // Handle dragon boss parts by calculating the middle
+                if (!categorizedImages.boss) {
+                    categorizedImages.boss = { parts: [], type: 'Dragon', centerX: 0, centerY: 0 };
+                }
+                categorizedImages.boss.parts.push(imageObject);
+                categorizedImages.boss.centerX += imgCenterX;
+                categorizedImages.boss.centerY += imgCenterY;
+
+                // Calculate the final center when all parts are added
+                if (categorizedImages.boss.parts.length === 4) { // Assuming dragon has 4 parts
+                    categorizedImages.boss.centerX /= 4;
+                    categorizedImages.boss.centerY /= 4;
+                }
+            } else {
+                // Handle other single-part bosses
+                categorizedImages.boss = imageObject;
+            }
+        }
+        // Handle boss drop
+        else if (name === bossDropName) {
+            categorizedImages.bossDrop = imageObject;
+        }
+        // Handle player drop
+        else if (name === playerDropName) {
+            categorizedImages.playerDrop.push(imageObject);
+        }
+        // Handle animals
+        else if (animalNames.includes(name)) {
+            categorizedImages.animals.push(imageObject);
+        }
+        // Detect boss presence using teamcrown.png, and whether map.png is in the array
+        else if (name === teamCrownName) {
+            const isBoss = !imagesArray.some(img => img.name === mapName);
+            if (isBoss) {
+                categorizedImages.bossDetected = true;
+            }
+        }
+        // Detect player position on mini-map
+        else if (name === playerDotName) {
+            categorizedImages.playerPosition = imageObject;
+        }
+        // Handle other entities by categorizing them into their own arrays based on their name
+        else if (type === 'entity') {
+            if (!categorizedImages.entities[name]) {
+                categorizedImages.entities[name] = [];
+            }
+            categorizedImages.entities[name].push(imageObject);
+        }
+
+        // Update the global imagesArray as well
+        imagesArray.push(imageObject);
+    };
+
+
+    const clearArrays = () => {
+        imagesArray.length = 0;
+        for (let key in categorizedImages) {
+            if (Array.isArray(categorizedImages[key])) {
+                categorizedImages[key].length = 0;
+            } else if (typeof categorizedImages[key] === 'object') {
+                for (let innerKey in categorizedImages[key]) {
+                    categorizedImages[key][innerKey].length = 0;
+                }
+            }
+        }
+        categorizedImages.boss = null; // Reset the boss
+        categorizedImages.bossDrop = null; // Reset the boss drop
+        categorizedImages.bossDetected = false; // Reset boss detection
+        categorizedImages.playerPosition = null; // Reset player position
+    };
+
+    const tracer = (context) => {
+        const { boss, bossDrop, playerDrop ,players} = categorizedImages;
+        let playerPosition=getCanvasCenter()
+        if (playerPosition) {
+            context.strokeStyle = 'yellow';
+            context.lineWidth = 1.5;
+
+            // Draw line to Boss
+            if (boss) {
+                context.beginPath();
+                context.moveTo(playerPosition.x + playerPosition.width / 2, playerPosition.y + playerPosition.height / 2);
+                const bossX = boss.centerX || boss.x + boss.width / 2;
+                const bossY = boss.centerY || boss.y + boss.height / 2;
+                context.lineTo(bossX, bossY);
+                context.stroke();
+            }
+
+            // Draw line to Boss Drop
+            if (bossDrop) {
+                context.beginPath();
+                context.moveTo(playerPosition.x + playerPosition.width / 2, playerPosition.y + playerPosition.height / 2);
+                context.lineTo(bossDrop.x + bossDrop.width / 2, bossDrop.y + bossDrop.height / 2);
+                context.stroke();
+            }
+
+            // Draw lines to Player Drops
+            if (playerDrop.length > 0) {
+                playerDrop.forEach(drop => {
+                    context.beginPath();
+                    context.moveTo(playerPosition.x + playerPosition.width / 2, playerPosition.y + playerPosition.height / 2);
+                    context.lineTo(drop.x + drop.width / 2, drop.y + drop.height / 2);
+                    context.stroke();
+                });
+            }
+            if (players.length > 0) {
+                players.forEach(player => {
+                    context.beginPath();
+                    context.moveTo(playerPosition.x + playerPosition.width / 2, playerPosition.y + playerPosition.height / 2);
+                    context.lineTo(player.x + player.width / 2, player.y + player.height / 2);
+                    context.stroke();
+                });
+            }
+        }
+    };
+
+
+    CanvasRenderingContext2D.prototype.drawImage = new Proxy(originalDrawImage, {
+        apply(target, thisArg, argumentsList) {
+            const [img, x, y] = argumentsList;
+            updateImageArray(img, x, y, thisArg.canvas, thisArg);
+            return Reflect.apply(target, thisArg, argumentsList);
+        }
+    });
+
+    CanvasRenderingContext2D.prototype.clearRect = new Proxy(originalClearRect, {
+        apply(target, thisArg, argumentsList) {
+            clearArrays();
+            window.categorizedImages=categorizedImages
+            categorizedImages={}
+            return Reflect.apply(target, thisArg, argumentsList);
+        }
+    });
+
+    // Expose the arrays and functions globally
+    window.imagesArray = imagesArray;
+    window.tracer = tracer;
+})();
