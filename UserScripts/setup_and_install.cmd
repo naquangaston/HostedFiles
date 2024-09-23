@@ -37,7 +37,7 @@ if %ERRORLEVEL% NEQ 0 (
     echo Python installation completed.
 ) else (
     echo winget is available. Installing Python using winget...
-    winget install Python.Python
+    winget install Python.Python.3.9
 
     echo Python installation completed using winget.
 )
