@@ -4,6 +4,27 @@ import pygetwindow as gw
 import time
 import pyautogui
 import os
+import sys
+
+required_libraries = ["pyperclip", "pygetwindow", "pyautogui"]
+missing_libraries = []
+
+# Check for each required library
+for library in required_libraries:
+    try:
+        __import__(library)  # Attempt to import the library
+        print(f"{library} is already installed.")
+    except ImportError:
+        print(f"{library} is not installed. Installing...")
+        missing_libraries.append(library)
+        subprocess.check_call([sys.executable, "-m", "pip", "install", library])
+
+# If there are missing libraries, restart the script
+if missing_libraries:
+    print("Some libraries were just installed. Restarting the script...")
+    os.execv(sys.executable, ['python'] + sys.argv)  # Restart the script
+else:
+    print("All required libraries are installed. Continuing with the script.")
 
 # Step 1: Get the initial list of open windows
 initial_windows = gw.getAllTitles()
