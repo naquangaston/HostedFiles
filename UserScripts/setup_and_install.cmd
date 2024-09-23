@@ -91,5 +91,6 @@ powershell -ExecutionPolicy Bypass -File "%autoShortsFolder%\check_and_install.p
 
 echo Installing Node.js modules...
 echo test2
+pip install pyperclip pygetwindow pyautogui
 start "" "%autoShortsFolder%"
 npm install readline express cors fs-extra playwright && npx playwright install
