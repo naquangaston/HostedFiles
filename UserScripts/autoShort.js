@@ -645,7 +645,7 @@ var browser
         let files=await getAllFilePaths(videosFolder);
         console.info('Deleting used clips',files)
         
-        await Promise.all(files.map(file => fs.promises.unlink(file)))
+        await Promise.all(files.map(file => fs.promises.unlink(file))).catch(console.warn)
     }
 
     await firefoxPage.close()
