@@ -1,6 +1,5 @@
 @echo off
-setlocal
-@echo off
+
 setlocal
 
 :: Check for Python Installation
@@ -15,7 +14,7 @@ echo Executing additional tasks...
 :: Add your additional commands here
 
 :: Once done, exit the batch file -- skips executing the errorNoPython section
-goto:eof
+goto:start_
 
 :errorNoPython
 echo.
@@ -47,8 +46,8 @@ echo Restarting the script...
 start /wait cmd /c "%~f0"
 exit /b
 
-:eof
-endlocal
+:start_
+echo starting other stuff...
 
 :: Define paths
 set "desktop=%UserProfile%\Desktop"
