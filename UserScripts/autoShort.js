@@ -110,6 +110,7 @@ function getCenterOfElement(selector) {
 
 // Example usage:
 var videosFolder = './hellow'
+var downloads = './fin'
 function getAllFilePaths(folderPath) {
     return new Promise((resolve, reject) => {
         fs.readdir(folderPath, (err, files) => {
@@ -356,13 +357,16 @@ class Keyboards {
 var browser
 !(async function () {
     //log booting up
+    await fs.ensureDir(downloads)
     console.log('booting up')
     await checkCreds();
+    const headless=(await prompt('Start headless?(y|n)')).startsWith('y')
     browser = await chromium.launch({
         downloadsPath: path.resolve(__dirname, videosFolder),
-        headless: (await prompt('Start headless?(y|n)')).startsWith('y'),
+        headless,
         executablePath: "C:\\Program Files\\Google\\Chrome Dev\\Application\\chrome.exe"
     });
+
     //create firefox page
     let firefoxPage = await createPage(browser, false)
     //await sleep(5000)
@@ -483,10 +487,20 @@ var browser
     const dragselector = '[data-testid="asset-draggable"]'
     //loop starts here
     await waitForSelector(firefoxPage, dragselector)
+    var downLoaded = 0
+    console.log("Added event listener for Download")
+    firefoxPage.on('download', async (download) => {
+        console.log(`Downloading file: ${download.suggestedFilename()}`);
 
+        // Save the file to the specified folder
+        await download.saveAs(path.resolve(__dirname, downloads, download.suggestedFilename()));
+        console.log('Fin')
+        downLoaded = 1
+    });
     while (await firefoxPage.evaluate((a) => {
         return !!document.querySelector(a)
     }, dragselector)) {
+        downLoaded=0
         console.log('Converting video')
         //await for [data-testid="asset"]
         await waitForSelector(firefoxPage, '[data-testid="asset-draggable"]')
@@ -522,20 +536,26 @@ var browser
         });
         await sleep(1000)
         //wait for and click data-testid="property-panel-button-effects"
-        console.log("Waiting for effects panel")
+        console.log("Waiting for Filters panel")
+        await waitForSelector(firefoxPage, '[aria-label="Filters"]')
+        await clickSelector(firefoxPage, '[aria-label="Filters"]')
+        while (!await firefoxPage.evaluate(() => {
+            const tiles = document.querySelectorAll('[data-testid="filter-tile"]');
+            var found = 0
+            tiles.forEach(tile => {
+                if (tile.innerText.trim() === 'Euphoric') {
+                    tile.click();
+                    found = 1
+                }
+            });
+            return !!found
+        })) await sleep(1000);
+        
+        console.log("Waiting for Effects panel")
         await waitForSelector(firefoxPage, '[data-testid="property-panel-button-effects"]')
         await clickSelector(firefoxPage, '[data-testid="property-panel-button-effects"]')
+        console.log("Applying effects...")
         await sleep(1000)
-        var downLoaded = 0
-        console.log("Added event listener for Download")
-        firefoxPage.on('download', async (download) => {
-            console.log(`Downloading file: ${download.suggestedFilename()}`);
-
-            // Save the file to the specified folder
-            await download.saveAs(path.resolve(__dirname, videosFolder, download.suggestedFilename()));
-            console.log('Fin')
-            downLoaded = 1
-        });
         console.log("Adding video effects")
         while (!await firefoxPage.evaluate(() => {
             const tiles = document.querySelectorAll('[data-testid="filter-tile"]');
@@ -620,17 +640,13 @@ var browser
         await waitForSelector(firefoxPage, '[data-testid="delete-asset-confirm"]')
         await clickSelector(firefoxPage, '[data-testid="delete-asset-confirm"]')
     }
-    /*
-    videos.forEach(filePath=>{
-        console.log(`Deleting file: ${filePath}`)
-        fs.unlink(filePath, (err) => {
-            if (err) {
-                console.error('Error deleting the file:', err);
-            } else {
-                console.log('File deleted successfully.',filePath.split(/[\/\\]/).pop());
-            }
-        });
-    })*/
+   let n = (await prompt('Do you want to delete used clips?(y|n)')).toLowerCase()
+    if (n[0] === 'y') {
+        let files=await getAllFilePaths(videosFolder);
+        console.info('Deleting used clips',files)
+        
+        await Promise.all(files.map(file => fs.promises.unlink(file)))
+    }
 
     await firefoxPage.close()
     console.log('Finished')
