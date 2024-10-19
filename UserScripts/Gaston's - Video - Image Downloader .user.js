@@ -1986,7 +1986,7 @@ async function downloadVideo(url,title) {
             }
         }
         catch{}
-        !didmute&&document.querySelector('video')&&(tr=document.querySelector('video')?.currentTime.toFixed())
+        !didmute&&document.querySelector('video')&&(tr=document.querySelector('video')&&(document.querySelector('video').currentTime.toFixed()))
         // Skip ads when skip button is available
         const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player')]
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
