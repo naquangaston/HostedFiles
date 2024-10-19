@@ -10,6 +10,89 @@
 // @grant        GM_setValue
 // @grant none
 // ==/UserScript==
+class element {
+        static get br() {
+            return new element("br");
+        }
+        constructor(name, obj) {
+            //findhref2(id('skin-message'))[0].constructor.name
+
+            this.element = name.constructor.name.includes('HTML')&&(name)||(function () {
+                for (let i in arguments[1]) {
+                    arguments[0].setAttribute(i, arguments[1][i]);
+                }
+                return arguments[0];
+            })(document.createElement(arguments[0]), arguments[1]);
+        }
+        style(obj) {
+            for (let i in obj) {
+                this.element.style[i] = obj[i];
+            }
+            return this;
+        }
+        append(target,...targets) {
+            this.element.append(target.element || target);
+            console.log("T:",{targets,fe:targets&&targets.forEach})
+            for(let i=0;i<targets.length;i++){
+                let a=targets[i];
+                console.log('Appending:',{element:a,target:this})
+                this.element.append(a.element || a);
+            }
+            return this;
+        }
+        appendTo(target) {
+            (target.element || typeof target=='string'?document.querySelector(target):target).append(this.element);
+            return this;
+        }
+        on(event, a) {
+            this.element[`on${event}`] = a;
+            return this;
+        }
+        set(prop, value) {
+            this.element[prop] = value;
+            return this;
+        }
+        remove() {
+            this.element.remove();
+            return this;
+        }
+        get() {
+            return this.element[arguments[0]];
+        }
+        get children() {
+            return new (class $ {
+                constructor(arr) {
+                    for (var i = 0; i < arr.length; i += 1) {
+                        this[i] = arr[i];
+                    }
+
+                    // length is readonly
+                    Object.defineProperty(this, "length", {
+                        get: function () {
+                            return arr.length;
+                        }
+                    });
+
+                    // a HTMLCollection is immutable
+                    Object.freeze(this);
+                }
+                item(i) {
+                    return this[i] != null ? this[i] : null;
+                }
+                namedItem(name) {
+                    for (var i = 0; i < this.length; i += 1) {
+                        if (this[i].id === name || this[i].name === name) {
+                            return this[i];
+                        }
+                    }
+                    return null;
+                }
+                get toArray() {
+                    return [...this];
+                }
+            })([...this.element.children]);
+        }
+    }
 let used={};
 let msg=`HI
 ttv/wolfgplayez_
@@ -1869,6 +1952,172 @@ display:none;
 
         console.log(`Player moved to: (${player.x}, ${player.y})`);
     }
+    adjPercent=1
+    worldScale = 1.5; //1.6 fullscreen
+    let squareSize = 25; // You can change this value to resize squares
+    const overlayCanvas = new element('canvas')
+    .style({
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100vw',
+        height: '100vh',
+        zIndex: '10',
+        pointerEvents: 'none'
+    });
+
+    const ctx = overlayCanvas.element.getContext('2d');
+    document.getElementById('gameCanvas').parentNode.insertBefore(overlayCanvas.element, document.getElementById('gameCanvas'));
+
+    let obstacles = new Set(); // Store coordinates of red squares (obstacles)
+const MAX_PATHFINDING_ITERATIONS = 3000
+
+
+
+
+steps = 6; // Number of steps to render for the path
+// A* Node Constructor
+class Node {
+  constructor(x, y, g, h, parent = null) {
+    this.x = x;
+    this.y = y;
+    this.g = g; // Cost from start node
+    this.h = h; // Heuristic (estimated cost to end)
+    this.f = g + h; // Total cost
+    this.parent = parent;
+  }
+}
+
+// Heuristic function (Manhattan Distance)
+function heuristic(a, b) {
+  return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+}
+
+// A* Pathfinding Function
+function aStar(start, end) {
+  const openSet = [new Node(start[0], start[1], 0, heuristic(start, end))];
+  const closedSet = new Set();
+
+  while (openSet.length > 0) {
+    // Get the node with the lowest `f` value
+    openSet.sort((a, b) => a.f - b.f);
+    const current = openSet.shift();
+    const key = `${current.x},${current.y}`;
+
+    // If we reached the end, reconstruct the path
+    if (current.x === end[0] && current.y === end[1]) {
+      return reconstructPath(current);
+    }
+
+    closedSet.add(key);
+
+    // Check neighbors (up, down, left, right)
+    const neighbors = [
+      [current.x + squareSize, current.y],
+      [current.x - squareSize, current.y],
+      [current.x, current.y + squareSize],
+      [current.x, current.y - squareSize]
+    ];
+
+    for (const [nx, ny] of neighbors) {
+      const neighborKey = `${nx},${ny}`;
+
+      if (obstacles.has(neighborKey) || closedSet.has(neighborKey)) continue;
+
+      const gScore = current.g + 1;
+      const hScore = heuristic({ x: nx, y: ny }, { x: end[0], y: end[1] });
+      const neighbor = new Node(nx, ny, gScore, hScore, current);
+
+      const existing = openSet.find(n => n.x === nx && n.y === ny);
+
+      if (!existing || gScore < existing.g) {
+        openSet.push(neighbor);
+      }
+    }
+  }
+
+  return []; // No path found
+}
+
+// Reconstruct the Path from End to Start
+function reconstructPath(node) {
+  const path = [];
+  let current = node;
+
+  while (current) {
+    path.unshift([current.x, current.y]);
+    current = current.parent;
+  }
+
+  return path;
+}
+
+// Draw the Path Steps in White
+function fillFirstPathStep(path) {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+  for (let i = 0; i < Math.min(steps, path.length); i++) {
+    const [x, y] = path[i];
+    if (!obstacles.has(`${x},${y}`)) {
+      ctx.fillRect(x - squareSize / 2, y - squareSize / 2, squareSize, squareSize);
+    }
+  }
+}
+
+// Integrate A* with the Game Loop
+function drawGrid() {
+  reset();
+  obstacles.clear();
+
+  const width = overlayCanvas.element.width;
+  const height = overlayCanvas.element.height;
+
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const { x: playerX, y: playerY } = _things.player;
+
+  // Draw Grid
+  ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+  for (let x = 0; x <= width; x += squareSize) {
+    for (let y = 0; y <= height; y += squareSize) {
+      ctx.strokeRect(x, y, squareSize, squareSize);
+    }
+  }
+
+  // Draw Obstacles
+  _things.liztobj.filter(isObstacle).forEach(obj => {
+    const { x: objX, y: objY } = obj;
+    const offsetX = centerX + (objX - playerX) * worldScale;
+    const offsetY = centerY + (objY - playerY) * worldScale;
+
+    ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+    ctx.fillRect(offsetX - squareSize / 2, offsetY - squareSize / 2, squareSize, squareSize);
+    obstacles.add(`${offsetX},${offsetY}`);
+  });
+
+  // Draw Path to Enemies
+  _things.enemy_.forEach(enemy => {
+    const { x: enemyX, y: enemyY } = enemy;
+    const offsetX = centerX + (enemyX - playerX) * worldScale;
+    const offsetY = centerY + (enemyY - playerY) * worldScale;
+
+    const path = aStar([centerX, centerY], [offsetX, offsetY]);
+    fillFirstPathStep(path);
+  });
+}
+
+// Resize Canvas and Redraw
+function resizeCanvas() {
+  overlayCanvas.element.width = window.innerWidth;
+  overlayCanvas.element.height = window.innerHeight;
+  drawGrid();
+}
+    function reset() {
+  ctx.clearRect(0, 0, overlayCanvas.element.width, overlayCanvas.element.height);
+}
+
+
+
+    window.resizeCanvas=resizeCanvas
 
     function stop() {
         _things.player.moveDir && (
@@ -2042,6 +2291,7 @@ display:none;
         })
         .filter(e=>e.name?!e.name.includes('trap')&&!e.name.includes('form'):false)
 }
+
     autoBow=false;
     !async function () {
         //return;
@@ -2229,15 +2479,16 @@ display:none;
                         }
                     }
                     else if(!player.reloads[player.weapons[1]]){
-                        buyEquip(1)
+                        buyEquip(1,0)
                         setTimeout(()=>{
-                            buyEquip(20)
+                            buyEquip(20,0)
                         },100)
                         my.autoAim=true
                         selectWeapon(player.weapons[1]);
                         _things.packet("d", 1, targetDirEnemy, 1);
                         _things.packet("d", 0, targetDirEnemy, 1);
-                        if(distanceToEnemy>secondaryWeapon?.range/2){
+                        if(distanceToEnemy<secondaryWeapon?.range/4)_things.packet('a', adjustDirection(player, desiredDir, obstacles)+toRad(180), 1);
+                        else if(distanceToEnemy>(secondaryWeapon?.range/2)){
                             let desiredDir = targetDirEnemy + toRad(random([45, -45]));
                             let adjustedDir = adjustDirection(player, desiredDir, obstacles);
                             _things.packet('a', adjustedDir, 1)
@@ -2291,6 +2542,7 @@ display:none;
                 }
                 else
                 if (closestEnemy && !breaker&&!onlybreaker &&!autoBow) {
+                    autoChat=1
                     let inenemyRange = distanceToEnemy <= weapons.find(e => e.id == (_things.enemy.enemy.primaryIndex || 5)).range + 25;
                     let mustShield = (distanceToEnemy <= maxWeaponRange) && (inenemyRange > maxWeaponRange) && _things.player.weapons[1] == 11;
                     shielding = mustShield;
@@ -2327,6 +2579,22 @@ display:none;
                     }
 
                     else {
+                        if (filtered.filter(e=>!e.ignoreCollision).length > 0) {
+                            const targetItem = findClosestList(player.x, player.y, filtered.filter(e=>!e.ignoreCollision));
+                            let usePrime = 0
+                            if (targetItem.name.includes('pike') || targetItem.name.includes('trap') && !primaryWeapon.name.includes('tick')) {
+                                usePrime = 1
+                            }
+                            const dir = getDirection(player, targetItem);
+                            const dist = getDistance(player.x, player.y, targetItem.x, targetItem.y);
+                            const range = 110
+                            console.log({ range, dist, dir, targetItem })
+                            var usedID = usePrime ? player.weapons[0] : _things.player.weaponIndex == 10 ? 10 : _things.player.weapons[1] === 10 ? 10 : _things.player.weapons[0]
+                            if (dist <= range) {
+                                selectWeapon(usedID);
+                                !player.reloads[usedID] && (buyEquip(player.reloads[usedID] == 0 ? 40 : 6, 0), _things.packet("d", 1, dir, 1), _things.packet("d", 0, dir, 1))
+                            }
+                        }
                         if (mustShield && _things.player.weapons[1] == 11 && _things.player.weaponCode != 11) {
                             my.autoAim = true
                             selectWeapon(player.weapons[1]);
