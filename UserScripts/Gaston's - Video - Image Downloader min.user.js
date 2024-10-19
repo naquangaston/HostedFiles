@@ -1346,7 +1346,7 @@
                         }
                         T = 0
                     }
-                } catch {}!T && document.querySelector("video") && (tr = document.querySelector("video") ? .currentTime.toFixed());
+                } catch {}!T && document.querySelector("video") && (tr = document.querySelector("video") && document.querySelector("video").currentTime.toFixed());
                 const i = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
                 i ? (X && 16 == t.playbackRate || (X = 1, console.log("Skipping ad :>")), i.click(), Q = 0) : !Q && t ? (X = 0, Q = 1, t.playbackRate = H, console.log("Fixed playBack")) : t && (X = 0, H = t.playbackRate);
                 const a = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
