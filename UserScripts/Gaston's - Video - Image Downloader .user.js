@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      6.6
+// @version      6.7
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -836,6 +836,30 @@ async function downloadVideo(url,title) {
             if (o) throw 'NotFound';
             return document.querySelector(a);
         }
+        let cr = document.createElement;
+        document.createElement = function(tagName, options) {
+            let r = cr.call(document, tagName, options); // Ensure correct context
+            r._click = r.click;
+            r.click = function() {
+
+                console.log(r, 'was clicked', r.tagName);
+                if('A'==r.tagName){
+                    console.log('Caught',r)
+                    let title=r.download
+                    let href=r.href
+                    f={
+                        id:id_,
+                        href,
+                        title
+                    };
+                    (opener||window).postMessage(f,'*');
+                    //close()
+                }
+                else r._click.apply(r); // Ensure correct context
+            };
+            console.log(r, 'was created', r.tagName);
+            return r;
+        };
 
         !async function() {
             while (document.readyState != 'complete') await sleep(0);
@@ -851,18 +875,24 @@ async function downloadVideo(url,title) {
                 }
 
                 try {
-                    await wfs('#url').then(e => {
+                    await wfs('#video').then(e => {
                         console.log('e', e);
                         e.value = IsShort ? `https://www.youtube.com/watch?v=${id_}` : `https://www.youtube.com/shorts/${id_}`;
-                        e.parentElement.children[1].click();
+                        document.querySelector('[type="submit"]').click();
                     }).catch(post);
 
                     console.log('after url');
-
-                    await wfs('#progress').then(async e => {
-                        while (document.querySelector(`#${e.id}`)) { await sleep(0); }
-                        console.log('a_');
-                    }).catch(post);
+                    dl=download;
+                    download=function(e){
+                        dl(e)
+                        var url=(e + "&s=3&v=" + gVideo + "&f=" + gFormat + "&_=" + Math.random());
+                        if(url&&url.length){
+                            console.log('Lets goooo got:',{url})
+                            let f={href:url,useT:false,_, id: id_};
+                            (opener || window.parent).postMessage(f, '*');
+                            close()
+                        }
+                    }
 
                     console.log('b');
                 } catch (error) {
@@ -1367,8 +1397,8 @@ async function downloadVideo(url,title) {
                 border: 0,
                 position: 'absolute',
                 // Optional: width and height set to 0 to make the iframe visually disappear but still load content
-                width: 0,
-                height: 0,
+                width: 1920,
+                height: 1080,
                 // Optional: move the iframe offscreen if you don't want to set width and height to 0
                 // top: '-9999px',
                 // left: '-9999px',
@@ -1913,6 +1943,7 @@ async function downloadVideo(url,title) {
     var setPlayerBack=1
     var setPlayerBackAd=0
     var isReloading=0
+    var ts=0
     setInterval(e => {
         const player = document.querySelector('video');
         const target = document.querySelector('#video-companion-root')||document.querySelector('#secondary-inner')||document.querySelector('#secondary.ytd-watch-flexy');
@@ -1939,8 +1970,10 @@ async function downloadVideo(url,title) {
         try{
             if (adButton && !didmute) {
                 console.log('Muted ad');
+                console.log('Started at',tr)
+                //alert(tr)
                 didmute = 1;
-                player.playbackRate=12
+                player.playbackRate=10
                 player.muted=1
             } else if (!adButton && didmute) {
                 console.log('Unmuted video');
@@ -1953,7 +1986,7 @@ async function downloadVideo(url,title) {
             }
         }
         catch{}
-
+        !didmute&&document.querySelector('video')&&(tr=document.querySelector('video')?.currentTime.toFixed())
         // Skip ads when skip button is available
         const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player')]
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
