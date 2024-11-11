@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      6.7
+// @version      6.8
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -1114,7 +1114,7 @@ async function downloadVideo(url,title) {
             .appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='VOD'
 
             if(auto){
-                setTimeout(()=>{close},200)
+                setTimeout(()=>{close()},200)
                 open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'1080')
             }
         })().catch(console.warn)
@@ -1384,6 +1384,7 @@ async function downloadVideo(url,title) {
         return info[id]=mp4?
             open((l_).pathname.startsWith('/shorts/')?"https://yt5s.biz/enxj100/":`https://qdownloader.cc/youtube-video-downloader.html?v=${id}`,[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
         :!function(){
+            return open(altUrl.join(''),[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
             var frame = new _e('iframe', {
                 src: altUrl.join(''),
                 id: _,
@@ -2001,11 +2002,12 @@ async function downloadVideo(url,title) {
         }else if(!setPlayerBack&&player){
             setPlayerBackAd=0
             setPlayerBack=1
-            player.playbackRate=currentPB
+            player.playbackRate=currentPB>2?1:currentPB
             console.log('Fixed playBack')
         }else if(player){
             setPlayerBackAd=0
             currentPB=player.playbackRate
+            if(currentPB>2)player.playbackRate=1
         }
 
         // Close ad overlays
