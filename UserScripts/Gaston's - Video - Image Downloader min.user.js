@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 6.7
+// @version 6.8
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author gaston1799
 // @match *://www.youtube.com/*
@@ -38,6 +38,66 @@
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
+// @name:en Gaston's - Video/Image Downloader
+// @name:zh Gaston's - Video/Image Downloader
+// @name:ar Gaston's - Video/Image Downloader Gaston's - Video/Image Downloader
+// @name:de Gaston's - Video/Image Downloader
+// @name:ru Gaston's - Video/Image Скачатель Gaston's - Video/Image Skachatel'
+// @name:pt Gaston's - Downloader de vídeo/imagem
+// @name:ja Gaston's -Video/Image Downloader Gaston' s - vu~ideo/ Image daunrōdā
+// @name:fr Gaston's - téléchargeur vidéo / image
+// @name:es Gaston's - Video/Image Descarger
+// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर gaistan - veediyo/chhavi daunalodar
+// @name:vi Gaston's - Trình tải xuống video/hình ảnh
+// @name:id Gaston's - Video/Image Downloader
+// @name:ko Gaston 's- 비디오/이미지 다운로더 Gaston 's- bidio/imiji daunlodeo
+// @name:uk GASTON'S - Відео/зображення завантажувача GASTON'S - Video/zobrazhennya zavantazhuvacha
+// @name:th Gaston's - Video/Image Downloader Gaston's - Video/Image Downloader
+// @name:pl Gaston - pobierca wideo/obrazu
+// @name:it Gaston's - Downloader di video/immagine
+// @name:tr Gaston's - Video/Resim İndirici
+// @name:ro Gaston's - descărcător video/imagini
+// @name:nl Gaston's - Video/Image Downloader
+// @name:cs Gaston's - Video/Image Downloader
+// @name:hu Gaston's - Videó/kép letöltő
+// @name:el Gaston's - Video/Image Downloader Gaston's - Video/Image Downloader
+// @name:sv Gaston's - Video/Image Downloader
+// @name:fi Gaston's - Video/kuvan lataaja
+// @name:bg Gaston's - видео/изтегляне на изображения Gaston's - video/izteglyane na izobrazheniya
+// @name:he Gaston's - הורדת וידאו/תמונה Gastontavs - hordet video/tmona
+// @name:da Gastons - Video/Image Downloader
+// @name:no Gaston's - Video/Image Downloader
+// @name:sk Gaston's - Video/Image Downloader
+// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (tama tahdithuh bishakl mutakariri)
+// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新） Instagram/ Twitch/ yūchūbu/ Tiktok bideo/ ōdiodaunrōdā (hinpan ni kōshin)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया) instagram/twitchh/youtubai/tiktok veediyo/odiyo daunalodar (aksar apadet kiya gaya)
+// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
+// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (chasto obnovlyayetsya)
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (xạpdet b̀xy khrậng)
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트) Instagram/Twitch/YouTube/Tiktok bidio/odio daunlodeo (jaju eobdeiteu)
+// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
+// @description:uk Instagram/twitch/youtube/tiktok відео/аудіо завантажувач (часто оновлений) Instagram/twitch/youtube/tiktok video/audio zavantazhuvach (chasto onovlenyy)
+// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
+// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
+// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות) instegram/twich tav/YouTube/Tiktok video/hordet shma (meudken le'atim krovot)
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sychná enimeroméno)
+// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
+// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
+// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран) Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (chesto aktualiziran)
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
 // @license MIT
 // ==/UserScript==
 ! function() {
@@ -713,7 +773,7 @@
                                 })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD";
                                 var t;
                                 ie && (setTimeout((() => {
-                                    close
+                                    close()
                                 }), 200), open((e => e.href)(((t = new URL(location.href)).host = "clipr.xyz", t)), "1080"))
                             }().catch(console.warn)
                         } else {
@@ -879,7 +939,6 @@
                 u.host = u.host.replace(".com", "mz.com"), console.log("o", u);
                 let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "0HzX") + "/", "?v=", e, "&s=", u.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", l ? "mp4" : "mp3", "&useT=", n];
                 console.log(r, d);
-                var m;
                 return function(e, t, o = !1) {
                     var n = addEventListener(e, ((...e) => {
                         t(...e), o && removeEventListener(n)
@@ -908,25 +967,7 @@
                             _: r
                         }, e), E.set("innerText", "Get MP3"), E.set("disabled", !1), n ? (console.log("Getting video"), y(t, a)) : open(t), localStorage[r] = t
                     } else console.log("Unhandled Post", e)
-                }, info[e] = l ? open(s.pathname.startsWith("/shorts/") ? "https://yt5s.biz/enxj100/" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, s.pathname.startsWith("/shorts/") ? 1 : 0, l + !1], "width=400,height=500") : (m = new _e("iframe", {
-                    src: d.join(""),
-                    id: r,
-                    useT: n,
-                    loading: "lazy",
-                    referrerpolicy: "no-referrer",
-                    allowfullscreen: !0,
-                    sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
-                    allow: "autoplay; fullscreen; geolocation; microphone; camera"
-                }).style({
-                    border: 0,
-                    position: "absolute",
-                    width: 1920,
-                    height: 1080,
-                    "pointer-events": "none",
-                    opacity: 1
-                }), GM_addValueChangeListener("y2mate.nu", (function(t, o, c, i) {
-                    d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "0HzX") + "/", "?v=", e, "&s=", u.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", l ? "mp4" : "mp3", "&useT=", n], m.set("src", d.join(""))
-                })), m.appendTo(document.body), m.closed = !1, !m)
+                }, info[e] = l ? open(s.pathname.startsWith("/shorts/") ? "https://yt5s.biz/enxj100/" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, s.pathname.startsWith("/shorts/") ? 1 : 0, l + !1], "width=400,height=500") : !open(d.join(""), [e, s.pathname.startsWith("/shorts/") ? 1 : 0, l + !1], "width=400,height=500")
             }, downloadTikTok = function(e, t) {
                 (async function(e, t) {
                     await async function() {
@@ -1348,7 +1389,7 @@
                     }
                 } catch {}!T && document.querySelector("video") && (tr = document.querySelector("video") && document.querySelector("video").currentTime.toFixed());
                 const i = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
-                i ? (X && 16 == t.playbackRate || (X = 1, console.log("Skipping ad :>")), i.click(), Q = 0) : !Q && t ? (X = 0, Q = 1, t.playbackRate = H, console.log("Fixed playBack")) : t && (X = 0, H = t.playbackRate);
+                i ? (X && 16 == t.playbackRate || (X = 1, console.log("Skipping ad :>")), i.click(), Q = 0) : !Q && t ? (X = 0, Q = 1, t.playbackRate = H > 2 ? 1 : H, console.log("Fixed playBack")) : t && (X = 0, (H = t.playbackRate) > 2 && (t.playbackRate = 1));
                 const a = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
                 a && (a.click(), console.log("Closed ad card"));
                 let s = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
