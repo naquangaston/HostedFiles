@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      6.8
+// @version      7.0
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -801,12 +801,16 @@ async function downloadVideo(url,title) {
                     document.querySelector(input1).value=url
                     console.log('EZ url',!!window.formSubmit)
                     while(typeof formSubmit=='undefined'){
+                        document.querySelector(input1).value=url
                         try{await sleep(0),console.log('EZ url',formSubmit);}catch{}
                     }
                     console.log('EZ url',formSubmit)
                     formSubmit()
                     console.warn('Got')
-                    setInterval(formSubmit,1000)
+                    setInterval(()=>{
+                        document.querySelector(input1).value=url
+                        formSubmit()
+                    },1000)
                 }
             }
         })().then(console.log,console.warn)
@@ -1974,7 +1978,7 @@ async function downloadVideo(url,title) {
                 console.log('Started at',tr)
                 //alert(tr)
                 didmute = 1;
-                player.playbackRate=10
+                player.playbackRate=player.duration/7
                 player.muted=1
             } else if (!adButton && didmute) {
                 console.log('Unmuted video');
@@ -1993,7 +1997,7 @@ async function downloadVideo(url,title) {
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
         .filter(e => !!e)[0];
         if (skipButton) {
-            if(!setPlayerBackAd||player.playbackRate!=16){
+            if(!setPlayerBackAd||player.playbackRate!=(player.duration/7)){
                 setPlayerBackAd=1
                 console.log('Skipping ad :>');
             }
