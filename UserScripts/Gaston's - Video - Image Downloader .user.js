@@ -2,6 +2,8 @@
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
 // @version      7.0
+// @supportURL   https://your-support-page.com
+// @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -40,7 +42,54 @@
 // @grant   GM_removeValueChangeListener
 // @run-at document-start
 // ==/UserScript==
-(function(){
+(function() {
+    'use strict';
+
+    // Interval between prompts in milliseconds (2 weeks)
+    const promptInterval = ((((14 * 24) * 60) * 60) * 1000);
+
+    // Key to store the last prompt date
+    const lastPromptKey = 'feedbackPromptLastDate';
+    const isFirstTimeKey = 'isFirstTimeKey';
+
+    // Function to extract script ID from scriptUpdateURL
+    function getScriptId() {
+        if (typeof GM_info !== 'undefined' && GM_info.scriptUpdateURL) {
+            const updateURL = GM_info.scriptUpdateURL;
+            const scriptIdMatch = updateURL.match(/\/scripts\/(\d+)\//);
+            if (scriptIdMatch && scriptIdMatch[1]) {
+                return scriptIdMatch[1];
+            }
+        }
+        console.error('Script ID not found in the update URL.');
+        return null;
+    }
+
+    // Function to show the feedback prompt
+    async function showFeedbackPrompt() {
+        const scriptId = getScriptId();
+        if (scriptId) {
+            const feedbackUrl = `https://greasyfork.org/en/scripts/${scriptId}/feedback`;
+            if (confirm('Are you enjoying this script? Would you like to provide feedback?')) {
+                window.open(feedbackUrl, '_blank');
+            }
+            // Update the last prompt date
+            await GM.setValue(lastPromptKey, Date.now());
+        }
+    }
+
+    // Main function to check and prompt
+    (async function() {
+        const isFirstTime = await GM.getValue(isFirstTimeKey, false);
+        const lastPromptDate = await GM.getValue(lastPromptKey, 0);
+        console.log('FirstTime:',isFirstTime)
+        if ((Date.now() - lastPromptDate) > promptInterval) {
+            showFeedbackPrompt();
+            GM.setValue(isFirstTimeKey, true);
+        }
+    })();
+})();
+;(function(){
     class CustomLogging {
         constructor(title) {
             this.title = {
