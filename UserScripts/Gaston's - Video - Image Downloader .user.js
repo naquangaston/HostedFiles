@@ -2050,7 +2050,7 @@ async function downloadVideo(url,title) {
                 setPlayerBackAd=1
                 console.log('Skipping ad :>');
             }
-            skipButton?.click();
+            skipButton?skipButton.click():0;
             setPlayerBack=0
         }else if(!setPlayerBack&&player){
             setPlayerBackAd=0
