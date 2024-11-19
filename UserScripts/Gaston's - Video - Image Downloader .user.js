@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      7.0
+// @version      7.1
 // @supportURL   https://your-support-page.com
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -2045,12 +2045,12 @@ async function downloadVideo(url,title) {
         const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player')]
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
         .filter(e => !!e)[0];
-        if (skipButton) {
+        if (skipButton||document.querySelectorAll('.ytp-ad-button-icon')[0]) {
             if(!setPlayerBackAd||player.playbackRate!=(player.duration/7)){
                 setPlayerBackAd=1
                 console.log('Skipping ad :>');
             }
-            skipButton.click();
+            skipButton?.click();
             setPlayerBack=0
         }else if(!setPlayerBack&&player){
             setPlayerBackAd=0
