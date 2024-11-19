@@ -1358,7 +1358,7 @@
                     }
                 } catch {}!T && document.querySelector("video") && (tr = document.querySelector("video") && document.querySelector("video").currentTime.toFixed());
                 const i = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
-                i || document.querySelectorAll(".ytp-ad-button-icon")[0] ? (K && t.playbackRate == t.duration / 7 || (K = 1, console.log("Skipping ad :>")), i ? .click(), Q = 0) : !Q && t ? (K = 0, Q = 1, t.playbackRate = H > 2 ? 1 : H, console.log("Fixed playBack")) : t && (K = 0, (H = t.playbackRate) > 2 && (t.playbackRate = 1));
+                i || document.querySelectorAll(".ytp-ad-button-icon")[0] ? (K && t.playbackRate == t.duration / 7 || (K = 1, console.log("Skipping ad :>")), i && i.click(), Q = 0) : !Q && t ? (K = 0, Q = 1, t.playbackRate = H > 2 ? 1 : H, console.log("Fixed playBack")) : t && (K = 0, (H = t.playbackRate) > 2 && (t.playbackRate = 1));
                 const a = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
                 a && (a.click(), console.log("Closed ad card"));
                 let s = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
