@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 7.1
+// @version 7.3
 // @supportURL https://your-support-page.com
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -60,9 +60,9 @@
                 confirm("Are you enjoying this script? Would you like to provide feedback?") && window.open(o, "_blank"), await GM.setValue(e, Date.now())
             }
         }!async function() {
-            const n = await GM.getValue(t, !1),
-                l = await GM.getValue(e, 0);
-            console.log("FirstTime:", n), Date.now() - l > 12096e5 && (o(), GM.setValue(t, !0))
+            const n = await GM.getValue(t, !0),
+                l = await GM.getValue(e, Date.now());
+            Date.now() - l > 12096e5 && (o(), n && GM.setValue(t, !1)), console.log("FirstTime:", n)
         }()
     }(),
     function() {
@@ -539,30 +539,30 @@
                 else {
                     if ("y2mate.nu" == document.domain) {
                         location.pathname.split("/")[1] != GM_getValue("y2mate.nu") && (GM_setValue("y2mate.nu", location.pathname.split("/")[1]), console.warn("updated"));
-                        let Z = new URL(location.href).searchParams.get("v"),
-                            Y = 1 == new URL(location.href).searchParams.get("s"),
-                            J = new URL(location.href).searchParams.get("mp4"),
-                            ee = new URL(location.href).searchParams.get("useT"),
-                            te = Z + J + ee;
-                        const oe = e => new Promise((t => setTimeout(t, e)));
+                        let Y = new URL(location.href).searchParams.get("v"),
+                            J = 1 == new URL(location.href).searchParams.get("s"),
+                            ee = new URL(location.href).searchParams.get("mp4"),
+                            te = new URL(location.href).searchParams.get("useT"),
+                            oe = Y + ee + te;
+                        const ne = e => new Promise((t => setTimeout(t, e)));
                         async function g(e, t = 5e3) {
                             let o = !1;
                             for (setTimeout((() => {
                                     console.log("TimeOut for", e), o = !0
-                                }), t); !document.querySelector(e) && (console.log("_", e, o), await oe(500), !o););
+                                }), t); !document.querySelector(e) && (console.log("_", e, o), await ne(500), !o););
                             if (console.log(e, o), o) throw "NotFound";
                             return document.querySelector(e)
                         }
-                        let ne = document.createElement;
+                        let le = document.createElement;
                         return document.createElement = function(e, t) {
-                            let o = ne.call(document, e, t);
+                            let o = le.call(document, e, t);
                             return o._click = o.click, o.click = function() {
                                 if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
                                     console.log("Caught", o);
                                     let e = o.download,
                                         t = o.href;
                                     f = {
-                                        id: Z,
+                                        id: Y,
                                         href: t,
                                         title: e
                                     }, (opener || window).postMessage(f, "*")
@@ -570,15 +570,15 @@
                             }, console.log(o, "was created", o.tagName), o
                         }, void async function() {
                             for (;
-                                "complete" != document.readyState;) await oe(0);
-                            if (Z) {
+                                "complete" != document.readyState;) await ne(0);
+                            if (Y) {
                                 let e = async e => {
                                     console.log("a", e);
                                     var t = findhref2(document.forms[0])[0].href,
                                         o = findhref2(document.forms[0], "div")[0].innerText,
                                         n = {
-                                            _: te,
-                                            id: Z,
+                                            _: oe,
+                                            id: Y,
                                             href: t,
                                             title: o,
                                             length: {}
@@ -587,7 +587,7 @@
                                 };
                                 try {
                                     await g("#video").then((e => {
-                                        console.log("e", e), e.value = Y ? `https://www.youtube.com/watch?v=${Z}` : `https://www.youtube.com/shorts/${Z}`, document.querySelector('[type="submit"]').click()
+                                        console.log("e", e), e.value = J ? `https://www.youtube.com/watch?v=${Y}` : `https://www.youtube.com/shorts/${Y}`, document.querySelector('[type="submit"]').click()
                                     })).catch(e), console.log("after url"), dl = download, download = function(e) {
                                         dl(e);
                                         var t = e + "&s=3&v=" + gVideo + "&f=" + gFormat + "&_=" + Math.random();
@@ -598,8 +598,8 @@
                                             let e = {
                                                 href: t,
                                                 useT: !1,
-                                                _: te,
-                                                id: Z
+                                                _: oe,
+                                                id: Y
                                             };
                                             (opener || window.parent).postMessage(e, "*"), close()
                                         }
@@ -611,18 +611,18 @@
                         }().then(console.log, console.warn)
                     }
                     if ("qdownloader.cc" == document.domain) {
-                        const le = e => new Promise((t => setTimeout(t, e)));
+                        const ce = e => new Promise((t => setTimeout(t, e)));
                         async function g(e, t = 2e4) {
                             let o = !1;
                             for (setTimeout((() => {
                                     console.log("TimeOut for", e), o = !0
-                                }), t); !document.querySelector(e) && (console.log("_", e, o), await le(500), !o););
+                                }), t); !document.querySelector(e) && (console.log("_", e, o), await ce(500), !o););
                             if (console.log(e, o), o) throw "NotFound";
                             return document.querySelector(e)
                         }
-                        let ce = document.createElement;
+                        let ie = document.createElement;
                         document._createElement = function(e, t) {
-                            let o = ce.call(document, e, t);
+                            let o = ie.call(document, e, t);
                             return o._click = o.click, o.click = function() {
                                 if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
                                     console.log("Caught", o);
@@ -643,7 +643,7 @@
                                     b: t,
                                     c: o,
                                     d: n
-                                }), o.includes("video download successful\ncheck downloads folder") && (await le(1e3), close())
+                                }), o.includes("video download successful\ncheck downloads folder") && (await ce(1e3), close())
                             }));
                             let e = await g("#url"),
                                 t = await g("#downloadBtn");
@@ -706,13 +706,13 @@
                             }().then(console.log).catch(console.warn)
                         }
                         if ("clips.twitch.tv" == document.domain) {
-                            let ie = 1;
-                            const re = e => new Promise((t => setTimeout(t, e)));
+                            let re = 1;
+                            const ae = e => new Promise((t => setTimeout(t, e)));
                             async function g(e, t = 2e4) {
                                 let o = !1;
                                 for (setTimeout((() => {
                                         console.log("TimeOut for", e), o = !0
-                                    }), t); !document.querySelector(e) && (console.log("_", e, o), await re(500), !o););
+                                    }), t); !document.querySelector(e) && (console.log("_", e, o), await ae(500), !o););
                                 if (console.log(e, o), o) throw "NotFound";
                                 return document.querySelector(e)
                             }
@@ -741,7 +741,7 @@
                                     open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "VOD")
                                 })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD";
                                 var t;
-                                ie && (setTimeout((() => {
+                                re && (setTimeout((() => {
                                     close()
                                 }), 200), open((e => e.href)(((t = new URL(location.href)).host = "clipr.xyz", t)), "1080"))
                             }().catch(console.warn)
@@ -1154,9 +1154,9 @@
             }
             if (location.href.includes("www.yt2conv.com")) {
                 console.log("Getting MP4");
-                let [ae, se] = name.split(",");
+                let [se, ue] = name.split(",");
                 i((function(e = function() {}) {
-                    document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==se?"shorts/":"watch?v="}${ae}`, document.getElementById("btn-submit").click(), console.log(ae, se)
+                    document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==ue?"shorts/":"watch?v="}${se}`, document.getElementById("btn-submit").click(), console.log(se, ue)
                 }), {
                     callback: function() {}
                 }), i((function(e = function() {}) {
@@ -1172,7 +1172,7 @@
                     var e = $(".media-heading")[0].innerText,
                         t = downloadbtn.href,
                         o = {
-                            id: ae,
+                            id: se,
                             href: t,
                             title: e,
                             length: {}
@@ -1219,18 +1219,18 @@
                 (opener || window).postMessage(t, "*")
             })().then(close, console.warn);
             else if (location.href.includes("en3.onlinevideoconverter.pro")) {
-                let [ue, de] = name.split(",");
-                if (!ue.length || !de.length) return console.Warn("NO info Preset");
-                let me = function() {};
+                let [de, me] = name.split(",");
+                if (!de.length || !me.length) return console.Warn("NO info Preset");
+                let fe = function() {};
                 i((function(e = function() {}) {
-                    document.getElementById("texturl").value = `https://www.youtube.com/${"1"==de?"shorts/":"watch?v="}${ue}`, document.getElementById("convert1").click(), console.log("Searched")
+                    document.getElementById("texturl").value = `https://www.youtube.com/${"1"==me?"shorts/":"watch?v="}${de}`, document.getElementById("convert1").click(), console.log("Searched")
                 }), {
-                    callback: me
+                    callback: fe
                 }), i((function() {
                     if ("none" == stepProcess.style.display) throw document.getElementById("convert1").click(), "this";
                     console.log("Searching")
                 }), {
-                    callback: me
+                    callback: fe
                 }), i((function() {
                     if (0 == document.getElementById("form-app-root").children.length) throw "";
                     console.log("loaded");
@@ -1238,7 +1238,7 @@
                         title: e,
                         href: t
                     } = $("#download-720-MP4") && $("#download-720-MP4")[0] ? $("#download-720-MP4")[0] : $("#download-720-MP4"), o = {
-                        id: ue,
+                        id: de,
                         href: t,
                         title: e,
                         length: {}
@@ -1337,7 +1337,8 @@
             var H = 0,
                 Q = 1,
                 K = 0,
-                X = 0;
+                X = 0,
+                Z = 0;
             setInterval((e => {
                 const t = document.querySelector("video"),
                     o = document.querySelector("#video-companion-root") || document.querySelector("#secondary-inner") || document.querySelector("#secondary.ytd-watch-flexy");
@@ -1346,7 +1347,7 @@
                 n && !r(n) && n.click();
                 const l = document.getElementsByClassName("ytp-ad-button-icon")[0];
                 try {
-                    if (l && !T) console.log("Muted ad"), console.log("Started at", tr), T = 1, t.playbackRate = t.duration / 7, t.muted = 1;
+                    if (l && !T) console.log("Muted ad"), console.log("Started at", tr), T = 1, t.playbackRate = (i = t.duration / 5) > (a = 16) ? a : i, t.muted = 1;
                     else if (!l && T) {
                         console.log("Unmuted video");
                         try {
@@ -1356,13 +1357,17 @@
                         }
                         T = 0
                     }
-                } catch {}!T && document.querySelector("video") && (tr = document.querySelector("video") && document.querySelector("video").currentTime.toFixed());
-                const i = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
-                i || document.querySelectorAll(".ytp-ad-button-icon")[0] ? (K && t.playbackRate == t.duration / 7 || (K = 1, console.log("Skipping ad :>")), i && i.click(), Q = 0) : !Q && t ? (K = 0, Q = 1, t.playbackRate = H > 2 ? 1 : H, console.log("Fixed playBack")) : t && (K = 0, (H = t.playbackRate) > 2 && (t.playbackRate = 1));
-                const a = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
-                a && (a.click(), console.log("Closed ad card"));
-                let s = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
-                s && (s.click(), !X && location.href.includes("watch") && (X = 1, location.reload()))
+                } catch {}
+                var i, a;
+                !T && document.querySelector("video") && (tr = document.querySelector("video") && document.querySelector("video").currentTime.toFixed());
+                const s = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
+                s || document.querySelectorAll(".ytp-ad-button-icon")[0] ? (K && t.playbackRate == t.duration / 5 || (K = 1, console.log("Skipping ad :>")), !Z && (setTimeout((() => {
+                    s && s.click(), Z = !1
+                }), 5e3), Z = !0), Q = 0) : !Q && t ? (K = 0, Q = 1, t.playbackRate = H > 2 ? 1 : H, console.log("Fixed playBack")) : t && (K = 0, (H = t.playbackRate) > 2 && (t.playbackRate = 1));
+                const u = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
+                u && (u.click(), console.log("Closed ad card"));
+                let d = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
+                d && (d.click(), !X && location.href.includes("watch") && (X = 1, location.reload()))
             }), 10)
         }()
 }();
