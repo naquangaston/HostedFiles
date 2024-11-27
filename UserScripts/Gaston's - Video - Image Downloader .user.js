@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      7.1
+// @version      7.3
 // @supportURL   https://your-support-page.com
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -80,13 +80,13 @@
 
     // Main function to check and prompt
     (async function() {
-        const isFirstTime = await GM.getValue(isFirstTimeKey, false);
-        const lastPromptDate = await GM.getValue(lastPromptKey, 0);
-        console.log('FirstTime:',isFirstTime)
+        const isFirstTime = await GM.getValue(isFirstTimeKey, !0);
+        const lastPromptDate = await GM.getValue(lastPromptKey, Date.now());
         if ((Date.now() - lastPromptDate) > promptInterval) {
             showFeedbackPrompt();
-            GM.setValue(isFirstTimeKey, true);
+            isFirstTime&&GM.setValue(isFirstTimeKey, false);
         }
+        console.log('FirstTime:',isFirstTime)
     })();
 })();
 ;(function(){
@@ -1998,6 +1998,8 @@ async function downloadVideo(url,title) {
     var setPlayerBackAd=0
     var isReloading=0
     var ts=0
+    var cliked=0
+    var check=(a,b)=>a>b?b:a
     setInterval(e => {
         const player = document.querySelector('video');
         const target = document.querySelector('#video-companion-root')||document.querySelector('#secondary-inner')||document.querySelector('#secondary.ytd-watch-flexy');
@@ -2027,7 +2029,7 @@ async function downloadVideo(url,title) {
                 console.log('Started at',tr)
                 //alert(tr)
                 didmute = 1;
-                player.playbackRate=player.duration/7
+                player.playbackRate=check(player.duration/5,16)
                 player.muted=1
             } else if (!adButton && didmute) {
                 console.log('Unmuted video');
@@ -2046,11 +2048,13 @@ async function downloadVideo(url,title) {
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
         .filter(e => !!e)[0];
         if (skipButton||document.querySelectorAll('.ytp-ad-button-icon')[0]) {
-            if(!setPlayerBackAd||player.playbackRate!=(player.duration/7)){
+            if(!setPlayerBackAd||player.playbackRate!=(player.duration/5)){
                 setPlayerBackAd=1
                 console.log('Skipping ad :>');
             }
-            skipButton?skipButton.click():0;
+            !cliked&&(setTimeout(()=>{
+                skipButton?skipButton.click():0;cliked=false;
+            },5000),cliked=true)
             setPlayerBack=0
         }else if(!setPlayerBack&&player){
             setPlayerBackAd=0
