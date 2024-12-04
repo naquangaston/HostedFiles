@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      7.45
+// @version      7.5
 // @supportURL   https://your-support-page.com
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -834,27 +834,68 @@ async function downloadVideo(url,title) {
             }()
     }
     else if(document.domain=='snapinsta.app'){
-        (async function (){
+        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+        async function wfs(a, ms = 20000) {
+            let o = false;
+            setTimeout(() => {
+                console.log('TimeOut for', a);
+                o = true;
+            }, ms);
+
+            while (!document.querySelector(a)) {
+                console.log('_', a, o);
+                await sleep(500);
+                if (o) break;
+            };
+
+            console.log(a, o);
+            if (o) throw 'NotFound';
+            return document.querySelector(a);
+        }
+        async function createBlackOverlayCanvas() {
+            await wfs('body')
+            // Create the canvas element
+            const canvas = document.createElement('canvas');
+            canvas.id = 'blackCanvas';
+
+            // Style the canvas to cover the entire page
+            Object.assign(canvas.style, {
+                position: 'fixed',
+                top: '0',
+                left: '0',
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'black', // Black background for the canvas
+                zIndex: '9999', // Ensure it's on top of all other elements
+                pointerEvents: 'none', // Allow clicks to pass through to underlying elements
+            });
+
+            // Append the canvas to the document body
+            document.body.appendChild(canvas);
+
+            // Set the canvas dimensions to match the viewport
+            const resizeCanvas = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            };
+            resizeCanvas(); // Call once initially
+
+            // Redraw canvas size on window resize
+            window.addEventListener('resize', resizeCanvas);
+
+            // Fill the canvas with black
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            console.log("Black overlay canvas created.");
+        }
+
+        // Call the function to create the canvas
+        createBlackOverlayCanvas();
+        !(async function (){
             let[type,id]=name.split('\n')
             if(!type||!id){console.warn('no');return;}
-            const sleep=ms=>new Promise(a=>setTimeout(a,ms))
-            async function wfs(a, ms = 20000) {
-                let o = false;
-                setTimeout(() => {
-                    console.log('TimeOut for', a);
-                    o = true;
-                }, ms);
-
-                while (!document.querySelector(a)) {
-                    console.log('_', a, o);
-                    await sleep(500);
-                    if (o) break;
-                };
-
-                console.log(a, o);
-                if (o) throw 'NotFound';
-                return document.querySelector(a);
-            }
             console.warn('Test2')
             wfs('#url').then(e=>{
                 console.warn('Test3')
@@ -874,6 +915,7 @@ async function downloadVideo(url,title) {
         return
     }
     else if(document.domain=='www.instagram.com'){
+
         const sleep=ms=>new Promise(a=>setTimeout(a,ms))
         function parseInstagramURL(url) {
             // Regular expression to handle optional username, type (p/reels/reel), and ID
@@ -923,11 +965,20 @@ async function downloadVideo(url,title) {
             var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
             container.append(button)
         }
+        function checkArc(){
+            const articles = document.getElementsByTagName('article');
+            var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
+            for (const article of articles) {
+                if (article.querySelector('#MediaButton')) {continue;}
+                article.prepend(button.element)
+            }
+        }
         tF(function(){
             document.querySelectorAll('.xh8yej3.x1iyjqo2')[0].children
         },{callback:function(){
             setButtons();
             setInterval(()=>{
+                checkArc()
                 if(!document.querySelector('#MediaButton'))setButtons()
                 if(document.querySelector('._aaqy')&&!document.querySelector('._aaqy').querySelector('#MediaButton'))setButtons2();
             })
