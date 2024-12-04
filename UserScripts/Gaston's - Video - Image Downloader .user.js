@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      7.4
+// @version      7.45
 // @supportURL   https://your-support-page.com
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -876,20 +876,21 @@ async function downloadVideo(url,title) {
     else if(document.domain=='www.instagram.com'){
         const sleep=ms=>new Promise(a=>setTimeout(a,ms))
         function parseInstagramURL(url) {
-            // Regular expression to handle optional username, type (p/reels), and ID
-            const regex = /https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels)\/([^\/?]+)/;
+            // Regular expression to handle optional username, type (p/reels/reel), and ID
+            const regex = /https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels|reel)\/([^\/?]+)/;
             const match = url.match(regex);
 
             if (match) {
                 return {
                     username: match[1] || null, // The username, or null if not present
-                    a: match[2],               // 'p' for posts, 'reels' for reels
+                    a: match[2],               // 'p', 'reels', or 'reel'
                     id: match[3]               // The post or reel ID
                 };
             }
 
             return null; // Return null if the URL doesn't match
-}
+        }
+
 
 
         var l
