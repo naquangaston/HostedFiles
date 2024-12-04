@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 7.4
+// @version 7.45
 // @supportURL https://your-support-page.com
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -462,7 +462,7 @@
                     const Q = e => new Promise((t => setTimeout(t, e)));
                     var s;
                     let K = () => (s = function(e) {
-                        const t = e.match(/https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels)\/([^\/?]+)/);
+                        const t = e.match(/https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels|reel)\/([^\/?]+)/);
                         return t ? {
                             username: t[1] || null,
                             a: t[2],
