@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      7.3
+// @version      7.4
 // @supportURL   https://your-support-page.com
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -11,6 +11,7 @@
 // @match         *://music.youtube.com/*
 // @match         *://y2mate.nu/*
 // @match         *://www.twitch.tv/*
+// @match         *://snapinsta.app/*
 // @match         *://loader.to/*
 // @match         *://onlymp3.app/*
 // @match         *://qdownloader.cc/*
@@ -129,9 +130,57 @@
         }
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging })
-})(globalThis);
+})(top);
 
 const logger = new CustomLog("Script Logger");
+const consoleLogOriginal = console.log; // Preserve the original console.log
+
+console.log = function(...args) {
+    // Check if any of the arguments is an object (excluding null)
+    const containsObject = args.some(arg => typeof arg === 'object' && arg !== null);
+
+    // Retrieve the caller function's name
+    let callerFunctionName = 'Anonymous';
+
+    try {
+        // Throw an error to get the stack trace
+        throw new Error();
+    } catch (e) {
+        if (e.stack) {
+            // Parse the stack trace to get the caller function
+            const stackLines = e.stack.split('\n');
+
+            // The stack trace format varies between environments
+            // For modern browsers, the third line is the caller
+            // Adjust the index if needed based on your environment
+            if (stackLines.length >= 3) {
+                const callerLine = stackLines[2];
+
+                // Extract the function name from the caller line
+                // This regex works for Chrome and Firefox
+                const functionNameMatch = callerLine.match(/at\s+(.*?)\s*\(/);
+
+                if (functionNameMatch && functionNameMatch[1]) {
+                    callerFunctionName = functionNameMatch[1];
+                } else {
+                    callerFunctionName = 'Anonymous';
+                }
+            }
+        }
+    }
+
+    if (!containsObject) {
+        // If no objects, format the arguments for better presentation
+        const formattedMessage = args.map(arg => String(arg)).join(' ');
+        // Include the caller function name
+        logger.log(`[${callerFunctionName}]`,formattedMessage);
+    } else {
+        // If there are objects, log them as they are, including the caller function name
+        consoleLogOriginal(`og:[${callerFunctionName}]`, ...args);
+    }
+};
+
+
 function downloadFileAsTitle(url, filename) {
     const anchor = document.createElement('a');
     anchor.href = url;
@@ -784,20 +833,94 @@ async function downloadVideo(url,title) {
             //forB[0].innerText.incluides('Public')
             }()
     }
+    else if(document.domain=='snapinsta.app'){
+        (async function (){
+            let[type,id]=name.split('\n')
+            if(!type||!id){console.warn('no');return;}
+            const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+            async function wfs(a, ms = 20000) {
+                let o = false;
+                setTimeout(() => {
+                    console.log('TimeOut for', a);
+                    o = true;
+                }, ms);
+
+                while (!document.querySelector(a)) {
+                    console.log('_', a, o);
+                    await sleep(500);
+                    if (o) break;
+                };
+
+                console.log(a, o);
+                if (o) throw 'NotFound';
+                return document.querySelector(a);
+            }
+            console.warn('Test2')
+            wfs('#url').then(e=>{
+                console.warn('Test3')
+                e.value=`https://www.instagram.com/${type}/${id}/`
+                wfs('#btn-submit').then(e=>{
+                    e.click()
+                    wfs('.download-bottom').then(async ()=>{
+                        await sleep(1000)
+                        let list=[...document.querySelectorAll('[class="download-bottom"]')].map(e=>findhref2(e)[0]).map(({href,download,target})=>({href,download,target}));
+                        (opener||window).postMessage(list,'*');
+                        close()
+
+                    })
+                })
+            })
+        })().then(console.log,console.warn)
+        return
+    }
     else if(document.domain=='www.instagram.com'){
+        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+        function parseInstagramURL(url) {
+            // Regular expression to handle optional username, type (p/reels), and ID
+            const regex = /https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels)\/([^\/?]+)/;
+            const match = url.match(regex);
+
+            if (match) {
+                return {
+                    username: match[1] || null, // The username, or null if not present
+                    a: match[2],               // 'p' for posts, 'reels' for reels
+                    id: match[3]               // The post or reel ID
+                };
+            }
+
+            return null; // Return null if the URL doesn't match
+}
+
+
+        var l
+        let doIt=()=>(l=parseInstagramURL(location.href),open('https://snapinsta.app/',`${l.a}\n${l.id}`));
+        onmessage=async function(e){
+            if(e.origin!='https://snapinsta.app'){
+                console.log('UNhandled',e)
+                return
+            }
+            let list=e.data
+            for(let i=0;i<list.length;i++){
+                let{href,download,target}=list[i]
+                console.log('Got',{href,download,target})
+                let a=new element('a',{href,download,target})
+                document.body.append(a.element)
+                a.element.click()
+                await sleep(500)
+                a.element.remove()
+            }
+        }
         var int;
         function setButtons(){
             console.log('Appended buttons man')
             var container=new element(document.querySelectorAll('.xh8yej3.x1iyjqo2')[0])
-            var button=new element('button',{id:"MediaButton"}).set('innerText','Get Images').on('click',DII)
-            var button2=new element('button',{id:"MediaButton2"}).set('innerText','Get Videos').on('click',DIV)
-            container.append(button,button2)
+            var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
+            container.append(button)
         }
         function setButtons2(){
             var container=new element(document.querySelector('._aaqy'))
-            var button=new element('button',{id:"MediaButton"}).set('innerText','Get Images').on('click',DII)
-            var button2=new element('button',{id:"MediaButton2"}).set('innerText','Get Videos').on('click',DIV)
-            container.append(button,button2)
+            var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
+            container.append(button)
         }
         tF(function(){
             document.querySelectorAll('.xh8yej3.x1iyjqo2')[0].children
@@ -1101,7 +1224,7 @@ async function downloadVideo(url,title) {
         return
     }
     else if (document.domain == 'clips.twitch.tv'){
-        let auto=1
+        let auto=0
         const sleep=ms=>new Promise(a=>setTimeout(a,ms))
         async function wfs(a, ms = 20000) {
             let o = false;
@@ -1993,6 +2116,7 @@ async function downloadVideo(url,title) {
         toggleIframeCollapse(false); // Example: Expand the iframe once it's loaded
     });
     toggleIframeCollapse(true);
+    var adPlayTimeInSeconds=4
     var currentPB=0
     var setPlayerBack=1
     var setPlayerBackAd=0
@@ -2029,7 +2153,7 @@ async function downloadVideo(url,title) {
                 console.log('Started at',tr)
                 //alert(tr)
                 didmute = 1;
-                player.playbackRate=check(player.duration/5,16)
+                player.playbackRate=check(player.duration/adPlayTimeInSeconds,16)
                 player.muted=1
             } else if (!adButton && didmute) {
                 console.log('Unmuted video');
