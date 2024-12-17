@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      7.5
+// @version      7.6
 // @supportURL   https://your-support-page.com
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -1026,7 +1026,7 @@ async function downloadVideo(url,title) {
                     console.log('EZ url',!!window.formSubmit)
                     while(typeof formSubmit=='undefined'){
                         document.querySelector(input1).value=url
-                        try{await sleep(0),console.log('EZ url',formSubmit);}catch{}
+                        try{await sleep(0),console.log('EZ url',formSubmit);formSubmit()}catch{}
                     }
                     console.log('EZ url',formSubmit)
                     formSubmit()
