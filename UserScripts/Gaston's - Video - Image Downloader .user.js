@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      7.6
+// @version      7.7
 // @supportURL   https://your-support-page.com
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -1046,6 +1046,13 @@ async function downloadVideo(url,title) {
         let mp4 = new URL(location.href).searchParams.get('mp4')
         let useT = new URL(location.href).searchParams.get('useT')
         let _=id_+mp4 + useT
+        if(!id_){
+            [id_,IsShort,mp4,useT]=name.split(',').map(e=>{
+                try{
+                    return !!eval(e)
+                }catch{return String(e)}
+            })
+        }
         const sleep=ms=>new Promise(a=>setTimeout(a,ms))
         async function wfs(a, ms = 5000) {
             let o = false;
@@ -1612,7 +1619,7 @@ async function downloadVideo(url,title) {
         return info[id]=mp4?
             open((l_).pathname.startsWith('/shorts/')?"https://yt5s.biz/enxj100/":`https://qdownloader.cc/youtube-video-downloader.html?v=${id}`,[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
         :!function(){
-            return open(altUrl.join(''),[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
+            return open(altUrl.join(''),[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false,useT+false],`width=400,height=500`)
             var frame = new _e('iframe', {
                 src: altUrl.join(''),
                 id: _,
