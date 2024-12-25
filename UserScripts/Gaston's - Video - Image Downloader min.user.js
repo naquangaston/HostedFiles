@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net/
-// @version 7.7
+// @version 7.8
 // @supportURL https://your-support-page.com
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author gaston1799
 // @match *://www.youtube.com/*
+// @match *://production.assets.clips.twitchcdn.net/*
 // @match *://www.instagram.com/*
 // @match *://music.youtube.com/*
 // @match *://y2mate.nu/*
@@ -41,66 +42,66 @@
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
-// @name:en Gaston's - Video/Image Downloader
 // @name:zh Gaston's - Video/Image Downloader
+// @name:en Gaston's - Video/Image Downloader
 // @name:ar Gaston's - Video/Image Downloader
-// @name:ru Gaston's - Video/Image Скачатель
+// @name:ja Gaston's -Video/Image Downloader
 // @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
 // @name:de Gaston's - Video/Image Downloader
-// @name:fr Gaston's - téléchargeur vidéo / image
 // @name:pt Gaston's - Downloader de vídeo/imagem
-// @name:ja Gaston's -Video/Image Downloader
+// @name:ru Gaston's - Video/Image Скачатель
+// @name:fr Gaston's - téléchargeur vidéo / image
 // @name:es Gaston's - Video/Image Descarger
-// @name:th Gaston's - Video/Image Downloader
 // @name:it Gaston's - Downloader di video/immagine
-// @name:tr Gaston's - Video/Resim İndirici
-// @name:ro Gaston's - descărcător video/imagini
-// @name:pl Gaston - pobierca wideo/obrazu
 // @name:vi Gaston's - Trình tải xuống video/hình ảnh
 // @name:nl Gaston's - Video/Image Downloader
-// @name:ko Gaston 's- 비디오/이미지 다운로더
+// @name:th Gaston's - Video/Image Downloader
+// @name:tr Gaston's - Video/Resim İndirici
 // @name:id Gaston's - Video/Image Downloader
+// @name:pl Gaston - pobierca wideo/obrazu
 // @name:uk GASTON'S - Відео/зображення завантажувача
-// @name:da Gastons - Video/Image Downloader
-// @name:sk Gaston's - Video/Image Downloader
-// @name:he Gaston's - הורדת וידאו/תמונה
-// @name:sv Gaston's - Video/Image Downloader
-// @name:no Gaston's - Video/Image Downloader
+// @name:ko Gaston 's- 비디오/이미지 다운로더
+// @name:ro Gaston's - descărcător video/imagini
 // @name:bg Gaston's - видео/изтегляне на изображения
 // @name:cs Gaston's - Video/Image Downloader
+// @name:no Gaston's - Video/Image Downloader
 // @name:hu Gaston's - Videó/kép letöltő
 // @name:el Gaston's - Video/Image Downloader
 // @name:fi Gaston's - Video/kuvan lataaja
-// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @name:da Gastons - Video/Image Downloader
+// @name:sv Gaston's - Video/Image Downloader
+// @name:he Gaston's - הורדת וידאו/תמונה
+// @name:sk Gaston's - Video/Image Downloader
 // @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
-// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
-// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
-// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
+// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
 // @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
 // @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
-// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
-// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
-// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
-// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
+// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
+// @description:ar Instagram/twitch/youtube/tiktok video/audio downloader (تم تحديثه بشكل متكرر)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
 // @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
-// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
-// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
 // @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
 // @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
-// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
+// @description:uk Instagram/twitch/youtube/tiktok відео/аудіо завантажувач (часто оновлений)
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
 // @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
 // @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
 // @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
 // @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
 // @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
-// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
-// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
-// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
-// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
 // @license MIT
 // ==/UserScript==
 ! function() {
@@ -626,15 +627,26 @@
                     }
                     __ != e && (__ = e, console.log("Change?", e ? "Found" : "Not FOund"))
                 }), 0);
+                if ("production.assets.clips.twitchcdn.net" == document.domain) {
+                    let e = new element("a", {
+                        href: document.querySelector('[type="video/mp4"]').src,
+                        download: document.querySelector('[type="video/mp4"]').src.split("/")[5] + ".mp4"
+                    });
+                    return document.body.append(e.element), e.element.click(), void sleep(500).then((t => {
+                        e.element.remove(), sleep(500).then((e => {
+                            close()
+                        }))
+                    }))
+                }
                 if ("snapinsta.app" == document.domain) {
-                    const e = e => new Promise((t => setTimeout(t, e)));
-                    async function wfs(t, n = 2e4) {
+                    const t = e => new Promise((t => setTimeout(t, e)));
+                    async function wfs(e, n = 2e4) {
                         let o = !1;
                         for (setTimeout((() => {
-                                console.log("TimeOut for", t), o = !0
-                            }), n); !document.querySelector(t) && (console.log("_", t, o), await e(500), !o););
-                        if (console.log(t, o), o) throw "NotFound";
-                        return document.querySelector(t)
+                                console.log("TimeOut for", e), o = !0
+                            }), n); !document.querySelector(e) && (console.log("_", e, o), await t(500), !o););
+                        if (console.log(e, o), o) throw "NotFound";
+                        return document.querySelector(e)
                     }
                     async function createBlackOverlayCanvas() {
                         await wfs("body");
@@ -657,12 +669,12 @@
                         n.fillStyle = "black", n.fillRect(0, 0, e.width, e.height), console.log("Black overlay canvas created.")
                     }
                     return createBlackOverlayCanvas(), void async function() {
-                        let [t, n] = name.split("\n");
-                        t && n ? (console.warn("Test2"), wfs("#url").then((o => {
-                            console.warn("Test3"), o.value = `https://www.instagram.com/${t}/${n}/`, wfs("#btn-submit").then((t => {
-                                t.click(), wfs(".download-bottom").then((async() => {
-                                    await e(1e3);
-                                    let t = [...document.querySelectorAll('[class="download-bottom"]')].map((e => findhref2(e)[0])).map((({
+                        let [e, n] = name.split("\n");
+                        e && n ? (console.warn("Test2"), wfs("#url").then((o => {
+                            console.warn("Test3"), o.value = `https://www.instagram.com/${e}/${n}/`, wfs("#btn-submit").then((e => {
+                                e.click(), wfs(".download-bottom").then((async() => {
+                                    await t(1e3);
+                                    let e = [...document.querySelectorAll('[class="download-bottom"]')].map((e => findhref2(e)[0])).map((({
                                         href: e,
                                         download: t,
                                         target: n
@@ -671,14 +683,14 @@
                                         download: t,
                                         target: n
                                     })));
-                                    (opener || window).postMessage(t, "*"), close()
+                                    (opener || window).postMessage(e, "*"), close()
                                 }))
                             }))
                         }))) : console.warn("no")
                     }().then(console.log, console.warn)
                 }
                 if ("www.instagram.com" == document.domain) {
-                    const t = e => new Promise((t => setTimeout(t, e)));
+                    const n = e => new Promise((t => setTimeout(t, e)));
 
                     function parseInstagramURL(e) {
                         const t = e.match(/https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels|reel)\/([^\/?]+)/);
@@ -689,7 +701,7 @@
                         } : null
                     }
                     var l;
-                    let n = () => (l = parseInstagramURL(location.href), open("https://snapinsta.app/", `${l.a}\n${l.id}`));
+                    let o = () => (l = parseInstagramURL(location.href), open("https://snapinsta.app/", `${l.a}\n${l.id}`));
                     var int;
 
                     function setButtons() {
@@ -697,7 +709,7 @@
                         var e = new element(document.querySelectorAll(".xh8yej3.x1iyjqo2")[0]),
                             t = new element("button", {
                                 id: "MediaButton"
-                            }).set("innerText", "Get Media").on("click", n);
+                            }).set("innerText", "Get Media").on("click", o);
                         e.append(t)
                     }
 
@@ -705,7 +717,7 @@
                         var e = new element(document.querySelector("._aaqy")),
                             t = new element("button", {
                                 id: "MediaButton"
-                            }).set("innerText", "Get Media").on("click", n);
+                            }).set("innerText", "Get Media").on("click", o);
                         e.append(t)
                     }
 
@@ -713,18 +725,18 @@
                         const e = document.getElementsByTagName("article");
                         var t = new element("button", {
                             id: "MediaButton"
-                        }).set("innerText", "Get Media").on("click", n);
+                        }).set("innerText", "Get Media").on("click", o);
                         for (const n of e) n.querySelector("#MediaButton") || n.prepend(t.element)
                     }
                     return onmessage = async function(e) {
                         if ("https://snapinsta.app" != e.origin) return void console.log("UNhandled", e);
-                        let n = e.data;
-                        for (let e = 0; e < n.length; e++) {
+                        let t = e.data;
+                        for (let e = 0; e < t.length; e++) {
                             let {
                                 href: o,
                                 download: l,
                                 target: i
-                            } = n[e];
+                            } = t[e];
                             console.log("Got", {
                                 href: o,
                                 download: l,
@@ -735,7 +747,7 @@
                                 download: l,
                                 target: i
                             });
-                            document.body.append(c.element), c.element.click(), await t(500), c.element.remove()
+                            document.body.append(c.element), c.element.click(), await n(500), c.element.remove()
                         }
                     }, tF((function() {
                         document.querySelectorAll(".xh8yej3.x1iyjqo2")[0].children
@@ -869,12 +881,12 @@
                         }().then(console.log, console.warn)
                     }
                     if ("qdownloader.cc" == document.domain) {
-                        const o = e => new Promise((t => setTimeout(t, e)));
+                        const i = e => new Promise((t => setTimeout(t, e)));
                         async function wfs(e, t = 2e4) {
                             let n = !1;
                             for (setTimeout((() => {
                                     console.log("TimeOut for", e), n = !0
-                                }), t); !document.querySelector(e) && (console.log("_", e, n), await o(500), !n););
+                                }), t); !document.querySelector(e) && (console.log("_", e, n), await i(500), !n););
                             if (console.log(e, n), n) throw "NotFound";
                             return document.querySelector(e)
                         }
@@ -888,9 +900,9 @@
                                 e[`on${n}`] && e[`on${n}`](o), "input" === n && (e.value = t), e.dispatchEvent(o)
                             }))
                         }
-                        let i = document.createElement;
+                        let r = document.createElement;
                         document._createElement = function(e, t) {
-                            let n = i.call(document, e, t);
+                            let n = r.call(document, e, t);
                             return n._click = n.click, n.click = function() {
                                 if (console.log(n, "was clicked", n.tagName), "A" == n.tagName) {
                                     console.log("Caught", n);
@@ -905,13 +917,13 @@
                             }, console.log(n, "was created", n.tagName), n
                         }, async function() {
                             if (location.href.includes("vidbutton")) throw "vidbutton";
-                            GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (async function(e, t, n, l) {
+                            GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (async function(e, t, n, o) {
                                 console.log({
                                     a: e,
                                     b: t,
                                     c: n,
-                                    d: l
-                                }), n.includes("video download successful\ncheck downloads folder") && (await o(1e3), close())
+                                    d: o
+                                }), n.includes("video download successful\ncheck downloads folder") && (await i(1e3), close())
                             }));
                             let e = await wfs("#url"),
                                 t = await wfs("#downloadBtn");
@@ -965,13 +977,13 @@
                             }().then(console.log).catch(console.warn)
                         }
                         if ("clips.twitch.tv" == document.domain) {
-                            let r = 0;
-                            const a = e => new Promise((t => setTimeout(t, e)));
+                            let a = 0;
+                            const s = e => new Promise((t => setTimeout(t, e)));
                             async function wfs(e, t = 2e4) {
                                 let n = !1;
                                 for (setTimeout((() => {
                                         console.log("TimeOut for", e), n = !0
-                                    }), t); !document.querySelector(e) && (console.log("_", e, n), await a(500), !n););
+                                    }), t); !document.querySelector(e) && (console.log("_", e, n), await s(500), !n););
                                 if (console.log(e, n), n) throw "NotFound";
                                 return document.querySelector(e)
                             }
@@ -1002,7 +1014,7 @@
                                     open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "VOD")
                                 })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD";
                                 var t;
-                                r && (setTimeout((() => {
+                                a && (setTimeout((() => {
                                     close()
                                 }), 200), open((e => e.href)(((t = new URL(location.href)).host = "clipr.xyz", t)), "1080"))
                             }().catch(console.warn)
@@ -1076,7 +1088,7 @@
                                         "complete" != document.readyState;) await sleep(0);
                                     return !0
                                 }
-                                const s = wfs;
+                                const d = wfs;
 
                                 function sleep(e) {
                                     return new Promise((t => setTimeout(t, e)))
@@ -1400,7 +1412,7 @@
                     }]
                 ].filter((e => location.host.includes(e[0])))[0], a1 && a1[1] && a1[1](), console.log(a1), delete a1, __ex_ = _ex_, location.href.includes("onlymp3.app") || location.href.includes("onlymp3.to")) {
                 console.log("onlymp3.app");
-                let d = function() {};
+                let u = function() {};
 
                 function b_() {
                     var [e, t] = name.split(",");
@@ -1434,9 +1446,9 @@
             }
             if (location.href.includes("www.yt2conv.com")) {
                 console.log("Getting MP4");
-                let [u, m] = name.split(",");
+                let [m, h] = name.split(",");
                 tF((function(e = function() {}) {
-                    document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==m?"shorts/":"watch?v="}${u}`, document.getElementById("btn-submit").click(), console.log(u, m)
+                    document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==h?"shorts/":"watch?v="}${m}`, document.getElementById("btn-submit").click(), console.log(m, h)
                 }), {
                     callback: function() {}
                 }), tF((function(e = function() {}) {
@@ -1452,7 +1464,7 @@
                     var e = $(".media-heading")[0].innerText,
                         t = downloadbtn.href,
                         n = {
-                            id: u,
+                            id: m,
                             href: t,
                             title: e,
                             length: {}
@@ -1499,19 +1511,19 @@
                 (opener || window).postMessage(t, "*")
             })().then(close, console.warn);
             else if (location.href.includes("en3.onlinevideoconverter.pro")) {
-                let [h, p] = name.split(",");
-                if (!h.length || !p.length) return console.Warn("NO info Preset");
-                var YTurl = `https://www.youtube.com/${"1"==p?"shorts/":"watch?v="}${h}`;
-                let w = function() {};
+                let [p, w] = name.split(",");
+                if (!p.length || !w.length) return console.Warn("NO info Preset");
+                var YTurl = `https://www.youtube.com/${"1"==w?"shorts/":"watch?v="}${p}`;
+                let g = function() {};
                 tF((function(e = function() {}) {
-                    document.getElementById("texturl").value = `https://www.youtube.com/${"1"==p?"shorts/":"watch?v="}${h}`, document.getElementById("convert1").click(), console.log("Searched")
+                    document.getElementById("texturl").value = `https://www.youtube.com/${"1"==w?"shorts/":"watch?v="}${p}`, document.getElementById("convert1").click(), console.log("Searched")
                 }), {
-                    callback: w
+                    callback: g
                 }), tF((function() {
                     if ("none" == stepProcess.style.display) throw document.getElementById("convert1").click(), "this";
                     console.log("Searching")
                 }), {
-                    callback: w
+                    callback: g
                 }), tF((function() {
                     if (0 == document.getElementById("form-app-root").children.length) throw "";
                     console.log("loaded");
@@ -1519,7 +1531,7 @@
                         title: e,
                         href: t
                     } = $("#download-720-MP4") && $("#download-720-MP4")[0] ? $("#download-720-MP4")[0] : $("#download-720-MP4"), n = {
-                        id: h,
+                        id: p,
                         href: t,
                         title: e,
                         length: {}
