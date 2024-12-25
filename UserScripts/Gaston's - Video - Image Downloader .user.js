@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      7.8
+// @version      7.9
 // @supportURL   https://your-support-page.com
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -967,6 +967,22 @@ async function downloadVideo(url,title) {
             }
         }
         var int;
+        async function wfs(s,t){
+            let sleep=(ms)=>new Promise(a=>setTimeout(a,ms));
+            return await new Promise(async (a,b)=>{
+                var d=!1
+                var c=()=>(d=0,b())
+                let _=setTimeout(c,t)
+                while(!document.querySelector(s)){
+                    await sleep()
+                    if(d){b();break}
+                }
+                return a(document.querySelector(s))
+            }).then(e=>e,e=>false)
+        }
+        if(location.pathname=='/call/'){
+             wfs('.x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3',100000).then(e=>e.style.backgroundColor='green')
+        }
         function setButtons(){
             console.log('Appended buttons man')
             var container=new element(document.querySelectorAll('.xh8yej3.x1iyjqo2')[0])
@@ -1012,7 +1028,7 @@ async function downloadVideo(url,title) {
                         await sleep()
                         if(d){b();break}
                     }
-                    return a()
+                    return a(document.querySelector(s))
                 }).then(e=>true,e=>false)
             }
             if(location.pathname=='/download-sound-track'){
@@ -1295,7 +1311,7 @@ async function downloadVideo(url,title) {
         }().then(console.log).catch(console.warn)
         return
     }
-    else if (document.domain == 'clips.twitch.tv'){
+    else if (document.domain == 'clips.twitch.tv'&&location.pathname.split('/')[1]!='create'){
         let auto=0
         const sleep=ms=>new Promise(a=>setTimeout(a,ms))
         async function wfs(a, ms = 20000) {
