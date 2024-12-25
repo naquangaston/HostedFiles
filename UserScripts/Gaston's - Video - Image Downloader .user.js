@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net/
-// @version      7.7
+// @version      7.8
 // @supportURL   https://your-support-page.com
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author       gaston1799
 // @match         *://www.youtube.com/*
+// @match         *://production.assets.clips.twitchcdn.net/*
 // @match         *://www.instagram.com/*
 // @match         *://music.youtube.com/*
 // @match         *://y2mate.nu/*
@@ -832,6 +833,18 @@ async function downloadVideo(url,title) {
             },0)
             //forB[0].innerText.incluides('Public')
             }()
+    }
+    else if(document.domain=='production.assets.clips.twitchcdn.net'){
+        let a=new element('a',{href:document.querySelector('[type="video/mp4"]').src,download:document.querySelector('[type="video/mp4"]').src.split('/')[5]+'.mp4'})
+        document.body.append(a.element)
+        a.element.click()
+        sleep(500).then(e=>{
+            a.element.remove()
+            sleep(500).then(e=>{
+                close()
+            })
+        })
+        return
     }
     else if(document.domain=='snapinsta.app'){
         const sleep=ms=>new Promise(a=>setTimeout(a,ms))
