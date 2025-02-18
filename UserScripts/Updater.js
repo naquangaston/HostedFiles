@@ -1,4 +1,5 @@
-function _0x53a3(_0x3225ae, _0x2b3407) {
+setTimeout(()=>{
+    function _0x53a3(_0x3225ae, _0x2b3407) {
     const _0x3b6a68 = _0x3b6a();
     return _0x53a3 = function(_0x53a3a8, _0x1056c0) {
         _0x53a3a8 = _0x53a3a8 - 0xc4;
@@ -54,3 +55,5 @@ function _0x3b6a() {
     };
     return _0x3b6a();
 }
+
+})
