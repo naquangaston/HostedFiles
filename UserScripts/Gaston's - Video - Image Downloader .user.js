@@ -1,18 +1,20 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
-// @namespace    http://tampermonkey.net/
-// @version      7.9
-// @supportURL   https://your-support-page.com
+// @namespace    http://tampermonkey.net
+// @version      8.7
+// @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author       gaston1799
 // @match         *://www.youtube.com/*
+// @match         *://yt.savetube.me/*
 // @match         *://production.assets.clips.twitchcdn.net/*
 // @match         *://www.instagram.com/*
 // @match         *://music.youtube.com/*
 // @match         *://y2mate.nu/*
 // @match         *://www.twitch.tv/*
-// @match         *://snapinsta.app/*
+// @match         *://www.socialplug.io/*
+// @match         *://snapinst.app/*
 // @match         *://loader.to/*
 // @match         *://onlymp3.app/*
 // @match         *://qdownloader.cc/*
@@ -34,7 +36,7 @@
 // @match         *://yt5s.biz/*
 // @match         *://sss.instasaverpro.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @require      https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
+// @require      https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
 // @grant        GM_info
 // @grant        GM_xmlhttpRequest
 // @grant   GM_getValue
@@ -44,6 +46,60 @@
 // @grant   GM_removeValueChangeListener
 // @run-at document-start
 // ==/UserScript==
+
+class videoPlayer{
+    #isF=function(){
+        return this.isFullScreen
+    }
+    #isT=function(){
+        return this.isTheater
+    }
+    #isM=function(){
+        return this.isMini
+    }
+    set isMini(a){
+        if(a&&!this.#isM()){
+            document.querySelector('[title="Miniplayer (i)"]').click()
+        }
+        else if(!a&&this.#isM()){
+            document.querySelector('[title="Expand (i)"]').click()
+        }
+    }
+    get isMini(){
+        return !document.querySelector('[title="Miniplayer (i)"]')
+    }
+    set isTheater(a){
+        if(!a&&this.#isT()){
+            document.querySelector('[title="Default view (t)"]').click()
+        }else if(a&&!this.#isT()){
+            document.querySelector('[title="Theater mode (t)"]').click()
+        }
+    }
+    get isTheater(){
+        return !document.querySelector('[title="Theater mode (t)"]')
+    }
+    set isFullScreen(a=this.#isF()){
+        if(a&&!this.#isF()){
+            document.querySelector('[title="Full screen (f)"]').click()
+        }else if(!a&&this.#isF()){
+            document.querySelector('[title="Exit full screen (f)"]').click()
+        }
+    }
+    get isFullScreen(){return !document.querySelector('[title="Full screen (f)"]')}
+}
+function dispatchAllInputEvents(target, value) {
+    const inputEvents = ['focus', 'input', 'change', 'blur'];
+
+    inputEvents.forEach(eventName => {
+        let ev=new Event(eventName, { bubbles: true, isTrusted: true })
+        if(target[`on${eventName}`])target[`on${eventName}`](ev)
+
+        if (eventName === 'input') {
+            target.value = value;
+        }
+        target.dispatchEvent(ev);
+    });
+};
 (function() {
     'use strict';
 
@@ -132,11 +188,11 @@
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging })
 })(top);
-
+const olog=console.log
 const logger = new CustomLog("Script Logger");
 const consoleLogOriginal = console.log; // Preserve the original console.log
 
-console.log = function(...args) {
+console.log1 = function(...args) {
     // Check if any of the arguments is an object (excluding null)
     const containsObject = args.some(arg => typeof arg === 'object' && arg !== null);
 
@@ -147,6 +203,7 @@ console.log = function(...args) {
         // Throw an error to get the stack trace
         throw new Error();
     } catch (e) {
+        olog
         if (e.stack) {
             // Parse the stack trace to get the caller function
             const stackLines = e.stack.split('\n');
@@ -846,7 +903,7 @@ async function downloadVideo(url,title) {
         })
         return
     }
-    else if(document.domain=='snapinsta.app'){
+    else if(document.domain=='snapinst.app'){
         const sleep=ms=>new Promise(a=>setTimeout(a,ms))
         async function wfs(a, ms = 20000) {
             let o = false;
@@ -949,9 +1006,9 @@ async function downloadVideo(url,title) {
 
 
         var l
-        let doIt=()=>(l=parseInstagramURL(location.href),open('https://snapinsta.app/',`${l.a}\n${l.id}`));
+        let doIt=()=>(l=parseInstagramURL(location.href),open('https://snapinst.app/',`${l.a}\n${l.id}`));
         onmessage=async function(e){
-            if(e.origin!='https://snapinsta.app'){
+            if(e.origin!='https://snapinst.app'){
                 console.log('UNhandled',e)
                 return
             }
@@ -981,7 +1038,79 @@ async function downloadVideo(url,title) {
             }).then(e=>e,e=>false)
         }
         if(location.pathname=='/call/'){
-             wfs('.x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3',100000).then(e=>e.style.backgroundColor='green')
+            /**
+ * Lightly Obfuscated Custom Logger 
+ * (IIFE that assigns a custom logging class into the global scope)
+ */
+            (function(){
+                class _0x2d2753 {
+                    constructor(_0x321bbe) {
+                        this._0x2dcc16 = {
+                            body: _0x321bbe || '---',
+                            color: 'darkgrey',
+                            size: '1rem'
+                        };
+                        this._0x2603ce = {
+                            color: '#008f68',
+                            size: '1rem'
+                        };
+                    }
+
+                    _0x54181c(_0x4ebcf7) {
+                        this._0x2dcc16.body = _0x4ebcf7;
+                        return this;
+                    }
+
+                    _0x40a387({ _0x4e4744, _0x2fbd8f }) {
+                        if (_0x4e4744 !== undefined) this._0x2dcc16.color = _0x4e4744;
+                        if (_0x2fbd8f !== undefined) this._0x2dcc16.size = _0x2fbd8f;
+                        return this;
+                    }
+
+                    _0x235d03({ _0x14e09d, _0x506311 }) {
+                        if (_0x14e09d !== undefined) this._0x2603ce.color = _0x14e09d;
+                        if (_0x506311 !== undefined) this._0x2603ce.size = _0x506311;
+                        return this;
+                    }
+
+                    /**
+         * @param {String} _0x23c5b9 the text body of the log
+         */
+                    _0x52dfbf(_0x23c5b9 = '') {
+                        console.log(
+                            `%c${this._0x2dcc16.body} | %c${_0x23c5b9}`,
+                            `color:${this._0x2dcc16.color}; font-weight:bold; font-size:${this._0x2dcc16.size};`,
+                            `color:${this._0x2603ce.color}; font-weight:bold; font-size:${this._0x2603ce.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
+                        );
+                    }
+                }
+
+                Object.assign(this || arguments[0], { _0x2c68c3: _0x2d2753 });
+            })(globalThis);
+
+            /**
+ * Example usage: Infinite loop
+ * Assuming wfs(selector, timeout) is defined somewhere else in your code
+ */
+            const _0xlogger = new _0x2c68c3('InfiniteLoop');
+            _0xlogger._0x52dfbf('Starting infinite loop...');
+
+            (async function infLoop() {
+                await sleep(1000)
+                wfs('.x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3', 100000)
+                    .then(() => {
+                    [...document.querySelectorAll('.x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3')]
+                        .forEach(e => e.style.backgroundColor = 'green');
+                    _0xlogger._0x52dfbf('Iteration complete. Next iteration...');
+                    infLoop();
+                })
+                    .catch(err => {
+                    _0xlogger._0x52dfbf(`Error: ${err.message}`);
+                    // Decide if you want to retry, log, etc.
+                    infLoop();
+                });
+            })();
+
         }
         function setButtons(){
             console.log('Appended buttons man')
@@ -1068,8 +1197,67 @@ async function downloadVideo(url,title) {
             }
         })().then(console.log,console.warn)
     }
+    else if (document.domain == 'www.socialplug.io') {
+        location.pathname.split('/')[1]!=GM_getValue(document.domain)&&(GM_setValue(document.domain,location.pathname.split('/')[1]),console.warn('updated'))
+        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+        async function wfs(a, ms = 5000) {
+            let o = false;
+            setTimeout(() => {
+                console.log('TimeOut for', a);
+                o = true;
+            }, ms);
+
+            while (!document.querySelector(a)) {
+                console.log('_', a, o);
+                await sleep(500);
+                if (o) break;
+            };
+
+            console.log(a, o);
+            if (o) throw 'NotFound';
+            return document.querySelector(a);
+        }
+        !async function(){
+            let [id,shorts]=name.split(',')
+            if(id.length&&shorts.length){}else return console.warn('No info Preset')
+            var YTurl=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+            await wfs('#video-url')
+            console.log('Input Loaded')
+            document.querySelector('#video-url').value=YTurl
+            //dispatchAllInputEvents(document.querySelector('#id_url'),YTurl)
+            await wfs('#get-video-button')
+            console.log('GEtting res')
+            await sleep(100)
+            document.querySelector('#get-video-button').click()
+            await wfs('#quality-options',20000)
+            while(!document.getElementById('quality-options').children.length){
+                await sleep(100)
+            }
+            document.getElementById('quality-options').children[document.getElementById('quality-options').children.length-1].click()
+            console.log('Stating Download')
+            while(Number(document.querySelector('.indicator').style.width.replace('%',''))<100){
+                await sleep(10)
+                if(error.innerText=='An error occurred while starting the download'){
+                    document.getElementById('quality-options').children[document.getElementById('quality-options').children.length-1].click()
+                    console.warn('Stating Download again')
+                    error.innerText=''
+                    await sleep(1000)
+                }
+            }
+            console.log('Done Loading')
+            console.log('Unloading video')
+            while(!!Number(document.querySelector('.indicator').style.width.replace('%',''))){
+                await sleep(10)
+            }
+            close()
+            return;
+        }().then(function(e){
+            ;(opener||window).postMessage(e,'*')
+            location.href=e.href
+        },console.warn)
+    }
     else if (document.domain == 'y2mate.nu') {
-        location.pathname.split('/')[1]!=GM_getValue('y2mate.nu')&&(GM_setValue('y2mate.nu',location.pathname.split('/')[1]),console.warn('updated'))
+        location.pathname.split('/')[1]!=GM_getValue('y2mate.nu')&&(GM_setValue('y2mate.nu',location.pathname.split('/')[1]),console.warn('updated'),close())
         let id_ = new URL(location.href).searchParams.get('v');
         let IsShort = new URL(location.href).searchParams.get('s') == 1;
         let mp4 = new URL(location.href).searchParams.get('mp4')
@@ -1619,13 +1807,13 @@ async function downloadVideo(url,title) {
         var o=new URL(location.href)
         o.host=o.host.replace('.com','mz.com');
         console.log('o',o)
-        let altUrl=['https://y2mate.nu/'+(GM_getValue('y2mate.nu')||'0HzX')+'/','?v=',id,'&s=',o.pathname.startsWith('/shorts/')?1:0,'&mp4=',mp4?"mp4":"mp3",'&useT=',useT]
+        let altUrl=['https://y2mate.nu/'+(GM_getValue('y2mate.nu')||'en1')+'/','?v=',id,'&s=',o.pathname.startsWith('/shorts/')?1:0,'&mp4=',mp4?"mp4":"mp3",'&useT=',useT]
         console.log(_,altUrl)
         var video={}
         var hash=`#url=https://www.youtube.com/watch?v=${id}`
         ad('unload',function(){info[id].close()},true)
         onmessage=function(e){
-            if(e.origin==Porigin||e.origin.match(/https?:\/{2}onlymp3\.to/)||e.origin.match(/https?:\/{2}en\.onlymp3\.to/)||e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/)||e.origin=='https://sss.instasaverpro.com'||e.origin=="https://y2mate.nu"||e.origin=="https://snapsave.io"||e.origin=='https://tubemp4.is'){
+            if(e.origin==Porigin||e.origin.match(/https?:\/{2}onlymp3\.to/)||e.origin.match(/https?:\/{2}en\.onlymp3\.to/)||e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/)||e.origin=='https://sss.instasaverpro.com'||e.origin=="https://y2mate.nu"||e.origin=="https://snapsave.io"||e.origin=="https://www.socialplug.io"||e.origin=='https://tubemp4.is'){
                 const {data:{href,title,length,id,_}}=e
                 let n=(title)+(mp4?".mp4":".mp3")
                 !((a)=>a&&a.remove())(document.getElementById(_))
@@ -1646,7 +1834,7 @@ async function downloadVideo(url,title) {
         //`https://downvideo.quora-wiki.com/tiktok-video-downloader#url=https://www.youtube.com/watch?v=${id}`
         //open([o.protocol,'//',o.host,o.pathname,'?v=',setElement(location.href)].join(''))
         return info[id]=mp4?
-            open((l_).pathname.startsWith('/shorts/')?"https://yt5s.biz/enxj100/":`https://qdownloader.cc/youtube-video-downloader.html?v=${id}`,[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
+            open((l_).pathname.startsWith('/shorts/')?"https://www.socialplug.io/free-tools/youtube-video-downloader":`https://qdownloader.cc/youtube-video-downloader.html?v=${id}`,[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
         :!function(){
             return open(altUrl.join(''),[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false,useT+false],`width=400,height=500`)
             var frame = new _e('iframe', {
@@ -1834,11 +2022,22 @@ async function downloadVideo(url,title) {
         button.set("innerText","Wait...")
         button.set("disabled",true)
         downloadT(setElement(location.href),true,true,false,true)})
+    function getVisiable(elements) {
+        // Filter the elements to find those visible in the viewport
+        const visibleElements = [];
+        elements.forEach(el => {
+            if (isElementInViewport(el)) {
+                visibleElements.push(el);
+            }
+        });
+        return visibleElements;
+    }
+
     var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),true,true,true,true)})
     var button3 = (new element('button')).set("innerText","PlayList MP3").on('click',function(e){WIP_(2,false,false)})
     var button4 = (new element('button')).set("innerText","PlayList MP4").on('click',function(e){WIP_(2,true,false)})
-    var tiktokButton=(new element('button')).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'blue'})
-    var tiktokButton3=(new element('button',{id:"tt1"})).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'blue'})
+    var tiktokButton=(new element('button',{className:"tt1"})).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'blue'})
+    var tiktokButton3=(new element('button',{className:"tt3"})).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'blue'})
     var tiktokButton2=(new element('button')).set("innerText","Get MP3").on('click',function(e){
         downloadTikTok(false,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))
     }).style({color:'blue'})
@@ -1886,47 +2085,57 @@ async function downloadVideo(url,title) {
             return (console.log('Posting'),true,appendButtons())
         },{callback:function(){}})}],
         ["tiktok",function(){
-            addEventListener("load",function(){
-                tF(function(){
+            console.log('OK lets go2')
+            addEventListener("load", function () {
+                console.log('OK lets go');
 
-                    if(!abc_('browse-copy','data-e2e'))throw "Cant Append";
-                    tiktokButton.appendTo(document.querySelectorAll('.e1mecfx011'))
-                    tiktokButton2.appendTo(document.querySelectorAll('.e1mecfx011'))
-                },{callback:function(){}})
-                tF(function(){
-                    if(!document.getElementsByClassName("e13wiwn60")[0])throw "Cant Append";
-                    tiktokButton.appendTo(document.getElementsByClassName("e13wiwn60")[0])
-                    tiktokButton2.appendTo(document.getElementsByClassName("e13wiwn60")[0])
-                    console.log('Posted Buttons')
-                    function _ex(){
-                        try{
+                // Initialize the function
+                tF(function () {
+                    if (document.getElementById("tt1")) throw "Cant Append";
 
-                            if(abc_('browse-copy','data-e2e').parentNode)//.children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0]
-                                return abc_('browse-copy','data-e2e').parentNode
-                            else return false
-                        }
-                        catch(err){
-                            return false
+                    console.log('Posted Buttons');
+
+                    // Function to get visible elements without a child `#tt1`
+                    function _ex() {
+                        try {
+                            // Select elements by class or fallback
+                            const elements = document.querySelectorAll('.eqrezik18, .e1mecfx011, .ees02z00').length
+                            ? document.querySelectorAll('.eqrezik18, .e1mecfx011, .ees02z00')
+                            : [abc_('browse-copy', 'data-e2e').parentNode];
+
+                            // Filter visible elements and exclude those with a child `#tt1`
+                            const visibleElements = getVisiable(elements).filter(el => !el.querySelector(".tt1"));
+
+                            // Return visible elements or false
+                            if (visibleElements.length) return visibleElements;
+                            else return false;
+                        } catch (err) {
+                            return false;
                         }
                     }
-                    var exist=false
-                    setInterval(()=>{
-                        if(exist!=_ex() && _ex()){
-                            console.log("Added playlist buttons")
-                            setTimeout(()=>{
-                                _ex().append(element.br.element);
-                                _ex().append(tiktokButton.element);
-                                _ex().append(tiktokButton2.element)
-                            },100)
-                        }else
-                            if(exist!=_ex() && !_ex()){
-                                console.log("buttons are gone?!?!")
-                            }
-                        exist=_ex()
-                    },100)
 
-                },{callback:function(){}})
-            })
+                    var exist = false;
+
+                    // Polling mechanism to detect changes
+                    setInterval(() => {
+                        const currentVisible = _ex();
+                        if (exist !== currentVisible && currentVisible) {
+                            console.log("Added playlist buttons");
+
+                            // Append buttons to all new visible elements
+                            currentVisible.forEach(a => {
+                                a.append(tiktokButton.element);
+                                a.append(tiktokButton2.element);
+                            });
+                        } else if (exist !== currentVisible && !currentVisible) {
+                            console.log("buttons are gone?!?!");
+                        }
+
+                        exist = currentVisible;
+                    }, 100);
+                }, { callback: function () { } });
+            });
+
         }]
     ].filter(e=>location.host.includes(e[0]))[0];a1&&a1[1]&&(a1[1]());
     console.log(a1)
@@ -2204,14 +2413,21 @@ async function downloadVideo(url,title) {
         toggleIframeCollapse(false); // Example: Expand the iframe once it's loaded
     });
     toggleIframeCollapse(true);
-    var adPlayTimeInSeconds=4
+    var adPlayTimeInSeconds=5
     var currentPB=0
     var setPlayerBack=1
     var setPlayerBackAd=0
     var isReloading=0
     var ts=0
+    tr=localStorage[setElement(location.href)]||0
     var cliked=0
     var check=(a,b)=>a>b?b:a
+    const p_=new videoPlayer()
+    function addSearchParam() {
+        let url = new URL(location.href); // Gets the current URL
+        url.searchParams.set('s', tr); // Adds or updates the 's' search parameter
+        return url.toString(); // Returns the modified URL as a string
+    }
     setInterval(e => {
         const player = document.querySelector('video');
         const target = document.querySelector('#video-companion-root')||document.querySelector('#secondary-inner')||document.querySelector('#secondary.ytd-watch-flexy');
@@ -2237,11 +2453,12 @@ async function downloadVideo(url,title) {
 
         try{
             if (adButton && !didmute) {
+                console.log(p_)
                 console.log('Muted ad');
                 console.log('Started at',tr)
                 //alert(tr)
                 didmute = 1;
-                player.playbackRate=check(player.duration/adPlayTimeInSeconds,16)
+                player.playbackRate=document.querySelector('video').duration>6&&(check(player.duration/adPlayTimeInSeconds,16))
                 player.muted=1
             } else if (!adButton && didmute) {
                 console.log('Unmuted video');
@@ -2251,22 +2468,24 @@ async function downloadVideo(url,title) {
                     console.warn('Failed unmuting');
                 }
                 didmute = 0;
+            }else{
+                //tr=player.currentTime
             }
         }
         catch{}
-        !didmute&&document.querySelector('video')&&(tr=document.querySelector('video')&&(document.querySelector('video').currentTime.toFixed()))
-        // Skip ads when skip button is available
-        const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player')]
+        !didmute&&document.querySelector('video')&&document.querySelector('video').currentTime!=0&&(tr=document.querySelector('video')&&(document.querySelector('video').currentTime.toFixed()),localStorage[setElement(location.href)]==tr)
+
+        const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player'),...document.getElementsByTagName('video')]
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
         .filter(e => !!e)[0];
         if (skipButton||document.querySelectorAll('.ytp-ad-button-icon')[0]) {
-            if(!setPlayerBackAd||player.playbackRate!=(player.duration/5)){
+            if(!setPlayerBackAd||player.playbackRate!=(player.duration/adPlayTimeInSeconds)){
                 setPlayerBackAd=1
                 console.log('Skipping ad :>');
             }
-            !cliked&&(setTimeout(()=>{
+            !cliked&&(cliked=true,setTimeout(()=>{
                 skipButton?skipButton.click():0;cliked=false;
-            },5000),cliked=true)
+            },5000))
             setPlayerBack=0
         }else if(!setPlayerBack&&player){
             setPlayerBackAd=0
@@ -2287,7 +2506,11 @@ async function downloadVideo(url,title) {
         }
         //anti ad block
         let adBlockBtn=[...document.querySelectorAll('.yt-spec-button-shape-next')].filter(e=>e.innerText.includes('Ads'))[0]
-        adBlockBtn&&(adBlockBtn.click(),!isReloading&&location.href.includes('watch')&&(isReloading=1,location.reload()))
+        adBlockBtn&&(adBlockBtn.click(),!isReloading&&location.href.includes('watch')&&(isReloading=1,location.href=addSearchParam()))
     }, 10);
 
 })();
+
+
+
+
