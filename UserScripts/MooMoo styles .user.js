@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MooMoo styles
 // @namespace    http://tampermonkey.net/
-// @version      3.5
+// @version      3.7
 // @description  Moomoo.io/Sploop.io mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK/AUTO LOGIN]
 // @author       Gaston
 // @match        *://moomoo.io/*
@@ -13,12 +13,136 @@
 // @require http://code.jquery.com/jquery-3.3.1.min.js
 // @require https://code.jquery.com/ui/1.12.0/jquery-ui.min.js
 // @require https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js
+// @require      https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_addValueChangeListener
 // ==/UserScript==
+// Save the original console methods before overriding them
+const consoleLogOriginal = console.log;
+const consoleWarnOriginal = console.warn;
+const consoleErrorOriginal = console.error;
 
-console.log('00')
+(function() {
+    class CustomLogging {
+        constructor(title) {
+            this.title = {
+                body: title || "---",
+                color: "darkgrey",
+                size: "1rem"
+            };
+            this.body = {
+                color: "#008f68",
+                size: "1rem"
+            };
+        }
+
+        setTitleBody(title) {
+            this.title.body = title;
+            return this;
+        }
+
+        setTitleStyle({ color, size }) {
+            if (color !== undefined) this.title.color = color;
+            if (size !== undefined) this.title.size = size;
+            return this;
+        }
+
+        setBodyStyle({ color, size }) {
+            if (color !== undefined) this.body.color = color;
+            if (size !== undefined) this.body.size = size;
+            return this;
+        }
+
+        log(body = "") {
+            consoleLogOriginal(
+                `%c${this.title.body} | %c${body}`,
+                `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`,
+                `color: ${this.body.color}; font-weight: bold; font-size: ${this.body.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
+            );
+        }
+
+        warn(body = "") {
+            consoleWarnOriginal(
+                `%c${this.title.body} | %c${body}`,
+                `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`,
+                `color: orange; font-weight: bold; font-size: ${this.body.size};`
+            );
+        }
+
+        error(body = "") {
+            consoleErrorOriginal(
+                `%c${this.title.body} | %c${body}`,
+                `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`,
+                `color: red; font-weight: bold; font-size: ${this.body.size};`
+            );
+        }
+    }
+
+    // Expose CustomLog to the global scope
+    window.CustomLog = CustomLogging;
+})();
+
+const logger = new CustomLog("Script Logger");
+
+function overrideConsoleMethod(methodName, originalMethod) {
+    console[methodName] = function(...args) {
+        // Check if any of the arguments is an object (excluding null)
+        const containsObject = args.some(arg => typeof arg === 'object' && arg !== null);
+
+        // Retrieve the caller function's name
+        let callerFunctionName = 'Anonymous';
+
+        try {
+            // Throw an error to get the stack trace
+            throw new Error();
+        } catch (e) {
+            if (e.stack) {
+                // Parse the stack trace to get the caller function
+                const stackLines = e.stack.split('\n');
+
+                // The stack trace format varies between environments
+                // For modern browsers, the third line is the caller
+                // Adjust the index if needed based on your environment
+                if (stackLines.length >= 3) {
+                    const callerLine = stackLines[2];
+
+                    // Extract the function name from the caller line
+                    // This regex works for Chrome and Firefox
+                    const functionNameMatch = callerLine.match(/at\s+(.*?)\s*\(/);
+
+                    if (functionNameMatch && functionNameMatch[1]) {
+                        callerFunctionName = functionNameMatch[1];
+                    } else {
+                        callerFunctionName = 'Anonymous';
+                    }
+                }
+            }
+        }
+
+        if (callerFunctionName === 'Anonymous') {
+            // Use the method name as placeholder (e.g., 'Log', 'Warn', 'Error')
+            callerFunctionName = methodName.charAt(0).toUpperCase() + methodName.slice(1);
+        }
+
+        if (!containsObject) {
+            // If no objects, format the arguments for better presentation
+            const formattedMessage = args.map(arg => String(arg)).join(' ');
+            // Include the caller function name
+            logger[methodName](`[${callerFunctionName}] ${formattedMessage}`);
+        } else {
+            // If there are objects, log them as they are, including the caller function name
+            originalMethod.call(console, `[${callerFunctionName}]`, ...args);
+        }
+    };
+}
+
+// Override console methods
+overrideConsoleMethod('log', consoleLogOriginal);
+overrideConsoleMethod('warn', consoleWarnOriginal);
+overrideConsoleMethod('error', consoleErrorOriginal);
+
+
 ///⣿⣿⣿⣿⣿⣿⣟⣷⣿⣿⣿⡀⠹⣟⣾⣟⣆⠹⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢠⡘⣿⣿⡄⠉⢿⣿⣽⡷⣿⣻⣿⣿⣿⣿⡝⣷⣯⢿⣿
 ///⣿⣿⣿⣿⣿⣿⣯⢿⣾⢿⣿⡄⢄⠘⢿⣞⡿⣧⡈⢷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣧⠘⣿⣷⠈⣦⠙⢿⣽⣷⣻⣽⣿⣿⣿⣿⣌⢿⣯⢿
 ///⣿⣿⣿⣿⣿⣿⣟⣯⣿⢿⣿⡆⢸⡷⡈⢻⡽⣷⡷⡄⠻⣽⣿⣿⡿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣏⢰⣯⢷⠈⣿⡆⢹⢷⡌⠻⡾⢋⣱⣯⣿⣿⣿⣿⡆⢻⡿
@@ -63,7 +187,7 @@ var badWords= GM_getValue('moowords')||[]
 var reg=new RegExp(`(${[...new Set(badWords.join(' ').match(/[\w\d]+/gi))].join('|')})`,'gi')
 
 const filter1=s=>s.replaceAll(reg,function(a,b,c){return a.length>1?a.split(/[aeiou]+/gi).join('*'):a})
-const filter2 = (s) => {
+const lolzcatFilterold = (s) => {
     return s.toLowerCase().split('l').join('w').replaceAll(/l/g,'w').replaceAll(/(l|e)(?!d)/gi, function(match) {
         const block = {
             "l": 'w',
@@ -77,6 +201,24 @@ const filter2 = (s) => {
         return 'e';
     }).replace(/w{2,}/g, 'wl').replaceAll(/e{2,}/gi,'ee').replaceAll(/.r/gi,e=>e.replace('r','w'))
 };
+const filter2 = (input) => {
+    return input
+        .toLowerCase()
+        .replace(/l/g, 'w')                // Replace all 'l' with 'w'
+        .replace(/th/g, 'd')               // Replace 'th' with 'd'
+        .replace(/s/g, 'z')                // Replace 's' with 'z'
+        .replace(/ee+/gi, 'ee')            // Normalize multiple 'e's to 'ee'
+        .replace(/w{2,}/g, 'wl')           // Replace consecutive 'w's with 'wl'
+        .replace(/(r)(?!\b)/gi, 'w')       // Replace 'r' with 'w' unless at word boundaries
+        .replace(/e(?=d)/gi, 'e')          // Ensure 'e' followed by 'd' is normalized
+        .replace(/l|e(?!d)/gi, (match) => {
+        const replacements = {
+            'l': 'w',
+        };
+        return replacements[match] || match;
+    });
+};
+
 const game_= new class{
     #spawnFunction=function(){}
     #testFunction=function(){}
@@ -1098,7 +1240,7 @@ fetch(wordWurl).then(e=>e.json()).then(e=>(GM_setValue('moowords',e),(e.join()!=
 
 
 
-return null;
+;
 (function() {
     const imagesArray = [];
     var categorizedImages = {
@@ -1257,10 +1399,14 @@ return null;
         }
         // Handle other entities by categorizing them into their own arrays based on their name
         else if (type === 'entity') {
-            if (!categorizedImages.entities[name]) {
+            try{
+                if (!categorizedImages.entities[name]) {
                 categorizedImages.entities[name] = [];
             }
             categorizedImages.entities[name].push(imageObject);
+            }catch(err){
+                console.log(err)
+            }
         }
 
         // Update the global imagesArray as well
@@ -1331,22 +1477,7 @@ return null;
     };
 
 
-    CanvasRenderingContext2D.prototype.drawImage = new Proxy(originalDrawImage, {
-        apply(target, thisArg, argumentsList) {
-            const [img, x, y] = argumentsList;
-            updateImageArray(img, x, y, thisArg.canvas, thisArg);
-            return Reflect.apply(target, thisArg, argumentsList);
-        }
-    });
-
-    CanvasRenderingContext2D.prototype.clearRect = new Proxy(originalClearRect, {
-        apply(target, thisArg, argumentsList) {
-            clearArrays();
-            window.categorizedImages=categorizedImages
-            categorizedImages={}
-            return Reflect.apply(target, thisArg, argumentsList);
-        }
-    });
+   
 
     // Expose the arrays and functions globally
     window.imagesArray = imagesArray;
