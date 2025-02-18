@@ -1,18 +1,20 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
-// @namespace http://tampermonkey.net/
-// @version 7.9
-// @supportURL https://your-support-page.com
+// @namespace http://tampermonkey.net
+// @version 8.7
+// @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @author gaston1799
 // @match *://www.youtube.com/*
+// @match *://yt.savetube.me/*
 // @match *://production.assets.clips.twitchcdn.net/*
 // @match *://www.instagram.com/*
 // @match *://music.youtube.com/*
 // @match *://y2mate.nu/*
 // @match *://www.twitch.tv/*
-// @match *://snapinsta.app/*
+// @match *://www.socialplug.io/*
+// @match *://snapinst.app/*
 // @match *://loader.to/*
 // @match *://onlymp3.app/*
 // @match *://qdownloader.cc/*
@@ -34,6 +36,7 @@
 // @match *://yt5s.biz/*
 // @match *://sss.instasaverpro.com/*
 // @icon data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
 // @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
 // @grant GM_info
 // @grant GM_xmlhttpRequest
@@ -42,74 +45,112 @@
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
-// @name:pt Gaston's - Downloader de vídeo/imagem
-// @name:ar Gaston's - Video/Image Downloader
-// @name:zh Gaston's - Video/Image Downloader
-// @name:ru Gaston's - Video/Image Скачатель
-// @name:fr Gaston's - téléchargeur vidéo / image
-// @name:de Gaston's - Video/Image Downloader
 // @name:en Gaston's - Video/Image Downloader
-// @name:es Gaston's - Video/Image Descarger
+// @name:zh Gaston's - Video/Image Downloader
+// @name:fr Gaston's - téléchargeur vidéo / image
+// @name:pt Gaston's - Downloader de vídeo/imagem
+// @name:de Gaston's - Video/Image Downloader
+// @name:ru Gaston's - Video/Image Скачатель
 // @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
+// @name:ar Gaston's - Video/Image Downloader
 // @name:ja Gaston's -Video/Image Downloader
-// @name:it Gaston's - Downloader di video/immagine
-// @name:ko Gaston 's- 비디오/이미지 다운로더
-// @name:tr Gaston's - Video/Resim İndirici
-// @name:vi Gaston's - Trình tải xuống video/hình ảnh
+// @name:es Gaston's - Video/Image Descarger
 // @name:uk GASTON'S - Відео/зображення завантажувача
-// @name:ro Gaston's - descărcător video/imagini
+// @name:tr Gaston's - Video/Resim İndirici
 // @name:pl Gaston - pobierca wideo/obrazu
-// @name:nl Gaston's - Video/Image Downloader
 // @name:id Gaston's - Video/Image Downloader
+// @name:it Gaston's - Downloader di video/immagine
+// @name:ro Gaston's - descărcător video/imagini
+// @name:vi Gaston's - Trình tải xuống video/hình ảnh
 // @name:th Gaston's - Video/Image Downloader
-// @name:cs Gaston's - Video/Image Downloader
-// @name:he Gaston's - הורדת וידאו/תמונה
-// @name:bg Gaston's - видео/изтегляне на изображения
-// @name:fi Gaston's - Video/kuvan lataaja
-// @name:hu Gaston's - Videó/kép letöltő
-// @name:el Gaston's - Video/Image Downloader
+// @name:ko Gaston 's- 비디오/이미지 다운로더
+// @name:nl Gaston's - Video/Image Downloader
 // @name:sk Gaston's - Video/Image Downloader
-// @name:sv Gaston's - Video/Image Downloader
+// @name:cs Gaston's - Video/Image Downloader
 // @name:no Gaston's - Video/Image Downloader
 // @name:da Gastons - Video/Image Downloader
-// @description:ar Instagram/twitch/youtube/tiktok video/audio downloader (تم تحديثه بشكل متكرر)
+// @name:hu Gaston's - Videó/kép letöltő
+// @name:el Gaston's - Video/Image Downloader
+// @name:bg Gaston's - видео/изтегляне на изображения
+// @name:he Gaston's - הורדת וידאו/תמונה
+// @name:sv Gaston's - Video/Image Downloader
+// @name:fi Gaston's - Video/kuvan lataaja
 // @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
+// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
 // @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
-// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
-// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
 // @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
-// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
-// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
-// @description:uk Instagram/twitch/youtube/tiktok відео/аудіо завантажувач (часто оновлений)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
-// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
-// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
-// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
-// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
+// @description:ar Instagram/twitch/youtube/tiktok video/audio downloader (تم تحديثه بشكل متكرر)
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
 // @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
+// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:uk Instagram/twitch/youtube/tiktok відео/аудіо завантажувач (часто оновлений)
 // @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
-// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
+// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
+// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
 // @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
-// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
-// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
-// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
 // @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
-// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
 // @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
 // @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
-// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
+// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
+// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
 // @license MIT
 // ==/UserScript==
 ! function() {
-    ! function() {
+    class videoPlayer {
+#e = function() {
+            return this.isFullScreen
+        };
+#t = function() {
+            return this.isTheater
+        };
+#o = function() {
+            return this.isMini
+        };
+        set isMini(e) {
+            e && !this.#o() ? document.querySelector('[title="Miniplayer (i)"]').click() : !e && this.#o() && document.querySelector('[title="Expand (i)"]').click()
+        }
+        get isMini() {
+            return !document.querySelector('[title="Miniplayer (i)"]')
+        }
+        set isTheater(e) {
+            !e && this.#t() ? document.querySelector('[title="Default view (t)"]').click() : e && !this.#t() && document.querySelector('[title="Theater mode (t)"]').click()
+        }
+        get isTheater() {
+            return !document.querySelector('[title="Theater mode (t)"]')
+        }
+        set isFullScreen(e = this.#e()) {
+            e && !this.#e() ? document.querySelector('[title="Full screen (f)"]').click() : !e && this.#e() && document.querySelector('[title="Exit full screen (f)"]').click()
+        }
+        get isFullScreen() {
+            return !document.querySelector('[title="Full screen (f)"]')
+        }
+    }
+
+    function dispatchAllInputEvents(e, t) {
+        ["focus", "input", "change", "blur"].forEach((o => {
+            let n = new Event(o, {
+                bubbles: !0,
+                isTrusted: !0
+            });
+            e[`on${o}`] && e[`on${o}`](n), "input" === o && (e.value = t), e.dispatchEvent(n)
+        }))
+    }! function() {
         "use strict";
         const e = "feedbackPromptLastDate",
             t = "isFirstTimeKey";
-        async function n() {
+        async function o() {
             const t = function() {
                 if ("undefined" != typeof GM_info && GM_info.scriptUpdateURL) {
                     const e = GM_info.scriptUpdateURL.match(/\/scripts\/(\d+)\//);
@@ -118,13 +159,13 @@
                 return console.error("Script ID not found in the update URL."), null
             }();
             if (t) {
-                const n = `https://greasyfork.org/en/scripts/${t}/feedback`;
-                confirm("Are you enjoying this script? Would you like to provide feedback?") && window.open(n, "_blank"), await GM.setValue(e, Date.now())
+                const o = `https://greasyfork.org/en/scripts/${t}/feedback`;
+                confirm("Are you enjoying this script? Would you like to provide feedback?") && window.open(o, "_blank"), await GM.setValue(e, Date.now())
             }
         }!async function() {
-            const o = await GM.getValue(t, !0),
+            const n = await GM.getValue(t, !0),
                 l = await GM.getValue(e, Date.now());
-            Date.now() - l > 12096e5 && (n(), o && GM.setValue(t, !1)), console.log("FirstTime:", o)
+            Date.now() - l > 12096e5 && (o(), n && GM.setValue(t, !1)), console.log("FirstTime:", n)
         }()
     }(),
     function() {
@@ -161,16 +202,17 @@
             }
         })
     }(top);
-    const logger = new CustomLog("Script Logger"),
+    const olog = console.log,
+        logger = new CustomLog("Script Logger"),
         consoleLogOriginal = console.log;
 
     function downloadFileAsTitle(e, t) {
-        const n = document.createElement("a");
-        n.href = e, n.download = t, document.body.appendChild(n), n.click(), document.body.removeChild(n)
+        const o = document.createElement("a");
+        o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
     }
-    console.log = function(...e) {
+    console.log1 = function(...e) {
         const t = e.some((e => "object" == typeof e && null !== e));
-        let n = "Anonymous";
+        let o = "Anonymous";
         try {
             throw new Error
         } catch (e) {
@@ -178,14 +220,14 @@
                 const t = e.stack.split("\n");
                 if (t.length >= 3) {
                     const e = t[2].match(/at\s+(.*?)\s*\(/);
-                    n = e && e[1] ? e[1] : "Anonymous"
+                    o = e && e[1] ? e[1] : "Anonymous"
                 }
             }
         }
-        if (t) consoleLogOriginal(`og:[${n}]`, ...e);
+        if (t) consoleLogOriginal(`og:[${o}]`, ...e);
         else {
             const t = e.map((e => String(e))).join(" ");
-            logger.log(`[${n}]`, t)
+            logger.log(`[${o}]`, t)
         }
     };
     var sleep = e => new Promise((t => setTimeout(t, e)));
@@ -220,7 +262,7 @@
 
     function getCurrentVideoID() {
         var e;
-        return [...document.getElementsByClassName("ytp-video-menu-item ytp-button")].forEach(((t, n) => {
+        return [...document.getElementsByClassName("ytp-video-menu-item ytp-button")].forEach(((t, o) => {
             t.innerText.startsWith(CurrentPlayingSymbol) && (e = new URL(t.href).searchParams.get("v"))
         })), !e && document.getElementsByClassName("ytp-playlist-menu-button ytp-button")[0] ? (console.log("Opening"), document.getElementsByClassName("ytp-playlist-menu-button ytp-button")[0].click(), getCurrentVideoID()) : e ? (console.log("Closiung"), document.getElementsByClassName("ytp-playlist-menu-button ytp-button")[0].click(), e) : console.warn("Not Found!")
     }
@@ -238,8 +280,8 @@
         }
     }, async function() {
         async function e(e, t = 3e4) {
-            var n;
-            for (sleep(t).then((e => n = !0)); !document.querySelector(e) && (await sleep(0), !n););
+            var o;
+            for (sleep(t).then((e => o = !0)); !document.querySelector(e) && (await sleep(0), !o););
             return document.querySelector(e)
         }
         return location.href.includes("/embed/") ? (console.log("Attaching to embeder >:]"), e(".ytp-right-controls").then((async e => {
@@ -255,43 +297,43 @@
             });
             for (; !document.getElementById("embedMP3") && document.querySelector(".ytp-right-controls");) console.log("Appended"), t.appendTo(".ytp-right-controls")
         }))) : (document.querySelector(".ytp-right-controls"), await e(".playbackSoundBadge__actions", 5e3).then((async t => {
-            let n = new _e("button", {
+            let o = new _e("button", {
                 id: "GetAudio"
             }).appendTo(t).set("innerText", "Download MP3").on("click", (function() {
                 downloadSC()
             }), (e => e));
             for (;;) !document.getElementById("GetAudio") && await e(".playbackSoundBadge__actions", 5e3) && await e(".playbackSoundBadge__actions", 5e3).then((e => {
-                n.appendTo(e), console.log("Added Button")
+                o.appendTo(e), console.log("Added Button")
             })), await sleep(0)
         })))
     }().then(console.log, console.warn), downloadSC = function() {
-        GM_setValue("SCinfo", null), GM_setValue("sc", getSoundCloudUrl()), !set_ && (set_ = 1, GM_addValueChangeListener("SCinfo", (function(e, t, n, o) {
+        GM_setValue("SCinfo", null), GM_setValue("sc", getSoundCloudUrl()), !set_ && (set_ = 1, GM_addValueChangeListener("SCinfo", (function(e, t, o, n) {
             console.log({
                 a: e,
                 b: t,
-                c: n,
-                d: o
-            }), n && n.name && _downloadFileAsTitle(n.href, n.name)
+                c: o,
+                d: n
+            }), o && o.name && _downloadFileAsTitle(o.href, o.name)
         }))), open("https://sclouddownloader.net/")
     }, GM_setValue_ = GM_setValue, GM_getValue_ = GM_getValue, GM_info_ = GM_info;
     var UnmutePath = "M3.15,3.85l4.17,4.17L6.16,9H3v6h3.16L12,19.93v-7.22l2.45,2.45c-0.15,0.07-0.3,0.13-0.45,0.18v1.04 c0.43-0.1,0.83-0.27,1.2-0.48l1.81,1.81c-0.88,0.62-1.9,1.04-3.01,1.2v1.01c1.39-0.17,2.66-0.71,3.73-1.49l2.42,2.42l0.71-0.71 l-17-17L3.15,3.85z M11,11.71v6.07L6.52,14H4v-4h2.52l1.5-1.27L11,11.71z M10.33,6.79L9.62,6.08L12,4.07v4.39l-1-1V6.22L10.33,6.79 z M14,8.66V7.62c2,0.46,3.5,2.24,3.5,4.38c0,0.58-0.13,1.13-0.33,1.64l-0.79-0.79c0.07-0.27,0.12-0.55,0.12-0.85 C16.5,10.42,15.44,9.1,14,8.66z M14,5.08V4.07c3.95,0.49,7,3.85,7,7.93c0,1.56-0.46,3.01-1.23,4.24l-0.73-0.73 C19.65,14.48,20,13.28,20,12C20,8.48,17.39,5.57,14,5.08z",
         mutePath = "M17.5,12c0,2.14-1.5,3.92-3.5,4.38v-1.04c1.44-0.43,2.5-1.76,2.5-3.34c0-1.58-1.06-2.9-2.5-3.34V7.62 C16,8.08,17.5,9.86,17.5,12z M12,4.07v15.86L6.16,15H3V9h3.16L12,4.07z M11,6.22L6.52,10H4v4h2.52L11,17.78V6.22z M21,12 c0,4.08-3.05,7.44-7,7.93v-1.01c3.39-0.49,6-3.4,6-6.92s-2.61-6.43-6-6.92V4.07C17.95,4.56,21,7.92,21,12z";
 
     function downloadFile_(e, t) {
-        const n = document.createElement("a");
-        n.href = e, n.download = t, document.body.appendChild(n), n.click(), document.body.removeChild(n)
+        const o = document.createElement("a");
+        o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
     }
-    _downloadFileAsTitle = async function(e, t, n, o) {
+    _downloadFileAsTitle = async function(e, t, o, n) {
         const l = document.createElement("a");
         return l.style.display = "none", document.body.appendChild(l), fetch(e).then((e => e.blob())).then((i => {
             const c = URL.createObjectURL(i);
-            l.href = c, l.download = t, l.target = "_blank", l.click(), URL.revokeObjectURL(c), (n || opener || window).postMessage({
+            l.href = c, l.download = t, l.target = "_blank", l.click(), URL.revokeObjectURL(c), (o || opener || window).postMessage({
                 url: e,
                 title: t,
                 s: !0
-            }, "*"), (typeof o).includes("function") && o()
-        })).catch((o => {
-            console.error("Error downloading file:", o), (n || opener || window).postMessage({
+            }, "*"), (typeof n).includes("function") && n()
+        })).catch((n => {
+            console.error("Error downloading file:", n), (o || opener || window).postMessage({
                 url: e,
                 title: t,
                 s: !1
@@ -300,38 +342,38 @@
     }, _downloadFile_ = downloadFile_;
     const query = function(e, t) {
         try {
-            let o = "undefined" != typeof $ ? $ : document.querySelectorAll;
-            return t ? [...document.querySelectorAll(e)].filter((e => !(null === el.offsetParent)))[0] : (n = o(e) ? o(e).length ? o(e)[0] : o(e) : null, Object.keys(n).length ? n : null)
+            let n = "undefined" != typeof $ ? $ : document.querySelectorAll;
+            return t ? [...document.querySelectorAll(e)].filter((e => !(null === el.offsetParent)))[0] : (o = n(e) ? n(e).length ? n(e)[0] : n(e) : null, Object.keys(o).length ? o : null)
         } catch {}
-        var n
+        var o
     };
     async function downloadVideo(e, t) {
         try {
-            const n = await fetch(e);
-            if (!n.ok) throw new Error(`HTTP error! Status: ${n.status}`);
-            const o = n.url,
-                l = await n.blob(),
+            const o = await fetch(e);
+            if (!o.ok) throw new Error(`HTTP error! Status: ${o.status}`);
+            const n = o.url,
+                l = await o.blob(),
                 i = window.URL.createObjectURL(l),
                 c = document.createElement("a");
-            c.href = i, c.download = t, document.body.appendChild(c), c.click(), document.body.removeChild(c), window.URL.revokeObjectURL(i), console.log(`Video downloaded from: ${o}`)
+            c.href = i, c.download = t, document.body.appendChild(c), c.click(), document.body.removeChild(c), window.URL.revokeObjectURL(i), console.log(`Video downloaded from: ${n}`)
         } catch (e) {
             console.error("Failed to download video:", e)
         }
     }
-    getElementByAttribute = function(e, t = "aria-label", n = document.body) {
-            var o = [];
-            return function n(l) {
-                l.getAttribute(t) == e ? o.push(l) : l.children.length && ((l = l.children).forEach = [].forEach, l.forEach((e => {
-                    n(e)
-                })))
-            }(n), 1 == o.length ? o[0] : o || !1
-        }, get_aria_label = function(e, t = document.body) {
+    getElementByAttribute = function(e, t = "aria-label", o = document.body) {
             var n = [];
-            return function t(o) {
-                o.getAttribute("aria-label") == e ? n.push(o) : o.children.length && ((o = o.children).forEach = [].forEach, o.forEach((e => {
+            return function o(l) {
+                l.getAttribute(t) == e ? n.push(l) : l.children.length && ((l = l.children).forEach = [].forEach, l.forEach((e => {
+                    o(e)
+                })))
+            }(o), 1 == n.length ? n[0] : n || !1
+        }, get_aria_label = function(e, t = document.body) {
+            var o = [];
+            return function t(n) {
+                n.getAttribute("aria-label") == e ? o.push(n) : n.children.length && ((n = n.children).forEach = [].forEach, n.forEach((e => {
                     t(e)
                 })))
-            }(t), n[0] || !1
+            }(t), o[0] || !1
         }, getClass = function(e) {
             return document.getElementsByClassName("ehlq8k34")[0]
         },
@@ -356,11 +398,11 @@
                         fe: t && t.forEach
                     });
                     for (let e = 0; e < t.length; e++) {
-                        let n = t[e];
+                        let o = t[e];
                         console.log("Appending:", {
-                            element: n,
+                            element: o,
                             target: this
-                        }), this.element.append(n.element || n)
+                        }), this.element.append(o.element || o)
                     }
                     return this
                 }
@@ -429,11 +471,11 @@
             var Porigin = "https://onlymp3.app",
                 Ppath = "/watch?=";
 
-            function ad(e, t, n = !1) {
-                var o = addEventListener(e, ((...e) => {
-                    t(...e), n && removeEventListener(o)
+            function ad(e, t, o = !1) {
+                var n = addEventListener(e, ((...e) => {
+                    t(...e), o && removeEventListener(n)
                 }), !0);
-                return o
+                return n
             }
 
             function isElementInViewport(e) {
@@ -444,22 +486,22 @@
 
             function tF(e, {
                 callback: t,
-                int: n
+                int: o
             }) {
-                !t && (t = function() {}), !n && (n = 100), console.log({
+                !t && (t = function() {}), !o && (o = 100), console.log({
                     f: e,
                     callback: t,
-                    int: n
+                    int: o
                 });
                 try {
                     return e(), void t()
                 } catch (e) {}
-                var o = setInterval((() => {
+                var n = setInterval((() => {
                     try {
-                        e(), t(), clearInterval(o)
+                        e(), t(), clearInterval(n)
                     } catch (e) {}
-                }), n || 100);
-                return o
+                }), o || 100);
+                return n
             }
 
             function isHidden(e) {
@@ -489,10 +531,10 @@
             function DIV() {
                 if (location.href.includes("reel")) {
                     let t = open("https://fastdl.app/en", location.href, "width=400,height=500");
-                    var e = GM_addValueChangeListener("instaURL", (function(n, o, l, i) {
+                    var e = GM_addValueChangeListener("instaURL", (function(o, n, l, i) {
                         l && (console.log("Got", {
-                            a: n,
-                            b: o,
+                            a: o,
+                            b: n,
                             c: l,
                             d: i
                         }), t.close(), GM_removeValueChangeListener(e), downloadFile_(l, document.title + ".mp4"), GM_setValue("instaURL", null))
@@ -500,23 +542,23 @@
                 }
             }
             async function DII_() {
-                for (var e = e => new Promise((t => setTimeout(t, e))), t = new Set, n = {}; GP();) {
+                for (var e = e => new Promise((t => setTimeout(t, e))), t = new Set, o = {}; GP();) {
                     if (await e(100), !GP()) {
                         await e(1e3);
                         break
                     }
                     GP().click()
                 }[...getInstalImages()].forEach((e => {
-                    let n = findhref2(e, "img")[0];
-                    t.add([n.src, n.getAttribute("alt")])
+                    let o = findhref2(e, "img")[0];
+                    t.add([o.src, o.getAttribute("alt")])
                 })), GN().click();
                 try {
                     GN().click()
                 } catch (e) {}
                 for (; GN();) {
                     await e(300), [...getInstalImages()].forEach((e => {
-                        let n = findhref2(e, "img")[0];
-                        t.add([n.src, n.getAttribute("alt")])
+                        let o = findhref2(e, "img")[0];
+                        t.add([o.src, o.getAttribute("alt")])
                     }));
                     try {
                         GN().click()
@@ -524,10 +566,10 @@
                 }
                 for (; await e(100), GP();) GP().click();
                 [...t].forEach((e => {
-                    n[e[0]] = e[1]
-                })), (t = Object.keys(n).map((e => ({
+                    o[e[0]] = e[1]
+                })), (t = Object.keys(o).map((e => ({
                     src: e,
-                    name: n[e]
+                    name: o[e]
                 })))).forEach((e => {
                     var t = new URL(e.src).pathname.split(".").pop();
                     downloadFileAsTitle(e.src, `${e.name}.${t}`)
@@ -540,34 +582,34 @@
             setElement = function(e) {
                 return !(!String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/) || 11 != String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length) && String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8]
             }, findhref2 = function(e, t) {
-                var n = [];
-                return function e(o) {
-                    o.tagName.toLowerCase() == (t || "a") ? (n.push(o), o.children.length && ((o = o.children).forEach = [].forEach, o.forEach((t => {
+                var o = [];
+                return function e(n) {
+                    n.tagName.toLowerCase() == (t || "a") ? (o.push(n), n.children.length && ((n = n.children).forEach = [].forEach, n.forEach((t => {
                         e(t)
-                    })))) : o.children.length && ((o = o.children).forEach = [].forEach, o.forEach((t => {
+                    })))) : n.children.length && ((n = n.children).forEach = [].forEach, n.forEach((t => {
                         e(t)
                     })))
-                }(e), n
+                }(e), o
             }, getInstalImages = function() {
                 return document.querySelectorAll("._acaz")
             }, getInstaVideo = function() {
                 return document.querySelector("video.x1lliihq")
             }, downloadVideoFromBlob = function(e, t) {
                 if (e && e.src && e.src.startsWith("blob:")) {
-                    const n = e.captureStream(),
-                        o = new MediaRecorder(n),
+                    const o = e.captureStream(),
+                        n = new MediaRecorder(o),
                         l = [];
-                    o.ondataavailable = e => {
+                    n.ondataavailable = e => {
                         e.data.size > 0 && (l.push(e.data), console.log(e.data))
-                    }, o.onstop = () => {
+                    }, n.onstop = () => {
                         const e = new Blob(l, {
                                 type: "video/mp4"
                             }),
-                            n = URL.createObjectURL(e),
-                            o = document.createElement("a");
-                        o.style.display = "none", o.href = n, o.download = t + ".mp4", document.body.appendChild(o), o.click(), document.body.removeChild(o), URL.revokeObjectURL(n)
-                    }, o.start(), setTimeout((() => {
-                        o.stop()
+                            o = URL.createObjectURL(e),
+                            n = document.createElement("a");
+                        n.style.display = "none", n.href = o, n.download = t + ".mp4", document.body.appendChild(n), n.click(), document.body.removeChild(n), URL.revokeObjectURL(o)
+                    }, n.start(), setTimeout((() => {
+                        n.stop()
                     }), 1e3 * e.duration)
                 } else console.error("Invalid video element or source.")
             }, console.log("A?");
@@ -584,12 +626,12 @@
                     if (await sleep(0), t) throw "Cant find input";
                 e.input = document.querySelector("#search-form-input"), console.log("Found a"),
                     function(e, t) {
-                        ["focus", "input", "change", "blur"].forEach((n => {
-                            let o = new Event(n, {
+                        ["focus", "input", "change", "blur"].forEach((o => {
+                            let n = new Event(o, {
                                 bubbles: !0,
                                 isTrusted: !0
                             });
-                            e[`on${n}`] && e[`on${n}`](o), "input" === n && (e.value = t), e.dispatchEvent(o)
+                            e[`on${o}`] && e[`on${o}`](n), "input" === o && (e.value = t), e.dispatchEvent(n)
                         }))
                     }(e.input, e.url), document.querySelector(".search-form__button").click(), GM_setValue("instaURL", await async function(e) {
                         for (; !document.querySelector(e);) await sleep(0);
@@ -611,14 +653,14 @@
                                 alert("Doesnt work yet");
                                 const {
                                     id: t,
-                                    href: n,
-                                    isShort: o
+                                    href: o,
+                                    isShort: n
                                 } = findhref2(e.target.parentElement.parentElement).map((e => ({
                                     href: e.href,
                                     short: e.href.includes("/short"),
                                     id: setElement(e.href)
                                 }))).filter((e => e.id))[0];
-                                downloadT(t, !1, !0, !1, !1, o ? new URL(n) : null)
+                                downloadT(t, !1, !0, !1, !1, n ? new URL(o) : null)
                             }));
                             e.append(t.element)
                         })), e = !0
@@ -638,14 +680,14 @@
                         }))
                     }))
                 }
-                if ("snapinsta.app" == document.domain) {
+                if ("snapinst.app" == document.domain) {
                     const t = e => new Promise((t => setTimeout(t, e)));
-                    async function wfs(e, n = 2e4) {
-                        let o = !1;
+                    async function wfs(e, o = 2e4) {
+                        let n = !1;
                         for (setTimeout((() => {
-                                console.log("TimeOut for", e), o = !0
-                            }), n); !document.querySelector(e) && (console.log("_", e, o), await t(500), !o););
-                        if (console.log(e, o), o) throw "NotFound";
+                                console.log("TimeOut for", e), n = !0
+                            }), o); !document.querySelector(e) && (console.log("_", e, n), await t(500), !n););
+                        if (console.log(e, n), n) throw "NotFound";
                         return document.querySelector(e)
                     }
                     async function createBlackOverlayCanvas() {
@@ -665,23 +707,23 @@
                             e.width = window.innerWidth, e.height = window.innerHeight
                         };
                         t(), window.addEventListener("resize", t);
-                        const n = e.getContext("2d");
-                        n.fillStyle = "black", n.fillRect(0, 0, e.width, e.height), console.log("Black overlay canvas created.")
+                        const o = e.getContext("2d");
+                        o.fillStyle = "black", o.fillRect(0, 0, e.width, e.height), console.log("Black overlay canvas created.")
                     }
                     return createBlackOverlayCanvas(), void async function() {
-                        let [e, n] = name.split("\n");
-                        e && n ? (console.warn("Test2"), wfs("#url").then((o => {
-                            console.warn("Test3"), o.value = `https://www.instagram.com/${e}/${n}/`, wfs("#btn-submit").then((e => {
+                        let [e, o] = name.split("\n");
+                        e && o ? (console.warn("Test2"), wfs("#url").then((n => {
+                            console.warn("Test3"), n.value = `https://www.instagram.com/${e}/${o}/`, wfs("#btn-submit").then((e => {
                                 e.click(), wfs(".download-bottom").then((async() => {
                                     await t(1e3);
                                     let e = [...document.querySelectorAll('[class="download-bottom"]')].map((e => findhref2(e)[0])).map((({
                                         href: e,
                                         download: t,
-                                        target: n
+                                        target: o
                                     }) => ({
                                         href: e,
                                         download: t,
-                                        target: n
+                                        target: o
                                     })));
                                     (opener || window).postMessage(e, "*"), close()
                                 }))
@@ -690,7 +732,7 @@
                     }().then(console.log, console.warn)
                 }
                 if ("www.instagram.com" == document.domain) {
-                    const n = e => new Promise((t => setTimeout(t, e)));
+                    const o = e => new Promise((t => setTimeout(t, e)));
 
                     function parseInstagramURL(e) {
                         const t = e.match(/https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels|reel)\/([^\/?]+)/);
@@ -701,20 +743,85 @@
                         } : null
                     }
                     var l;
-                    let o = () => (l = parseInstagramURL(location.href), open("https://snapinsta.app/", `${l.a}\n${l.id}`));
+                    let n = () => (l = parseInstagramURL(location.href), open("https://snapinst.app/", `${l.a}\n${l.id}`));
                     var int;
                     async function wfs(e, t) {
-                        let n = e => new Promise((t => setTimeout(t, e)));
-                        return await new Promise((async(o, l) => {
+                        let o = e => new Promise((t => setTimeout(t, e)));
+                        return await new Promise((async(n, l) => {
                             var i = !1;
                             setTimeout((() => (i = 0, l())), t);
                             for (; !document.querySelector(e);)
-                                if (await n(), i) {
+                                if (await o(), i) {
                                     l();
                                     break
                                 }
-                            return o(document.querySelector(e))
+                            return n(document.querySelector(e))
                         })).then((e => e), (e => !1))
+                    }
+                    if (onmessage = async function(e) {
+                            if ("https://snapinst.app" != e.origin) return void console.log("UNhandled", e);
+                            let t = e.data;
+                            for (let e = 0; e < t.length; e++) {
+                                let {
+                                    href: n,
+                                    download: l,
+                                    target: i
+                                } = t[e];
+                                console.log("Got", {
+                                    href: n,
+                                    download: l,
+                                    target: i
+                                });
+                                let c = new element("a", {
+                                    href: n,
+                                    download: l,
+                                    target: i
+                                });
+                                document.body.append(c.element), c.element.click(), await o(500), c.element.remove()
+                            }
+                        }, "/call/" == location.pathname) {
+                        ! function() {
+                            Object.assign(this || arguments[0], {
+                                _0x2c68c3: class {
+                                    constructor(e) {
+                                        this._0x2dcc16 = {
+                                            body: e || "---",
+                                            color: "darkgrey",
+                                            size: "1rem"
+                                        }, this._0x2603ce = {
+                                            color: "#008f68",
+                                            size: "1rem"
+                                        }
+                                    }
+                                    _0x54181c(e) {
+                                        return this._0x2dcc16.body = e, this
+                                    }
+                                    _0x40a387({
+                                        _0x4e4744: e,
+                                        _0x2fbd8f: t
+                                    }) {
+                                        return void 0 !== e && (this._0x2dcc16.color = e), void 0 !== t && (this._0x2dcc16.size = t), this
+                                    }
+                                    _0x235d03({
+                                        _0x14e09d: e,
+                                        _0x506311: t
+                                    }) {
+                                        return void 0 !== e && (this._0x2603ce.color = e), void 0 !== t && (this._0x2603ce.size = t), this
+                                    }
+                                    _0x52dfbf(e = "") {
+                                        console.log(`%c${this._0x2dcc16.body} | %c${e}`, `color:${this._0x2dcc16.color}; font-weight:bold; font-size:${this._0x2dcc16.size};`, `color:${this._0x2603ce.color}; font-weight:bold; font-size:${this._0x2603ce.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`)
+                                    }
+                                }
+                            })
+                        }(globalThis);
+                        const i = new _0x2c68c3("InfiniteLoop");
+                        i._0x52dfbf("Starting infinite loop..."), async function e() {
+                            await o(1e3), wfs(".x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3", 1e5).then((() => {
+                                [...document.querySelectorAll(".x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3")].forEach((e => e.style.backgroundColor = "green")), i._0x52dfbf("Iteration complete. Next iteration..."), e()
+                            })).catch((t => {
+                                i._0x52dfbf(`Error: ${t.message}`), e()
+                            }))
+                        }()
                     }
 
                     function setButtons() {
@@ -722,7 +829,7 @@
                         var e = new element(document.querySelectorAll(".xh8yej3.x1iyjqo2")[0]),
                             t = new element("button", {
                                 id: "MediaButton"
-                            }).set("innerText", "Get Media").on("click", o);
+                            }).set("innerText", "Get Media").on("click", n);
                         e.append(t)
                     }
 
@@ -730,7 +837,7 @@
                         var e = new element(document.querySelector("._aaqy")),
                             t = new element("button", {
                                 id: "MediaButton"
-                            }).set("innerText", "Get Media").on("click", o);
+                            }).set("innerText", "Get Media").on("click", n);
                         e.append(t)
                     }
 
@@ -738,31 +845,10 @@
                         const e = document.getElementsByTagName("article");
                         var t = new element("button", {
                             id: "MediaButton"
-                        }).set("innerText", "Get Media").on("click", o);
-                        for (const n of e) n.querySelector("#MediaButton") || n.prepend(t.element)
+                        }).set("innerText", "Get Media").on("click", n);
+                        for (const o of e) o.querySelector("#MediaButton") || o.prepend(t.element)
                     }
-                    return onmessage = async function(e) {
-                        if ("https://snapinsta.app" != e.origin) return void console.log("UNhandled", e);
-                        let t = e.data;
-                        for (let e = 0; e < t.length; e++) {
-                            let {
-                                href: o,
-                                download: l,
-                                target: i
-                            } = t[e];
-                            console.log("Got", {
-                                href: o,
-                                download: l,
-                                target: i
-                            });
-                            let c = new element("a", {
-                                href: o,
-                                download: l,
-                                target: i
-                            });
-                            document.body.append(c.element), c.element.click(), await n(500), c.element.remove()
-                        }
-                    }, "/call/" == location.pathname && wfs(".x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3", 1e5).then((e => e.style.backgroundColor = "green")), tF((function() {
+                    return tF((function() {
                         document.querySelectorAll(".xh8yej3.x1iyjqo2")[0].children
                     }), {
                         callback: function() {
@@ -775,46 +861,67 @@
                 if ("sclouddownloader.net" == document.domain)(async function() {
                     var e = _getV("sc");
                     async function t(e, t) {
-                        let n = e => new Promise((t => setTimeout(t, e)));
-                        return await new Promise((async(o, l) => {
+                        let o = e => new Promise((t => setTimeout(t, e)));
+                        return await new Promise((async(n, l) => {
                             var i = !1;
                             setTimeout((() => (i = 0, l())), t);
                             for (; !document.querySelector(e);)
-                                if (await n(), i) {
+                                if (await o(), i) {
                                     l();
                                     break
                                 }
-                            return o(document.querySelector(e))
+                            return n(document.querySelector(e))
                         })).then((e => !0), (e => !1))
                     }
                     if ("/download-sound-track" == location.pathname) {
                         for (await t("#trackTitle"); !trackTitle.innerText.length;) await sleep(0);
                         for (await t("#trackLink"); !trackLink.href.length;) await sleep(0);
-                        var n = {
+                        var o = {
                             name: trackTitle.innerText,
                             href: trackLink.href
                         };
-                        console.log(n), _setV("SCinfo", n), close()
+                        console.log(o), _setV("SCinfo", o), close()
                     } else {
                         if (!_getV("SC")) throw "Bruv";
-                        var o = "#urlInput";
-                        if (await t(o, 2e3), await t(o, 2e3)) {
-                            for (document.querySelector(o).value = e, console.log("EZ url", !!window.formSubmit);
+                        var n = "#urlInput";
+                        if (await t(n, 2e3), await t(n, 2e3)) {
+                            for (document.querySelector(n).value = e, console.log("EZ url", !!window.formSubmit);
                                 "undefined" == typeof formSubmit;) {
-                                document.querySelector(o).value = e;
+                                document.querySelector(n).value = e;
                                 try {
                                     await sleep(0), console.log("EZ url", formSubmit), formSubmit()
                                 } catch {}
                             }
                             console.log("EZ url", formSubmit), formSubmit(), console.warn("Got"), setInterval((() => {
-                                document.querySelector(o).value = e, formSubmit()
+                                document.querySelector(n).value = e, formSubmit()
                             }), 1e3)
                         }
                     }
                 })().then(console.log, console.warn);
-                else {
+                else if ("www.socialplug.io" == document.domain) {
+                    location.pathname.split("/")[1] != GM_getValue(document.domain) && (GM_setValue(document.domain, location.pathname.split("/")[1]), console.warn("updated"));
+                    const r = e => new Promise((t => setTimeout(t, e)));
+                    async function wfs(e, t = 5e3) {
+                        let o = !1;
+                        for (setTimeout((() => {
+                                console.log("TimeOut for", e), o = !0
+                            }), t); !document.querySelector(e) && (console.log("_", e, o), await r(500), !o););
+                        if (console.log(e, o), o) throw "NotFound";
+                        return document.querySelector(e)
+                    }(async function() {
+                        let [e, t] = name.split(",");
+                        if (!e.length || !t.length) return console.warn("No info Preset");
+                        var o = `https://www.youtube.com/${"1"==t?"shorts/":"watch?v="}${e}`;
+                        for (await wfs("#video-url"), console.log("Input Loaded"), document.querySelector("#video-url").value = o, await wfs("#get-video-button"), console.log("GEtting res"), await r(100), document.querySelector("#get-video-button").click(), await wfs("#quality-options", 2e4); !document.getElementById("quality-options").children.length;) await r(100);
+                        for (document.getElementById("quality-options").children[document.getElementById("quality-options").children.length - 1].click(), console.log("Stating Download"); Number(document.querySelector(".indicator").style.width.replace("%", "")) < 100;) await r(10), "An error occurred while starting the download" == error.innerText && (document.getElementById("quality-options").children[document.getElementById("quality-options").children.length - 1].click(), console.warn("Stating Download again"), error.innerText = "", await r(1e3));
+                        for (console.log("Done Loading"), console.log("Unloading video"); Number(document.querySelector(".indicator").style.width.replace("%", ""));) await r(10);
+                        close()
+                    })().then((function(e) {
+                        (opener || window).postMessage(e, "*"), location.href = e.href
+                    }), console.warn)
+                } else {
                     if ("y2mate.nu" == document.domain) {
-                        location.pathname.split("/")[1] != GM_getValue("y2mate.nu") && (GM_setValue("y2mate.nu", location.pathname.split("/")[1]), console.warn("updated"));
+                        location.pathname.split("/")[1] != GM_getValue("y2mate.nu") && (GM_setValue("y2mate.nu", location.pathname.split("/")[1]), console.warn("updated"), close());
                         let id_ = new URL(location.href).searchParams.get("v"),
                             IsShort = 1 == new URL(location.href).searchParams.get("s"),
                             mp4 = new URL(location.href).searchParams.get("mp4"),
@@ -829,28 +936,28 @@
                         })));
                         const sleep = e => new Promise((t => setTimeout(t, e)));
                         async function wfs(e, t = 5e3) {
-                            let n = !1;
+                            let o = !1;
                             for (setTimeout((() => {
-                                    console.log("TimeOut for", e), n = !0
-                                }), t); !document.querySelector(e) && (console.log("_", e, n), await sleep(500), !n););
-                            if (console.log(e, n), n) throw "NotFound";
+                                    console.log("TimeOut for", e), o = !0
+                                }), t); !document.querySelector(e) && (console.log("_", e, o), await sleep(500), !o););
+                            if (console.log(e, o), o) throw "NotFound";
                             return document.querySelector(e)
                         }
                         let cr = document.createElement;
                         return document.createElement = function(e, t) {
-                            let n = cr.call(document, e, t);
-                            return n._click = n.click, n.click = function() {
-                                if (console.log(n, "was clicked", n.tagName), "A" == n.tagName) {
-                                    console.log("Caught", n);
-                                    let e = n.download,
-                                        t = n.href;
+                            let o = cr.call(document, e, t);
+                            return o._click = o.click, o.click = function() {
+                                if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
+                                    console.log("Caught", o);
+                                    let e = o.download,
+                                        t = o.href;
                                     f = {
                                         id: id_,
                                         href: t,
                                         title: e
                                     }, (opener || window).postMessage(f, "*")
-                                } else n._click.apply(n)
-                            }, console.log(n, "was created", n.tagName), n
+                                } else o._click.apply(o)
+                            }, console.log(o, "was created", o.tagName), o
                         }, void async function() {
                             for (;
                                 "complete" != document.readyState;) await sleep(0);
@@ -858,15 +965,15 @@
                                 let e = async e => {
                                     console.log("a", e);
                                     var t = findhref2(document.forms[0])[0].href,
-                                        n = findhref2(document.forms[0], "div")[0].innerText,
-                                        o = {
+                                        o = findhref2(document.forms[0], "div")[0].innerText,
+                                        n = {
                                             _: _,
                                             id: id_,
                                             href: t,
-                                            title: n,
+                                            title: o,
                                             length: {}
                                         };
-                                    console.log("Posted", o), (opener || window.parent).postMessage(o, "*"), close()
+                                    console.log("Posted", n), (opener || window.parent).postMessage(n, "*"), close()
                                 };
                                 try {
                                     await wfs("#video").then((e => {
@@ -894,64 +1001,64 @@
                         }().then(console.log, console.warn)
                     }
                     if ("qdownloader.cc" == document.domain) {
-                        const i = e => new Promise((t => setTimeout(t, e)));
+                        const a = e => new Promise((t => setTimeout(t, e)));
                         async function wfs(e, t = 2e4) {
-                            let n = !1;
+                            let o = !1;
                             for (setTimeout((() => {
-                                    console.log("TimeOut for", e), n = !0
-                                }), t); !document.querySelector(e) && (console.log("_", e, n), await i(500), !n););
-                            if (console.log(e, n), n) throw "NotFound";
+                                    console.log("TimeOut for", e), o = !0
+                                }), t); !document.querySelector(e) && (console.log("_", e, o), await a(500), !o););
+                            if (console.log(e, o), o) throw "NotFound";
                             return document.querySelector(e)
                         }
 
                         function dispatchAllInputEvents(e, t) {
-                            ["focus", "input", "change", "blur"].forEach((n => {
-                                let o = new Event(n, {
+                            ["focus", "input", "change", "blur"].forEach((o => {
+                                let n = new Event(o, {
                                     bubbles: !0,
                                     isTrusted: !0
                                 });
-                                e[`on${n}`] && e[`on${n}`](o), "input" === n && (e.value = t), e.dispatchEvent(o)
+                                e[`on${o}`] && e[`on${o}`](n), "input" === o && (e.value = t), e.dispatchEvent(n)
                             }))
                         }
-                        let r = document.createElement;
+                        let s = document.createElement;
                         document._createElement = function(e, t) {
-                            let n = r.call(document, e, t);
-                            return n._click = n.click, n.click = function() {
-                                if (console.log(n, "was clicked", n.tagName), "A" == n.tagName) {
-                                    console.log("Caught", n);
-                                    let e = n.download,
-                                        t = n.href;
+                            let o = s.call(document, e, t);
+                            return o._click = o.click, o.click = function() {
+                                if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
+                                    console.log("Caught", o);
+                                    let e = o.download,
+                                        t = o.href;
                                     f = {
                                         id: new URL(location.href).searchParams.get("v"),
                                         href: t,
                                         title: e
                                     }
-                                } else n._click.apply(n)
-                            }, console.log(n, "was created", n.tagName), n
+                                } else o._click.apply(o)
+                            }, console.log(o, "was created", o.tagName), o
                         }, async function() {
                             if (location.href.includes("vidbutton")) throw "vidbutton";
-                            GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (async function(e, t, n, o) {
+                            GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (async function(e, t, o, n) {
                                 console.log({
                                     a: e,
                                     b: t,
-                                    c: n,
-                                    d: o
-                                }), n.includes("video download successful\ncheck downloads folder") && (await i(1e3), close())
+                                    c: o,
+                                    d: n
+                                }), o.includes("video download successful\ncheck downloads folder") && (await a(1e3), close())
                             }));
                             let e = await wfs("#url"),
                                 t = await wfs("#downloadBtn");
                             id_ = new URL(location.href).searchParams.get("v"), dispatchAllInputEvents(e, `https://www.youtube.com/watch?v=${id_}`), t.click()
                         }().then(console.log, (async e => {
                             "vidbutton" == e && (console.log("Best Quality Video"), await wfs("#height").then((e => {
-                                height.selectedIndex = height.options.length - 1, dlbutton.click(), open = window.open, window.open = function(e, t, n) {
+                                height.selectedIndex = height.options.length - 1, dlbutton.click(), open = window.open, window.open = function(e, t, o) {
                                     console.log({
                                         a: e,
                                         b: t,
-                                        c: n
+                                        c: o
                                     })
                                 }, wfs("#dlbutton").then((e => {
                                     var t = "";
-                                    setInterval((n => {
+                                    setInterval((o => {
                                         t != e.innerText && (t = e.innerText, GM_setValue("dlbutton", t))
                                     }))
                                 }))
@@ -960,11 +1067,11 @@
                     } else {
                         if ("snapsave.io" == document.domain) {
                             async function wfs(e, t = 2e4) {
-                                let n = !1;
+                                let o = !1;
                                 for (setTimeout((() => {
-                                        console.log("TimeOut for", e), n = !0
-                                    }), t); !document.querySelector(e) && (console.log("_", e, n), await sleep(500), !n););
-                                if (console.log(e, n), n) throw "NotFound";
+                                        console.log("TimeOut for", e), o = !0
+                                    }), t); !document.querySelector(e) && (console.log("_", e, o), await sleep(500), !o););
+                                if (console.log(e, o), o) throw "NotFound";
                                 return document.querySelector(e)
                             }
                             return _wfs = wfs, void async function() {
@@ -974,15 +1081,15 @@
                                     var t = await wfs("#formatSelect");
                                     await wfs("#btn-action");
                                     t.selectedIndex = 0, t.options[0].selected = !0;
-                                    for (var n = await wfs("#asuccess"); !(n = await wfs("#asuccess"));) await sleep(0);
+                                    for (var o = await wfs("#asuccess"); !(o = await wfs("#asuccess"));) await sleep(0);
                                     for (convertFile(0);
-                                        "#" == n.getAttribute("href");) await sleep(0), n = await wfs("#asuccess");
-                                    console.log(n.href);
-                                    var o = (await _wfs(".clearfix")).querySelector("h3").innerText,
+                                        "#" == o.getAttribute("href");) await sleep(0), o = await wfs("#asuccess");
+                                    console.log(o.href);
+                                    var n = (await _wfs(".clearfix")).querySelector("h3").innerText,
                                         l = {
                                             id: id_,
-                                            href: n.href,
-                                            title: o,
+                                            href: o.href,
+                                            title: n,
                                             length: {}
                                         };
                                     console.log("Posted", l), (opener || window).postMessage(l, "*")
@@ -990,21 +1097,21 @@
                             }().then(console.log).catch(console.warn)
                         }
                         if ("clips.twitch.tv" == document.domain && "create" != location.pathname.split("/")[1]) {
-                            let a = 0;
-                            const s = e => new Promise((t => setTimeout(t, e)));
+                            let d = 0;
+                            const u = e => new Promise((t => setTimeout(t, e)));
                             async function wfs(e, t = 2e4) {
-                                let n = !1;
+                                let o = !1;
                                 for (setTimeout((() => {
-                                        console.log("TimeOut for", e), n = !0
-                                    }), t); !document.querySelector(e) && (console.log("_", e, n), await s(500), !n););
-                                if (console.log(e, n), n) throw "NotFound";
+                                        console.log("TimeOut for", e), o = !0
+                                    }), t); !document.querySelector(e) && (console.log("_", e, o), await u(500), !o););
+                                if (console.log(e, o), o) throw "NotFound";
                                 return document.querySelector(e)
                             }
 
                             function copyElm(e) {
                                 if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
                                 const t = document.createElement(e.tagName);
-                                for (let n of e.attributes) t.setAttribute(n.name, n.value);
+                                for (let o of e.attributes) t.setAttribute(o.name, o.value);
                                 return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
                             }
                             _wfs = wfs, _copyElm = copyElm, async function() {
@@ -1027,29 +1134,29 @@
                                     open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "VOD")
                                 })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD";
                                 var t;
-                                a && (setTimeout((() => {
+                                d && (setTimeout((() => {
                                     close()
                                 }), 200), open((e => e.href)(((t = new URL(location.href)).host = "clipr.xyz", t)), "1080"))
                             }().catch(console.warn)
                         } else {
                             if ("www.twitch.tv" == document.domain) {
                                 async function go() {
-                                    let [e, t, n, o] = location.pathname.split("/");
-                                    if ("clip" != n) return console.warn("User isnt wathcing a clip");
+                                    let [e, t, o, n] = location.pathname.split("/");
+                                    if ("clip" != o) return console.warn("User isnt wathcing a clip");
                                     console.log("User is Watching a CLip");
                                     const l = e => new Promise((t => setTimeout(t, e)));
                                     async function i(e, t = 2e4) {
-                                        let n = !1;
+                                        let o = !1;
                                         for (setTimeout((() => {
-                                                console.log("TimeOut for", e), n = !0
-                                            }), t); !document.querySelector(e) && (console.log("_", e, n), await l(500), !n););
-                                        if (console.log(e, n), n) throw "NotFound";
+                                                console.log("TimeOut for", e), o = !0
+                                            }), t); !document.querySelector(e) && (console.log("_", e, o), await l(500), !o););
+                                        if (console.log(e, o), o) throw "NotFound";
                                         return document.querySelector(e)
                                     }
                                     _wfs = i, _wfs_ = i, _copyElm = function(e) {
                                         if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
                                         const t = document.createElement(e.tagName);
-                                        for (let n of e.attributes) t.setAttribute(n.name, n.value);
+                                        for (let o of e.attributes) t.setAttribute(o.name, o.value);
                                         return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
                                     }, await async function() {
                                         location.href;
@@ -1076,7 +1183,7 @@
                                         }) => {
                                             let r = new _e(_copyElm(l)).on("click", (function() {
                                                 var l;
-                                                [e, t, n, o] = location.pathname.split("/"), open((e => e.href)(((l = new URL(location.href)).host = "clipr.xyz", l)), c)
+                                                [e, t, o, n] = location.pathname.split("/"), open((e => e.href)(((l = new URL(location.href)).host = "clipr.xyz", l)), c)
                                             })).appendTo(document.querySelector(".Layout-sc-1xcs6mc-0.hZUoPp"));
                                             "VOD" === c ? r.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = i : r.element.querySelector(".bFxzAY").innerText = i
                                         }))
@@ -1089,11 +1196,11 @@
                             }
                             if ("clipr.xyz" == document.domain) {
                                 async function wfs(e, t = 2e4) {
-                                    let n = !1;
+                                    let o = !1;
                                     for (setTimeout((() => {
-                                            logger.log(`TimeOut for ${e}`), n = !0
-                                        }), t); !document.querySelector(e) && (logger.log(`_ ${e} ${n}`), await sleep(500), !n););
-                                    if (logger.log(`${e} ${n}`), n) throw "NotFound";
+                                            logger.log(`TimeOut for ${e}`), o = !0
+                                        }), t); !document.querySelector(e) && (logger.log(`_ ${e} ${o}`), await sleep(500), !o););
+                                    if (logger.log(`${e} ${o}`), o) throw "NotFound";
                                     return document.querySelector(e)
                                 }
                                 async function wfl() {
@@ -1101,15 +1208,15 @@
                                         "complete" != document.readyState;) await sleep(0);
                                     return !0
                                 }
-                                const d = wfs;
+                                const m = wfs;
 
                                 function sleep(e) {
                                     return new Promise((t => setTimeout(t, e)))
                                 }
 
                                 function downloadFileAsTitle(e, t) {
-                                    const n = document.createElement("a");
-                                    n.href = e, n.download = t, document.body.appendChild(n), n.click(), document.body.removeChild(n)
+                                    const o = document.createElement("a");
+                                    o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
                                 }
                                 return void async function() {
                                     let e = name;
@@ -1118,37 +1225,37 @@
                                         e[t.querySelector(".space-x-1").innerText.replace("p", "")] = findhref2(t)[0].href
                                     })), e))()[e];
                                     logger.log(1);
-                                    let n = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
+                                    let o = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
                                     logger.log(2);
-                                    let o = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2").innerText;
+                                    let n = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2").innerText;
                                     logger.log(3);
-                                    let l = `@${n} on Twitch | ${o} - ${e}P.mp4`;
+                                    let l = `@${o} on Twitch | ${n} - ${e}P.mp4`;
                                     logger.log(`Downloading file as: ${l}`), open(t), logger.log(4), await sleep(4e3), close()
                                 }().catch(console.warn)
                             }
                             if (location.href.includes("tubemp4.is")) {
                                 async function wfs(e, t = 3e4) {
-                                    var n;
-                                    for (sleep(t).then((e => n = !0)); !document.querySelector(e) && (await sleep(0), !n););
+                                    var o;
+                                    for (sleep(t).then((e => o = !0)); !document.querySelector(e) && (await sleep(0), !o););
                                     return document.querySelector(e)
                                 }
                                 console.log("ok"), wfs("#u").then((async e => {
                                     e.value = `https://www.youtube.com/watch?v=${new URL(location.href).searchParams.get("v")}`, convert.click(), await sleep(200), (await wfs("#convert")).click(), (await wfs(".process-button")).click(), wfs(".download-button").then((e => {
                                         let t = document.createElement;
-                                        document.createElement = function(e, n) {
-                                            let o = t.call(document, e, n);
-                                            return o._click = o.click, o.click = function() {
-                                                if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
-                                                    console.log("Caught", o);
-                                                    let e = o.download,
-                                                        t = o.href;
+                                        document.createElement = function(e, o) {
+                                            let n = t.call(document, e, o);
+                                            return n._click = n.click, n.click = function() {
+                                                if (console.log(n, "was clicked", n.tagName), "A" == n.tagName) {
+                                                    console.log("Caught", n);
+                                                    let e = n.download,
+                                                        t = n.href;
                                                     f = {
                                                         id: new URL(location.href).searchParams.get("v"),
                                                         href: t,
                                                         title: e
                                                     }, (opener || window).postMessage(f, "*"), close()
-                                                } else o._click.apply(o)
-                                            }, console.log(o, "was created", o.tagName), o
+                                                } else n._click.apply(n)
+                                            }, console.log(n, "was created", n.tagName), n
                                         }, e.click(), console.log("clicked"), setTimeout((() => e.click()), 1e3)
                                     }))
                                 })).then(console.log, console.warn)
@@ -1169,40 +1276,40 @@
             }
 
             function downloadFileAsTitle(e, t) {
-                const n = document.createElement("a");
-                n.href = e, n.download = t, document.body.appendChild(n), n.click(), document.body.removeChild(n)
+                const o = document.createElement("a");
+                o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
             }
             async function waitTT() {
                 for (; tiktikWin && !tiktikWin.closed;) await sleep(0);
                 return 1
             }
 
-            function abc(e, t = "aria-label", n = document.body) {
-                var o = [];
-                return function n(l) {
+            function abc(e, t = "aria-label", o = document.body) {
+                var n = [];
+                return function o(l) {
                     var i = !1;
-                    t ? l.getAttribute(t) == e && (o.push(l), i = 1) : [...l.attributes].map((e => {
+                    t ? l.getAttribute(t) == e && (n.push(l), i = 1) : [...l.attributes].map((e => {
                         const {
                             name: t,
-                            value: n
+                            value: o
                         } = e;
                         return {
                             name: t,
-                            value: n
+                            value: o
                         }
-                    })).filter((t => t.value == e)).length && (o.push(l), i = 1), l.children.length && !i && ((l = l.children).forEach = [].forEach, l.forEach((e => {
-                        n(e)
+                    })).filter((t => t.value == e)).length && (n.push(l), i = 1), l.children.length && !i && ((l = l.children).forEach = [].forEach, l.forEach((e => {
+                        o(e)
                     })))
-                }(n), o.length ? 1 == o.length ? o[0] : o || !1 : null
+                }(o), n.length ? 1 == n.length ? n[0] : n || !1 : null
             }
 
-            function getElementByAttribute(e, t = "aria-label", n = document.body) {
-                var o = [];
-                return function n(l) {
-                    l.getAttribute(t) == e ? o.push(l) : l.children.length && ((l = l.children).forEach = [].forEach, l.forEach((e => {
-                        n(e)
+            function getElementByAttribute(e, t = "aria-label", o = document.body) {
+                var n = [];
+                return function o(l) {
+                    l.getAttribute(t) == e ? n.push(l) : l.children.length && ((l = l.children).forEach = [].forEach, l.forEach((e => {
+                        o(e)
                     })))
-                }(n), 1 == o.length ? o[0] : o || !1
+                }(o), 1 == n.length ? n[0] : n || !1
             }
 
             function mtoggle() {
@@ -1216,19 +1323,19 @@
             function Unmute() {
                 (query("#right-controls") && query("#right-controls").querySelectorAll("path")[0].getAttribute("d") == UnmutePath && abc("Mute", "title")[0] || abc("Unmute", "title") || abc("Unmute (m)", "title")).click()
             }
-            console.log("B?"), _getIds = getIds, info = {}, downloadT = function(e, t = !1, n = !0, o = !1, l = !1, i = "") {
-                let c = e + (o ? "mp4" : "mp3") + n;
+            console.log("B?"), _getIds = getIds, info = {}, downloadT = function(e, t = !1, o = !0, n = !1, l = !1, i = "") {
+                let c = e + (n ? "mp4" : "mp3") + o;
                 var r;
-                if (!(r = document.getElementById(c)) || r.remove(), localStorage[c] && !t && (!l || !confirm(`You have already download this video as .${o?"mp4":"mp3"}\nStill download?`))) return;
+                if (!(r = document.getElementById(c)) || r.remove(), localStorage[c] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
                 let a = i || location;
                 var s = new URL(location.href);
                 s.host = s.host.replace(".com", "mz.com"), console.log("o", s);
-                let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "0HzX") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", o ? "mp4" : "mp3", "&useT=", n];
+                let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
                 console.log(c, d);
                 return ad("unload", (function() {
                     info[e].close()
                 }), !0), onmessage = function(e) {
-                    if (e.origin == Porigin || e.origin.match(/https?:\/{2}onlymp3\.to/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://sss.instasaverpro.com" == e.origin || "https://y2mate.nu" == e.origin || "https://snapsave.io" == e.origin || "https://tubemp4.is" == e.origin) {
+                    if (e.origin == Porigin || e.origin.match(/https?:\/{2}onlymp3\.to/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://sss.instasaverpro.com" == e.origin || "https://y2mate.nu" == e.origin || "https://snapsave.io" == e.origin || "https://www.socialplug.io" == e.origin || "https://tubemp4.is" == e.origin) {
                         const {
                             data: {
                                 href: t,
@@ -1238,7 +1345,7 @@
                                 _: r
                             }
                         } = e;
-                        let a = l + (o ? ".mp4" : ".mp3");
+                        let a = l + (n ? ".mp4" : ".mp3");
                         (e => {
                             e && e.remove()
                         })(document.getElementById(r)), console.log("Handled", {
@@ -1247,22 +1354,22 @@
                             length: i,
                             id: c,
                             _: r
-                        }, e), button.set("innerText", "Get MP3"), button.set("disabled", !1), n ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
+                        }, e), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
                     } else console.log("Unhandled Post", e)
-                }, info[e] = o ? open(a.pathname.startsWith("/shorts/") ? "https://yt5s.biz/enxj100/" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, o + !1], "width=400,height=500") : !open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, o + !1, n + !1], "width=400,height=500")
+                }, info[e] = n ? open(a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500")
             }, downloadTikTok = function(e, t) {
                 (async function(e, t) {
                     await waitTT(), console.log("ez");
-                    let n = t.videoID,
-                        o = t.username,
+                    let o = t.videoID,
+                        n = t.username,
                         l = getTikTokTittle();
                     onmessage = function(e) {
                         if (e.origin == Porigin || e.origin.match(/https?:\/{2}savetik\.csavetik.coo/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://savetik.co" == e.origin) {
                             var {
                                 data: {
                                     href: t,
-                                    links: n,
-                                    title: o,
+                                    links: o,
+                                    title: n,
                                     length: i,
                                     id: c,
                                     mp4: r,
@@ -1273,21 +1380,21 @@
                             } = e;
                             if (console.log("Handled", {
                                     href: t,
-                                    title: o,
+                                    title: n,
                                     length: i,
                                     id: c,
-                                    links: n,
+                                    links: o,
                                     mp4: r
-                                }, e), "https://savetik.co" == e.origin) o = l, downloadFileAsTitle(r ? n[0] : n.pop(), a + " - " + o + (r ? ".mp4" : ".mp3"), tiktikWin);
+                                }, e), "https://savetik.co" == e.origin) n = l, downloadFileAsTitle(r ? o[0] : o.pop(), a + " - " + n + (r ? ".mp4" : ".mp3"), tiktikWin);
                             else {
                                 if (useT) {
                                     let e = document.createElement("a");
-                                    e.download = o + ".mp3", e.href = t, document.body.appendChild(e), e.click(), e.remove()
+                                    e.download = n + ".mp3", e.href = t, document.body.appendChild(e), e.click(), e.remove()
                                 } else open(t);
                                 localStorage[_] = t
                             }
                         } else console.log("Unhandled Post", e)
-                    }, tiktikWin = open("https://savetik.co/en", [`https://www.tiktok.com/${o}/video/${n}`, e + !1], "width=400,height=500")
+                    }, tiktikWin = open("https://savetik.co/en", [`https://www.tiktok.com/${n}/video/${o}`, e + !1], "width=400,height=500")
                 })(e, t).then(console.log, console.warn)
             }, abc_ = abc, M = Mute, Um = Unmute;
             var didmute = 0;
@@ -1301,27 +1408,27 @@
                 ["w3", "win3"],
                 ["w4", "win4"]
             ]) {
-                var t, n = !1;
-                return await new Promise(((o, l) => {
+                var t, o = !1;
+                return await new Promise(((n, l) => {
                     var i = setInterval((l => {
                         e.forEach((e => {
-                            this[e[0]] = ch3(window[e[1]]), window[e[1]] || n || (n = !0, t = e[1], console.log(e))
-                        })), t && (o(t), clearInterval(i))
+                            this[e[0]] = ch3(window[e[1]]), window[e[1]] || o || (o = !0, t = e[1], console.log(e))
+                        })), t && (n(t), clearInterval(i))
                     }), 500)
                 })), t
             }
 
-            function WIP(e, t, n) {
+            function WIP(e, t, o) {
                 if (!t) return alert("This button is corrently broken");
-                var o = _getIds(),
+                var n = _getIds(),
                     l = [];
                 for (let t = 0; t < e; t++) l.push(["w" + t, "win" + t]);
-                o.forEach((({
+                n.forEach((({
                     id: e
-                }, o) => {
+                }, n) => {
                     getWin(l).then((l => {
-                        if (!info[e] && !localStorage[e] || n) {
-                            console.log("download", e, o), window[l] = downloadT(e, n, !0, !!t), window.addEventListener("unload", (function(e) {
+                        if (!info[e] && !localStorage[e] || o) {
+                            console.log("download", e, n), window[l] = downloadT(e, o, !0, !!t), window.addEventListener("unload", (function(e) {
                                 window[l].close()
                             }));
                             var i = setInterval((e => {
@@ -1333,9 +1440,16 @@
             }
             window.ch3 = ch3, window.getWin = getWin, WIP_ = WIP;
             var button = new element("button").set("innerText", "Get MP3").on("click", (function(e) {
-                    button.set("innerText", "Wait..."), button.set("disabled", !0), downloadT(setElement(location.href), !0, !0, !1, !0)
-                })),
-                button2 = new element("button").set("innerText", "Get MP4").on("click", (function(e) {
+                button.set("innerText", "Wait..."), button.set("disabled", !0), downloadT(setElement(location.href), !0, !0, !1, !0)
+            }));
+
+            function getVisiable(e) {
+                const t = [];
+                return e.forEach((e => {
+                    isElementInViewport(e) && t.push(e)
+                })), t
+            }
+            var button2 = new element("button").set("innerText", "Get MP4").on("click", (function(e) {
                     downloadT(setElement(location.href), !0, !0, !0, !0)
                 })),
                 button3 = new element("button").set("innerText", "PlayList MP3").on("click", (function(e) {
@@ -1344,13 +1458,15 @@
                 button4 = new element("button").set("innerText", "PlayList MP4").on("click", (function(e) {
                     WIP_(2, !0, !1)
                 })),
-                tiktokButton = new element("button").set("innerText", "Get MP4").on("click", (function(e) {
+                tiktokButton = new element("button", {
+                    className: "tt1"
+                }).set("innerText", "Get MP4").on("click", (function(e) {
                     downloadTikTok(!0, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
                 })).style({
                     color: "blue"
                 }),
                 tiktokButton3 = new element("button", {
-                    id: "tt1"
+                    className: "tt3"
                 }).set("innerText", "Get MP4").on("click", (function(e) {
                     downloadTikTok(!0, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
                 })).style({
@@ -1377,11 +1493,11 @@
                     }
                 }
                 console.log(e), button.appendTo(e), button2.appendTo(e), console.log("Posted Buttons");
-                var n = !1;
+                var o = !1;
                 setInterval((() => {
-                    n != t() && t() ? (console.log("Added playlist buttons"), setTimeout((() => {
+                    o != t() && t() ? (console.log("Added playlist buttons"), setTimeout((() => {
                         t().append(element.br.element), t().append(button3.element), t().append(button4.element)
-                    }), 100)) : n == t() || t() || console.log("buttons are gone?!?!"), n = t()
+                    }), 100)) : o == t() || t() || console.log("buttons are gone?!?!"), o = t()
                 }), 100)
             }
             if (console.log("bruh"), a1 = [
@@ -1395,28 +1511,23 @@
                         })
                     }],
                     ["tiktok", function() {
-                        addEventListener("load", (function() {
-                            tF((function() {
-                                if (!abc_("browse-copy", "data-e2e")) throw "Cant Append";
-                                tiktokButton.appendTo(document.querySelectorAll(".e1mecfx011")), tiktokButton2.appendTo(document.querySelectorAll(".e1mecfx011"))
-                            }), {
-                                callback: function() {}
-                            }), tF((function() {
-                                if (!document.getElementsByClassName("e13wiwn60")[0]) throw "Cant Append";
-
-                                function e() {
-                                    try {
-                                        return !!abc_("browse-copy", "data-e2e").parentNode && abc_("browse-copy", "data-e2e").parentNode
-                                    } catch (e) {
-                                        return !1
-                                    }
-                                }
-                                tiktokButton.appendTo(document.getElementsByClassName("e13wiwn60")[0]), tiktokButton2.appendTo(document.getElementsByClassName("e13wiwn60")[0]), console.log("Posted Buttons");
-                                var t = !1;
+                        console.log("OK lets go2"), addEventListener("load", (function() {
+                            console.log("OK lets go"), tF((function() {
+                                if (document.getElementById("tt1")) throw "Cant Append";
+                                console.log("Posted Buttons");
+                                var e = !1;
                                 setInterval((() => {
-                                    t != e() && e() ? (console.log("Added playlist buttons"), setTimeout((() => {
-                                        e().append(element.br.element), e().append(tiktokButton.element), e().append(tiktokButton2.element)
-                                    }), 100)) : t == e() || e() || console.log("buttons are gone?!?!"), t = e()
+                                    const t = function() {
+                                        try {
+                                            const e = getVisiable(document.querySelectorAll(".eqrezik18, .e1mecfx011, .ees02z00").length ? document.querySelectorAll(".eqrezik18, .e1mecfx011, .ees02z00") : [abc_("browse-copy", "data-e2e").parentNode]).filter((e => !e.querySelector(".tt1")));
+                                            return !!e.length && e
+                                        } catch (e) {
+                                            return !1
+                                        }
+                                    }();
+                                    e !== t && t ? (console.log("Added playlist buttons"), t.forEach((e => {
+                                        e.append(tiktokButton.element), e.append(tiktokButton2.element)
+                                    }))) : e === t || t || console.log("buttons are gone?!?!"), e = t
                                 }), 100)
                             }), {
                                 callback: function() {}
@@ -1425,7 +1536,7 @@
                     }]
                 ].filter((e => location.host.includes(e[0])))[0], a1 && a1[1] && a1[1](), console.log(a1), delete a1, __ex_ = _ex_, location.href.includes("onlymp3.app") || location.href.includes("onlymp3.to")) {
                 console.log("onlymp3.app");
-                let u = function() {};
+                let h = function() {};
 
                 function b_() {
                     var [e, t] = name.split(",");
@@ -1435,12 +1546,12 @@
                 function a_() {
                     var e = videoTitle.innerText.split("\n"),
                         t = e.map((e => e.match(/[:\d]+/gi))).filter((e => !!e)).pop().pop(),
-                        n = e[0].split("Title: ")[1],
-                        o = findhref2(videoTitle.parentNode)[0].href,
+                        o = e[0].split("Title: ")[1],
+                        n = findhref2(videoTitle.parentNode)[0].href,
                         l = {
                             id: setElement(location.href),
-                            href: o,
-                            title: n,
+                            href: n,
+                            title: o,
                             length: t
                         };
                     (opener || window).postMessage(l, "*"), console.log("Poasted")
@@ -1459,9 +1570,9 @@
             }
             if (location.href.includes("www.yt2conv.com")) {
                 console.log("Getting MP4");
-                let [m, h] = name.split(",");
+                let [p, g] = name.split(",");
                 tF((function(e = function() {}) {
-                    document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==h?"shorts/":"watch?v="}${m}`, document.getElementById("btn-submit").click(), console.log(m, h)
+                    document.getElementById("search_txt").value = `https://www.youtube.com/${"1"==g?"shorts/":"watch?v="}${p}`, document.getElementById("btn-submit").click(), console.log(p, g)
                 }), {
                     callback: function() {}
                 }), tF((function(e = function() {}) {
@@ -1476,13 +1587,13 @@
                 }), tF((function() {
                     var e = $(".media-heading")[0].innerText,
                         t = downloadbtn.href,
-                        n = {
-                            id: m,
+                        o = {
+                            id: p,
                             href: t,
                             title: e,
                             length: {}
                         };
-                    console.log("Posted"), (opener || window).postMessage(n, "*")
+                    console.log("Posted"), (opener || window).postMessage(o, "*")
                 }), {
                     callback: close
                 })
@@ -1493,16 +1604,16 @@
                 }(async function() {
                     let [e, t] = name.split(",");
                     if (!e.length || !t.length) return console.warn("No info Preset");
-                    var n = `https://www.youtube.com/${"1"==t?"shorts/":"watch?v="}${e}`;
-                    await wfs("#txt-url"), console.log("Input Loaded"), document.querySelector("#txt-url").value = n, await wfs("#btn-submit"), console.log("GEtting res"), await sleep(100), document.querySelector("#btn-submit").click(), await wfs("#video_title"), console.log("Got Res");
-                    var o = document.querySelector("#video_title").innerText,
+                    var o = `https://www.youtube.com/${"1"==t?"shorts/":"watch?v="}${e}`;
+                    await wfs("#txt-url"), console.log("Input Loaded"), document.querySelector("#txt-url").value = o, await wfs("#btn-submit"), console.log("GEtting res"), await sleep(100), document.querySelector("#btn-submit").click(), await wfs("#video_title"), console.log("Got Res");
+                    var n = document.querySelector("#video_title").innerText,
                         l = [0];
                     return [...document.querySelector("#result").querySelector("table").querySelectorAll("tr")].forEach((e => {
                         var t = e.innerText.match(/(?<res>\d+)(p|P)/i) || {};
                         t.groups && (t = Number(t.groups.res), l[0] < t && (l[0] = t, l[1] = findhref2(e)[0].href, l[2] = e))
                     })), {
                         id: e,
-                        title: o,
+                        title: n,
                         href: l[1],
                         mp4: !0,
                         res: l[0]
@@ -1524,32 +1635,32 @@
                 (opener || window).postMessage(t, "*")
             })().then(close, console.warn);
             else if (location.href.includes("en3.onlinevideoconverter.pro")) {
-                let [p, w] = name.split(",");
-                if (!p.length || !w.length) return console.Warn("NO info Preset");
-                var YTurl = `https://www.youtube.com/${"1"==w?"shorts/":"watch?v="}${p}`;
-                let g = function() {};
+                let [w, y] = name.split(",");
+                if (!w.length || !y.length) return console.Warn("NO info Preset");
+                var YTurl = `https://www.youtube.com/${"1"==y?"shorts/":"watch?v="}${w}`;
+                let v = function() {};
                 tF((function(e = function() {}) {
-                    document.getElementById("texturl").value = `https://www.youtube.com/${"1"==w?"shorts/":"watch?v="}${p}`, document.getElementById("convert1").click(), console.log("Searched")
+                    document.getElementById("texturl").value = `https://www.youtube.com/${"1"==y?"shorts/":"watch?v="}${w}`, document.getElementById("convert1").click(), console.log("Searched")
                 }), {
-                    callback: g
+                    callback: v
                 }), tF((function() {
                     if ("none" == stepProcess.style.display) throw document.getElementById("convert1").click(), "this";
                     console.log("Searching")
                 }), {
-                    callback: g
+                    callback: v
                 }), tF((function() {
                     if (0 == document.getElementById("form-app-root").children.length) throw "";
                     console.log("loaded");
                     var {
                         title: e,
                         href: t
-                    } = $("#download-720-MP4") && $("#download-720-MP4")[0] ? $("#download-720-MP4")[0] : $("#download-720-MP4"), n = {
-                        id: p,
+                    } = $("#download-720-MP4") && $("#download-720-MP4")[0] ? $("#download-720-MP4")[0] : $("#download-720-MP4"), o = {
+                        id: w,
                         href: t,
                         title: e,
                         length: {}
                     };
-                    console.log("Posted"), (opener || window).postMessage(n, "*")
+                    console.log("Posted"), (opener || window).postMessage(o, "*")
                 }), {
                     callback: close
                 })
@@ -1569,15 +1680,15 @@
                             var {
                                 data: {
                                     s: t,
-                                    url: n,
-                                    title: o
+                                    url: o,
+                                    title: n
                                 }
                             } = e;
                             console.log("Handled", {
                                 s: t,
-                                url: n,
-                                title: o
-                            }, e), t ? setTimeout(close, 100) : downloadFileAsTitle(n, o, null, close)
+                                url: o,
+                                title: n
+                            }, e), t ? setTimeout(close, 100) : downloadFileAsTitle(o, n, null, close)
                         } else console.log("Unhandled Post", e)
                     }, (opener || window).postMessage(e, "*")
                 }
@@ -1595,14 +1706,14 @@
             } else document.domain.includes("music") ? (console.log("Added MiniPlayer Toggle with I"), addEventListener("keypress", (function({
                 isTrusted: e,
                 ctrlKey: t,
-                shiftKey: n,
-                code: o,
+                shiftKey: o,
+                code: n,
                 target: l,
                 target: {
                     tagName: i
                 }
             }) {
-                ["INPUT", "TEXTAREA"].includes(i) || t || n || !e || "KeyI" != o || (abc_("Close player page") || abc_("Open player page")[1]).click()
+                ["INPUT", "TEXTAREA"].includes(i) || t || o || !e || "KeyI" != n || (abc_("Close player page") || abc_("Open player page")[1]).click()
             }))) : document.domain.includes("loader.to") && location.href.includes("/api/") && console.warn("using loader.to api");
             const policy = window.trustedTypes && trustedTypes.createPolicy("trustedHTMLPolicy", {
                     createHTML: e => e,
@@ -1641,23 +1752,30 @@
             iframeElement.element.addEventListener("load", (() => {
                 console.log("Iframe is fully loaded"), toggleIframeCollapse(!1)
             })), toggleIframeCollapse(!0);
-            var adPlayTimeInSeconds = 4,
+            var adPlayTimeInSeconds = 5,
                 currentPB = 0,
                 setPlayerBack = 1,
                 setPlayerBackAd = 0,
                 isReloading = 0,
-                ts = 0,
-                cliked = 0,
+                ts = 0;
+            tr = localStorage[setElement(location.href)] || 0;
+            var cliked = 0,
                 check = (e, t) => e > t ? t : e;
+            const p_ = new videoPlayer;
+
+            function addSearchParam() {
+                let e = new URL(location.href);
+                return e.searchParams.set("s", tr), e.toString()
+            }
             setInterval((e => {
                 const t = document.querySelector("video"),
-                    n = document.querySelector("#video-companion-root") || document.querySelector("#secondary-inner") || document.querySelector("#secondary.ytd-watch-flexy");
-                url = `https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`, src = policy ? policy.createScriptURL("https://loader.to/api/card2/?url=" + url) : "https://loader.to/api/card2/?url=" + url, n && (!n.querySelector("#cardApiIframe") && (toggleIframeCollapse(!0), n.parentNode.prepend(styleElement), n.prepend(containerDiv.element), console.log("Added That Thing")), setElement(location.href) != yedID && (toggleIframeCollapse(!0), iframeElement.set("src", src), console.log("Fixed That Thing"), yedID = setElement(location.href)));
-                const o = query("yt-button-view-model#dismiss-button");
-                o && !isHidden(o) && o.click();
+                    o = document.querySelector("#video-companion-root") || document.querySelector("#secondary-inner") || document.querySelector("#secondary.ytd-watch-flexy");
+                url = `https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`, src = policy ? policy.createScriptURL("https://loader.to/api/card2/?url=" + url) : "https://loader.to/api/card2/?url=" + url, o && (!o.querySelector("#cardApiIframe") && (toggleIframeCollapse(!0), o.parentNode.prepend(styleElement), o.prepend(containerDiv.element), console.log("Added That Thing")), setElement(location.href) != yedID && (toggleIframeCollapse(!0), iframeElement.set("src", src), console.log("Fixed That Thing"), yedID = setElement(location.href)));
+                const n = query("yt-button-view-model#dismiss-button");
+                n && !isHidden(n) && n.click();
                 const l = document.getElementsByClassName("ytp-ad-button-icon")[0];
                 try {
-                    if (l && !didmute) console.log("Muted ad"), console.log("Started at", tr), didmute = 1, t.playbackRate = check(t.duration / adPlayTimeInSeconds, 16), t.muted = 1;
+                    if (l && !didmute) console.log(p_), console.log("Muted ad"), console.log("Started at", tr), didmute = 1, t.playbackRate = document.querySelector("video").duration > 6 && check(t.duration / adPlayTimeInSeconds, 16), t.muted = 1;
                     else if (!l && didmute) {
                         console.log("Unmuted video");
                         try {
@@ -1667,15 +1785,15 @@
                         }
                         didmute = 0
                     }
-                } catch {}!didmute && document.querySelector("video") && (tr = document.querySelector("video") && document.querySelector("video").currentTime.toFixed());
-                const i = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
-                i || document.querySelectorAll(".ytp-ad-button-icon")[0] ? (setPlayerBackAd && t.playbackRate == t.duration / 5 || (setPlayerBackAd = 1, console.log("Skipping ad :>")), !cliked && (setTimeout((() => {
+                } catch {}!didmute && document.querySelector("video") && 0 != document.querySelector("video").currentTime && (tr = document.querySelector("video") && document.querySelector("video").currentTime.toFixed(), localStorage[setElement(location.href)], tr);
+                const i = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player"), ...document.getElementsByTagName("video")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
+                i || document.querySelectorAll(".ytp-ad-button-icon")[0] ? (setPlayerBackAd && t.playbackRate == t.duration / adPlayTimeInSeconds || (setPlayerBackAd = 1, console.log("Skipping ad :>")), !cliked && (cliked = !0, setTimeout((() => {
                     i && i.click(), cliked = !1
-                }), 5e3), cliked = !0), setPlayerBack = 0) : !setPlayerBack && t ? (setPlayerBackAd = 0, setPlayerBack = 1, t.playbackRate = currentPB > 2 ? 1 : currentPB, console.log("Fixed playBack")) : t && (setPlayerBackAd = 0, (currentPB = t.playbackRate) > 2 && (t.playbackRate = 1));
+                }), 5e3)), setPlayerBack = 0) : !setPlayerBack && t ? (setPlayerBackAd = 0, setPlayerBack = 1, t.playbackRate = currentPB > 2 ? 1 : currentPB, console.log("Fixed playBack")) : t && (setPlayerBackAd = 0, (currentPB = t.playbackRate) > 2 && (t.playbackRate = 1));
                 const c = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
                 c && (c.click(), console.log("Closed ad card"));
                 let r = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
-                r && (r.click(), !isReloading && location.href.includes("watch") && (isReloading = 1, location.reload()))
+                r && (r.click(), !isReloading && location.href.includes("watch") && (isReloading = 1, location.href = addSearchParam()))
             }), 10)
         }()
 }();
