@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 3.5
+// @version 3.7
 // @description Moomoo.io/Sploop.io mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK/AUTO LOGIN]
 // @author Gaston
 // @match *://moomoo.io/*
@@ -13,74 +13,138 @@
 // @require http://code.jquery.com/jquery-3.3.1.min.js
 // @require https://code.jquery.com/ui/1.12.0/jquery-ui.min.js
 // @require https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js
+// @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
 // @require https://raw.githubusercontent.com/naquangaston/HostedFiles/main/UserScripts/Updater.js
 // @grant GM_getValue
 // @grant GM_setValue
 // @grant GM_addValueChangeListener
 // @name:en MooMoo styles
-// @name:zh MooMoo styles
-// @name:de Moomoo -Stile
-// @name:ru Moomoo Styles Moomoo Styles
-// @name:ar أنماط موومو 'anmat mwumu
-// @name:es Estilos de moomoo
-// @name:pt Estilos Moomoo
-// @name:hi मूमू स्टाइल्स moomoo stails
 // @name:fr Styles moomoo
-// @name:ja Moomooスタイル Moomoo sutairu
-// @name:vi Phong cách Moomoo
-// @name:uk Стилі Moomoo Styli Moomoo
-// @name:ro Moomoo Styles
-// @name:nl Moomoo Styles
-// @name:ko Moomoo 스타일 Moomoo seutail
-// @name:it Stili moomoo
-// @name:pl Style MOOMOO
+// @name:zh MooMoo styles
+// @name:pt Estilos Moomoo
+// @name:de Moomoo -Stile
+// @name:es Estilos de moomoo
+// @name:ru Moomoo Styles
+// @name:ar أنماط موومو
+// @name:ja Moomooスタイル
+// @name:hi मूमू स्टाइल्स
 // @name:id Gaya Moomoo
+// @name:vi Phong cách Moomoo
+// @name:pl Style MOOMOO
+// @name:ko Moomoo 스타일
+// @name:uk Стилі Moomoo
+// @name:it Stili moomoo
+// @name:ro Moomoo Styles
+// @name:th สไตล์ Moomoo
+// @name:nl Moomoo Styles
 // @name:tr Moomoo Styles
-// @name:th สไตล์ Moomoo S̄tịl̒ Moomoo
-// @name:no Moomoo -stiler
-// @name:bg Стилове Moomoo Stilove Moomoo
 // @name:sv Moomoo -stilar
-// @name:da Moomoo Styles
-// @name:el Στυλ Moomoo Styl Moomoo
-// @name:he סגנונות Moomoo
-// @name:sk Moomoo Styles
-// @name:fi Moomoo Styles
+// @name:cs Styly moomoo
 // @name:hu Moomoo stílusok
-// @name:cs Moomoo styly
-// @description:zh Moomoo.io/Sploop.io mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK/AUTO LOGIN]
-// @description:en Moomoo.io/Sploop.io mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK/AUTO LOGIN]
+// @name:sk Štýly Moomoo
+// @name:fi Moomoo Styles
+// @name:da Moomoo Styles
+// @name:el Στυλ Moomoo
+// @name:bg Стилове Moomoo
+// @name:no Moomoo -stiler
+// @name:he סגנונות Moomoo
+// @description:hi Moomoo.io/sploop.io mod [म्यूजिक प्लेयर/हैट कीबाइंड्स/म्यूजिक विज़ुअलाइज़र/स्किन स्विचर/एंटी-किक/ऑटो लॉगिन]
 // @description:pt Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Login Auto]
-// @description:ar moomoo.io/sploop.io mod [مشغل الموسيقى/hat Keybinds/Music Visualizer/Skin Switcher/anti-kick/login] moomoo.io/sploop.io mod [mshaghil almusiqaa/hat Keybinds/Music Visualizer/Skin Switcher/anti-kick/login]
 // @description:de Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
-// @description:ru Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login] Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
-// @description:ja Moomoo.io/sploop.io mod [音楽プレーヤー/帽子Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login] Moomoo. Io/ sploop. Io mod [ongaku purēyā/ bōshi Keybinds/ myūjikku bijuaraizā/ Skin suitchā/ anchi - Kick/ Auto Login]
-// @description:fr Moomoo.io/splophy.io mod [lecteur de musique / chapeau keybinds / visualiseur musical / commutateur de peau / anti-kick / connexion automatique]
-// @description:hi Moomoo.io/sploop.io mod [म्यूजिक प्लेयर/हैट कीबाइंड्स/म्यूजिक विज़ुअलाइज़र/स्किन स्विचर/एंटी-किक/ऑटो लॉगिन] moomoo.io/sploop.io mod [myoojik pleyar/hait keebainds/myoojik vizualaizar/skin svichar/entee-kik/oto login]
+// @description:en Moomoo.io/Sploop.io mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK/AUTO LOGIN]
+// @description:fr Mooomoo.io/splophy.io mod [lecteur de musique / chapeau keybinds / visualiseur musical / commutateur de peau / anti-kick / connexion automatique]
+// @description:zh Moomoo.io/Sploop.io mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK/AUTO LOGIN]
+// @description:ar moomoo.io/sploop.io mod [مشغل الموسيقى/القبعة keybinds/music visualizer/skin switcher/anti-kick/login]
+// @description:ja Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
+// @description:ru Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
 // @description:es Moomoo.io/sploop.io mod [reproductor de música/hat keybinds/music visualizer/skin switcher/anti-kick/autocompling]
-// @description:tr Moomoo.io/sploop.io Mod [Müzik Çalar/Hat Keybinds/Müzik Görselleştiricisi/Cilt Switcher/Anti-Bick/Otomatik Oturum Açma]
-// @description:id Moomoo.io/sploop.io mod [pemutar musik/topi keybinds/musik visualizer/switcher kulit/anti-kick/login otomatis]
-// @description:ko moomoo.io/sploop.io mod [음악 플레이어/모자 키 바인드/음악 비주얼 라이저/스킨 스위처/안티 킥/자동 로그인]] moomoo.io/sploop.io mod [eum-ag peulleieo/moja ki baindeu/eum-ag bijueol laijeo/seukin seuwicheo/anti kig/jadong logeu-in]]
-// @description:vi Moomoo.io/sploop.io mod [máy nghe nhạc/hat keybinds/music Visualizer/skin-salitor/anti-kick/auto đăng nhập]
-// @description:it Moomao.io/sploop.io mod [lettore musicale/cappello Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
-// @description:pl Mooomoo.io/sploop.io mod [odtwarzacz muzyki/czapka keebinds/muzyka wizualizator/przełącznik skóry/anty-kick/auto login]
+// @description:th moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
 // @description:nl MOOMOO.IO/SPLOOP.IO MOD [Muziekspeler/hoed Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
-// @description:th moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login] Moomoo.Io/sploop.Io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
-// @description:uk Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login] Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
+// @description:id Moomoo.io/sploop.io mod [pemutar musik/topi keybinds/musik visualizer/switcher kulit/anti-kick/login otomatis]
+// @description:ko moomoo.io/sploop.io mod [음악 플레이어/모자 키 바인드/음악 비주얼 라이저/스킨 스위처/안티 킥/자동 로그인]]
+// @description:it Moomoo.io/sploop.io mod [lettore musicale/cappello Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
+// @description:uk Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
 // @description:ro Moomoo.io/sploop.io Mod [Music Player/Hat KeyBinds/Music Visualizer/Skin Switcher/Anti-Kick/Conectare automată]
-// @description:fi Moomoo.io/sloop.io Mod [Music Player/Hat KeyBinds/Music Visualizer/Skin Switcher/Anti-Kick/Automaattinen sisäänkirjautuminen]
+// @description:pl Mooomoo.io/sploop.io mod [odtwarzacz muzyki/czapka klucz/wizualizator muzyki/przełącznik skóry/anty-kick/auto login]
+// @description:vi Moomoo.io/sploop.io mod [trình phát nhạc/hat keybinds/music Visualizer/skin Switcher/anti-kick/auto đăng nhập]
+// @description:tr Moomoo.io/sploop.io Mod [Müzik Çalar/Hat Keybinds/Müzik Görselleştiricisi/Cilt Switcher/Anti-Bick/Otomatik Giriş]
 // @description:cs Moomoo.io/sploop.io mod [hudební přehrávač/klobouk keyBinds/hudba vizualizátor/Skin Switcher/Anti-Kick/Automatické přihlášení]
-// @description:he Moomoo.io/sploop.io mod [נגן מוסיקה/כובע מקש/מוסיקה Visualizer/Skiner Stringer/Anti-בעיטה/כניסה אוטומטית]
-// @description:no Moomoo.io/sploop.io mod [Music Player/Hat KeyBinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
-// @description:bg Moomoo.io/sploop.io mod [музикален плейър/шапка ключове/музикален визуализатор/превключвател на кожата/анти-удар/автоматично влизане] Moomoo.io/sploop.io mod [muzikalen pleĭŭr/shapka klyuchove/muzikalen vizualizator/prevklyuchvatel na kozhata/anti-udar/avtomatichno vlizane]
-// @description:hu Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Bejelentkezés]
+// @description:fi Moomoo.io/sloop.io Mod [Music Player/Hat KeyBinds/Music Visualizer/Skin Switcher/Anti-Kick/Automaattinen kirjautumistunnus]
 // @description:sv Moomoo.io/Sploop.io Mod [Musikspelare/hatt KeyBinds/Music Visualizer/Skin Switcher/Anti-kick/Auto Login]
 // @description:sk MOOMOO.IO/SPLOOP.IO MOD [hudobný prehrávač/HAT KEYBINDS/HUDBUS VISUFIZER/SKIN SWITKER/ANTI-KICK/AUTO LONGIN]
+// @description:he Moomoo.io/sploop.io mod [נגן מוסיקה/כובע מקש/מוסיקה Visualizer/Skiner Stringer/Anti-בעיטה/כניסה אוטומטית]
 // @description:da Moomoo.io/sploop.io mod [musikafspiller/hat keyBinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
-// @description:el Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login] Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
+// @description:no Moomoo.io/sploop.io mod [Music Player/Hat KeyBinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
+// @description:bg Moomoo.io/sploop.io mod [музикален плейър/шапка ключове/музикален визуализатор/превключвател на кожата/анти-удар/автоматично влизане]
+// @description:el Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Login]
+// @description:hu Moomoo.io/sploop.io mod [Music Player/Hat Keybinds/Music Visualizer/Skin Switcher/Anti-Kick/Auto Bejelentkezés]
 // @license MIT
 // ==/UserScript==
 ! function() {
-    console.log("00");
+    const consoleLogOriginal = console.log,
+        consoleWarnOriginal = console.warn,
+        consoleErrorOriginal = console.error;
+    window.CustomLog = class {
+        constructor(e) {
+            this.title = {
+                body: e || "---",
+                color: "darkgrey",
+                size: "1rem"
+            }, this.body = {
+                color: "#008f68",
+                size: "1rem"
+            }
+        }
+        setTitleBody(e) {
+            return this.title.body = e, this
+        }
+        setTitleStyle({
+            color: e,
+            size: t
+        }) {
+            return void 0 !== e && (this.title.color = e), void 0 !== t && (this.title.size = t), this
+        }
+        setBodyStyle({
+            color: e,
+            size: t
+        }) {
+            return void 0 !== e && (this.body.color = e), void 0 !== t && (this.body.size = t), this
+        }
+        log(e = "") {
+            consoleLogOriginal(`%c${this.title.body} | %c${e}`, `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`, `color: ${this.body.color}; font-weight: bold; font-size: ${this.body.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`)
+        }
+        warn(e = "") {
+            consoleWarnOriginal(`%c${this.title.body} | %c${e}`, `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`, `color: orange; font-weight: bold; font-size: ${this.body.size};`)
+        }
+        error(e = "") {
+            consoleErrorOriginal(`%c${this.title.body} | %c${e}`, `color: ${this.title.color}; font-weight: bold; font-size: ${this.title.size};`, `color: red; font-weight: bold; font-size: ${this.body.size};`)
+        }
+    };
+    const logger = new CustomLog("Script Logger");
+
+    function overrideConsoleMethod(e, t) {
+        console[e] = function(...n) {
+            const o = n.some((e => "object" == typeof e && null !== e));
+            let i = "Anonymous";
+            try {
+                throw new Error
+            } catch (e) {
+                if (e.stack) {
+                    const t = e.stack.split("\n");
+                    if (t.length >= 3) {
+                        const e = t[2].match(/at\s+(.*?)\s*\(/);
+                        i = e && e[1] ? e[1] : "Anonymous"
+                    }
+                }
+            }
+            if ("Anonymous" === i && (i = e.charAt(0).toUpperCase() + e.slice(1)), o) t.call(console, `[${i}]`, ...n);
+            else {
+                const t = n.map((e => String(e))).join(" ");
+                logger[e](`[${i}] ${t}`)
+            }
+        }
+    }
+    overrideConsoleMethod("log", consoleLogOriginal), overrideConsoleMethod("warn", consoleWarnOriginal), overrideConsoleMethod("error", consoleErrorOriginal);
     let keybinds = GM_getValue("keybinds") || {};
     const styleUrl = "https://raw.githubusercontent.com/naquangaston/HostedFiles/main/moostyle.js",
         wordWurl = "https://raw.githubusercontent.com/naquangaston/HostedFiles/main/moomooWords.json",
@@ -90,24 +154,35 @@
     const filter1 = e => e.replaceAll(reg, (function(e, t, n) {
             return e.length > 1 ? e.split(/[aeiou]+/gi).join("*") : e
         })),
-        filter2 = e => e.toLowerCase().split("l").join("w").replaceAll(/l/g, "w").replaceAll(/(l|e)(?!d)/gi, (function(e) {
+        lolzcatFilterold = e => e.toLowerCase().split("l").join("w").replaceAll(/l/g, "w").replaceAll(/(l|e)(?!d)/gi, (function(e) {
             return {
                 l: "w"
             }[e[0]] || e
         })).replace(/s/g, "z").replace(/th/g, "d").replace(/e^d/g, (function(e, t, n) {
             return n.slice(t - 1, t + 1), "e"
         })).replace(/w{2,}/g, "wl").replaceAll(/e{2,}/gi, "ee").replaceAll(/.r/gi, (e => e.replace("r", "w"))),
-        game_ = new class {#e = function() {};#t = function() {};#n = !1;#o = 1e3;#a = function(e) {
+        filter2 = e => e.toLowerCase().replace(/l/g, "w").replace(/th/g, "d").replace(/s/g, "z").replace(/ee+/gi, "ee").replace(/w{2,}/g, "wl").replace(/(r)(?!\b)/gi, "w").replace(/e(?=d)/gi, "e").replace(/l|e(?!d)/gi, (e => ({
+            l: "w"
+        }[e] || e))),
+        game_ = new class {
+#e = function() {};
+#t = function() {};
+#n = !1;
+#o = 1e3;
+#i = function(e) {
                 return new Promise((t => setTimeout(t, e)))
-            };#i = 0;#l = 0;#s = async function() {
+            };
+#l = 0;
+#a = 0;
+#s = async function() {
                 for (;;) {
-                    let e = this.#a,
+                    let e = this.#i,
                         t = this.#t,
                         n = this.#e;
-                    if (await e(0), this.#l) break;
+                    if (await e(0), this.#a) break;
                     t() && (await e(this.#o), console.log("Spawning into game"), n(), await e(this.#o))
                 }
-                this.#l = !1, console.log("Done", this.#l)
+                this.#a = !1, console.log("Done", this.#a)
             };
             set timeOut(e) {
                 this.#o = Number.isNaN(e) ? 1e3 : Number(e)
@@ -119,7 +194,7 @@
                 this.#s()
             }
             stop() {
-                this.#l = !0
+                this.#a = !0
             }
             set autoSpawn(e) {
                 this.#n = !!e
@@ -143,7 +218,8 @@
     class bool {
         constructor(e) {
             e && this.toggle()
-        }#r = !1;
+        }
+#r = !1;
         toggle() {
             this.#r = !this.#r
         }
@@ -263,11 +339,11 @@
     var _setUp = !1;
 
     function add_Style(e) {
-        var [t, n, o, a] = ["createElement", "textContent", "head", "appendChild"], i = {get k() {
+        var [t, n, o, i] = ["createElement", "textContent", "head", "appendChild"], l = {get k() {
                 return document
             }
-        }, l = i.k[t]("style");
-        l[n] = e, i.k[o][a](l)
+        }, a = l.k[t]("style");
+        a[n] = e, l.k[o][i](a)
     }
 
     function copyElm(e) {
@@ -290,17 +366,17 @@
                 t = CanvasRenderingContext2D.prototype.drawImage;
             CanvasRenderingContext2D.prototype.drawImage = function(n, ...o) {
                 if (!(this.canvas && "game-canvas" === this.canvas.id && n instanceof HTMLImageElement && n.src && e.has(n.src))) return t.apply(this, [n, ...o]); {
-                    let e, a, i, l;
-                    if (2 === o.length)[e, a] = o, i = n.width, l = n.height;
-                    else if (4 === o.length)[e, a, i, l] = o;
+                    let e, i, l, a;
+                    if (2 === o.length)[e, i] = o, l = n.width, a = n.height;
+                    else if (4 === o.length)[e, i, l, a] = o;
                     else {
                         if (8 !== o.length) return t.apply(this, [n, ...o]);
-                        [, , , , e, a, i, l] = o
+                        [, , , , e, i, l, a] = o
                     }
                     this.globalAlpha = 0, t.apply(this, [n, ...o]), this.globalAlpha = 1;
-                    ((e, n, o, a, i, l, s) => {
-                        e.save(), e.translate(o + i / 2, a + l / 2), e.rotate(s), t.call(e, n, -i / 2, -l / 2, i, l), e.restore()
-                    })(this, n, e, a, i, l, performance.now() / 1e3 * 3.1 % (2 * Math.PI))
+                    ((e, n, o, i, l, a, s) => {
+                        e.save(), e.translate(o + l / 2, i + a / 2), e.rotate(s), t.call(e, n, -l / 2, -a / 2, l, a), e.restore()
+                    })(this, n, e, i, l, a, performance.now() / 1e3 * 3.1 % (2 * Math.PI))
                 }
             };
             var n = document.createElement("span"),
@@ -332,9 +408,9 @@
         _hats = t;
         const n = new bool(!!GM_getValue("chatFilter")),
             o = new bool(!!GM_getValue("StaySignedIn")),
-            a = new bool(!!GM_getValue("AntiKickTOggle")),
-            i = new bool(!!GM_getValue("StreamerMode")),
-            l = new bool(!!GM_getValue("lolFilter")),
+            i = new bool(!!GM_getValue("AntiKickTOggle")),
+            l = new bool(!!GM_getValue("StreamerMode")),
+            a = new bool(!!GM_getValue("lolFilter")),
             s = new bool(!!GM_getValue("rainbowFit")),
             r = (new bool(!!GM_getValue("autoConnectOldServer")), ({
                 target: e
@@ -344,7 +420,7 @@
             c = ({
                 target: e
             }) => {
-                l.status && (e.value = filter2(e.value))
+                a.status && (e.value = filter2(e.value))
             };
         let d = id("game-left-content-main"),
             u = ["#game-bottom-content", "#game-right-content-main"];
@@ -363,20 +439,20 @@
                     useChat && (n.focus(), t.parentElement.style.display = "block", n.focus())
                 };
                 let o = window.onkeyup,
-                    a = window.onkeydown;
+                    i = window.onkeydown;
 
-                function i(e) {
+                function l(e) {
                     return /^[a-zA-Z0-9]$/.test(e)
                 }
                 window.onkeyup = function(e) {
                     t !== document.activeElement && n !== document.activeElement && o && o(e)
                 }, window.onkeydown = function(e) {
-                    t !== document.activeElement && n !== document.activeElement && "input" != e.target.tagName && a && a(e)
+                    t !== document.activeElement && n !== document.activeElement && "input" != e.target.tagName && i && i(e)
                 }, n.addEventListener("keypress", (({
                     target: e,
                     key: o
                 }) => {
-                    i(o) && (t.value = e.value, [r].forEach((t => t({
+                    l(o) && (t.value = e.value, [r].forEach((t => t({
                             target: e
                         })))),
                         function(e) {
@@ -390,17 +466,17 @@
                     const {
                         target: n,
                         key: o,
-                        code: a
+                        code: i
                     } = e;
                     console.log(e);
-                    t.value = n.value, i(o) && [r, c].forEach((e => e({
+                    t.value = n.value, l(o) && [r, c].forEach((e => e({
                         target: t
                     })))
                 })), (useChat ? n : t).addEventListener("keydown", (({
                     target: e,
                     key: n
                 }) => {
-                    i(n) && (t.value = e.value, [r].forEach((e => e({
+                    l(n) && (t.value = e.value, [r].forEach((e => e({
                         target: t
                     }))))
                 }))
@@ -422,9 +498,9 @@
             }))
         }
         console.log("Set called", SetUpSploop.callee);
-        var f = null;
+        var b = null;
 
-        function b(e = 0, t = 0, n = 0) {
+        function f(e = 0, t = 0, n = 0) {
             y(0);
             try {
                 !Number.isNaN(e) && findhref2(id("skins-middle-main"), "img").filter((t => t.src.includes(`skin${e}`)))[0].click()
@@ -443,10 +519,10 @@
         function y(e) {
             findhref2(id("skins-categories"), "img")[e].click()
         }
-        if (_loadFit = b, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async e => {
-                await k(1e3), alt || b(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
+        if (_loadFit = f, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async e => {
+                await k(1e3), alt || f(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
             })), id("game-left-content-main").style.overflow = "scroll", id("da-right").parentNode.style.overflow = "scroll", _setUp) return;
-        add_Style("\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}"), GM_getValue("sm") && i.toggle(), await v("#clan-menu"), await v("#pop-login");
+        add_Style("\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}"), GM_getValue("sm") && l.toggle(), await v("#clan-menu"), await v("#pop-login");
         let w = id("clan-menu");
         game_.autoSpawn = !0, game_.timeOut = 5e3, game_.testFunction = function() {
             return !isHidden(play)
@@ -458,27 +534,27 @@
                     back: t,
                     accessory: n
                 } = localStorage;
-                f = {
+                b = {
                     skin: e,
                     back: t,
                     accessory: n
-                }, console.log("Got fit", f)
-            } else if (f) {
+                }, console.log("Got fit", b)
+            } else if (b) {
                 const {
                     skin: e,
                     back: t,
                     accessory: n
-                } = f;
-                b(e, n, t)
+                } = b;
+                f(e, n, t)
             }
             play.click(), setTimeout(x, 200)
         };
         var k = e => new Promise((t => setTimeout(t, e)));
         async function v(e, t = 3e3) {
             return await new Promise(((n, o) => {
-                let a = performance.now();
-                ! function i() {
-                    document.querySelector(e) ? n(document.querySelector(e)) : performance.now() - a >= t ? o(new Error("Timeout waiting for selector")) : requestAnimationFrame(i)
+                let i = performance.now();
+                ! function l() {
+                    document.querySelector(e) ? n(document.querySelector(e)) : performance.now() - i >= t ? o(new Error("Timeout waiting for selector")) : requestAnimationFrame(l)
                 }()
             }))
         }
@@ -494,14 +570,14 @@
         }).element;
         p.children[1].insertBefore(M, m),
             function() {
-                var [e, t, n, o, a, i] = ["map", "forEach", "log", "length", "children", "remove"], l = {get sn() {
+                var [e, t, n, o, i, l] = ["map", "forEach", "log", "length", "children", "remove"], a = {get sn() {
                         return console
                     }
                 };
                 u[e]($)[t]((e => {
-                    l.sn[n]({
+                    a.sn[n]({
                         s: e
-                    }), e[o] && [...e[0][a]][t]((e => e[i]()))
+                    }), e[o] && [...e[0][i]][t]((e => e[l]()))
                 }))
             }();
         var T = id("da-right");
@@ -526,7 +602,7 @@
         async function V() {
             await v("#player-container");
             var e = id("player-container");
-            e.style.display = "none", i.status ? (!G && (G = (await v("#nickname-value")).innerText), "SPLOOP.IO" == G ? G = null : (await v("#nickname-value")).innerText = "streamerMode", (await v("#change-username")).style.display = "none") : G && ((await v("#nickname-value")).innerText = G, (await v("#change-username")).style.display = "block"), e.style.display = "flex"
+            e.style.display = "none", l.status ? (!G && (G = (await v("#nickname-value")).innerText), "SPLOOP.IO" == G ? G = null : (await v("#nickname-value")).innerText = "streamerMode", (await v("#change-username")).style.display = "none") : G && ((await v("#nickname-value")).innerText = G, (await v("#change-username")).style.display = "block"), e.style.display = "flex"
         }
         1 == localStorage.seen && E.element.remove(), id("lostworld-io_300x250_2").remove(), new element("br").appendTo(d);
         const S = new element("div", {
@@ -536,15 +612,15 @@
             flexDirection: "column",
             alignItems: "center"
         }).appendTo(d);
-        var I = new element("button").set("innerText", `AntiKick:${a.status}`).on("click", (function(e) {
-            a.toggle(), e.target.innerText = `AntiKick:${a.status}`, a.status ? game_.start() : game_.stop()
+        var I = new element("button").set("innerText", `AntiKick:${i.status}`).on("click", (function(e) {
+            i.toggle(), e.target.innerText = `AntiKick:${i.status}`, i.status ? game_.start() : game_.stop()
         })).appendTo(S);
         new element("button").set("innerText", `chatFilter:${n.status}`).on("click", (function(e) {
             n.toggle(), e.target.innerText = `chatFilter:${n.status}`
-        })).appendTo(S), new element("button").set("innerText", `lolFilter:${l.status}`).on("click", (function(e) {
-            l.toggle(), e.target.innerText = `lolFilter:${l.status}`
-        })).appendTo(S), new element("button").set("innerText", `StreamerMode:${i.status}`).on("click", (function(e) {
-            i.toggle(), e.target.innerText = `StreamerMode:${i.status}`, GM_setValue("sm", i.status), V()
+        })).appendTo(S), new element("button").set("innerText", `lolFilter:${a.status}`).on("click", (function(e) {
+            a.toggle(), e.target.innerText = `lolFilter:${a.status}`
+        })).appendTo(S), new element("button").set("innerText", `StreamerMode:${l.status}`).on("click", (function(e) {
+            l.toggle(), e.target.innerText = `StreamerMode:${l.status}`, GM_setValue("sm", l.status), V()
         })).appendTo(S), new element("button").set("innerText", "SpawnAlt").on("click", (function(e) {
             GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("server", id("server-select").selectedOptions[0].getAttribute("region")), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0));
             var t = id("create_clan");
@@ -589,7 +665,7 @@
             e = n
         })).appendTo(S);
         if (new element("br").appendTo(S), new element("br").appendTo(S), function() {
-                var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
+                var [e, t, n, o, i, l] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
                 id("skin-message")[e][1][t]("afterend", new element("button", {
                     class: "button-type-1 blue-discord-button text-shadowed-3"
                 })[n]({
@@ -601,10 +677,10 @@
                     findhref2(id("skins-categories"), "img")[t](((e, t) => {
                         e[n](), random(findhref2(id("skins-middle-main"), "img"))[n]()
                     }))
-                }))[a]("innerText", "Generate Random Fit")[i])
+                }))[i]("innerText", "Generate Random Fit")[l])
             }(), function() {
-                var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
-                let l = new element("button", {
+                var [e, t, n, o, i, l] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
+                let a = new element("button", {
                     class: "button-type-1 blue-discord-button text-shadowed-3",
                     id: "reset-button"
                 })[n]({
@@ -613,10 +689,10 @@
                     position: "absolute"
                 })[o]("click", (function(e) {
                     x()
-                }))[a]("innerText", "Reset Fit");
-                __a = l, id("skin-message")[e][1][t]("afterend", l[i])
+                }))[i]("innerText", "Reset Fit");
+                __a = a, id("skin-message")[e][1][t]("afterend", a[l])
             }(), function() {
-                var [e, t, n, o, a, i] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
+                var [e, t, n, o, i, l] = ["children", "insertAdjacentElement", "style", "on", "set", "element"];
                 id("skin-message")[e][1][t]("afterend", new element("button", {
                     class: "button-type-1 blue-discord-button text-shadowed-3"
                 })[n]({
@@ -629,21 +705,21 @@
                         back: n,
                         accessory: o
                     } = localStorage;
-                    f = {
+                    b = {
                         skin: t,
                         back: n,
                         accessory: o
                     }, GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0)
-                }))[a]("innerText", "Save Fit")[i])
+                }))[i]("innerText", "Save Fit")[l])
             }(), function() {
-                var [t, n, o, a, i, l, r, c, d] = ["element", "style", "set", "status", "appendTo", "on", "toggle", "innerText", "click"];
+                var [t, n, o, i, l, a, r, c, d] = ["element", "style", "set", "status", "appendTo", "on", "toggle", "innerText", "click"];
                 new element(copyElm(__a[t]))[n]({
                     left: "19%",
                     top: "60%"
-                })[o]("innerText", `rainbowFit:${s[a]}`)[i]("#skin-message")[l]("click", (async function({
+                })[o]("innerText", `rainbowFit:${s[i]}`)[l]("#skin-message")[a]("click", (async function({
                     target: n
                 }) {
-                    for (s[r](), n[c] = `rainbowFit:${s[a]}`; s[a];) await k(e), randomFit[t][d]()
+                    for (s[r](), n[c] = `rainbowFit:${s[i]}`; s[i];) await k(e), randomFit[t][d]()
                 }))
             }(), addEventListener("unload", (function() {
                 GM_setValue("keybinds", keybinds), GM_setValue("rbi", e), GM_getValue("skin") && (localStorage.skin = GM_getValue("skin")), GM_getValue("accessory") && (localStorage.accessory = GM_getValue("accessory")), GM_getValue("back") && (localStorage.accessory = GM_getValue("accessory"))
@@ -681,17 +757,17 @@
                                 isTrusted: !0
                             })
                         } else console.warn("Cant find clan", t, "Or", _GM_getValue("clan_") ? _GM_getValue("clan_").name : null);
-                        let a = e => new Promise((t => setTimeout(t, e)));
-                        async function i() {
+                        let i = e => new Promise((t => setTimeout(t, e)));
+                        async function l() {
                             for (dispatchAllMouseEvents(id("leave-clan-button"));
-                                "block" != id("create_clan").style.display;) await a(100);
+                                "block" != id("create_clan").style.display;) await i(100);
                             return !0
                         }
                         GM_addValueChangeListener("clan_", (function(e, t, n) {
                             console.log({
                                 c: n,
                                 SelfClan: "block" != id("create_clan").style.display
-                            }), n.inCLan && ("block" != id("create_clan").style.display ? (console.log("Leaving Existing clan"), i().then((async e => {
+                            }), n.inCLan && ("block" != id("create_clan").style.display ? (console.log("Leaving Existing clan"), l().then((async e => {
                                 for (;
                                     "block" == id("create_clan").style.display;) {
                                     let e = [...id("clan_menu_content").children].filter((e => e.getElementsByTagName("p")[0].innerText == n.name));
@@ -718,12 +794,12 @@
                     nickname: t,
                     skin: n,
                     back: o,
-                    accessory: a
+                    accessory: i
                 } = localStorage;
-                !b && (f = {
+                !f && (b = {
                     skin: n,
                     back: o,
-                    accessory: a
+                    accessory: i
                 }, console.log("Saved LocalFit"))
             })), document.title = "Sploop.io - Fast Alt"
         } else {
@@ -732,13 +808,13 @@
                     nickname: t,
                     skin: n,
                     back: o,
-                    accessory: a
+                    accessory: i
                 } = localStorage;
                 GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("nn", localStorage.nickname), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0))
             }));
-            var A = "";
+            var C = "";
             _loop = setInterval((() => {
-                w.children[0].innerText != A && (A = w.children[0].innerText, GM_setValue("clan_", {
+                w.children[0].innerText != C && (C = w.children[0].innerText, GM_setValue("clan_", {
                     inCLan: "block" != id("create_clan").style.display,
                     name: w.children[0].innerText
                 }))
@@ -827,5 +903,47 @@
     window.selects = window.selects || [];
     var code_ = GM_getValue("styles.js"),
         excuted = !1;
-    GM_getValue("styles.js") && (eval(code_), excuted = !0), console.log("Checking for styles updates"), fetch(styleUrl).then((e => e.text())).then((e => (GM_setValue("styles.js", e), e != code_ && console.log("Styles.js as updated"), !excuted && eval(e)))), fetch(wordWurl).then((e => e.json())).then((e => (GM_setValue("moowords", e), e.join() != badWords.join() && console.log("Filtered List updated"), e))).then((e => (badWords = e, reg = new RegExp(`(${[...new Set(badWords.join(" ").match(/[\w\d]+/gi))].join("|")})`, "gi"))))
+    GM_getValue("styles.js") && (eval(code_), excuted = !0), console.log("Checking for styles updates"), fetch(styleUrl).then((e => e.text())).then((e => (GM_setValue("styles.js", e), e != code_ && console.log("Styles.js as updated"), !excuted && eval(e)))), fetch(wordWurl).then((e => e.json())).then((e => (GM_setValue("moowords", e), e.join() != badWords.join() && console.log("Filtered List updated"), e))).then((e => (badWords = e, reg = new RegExp(`(${[...new Set(badWords.join(" ").match(/[\w\d]+/gi))].join("|")})`, "gi")))),
+        function() {
+            const e = [];
+            var t = {
+                inventory: [],
+                players: [],
+                entities: {},
+                buttons: {},
+                boss: null,
+                bossDrop: null,
+                playerDrop: [],
+                animals: [],
+                bossDetected: !1,
+                playerPosition: null
+            };
+            CanvasRenderingContext2D.prototype.drawImage, CanvasRenderingContext2D.prototype.clearRect;
+            const n = e => ({
+                x: e.width / 2,
+                y: e.height / 2
+            });
+            window.imagesArray = e, window.tracer = e => {
+                const {
+                    boss: o,
+                    bossDrop: i,
+                    playerDrop: l,
+                    players: a
+                } = t;
+                let s = n();
+                if (s) {
+                    if (e.strokeStyle = "yellow", e.lineWidth = 1.5, o) {
+                        e.beginPath(), e.moveTo(s.x + s.width / 2, s.y + s.height / 2);
+                        const t = o.centerX || o.x + o.width / 2,
+                            n = o.centerY || o.y + o.height / 2;
+                        e.lineTo(t, n), e.stroke()
+                    }
+                    i && (e.beginPath(), e.moveTo(s.x + s.width / 2, s.y + s.height / 2), e.lineTo(i.x + i.width / 2, i.y + i.height / 2), e.stroke()), l.length > 0 && l.forEach((t => {
+                        e.beginPath(), e.moveTo(s.x + s.width / 2, s.y + s.height / 2), e.lineTo(t.x + t.width / 2, t.y + t.height / 2), e.stroke()
+                    })), a.length > 0 && a.forEach((t => {
+                        e.beginPath(), e.moveTo(s.x + s.width / 2, s.y + s.height / 2), e.lineTo(t.x + t.width / 2, t.y + t.height / 2), e.stroke()
+                    }))
+                }
+            }
+        }()
 }();
