@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 8.8
+// @version 8.9
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -46,65 +46,65 @@
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
 // @name:zh Gaston's - Video/Image Downloader
-// @name:fr Gaston's - téléchargeur vidéo / image
-// @name:de Gaston's - Video/Image Downloader
 // @name:en Gaston's - Video/Image Downloader
-// @name:ar Gaston's - Video/Image Downloader
-// @name:pt Gaston's - Downloader de vídeo/imagem
-// @name:ja Gaston's -Video/Image Downloader
 // @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
 // @name:ru Gaston's - Video/Image Скачатель
+// @name:ar Gaston's - Video/Image Downloader
+// @name:ja Gaston's -Video/Image Downloader
+// @name:de Gaston's - Video/Image Downloader
+// @name:pt Gaston's - Downloader de vídeo/imagem
+// @name:fr Gaston's - téléchargeur vidéo / image
 // @name:es Gaston's - Video/Image Descarger
-// @name:th Gaston's - Video/Image Downloader
-// @name:uk GASTON'S - Відео/зображення завантажувача
-// @name:nl Gaston's - Video/Image Downloader
-// @name:pl Gaston - pobierca wideo/obrazu
+// @name:vi 
+// @name:nl Gaston's - Video/Image Downloader More actions
+// @name:ko Gaston 's- 비디오/이미지 다운로더
 // @name:id Gaston's - Video/Image Downloader
 // @name:it Gaston's - Downloader di video/immagine
-// @name:ko Gaston 's- 비디오/이미지 다운로더
-// @name:ro Gaston's - descărcător video/imagini
+// @name:pl Gaston - pobierca wideo/obrazu More actions
 // @name:tr Gaston's - Video/Resim İndirici
-// @name:vi Gaston's - Trình tải xuống video/hình ảnh
-// @name:el Gaston's - Video/Image Downloader
-// @name:cs Gaston's - Video/Image Downloader
-// @name:bg Gaston's - видео/изтегляне на изображения
+// @name:uk GASTON'S - Відео/зображення завантажувача
+// @name:th Gaston's - Video/Image Downloader
+// @name:ro Gaston's - descărcător video/imagini
 // @name:he Gaston's - הורדת וידאו/תמונה
-// @name:sv Gaston's - Video/Image Downloader
-// @name:no Gaston's - Video/Image Downloader
-// @name:da Gastons - Video/Image Downloader
+// @name:cs Gaston's - Video/Image Downloader
 // @name:fi Gaston's - Video/kuvan lataaja
-// @name:sk Gaston's - Video/Image Downloader
+// @name:da Gastons - Video/Image Downloader
+// @name:no Gaston's - Video/Image Downloader
 // @name:hu Gaston's - Videó/kép letöltő
-// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
-// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
+// @name:el Gaston's - Video/Image Downloader
+// @name:sk Gaston's - Video/Image Downloader
+// @name:bg Gaston's - видео/изтегляне на изображения
+// @name:sv Gaston's - Video/Image Downloader
 // @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
-// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
-// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
-// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
 // @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
 // @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
-// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
-// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
-// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
+// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
 // @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany) More actions
+// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
 // @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
 // @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
-// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง) More actions
+// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
 // @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
-// @description:uk Instagram/twitch/youtube/tiktok відео/аудіо завантажувач (часто оновлений)
-// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
-// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
-// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
-// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
-// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
+// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
 // @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
-// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
-// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
 // @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
+// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
 // @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
+// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve) More actions
+// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
 // @license MIT
 // ==/UserScript==
 ! function() {
@@ -644,23 +644,45 @@
                         console.log("Win closed")
                     }
                 });
-                if ("studio.youtube.com" == document.domain) return void setInterval((() => {
+                if ("studio.youtube.com" == document.domain) setInterval((() => {
                     var e;
                     try {
                         [...[...document.querySelectorAll("#video-list")].map((e => [e, [...e.classList]])).filter((e => e[1].includes("ytcp-video-section")))[0][0].children[1].children].map((e => [e, [...e.classList], e.tagName])).filter((e => "YTCP-VIDEO-ROW" == e[2])).filter((e => "Public" == e[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0].innerText)).map((e => e[0].children[0].querySelectorAll(".cell-body.tablecell-visibility.style-scope.ytcp-video-row")[0])).forEach((e => {
-                            console.log(e), e.append(new _e("br").element);
-                            var t = new _e("button").set("innerText", "Get").on("click", (function(e) {
-                                alert("Doesnt work yet");
+                            console.log(e), e.append(new _e("br").element), new _e("button").set("innerText", "MP3").on("click", (function(e) {
+                                let t = e.target.parentElement.parentElement.querySelector("#hover-items").children[3];
+                                console.log(t);
                                 const {
-                                    id: t,
-                                    href: o,
-                                    isShort: n
-                                } = findhref2(e.target.parentElement.parentElement).map((e => ({
-                                    href: e.href,
-                                    short: e.href.includes("/short"),
-                                    id: setElement(e.href)
-                                }))).filter((e => e.id))[0];
-                                downloadT(t, !1, !0, !1, !1, n ? new URL(o) : null)
+                                    id: o,
+                                    href: n,
+                                    short: l
+                                } = {
+                                    href: t.href,
+                                    short: t.href.includes("/short"),
+                                    id: setElement(t.href)
+                                };
+                                console.log({
+                                    id: o,
+                                    href: n,
+                                    short: l
+                                }), downloadT(o, !1, !0, !1, !1, new URL(n))
+                            }));
+                            var t = new _e("button").set("innerText", "MP4").on("click", (function(e) {
+                                let t = e.target.parentElement.parentElement.querySelector("#hover-items").children[3];
+                                console.log(t);
+                                const {
+                                    id: o,
+                                    href: n,
+                                    short: l
+                                } = {
+                                    href: t.href,
+                                    short: t.href.includes("/short"),
+                                    id: setElement(t.href)
+                                };
+                                console.log({
+                                    id: o,
+                                    href: n,
+                                    short: l
+                                }), downloadT(o, !1, !0, !0, !1, new URL(n))
                             }));
                             e.append(t.element)
                         })), e = !0
@@ -669,404 +691,274 @@
                     }
                     __ != e && (__ = e, console.log("Change?", e ? "Found" : "Not FOund"))
                 }), 0);
-                if ("production.assets.clips.twitchcdn.net" == document.domain) {
-                    let e = new element("a", {
-                        href: document.querySelector('[type="video/mp4"]').src,
-                        download: document.querySelector('[type="video/mp4"]').src.split("/")[5] + ".mp4"
-                    });
-                    return document.body.append(e.element), e.element.click(), void sleep(500).then((t => {
-                        e.element.remove(), sleep(500).then((e => {
-                            close()
-                        }))
-                    }))
-                }
-                if ("snapinst.app" == document.domain) {
-                    const t = e => new Promise((t => setTimeout(t, e)));
-                    async function wfs(e, o = 2e4) {
-                        let n = !1;
-                        for (setTimeout((() => {
-                                console.log("TimeOut for", e), n = !0
-                            }), o); !document.querySelector(e) && (console.log("_", e, n), await t(500), !n););
-                        if (console.log(e, n), n) throw "NotFound";
-                        return document.querySelector(e)
-                    }
-                    async function createBlackOverlayCanvas() {
-                        await wfs("body");
-                        const e = document.createElement("canvas");
-                        e.id = "blackCanvas", Object.assign(e.style, {
-                            position: "fixed",
-                            top: "0",
-                            left: "0",
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "black",
-                            zIndex: "9999",
-                            pointerEvents: "none"
-                        }), document.body.appendChild(e);
-                        const t = () => {
-                            e.width = window.innerWidth, e.height = window.innerHeight
-                        };
-                        t(), window.addEventListener("resize", t);
-                        const o = e.getContext("2d");
-                        o.fillStyle = "black", o.fillRect(0, 0, e.width, e.height), console.log("Black overlay canvas created.")
-                    }
-                    return createBlackOverlayCanvas(), void async function() {
-                        let [e, o] = name.split("\n");
-                        e && o ? (console.warn("Test2"), wfs("#url").then((n => {
-                            console.warn("Test3"), n.value = `https://www.instagram.com/${e}/${o}/`, wfs("#btn-submit").then((e => {
-                                e.click(), wfs(".download-bottom").then((async() => {
-                                    await t(1e3);
-                                    let e = [...document.querySelectorAll('[class="download-bottom"]')].map((e => findhref2(e)[0])).map((({
-                                        href: e,
-                                        download: t,
-                                        target: o
-                                    }) => ({
-                                        href: e,
-                                        download: t,
-                                        target: o
-                                    })));
-                                    (opener || window).postMessage(e, "*"), close()
-                                }))
+                else {
+                    if ("production.assets.clips.twitchcdn.net" == document.domain) {
+                        let e = new element("a", {
+                            href: document.querySelector('[type="video/mp4"]').src,
+                            download: document.querySelector('[type="video/mp4"]').src.split("/")[5] + ".mp4"
+                        });
+                        return document.body.append(e.element), e.element.click(), void sleep(500).then((t => {
+                            e.element.remove(), sleep(500).then((e => {
+                                close()
                             }))
-                        }))) : console.warn("no")
-                    }().then(console.log, console.warn)
-                }
-                if ("www.instagram.com" == document.domain) {
-                    const o = e => new Promise((t => setTimeout(t, e)));
+                        }))
+                    }
+                    if ("snapinst.app" == document.domain) {
+                        const t = e => new Promise((t => setTimeout(t, e)));
+                        async function wfs(e, o = 2e4) {
+                            let n = !1;
+                            for (setTimeout((() => {
+                                    console.log("TimeOut for", e), n = !0
+                                }), o); !document.querySelector(e) && (console.log("_", e, n), await t(500), !n););
+                            if (console.log(e, n), n) throw "NotFound";
+                            return document.querySelector(e)
+                        }
+                        async function createBlackOverlayCanvas() {
+                            await wfs("body");
+                            const e = document.createElement("canvas");
+                            e.id = "blackCanvas", Object.assign(e.style, {
+                                position: "fixed",
+                                top: "0",
+                                left: "0",
+                                width: "100%",
+                                height: "100%",
+                                backgroundColor: "black",
+                                zIndex: "9999",
+                                pointerEvents: "none"
+                            }), document.body.appendChild(e);
+                            const t = () => {
+                                e.width = window.innerWidth, e.height = window.innerHeight
+                            };
+                            t(), window.addEventListener("resize", t);
+                            const o = e.getContext("2d");
+                            o.fillStyle = "black", o.fillRect(0, 0, e.width, e.height), console.log("Black overlay canvas created.")
+                        }
+                        return createBlackOverlayCanvas(), void async function() {
+                            let [e, o] = name.split("\n");
+                            e && o ? (console.warn("Test2"), wfs("#url").then((n => {
+                                console.warn("Test3"), n.value = `https://www.instagram.com/${e}/${o}/`, wfs("#btn-submit").then((e => {
+                                    e.click(), wfs(".download-bottom").then((async() => {
+                                        await t(1e3);
+                                        let e = [...document.querySelectorAll('[class="download-bottom"]')].map((e => findhref2(e)[0])).map((({
+                                            href: e,
+                                            download: t,
+                                            target: o
+                                        }) => ({
+                                            href: e,
+                                            download: t,
+                                            target: o
+                                        })));
+                                        (opener || window).postMessage(e, "*"), close()
+                                    }))
+                                }))
+                            }))) : console.warn("no")
+                        }().then(console.log, console.warn)
+                    }
+                    if ("www.instagram.com" == document.domain) {
+                        const o = e => new Promise((t => setTimeout(t, e)));
 
-                    function parseInstagramURL(e) {
-                        const t = e.match(/https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels|reel)\/([^\/?]+)/);
-                        return t ? {
-                            username: t[1] || null,
-                            a: t[2],
-                            id: t[3]
-                        } : null
-                    }
-                    var l;
-                    let n = () => (l = parseInstagramURL(location.href), open("https://snapinst.app/", `${l.a}\n${l.id}`));
-                    var int;
-                    async function wfs(e, t) {
-                        let o = e => new Promise((t => setTimeout(t, e)));
-                        return await new Promise((async(n, l) => {
-                            var i = !1;
-                            setTimeout((() => (i = 0, l())), t);
-                            for (; !document.querySelector(e);)
-                                if (await o(), i) {
-                                    l();
-                                    break
+                        function parseInstagramURL(e) {
+                            const t = e.match(/https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels|reel)\/([^\/?]+)/);
+                            return t ? {
+                                username: t[1] || null,
+                                a: t[2],
+                                id: t[3]
+                            } : null
+                        }
+                        var l;
+                        let n = () => (l = parseInstagramURL(location.href), open("https://snapinst.app/", `${l.a}\n${l.id}`));
+                        var int;
+                        async function wfs(e, t) {
+                            let o = e => new Promise((t => setTimeout(t, e)));
+                            return await new Promise((async(n, l) => {
+                                var i = !1;
+                                setTimeout((() => (i = 0, l())), t);
+                                for (; !document.querySelector(e);)
+                                    if (await o(), i) {
+                                        l();
+                                        break
+                                    }
+                                return n(document.querySelector(e))
+                            })).then((e => e), (e => !1))
+                        }
+                        if (onmessage = async function(e) {
+                                if ("https://snapinst.app" != e.origin) return void console.log("UNhandled", e);
+                                let t = e.data;
+                                for (let e = 0; e < t.length; e++) {
+                                    let {
+                                        href: n,
+                                        download: l,
+                                        target: i
+                                    } = t[e];
+                                    console.log("Got", {
+                                        href: n,
+                                        download: l,
+                                        target: i
+                                    });
+                                    let c = new element("a", {
+                                        href: n,
+                                        download: l,
+                                        target: i
+                                    });
+                                    document.body.append(c.element), c.element.click(), await o(500), c.element.remove()
                                 }
-                            return n(document.querySelector(e))
-                        })).then((e => e), (e => !1))
-                    }
-                    if (onmessage = async function(e) {
-                            if ("https://snapinst.app" != e.origin) return void console.log("UNhandled", e);
-                            let t = e.data;
-                            for (let e = 0; e < t.length; e++) {
-                                let {
-                                    href: n,
-                                    download: l,
-                                    target: i
-                                } = t[e];
-                                console.log("Got", {
-                                    href: n,
-                                    download: l,
-                                    target: i
-                                });
-                                let c = new element("a", {
-                                    href: n,
-                                    download: l,
-                                    target: i
-                                });
-                                document.body.append(c.element), c.element.click(), await o(500), c.element.remove()
-                            }
-                        }, "/call/" == location.pathname) {
-                        ! function() {
-                            Object.assign(this || arguments[0], {
-                                _0x2c68c3: class {
-                                    constructor(e) {
-                                        this._0x2dcc16 = {
-                                            body: e || "---",
-                                            color: "darkgrey",
-                                            size: "1rem"
-                                        }, this._0x2603ce = {
-                                            color: "#008f68",
-                                            size: "1rem"
+                            }, "/call/" == location.pathname) {
+                            ! function() {
+                                Object.assign(this || arguments[0], {
+                                    _0x2c68c3: class {
+                                        constructor(e) {
+                                            this._0x2dcc16 = {
+                                                body: e || "---",
+                                                color: "darkgrey",
+                                                size: "1rem"
+                                            }, this._0x2603ce = {
+                                                color: "#008f68",
+                                                size: "1rem"
+                                            }
+                                        }
+                                        _0x54181c(e) {
+                                            return this._0x2dcc16.body = e, this
+                                        }
+                                        _0x40a387({
+                                            _0x4e4744: e,
+                                            _0x2fbd8f: t
+                                        }) {
+                                            return void 0 !== e && (this._0x2dcc16.color = e), void 0 !== t && (this._0x2dcc16.size = t), this
+                                        }
+                                        _0x235d03({
+                                            _0x14e09d: e,
+                                            _0x506311: t
+                                        }) {
+                                            return void 0 !== e && (this._0x2603ce.color = e), void 0 !== t && (this._0x2603ce.size = t), this
+                                        }
+                                        _0x52dfbf(e = "") {
+                                            console.log(`%c${this._0x2dcc16.body} | %c${e}`, `color:${this._0x2dcc16.color}; font-weight:bold; font-size:${this._0x2dcc16.size};`, `color:${this._0x2603ce.color}; font-weight:bold; font-size:${this._0x2603ce.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`)
                                         }
                                     }
-                                    _0x54181c(e) {
-                                        return this._0x2dcc16.body = e, this
-                                    }
-                                    _0x40a387({
-                                        _0x4e4744: e,
-                                        _0x2fbd8f: t
-                                    }) {
-                                        return void 0 !== e && (this._0x2dcc16.color = e), void 0 !== t && (this._0x2dcc16.size = t), this
-                                    }
-                                    _0x235d03({
-                                        _0x14e09d: e,
-                                        _0x506311: t
-                                    }) {
-                                        return void 0 !== e && (this._0x2603ce.color = e), void 0 !== t && (this._0x2603ce.size = t), this
-                                    }
-                                    _0x52dfbf(e = "") {
-                                        console.log(`%c${this._0x2dcc16.body} | %c${e}`, `color:${this._0x2dcc16.color}; font-weight:bold; font-size:${this._0x2dcc16.size};`, `color:${this._0x2603ce.color}; font-weight:bold; font-size:${this._0x2603ce.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`)
-                                    }
-                                }
-                            })
-                        }(globalThis);
-                        const i = new _0x2c68c3("InfiniteLoop");
-                        i._0x52dfbf("Starting infinite loop..."), async function e() {
-                            await o(1e3), wfs(".x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3", 1e5).then((() => {
-                                [...document.querySelectorAll(".x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3")].forEach((e => e.style.backgroundColor = "green")), i._0x52dfbf("Iteration complete. Next iteration..."), e()
-                            })).catch((t => {
-                                i._0x52dfbf(`Error: ${t.message}`), e()
-                            }))
-                        }()
-                    }
+                                })
+                            }(globalThis);
+                            const i = new _0x2c68c3("InfiniteLoop");
+                            i._0x52dfbf("Starting infinite loop..."), async function e() {
+                                await o(1e3), wfs(".x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3", 1e5).then((() => {
+                                    [...document.querySelectorAll(".x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3")].forEach((e => e.style.backgroundColor = "green")), i._0x52dfbf("Iteration complete. Next iteration..."), e()
+                                })).catch((t => {
+                                    i._0x52dfbf(`Error: ${t.message}`), e()
+                                }))
+                            }()
+                        }
 
-                    function setButtons() {
-                        console.log("Appended buttons man");
-                        var e = new element(document.querySelectorAll(".xh8yej3.x1iyjqo2")[0]),
-                            t = new element("button", {
+                        function setButtons() {
+                            console.log("Appended buttons man");
+                            var e = new element(document.querySelectorAll(".xh8yej3.x1iyjqo2")[0]),
+                                t = new element("button", {
+                                    id: "MediaButton"
+                                }).set("innerText", "Get Media").on("click", n);
+                            e.append(t)
+                        }
+
+                        function setButtons2() {
+                            var e = new element(document.querySelector("._aaqy")),
+                                t = new element("button", {
+                                    id: "MediaButton"
+                                }).set("innerText", "Get Media").on("click", n);
+                            e.append(t)
+                        }
+
+                        function checkArc() {
+                            const e = document.getElementsByTagName("article");
+                            var t = new element("button", {
                                 id: "MediaButton"
                             }).set("innerText", "Get Media").on("click", n);
-                        e.append(t)
-                    }
-
-                    function setButtons2() {
-                        var e = new element(document.querySelector("._aaqy")),
-                            t = new element("button", {
-                                id: "MediaButton"
-                            }).set("innerText", "Get Media").on("click", n);
-                        e.append(t)
-                    }
-
-                    function checkArc() {
-                        const e = document.getElementsByTagName("article");
-                        var t = new element("button", {
-                            id: "MediaButton"
-                        }).set("innerText", "Get Media").on("click", n);
-                        for (const o of e) o.querySelector("#MediaButton") || o.prepend(t.element)
-                    }
-                    return tF((function() {
-                        document.querySelectorAll(".xh8yej3.x1iyjqo2")[0].children
-                    }), {
-                        callback: function() {
-                            setButtons(), setInterval((() => {
-                                checkArc(), document.querySelector("#MediaButton") || setButtons(), document.querySelector("._aaqy") && !document.querySelector("._aaqy").querySelector("#MediaButton") && setButtons2()
-                            }))
+                            for (const o of e) o.querySelector("#MediaButton") || o.prepend(t.element)
                         }
-                    }), void console.log("Insta ballz")
-                }
-                if ("sclouddownloader.net" == document.domain)(async function() {
-                    var e = _getV("sc");
-                    async function t(e, t) {
-                        let o = e => new Promise((t => setTimeout(t, e)));
-                        return await new Promise((async(n, l) => {
-                            var i = !1;
-                            setTimeout((() => (i = 0, l())), t);
-                            for (; !document.querySelector(e);)
-                                if (await o(), i) {
-                                    l();
-                                    break
+                        return tF((function() {
+                            document.querySelectorAll(".xh8yej3.x1iyjqo2")[0].children
+                        }), {
+                            callback: function() {
+                                setButtons(), setInterval((() => {
+                                    checkArc(), document.querySelector("#MediaButton") || setButtons(), document.querySelector("._aaqy") && !document.querySelector("._aaqy").querySelector("#MediaButton") && setButtons2()
+                                }))
+                            }
+                        }), void console.log("Insta ballz")
+                    }
+                    if ("sclouddownloader.net" == document.domain)(async function() {
+                        var e = _getV("sc");
+                        async function t(e, t) {
+                            let o = e => new Promise((t => setTimeout(t, e)));
+                            return await new Promise((async(n, l) => {
+                                var i = !1;
+                                setTimeout((() => (i = 0, l())), t);
+                                for (; !document.querySelector(e);)
+                                    if (await o(), i) {
+                                        l();
+                                        break
+                                    }
+                                return n(document.querySelector(e))
+                            })).then((e => !0), (e => !1))
+                        }
+                        if ("/download-sound-track" == location.pathname) {
+                            for (await t("#trackTitle"); !trackTitle.innerText.length;) await sleep(0);
+                            for (await t("#trackLink"); !trackLink.href.length;) await sleep(0);
+                            var o = {
+                                name: trackTitle.innerText,
+                                href: trackLink.href
+                            };
+                            console.log(o), _setV("SCinfo", o), close()
+                        } else {
+                            if (!_getV("SC")) throw "Bruv";
+                            var n = "#urlInput";
+                            if (await t(n, 2e3), await t(n, 2e3)) {
+                                for (document.querySelector(n).value = e, console.log("EZ url", !!window.formSubmit);
+                                    "undefined" == typeof formSubmit;) {
+                                    document.querySelector(n).value = e;
+                                    try {
+                                        await sleep(0), console.log("EZ url", formSubmit), formSubmit()
+                                    } catch {}
                                 }
-                            return n(document.querySelector(e))
-                        })).then((e => !0), (e => !1))
-                    }
-                    if ("/download-sound-track" == location.pathname) {
-                        for (await t("#trackTitle"); !trackTitle.innerText.length;) await sleep(0);
-                        for (await t("#trackLink"); !trackLink.href.length;) await sleep(0);
-                        var o = {
-                            name: trackTitle.innerText,
-                            href: trackLink.href
-                        };
-                        console.log(o), _setV("SCinfo", o), close()
-                    } else {
-                        if (!_getV("SC")) throw "Bruv";
-                        var n = "#urlInput";
-                        if (await t(n, 2e3), await t(n, 2e3)) {
-                            for (document.querySelector(n).value = e, console.log("EZ url", !!window.formSubmit);
-                                "undefined" == typeof formSubmit;) {
-                                document.querySelector(n).value = e;
-                                try {
-                                    await sleep(0), console.log("EZ url", formSubmit), formSubmit()
-                                } catch {}
+                                console.log("EZ url", formSubmit), formSubmit(), console.warn("Got"), setInterval((() => {
+                                    document.querySelector(n).value = e, formSubmit()
+                                }), 1e3)
                             }
-                            console.log("EZ url", formSubmit), formSubmit(), console.warn("Got"), setInterval((() => {
-                                document.querySelector(n).value = e, formSubmit()
-                            }), 1e3)
                         }
-                    }
-                })().then(console.log, console.warn);
-                else if ("www.socialplug.io" == document.domain) {
-                    location.pathname.split("/")[1] != GM_getValue(document.domain) && (GM_setValue(document.domain, location.pathname.split("/")[1]), console.warn("updated"));
-                    const r = e => new Promise((t => setTimeout(t, e)));
-                    async function wfs(e, t = 5e3) {
-                        let o = !1;
-                        for (setTimeout((() => {
-                                console.log("TimeOut for", e), o = !0
-                            }), t); !document.querySelector(e) && (console.log("_", e, o), await r(500), !o););
-                        if (console.log(e, o), o) throw "NotFound";
-                        return document.querySelector(e)
-                    }(async function() {
-                        let [e, t] = name.split(",");
-                        if (!e.length || !t.length) return console.warn("No info Preset");
-                        var o = `https://www.youtube.com/${"1"==t?"shorts/":"watch?v="}${e}`;
-                        for (await wfs("#video-url"), console.log("Input Loaded"), document.querySelector("#video-url").value = o, await wfs("#get-video-button"), console.log("GEtting res"), await r(100), document.querySelector("#get-video-button").click(), await wfs("#quality-options", 2e4); !document.getElementById("quality-options").children.length;) await r(100);
-                        for (document.getElementById("quality-options").children[document.getElementById("quality-options").children.length - 1].click(), console.log("Stating Download"); Number(document.querySelector(".indicator").style.width.replace("%", "")) < 100;) await r(10), "An error occurred while starting the download" == error.innerText && (document.getElementById("quality-options").children[document.getElementById("quality-options").children.length - 1].click(), console.warn("Stating Download again"), error.innerText = "", await r(1e3));
-                        for (console.log("Done Loading"), console.log("Unloading video"); Number(document.querySelector(".indicator").style.width.replace("%", ""));) await r(10);
-                        close()
-                    })().then((function(e) {
-                        (opener || window).postMessage(e, "*"), location.href = e.href
-                    }), console.warn)
-                } else {
-                    if ("y2mate.nu" == document.domain) {
-                        location.pathname.split("/")[1] != GM_getValue("y2mate.nu") && (GM_setValue("y2mate.nu", location.pathname.split("/")[1]), console.warn("updated"), close());
-                        let id_ = new URL(location.href).searchParams.get("v"),
-                            IsShort = 1 == new URL(location.href).searchParams.get("s"),
-                            mp4 = new URL(location.href).searchParams.get("mp4"),
-                            useT = new URL(location.href).searchParams.get("useT"),
-                            _ = id_ + mp4 + useT;
-                        id_ || ([id_, IsShort, mp4, useT] = name.split(",").map((e => {
-                            try {
-                                return !!eval(e)
-                            } catch {
-                                return String(e)
-                            }
-                        })));
-                        const sleep = e => new Promise((t => setTimeout(t, e)));
+                    })().then(console.log, console.warn);
+                    else if ("www.socialplug.io" == document.domain) {
+                        location.pathname.split("/")[1] != GM_getValue(document.domain) && (GM_setValue(document.domain, location.pathname.split("/")[1]), console.warn("updated"));
+                        const r = e => new Promise((t => setTimeout(t, e)));
                         async function wfs(e, t = 5e3) {
                             let o = !1;
                             for (setTimeout((() => {
                                     console.log("TimeOut for", e), o = !0
-                                }), t); !document.querySelector(e) && (console.log("_", e, o), await sleep(500), !o););
+                                }), t); !document.querySelector(e) && (console.log("_", e, o), await r(500), !o););
                             if (console.log(e, o), o) throw "NotFound";
                             return document.querySelector(e)
-                        }
-                        let cr = document.createElement;
-                        return document.createElement = function(e, t) {
-                            let o = cr.call(document, e, t);
-                            return o._click = o.click, o.click = function() {
-                                if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
-                                    console.log("Caught", o);
-                                    let e = o.download,
-                                        t = o.href;
-                                    f = {
-                                        id: id_,
-                                        href: t,
-                                        title: e
-                                    }, (opener || window).postMessage(f, "*")
-                                } else o._click.apply(o)
-                            }, console.log(o, "was created", o.tagName), o
-                        }, void async function() {
-                            for (;
-                                "complete" != document.readyState;) await sleep(0);
-                            if (id_) {
-                                let e = async e => {
-                                    console.log("a", e);
-                                    var t = findhref2(document.forms[0])[0].href,
-                                        o = findhref2(document.forms[0], "div")[0].innerText,
-                                        n = {
-                                            _: _,
-                                            id: id_,
-                                            href: t,
-                                            title: o,
-                                            length: {}
-                                        };
-                                    console.log("Posted", n), (opener || window.parent).postMessage(n, "*"), close()
-                                };
-                                try {
-                                    await wfs("#video").then((e => {
-                                        console.log("e", e), e.value = IsShort ? `https://www.youtube.com/watch?v=${id_}` : `https://www.youtube.com/shorts/${id_}`, document.querySelector('[type="submit"]').click()
-                                    })).catch(e), console.log("after url"), dl = download, download = function(e) {
-                                        dl(e);
-                                        var t = e + "&s=3&v=" + gVideo + "&f=" + gFormat + "&_=" + Math.random();
-                                        if (t && t.length) {
-                                            console.log("Lets goooo got:", {
-                                                url: t
-                                            });
-                                            let e = {
-                                                href: t,
-                                                useT: !1,
-                                                _: _,
-                                                id: id_
-                                            };
-                                            (opener || window.parent).postMessage(e, "*"), close()
-                                        }
-                                    }, console.log("b")
-                                } catch (e) {
-                                    console.warn("Error:", e)
-                                }
-                            } else console.warn("No id Found")
-                        }().then(console.log, console.warn)
-                    }
-                    if ("qdownloader.cc" == document.domain) {
-                        const a = e => new Promise((t => setTimeout(t, e)));
-                        async function wfs(e, t = 2e4) {
-                            let o = !1;
-                            for (setTimeout((() => {
-                                    console.log("TimeOut for", e), o = !0
-                                }), t); !document.querySelector(e) && (console.log("_", e, o), await a(500), !o););
-                            if (console.log(e, o), o) throw "NotFound";
-                            return document.querySelector(e)
-                        }
-
-                        function dispatchAllInputEvents(e, t) {
-                            ["focus", "input", "change", "blur"].forEach((o => {
-                                let n = new Event(o, {
-                                    bubbles: !0,
-                                    isTrusted: !0
-                                });
-                                e[`on${o}`] && e[`on${o}`](n), "input" === o && (e.value = t), e.dispatchEvent(n)
-                            }))
-                        }
-                        let s = document.createElement;
-                        document._createElement = function(e, t) {
-                            let o = s.call(document, e, t);
-                            return o._click = o.click, o.click = function() {
-                                if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
-                                    console.log("Caught", o);
-                                    let e = o.download,
-                                        t = o.href;
-                                    f = {
-                                        id: new URL(location.href).searchParams.get("v"),
-                                        href: t,
-                                        title: e
-                                    }
-                                } else o._click.apply(o)
-                            }, console.log(o, "was created", o.tagName), o
-                        }, async function() {
-                            if (location.href.includes("vidbutton")) throw "vidbutton";
-                            GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (async function(e, t, o, n) {
-                                console.log({
-                                    a: e,
-                                    b: t,
-                                    c: o,
-                                    d: n
-                                }), o.includes("video download successful\ncheck downloads folder") && (await a(1e3), close())
-                            }));
-                            let e = await wfs("#url"),
-                                t = await wfs("#downloadBtn");
-                            id_ = new URL(location.href).searchParams.get("v"), dispatchAllInputEvents(e, `https://www.youtube.com/watch?v=${id_}`), t.click()
-                        }().then(console.log, (async e => {
-                            "vidbutton" == e && (console.log("Best Quality Video"), await wfs("#height").then((e => {
-                                height.selectedIndex = height.options.length - 1, dlbutton.click(), open = window.open, window.open = function(e, t, o) {
-                                    console.log({
-                                        a: e,
-                                        b: t,
-                                        c: o
-                                    })
-                                }, wfs("#dlbutton").then((e => {
-                                    var t = "";
-                                    setInterval((o => {
-                                        t != e.innerText && (t = e.innerText, GM_setValue("dlbutton", t))
-                                    }))
-                                }))
-                            })))
-                        }))
+                        }(async function() {
+                            let [e, t] = name.split(",");
+                            if (!e.length || !t.length) return console.warn("No info Preset");
+                            var o = `https://www.youtube.com/${"1"==t?"shorts/":"watch?v="}${e}`;
+                            for (await wfs("#video-url"), console.log("Input Loaded"), document.querySelector("#video-url").value = o, await wfs("#get-video-button"), console.log("GEtting res"), await r(100), document.querySelector("#get-video-button").click(), await wfs("#quality-options", 2e4); !document.getElementById("quality-options").children.length;) await r(100);
+                            for (document.getElementById("quality-options").children[document.getElementById("quality-options").children.length - 1].click(), console.log("Stating Download"); Number(document.querySelector(".indicator").style.width.replace("%", "")) < 100;) await r(10), "An error occurred while starting the download" == error.innerText && (document.getElementById("quality-options").children[document.getElementById("quality-options").children.length - 1].click(), console.warn("Stating Download again"), error.innerText = "", await r(1e3));
+                            for (console.log("Done Loading"), console.log("Unloading video"); Number(document.querySelector(".indicator").style.width.replace("%", ""));) await r(10);
+                            close()
+                        })().then((function(e) {
+                            (opener || window).postMessage(e, "*"), location.href = e.href
+                        }), console.warn)
                     } else {
-                        if ("snapsave.io" == document.domain) {
-                            async function wfs(e, t = 2e4) {
+                        if ("y2mate.nu" == document.domain) {
+                            location.pathname.split("/")[1] != GM_getValue("y2mate.nu") && (GM_setValue("y2mate.nu", location.pathname.split("/")[1]), console.warn("updated"), close());
+                            let id_ = new URL(location.href).searchParams.get("v"),
+                                IsShort = 1 == new URL(location.href).searchParams.get("s"),
+                                mp4 = new URL(location.href).searchParams.get("mp4"),
+                                useT = new URL(location.href).searchParams.get("useT"),
+                                _ = id_ + mp4 + useT;
+                            id_ || ([id_, IsShort, mp4, useT] = name.split(",").map((e => {
+                                try {
+                                    return !!eval(e)
+                                } catch {
+                                    return String(e)
+                                }
+                            })));
+                            const sleep = e => new Promise((t => setTimeout(t, e)));
+                            async function wfs(e, t = 5e3) {
                                 let o = !1;
                                 for (setTimeout((() => {
                                         console.log("TimeOut for", e), o = !0
@@ -1074,191 +966,323 @@
                                 if (console.log(e, o), o) throw "NotFound";
                                 return document.querySelector(e)
                             }
-                            return _wfs = wfs, void async function() {
-                                var e = await wfs("#s_input", 3e4);
-                                if (e) {
-                                    console.log("Converting"), id_ = new URL(location.href).searchParams.get("v"), e.value = `https://www.youtube.com/watch?v=${id_}`, ksearchvideo(), setTimeout(ksearchvideo(), 1e3);
-                                    var t = await wfs("#formatSelect");
-                                    await wfs("#btn-action");
-                                    t.selectedIndex = 0, t.options[0].selected = !0;
-                                    for (var o = await wfs("#asuccess"); !(o = await wfs("#asuccess"));) await sleep(0);
-                                    for (convertFile(0);
-                                        "#" == o.getAttribute("href");) await sleep(0), o = await wfs("#asuccess");
-                                    console.log(o.href);
-                                    var n = (await _wfs(".clearfix")).querySelector("h3").innerText,
-                                        l = {
+                            let cr = document.createElement;
+                            return document.createElement = function(e, t) {
+                                let o = cr.call(document, e, t);
+                                return o._click = o.click, o.click = function() {
+                                    if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
+                                        console.log("Caught", o);
+                                        let e = o.download,
+                                            t = o.href;
+                                        f = {
                                             id: id_,
-                                            href: o.href,
-                                            title: n,
-                                            length: {}
-                                        };
-                                    console.log("Posted", l), (opener || window).postMessage(l, "*")
-                                } else alert("Input was not Found"), console.warn("?!!")
-                            }().then(console.log).catch(console.warn)
+                                            href: t,
+                                            title: e
+                                        }, (opener || window).postMessage(f, "*")
+                                    } else o._click.apply(o)
+                                }, console.log(o, "was created", o.tagName), o
+                            }, void async function() {
+                                for (;
+                                    "complete" != document.readyState;) await sleep(0);
+                                if (id_) {
+                                    let e = async e => {
+                                        console.log("a", e);
+                                        var t = findhref2(document.forms[0])[0].href,
+                                            o = findhref2(document.forms[0], "div")[0].innerText,
+                                            n = {
+                                                _: _,
+                                                id: id_,
+                                                href: t,
+                                                title: o,
+                                                length: {}
+                                            };
+                                        console.log("Posted", n), (opener || window.parent).postMessage(n, "*"), close()
+                                    };
+                                    try {
+                                        await wfs("#video").then((e => {
+                                            console.log("e", e), e.value = IsShort ? `https://www.youtube.com/watch?v=${id_}` : `https://www.youtube.com/shorts/${id_}`, document.querySelector('[type="submit"]').click()
+                                        })).catch(e), console.log("after url"), dl = download, download = function(e) {
+                                            dl(e);
+                                            var t = e + "&s=3&v=" + gVideo + "&f=" + gFormat + "&_=" + Math.random();
+                                            if (t && t.length) {
+                                                console.log("Lets goooo got:", {
+                                                    url: t
+                                                });
+                                                let e = {
+                                                    href: t,
+                                                    useT: !1,
+                                                    _: _,
+                                                    id: id_
+                                                };
+                                                (opener || window.parent).postMessage(e, "*"), close()
+                                            }
+                                        }, console.log("b")
+                                    } catch (e) {
+                                        console.warn("Error:", e)
+                                    }
+                                } else console.warn("No id Found")
+                            }().then(console.log, console.warn)
                         }
-                        if ("clips.twitch.tv" == document.domain && "create" != location.pathname.split("/")[1]) {
-                            let d = 0;
-                            const u = e => new Promise((t => setTimeout(t, e)));
+                        if ("qdownloader.cc" == document.domain) {
+                            const a = e => new Promise((t => setTimeout(t, e)));
                             async function wfs(e, t = 2e4) {
                                 let o = !1;
                                 for (setTimeout((() => {
                                         console.log("TimeOut for", e), o = !0
-                                    }), t); !document.querySelector(e) && (console.log("_", e, o), await u(500), !o););
+                                    }), t); !document.querySelector(e) && (console.log("_", e, o), await a(500), !o););
                                 if (console.log(e, o), o) throw "NotFound";
                                 return document.querySelector(e)
                             }
 
-                            function copyElm(e) {
-                                if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
-                                const t = document.createElement(e.tagName);
-                                for (let o of e.attributes) t.setAttribute(o.name, o.value);
-                                return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
+                            function dispatchAllInputEvents(e, t) {
+                                ["focus", "input", "change", "blur"].forEach((o => {
+                                    let n = new Event(o, {
+                                        bubbles: !0,
+                                        isTrusted: !0
+                                    });
+                                    e[`on${o}`] && e[`on${o}`](n), "input" === o && (e.value = t), e.dispatchEvent(n)
+                                }))
                             }
-                            _wfs = wfs, _copyElm = copyElm, async function() {
-                                location.href;
-                                let e = (await _wfs(".ScCoreButtonLabel-sc-s7h2b7-0")).parentElement.parentElement.parentElement.parentElement;
-                                new _e(_copyElm(e)).on("click", (function() {
-                                    var e;
-                                    open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "1080")
-                                })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "1080P", new _e(_copyElm(e)).on("click", (function() {
-                                    var e;
-                                    open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "720")
-                                })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "720P", new _e(_copyElm(e)).on("click", (function() {
-                                    var e;
-                                    open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "480")
-                                })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "480P", new _e(_copyElm(e)).on("click", (function() {
-                                    var e;
-                                    open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "360")
-                                })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "360P", new _e(_copyElm(e)).on("click", (function() {
-                                    var e;
-                                    open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "VOD")
-                                })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD";
-                                var t;
-                                d && (setTimeout((() => {
-                                    close()
-                                }), 200), open((e => e.href)(((t = new URL(location.href)).host = "clipr.xyz", t)), "1080"))
-                            }().catch(console.warn)
-                        } else {
-                            if ("www.twitch.tv" == document.domain) {
-                                async function go() {
-                                    let [e, t, o, n] = location.pathname.split("/");
-                                    if ("clip" != o) return console.warn("User isnt wathcing a clip");
-                                    console.log("User is Watching a CLip");
-                                    const l = e => new Promise((t => setTimeout(t, e)));
-                                    async function i(e, t = 2e4) {
-                                        let o = !1;
-                                        for (setTimeout((() => {
-                                                console.log("TimeOut for", e), o = !0
-                                            }), t); !document.querySelector(e) && (console.log("_", e, o), await l(500), !o););
-                                        if (console.log(e, o), o) throw "NotFound";
-                                        return document.querySelector(e)
-                                    }
-                                    _wfs = i, _wfs_ = i, _copyElm = function(e) {
-                                        if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
-                                        const t = document.createElement(e.tagName);
-                                        for (let o of e.attributes) t.setAttribute(o.name, o.value);
-                                        return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
-                                    }, await async function() {
-                                        location.href;
-                                        await _wfs(".Layout-sc-1xcs6mc-0.bMOhzu");
-                                        let l = [...document.querySelectorAll(".Layout-sc-1xcs6mc-0 .bMOhzu")].filter((e => e.querySelector("button") && !e.querySelector("button").disabled))[0];
-                                        [{
-                                            label: "1080P",
-                                            resolution: "1080"
-                                        }, {
-                                            label: "720P",
-                                            resolution: "720"
-                                        }, {
-                                            label: "480P",
-                                            resolution: "480"
-                                        }, {
-                                            label: "360P",
-                                            resolution: "360"
-                                        }, {
-                                            label: "VOD",
-                                            resolution: "VOD"
-                                        }].forEach((({
-                                            label: i,
-                                            resolution: c
-                                        }) => {
-                                            let r = new _e(_copyElm(l)).on("click", (function() {
-                                                var l;
-                                                [e, t, o, n] = location.pathname.split("/"), open((e => e.href)(((l = new URL(location.href)).host = "clipr.xyz", l)), c)
-                                            })).appendTo(document.querySelector(".Layout-sc-1xcs6mc-0.hZUoPp"));
-                                            "VOD" === c ? r.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = i : r.element.querySelector(".bFxzAY").innerText = i
+                            let s = document.createElement;
+                            document._createElement = function(e, t) {
+                                let o = s.call(document, e, t);
+                                return o._click = o.click, o.click = function() {
+                                    if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
+                                        console.log("Caught", o);
+                                        let e = o.download,
+                                            t = o.href;
+                                        f = {
+                                            id: new URL(location.href).searchParams.get("v"),
+                                            href: t,
+                                            title: e
+                                        }
+                                    } else o._click.apply(o)
+                                }, console.log(o, "was created", o.tagName), o
+                            }, async function() {
+                                if (location.href.includes("vidbutton")) throw "vidbutton";
+                                GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (async function(e, t, o, n) {
+                                    console.log({
+                                        a: e,
+                                        b: t,
+                                        c: o,
+                                        d: n
+                                    }), o.includes("video download successful\ncheck downloads folder") && (await a(1e3), close())
+                                }));
+                                let e = await wfs("#url"),
+                                    t = await wfs("#downloadBtn");
+                                id_ = new URL(location.href).searchParams.get("v"), dispatchAllInputEvents(e, `https://www.youtube.com/watch?v=${id_}`), t.click()
+                            }().then(console.log, (async e => {
+                                "vidbutton" == e && (console.log("Best Quality Video"), await wfs("#height").then((e => {
+                                    height.selectedIndex = height.options.length - 1, dlbutton.click(), open = window.open, window.open = function(e, t, o) {
+                                        console.log({
+                                            a: e,
+                                            b: t,
+                                            c: o
+                                        })
+                                    }, wfs("#dlbutton").then((e => {
+                                        var t = "";
+                                        setInterval((o => {
+                                            t != e.innerText && (t = e.innerText, GM_setValue("dlbutton", t))
                                         }))
-                                    }().catch(console.warn)
-                                }
-                                var c;
-                                return void setInterval((() => {
-                                    c != location.href && go(), c = location.href
-                                }), 100)
-                            }
-                            if ("clipr.xyz" == document.domain) {
+                                    }))
+                                })))
+                            }))
+                        } else {
+                            if ("snapsave.io" == document.domain) {
                                 async function wfs(e, t = 2e4) {
                                     let o = !1;
                                     for (setTimeout((() => {
-                                            logger.log(`TimeOut for ${e}`), o = !0
-                                        }), t); !document.querySelector(e) && (logger.log(`_ ${e} ${o}`), await sleep(500), !o););
-                                    if (logger.log(`${e} ${o}`), o) throw "NotFound";
+                                            console.log("TimeOut for", e), o = !0
+                                        }), t); !document.querySelector(e) && (console.log("_", e, o), await sleep(500), !o););
+                                    if (console.log(e, o), o) throw "NotFound";
                                     return document.querySelector(e)
                                 }
-                                async function wfl() {
-                                    for (;
-                                        "complete" != document.readyState;) await sleep(0);
-                                    return !0
-                                }
-                                const m = wfs;
-
-                                function sleep(e) {
-                                    return new Promise((t => setTimeout(t, e)))
-                                }
-
-                                function downloadFileAsTitle(e, t) {
-                                    const o = document.createElement("a");
-                                    o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
-                                }
-                                return void async function() {
-                                    let e = name;
-                                    await wfl(), logger.log("Loaded");
-                                    let t = ((e = {}) => ([...document.querySelectorAll(".flex.items-center.space-x-4")].filter((e => findhref2(e)[0])).filter((e => findhref2(e)[0].href.includes("clips.twitchcdn.net"))).forEach((t => {
-                                        e[t.querySelector(".space-x-1").innerText.replace("p", "")] = findhref2(t)[0].href
-                                    })), e))()[e];
-                                    logger.log(1);
-                                    let o = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
-                                    logger.log(2);
-                                    let n = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2").innerText;
-                                    logger.log(3);
-                                    let l = `@${o} on Twitch | ${n} - ${e}P.mp4`;
-                                    logger.log(`Downloading file as: ${l}`), open(t), logger.log(4), await sleep(4e3), close()
-                                }().catch(console.warn)
+                                return _wfs = wfs, void async function() {
+                                    var e = await wfs("#s_input", 3e4);
+                                    if (e) {
+                                        console.log("Converting"), id_ = new URL(location.href).searchParams.get("v"), e.value = `https://www.youtube.com/watch?v=${id_}`, ksearchvideo(), setTimeout(ksearchvideo(), 1e3);
+                                        var t = await wfs("#formatSelect");
+                                        await wfs("#btn-action");
+                                        t.selectedIndex = 0, t.options[0].selected = !0;
+                                        for (var o = await wfs("#asuccess"); !(o = await wfs("#asuccess"));) await sleep(0);
+                                        for (convertFile(0);
+                                            "#" == o.getAttribute("href");) await sleep(0), o = await wfs("#asuccess");
+                                        console.log(o.href);
+                                        var n = (await _wfs(".clearfix")).querySelector("h3").innerText,
+                                            l = {
+                                                id: id_,
+                                                href: o.href,
+                                                title: n,
+                                                length: {}
+                                            };
+                                        console.log("Posted", l), (opener || window).postMessage(l, "*")
+                                    } else alert("Input was not Found"), console.warn("?!!")
+                                }().then(console.log).catch(console.warn)
                             }
-                            if (location.href.includes("tubemp4.is")) {
-                                async function wfs(e, t = 3e4) {
-                                    var o;
-                                    for (sleep(t).then((e => o = !0)); !document.querySelector(e) && (await sleep(0), !o););
+                            if ("clips.twitch.tv" == document.domain && "create" != location.pathname.split("/")[1]) {
+                                let d = 0;
+                                const u = e => new Promise((t => setTimeout(t, e)));
+                                async function wfs(e, t = 2e4) {
+                                    let o = !1;
+                                    for (setTimeout((() => {
+                                            console.log("TimeOut for", e), o = !0
+                                        }), t); !document.querySelector(e) && (console.log("_", e, o), await u(500), !o););
+                                    if (console.log(e, o), o) throw "NotFound";
                                     return document.querySelector(e)
                                 }
-                                console.log("ok"), wfs("#u").then((async e => {
-                                    e.value = `https://www.youtube.com/watch?v=${new URL(location.href).searchParams.get("v")}`, convert.click(), await sleep(200), (await wfs("#convert")).click(), (await wfs(".process-button")).click(), wfs(".download-button").then((e => {
-                                        let t = document.createElement;
-                                        document.createElement = function(e, o) {
-                                            let n = t.call(document, e, o);
-                                            return n._click = n.click, n.click = function() {
-                                                if (console.log(n, "was clicked", n.tagName), "A" == n.tagName) {
-                                                    console.log("Caught", n);
-                                                    let e = n.download,
-                                                        t = n.href;
-                                                    f = {
-                                                        id: new URL(location.href).searchParams.get("v"),
-                                                        href: t,
-                                                        title: e
-                                                    }, (opener || window).postMessage(f, "*"), close()
-                                                } else n._click.apply(n)
-                                            }, console.log(n, "was created", n.tagName), n
-                                        }, e.click(), console.log("clicked"), setTimeout((() => e.click()), 1e3)
-                                    }))
-                                })).then(console.log, console.warn)
+
+                                function copyElm(e) {
+                                    if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
+                                    const t = document.createElement(e.tagName);
+                                    for (let o of e.attributes) t.setAttribute(o.name, o.value);
+                                    return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
+                                }
+                                _wfs = wfs, _copyElm = copyElm, async function() {
+                                    location.href;
+                                    let e = (await _wfs(".ScCoreButtonLabel-sc-s7h2b7-0")).parentElement.parentElement.parentElement.parentElement;
+                                    new _e(_copyElm(e)).on("click", (function() {
+                                        var e;
+                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "1080")
+                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "1080P", new _e(_copyElm(e)).on("click", (function() {
+                                        var e;
+                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "720")
+                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "720P", new _e(_copyElm(e)).on("click", (function() {
+                                        var e;
+                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "480")
+                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "480P", new _e(_copyElm(e)).on("click", (function() {
+                                        var e;
+                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "360")
+                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "360P", new _e(_copyElm(e)).on("click", (function() {
+                                        var e;
+                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "VOD")
+                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD";
+                                    var t;
+                                    d && (setTimeout((() => {
+                                        close()
+                                    }), 200), open((e => e.href)(((t = new URL(location.href)).host = "clipr.xyz", t)), "1080"))
+                                }().catch(console.warn)
+                            } else {
+                                if ("www.twitch.tv" == document.domain) {
+                                    async function go() {
+                                        let [e, t, o, n] = location.pathname.split("/");
+                                        if ("clip" != o) return console.warn("User isnt wathcing a clip");
+                                        console.log("User is Watching a CLip");
+                                        const l = e => new Promise((t => setTimeout(t, e)));
+                                        async function i(e, t = 2e4) {
+                                            let o = !1;
+                                            for (setTimeout((() => {
+                                                    console.log("TimeOut for", e), o = !0
+                                                }), t); !document.querySelector(e) && (console.log("_", e, o), await l(500), !o););
+                                            if (console.log(e, o), o) throw "NotFound";
+                                            return document.querySelector(e)
+                                        }
+                                        _wfs = i, _wfs_ = i, _copyElm = function(e) {
+                                            if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
+                                            const t = document.createElement(e.tagName);
+                                            for (let o of e.attributes) t.setAttribute(o.name, o.value);
+                                            return t.style.cssText = e.style.cssText, t.className = e.className, t.innerHTML = e.innerHTML, t
+                                        }, await async function() {
+                                            location.href;
+                                            await _wfs(".Layout-sc-1xcs6mc-0.bMOhzu");
+                                            let l = [...document.querySelectorAll(".Layout-sc-1xcs6mc-0 .bMOhzu")].filter((e => e.querySelector("button") && !e.querySelector("button").disabled))[0];
+                                            [{
+                                                label: "1080P",
+                                                resolution: "1080"
+                                            }, {
+                                                label: "720P",
+                                                resolution: "720"
+                                            }, {
+                                                label: "480P",
+                                                resolution: "480"
+                                            }, {
+                                                label: "360P",
+                                                resolution: "360"
+                                            }, {
+                                                label: "VOD",
+                                                resolution: "VOD"
+                                            }].forEach((({
+                                                label: i,
+                                                resolution: c
+                                            }) => {
+                                                let r = new _e(_copyElm(l)).on("click", (function() {
+                                                    var l;
+                                                    [e, t, o, n] = location.pathname.split("/"), open((e => e.href)(((l = new URL(location.href)).host = "clipr.xyz", l)), c)
+                                                })).appendTo(document.querySelector(".Layout-sc-1xcs6mc-0.hZUoPp"));
+                                                "VOD" === c ? r.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = i : r.element.querySelector(".bFxzAY").innerText = i
+                                            }))
+                                        }().catch(console.warn)
+                                    }
+                                    var c;
+                                    return void setInterval((() => {
+                                        c != location.href && go(), c = location.href
+                                    }), 100)
+                                }
+                                if ("clipr.xyz" == document.domain) {
+                                    async function wfs(e, t = 2e4) {
+                                        let o = !1;
+                                        for (setTimeout((() => {
+                                                logger.log(`TimeOut for ${e}`), o = !0
+                                            }), t); !document.querySelector(e) && (logger.log(`_ ${e} ${o}`), await sleep(500), !o););
+                                        if (logger.log(`${e} ${o}`), o) throw "NotFound";
+                                        return document.querySelector(e)
+                                    }
+                                    async function wfl() {
+                                        for (;
+                                            "complete" != document.readyState;) await sleep(0);
+                                        return !0
+                                    }
+                                    const m = wfs;
+
+                                    function sleep(e) {
+                                        return new Promise((t => setTimeout(t, e)))
+                                    }
+
+                                    function downloadFileAsTitle(e, t) {
+                                        const o = document.createElement("a");
+                                        o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
+                                    }
+                                    return void async function() {
+                                        let e = name;
+                                        await wfl(), logger.log("Loaded");
+                                        let t = ((e = {}) => ([...document.querySelectorAll(".flex.items-center.space-x-4")].filter((e => findhref2(e)[0])).filter((e => findhref2(e)[0].href.includes("clips.twitchcdn.net"))).forEach((t => {
+                                            e[t.querySelector(".space-x-1").innerText.replace("p", "")] = findhref2(t)[0].href
+                                        })), e))()[e];
+                                        logger.log(1);
+                                        let o = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
+                                        logger.log(2);
+                                        let n = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2").innerText;
+                                        logger.log(3);
+                                        let l = `@${o} on Twitch | ${n} - ${e}P.mp4`;
+                                        logger.log(`Downloading file as: ${l}`), open(t), logger.log(4), await sleep(4e3), close()
+                                    }().catch(console.warn)
+                                }
+                                if (location.href.includes("tubemp4.is")) {
+                                    async function wfs(e, t = 3e4) {
+                                        var o;
+                                        for (sleep(t).then((e => o = !0)); !document.querySelector(e) && (await sleep(0), !o););
+                                        return document.querySelector(e)
+                                    }
+                                    console.log("ok"), wfs("#u").then((async e => {
+                                        e.value = `https://www.youtube.com/watch?v=${new URL(location.href).searchParams.get("v")}`, convert.click(), await sleep(200), (await wfs("#convert")).click(), (await wfs(".process-button")).click(), wfs(".download-button").then((e => {
+                                            let t = document.createElement;
+                                            document.createElement = function(e, o) {
+                                                let n = t.call(document, e, o);
+                                                return n._click = n.click, n.click = function() {
+                                                    if (console.log(n, "was clicked", n.tagName), "A" == n.tagName) {
+                                                        console.log("Caught", n);
+                                                        let e = n.download,
+                                                            t = n.href;
+                                                        f = {
+                                                            id: new URL(location.href).searchParams.get("v"),
+                                                            href: t,
+                                                            title: e
+                                                        }, (opener || window).postMessage(f, "*"), close()
+                                                    } else n._click.apply(n)
+                                                }, console.log(n, "was created", n.tagName), n
+                                            }, e.click(), console.log("clicked"), setTimeout((() => e.click()), 1e3)
+                                        }))
+                                    })).then(console.log, console.warn)
+                                }
                             }
                         }
                     }
@@ -1279,6 +1303,41 @@
                 const o = document.createElement("a");
                 o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
             }
+            if (console.log("B?"), _getIds = getIds, info = {}, downloadT = function(e, t = !1, o = !0, n = !1, l = !1, i = "") {
+                    let c = e + (n ? "mp4" : "mp3") + o;
+                    var r;
+                    if (!(r = document.getElementById(c)) || r.remove(), localStorage[c] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
+                    let a = i || location;
+                    var s = new URL(a.href);
+                    s.host = s.host.replace(".com", "mz.com"), console.log("o", s);
+                    let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
+                    console.log(c, d);
+                    return ad("unload", (function() {
+                        info[e].close()
+                    }), !0), onmessage = function(e) {
+                        if (e.origin == Porigin || e.origin.match(/https?:\/{2}onlymp3\.to/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://sss.instasaverpro.com" == e.origin || "https://y2mate.nu" == e.origin || "https://snapsave.io" == e.origin || "https://www.socialplug.io" == e.origin || "https://tubemp4.is" == e.origin) {
+                            const {
+                                data: {
+                                    href: t,
+                                    title: l,
+                                    length: i,
+                                    id: c,
+                                    _: r
+                                }
+                            } = e;
+                            let a = l + (n ? ".mp4" : ".mp3");
+                            (e => {
+                                e && e.remove()
+                            })(document.getElementById(r)), console.log("Handled", {
+                                href: t,
+                                title: l,
+                                length: i,
+                                id: c,
+                                _: r
+                            }, e), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
+                        } else console.log("Unhandled Post", e)
+                    }, info[e] = n ? open(a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500")
+                }, "studio.youtube.com" == document.domain) return;
             async function waitTT() {
                 for (; tiktikWin && !tiktikWin.closed;) await sleep(0);
                 return 1
@@ -1323,41 +1382,7 @@
             function Unmute() {
                 (query("#right-controls") && query("#right-controls").querySelectorAll("path")[0].getAttribute("d") == UnmutePath && abc("Mute", "title")[0] || abc("Unmute", "title") || abc("Unmute (m)", "title")).click()
             }
-            console.log("B?"), _getIds = getIds, info = {}, downloadT = function(e, t = !1, o = !0, n = !1, l = !1, i = "") {
-                let c = e + (n ? "mp4" : "mp3") + o;
-                var r;
-                if (!(r = document.getElementById(c)) || r.remove(), localStorage[c] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
-                let a = i || location;
-                var s = new URL(location.href);
-                s.host = s.host.replace(".com", "mz.com"), console.log("o", s);
-                let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
-                console.log(c, d);
-                return ad("unload", (function() {
-                    info[e].close()
-                }), !0), onmessage = function(e) {
-                    if (e.origin == Porigin || e.origin.match(/https?:\/{2}onlymp3\.to/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://sss.instasaverpro.com" == e.origin || "https://y2mate.nu" == e.origin || "https://snapsave.io" == e.origin || "https://www.socialplug.io" == e.origin || "https://tubemp4.is" == e.origin) {
-                        const {
-                            data: {
-                                href: t,
-                                title: l,
-                                length: i,
-                                id: c,
-                                _: r
-                            }
-                        } = e;
-                        let a = l + (n ? ".mp4" : ".mp3");
-                        (e => {
-                            e && e.remove()
-                        })(document.getElementById(r)), console.log("Handled", {
-                            href: t,
-                            title: l,
-                            length: i,
-                            id: c,
-                            _: r
-                        }, e), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
-                    } else console.log("Unhandled Post", e)
-                }, info[e] = n ? open(a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500")
-            }, downloadTikTok = function(e, t) {
+            downloadTikTok = function(e, t) {
                 (async function(e, t) {
                     await waitTT(), console.log("ez");
                     let o = t.videoID,
