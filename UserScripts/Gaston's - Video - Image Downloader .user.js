@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      8.8
+// @version      8.9
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -860,7 +860,7 @@ async function downloadVideo(url,title) {
         return
     }
     else if(document.domain=='studio.youtube.com'){
-        return void function(){
+        void function(){
             var item
             var list
             var forB
@@ -877,12 +877,24 @@ async function downloadVideo(url,title) {
                     }).map(e=>e[0].children[0].querySelectorAll('.cell-body.tablecell-visibility.style-scope.ytcp-video-row')[0]).forEach(e=>{
                         console.log(e)
                         e.append(new _e('br').element)
-                        var b=new _e('button').set('innerText','Get').on('click',function(e){
-                            alert('Doesnt work yet')
-                            const {id,href,isShort}=findhref2(e.target.parentElement.parentElement).map(e=>({href:e.href,short:e.href.includes('/short'),id:setElement(e.href)})).filter(e=>e.id)[0]
-                            downloadT(id,false,true,false,false,isShort?new URL(href):null)
+                        var b=new _e('button').set('innerText','MP3').on('click',function(e){
+                            let url=e.target.parentElement.parentElement.querySelector('#hover-items').children[3]
+                            console.log(url)
+                            //alert('Doesnt work yet')
+                            const {id,href,short}={href:url.href,short:url.href.includes('/short'),id:setElement(url.href)}
+                            console.log({id,href,short})
+                            downloadT(id,false,true,false,false,new URL(href))
                         })
-                        e.append(b.element)
+                        var bb=new _e('button').set('innerText','MP4').on('click',function(e){
+                            let url=e.target.parentElement.parentElement.querySelector('#hover-items').children[3]
+                            console.log(url)
+                            //alert('Doesnt work yet')
+                            const {id,href,short}={href:url.href,short:url.href.includes('/short'),id:setElement(url.href)}
+                            console.log({id,href,short})
+                            downloadT(id,false,true,true,false,new URL(href))
+                        })
+                        e.append(bb.element)
+                        //e.append(bb.element)
                     })
                     l=true
                 }catch{l=false}
@@ -1804,7 +1816,7 @@ async function downloadVideo(url,title) {
         !((a)=>a&&a.remove())(document.getElementById(_))
         if((localStorage[_])&&!force&&(manual?!confirm(`You have already download this video as .${mp4?"mp4":"mp3"}\nStill download?`):true))return;
         let l_=(urlOBJ||location)
-        var o=new URL(location.href)
+        var o=new URL(l_.href)
         o.host=o.host.replace('.com','mz.com');
         console.log('o',o)
         let altUrl=['https://y2mate.nu/'+(GM_getValue('y2mate.nu')||'en1')+'/','?v=',id,'&s=',o.pathname.startsWith('/shorts/')?1:0,'&mp4=',mp4?"mp4":"mp3",'&useT=',useT]
@@ -1869,6 +1881,7 @@ async function downloadVideo(url,title) {
             return frame
         }()
     }
+    if(document.domain=='studio.youtube.com')return;
     var tiktikWin
     async function waitTT(){
         while(tiktikWin&&!tiktikWin.closed)await sleep(0);
@@ -2510,7 +2523,3 @@ async function downloadVideo(url,title) {
     }, 10);
 
 })();
-
-
-
-
