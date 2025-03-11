@@ -45,66 +45,66 @@
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
-// @name:zh Gaston's - Video/Image Downloader
 // @name:en Gaston's - Video/Image Downloader
-// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
 // @name:ru Gaston's - Video/Image Скачатель
-// @name:ar Gaston's - Video/Image Downloader
-// @name:ja Gaston's -Video/Image Downloader
-// @name:de Gaston's - Video/Image Downloader
-// @name:pt Gaston's - Downloader de vídeo/imagem
+// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
 // @name:fr Gaston's - téléchargeur vidéo / image
+// @name:ar Gaston's - Video/Image Downloader
+// @name:zh Gaston's - Video/Image Downloader
+// @name:de Gaston's - Video/Image Downloader
+// @name:ja Gaston's -Video/Image Downloader
 // @name:es Gaston's - Video/Image Descarger
-// @name:vi 
-// @name:nl Gaston's - Video/Image Downloader More actions
-// @name:ko Gaston 's- 비디오/이미지 다운로더
-// @name:id Gaston's - Video/Image Downloader
+// @name:pt Gaston's - Downloader de vídeo/imagem
 // @name:it Gaston's - Downloader di video/immagine
-// @name:pl Gaston - pobierca wideo/obrazu More actions
-// @name:tr Gaston's - Video/Resim İndirici
+// @name:vi Gaston's - Trình tải xuống video/hình ảnh
+// @name:ko Gaston 's- 비디오/이미지 다운로더
 // @name:uk GASTON'S - Відео/зображення завантажувача
-// @name:th Gaston's - Video/Image Downloader
+// @name:id Gaston's - Video/Image Downloader
+// @name:nl Gaston's - Video/Image Downloader
+// @name:pl Gaston - pobierca wideo/obrazu
 // @name:ro Gaston's - descărcător video/imagini
+// @name:tr Gaston's - Video/Resim İndirici
+// @name:th Gaston's - Video/Image Downloader
+// @name:bg Gaston's - видео/изтегляне на изображения
 // @name:he Gaston's - הורדת וידאו/תמונה
 // @name:cs Gaston's - Video/Image Downloader
+// @name:sv Gaston's - Video/Image Downloader More actions
+// @name:no Gaston's - Video/Image Downloader More actions
+// @name:sk Gaston's - Video/Image Downloader
+// @name:hu Gaston's - Videó/kép letöltő
+// @name:el Gaston's - Video/Image Downloader More actions
 // @name:fi Gaston's - Video/kuvan lataaja
 // @name:da Gastons - Video/Image Downloader
-// @name:no Gaston's - Video/Image Downloader
-// @name:hu Gaston's - Videó/kép letöltő
-// @name:el Gaston's - Video/Image Downloader
-// @name:sk Gaston's - Video/Image Downloader
-// @name:bg Gaston's - видео/изтегляне на изображения
-// @name:sv Gaston's - Video/Image Downloader
-// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
-// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
-// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
-// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
 // @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
+// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
+// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado) Explain More actions
 // @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
-// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
-// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany) More actions
-// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
-// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
-// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
-// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง) More actions
-// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
+// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
 // @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
+// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
+// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
+// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany) More actions
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
 // @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
-// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
-// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
-// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
-// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
-// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
-// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
-// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
-// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
-// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve) More actions
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран) More actions
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο) More actions
 // @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
+// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
+// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
+// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
+// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
 // @license MIT
 // ==/UserScript==
 ! function() {
