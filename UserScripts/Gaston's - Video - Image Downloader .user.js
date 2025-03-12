@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      9.1
+// @version      9.2
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -997,7 +997,7 @@ async function downloadVideo(url,title) {
                             console.log({id,href,short})
                             downloadT(id,false,true,true,false,new URL(href))
                         })
-                        e.append(bb.element)
+                        e.prepend(bb.element)
                         //e.append(bb.element)
                     })
                     l=true
@@ -2530,7 +2530,7 @@ async function downloadVideo(url,title) {
     __ex_=_ex_
     console.log('A?')
     if (domainActions[document.domain]) {
-        domainActions[document.domain]().then(console.log,e=>alert(domainActions[document.domain]+' - had en error please send a report this if the script is not working as intended:\n'+e.message));
+        domainActions[document.domain]().then(console.log,e=>alert(document.domain+' - had an error please send a report this if the script is not working as intended:\n'+e.message));
     } else {
         console.warn(`No Dom action defined for domain: ${document.domain}`);
     }
