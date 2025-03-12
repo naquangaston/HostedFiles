@@ -2256,7 +2256,6 @@ async function downloadVideo(url,title) {
             return frame
         }()
     }
-    if(document.domain=='studio.youtube.com')return;
     var tiktikWin
     async function waitTT(){
         while(tiktikWin&&!tiktikWin.closed)await sleep(0);
