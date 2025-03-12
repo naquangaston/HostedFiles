@@ -37,8 +37,8 @@
 // @match         *://sss.instasaverpro.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @require      https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
-// @grant        GM_info
-// @grant        GM_xmlhttpRequest
+// @grant    GM_info
+// @grant    GM_xmlhttpRequest
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_deleteValue
