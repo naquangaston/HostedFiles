@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      9.0
+// @version      9.1
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -46,7 +46,6 @@
 // @grant   GM_removeValueChangeListener
 // @run-at document-start
 // ==/UserScript==
-
 class videoPlayer{
     #isF=function(){
         return this.isFullScreen
@@ -87,6 +86,90 @@ class videoPlayer{
     }
     get isFullScreen(){return !document.querySelector('[title="Full screen (f)"]')}
 }
+class element {
+    static get br() {
+        return new element("br");
+    }
+    constructor(name, obj) {
+        //findhref2(id('skin-message'))[0].constructor.name
+
+        this.element = name.constructor.name.includes('HTML')&&(name)||(function () {
+            for (let i in arguments[1]) {
+                arguments[0].setAttribute(i, arguments[1][i]);
+            }
+            return arguments[0];
+        })(document.createElement(arguments[0]), arguments[1]);
+    }
+    style(obj) {
+        for (let i in obj) {
+            this.element.style[i] = obj[i];
+        }
+        return this;
+    }
+    append(target,...targets) {
+        this.element.append(target.element || target);
+        console.log("T:",{targets,fe:targets&&targets.forEach})
+        for(let i=0;i<targets.length;i++){
+            let a=targets[i];
+            console.log('Appending:',{element:a,target:this})
+            this.element.append(a.element || a);
+        }
+        return this;
+    }
+    appendTo(target) {
+        (target.element || typeof target=='string'?document.querySelector(target):target).append(this.element);
+        return this;
+    }
+    on(event, a) {
+        this.element[`on${event}`] = a;
+        return this;
+    }
+    set(prop, value) {
+        this.element[prop] = value;
+        return this;
+    }
+    remove() {
+        this.element.remove();
+        return this;
+    }
+    get() {
+        return this.element[arguments[0]];
+    }
+    get children() {
+        return new (class $ {
+            constructor(arr) {
+                for (var i = 0; i < arr.length; i += 1) {
+                    this[i] = arr[i];
+                }
+
+                // length is readonly
+                Object.defineProperty(this, "length", {
+                    get: function () {
+                        return arr.length;
+                    }
+                });
+
+                // a HTMLCollection is immutable
+                Object.freeze(this);
+            }
+            item(i) {
+                return this[i] != null ? this[i] : null;
+            }
+            namedItem(name) {
+                for (var i = 0; i < this.length; i += 1) {
+                    if (this[i].id === name || this[i].name === name) {
+                        return this[i];
+                    }
+                }
+                return null;
+            }
+            get toArray() {
+                return [...this];
+            }
+        })([...this.element.children]);
+    }
+}
+_element=_e=element;
 function dispatchAllInputEvents(target, value) {
     const inputEvents = ['focus', 'input', 'change', 'blur'];
 
@@ -247,7 +330,6 @@ function downloadFileAsTitle(url, filename) {
     anchor.click();
     document.body.removeChild(anchor);
 }
-var sleep=ms=>new Promise(a=>setTimeout(a,ms))
 console.log('ok')
 var CurrentPlayingSymbol='▶'
 function getV(a,v){return GM_getValue(a)||(GM_setValue(a,v),v)}
@@ -280,7 +362,7 @@ _setV=setV
 //wip for soundcload
 /*
 async function wfs(s,t){
-    let sleep=(ms)=>new Promise(a=>setTimeout(a,ms));
+
     return await new Promise(async (a,b)=>{
         var d=!1
         var c=()=>(d=0,b())
@@ -325,50 +407,6 @@ function getCurrentVideoID(){
 
     }else return id?(console.log('Closiung'),document.getElementsByClassName('ytp-playlist-menu-button ytp-button')[0].click(),id):console.warn('Not Found!')
 }
-
-!async function(){
-    async function wfs(s,tm=30000){
-        var b
-        sleep(tm).then(e=>b=true)
-        while(!document.querySelector(s)){
-            await sleep(0)
-            if(b)break;
-        }
-        return document.querySelector(s)
-    }
-    if(location.href.includes('/embed/')){
-        console.log('Attaching to embeder >:]')
-        return wfs('.ytp-right-controls').then(async e=>{
-            let a=new _e('button',{id:"embedMP3"}).appendTo(e).set('innerText','MP3').on('click',function(){
-                let id=getCurrentVideoID()||setElement(location.href)
-                downloadT(id,false,true,false,true)
-            }).style({
-                position:'fixed',
-                right:'50%',
-                top:'80%'
-            })
-            while(!document.getElementById('embedMP3')&&document.querySelector('.ytp-right-controls')){
-                console.log('Appended')
-                a.appendTo('.ytp-right-controls')
-            }
-        })
-    }
-    document.querySelector('.ytp-right-controls')
-    return await wfs('.playbackSoundBadge__actions',5000).then(async e=>{
-        let a=new _e('button',{id:"GetAudio"}).appendTo(e).set('innerText','Download MP3').on('click',function(){
-            downloadSC()
-        },e=>e)
-        while(true){
-            if(!document.getElementById('GetAudio') && await wfs('.playbackSoundBadge__actions',5000)){
-                await wfs('.playbackSoundBadge__actions',5000).then( e=>{
-                    a.appendTo(e)
-                    console.log('Added Button')
-                })
-            }
-            await sleep(0)
-        }
-    })
-}().then(console.log,console.warn)
 var adev,set_
 downloadSC=function(){
     GM_setValue('SCinfo',null)
@@ -381,7 +419,8 @@ downloadSC=function(){
     })):null
     open('https://sclouddownloader.net/')
 }
-function sleep(ms){return new Promise(a=>setTimeout(a,ms))}
+const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+window.sleep=sleep;
 GM_setValue_=GM_setValue
 GM_getValue_=GM_getValue
 GM_info_=GM_info
@@ -522,93 +561,1415 @@ async function downloadVideo(url,title) {
         console.error('Failed to download video:', error);
     }
 }
-
+!async function(){
+    async function wfs(s,tm=30000){
+        var b
+        sleep(tm).then(e=>b=true)
+        while(!document.querySelector(s)){
+            await sleep(0)
+            if(b)break;
+        }
+        return document.querySelector(s)
+    }
+    if(location.href.includes('/embed/')){
+        console.log('Attaching to embeder >:]')
+        return wfs('.ytp-right-controls').then(async e=>{
+            let a=new _e('button',{id:"embedMP3"}).appendTo(e).set('innerText','MP3').on('click',function(){
+                let id=getCurrentVideoID()||setElement(location.href)
+                downloadT(id,false,true,false,true)
+            }).style({
+                position:'fixed',
+                right:'50%',
+                top:'80%'
+            })
+            while(!document.getElementById('embedMP3')&&document.querySelector('.ytp-right-controls')){
+                console.log('Appended')
+                a.appendTo('.ytp-right-controls')
+            }
+        })
+    }
+    document.querySelector('.ytp-right-controls')
+    return await wfs('.playbackSoundBadge__actions',5000).then(async e=>{
+        let a=new _e('button',{id:"GetAudio"}).appendTo(e).set('innerText','Download MP3').on('click',function(){
+            downloadSC()
+        },e=>e)
+        while(true){
+            if(!document.getElementById('GetAudio') && await wfs('.playbackSoundBadge__actions',5000)){
+                await wfs('.playbackSoundBadge__actions',5000).then( e=>{
+                    a.appendTo(e)
+                    console.log('Added Button')
+                })
+            }
+            await sleep(0)
+        }
+    })
+}().then(console.log,console.warn)
 ;(function() {
-    //'use strict';
-    class element {
-        static get br() {
-            return new element("br");
-        }
-        constructor(name, obj) {
-            //findhref2(id('skin-message'))[0].constructor.name
-
-            this.element = name.constructor.name.includes('HTML')&&(name)||(function () {
-                for (let i in arguments[1]) {
-                    arguments[0].setAttribute(i, arguments[1][i]);
+    const actions = [
+        {
+            test: (url) => url.includes('onlymp3.app') || url.includes('onlymp3.to'),
+            action: async () => {
+                // Onlymp3-specific async code here
+                console.log("Executing onlymp3 action!");
+                console.log('onlymp3.app')
+                let callback=function(){};
+                function b_(){
+                    var [id,shorts]=name.split(',')
+                    txtUrl.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+                    getListFormats();
                 }
-                return arguments[0];
-            })(document.createElement(arguments[0]), arguments[1]);
-        }
-        style(obj) {
-            for (let i in obj) {
-                this.element.style[i] = obj[i];
+                function a_(){
+                    var a=videoTitle.innerText.split('\n'),
+                        l=a.map(e=>e.match(/[:\d]+/gi)).filter(e=>!!e).pop().pop(),
+                        t=a[0].split('Title: ')[1],
+                        h=findhref2(videoTitle.parentNode)[0].href,
+                        f={
+                            id:setElement(location.href),
+                            href:h,
+                            title:t
+                            ,length:l
+                        };
+                    (opener||window).postMessage(f,'*')
+                    console.log('Poasted')
+                }
+                setInterval(()=>{
+                    if(document.getElementById('error-text').innerText.length>5)location.reload();
+                },20000)
+                console.log('Getting MP3')
+                tF(function(f=function(){}){
+                    b_()
+                    tF(function(f=function(){}){
+                        a_()
+                    },{callback:close})
+                },{callback:function(){}})
+                return
+
             }
-            return this;
-        }
-        append(target,...targets) {
-            this.element.append(target.element || target);
-            console.log("T:",{targets,fe:targets&&targets.forEach})
-            for(let i=0;i<targets.length;i++){
-                let a=targets[i];
-                console.log('Appending:',{element:a,target:this})
-                this.element.append(a.element || a);
+        },
+        {
+            test(url){
+                return(new URL(url)).host.includes('tiktok')
+            },
+            action(){
+                console.log('OK lets go2')
+                addEventListener("load", function () {
+                    console.log('OK lets go');
+                    // Initialize the function
+                    tF(function () {
+                        if (document.getElementById("tt1")) throw "Cant Append";
+
+                        console.log('Posted Buttons');
+
+                        // Function to get visible elements without a child `#tt1`
+                        function _ex() {
+                            try {
+                                // Select elements by class or fallback
+                                const elements = document.querySelectorAll('.eqrezik18, .e1mecfx011, .ees02z00').length
+                                ? document.querySelectorAll('.eqrezik18, .e1mecfx011, .ees02z00')
+                                : [abc_('browse-copy', 'data-e2e').parentNode];
+
+                                // Filter visible elements and exclude those with a child `#tt1`
+                                const visibleElements = getVisiable(elements).filter(el => !el.querySelector(".tt1"));
+
+                                // Return visible elements or false
+                                if (visibleElements.length) return visibleElements;
+                                else return false;
+                            } catch (err) {
+                                return false;
+                            }
+                        }
+
+                        var exist = false;
+
+                        // Polling mechanism to detect changes
+                        setInterval(() => {
+                            const currentVisible = _ex();
+                            if (exist !== currentVisible && currentVisible) {
+                                console.log("Added playlist buttons");
+
+                                // Append buttons to all new visible elements
+                                currentVisible.forEach(a => {
+                                    a.append(tiktokButton.element);
+                                    a.append(tiktokButton2.element);
+                                });
+                            } else if (exist !== currentVisible && !currentVisible) {
+                                console.log("buttons are gone?!?!");
+                            }
+
+                            exist = currentVisible;
+                        }, 100);
+                    }, { callback: function () { } });
+                });
             }
-            return this;
-        }
-        appendTo(target) {
-            (target.element || typeof target=='string'?document.querySelector(target):target).append(this.element);
-            return this;
-        }
-        on(event, a) {
-            this.element[`on${event}`] = a;
-            return this;
-        }
-        set(prop, value) {
-            this.element[prop] = value;
-            return this;
-        }
-        remove() {
-            this.element.remove();
-            return this;
-        }
-        get() {
-            return this.element[arguments[0]];
-        }
-        get children() {
-            return new (class $ {
-                constructor(arr) {
-                    for (var i = 0; i < arr.length; i += 1) {
-                        this[i] = arr[i];
+        },
+        {
+            test(url){return(new URL(url)).host.includes('youtube')},
+            action(){
+                tF((function() {
+                    _ex_();
+                    if (!_ex_()) throw "Cant append buttons yet";
+                    return console.log("Posting"), appendButtons()
+                }), {
+                    callback: function() {}
+                })
+            }
+        },
+        {
+            test(url){return(new URL(url)).host.includes('music')},
+            action(){
+                console.log('Added MiniPlayer Toggle with I')
+                addEventListener('keypress',function({isTrusted,ctrlKey,shiftKey,code,target,target:{tagName}}){
+                    if(!['INPUT','TEXTAREA'].includes(tagName)&&!ctrlKey&&!shiftKey&&isTrusted&&code=='KeyI'){
+                        (abc_('Close player page')||abc_('Open player page')[1]).click()
+                    }
+                })
+            }
+        },
+        {
+            test(url){return(new URL(url)).host.includes('laoder.to')&&location.href.includes('/api/')},
+            action(){
+                console.warn('using loader.to api')
+            }
+        },
+    ];
+
+    const domainActions = {
+
+        //works with all
+        "qdownloader.cc":async()=>{
+            // Helper function: Wait for a selector with timeout
+            async function wfs(selector, ms = 20000) {
+                let timeoutOccurred = false;
+                setTimeout(() => {
+                    console.log('TimeOut for', selector);
+                    timeoutOccurred = true;
+                }, ms);
+
+                while (!document.querySelector(selector)) {
+                    console.log('_', selector, timeoutOccurred);
+                    await sleep(500);
+                    if (timeoutOccurred) break;
+                }
+
+                console.log(selector, timeoutOccurred);
+                if (timeoutOccurred) throw 'NotFound';
+                return document.querySelector(selector);
+            }
+
+            // Helper function: Dispatch input events on a target element
+            function dispatchAllInputEvents(target, value) {
+                const inputEvents = ['focus', 'input', 'change', 'blur'];
+                inputEvents.forEach(eventName => {
+                    const ev = new Event(eventName, { bubbles: true, isTrusted: true });
+                    if (target[`on${eventName}`]) target[`on${eventName}`](ev);
+                    if (eventName === 'input') {
+                        target.value = value;
+                    }
+                    target.dispatchEvent(ev);
+                });
+            }
+
+            // Helper function: Override document.createElement with custom behavior
+            function overrideCreateElement() {
+                const originalCreateElement = document.createElement;
+                document._createElement = function(tagName, options) {
+                    const el = originalCreateElement.call(document, tagName, options);
+                    el._click = el.click;
+                    el.click = function() {
+                        console.log(el, 'was clicked', el.tagName);
+                        if (el.tagName === 'A') {
+                            console.log('Caught', el);
+                            const title = el.download;
+                            const href = el.href;
+                            // f is defined globally or elsewhere
+                            f = {
+                                id: new URL(location.href).searchParams.get('v'),
+                                href,
+                                title
+                            };
+                        } else {
+                            el._click.apply(el);
+                        }
+                        console.log(el, 'was created', el.tagName);
+                        return el;
+                    };
+                    console.log(el, 'was created', el.tagName);
+                    return el;
+                };
+            }
+
+            // Separate async function for the main downloader actions
+            async function handleQDownloaderCC() {
+                if (location.href.includes('vidbutton')) throw 'vidbutton';
+
+                GM_setValue('dlbutton', '');
+                GM_addValueChangeListener('dlbutton', async function(a, b, c, d) {
+                    console.log({ a, b, c, d });
+                    if (c.includes('video download successful\ncheck downloads folder')) {
+                        await sleep(1000);
+                        close();
+                    }
+                });
+
+                const urlElem = await wfs('#url');
+                const button = await wfs('#downloadBtn');
+                const id_ = new URL(location.href).searchParams.get('v');
+                const v = `https://www.youtube.com/watch?v=${id_}`;
+                dispatchAllInputEvents(urlElem, v);
+                button.click();
+            }
+
+            // Separate async function for error handling when 'vidbutton' is thrown
+            async function handleVidbuttonError() {
+                console.log('Best Quality Video');
+                await wfs('#height').then(el => {
+                    height.selectedIndex = height.options.length - 1;
+                    dlbutton.click();
+                    window.open = function(a, b, c) {
+                        console.log({ a, b, c });
+                    };
+                    wfs('#dlbutton').then(dlButton => {
+                        let text = '';
+                        setInterval(() => {
+                            if (text !== dlButton.innerText) {
+                                text = dlButton.innerText;
+                                GM_setValue('dlbutton', text);
+                            }
+                        }, 100);
+                    });
+                });
+            }
+            overrideCreateElement();
+            try {
+                await handleQDownloaderCC();
+            } catch (error) {
+                if (error === 'vidbutton') {
+                    await handleVidbuttonError();
+                } else {
+                    console.error(error);
+                }
+            }
+        },
+        "snapsave.io":async ()=>{
+
+            async function wfs(a, ms = 20000) {
+                let o = false;
+                setTimeout(() => {
+                    console.log('TimeOut for', a);
+                    o = true;
+                }, ms);
+
+                while (!document.querySelector(a)) {
+                    console.log('_', a, o);
+                    await sleep(500);
+                    if (o) break;
+                };
+
+                console.log(a, o);
+                if (o) throw 'NotFound';
+                return document.querySelector(a);
+            }
+            _wfs=wfs
+            var input=await wfs('#s_input',30000)
+            if(input){
+                console.log('Converting')
+                id_=new URL(location.href).searchParams.get('v')
+                input.value=`https://www.youtube.com/watch?v=${id_}`
+                ksearchvideo()
+                setTimeout(ksearchvideo(),1000)
+                var formatSelect=await wfs('#formatSelect')
+                var btn_action=await wfs('#btn-action')
+                formatSelect.selectedIndex=0
+                formatSelect.options[0].selected=true
+                var asuccess=await wfs('#asuccess')
+                while(!(asuccess=await wfs('#asuccess')))await sleep(0)
+                convertFile(0)
+                while(asuccess.getAttribute('href')=='#')(await sleep(0),asuccess=await wfs('#asuccess'))
+                console.log(asuccess.href)
+                var title=(await _wfs('.clearfix')).querySelector('h3').innerText
+                var f = { id: id_, href:asuccess.href, title, length: {} };
+                console.log('Posted',f);
+                (opener || window).postMessage(f, '*');
+                //close()
+            }else{
+                alert('Input was not Found')
+                console.warn('?!!')
+            }
+            return
+
+        },
+
+        //sound cload
+        "soundcloud.com":async()=>{
+            getSoundCloadI=function(){
+                _setV('SC',getSoundCloudUrl())
+                var b_=open('https://sclouddownloader.net/','SC')
+                b_.onclose=function(r){
+                    console.log('Win closed')
+                }
+
+            }
+            return
+        },
+        "sclouddownloader.net":async function(){
+            var url=_getV('sc')
+            async function wfs(s,t){
+
+                return await new Promise(async (a,b)=>{
+                    var d=!1
+                    var c=()=>(d=0,b())
+                    let _=setTimeout(c,t)
+                    while(!document.querySelector(s)){
+                        await sleep()
+                        if(d){b();break}
+                    }
+                    return a(document.querySelector(s))
+                }).then(e=>true,e=>false)
+            }
+            if(location.pathname=='/download-sound-track'){
+                await wfs('#trackTitle')
+                while(!trackTitle.innerText.length)await sleep(0)
+                await wfs('#trackLink')
+                while(!trackLink.href.length)await sleep(0)
+                var info={
+                    name:trackTitle.innerText,
+                    href:trackLink.href
+                }
+                console.log(info)
+                _setV('SCinfo',info)
+                close()
+            }
+            else{
+
+                if(!_getV('SC'))throw "Bruv"
+                var input1='#urlInput'
+                var button1='#submitBtn'
+                await wfs(input1,2000)
+                if(await wfs(input1,2000)){
+                    document.querySelector(input1).value=url
+                    console.log('EZ url',!!window.formSubmit)
+                    while(typeof formSubmit=='undefined'){
+                        document.querySelector(input1).value=url
+                        try{await sleep(0),console.log('EZ url',formSubmit);formSubmit()}catch{}
+                    }
+                    console.log('EZ url',formSubmit)
+                    formSubmit()
+                    console.warn('Got')
+                    setInterval(()=>{
+                        document.querySelector(input1).value=url
+                        formSubmit()
+                    },1000)
+                }
+            }
+
+        },
+        //youtube stuff
+        "studio.youtube.com":async()=>{
+            var item
+            var list
+            var forB
+            var __;
+            var loop=setInterval(()=>{
+                var l
+                try{
+                    var item = [...document.querySelectorAll('#video-list')].map(e=>[e, [...e.classList]]).filter(e=>e[1].includes("ytcp-video-section"))[0][0];
+                    var list = [...item.children[1].children].map(e=>[e, [...e.classList], e.tagName]).filter(e=>e[2] == 'YTCP-VIDEO-ROW')
+
+
+                    list.filter(e=>{
+                        return e[0].children[0].querySelectorAll('.cell-body.tablecell-visibility.style-scope.ytcp-video-row')[0].innerText=='Public'
+                    }).map(e=>e[0].children[0].querySelectorAll('.cell-body.tablecell-visibility.style-scope.ytcp-video-row')[0]).forEach(e=>{
+                        console.log(e)
+                        e.append(new _e('br').element)
+                        var b=new _e('button').set('innerText','MP3').on('click',function(e){
+                            let url=e.target.parentElement.parentElement.querySelector('#hover-items').children[3]
+                            console.log(url)
+                            //alert('Doesnt work yet')
+                            const {id,href,short}={href:url.href,short:url.href.includes('/short'),id:setElement(url.href)}
+                            console.log({id,href,short})
+                            downloadT(id,false,true,false,false,new URL(href))
+                        })
+                        var bb=new _e('button').set('innerText','MP4').on('click',function(e){
+                            let url=e.target.parentElement.parentElement.querySelector('#hover-items').children[3]
+                            console.log(url)
+                            //alert('Doesnt work yet')
+                            const {id,href,short}={href:url.href,short:url.href.includes('/short'),id:setElement(url.href)}
+                            console.log({id,href,short})
+                            downloadT(id,false,true,true,false,new URL(href))
+                        })
+                        e.append(bb.element)
+                        //e.append(bb.element)
+                    })
+                    l=true
+                }catch{l=false}
+                if(__!=l)__=l,console.log('Change?',l?"Found":"Not FOund")
+            },0)
+            //forB[0].innerText.incluides('Public')
+            },
+        "www.socialplug.io":async()=>{
+
+            location.pathname.split('/')[1]!=GM_getValue(document.domain)&&(GM_setValue(document.domain,location.pathname.split('/')[1]),console.warn('updated'))
+
+            async function wfs(a, ms = 5000) {
+                let o = false;
+                setTimeout(() => {
+                    console.log('TimeOut for', a);
+                    o = true;
+                }, ms);
+
+                while (!document.querySelector(a)) {
+                    console.log('_', a, o);
+                    await sleep(500);
+                    if (o) break;
+                };
+
+                console.log(a, o);
+                if (o) throw 'NotFound';
+                return document.querySelector(a);
+            }
+
+            let [id,shorts]=name.split(',')
+            if(id.length&&shorts.length){}else return console.warn('No info Preset')
+            var YTurl=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+            await wfs('#video-url')
+            console.log('Input Loaded')
+            document.querySelector('#video-url').value=YTurl
+            //dispatchAllInputEvents(document.querySelector('#id_url'),YTurl)
+            await wfs('#get-video-button')
+            console.log('GEtting res')
+            await sleep(100)
+            document.querySelector('#get-video-button').click()
+            await wfs('#quality-options',20000)
+            while(!document.getElementById('quality-options').children.length){
+                await sleep(100)
+            }
+            document.getElementById('quality-options').children[document.getElementById('quality-options').children.length-1].click()
+            console.log('Stating Download')
+            while(Number(document.querySelector('.indicator').style.width.replace('%',''))<100){
+                await sleep(10)
+                if(error.innerText=='An error occurred while starting the download'){
+                    document.getElementById('quality-options').children[document.getElementById('quality-options').children.length-1].click()
+                    console.warn('Stating Download again')
+                    error.innerText=''
+                    await sleep(1000)
+                }
+            }
+            console.log('Done Loading')
+            console.log('Unloading video')
+            while(!!Number(document.querySelector('.indicator').style.width.replace('%',''))){
+                await sleep(10)
+            }
+            close()
+            return;
+            ;(opener||window).postMessage(e,'*')
+            location.href=e.href
+
+        },
+        "y2mate.nu":async()=>{
+            location.pathname.split('/')[1]!=GM_getValue('y2mate.nu')&&(GM_setValue('y2mate.nu',location.pathname.split('/')[1]),console.warn('updated'),close())
+            let id_ = new URL(location.href).searchParams.get('v');
+            let IsShort = new URL(location.href).searchParams.get('s') == 1;
+            let mp4 = new URL(location.href).searchParams.get('mp4')
+            let useT = new URL(location.href).searchParams.get('useT')
+            let _=id_+mp4 + useT
+            if(!id_){
+                [id_,IsShort,mp4,useT]=name.split(',').map(e=>{
+                    try{
+                        return !!eval(e)
+                    }catch{return String(e)}
+                })
+            }
+
+            async function wfs(a, ms = 5000) {
+                let o = false;
+                setTimeout(() => {
+                    console.log('TimeOut for', a);
+                    o = true;
+                }, ms);
+
+                while (!document.querySelector(a)) {
+                    console.log('_', a, o);
+                    await sleep(500);
+                    if (o) break;
+                };
+
+                console.log(a, o);
+                if (o) throw 'NotFound';
+                return document.querySelector(a);
+            }
+            let cr = document.createElement;
+            document.createElement = function(tagName, options) {
+                let r = cr.call(document, tagName, options); // Ensure correct context
+                r._click = r.click;
+                r.click = function() {
+
+                    console.log(r, 'was clicked', r.tagName);
+                    if('A'==r.tagName){
+                        console.log('Caught',r)
+                        let title=r.download
+                        let href=r.href
+                        f={
+                            id:id_,
+                            href,
+                            title
+                        };
+                        (opener||window).postMessage(f,'*');
+                        //close()
+                    }
+                    else r._click.apply(r); // Ensure correct context
+                };
+                console.log(r, 'was created', r.tagName);
+                return r;
+            };
+            while (document.readyState != 'complete') await sleep(0);
+            if (id_) {
+                let post = async (a) => {
+                    console.log('a', a);
+                    var href = findhref2(document.forms[0])[0].href;
+                    var title = findhref2(document.forms[0], 'div')[0].innerText;
+                    var f = {_, id: id_, href, title, length: {} };
+                    console.log('Posted',f);
+                    (opener || window.parent).postMessage(f, '*');
+                    close()
+                }
+                try {
+                    await wfs('#video').then(e => {
+                        console.log('e', e);
+                        e.value = IsShort ? `https://www.youtube.com/watch?v=${id_}` : `https://www.youtube.com/shorts/${id_}`;
+                        document.querySelector('[type="submit"]').click();
+                    }).catch(post);
+
+                    console.log('after url');
+                    dl=download;
+                    download=function(e){
+                        dl(e)
+                        var url=(e + "&s=3&v=" + gVideo + "&f=" + gFormat + "&_=" + Math.random());
+                        if(url&&url.length){
+                            console.log('Lets goooo got:',{url})
+                            let f={href:url,useT:false,_, id: id_};
+                            (opener || window.parent).postMessage(f, '*');
+                            close()
+                        }
                     }
 
-                    // length is readonly
-                    Object.defineProperty(this, "length", {
-                        get: function () {
-                            return arr.length;
+                    console.log('b');
+                } catch (error) {
+                    console.warn('Error:', error);
+                }
+            } else {
+                console.warn('No id Found');
+            }
+            return;
+
+        },
+        "tubemp4.is":async()=>{
+
+            console.log('ok')
+
+            async function wfs(s,tm=30000){
+                var b
+                sleep(tm).then(e=>b=true)
+                while(!document.querySelector(s)){
+                    await sleep(0)
+                    if(b)break;
+                }
+                return document.querySelector(s)
+            }
+            wfs('#u').then(async u=>{
+                u.value=`https://www.youtube.com/watch?v=${new URL(location.href).searchParams.get('v')}`;
+                convert.click()
+                await sleep(200)
+                ;(await wfs('#convert')).click();
+                ;(await wfs('.process-button')).click()
+                wfs('.download-button').then(e=>{
+                    let a=null
+                    let cr = document.createElement;
+                    document.createElement = function(tagName, options) {
+                        let r = cr.call(document, tagName, options); // Ensure correct context
+                        r._click = r.click;
+                        r.click = function() {
+
+                            console.log(r, 'was clicked', r.tagName);
+                            if('A'==r.tagName){
+                                console.log('Caught',r)
+                                let title=r.download
+                                let href=r.href
+                                f={
+                                    id:new URL(location.href).searchParams.get('v'),
+                                    href,
+                                    title
+                                };
+                                (opener||window).postMessage(f,'*');
+                                close()
+                            }
+                            else r._click.apply(r); // Ensure correct context
+                        };
+                        console.log(r, 'was created', r.tagName);
+                        return r;
+                    };
+                    e.click()
+                    console.log('clicked')
+                    setTimeout(()=>e.click(),1000)
+                })
+            }).then(console.log,console.warn)
+        },
+        "www.yt2conv.com":async()=>{
+            console.log('Getting MP4')
+            let [id,shorts]=name.split(',')
+            tF(function(f=function(){}){
+                var input=document.getElementById('search_txt')
+                input.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+                document.getElementById('btn-submit').click()
+                console.log(id,shorts)
+            },{callback:function(){}})
+            tF(function(f=function(){}){
+                console.log(result.children.length)
+                if(!result.children.length){document.getElementById('btn-submit').click();throw "no there"}
+            },{int:1000,callback:function(){}})
+            tF(function(){
+                document.getElementById('btn-download').click()
+            },{callback:function(){}})
+            tF(function(){
+                var title=$('.media-heading')[0].innerText
+                var href=downloadbtn.href
+                var f={id,href,title,length:{}};
+                console.log('Posted')
+                ;(opener||window).postMessage(f,'*')
+            },{callback:close})
+
+        },
+        "yt5s.biz":async()=>{
+            async function wfs(s){
+                while(!document.querySelector(s)){
+                    await sleep(0)
+                }
+                return true
+            }
+            let [id,shorts]=name.split(',')
+            if(id.length&&shorts.length){}else return console.warn('No info Preset')
+            var YTurl=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+            await wfs('#txt-url')
+            console.log('Input Loaded')
+            document.querySelector('#txt-url').value=YTurl
+            await wfs('#btn-submit')
+            console.log('GEtting res')
+            await sleep(100)
+            document.querySelector('#btn-submit').click()
+            await wfs('#video_title')
+            console.log('Got Res')
+            var title=document.querySelector('#video_title').innerText
+            var maxres=[0]
+            ;[...document.querySelector('#result').querySelector('table').querySelectorAll('tr')].forEach(e=>{
+                var res=e.innerText.match(/(?<res>\d+)(p|P)/i)||{}
+                if(res.groups){
+                    res=Number(res.groups.res)
+                    if(maxres[0]<res)maxres[0]=res,maxres[1]=findhref2(e)[0].href,maxres[2]=e
+                }
+            })
+            let e= {id,title,href:maxres[1],mp4:true,res:maxres[0]}
+            ;(opener||window).postMessage(e,'*')
+            location.href=e.href
+
+        },
+        "en3.onlinevideoconverter.pro":async()=>{
+            let [id,shorts]=name.split(',')
+            if(id.length&&shorts.length){}else return console.Warn('NO info Preset')
+            var YTurl=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+            let callback=function(){};
+            tF(function(f=function(){}){
+                var input=document.getElementById('texturl')
+                input.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
+                document.getElementById('convert1').click()
+                console.log('Searched')
+            },{callback})
+            tF(function(){
+                if(stepProcess.style.display=='none'){
+                    document.getElementById('convert1').click()
+                    throw "this"
+                }
+                console.log('Searching')
+            },{callback})
+            tF(function(){
+                if(document.getElementById('form-app-root').children.length==0)throw ""
+                console.log('loaded')
+                var{title,href}=$('#download-720-MP4')?$('#download-720-MP4')[0]?$('#download-720-MP4')[0]:$('#download-720-MP4'):$('#download-720-MP4')
+                var f={id,href,title,length:{}};
+                console.log('Posted')
+                ;(opener||window).postMessage(f,'*')
+            },{callback:close})
+
+
+        },
+
+        //twitch stuff
+        "production.assets.clips.twitchcdn.net":async()=>{
+            let a=new element('a',{href:document.querySelector('[type="video/mp4"]').src,download:document.querySelector('[type="video/mp4"]').src.split('/')[5]+'.mp4'})
+            document.body.append(a.element)
+            a.element.click()
+            sleep(500).then(e=>{
+                a.element.remove()
+                sleep(500).then(e=>{
+                    close()
+                })
+            })
+            return
+        },
+        "clips.twitch.tv": async () => {
+            // Only run if the pathname's second segment is NOT "create"
+            if (location.pathname.split('/')[1] === 'create') return;
+
+            let auto = 0;
+            const sleep = ms => new Promise(a => setTimeout(a, ms));
+
+            async function wfs(a, ms = 20000) {
+                let o = false;
+                setTimeout(() => {
+                    console.log('TimeOut for', a);
+                    o = true;
+                }, ms);
+
+                while (!document.querySelector(a)) {
+                    console.log('_', a, o);
+                    await sleep(500);
+                    if (o) break;
+                };
+
+                console.log(a, o);
+                if (o) throw 'NotFound';
+                return document.querySelector(a);
+            }
+            _wfs = wfs;
+
+            function copyElm(element) {
+                if (!(element instanceof Element)) {
+                    throw new Error("Provided argument is not a DOM element.");
+                }
+
+                // Create a new element of the same type
+                const newElement = document.createElement(element.tagName);
+
+                // Copy all attributes
+                for (let attr of element.attributes) {
+                    newElement.setAttribute(attr.name, attr.value);
+                }
+
+                // Copy all styles
+                newElement.style.cssText = element.style.cssText;
+
+                // Copy class list
+                newElement.className = element.className;
+
+                // Copy inner HTML content
+                newElement.innerHTML = element.innerHTML;
+
+                return newElement;
+            }
+            _copyElm = copyElm;
+
+            let l = location.href;
+            let qs='.ScCoreButtonLabel-sc-s7h2b7-0'
+            let origin = (await _wfs('.ScCoreButtonLabel-sc-s7h2b7-0'))
+            .parentElement.parentElement.parentElement.parentElement;
+
+            // Function to embed an iframe with the provided URL and log label
+            async function embedIframe(url, label) {
+                return await fetch(url).then(e=>true,b=>false)?(
+                    new _e('iframe', {
+                        src: url,
+                        width: '100%',
+                        height: '600px',
+                        frameborder: '0'
+                    }).appendTo(document.body),
+                    console.log(`Embedded ${label} iframe: `, url)):(
+                    console.warn('Embed failed'),open(url,label)
+                )
+            }
+
+            /*// Create buttons with the updated click behavior to embed an iframe
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '1080P');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '1080P';
+
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '720P');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '720P';
+
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '480P');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '480P';
+
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '360P');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '360P';
+
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, 'VOD');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = 'VOD';
+                */
+
+            // Array of resolutions to loop through
+            const resolutions = [
+                { label: '1080P', resolution: '1080' },
+                { label: '720P', resolution: '720' },
+                { label: '480P', resolution: '480' },
+                { label: '360P', resolution: '360' },
+                { label: 'VOD', resolution: 'VOD' }
+            ];
+
+            // Loop through the resolutions array to create elements dynamically
+            resolutions.forEach(({ label, resolution }) => {
+                let elem = new _e(_copyElm(origin)).on('click', function(){
+                    let txt=elem.element.querySelector(qs).innerText
+                    elem.element.querySelector(qs).innerText='Please wait...';
+                    //[, user, clip, clipID] = location.pathname.split('/');
+                    let url = (o => o.href)((o => (o.host = 'clipr.xyz', o))(new URL(location.href)));
+                    embedIframe(url, resolution).then(e=>elem.element.querySelector(qs).innerText=label)
+                }).appendTo(origin.parentNode);
+
+                // Change the inner text for VOD or the regular resolution
+                if (resolution === 'VOD') {
+                    elem.element.querySelector(qs).innerText = label;
+                } else {
+                    elem.element.querySelector(qs).innerText = label;
+                }
+            });
+
+
+            if (auto) {
+                setTimeout(() => { close(); }, 200);
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '1080P');
+            }
+        },
+        "www.twitch.tv":async ()=>{
+            async function go(){
+                let [ ,user, clip, clipID] = location.pathname.split('/');
+                if (clip !== 'clip') return console.warn('User isnt wathcing a clip');
+                console.log('User is Watching a CLip');
+
+                const sleep = ms => new Promise(a => setTimeout(a, ms));
+                async function wfs(a, ms = 20000) {
+                    let o = false;
+                    setTimeout(() => {
+                        console.log('TimeOut for', a);
+                        o = true;
+                    }, ms);
+
+                    while (!document.querySelector(a)) {
+                        console.log('_', a, o);
+                        await sleep(500);
+                        if (o) break;
+                    }
+
+                    console.log(a, o);
+                    if (o) throw 'NotFound';
+                    return document.querySelector(a);
+                }
+                _wfs = wfs;
+                _wfs_ = wfs;
+
+                function copyElm(element) {
+                    if (!(element instanceof Element)) {
+                        throw new Error("Provided argument is not a DOM element.");
+                    }
+
+                    // Create a new element of the same type
+                    const newElement = document.createElement(element.tagName);
+
+                    // Copy all attributes
+                    for (let attr of element.attributes) {
+                        newElement.setAttribute(attr.name, attr.value);
+                    }
+
+                    // Copy all styles
+                    newElement.style.cssText = element.style.cssText;
+
+                    // Copy class list
+                    newElement.className = element.className;
+
+                    // Copy inner HTML content
+                    newElement.innerHTML = element.innerHTML;
+
+                    return newElement;
+                }
+                _copyElm = copyElm;
+
+                // New embedIframe function to create and inject an iframe
+                async function embedIframe(url, res,elm,label) {
+                    return await fetch(url).then(e=>true,b=>false)?(
+                        new _e('iframe', {
+                            src: url,
+                            width: '100%',
+                            height: '600px',
+                            frameborder: '0'
+                        }).appendTo(document.body),
+                        console.log(`Embedded ${res} iframe: `, url)):(
+                        console.warn('Embed failed'),open(url,res)
+                    )
+                }
+
+                await (async function(){
+                    let l = location.href;
+                    await _wfs('.Layout-sc-1xcs6mc-0.bMOhzu');
+                    let origin = [...document.querySelectorAll('.Layout-sc-1xcs6mc-0 .bMOhzu')]
+                    .filter(e => e.querySelector('button') && !e.querySelector('button').disabled)[0];
+                    let qs = '.bFxzAY';
+
+                    // Array of resolutions to loop through
+                    const resolutions = [
+                        { label: '1080P', resolution: '1080' },
+                        { label: '720P', resolution: '720' },
+                        { label: '480P', resolution: '480' },
+                        { label: '360P', resolution: '360' },
+                        { label: 'VOD', resolution: 'VOD' }
+                    ];
+
+                    // Loop through the resolutions array to create elements dynamically
+                    resolutions.forEach(({ label, resolution }) => {
+                        let elem = new _e(_copyElm(origin)).on('click', function(){
+                            let txt=elem.element.querySelector(qs).innerText
+                            elem.element.querySelector(qs).innerText='Please wait...';
+                            [, user, clip, clipID] = location.pathname.split('/');
+                            let url = (o => o.href)((o => (o.host = 'clipr.xyz', o))(new URL(location.href)));
+                            embedIframe(url, resolution,elem).then(e=>elem.element.querySelector(qs).innerText=label)
+                        }).appendTo(document.querySelector('.Layout-sc-1xcs6mc-0.hZUoPp'));
+
+                        // Change the inner text for VOD or the regular resolution
+                        if (resolution === 'VOD') {
+                            elem.element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = label;
+                        } else {
+                            elem.element.querySelector(qs).innerText = label;
                         }
                     });
 
-                    // a HTMLCollection is immutable
-                    Object.freeze(this);
+                })().catch(console.warn);
+            }
+            var c;
+            setInterval(() => {
+                if (c != location.href) go();
+                c = location.href;
+            }, 100);
+
+            return;
+
+        },
+        "clipr.xyz":async()=>{
+            async function wfs(a, ms = 20000) {
+                let o = false;
+                setTimeout(() => {
+                    logger.log(`TimeOut for ${a}`);
+                    o = true;
+                }, ms);
+
+                while (!document.querySelector(a)) {
+                    logger.log(`_ ${a} ${o}`);
+                    await sleep(500);
+                    if (o) break;
                 }
-                item(i) {
-                    return this[i] != null ? this[i] : null;
+
+                logger.log(`${a} ${o}`);
+                if (o) throw 'NotFound';
+                return document.querySelector(a);
+            }
+
+            async function wfl(){
+                while(document.readyState != 'complete'){
+                    await sleep(0)
                 }
-                namedItem(name) {
-                    for (var i = 0; i < this.length; i += 1) {
-                        if (this[i].id === name || this[i].name === name) {
-                            return this[i];
+                return true;
+            }
+
+            const _wfs = wfs;
+
+            let p = name;
+            await wfl();
+            logger.log('Loaded');
+            let href = (((r={})=>{
+                [...document.querySelectorAll('.flex.items-center.space-x-4')].filter(e=>findhref2(e)[0]).filter(e=>findhref2(e)[0].href.includes('clips.twitchcdn.net')).forEach(e=>{
+                    r[e.querySelector('.space-x-1').innerText.replace('p','')]=findhref2(e)[0].href
+                });return r
+            })()
+                       )[p];
+
+            logger.log(1);
+            let user = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
+            logger.log(2);
+            let title = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2").innerText;
+            logger.log(3);
+            let filename = `@${user} on Twitch | ${title} - ${p}P.mp4`;
+
+            logger.log(`Downloading file as: ${filename}`);
+            open(href)
+
+            logger.log(4);
+            await sleep(4000)
+            close();
+            return
+
+        },
+
+        //insta gramm
+        "snapinst.app":async function(){
+
+
+            async function wfs(a, ms = 20000) {
+                let o = false;
+                setTimeout(() => {
+                    console.log('TimeOut for', a);
+                    o = true;
+                }, ms);
+
+                while (!document.querySelector(a)) {
+                    console.log('_', a, o);
+                    await sleep(500);
+                    if (o) break;
+                };
+
+                console.log(a, o);
+                if (o) throw 'NotFound';
+                return document.querySelector(a);
+            }
+            async function createBlackOverlayCanvas() {
+                await wfs('body')
+                // Create the canvas element
+                const canvas = document.createElement('canvas');
+                canvas.id = 'blackCanvas';
+
+                // Style the canvas to cover the entire page
+                Object.assign(canvas.style, {
+                    position: 'fixed',
+                    top: '0',
+                    left: '0',
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'black', // Black background for the canvas
+                    zIndex: '9999', // Ensure it's on top of all other elements
+                    pointerEvents: 'none', // Allow clicks to pass through to underlying elements
+                });
+
+                // Append the canvas to the document body
+                document.body.appendChild(canvas);
+
+                // Set the canvas dimensions to match the viewport
+                const resizeCanvas = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+                resizeCanvas(); // Call once initially
+
+                // Redraw canvas size on window resize
+                window.addEventListener('resize', resizeCanvas);
+
+                // Fill the canvas with black
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = 'black';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                console.log("Black overlay canvas created.");
+            }
+
+            // Call the function to create the canvas
+            createBlackOverlayCanvas();
+
+            let[type,id]=name.split('\n')
+            if(!type||!id){console.warn('no');return;}
+            console.warn('Test2')
+            wfs('#url').then(e=>{
+                console.warn('Test3')
+                e.value=`https://www.instagram.com/${type}/${id}/`
+                wfs('#btn-submit').then(e=>{
+                    e.click()
+                    wfs('.download-bottom').then(async ()=>{
+                        await sleep(1000)
+                        let list=[...document.querySelectorAll('[class="download-bottom"]')].map(e=>findhref2(e)[0]).map(({href,download,target})=>({href,download,target}));
+                        (opener||window).postMessage(list,'*');
+                        close()
+
+                    })
+                })
+            })
+
+        },
+        "fastdl.app":async ()=>{
+            onload=async function(){
+                async function wfs(a){
+                    while(!document.querySelector(a))await sleep(0);
+                    return document.querySelector(a)
+                }
+                function DAIE(target, value) {
+                    const inputEvents = ['focus', 'input', 'change', 'blur'];
+
+                    inputEvents.forEach(eventName => {
+                        let ev=new Event(eventName, { bubbles: true, isTrusted: true })
+                        if(target[`on${eventName}`])target[`on${eventName}`](ev)
+
+                        if (eventName === 'input') {
+                            target.value = value;
+                        }
+                        target.dispatchEvent(ev);
+                    });
+                }
+                const info={
+                    url:name,
+                    input:null
+                }
+                var cancel=false
+                var timeOut=setTimeout(()=>{
+                    cancel=true
+                },20000)
+                while(!document.querySelector('#search-form-input')){
+                    await sleep(0)
+                    if(cancel)throw "Cant find input"
+                }
+                info.input=document.querySelector('#search-form-input')
+                console.log('Found a')
+                DAIE(info.input,info.url);
+                document.querySelector('.search-form__button').click()
+                GM_setValue('instaURL',await wfs('.button--filled').then(e=>e.href))
+            }
+
+        },
+        "www.instagram.com":async ()=>{
+            function parseInstagramURL(url) {
+                // Regular expression to handle optional username, type (p/reels/reel), and ID
+                const regex = /https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels|reel)\/([^\/?]+)/;
+                const match = url.match(regex);
+
+                if (match) {
+                    return {
+                        username: match[1] || null, // The username, or null if not present
+                        a: match[2],               // 'p', 'reels', or 'reel'
+                        id: match[3]               // The post or reel ID
+                    };
+                }
+
+                return null; // Return null if the URL doesn't match
+            }
+
+
+
+            var l
+            let doIt=()=>(l=parseInstagramURL(location.href),open('https://snapinst.app/',`${l.a}\n${l.id}`));
+            onmessage=async function(e){
+                if(e.origin!='https://snapinst.app'){
+                    console.log('UNhandled',e)
+                    return
+                }
+                let list=e.data
+                for(let i=0;i<list.length;i++){
+                    let{href,download,target}=list[i]
+                    console.log('Got',{href,download,target})
+                    let a=new element('a',{href,download,target})
+                    document.body.append(a.element)
+                    a.element.click()
+                    await sleep(500)
+                    a.element.remove()
+                }
+            }
+            var int;
+            async function wfs(s,t){
+
+                return await new Promise(async (a,b)=>{
+                    var d=!1
+                    var c=()=>(d=0,b())
+                    let _=setTimeout(c,t)
+                    while(!document.querySelector(s)){
+                        await sleep()
+                        if(d){b();break}
+                    }
+                    return a(document.querySelector(s))
+                }).then(e=>e,e=>false)
+            }
+            if(location.pathname=='/call/'){
+                /**
+ * Lightly Obfuscated Custom Logger
+ * (IIFE that assigns a custom logging class into the global scope)
+ */
+                (function(){
+                    class _0x2d2753 {
+                        constructor(_0x321bbe) {
+                            this._0x2dcc16 = {
+                                body: _0x321bbe || '---',
+                                color: 'darkgrey',
+                                size: '1rem'
+                            };
+                            this._0x2603ce = {
+                                color: '#008f68',
+                                size: '1rem'
+                            };
+                        }
+
+                        _0x54181c(_0x4ebcf7) {
+                            this._0x2dcc16.body = _0x4ebcf7;
+                            return this;
+                        }
+
+                        _0x40a387({ _0x4e4744, _0x2fbd8f }) {
+                            if (_0x4e4744 !== undefined) this._0x2dcc16.color = _0x4e4744;
+                            if (_0x2fbd8f !== undefined) this._0x2dcc16.size = _0x2fbd8f;
+                            return this;
+                        }
+
+                        _0x235d03({ _0x14e09d, _0x506311 }) {
+                            if (_0x14e09d !== undefined) this._0x2603ce.color = _0x14e09d;
+                            if (_0x506311 !== undefined) this._0x2603ce.size = _0x506311;
+                            return this;
+                        }
+
+                        /**
+         * @param {String} _0x23c5b9 the text body of the log
+         */
+                        _0x52dfbf(_0x23c5b9 = '') {
+                            console.log(
+                                `%c${this._0x2dcc16.body} | %c${_0x23c5b9}`,
+                                `color:${this._0x2dcc16.color}; font-weight:bold; font-size:${this._0x2dcc16.size};`,
+                                `color:${this._0x2603ce.color}; font-weight:bold; font-size:${this._0x2603ce.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
+                            );
                         }
                     }
-                    return null;
+
+                    Object.assign(this || arguments[0], { _0x2c68c3: _0x2d2753 });
+                })(globalThis);
+
+                /**
+ * Example usage: Infinite loop
+ * Assuming wfs(selector, timeout) is defined somewhere else in your code
+ */
+                const _0xlogger = new _0x2c68c3('InfiniteLoop');
+                _0xlogger._0x52dfbf('Starting infinite loop...');
+
+                (async function infLoop() {
+                    await sleep(1000)
+                    wfs('.x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3', 100000)
+                        .then(() => {
+                        [...document.querySelectorAll('.x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3')]
+                            .forEach(e => e.style.backgroundColor = 'green');
+                        _0xlogger._0x52dfbf('Iteration complete. Next iteration...');
+                        infLoop();
+                    })
+                        .catch(err => {
+                        _0xlogger._0x52dfbf(`Error: ${err.message}`);
+                        // Decide if you want to retry, log, etc.
+                        infLoop();
+                    });
+                })();
+
+            }
+            function setButtons(){
+                console.log('Appended buttons man')
+                var container=new element(document.querySelectorAll('.xh8yej3.x1iyjqo2')[0])
+                var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
+                container.append(button)
+            }
+            function setButtons2(){
+                var container=new element(document.querySelector('._aaqy'))
+                var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
+                container.append(button)
+            }
+            function checkArc(){
+                const articles = document.getElementsByTagName('article');
+                var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
+                for (const article of articles) {
+                    if (article.querySelector('#MediaButton')) {continue;}
+                    article.prepend(button.element)
                 }
-                get toArray() {
-                    return [...this];
+            }
+            tF(function(){
+                document.querySelectorAll('.xh8yej3.x1iyjqo2')[0].children
+            },{callback:function(){
+                setButtons();
+                setInterval(()=>{
+                    checkArc()
+                    if(!document.querySelector('#MediaButton'))setButtons()
+                    if(document.querySelector('._aaqy')&&!document.querySelector('._aaqy').querySelector('#MediaButton'))setButtons2();
+                })
+            }})
+            console.log('Insta ballz')
+            return
+
+        },
+        "sss.instasaverpro.com":async()=>{
+            async function wfs(s){
+                while(!document.querySelector(s)){
+                    await sleep(0)
                 }
-            })([...this.element.children]);
-        }
+                return true
+            }
+            await wfs('#A_downloadUrl')
+            while(!document.querySelector('#A_downloadUrl').href.length)(await sleep(0));
+            console.log('Done')
+            var title=document.querySelector('#myModalLabel').innerText
+            var e={href:document.querySelector('#A_downloadUrl').href,title}
+            ;(opener||window).postMessage(e,'*')
+        },
+
+        //tiktok
+        "savetik.co":async()=>{
+            var [id,mp4]=name.split(",")
+            addEventListener("load",function(){
+                tF(function(){
+                    s_input.value=id
+                    ksearchvideo()
+                    setTimeout(ksearchvideo,1000)
+                },{callback(){}})
+            })
+            function Fin(){
+                console.log("Found")
+                let title=document.getElementsByClassName("clearfix")[0].innerText
+                let links=findhref2(document.getElementsByClassName("tik-video")[0]).map(e=>e.href)
+                let f={title,links,mp4:mp4==1,info:setElement2(id)}
+                let Porigin='https://www.tiktok.com'
+                onmessage=function(e){
+                    if(e.origin==Porigin){
+                        var {data:{s,url,title}}=e
+                        console.log('Handled',{s,url,title},e)
+                        if(!s){
+                            downloadFileAsTitle(url,title,null,close)
+                        }else setTimeout(close,100)
+                        //info[id].close()
+                    }else console.log('Unhandled Post',e)
+                }
+                ;(opener||window).postMessage(f,'*')
+                //setTimeout(close,100)
+            }
+
+            tF(function(){document.getElementsByClassName("clearfix")[0].innerText;Fin()},{callback(){}})
+
+        },
     }
-    _element=_e=element
+    //'use strict';
     function getTikTokTittle(){
         try{
             return document.querySelector("#app > div.css-14dcx2q-DivBodyContainer.e1irlpdw0 > div:nth-child(4) > div > div.css-1qjw4dg-DivContentContainer.e1mecfx00 > div.css-1stfops-DivCommentContainer.ekjxngi0 > div > div.css-1xlna7p-DivProfileWrapper.ekjxngi4 > div.css-1u3jkat-DivDescriptionContentWrapper.e1mecfx011 > div.css-1nst91u-DivMainContent.e1mecfx01 > div.css-bs495z-DivWrapper.e1mzilcj0 > div > div.css-1d7krfw-DivOverflowContainer.e1mzilcj5 > h1").innerText.replace('Replying to ','')
@@ -808,1100 +2169,6 @@ async function downloadVideo(url,title) {
     function DII(){
         DII_().then(console.log,console.warn)
     }
-    console.log('A?')
-    const sleep=ms=>new Promise(a=>setTimeout(a,ms))
-    if(document.domain=='fastdl.app'){
-        onload=async function(){
-            async function wfs(a){
-                while(!document.querySelector(a))await sleep(0);
-                return document.querySelector(a)
-            }
-            function DAIE(target, value) {
-                const inputEvents = ['focus', 'input', 'change', 'blur'];
-
-                inputEvents.forEach(eventName => {
-                    let ev=new Event(eventName, { bubbles: true, isTrusted: true })
-                    if(target[`on${eventName}`])target[`on${eventName}`](ev)
-
-                    if (eventName === 'input') {
-                        target.value = value;
-                    }
-                    target.dispatchEvent(ev);
-                });
-            }
-            const info={
-                url:name,
-                input:null
-            }
-            var cancel=false
-            var timeOut=setTimeout(()=>{
-                cancel=true
-            },20000)
-            while(!document.querySelector('#search-form-input')){
-                await sleep(0)
-                if(cancel)throw "Cant find input"
-            }
-            info.input=document.querySelector('#search-form-input')
-            console.log('Found a')
-            DAIE(info.input,info.url);
-            document.querySelector('.search-form__button').click()
-            GM_setValue('instaURL',await wfs('.button--filled').then(e=>e.href))
-        }
-    }
-    else if(document.domain=='soundcloud.com'){
-        getSoundCloadI=function(){
-            _setV('SC',getSoundCloudUrl())
-            var b_=open('https://sclouddownloader.net/','SC')
-            b_.onclose=function(r){
-                console.log('Win closed')
-            }
-
-        }
-        return
-    }
-    else if(document.domain=='studio.youtube.com'){
-        void function(){
-            var item
-            var list
-            var forB
-            var __;
-            var loop=setInterval(()=>{
-                var l
-                try{
-                    var item = [...document.querySelectorAll('#video-list')].map(e=>[e, [...e.classList]]).filter(e=>e[1].includes("ytcp-video-section"))[0][0];
-                    var list = [...item.children[1].children].map(e=>[e, [...e.classList], e.tagName]).filter(e=>e[2] == 'YTCP-VIDEO-ROW')
-
-
-                    list.filter(e=>{
-                        return e[0].children[0].querySelectorAll('.cell-body.tablecell-visibility.style-scope.ytcp-video-row')[0].innerText=='Public'
-                    }).map(e=>e[0].children[0].querySelectorAll('.cell-body.tablecell-visibility.style-scope.ytcp-video-row')[0]).forEach(e=>{
-                        console.log(e)
-                        e.append(new _e('br').element)
-                        var b=new _e('button').set('innerText','MP3').on('click',function(e){
-                            let url=e.target.parentElement.parentElement.querySelector('#hover-items').children[3]
-                            console.log(url)
-                            //alert('Doesnt work yet')
-                            const {id,href,short}={href:url.href,short:url.href.includes('/short'),id:setElement(url.href)}
-                            console.log({id,href,short})
-                            downloadT(id,false,true,false,false,new URL(href))
-                        })
-                        var bb=new _e('button').set('innerText','MP4').on('click',function(e){
-                            let url=e.target.parentElement.parentElement.querySelector('#hover-items').children[3]
-                            console.log(url)
-                            //alert('Doesnt work yet')
-                            const {id,href,short}={href:url.href,short:url.href.includes('/short'),id:setElement(url.href)}
-                            console.log({id,href,short})
-                            downloadT(id,false,true,true,false,new URL(href))
-                        })
-                        e.append(bb.element)
-                        //e.append(bb.element)
-                    })
-                    l=true
-                }catch{l=false}
-                if(__!=l)__=l,console.log('Change?',l?"Found":"Not FOund")
-            },0)
-            //forB[0].innerText.incluides('Public')
-            }()
-    }
-    else if(document.domain=='production.assets.clips.twitchcdn.net'){
-        let a=new element('a',{href:document.querySelector('[type="video/mp4"]').src,download:document.querySelector('[type="video/mp4"]').src.split('/')[5]+'.mp4'})
-        document.body.append(a.element)
-        a.element.click()
-        sleep(500).then(e=>{
-            a.element.remove()
-            sleep(500).then(e=>{
-                close()
-            })
-        })
-        return
-    }
-    else if(document.domain=='snapinst.app'){
-        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
-        async function wfs(a, ms = 20000) {
-            let o = false;
-            setTimeout(() => {
-                console.log('TimeOut for', a);
-                o = true;
-            }, ms);
-
-            while (!document.querySelector(a)) {
-                console.log('_', a, o);
-                await sleep(500);
-                if (o) break;
-            };
-
-            console.log(a, o);
-            if (o) throw 'NotFound';
-            return document.querySelector(a);
-        }
-        async function createBlackOverlayCanvas() {
-            await wfs('body')
-            // Create the canvas element
-            const canvas = document.createElement('canvas');
-            canvas.id = 'blackCanvas';
-
-            // Style the canvas to cover the entire page
-            Object.assign(canvas.style, {
-                position: 'fixed',
-                top: '0',
-                left: '0',
-                width: '100%',
-                height: '100%',
-                backgroundColor: 'black', // Black background for the canvas
-                zIndex: '9999', // Ensure it's on top of all other elements
-                pointerEvents: 'none', // Allow clicks to pass through to underlying elements
-            });
-
-            // Append the canvas to the document body
-            document.body.appendChild(canvas);
-
-            // Set the canvas dimensions to match the viewport
-            const resizeCanvas = () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            };
-            resizeCanvas(); // Call once initially
-
-            // Redraw canvas size on window resize
-            window.addEventListener('resize', resizeCanvas);
-
-            // Fill the canvas with black
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = 'black';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            console.log("Black overlay canvas created.");
-        }
-
-        // Call the function to create the canvas
-        createBlackOverlayCanvas();
-        !(async function (){
-            let[type,id]=name.split('\n')
-            if(!type||!id){console.warn('no');return;}
-            console.warn('Test2')
-            wfs('#url').then(e=>{
-                console.warn('Test3')
-                e.value=`https://www.instagram.com/${type}/${id}/`
-                wfs('#btn-submit').then(e=>{
-                    e.click()
-                    wfs('.download-bottom').then(async ()=>{
-                        await sleep(1000)
-                        let list=[...document.querySelectorAll('[class="download-bottom"]')].map(e=>findhref2(e)[0]).map(({href,download,target})=>({href,download,target}));
-                        (opener||window).postMessage(list,'*');
-                        close()
-
-                    })
-                })
-            })
-        })().then(console.log,console.warn)
-        return
-    }
-    else if(document.domain=='www.instagram.com'){
-
-        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
-        function parseInstagramURL(url) {
-            // Regular expression to handle optional username, type (p/reels/reel), and ID
-            const regex = /https?:\/\/(?:www\.)?instagram\.com\/(?:([^\/]+)\/)?(p|reels|reel)\/([^\/?]+)/;
-            const match = url.match(regex);
-
-            if (match) {
-                return {
-                    username: match[1] || null, // The username, or null if not present
-                    a: match[2],               // 'p', 'reels', or 'reel'
-                    id: match[3]               // The post or reel ID
-                };
-            }
-
-            return null; // Return null if the URL doesn't match
-        }
-
-
-
-        var l
-        let doIt=()=>(l=parseInstagramURL(location.href),open('https://snapinst.app/',`${l.a}\n${l.id}`));
-        onmessage=async function(e){
-            if(e.origin!='https://snapinst.app'){
-                console.log('UNhandled',e)
-                return
-            }
-            let list=e.data
-            for(let i=0;i<list.length;i++){
-                let{href,download,target}=list[i]
-                console.log('Got',{href,download,target})
-                let a=new element('a',{href,download,target})
-                document.body.append(a.element)
-                a.element.click()
-                await sleep(500)
-                a.element.remove()
-            }
-        }
-        var int;
-        async function wfs(s,t){
-            let sleep=(ms)=>new Promise(a=>setTimeout(a,ms));
-            return await new Promise(async (a,b)=>{
-                var d=!1
-                var c=()=>(d=0,b())
-                let _=setTimeout(c,t)
-                while(!document.querySelector(s)){
-                    await sleep()
-                    if(d){b();break}
-                }
-                return a(document.querySelector(s))
-            }).then(e=>e,e=>false)
-        }
-        if(location.pathname=='/call/'){
-            /**
- * Lightly Obfuscated Custom Logger 
- * (IIFE that assigns a custom logging class into the global scope)
- */
-            (function(){
-                class _0x2d2753 {
-                    constructor(_0x321bbe) {
-                        this._0x2dcc16 = {
-                            body: _0x321bbe || '---',
-                            color: 'darkgrey',
-                            size: '1rem'
-                        };
-                        this._0x2603ce = {
-                            color: '#008f68',
-                            size: '1rem'
-                        };
-                    }
-
-                    _0x54181c(_0x4ebcf7) {
-                        this._0x2dcc16.body = _0x4ebcf7;
-                        return this;
-                    }
-
-                    _0x40a387({ _0x4e4744, _0x2fbd8f }) {
-                        if (_0x4e4744 !== undefined) this._0x2dcc16.color = _0x4e4744;
-                        if (_0x2fbd8f !== undefined) this._0x2dcc16.size = _0x2fbd8f;
-                        return this;
-                    }
-
-                    _0x235d03({ _0x14e09d, _0x506311 }) {
-                        if (_0x14e09d !== undefined) this._0x2603ce.color = _0x14e09d;
-                        if (_0x506311 !== undefined) this._0x2603ce.size = _0x506311;
-                        return this;
-                    }
-
-                    /**
-         * @param {String} _0x23c5b9 the text body of the log
-         */
-                    _0x52dfbf(_0x23c5b9 = '') {
-                        console.log(
-                            `%c${this._0x2dcc16.body} | %c${_0x23c5b9}`,
-                            `color:${this._0x2dcc16.color}; font-weight:bold; font-size:${this._0x2dcc16.size};`,
-                            `color:${this._0x2603ce.color}; font-weight:bold; font-size:${this._0x2603ce.size}; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
-                        );
-                    }
-                }
-
-                Object.assign(this || arguments[0], { _0x2c68c3: _0x2d2753 });
-            })(globalThis);
-
-            /**
- * Example usage: Infinite loop
- * Assuming wfs(selector, timeout) is defined somewhere else in your code
- */
-            const _0xlogger = new _0x2c68c3('InfiniteLoop');
-            _0xlogger._0x52dfbf('Starting infinite loop...');
-
-            (async function infLoop() {
-                await sleep(1000)
-                wfs('.x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3', 100000)
-                    .then(() => {
-                    [...document.querySelectorAll('.x6s0dn4 .x78zum5 .x5yr21d .xl56j7k.xh8yej3')]
-                        .forEach(e => e.style.backgroundColor = 'green');
-                    _0xlogger._0x52dfbf('Iteration complete. Next iteration...');
-                    infLoop();
-                })
-                    .catch(err => {
-                    _0xlogger._0x52dfbf(`Error: ${err.message}`);
-                    // Decide if you want to retry, log, etc.
-                    infLoop();
-                });
-            })();
-
-        }
-        function setButtons(){
-            console.log('Appended buttons man')
-            var container=new element(document.querySelectorAll('.xh8yej3.x1iyjqo2')[0])
-            var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
-            container.append(button)
-        }
-        function setButtons2(){
-            var container=new element(document.querySelector('._aaqy'))
-            var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
-            container.append(button)
-        }
-        function checkArc(){
-            const articles = document.getElementsByTagName('article');
-            var button=new element('button',{id:"MediaButton"}).set('innerText','Get Media').on('click',doIt)
-            for (const article of articles) {
-                if (article.querySelector('#MediaButton')) {continue;}
-                article.prepend(button.element)
-            }
-        }
-        tF(function(){
-            document.querySelectorAll('.xh8yej3.x1iyjqo2')[0].children
-        },{callback:function(){
-            setButtons();
-            setInterval(()=>{
-                checkArc()
-                if(!document.querySelector('#MediaButton'))setButtons()
-                if(document.querySelector('._aaqy')&&!document.querySelector('._aaqy').querySelector('#MediaButton'))setButtons2();
-            })
-        }})
-        console.log('Insta ballz')
-        return
-    }
-    else if(document.domain=='sclouddownloader.net'){
-        (async function (){
-            var url=_getV('sc')
-            async function wfs(s,t){
-                let sleep=(ms)=>new Promise(a=>setTimeout(a,ms));
-                return await new Promise(async (a,b)=>{
-                    var d=!1
-                    var c=()=>(d=0,b())
-                    let _=setTimeout(c,t)
-                    while(!document.querySelector(s)){
-                        await sleep()
-                        if(d){b();break}
-                    }
-                    return a(document.querySelector(s))
-                }).then(e=>true,e=>false)
-            }
-            if(location.pathname=='/download-sound-track'){
-                await wfs('#trackTitle')
-                while(!trackTitle.innerText.length)await sleep(0)
-                await wfs('#trackLink')
-                while(!trackLink.href.length)await sleep(0)
-                var info={
-                    name:trackTitle.innerText,
-                    href:trackLink.href
-                }
-                console.log(info)
-                _setV('SCinfo',info)
-                close()
-            }
-            else{
-
-                if(!_getV('SC'))throw "Bruv"
-                var input1='#urlInput'
-                var button1='#submitBtn'
-                await wfs(input1,2000)
-                if(await wfs(input1,2000)){
-                    document.querySelector(input1).value=url
-                    console.log('EZ url',!!window.formSubmit)
-                    while(typeof formSubmit=='undefined'){
-                        document.querySelector(input1).value=url
-                        try{await sleep(0),console.log('EZ url',formSubmit);formSubmit()}catch{}
-                    }
-                    console.log('EZ url',formSubmit)
-                    formSubmit()
-                    console.warn('Got')
-                    setInterval(()=>{
-                        document.querySelector(input1).value=url
-                        formSubmit()
-                    },1000)
-                }
-            }
-        })().then(console.log,console.warn)
-    }
-    else if (document.domain == 'www.socialplug.io') {
-        location.pathname.split('/')[1]!=GM_getValue(document.domain)&&(GM_setValue(document.domain,location.pathname.split('/')[1]),console.warn('updated'))
-        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
-        async function wfs(a, ms = 5000) {
-            let o = false;
-            setTimeout(() => {
-                console.log('TimeOut for', a);
-                o = true;
-            }, ms);
-
-            while (!document.querySelector(a)) {
-                console.log('_', a, o);
-                await sleep(500);
-                if (o) break;
-            };
-
-            console.log(a, o);
-            if (o) throw 'NotFound';
-            return document.querySelector(a);
-        }
-        !async function(){
-            let [id,shorts]=name.split(',')
-            if(id.length&&shorts.length){}else return console.warn('No info Preset')
-            var YTurl=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
-            await wfs('#video-url')
-            console.log('Input Loaded')
-            document.querySelector('#video-url').value=YTurl
-            //dispatchAllInputEvents(document.querySelector('#id_url'),YTurl)
-            await wfs('#get-video-button')
-            console.log('GEtting res')
-            await sleep(100)
-            document.querySelector('#get-video-button').click()
-            await wfs('#quality-options',20000)
-            while(!document.getElementById('quality-options').children.length){
-                await sleep(100)
-            }
-            document.getElementById('quality-options').children[document.getElementById('quality-options').children.length-1].click()
-            console.log('Stating Download')
-            while(Number(document.querySelector('.indicator').style.width.replace('%',''))<100){
-                await sleep(10)
-                if(error.innerText=='An error occurred while starting the download'){
-                    document.getElementById('quality-options').children[document.getElementById('quality-options').children.length-1].click()
-                    console.warn('Stating Download again')
-                    error.innerText=''
-                    await sleep(1000)
-                }
-            }
-            console.log('Done Loading')
-            console.log('Unloading video')
-            while(!!Number(document.querySelector('.indicator').style.width.replace('%',''))){
-                await sleep(10)
-            }
-            close()
-            return;
-        }().then(function(e){
-            ;(opener||window).postMessage(e,'*')
-            location.href=e.href
-        },console.warn)
-    }
-    else if (document.domain == 'y2mate.nu') {
-        location.pathname.split('/')[1]!=GM_getValue('y2mate.nu')&&(GM_setValue('y2mate.nu',location.pathname.split('/')[1]),console.warn('updated'),close())
-        let id_ = new URL(location.href).searchParams.get('v');
-        let IsShort = new URL(location.href).searchParams.get('s') == 1;
-        let mp4 = new URL(location.href).searchParams.get('mp4')
-        let useT = new URL(location.href).searchParams.get('useT')
-        let _=id_+mp4 + useT
-        if(!id_){
-            [id_,IsShort,mp4,useT]=name.split(',').map(e=>{
-                try{
-                    return !!eval(e)
-                }catch{return String(e)}
-            })
-        }
-        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
-        async function wfs(a, ms = 5000) {
-            let o = false;
-            setTimeout(() => {
-                console.log('TimeOut for', a);
-                o = true;
-            }, ms);
-
-            while (!document.querySelector(a)) {
-                console.log('_', a, o);
-                await sleep(500);
-                if (o) break;
-            };
-
-            console.log(a, o);
-            if (o) throw 'NotFound';
-            return document.querySelector(a);
-        }
-        let cr = document.createElement;
-        document.createElement = function(tagName, options) {
-            let r = cr.call(document, tagName, options); // Ensure correct context
-            r._click = r.click;
-            r.click = function() {
-
-                console.log(r, 'was clicked', r.tagName);
-                if('A'==r.tagName){
-                    console.log('Caught',r)
-                    let title=r.download
-                    let href=r.href
-                    f={
-                        id:id_,
-                        href,
-                        title
-                    };
-                    (opener||window).postMessage(f,'*');
-                    //close()
-                }
-                else r._click.apply(r); // Ensure correct context
-            };
-            console.log(r, 'was created', r.tagName);
-            return r;
-        };
-
-        !async function() {
-            while (document.readyState != 'complete') await sleep(0);
-            if (id_) {
-                let post = async (a) => {
-                    console.log('a', a);
-                    var href = findhref2(document.forms[0])[0].href;
-                    var title = findhref2(document.forms[0], 'div')[0].innerText;
-                    var f = {_, id: id_, href, title, length: {} };
-                    console.log('Posted',f);
-                    (opener || window.parent).postMessage(f, '*');
-                    close()
-                }
-
-                try {
-                    await wfs('#video').then(e => {
-                        console.log('e', e);
-                        e.value = IsShort ? `https://www.youtube.com/watch?v=${id_}` : `https://www.youtube.com/shorts/${id_}`;
-                        document.querySelector('[type="submit"]').click();
-                    }).catch(post);
-
-                    console.log('after url');
-                    dl=download;
-                    download=function(e){
-                        dl(e)
-                        var url=(e + "&s=3&v=" + gVideo + "&f=" + gFormat + "&_=" + Math.random());
-                        if(url&&url.length){
-                            console.log('Lets goooo got:',{url})
-                            let f={href:url,useT:false,_, id: id_};
-                            (opener || window.parent).postMessage(f, '*');
-                            close()
-                        }
-                    }
-
-                    console.log('b');
-                } catch (error) {
-                    console.warn('Error:', error);
-                }
-            } else {
-                console.warn('No id Found');
-            }
-        }().then(console.log, console.warn);
-        return;
-    }
-    else if (document.domain == 'qdownloader.cc'){
-        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
-        async function wfs(a, ms = 20000) {
-            let o = false;
-            setTimeout(() => {
-                console.log('TimeOut for', a);
-                o = true;
-            }, ms);
-
-            while (!document.querySelector(a)) {
-                console.log('_', a, o);
-                await sleep(500);
-                if (o) break;
-            };
-
-            console.log(a, o);
-            if (o) throw 'NotFound';
-            return document.querySelector(a);
-        }
-        function dispatchAllInputEvents(target, value) {
-            const inputEvents = ['focus', 'input', 'change', 'blur'];
-
-            inputEvents.forEach(eventName => {
-                let ev=new Event(eventName, { bubbles: true, isTrusted: true })
-                if(target[`on${eventName}`])target[`on${eventName}`](ev)
-
-                if (eventName === 'input') {
-                    target.value = value;
-                }
-                target.dispatchEvent(ev);
-            });
-        }
-        let cr = document.createElement;
-        document._createElement = function(tagName, options) {
-            let r = cr.call(document, tagName, options); // Ensure correct context
-            r._click = r.click;
-            r.click = function() {
-
-                console.log(r, 'was clicked', r.tagName);
-                if('A'==r.tagName){
-                    console.log('Caught',r)
-                    let title=r.download
-                    let href=r.href
-                    f={
-                        id:new URL(location.href).searchParams.get('v'),
-                        href,
-                        title
-                    };
-                    //(opener||window).postMessage(f,'*');
-                    //close()
-                }
-                else r._click.apply(r); // Ensure correct context
-            };
-            console.log(r, 'was created', r.tagName);
-            return r;
-        };
-        !async function(){
-            if(location.href.includes('vidbutton'))throw 'vidbutton'
-            GM_setValue('dlbutton','')
-            GM_addValueChangeListener('dlbutton',async function(a,b,c,d){
-                console.log({a,b,c,d})
-                if(c.includes('video download successful\ncheck downloads folder')){
-                    await sleep(1000)
-                    close()
-                }
-            })
-            let url=await wfs('#url')
-            let button=await wfs('#downloadBtn')
-            id_=new URL(location.href).searchParams.get('v')
-            let v=`https://www.youtube.com/watch?v=${id_}`
-            dispatchAllInputEvents(url,v)
-            button.click();
-        }().then(console.log,async e=>{
-            if(e=='vidbutton'){
-                console.log('Best Quality Video')
-                await wfs('#height').then(e=>{
-                    height.selectedIndex=height.options.length-1
-                    dlbutton.click()
-                    open=window.open
-                    window.open=function(a,b,c){
-                        console.log({a,b,c})
-                    }
-                    wfs('#dlbutton').then(dlbutton=>{
-                        var text='';
-                        var loop=setInterval(e=>{
-                            if(text!=dlbutton.innerText){
-                                text=dlbutton.innerText
-                                GM_setValue('dlbutton',text)
-                            }
-                        })
-                        })
-                })
-            }
-        })
-    }
-    else if (document.domain == 'snapsave.io'){
-        async function wfs(a, ms = 20000) {
-            let o = false;
-            setTimeout(() => {
-                console.log('TimeOut for', a);
-                o = true;
-            }, ms);
-
-            while (!document.querySelector(a)) {
-                console.log('_', a, o);
-                await sleep(500);
-                if (o) break;
-            };
-
-            console.log(a, o);
-            if (o) throw 'NotFound';
-            return document.querySelector(a);
-        }
-        _wfs=wfs
-        !async function(){
-            var input=await wfs('#s_input',30000)
-            if(input){
-                console.log('Converting')
-                id_=new URL(location.href).searchParams.get('v')
-                input.value=`https://www.youtube.com/watch?v=${id_}`
-                ksearchvideo()
-                setTimeout(ksearchvideo(),1000)
-                var formatSelect=await wfs('#formatSelect')
-                var btn_action=await wfs('#btn-action')
-                formatSelect.selectedIndex=0
-                formatSelect.options[0].selected=true
-                var asuccess=await wfs('#asuccess')
-                while(!(asuccess=await wfs('#asuccess')))await sleep(0)
-                convertFile(0)
-                while(asuccess.getAttribute('href')=='#')(await sleep(0),asuccess=await wfs('#asuccess'))
-                console.log(asuccess.href)
-                var title=(await _wfs('.clearfix')).querySelector('h3').innerText
-                var f = { id: id_, href:asuccess.href, title, length: {} };
-                console.log('Posted',f);
-                (opener || window).postMessage(f, '*');
-                //close()
-            }else{
-                alert('Input was not Found')
-                console.warn('?!!')
-            }
-        }().then(console.log).catch(console.warn)
-        return
-    }
-    else if (document.domain == 'clips.twitch.tv'&&location.pathname.split('/')[1]!='create'){
-        let auto = 0;
-        const sleep = ms => new Promise(a => setTimeout(a, ms));
-
-        async function wfs(a, ms = 20000) {
-            let o = false;
-            setTimeout(() => {
-                console.log('TimeOut for', a);
-                o = true;
-            }, ms);
-
-            while (!document.querySelector(a)) {
-                console.log('_', a, o);
-                await sleep(500);
-                if (o) break;
-            };
-
-            console.log(a, o);
-            if (o) throw 'NotFound';
-            return document.querySelector(a);
-        }
-        _wfs = wfs;
-
-        function copyElm(element) {
-            if (!(element instanceof Element)) {
-                throw new Error("Provided argument is not a DOM element.");
-            }
-
-            // Create a new element of the same type
-            const newElement = document.createElement(element.tagName);
-
-            // Copy all attributes
-            for (let attr of element.attributes) {
-                newElement.setAttribute(attr.name, attr.value);
-            }
-
-            // Copy all styles
-            newElement.style.cssText = element.style.cssText;
-
-            // Copy class list
-            newElement.className = element.className;
-
-            // Copy inner HTML content
-            newElement.innerHTML = element.innerHTML;
-
-            return newElement;
-        }
-        _copyElm = copyElm;
-
-        (async function(){
-            let l = location.href;
-            let qs='.ScCoreButtonLabel-sc-s7h2b7-0'
-            let origin = (await _wfs('.ScCoreButtonLabel-sc-s7h2b7-0'))
-            .parentElement.parentElement.parentElement.parentElement;
-
-            // Function to embed an iframe with the provided URL and log label
-            async function embedIframe(url, label) {
-                return await fetch(url).then(e=>true,b=>false)?(
-                    new _e('iframe', {
-                        src: url,
-                        width: '100%',
-                        height: '600px',
-                        frameborder: '0'
-                    }).appendTo(document.body),
-                    console.log(`Embedded ${label} iframe: `, url)):(
-                    console.warn('Embed failed'),open(url,label)
-                )
-            }
-
-            /*// Create buttons with the updated click behavior to embed an iframe
-            new _e(_copyElm(origin))
-                .on('click', function(){
-                let url = (o => o.href)(
-                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
-                );
-                embedIframe(url, '1080P');
-            })
-                .appendTo(origin.parentNode)
-                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '1080P';
-
-            new _e(_copyElm(origin))
-                .on('click', function(){
-                let url = (o => o.href)(
-                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
-                );
-                embedIframe(url, '720P');
-            })
-                .appendTo(origin.parentNode)
-                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '720P';
-
-            new _e(_copyElm(origin))
-                .on('click', function(){
-                let url = (o => o.href)(
-                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
-                );
-                embedIframe(url, '480P');
-            })
-                .appendTo(origin.parentNode)
-                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '480P';
-
-            new _e(_copyElm(origin))
-                .on('click', function(){
-                let url = (o => o.href)(
-                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
-                );
-                embedIframe(url, '360P');
-            })
-                .appendTo(origin.parentNode)
-                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '360P';
-
-            new _e(_copyElm(origin))
-                .on('click', function(){
-                let url = (o => o.href)(
-                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
-                );
-                embedIframe(url, 'VOD');
-            })
-                .appendTo(origin.parentNode)
-                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = 'VOD';
-                */
-
-            // Array of resolutions to loop through
-            const resolutions = [
-                { label: '1080P', resolution: '1080' },
-                { label: '720P', resolution: '720' },
-                { label: '480P', resolution: '480' },
-                { label: '360P', resolution: '360' },
-                { label: 'VOD', resolution: 'VOD' }
-            ];
-
-            // Loop through the resolutions array to create elements dynamically
-            resolutions.forEach(({ label, resolution }) => {
-                let elem = new _e(_copyElm(origin)).on('click', function(){
-                    let txt=elem.element.querySelector(qs).innerText
-                    elem.element.querySelector(qs).innerText='Please wait...';
-                    //[, user, clip, clipID] = location.pathname.split('/');
-                    let url = (o => o.href)((o => (o.host = 'clipr.xyz', o))(new URL(location.href)));
-                    embedIframe(url, resolution).then(e=>elem.element.querySelector(qs).innerText=label)
-                }).appendTo(origin.parentNode);
-
-                // Change the inner text for VOD or the regular resolution
-                if (resolution === 'VOD') {
-                    elem.element.querySelector(qs).innerText = label;
-                } else {
-                    elem.element.querySelector(qs).innerText = label;
-                }
-            });
-
-
-            if (auto) {
-                setTimeout(() => { close(); }, 200);
-                let url = (o => o.href)(
-                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
-                );
-                embedIframe(url, '1080P');
-            }
-        })().catch(console.warn);
-
-    }
-    else if(document.domain == 'www.twitch.tv'){
-
-        async function go(){
-            let [ ,user, clip, clipID] = location.pathname.split('/');
-            if (clip !== 'clip') return console.warn('User isnt wathcing a clip');
-            console.log('User is Watching a CLip');
-
-            const sleep = ms => new Promise(a => setTimeout(a, ms));
-            async function wfs(a, ms = 20000) {
-                let o = false;
-                setTimeout(() => {
-                    console.log('TimeOut for', a);
-                    o = true;
-                }, ms);
-
-                while (!document.querySelector(a)) {
-                    console.log('_', a, o);
-                    await sleep(500);
-                    if (o) break;
-                }
-
-                console.log(a, o);
-                if (o) throw 'NotFound';
-                return document.querySelector(a);
-            }
-            _wfs = wfs;
-            _wfs_ = wfs;
-
-            function copyElm(element) {
-                if (!(element instanceof Element)) {
-                    throw new Error("Provided argument is not a DOM element.");
-                }
-
-                // Create a new element of the same type
-                const newElement = document.createElement(element.tagName);
-
-                // Copy all attributes
-                for (let attr of element.attributes) {
-                    newElement.setAttribute(attr.name, attr.value);
-                }
-
-                // Copy all styles
-                newElement.style.cssText = element.style.cssText;
-
-                // Copy class list
-                newElement.className = element.className;
-
-                // Copy inner HTML content
-                newElement.innerHTML = element.innerHTML;
-
-                return newElement;
-            }
-            _copyElm = copyElm;
-
-            // New embedIframe function to create and inject an iframe
-            async function embedIframe(url, res,elm,label) {
-                return await fetch(url).then(e=>true,b=>false)?(
-                    new _e('iframe', {
-                        src: url,
-                        width: '100%',
-                        height: '600px',
-                        frameborder: '0'
-                    }).appendTo(document.body),
-                    console.log(`Embedded ${res} iframe: `, url)):(
-                    console.warn('Embed failed'),open(url,res)
-                )
-            }
-
-            await (async function(){
-                let l = location.href;
-                await _wfs('.Layout-sc-1xcs6mc-0.bMOhzu');
-                let origin = [...document.querySelectorAll('.Layout-sc-1xcs6mc-0 .bMOhzu')]
-                .filter(e => e.querySelector('button') && !e.querySelector('button').disabled)[0];
-                let qs = '.bFxzAY';
-
-                // Array of resolutions to loop through
-                const resolutions = [
-                    { label: '1080P', resolution: '1080' },
-                    { label: '720P', resolution: '720' },
-                    { label: '480P', resolution: '480' },
-                    { label: '360P', resolution: '360' },
-                    { label: 'VOD', resolution: 'VOD' }
-                ];
-
-                // Loop through the resolutions array to create elements dynamically
-                resolutions.forEach(({ label, resolution }) => {
-                    let elem = new _e(_copyElm(origin)).on('click', function(){
-                        let txt=elem.element.querySelector(qs).innerText
-                        elem.element.querySelector(qs).innerText='Please wait...';
-                        [, user, clip, clipID] = location.pathname.split('/');
-                        let url = (o => o.href)((o => (o.host = 'clipr.xyz', o))(new URL(location.href)));
-                        embedIframe(url, resolution,elem).then(e=>elem.element.querySelector(qs).innerText=label)
-                    }).appendTo(document.querySelector('.Layout-sc-1xcs6mc-0.hZUoPp'));
-
-                    // Change the inner text for VOD or the regular resolution
-                    if (resolution === 'VOD') {
-                        elem.element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = label;
-                    } else {
-                        elem.element.querySelector(qs).innerText = label;
-                    }
-                });
-
-            })().catch(console.warn);
-        }
-        var c;
-        setInterval(() => {
-            if (c != location.href) go();
-            c = location.href;
-        }, 100);
-
-        return;
-    }
-    else if (document.domain == 'clipr.xyz'){
-
-        async function wfs(a, ms = 20000) {
-            let o = false;
-            setTimeout(() => {
-                logger.log(`TimeOut for ${a}`);
-                o = true;
-            }, ms);
-
-            while (!document.querySelector(a)) {
-                logger.log(`_ ${a} ${o}`);
-                await sleep(500);
-                if (o) break;
-            }
-
-            logger.log(`${a} ${o}`);
-            if (o) throw 'NotFound';
-            return document.querySelector(a);
-        }
-
-        async function wfl(){
-            while(document.readyState != 'complete'){
-                await sleep(0)
-            }
-            return true;
-        }
-
-        const _wfs = wfs;
-
-        (async function(){
-            let p = name;
-            await wfl();
-            logger.log('Loaded');
-            let href = (((r={})=>{
-                [...document.querySelectorAll('.flex.items-center.space-x-4')].filter(e=>findhref2(e)[0]).filter(e=>findhref2(e)[0].href.includes('clips.twitchcdn.net')).forEach(e=>{
-                    r[e.querySelector('.space-x-1').innerText.replace('p','')]=findhref2(e)[0].href
-                });return r
-            })()
-                       )[p];
-
-            logger.log(1);
-            let user = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > p > span:nth-child(1)").innerText;
-            logger.log(2);
-            let title = document.querySelector("body > div.relative.overflow-hidden > main > div > div.px-4.mx-auto.max-w-7xl.sm\\:px-6.lg\\:px-8 > div.mb-6.space-y-3.lg\\:flex.lg\\:items-center.lg\\:justify-between.lg\\:space-y-0 > div.lg\\:flex.lg\\:items-center > h2").innerText;
-            logger.log(3);
-            let filename = `@${user} on Twitch | ${title} - ${p}P.mp4`;
-
-            logger.log(`Downloading file as: ${filename}`);
-            open(href)
-
-            logger.log(4);
-            await sleep(4000)
-            close();
-        })().catch(console.warn);
-
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        function downloadFileAsTitle(url, filename) {
-            const anchor = document.createElement('a');
-            anchor.href = url;
-            anchor.download = filename;
-            document.body.appendChild(anchor);
-            anchor.click();
-            document.body.removeChild(anchor);
-        }
-        return
-    }
-    else if(location.href.includes("tubemp4.is")){
-        console.log('ok')
-
-        async function wfs(s,tm=30000){
-            var b
-            sleep(tm).then(e=>b=true)
-            while(!document.querySelector(s)){
-                await sleep(0)
-                if(b)break;
-            }
-            return document.querySelector(s)
-        }
-        wfs('#u').then(async u=>{
-            u.value=`https://www.youtube.com/watch?v=${new URL(location.href).searchParams.get('v')}`;
-            convert.click()
-            await sleep(200)
-            ;(await wfs('#convert')).click();
-            ;(await wfs('.process-button')).click()
-            wfs('.download-button').then(e=>{
-                let a=null
-                let cr = document.createElement;
-                document.createElement = function(tagName, options) {
-                    let r = cr.call(document, tagName, options); // Ensure correct context
-                    r._click = r.click;
-                    r.click = function() {
-
-                        console.log(r, 'was clicked', r.tagName);
-                        if('A'==r.tagName){
-                            console.log('Caught',r)
-                            let title=r.download
-                            let href=r.href
-                            f={
-                                id:new URL(location.href).searchParams.get('v'),
-                                href,
-                                title
-                            };
-                            (opener||window).postMessage(f,'*');
-                            close()
-                        }
-                        else r._click.apply(r); // Ensure correct context
-                    };
-                    console.log(r, 'was created', r.tagName);
-                    return r;
-                };
-                e.click()
-                console.log('clicked')
-                setTimeout(()=>e.click(),1000)
-            })
-        }).then(console.log,console.warn)
-    }
-    console.log('B?')
     function getIds(){
         if(document.domain.includes("music")){alert('These button dont work on youtube music yet');throw "."}
         var list=[...document.getElementsByTagName('ytd-playlist-panel-renderer')].filter(isElementInViewport).filter(e=>!isHidden(e))[0]
@@ -2199,7 +2466,7 @@ async function downloadVideo(url,title) {
             exist=_ex()
         },100)
     }
-    a1=[
+    /*a1=[
         ["youtube",function(){tF(function(){
             let b=_ex_()
             if(!_ex_()) throw "Cant append buttons yet";
@@ -2260,188 +2527,22 @@ async function downloadVideo(url,title) {
         }]
     ].filter(e=>location.host.includes(e[0]))[0];a1&&a1[1]&&(a1[1]());
     console.log(a1)
-    delete a1;
+    delete a1;*/
     __ex_=_ex_
-    if(location.href.includes('onlymp3.app')||location.href.includes('onlymp3.to')){
-        console.log('onlymp3.app')
-        let callback=function(){};
-        function b_(){
-            var [id,shorts]=name.split(',')
-            txtUrl.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
-            getListFormats();
-        }
-        function a_(){
-            var a=videoTitle.innerText.split('\n'),
-                l=a.map(e=>e.match(/[:\d]+/gi)).filter(e=>!!e).pop().pop(),
-                t=a[0].split('Title: ')[1],
-                h=findhref2(videoTitle.parentNode)[0].href,
-                f={
-                    id:setElement(location.href),
-                    href:h,
-                    title:t
-                    ,length:l
-                };
-            (opener||window).postMessage(f,'*')
-            console.log('Poasted')
-        }
-        setInterval(()=>{
-            if(document.getElementById('error-text').innerText.length>5)location.reload();
-        },20000)
-        console.log('Getting MP3')
-        tF(function(f=function(){}){
-            b_()
-            tF(function(f=function(){}){
-                a_()
-            },{callback:close})
-        },{callback:function(){}})
-        return
+    console.log('A?')
+    if (domainActions[document.domain]) {
+        domainActions[document.domain]().then(console.log,e=>alert(domainActions[document.domain]+' - had en error please send a report this if the script is not working as intended:\n'+e.message));
+    } else {
+        console.warn(`No Dom action defined for domain: ${document.domain}`);
     }
-    else if(location.href.includes("www.yt2conv.com")){
-        console.log('Getting MP4')
-        let [id,shorts]=name.split(',')
-        tF(function(f=function(){}){
-            var input=document.getElementById('search_txt')
-            input.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
-            document.getElementById('btn-submit').click()
-            console.log(id,shorts)
-        },{callback:function(){}})
-        tF(function(f=function(){}){
-            console.log(result.children.length)
-            if(!result.children.length){document.getElementById('btn-submit').click();throw "no there"}
-        },{int:1000,callback:function(){}})
-        tF(function(){
-            document.getElementById('btn-download').click()
-        },{callback:function(){}})
-        tF(function(){
-            var title=$('.media-heading')[0].innerText
-            var href=downloadbtn.href
-            var f={id,href,title,length:{}};
-            console.log('Posted')
-            ;(opener||window).postMessage(f,'*')
-        },{callback:close})
+    console.log('B?')
+    const matchingAction = actions.find(({ test }) => test(location.href));
+    if (matchingAction) {
+        matchingAction.action();
+    } else {
+        console.warn("No matching action for the current URL");
     }
-    else if(location.href.includes('yt5s.biz')){
-        async function wfs(s){
-            while(!document.querySelector(s)){
-                await sleep(0)
-            }
-            return true
-        }
-        !async function(){
-            let [id,shorts]=name.split(',')
-            if(id.length&&shorts.length){}else return console.warn('No info Preset')
-            var YTurl=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
-            await wfs('#txt-url')
-            console.log('Input Loaded')
-            document.querySelector('#txt-url').value=YTurl
-            await wfs('#btn-submit')
-            console.log('GEtting res')
-            await sleep(100)
-            document.querySelector('#btn-submit').click()
-            await wfs('#video_title')
-            console.log('Got Res')
-            var title=document.querySelector('#video_title').innerText
-            var maxres=[0]
-            ;[...document.querySelector('#result').querySelector('table').querySelectorAll('tr')].forEach(e=>{
-                var res=e.innerText.match(/(?<res>\d+)(p|P)/i)||{}
-                if(res.groups){
-                    res=Number(res.groups.res)
-                    if(maxres[0]<res)maxres[0]=res,maxres[1]=findhref2(e)[0].href,maxres[2]=e
-                }
-            })
-            return {id,title,href:maxres[1],mp4:true,res:maxres[0]}
-        }().then(function(e){
-            ;(opener||window).postMessage(e,'*')
-            location.href=e.href
-        },console.warn)
-    }
-    else if(location.href.includes("sss.instasaverpro.com")){
-        !async function(){
-            async function wfs(s){
-                while(!document.querySelector(s)){
-                    await sleep(0)
-                }
-                return true
-            }
-            await wfs('#A_downloadUrl')
-            while(!document.querySelector('#A_downloadUrl').href.length)(await sleep(0));
-            console.log('Done')
-            var title=document.querySelector('#myModalLabel').innerText
-            var e={href:document.querySelector('#A_downloadUrl').href,title}
-            ;(opener||window).postMessage(e,'*')
-        }().then(close,console.warn)
-    }
-    else if(location.href.includes("en3.onlinevideoconverter.pro")){
-        let [id,shorts]=name.split(',')
-        if(id.length&&shorts.length){}else return console.Warn('NO info Preset')
-        var YTurl=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
-        let callback=function(){};
-        tF(function(f=function(){}){
-            var input=document.getElementById('texturl')
-            input.value=`https://www.youtube.com/${shorts=="1"?"shorts/":"watch?v="}${id}`
-            document.getElementById('convert1').click()
-            console.log('Searched')
-        },{callback})
-        tF(function(){
-            if(stepProcess.style.display=='none'){
-                document.getElementById('convert1').click()
-                throw "this"
-            }
-            console.log('Searching')
-        },{callback})
-        tF(function(){
-            if(document.getElementById('form-app-root').children.length==0)throw ""
-            console.log('loaded')
-            var{title,href}=$('#download-720-MP4')?$('#download-720-MP4')[0]?$('#download-720-MP4')[0]:$('#download-720-MP4'):$('#download-720-MP4')
-            var f={id,href,title,length:{}};
-            console.log('Posted')
-            ;(opener||window).postMessage(f,'*')
-        },{callback:close})
-
-    }
-    else if(location.href.includes("savetik.co")){
-        var [id,mp4]=name.split(",")
-        addEventListener("load",function(){
-            tF(function(){
-                s_input.value=id
-                ksearchvideo()
-                setTimeout(ksearchvideo,1000)
-            },{callback(){}})
-        })
-        function Fin(){
-            console.log("Found")
-            let title=document.getElementsByClassName("clearfix")[0].innerText
-            let links=findhref2(document.getElementsByClassName("tik-video")[0]).map(e=>e.href)
-            let f={title,links,mp4:mp4==1,info:setElement2(id)}
-            let Porigin='https://www.tiktok.com'
-            onmessage=function(e){
-                if(e.origin==Porigin){
-                    var {data:{s,url,title}}=e
-                    console.log('Handled',{s,url,title},e)
-                    if(!s){
-                        downloadFileAsTitle(url,title,null,close)
-                    }else setTimeout(close,100)
-                    //info[id].close()
-                }else console.log('Unhandled Post',e)
-            }
-            ;(opener||window).postMessage(f,'*')
-            //setTimeout(close,100)
-        }
-
-        tF(function(){document.getElementsByClassName("clearfix")[0].innerText;Fin()},{callback(){}})
-    }
-    else if(document.domain.includes('music')){
-        console.log('Added MiniPlayer Toggle with I')
-        addEventListener('keypress',function({isTrusted,ctrlKey,shiftKey,code,target,target:{tagName}}){
-            if(!['INPUT','TEXTAREA'].includes(tagName)&&!ctrlKey&&!shiftKey&&isTrusted&&code=='KeyI'){
-                (abc_('Close player page')||abc_('Open player page')[1]).click()
-            }
-        })
-    }
-    else if(document.domain.includes('loader.to')&&location.href.includes('/api/')){
-        console.warn('using loader.to api')
-    }
-
+    console.log('C?')
     // Create a trusted types policy
     const policy = window.trustedTypes && trustedTypes.createPolicy('trustedHTMLPolicy', {
         createHTML: (input) => input,
