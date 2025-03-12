@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 9.1
+// @version 9.2
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -44,65 +44,65 @@
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
-// @name:fr Gaston's - téléchargeur vidéo / image
-// @name:ar Gaston's - Video/Image Downloader
-// @name:ru Gaston's - Video/Image Скачатель
-// @name:de Gaston's - Video/Image Downloader
-// @name:ja Gaston's -Video/Image Downloader
-// @name:en Gaston's - Video/Image Downloader
-// @name:es Gaston's - Video/Image Descarger
-// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
 // @name:zh Gaston's - Video/Image Downloader
+// @name:ar Gaston's - Video/Image Downloader
+// @name:de Gaston's - Video/Image Downloader
+// @name:es Gaston's - Video/Image Descarger
+// @name:en Gaston's - Video/Image Downloader More actions
+// @name:ru Gaston's - Video/Image Скачатель
+// @name:ja Gaston's -Video/Image Downloader
 // @name:pt Gaston's - Downloader de vídeo/imagem
-// @name:pl Gaston - pobierca wideo/obrazu
+// @name:fr Gaston's - téléchargeur vidéo / image
+// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
 // @name:ro Gaston's - descărcător video/imagini
-// @name:uk GASTON'S - Відео/зображення завантажувача
-// @name:nl Gaston's - Video/Image Downloader
+// @name:id Gaston's - Video/Image Downloader
+// @name:it Gaston's - Downloader di video/immagine
+// @name:th Gaston's - Video/Image Downloader
 // @name:vi Gaston's - Trình tải xuống video/hình ảnh
 // @name:ko Gaston 's- 비디오/이미지 다운로더
+// @name:nl Gaston's - Video/Image Downloader
+// @name:pl Gaston - pobierca wideo/obrazu
 // @name:tr Gaston's - Video/Resim İndirici
-// @name:th Gaston's - Video/Image Downloader
-// @name:it Gaston's - Downloader di video/immagine
-// @name:id Gaston's - Video/Image Downloader
-// @name:no Gaston's - Video/Image Downloader
-// @name:hu Gaston's - Videó/kép letöltő
+// @name:uk GASTON'S - Відео/зображення завантажувача
+// @name:no Gaston's - Video/Image Downloader More actions
 // @name:bg Gaston's - видео/изтегляне на изображения
-// @name:sv Gaston's - Video/Image Downloader
-// @name:fi Gaston's - Video/kuvan lataaja
 // @name:cs Gaston's - Video/Image Downloader
+// @name:sk Gaston's - Video/Image Downloader More actions
+// @name:sv Gaston's - Video/Image Downloader
 // @name:da Gastons - Video/Image Downloader
-// @name:he Gaston's - הורדת וידאו/תמונה
-// @name:sk Gaston's - Video/Image Downloader
 // @name:el Gaston's - Video/Image Downloader
+// @name:hu Gaston's - Videó/kép letöltő
+// @name:fi Gaston's - Video/kuvan lataaja
+// @name:he Gaston's - הורדת וידאו/תמונה
+// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) More actions
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
 // @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
 // @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
-// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
-// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
-// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
-// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
-// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
-// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt) More actions
-// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
-// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado) Explain More actions
+// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour) More actions
 // @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
-// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
-// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
-// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật) More actions
 // @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
+// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
+// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent) More actions
 // @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
 // @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
-// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad) More actions
-// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран) More actions
 // @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
-// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
 // @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované) More actions
 // @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
 // @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
-// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve) More actions
 // @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
 // @license MIT
 // ==/UserScript==
@@ -720,7 +720,7 @@
                                             short: l
                                         }), downloadT(o, !1, !0, !0, !1, new URL(n))
                                     }));
-                                    e.append(t.element)
+                                    e.prepend(t.element)
                                 })), t = !0
                             } catch {
                                 t = !1
@@ -1725,7 +1725,7 @@
                     }), 100)) : o == t() || t() || console.log("buttons are gone?!?!"), o = t()
                 }), 100)
             }
-            console.log("bruh"), __ex_ = _ex_, console.log("A?"), domainActions[document.domain] ? domainActions[document.domain]().then(console.log, (e => alert(domainActions[document.domain] + " - had en error please send a report this if the script is not working as intended:\n" + e.message))) : console.warn(`No Dom action defined for domain: ${document.domain}`), console.log("B?");
+            console.log("bruh"), __ex_ = _ex_, console.log("A?"), domainActions[document.domain] ? domainActions[document.domain]().then(console.log, (e => alert(document.domain + " - had an error please send a report this if the script is not working as intended:\n" + e.message))) : console.warn(`No Dom action defined for domain: ${document.domain}`), console.log("B?");
             const matchingAction = actions.find((({
                 test: e
             }) => e(location.href)));
