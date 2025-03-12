@@ -44,66 +44,66 @@
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
-// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
-// @name:es Gaston's - Video/Image Descarger
-// @name:de Gaston's - Video/Image Downloader
-// @name:ja Gaston's -Video/Image Downloader
-// @name:pt Gaston's - Downloader de vídeo/imagem
 // @name:fr Gaston's - téléchargeur vidéo / image
 // @name:ar Gaston's - Video/Image Downloader
-// @name:en Gaston's - Video/Image Downloader
 // @name:ru Gaston's - Video/Image Скачатель
+// @name:de Gaston's - Video/Image Downloader
+// @name:ja Gaston's -Video/Image Downloader
+// @name:en Gaston's - Video/Image Downloader
+// @name:es Gaston's - Video/Image Descarger
+// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
 // @name:zh Gaston's - Video/Image Downloader
-// @name:uk GASTON'S - Відео/зображення завантажувача
-// @name:ro Gaston's - descărcător video/imagini
-// @name:it Gaston's - Downloader di video/immagine
+// @name:pt Gaston's - Downloader de vídeo/imagem
 // @name:pl Gaston - pobierca wideo/obrazu
+// @name:ro Gaston's - descărcător video/imagini
+// @name:uk GASTON'S - Відео/зображення завантажувача
 // @name:nl Gaston's - Video/Image Downloader
-// @name:tr Gaston's - Video/Resim İndirici
-// @name:ko Gaston 's- 비디오/이미지 다운로더
-// @name:th Gaston's - Video/Image Downloader More actions
-// @name:id Gaston's - Video/Image Downloader
 // @name:vi Gaston's - Trình tải xuống video/hình ảnh
-// @name:bg Gaston's - видео/изтегляне на изображения
-// @name:he Gaston's - הורדת וידאו/תמונה
-// @name:fi Gaston's - Video/kuvan lataaja
-// @name:el Gaston's - Video/Image Downloader
-// @name:da Gastons - Video/Image Downloader
-// @name:hu Gaston's - Videó/kép letöltő
-// @name:cs Gaston's - Video/Image Downloader
-// @name:sk Gaston's - Video/Image Downloader
-// @name:sv Gaston's - Video/Image Downloader
+// @name:ko Gaston 's- 비디오/이미지 다운로더
+// @name:tr Gaston's - Video/Resim İndirici
+// @name:th Gaston's - Video/Image Downloader
+// @name:it Gaston's - Downloader di video/immagine
+// @name:id Gaston's - Video/Image Downloader
 // @name:no Gaston's - Video/Image Downloader
+// @name:hu Gaston's - Videó/kép letöltő
+// @name:bg Gaston's - видео/изтегляне на изображения
+// @name:sv Gaston's - Video/Image Downloader
+// @name:fi Gaston's - Video/kuvan lataaja
+// @name:cs Gaston's - Video/Image Downloader
+// @name:da Gastons - Video/Image Downloader
+// @name:he Gaston's - הורדת וידאו/תמונה
+// @name:sk Gaston's - Video/Image Downloader
+// @name:el Gaston's - Video/Image Downloader
+// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
+// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
 // @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
 // @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
 // @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
-// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
-// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется) More actions
-// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
-// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
-// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
-// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
-// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
-// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
-// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt) More actions
 // @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
 // @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
 // @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
-// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
-// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật) More actions
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
 // @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
-// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad) More actions
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран) More actions
+// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
+// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
 // @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
 // @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
 // @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve) More actions
-// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
-// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
-// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
-// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
+// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
 // @license MIT
 // ==/UserScript==
 ! function() {
@@ -1471,74 +1471,6 @@
                 const o = document.createElement("a");
                 o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
             }
-            if (setElement = function(e) {
-                    return !(!String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/) || 11 != String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length) && String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8]
-                }, findhref2 = function(e, t) {
-                    var o = [];
-                    return function e(n) {
-                        n.tagName.toLowerCase() == (t || "a") ? (o.push(n), n.children.length && ((n = n.children).forEach = [].forEach, n.forEach((t => {
-                            e(t)
-                        })))) : n.children.length && ((n = n.children).forEach = [].forEach, n.forEach((t => {
-                            e(t)
-                        })))
-                    }(e), o
-                }, getInstalImages = function() {
-                    return document.querySelectorAll("._acaz")
-                }, getInstaVideo = function() {
-                    return document.querySelector("video.x1lliihq")
-                }, downloadVideoFromBlob = function(e, t) {
-                    if (e && e.src && e.src.startsWith("blob:")) {
-                        const o = e.captureStream(),
-                            n = new MediaRecorder(o),
-                            l = [];
-                        n.ondataavailable = e => {
-                            e.data.size > 0 && (l.push(e.data), console.log(e.data))
-                        }, n.onstop = () => {
-                            const e = new Blob(l, {
-                                    type: "video/mp4"
-                                }),
-                                o = URL.createObjectURL(e),
-                                n = document.createElement("a");
-                            n.style.display = "none", n.href = o, n.download = t + ".mp4", document.body.appendChild(n), n.click(), document.body.removeChild(n), URL.revokeObjectURL(o)
-                        }, n.start(), setTimeout((() => {
-                            n.stop()
-                        }), 1e3 * e.duration)
-                    } else console.error("Invalid video element or source.")
-                }, _getIds = getIds, info = {}, downloadT = function(e, t = !1, o = !0, n = !1, l = !1, i = "") {
-                    let c = e + (n ? "mp4" : "mp3") + o;
-                    var r;
-                    if (!(r = document.getElementById(c)) || r.remove(), localStorage[c] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
-                    let a = i || location;
-                    var s = new URL(a.href);
-                    s.host = s.host.replace(".com", "mz.com"), console.log("o", s);
-                    let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
-                    console.log(c, d);
-                    return ad("unload", (function() {
-                        info[e].close()
-                    }), !0), onmessage = function(e) {
-                        if (e.origin == Porigin || e.origin.match(/https?:\/{2}onlymp3\.to/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://sss.instasaverpro.com" == e.origin || "https://y2mate.nu" == e.origin || "https://snapsave.io" == e.origin || "https://www.socialplug.io" == e.origin || "https://tubemp4.is" == e.origin) {
-                            const {
-                                data: {
-                                    href: t,
-                                    title: l,
-                                    length: i,
-                                    id: c,
-                                    _: r
-                                }
-                            } = e;
-                            let a = l + (n ? ".mp4" : ".mp3");
-                            (e => {
-                                e && e.remove()
-                            })(document.getElementById(r)), console.log("Handled", {
-                                href: t,
-                                title: l,
-                                length: i,
-                                id: c,
-                                _: r
-                            }, e), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
-                        } else console.log("Unhandled Post", e)
-                    }, info[e] = n ? open(a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500")
-                }, "studio.youtube.com" == document.domain) return;
             async function waitTT() {
                 for (; tiktikWin && !tiktikWin.closed;) await sleep(0);
                 return 1
@@ -1583,7 +1515,74 @@
             function Unmute() {
                 (query("#right-controls") && query("#right-controls").querySelectorAll("path")[0].getAttribute("d") == UnmutePath && abc("Mute", "title")[0] || abc("Unmute", "title") || abc("Unmute (m)", "title")).click()
             }
-            downloadTikTok = function(e, t) {
+            setElement = function(e) {
+                return !(!String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/) || 11 != String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8].length) && String(e).match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?)|(shorts\/))\??v?=?([^#\&\?]*).*/)[8]
+            }, findhref2 = function(e, t) {
+                var o = [];
+                return function e(n) {
+                    n.tagName.toLowerCase() == (t || "a") ? (o.push(n), n.children.length && ((n = n.children).forEach = [].forEach, n.forEach((t => {
+                        e(t)
+                    })))) : n.children.length && ((n = n.children).forEach = [].forEach, n.forEach((t => {
+                        e(t)
+                    })))
+                }(e), o
+            }, getInstalImages = function() {
+                return document.querySelectorAll("._acaz")
+            }, getInstaVideo = function() {
+                return document.querySelector("video.x1lliihq")
+            }, downloadVideoFromBlob = function(e, t) {
+                if (e && e.src && e.src.startsWith("blob:")) {
+                    const o = e.captureStream(),
+                        n = new MediaRecorder(o),
+                        l = [];
+                    n.ondataavailable = e => {
+                        e.data.size > 0 && (l.push(e.data), console.log(e.data))
+                    }, n.onstop = () => {
+                        const e = new Blob(l, {
+                                type: "video/mp4"
+                            }),
+                            o = URL.createObjectURL(e),
+                            n = document.createElement("a");
+                        n.style.display = "none", n.href = o, n.download = t + ".mp4", document.body.appendChild(n), n.click(), document.body.removeChild(n), URL.revokeObjectURL(o)
+                    }, n.start(), setTimeout((() => {
+                        n.stop()
+                    }), 1e3 * e.duration)
+                } else console.error("Invalid video element or source.")
+            }, _getIds = getIds, info = {}, downloadT = function(e, t = !1, o = !0, n = !1, l = !1, i = "") {
+                let c = e + (n ? "mp4" : "mp3") + o;
+                var r;
+                if (!(r = document.getElementById(c)) || r.remove(), localStorage[c] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
+                let a = i || location;
+                var s = new URL(a.href);
+                s.host = s.host.replace(".com", "mz.com"), console.log("o", s);
+                let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
+                console.log(c, d);
+                return ad("unload", (function() {
+                    info[e].close()
+                }), !0), onmessage = function(e) {
+                    if (e.origin == Porigin || e.origin.match(/https?:\/{2}onlymp3\.to/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://sss.instasaverpro.com" == e.origin || "https://y2mate.nu" == e.origin || "https://snapsave.io" == e.origin || "https://www.socialplug.io" == e.origin || "https://tubemp4.is" == e.origin) {
+                        const {
+                            data: {
+                                href: t,
+                                title: l,
+                                length: i,
+                                id: c,
+                                _: r
+                            }
+                        } = e;
+                        let a = l + (n ? ".mp4" : ".mp3");
+                        (e => {
+                            e && e.remove()
+                        })(document.getElementById(r)), console.log("Handled", {
+                            href: t,
+                            title: l,
+                            length: i,
+                            id: c,
+                            _: r
+                        }, e), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
+                    } else console.log("Unhandled Post", e)
+                }, info[e] = n ? open(a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500")
+            }, downloadTikTok = function(e, t) {
                 (async function(e, t) {
                     await waitTT(), console.log("ez");
                     let o = t.videoID,
