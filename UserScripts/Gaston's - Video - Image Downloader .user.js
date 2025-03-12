@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      8.9
+// @version      9.0
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -1512,8 +1512,9 @@ async function downloadVideo(url,title) {
         return
     }
     else if (document.domain == 'clips.twitch.tv'&&location.pathname.split('/')[1]!='create'){
-        let auto=0
-        const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+        let auto = 0;
+        const sleep = ms => new Promise(a => setTimeout(a, ms));
+
         async function wfs(a, ms = 20000) {
             let o = false;
             setTimeout(() => {
@@ -1531,7 +1532,8 @@ async function downloadVideo(url,title) {
             if (o) throw 'NotFound';
             return document.querySelector(a);
         }
-        _wfs=wfs
+        _wfs = wfs;
+
         function copyElm(element) {
             if (!(element instanceof Element)) {
                 throw new Error("Provided argument is not a DOM element.");
@@ -1556,40 +1558,126 @@ async function downloadVideo(url,title) {
 
             return newElement;
         }
-        _copyElm=copyElm
-        ;(async function(){
-            let l=location.href
-            let origin=(await _wfs('.ScCoreButtonLabel-sc-s7h2b7-0')).parentElement.parentElement.parentElement.parentElement
-            let p1080=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'1080')
-            }).appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='1080P'
-            let p720=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'720')
-            }).appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='720P'
-            let p480=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'480')
-            }).appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='480P'
-            let p4360=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'360')
-            }).appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='360P'
-            let pvod=new _e(_copyElm(origin)).on('click',function(){
-                open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'VOD')
-            })
-            .appendTo(origin.parentNode).element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText='VOD'
+        _copyElm = copyElm;
 
-            if(auto){
-                setTimeout(()=>{close()},200)
-                open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))),'1080')
+        (async function(){
+            let l = location.href;
+            let qs='.ScCoreButtonLabel-sc-s7h2b7-0'
+            let origin = (await _wfs('.ScCoreButtonLabel-sc-s7h2b7-0'))
+            .parentElement.parentElement.parentElement.parentElement;
+
+            // Function to embed an iframe with the provided URL and log label
+            async function embedIframe(url, label) {
+                return await fetch(url).then(e=>true,b=>false)?(
+                    new _e('iframe', {
+                        src: url,
+                        width: '100%',
+                        height: '600px',
+                        frameborder: '0'
+                    }).appendTo(document.body),
+                    console.log(`Embedded ${label} iframe: `, url)):(
+                    console.warn('Embed failed'),open(url,label)
+                )
             }
-        })().catch(console.warn)
+
+            /*// Create buttons with the updated click behavior to embed an iframe
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '1080P');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '1080P';
+
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '720P');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '720P';
+
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '480P');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '480P';
+
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '360P');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = '360P';
+
+            new _e(_copyElm(origin))
+                .on('click', function(){
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, 'VOD');
+            })
+                .appendTo(origin.parentNode)
+                .element.querySelector('.ScCoreButtonLabel-sc-s7h2b7-0').innerText = 'VOD';
+                */
+
+            // Array of resolutions to loop through
+            const resolutions = [
+                { label: '1080P', resolution: '1080' },
+                { label: '720P', resolution: '720' },
+                { label: '480P', resolution: '480' },
+                { label: '360P', resolution: '360' },
+                { label: 'VOD', resolution: 'VOD' }
+            ];
+
+            // Loop through the resolutions array to create elements dynamically
+            resolutions.forEach(({ label, resolution }) => {
+                let elem = new _e(_copyElm(origin)).on('click', function(){
+                    let txt=elem.element.querySelector(qs).innerText
+                    elem.element.querySelector(qs).innerText='Please wait...';
+                    //[, user, clip, clipID] = location.pathname.split('/');
+                    let url = (o => o.href)((o => (o.host = 'clipr.xyz', o))(new URL(location.href)));
+                    embedIframe(url, resolution).then(e=>elem.element.querySelector(qs).innerText=label)
+                }).appendTo(origin.parentNode);
+
+                // Change the inner text for VOD or the regular resolution
+                if (resolution === 'VOD') {
+                    elem.element.querySelector(qs).innerText = label;
+                } else {
+                    elem.element.querySelector(qs).innerText = label;
+                }
+            });
+
+
+            if (auto) {
+                setTimeout(() => { close(); }, 200);
+                let url = (o => o.href)(
+                    (o => (o.host = 'clipr.xyz', o))(new URL(location.href))
+                );
+                embedIframe(url, '1080P');
+            }
+        })().catch(console.warn);
+
     }
     else if(document.domain == 'www.twitch.tv'){
 
         async function go(){
-            let [None,user,clip,clipID]=location.pathname.split('/')
-            if(clip!='clip') return console.warn('User isnt wathcing a clip')
-            console.log('User is Watching a CLip')
-            const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+            let [ ,user, clip, clipID] = location.pathname.split('/');
+            if (clip !== 'clip') return console.warn('User isnt wathcing a clip');
+            console.log('User is Watching a CLip');
+
+            const sleep = ms => new Promise(a => setTimeout(a, ms));
             async function wfs(a, ms = 20000) {
                 let o = false;
                 setTimeout(() => {
@@ -1601,14 +1689,15 @@ async function downloadVideo(url,title) {
                     console.log('_', a, o);
                     await sleep(500);
                     if (o) break;
-                };
+                }
 
                 console.log(a, o);
                 if (o) throw 'NotFound';
                 return document.querySelector(a);
             }
-            _wfs=wfs
-            _wfs_=wfs
+            _wfs = wfs;
+            _wfs_ = wfs;
+
             function copyElm(element) {
                 if (!(element instanceof Element)) {
                     throw new Error("Provided argument is not a DOM element.");
@@ -1633,11 +1722,27 @@ async function downloadVideo(url,title) {
 
                 return newElement;
             }
-            _copyElm=copyElm
-            ;await (async function(){
+            _copyElm = copyElm;
+
+            // New embedIframe function to create and inject an iframe
+            async function embedIframe(url, res,elm,label) {
+                return await fetch(url).then(e=>true,b=>false)?(
+                    new _e('iframe', {
+                        src: url,
+                        width: '100%',
+                        height: '600px',
+                        frameborder: '0'
+                    }).appendTo(document.body),
+                    console.log(`Embedded ${res} iframe: `, url)):(
+                    console.warn('Embed failed'),open(url,res)
+                )
+            }
+
+            await (async function(){
                 let l = location.href;
                 await _wfs('.Layout-sc-1xcs6mc-0.bMOhzu');
-                let origin = [...document.querySelectorAll('.Layout-sc-1xcs6mc-0 .bMOhzu')].filter(e=>e.querySelector('button')&&!e.querySelector('button').disabled)[0]
+                let origin = [...document.querySelectorAll('.Layout-sc-1xcs6mc-0 .bMOhzu')]
+                .filter(e => e.querySelector('button') && !e.querySelector('button').disabled)[0];
                 let qs = '.bFxzAY';
 
                 // Array of resolutions to loop through
@@ -1652,8 +1757,11 @@ async function downloadVideo(url,title) {
                 // Loop through the resolutions array to create elements dynamically
                 resolutions.forEach(({ label, resolution }) => {
                     let elem = new _e(_copyElm(origin)).on('click', function(){
-                        [None,user,clip,clipID]=location.pathname.split('/')
-                        open((o=>o.href)((o=>(o.host='clipr.xyz',o))(new URL(location.href))), resolution);
+                        let txt=elem.element.querySelector(qs).innerText
+                        elem.element.querySelector(qs).innerText='Please wait...';
+                        [, user, clip, clipID] = location.pathname.split('/');
+                        let url = (o => o.href)((o => (o.host = 'clipr.xyz', o))(new URL(location.href)));
+                        embedIframe(url, resolution,elem).then(e=>elem.element.querySelector(qs).innerText=label)
                     }).appendTo(document.querySelector('.Layout-sc-1xcs6mc-0.hZUoPp'));
 
                     // Change the inner text for VOD or the regular resolution
@@ -1666,13 +1774,13 @@ async function downloadVideo(url,title) {
 
             })().catch(console.warn);
         }
-        var c
-        setInterval(()=>{
-            if(c!=location.href)go();
-            c=location.href;
-        },100)
+        var c;
+        setInterval(() => {
+            if (c != location.href) go();
+            c = location.href;
+        }, 100);
 
-        return
+        return;
     }
     else if (document.domain == 'clipr.xyz'){
 
@@ -2523,3 +2631,7 @@ async function downloadVideo(url,title) {
     }, 10);
 
 })();
+
+
+
+
