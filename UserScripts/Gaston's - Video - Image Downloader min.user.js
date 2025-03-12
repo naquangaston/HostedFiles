@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 8.9
+// @version 9.0
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -45,66 +45,66 @@
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
-// @name:en Gaston's - Video/Image Downloader
-// @name:ru Gaston's - Video/Image Скачатель
-// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
-// @name:fr Gaston's - téléchargeur vidéo / image
-// @name:ar Gaston's - Video/Image Downloader
-// @name:zh Gaston's - Video/Image Downloader
 // @name:de Gaston's - Video/Image Downloader
-// @name:ja Gaston's -Video/Image Downloader
-// @name:es Gaston's - Video/Image Descarger
+// @name:zh Gaston's - Video/Image Downloader
+// @name:ar Gaston's - Video/Image Downloader
+// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर Explain More actions
 // @name:pt Gaston's - Downloader de vídeo/imagem
-// @name:it Gaston's - Downloader di video/immagine
+// @name:es Gaston's - Video/Image Descarger
+// @name:ja Gaston's -Video/Image Downloader
+// @name:fr Gaston's - téléchargeur vidéo / image
+// @name:en Gaston's - Video/Image Downloader More actions
+// @name:ru Gaston's - Video/Image Скачатель
 // @name:vi Gaston's - Trình tải xuống video/hình ảnh
-// @name:ko Gaston 's- 비디오/이미지 다운로더
-// @name:uk GASTON'S - Відео/зображення завантажувача
-// @name:id Gaston's - Video/Image Downloader
-// @name:nl Gaston's - Video/Image Downloader
-// @name:pl Gaston - pobierca wideo/obrazu
 // @name:ro Gaston's - descărcător video/imagini
-// @name:tr Gaston's - Video/Resim İndirici
+// @name:ko Gaston 's- 비디오/이미지 다운로더
+// @name:id Gaston's - Video/Image Downloader
+// @name:pl Gaston - pobierca wideo/obrazu
+// @name:nl Gaston's - Video/Image Downloader More actions
 // @name:th Gaston's - Video/Image Downloader
-// @name:bg Gaston's - видео/изтегляне на изображения
-// @name:he Gaston's - הורדת וידאו/תמונה
+// @name:it Gaston's - Downloader di video/immagine
+// @name:uk GASTON'S - Відео/зображення завантажувача
+// @name:tr Gaston's - Video/Resim İndirici
 // @name:cs Gaston's - Video/Image Downloader
-// @name:sv Gaston's - Video/Image Downloader More actions
-// @name:no Gaston's - Video/Image Downloader More actions
 // @name:sk Gaston's - Video/Image Downloader
-// @name:hu Gaston's - Videó/kép letöltő
-// @name:el Gaston's - Video/Image Downloader More actions
+// @name:sv Gaston's - Video/Image Downloader
 // @name:fi Gaston's - Video/kuvan lataaja
 // @name:da Gastons - Video/Image Downloader
-// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
-// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
+// @name:bg Gaston's - видео/изтегляне на изображения
+// @name:el Gaston's - Video/Image Downloader More actions
+// @name:hu Gaston's - Videó/kép letöltő
+// @name:he Gaston's - הורדת וידאו/תמונה
+// @name:no Gaston's - Video/Image Downloader
 // @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
 // @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
-// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado) Explain More actions
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
 // @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
 // @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
+// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
 // @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent)
-// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
-// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
 // @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
+// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
 // @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany) More actions
-// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
-// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
-// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
 // @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
-// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран) More actions
-// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο) More actions
-// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
+// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
 // @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
+// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
 // @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
 // @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
-// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
-// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
-// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
 // @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované)
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
 // @license MIT
 // ==/UserScript==
 ! function() {
@@ -326,8 +326,8 @@
     _downloadFileAsTitle = async function(e, t, o, n) {
         const l = document.createElement("a");
         return l.style.display = "none", document.body.appendChild(l), fetch(e).then((e => e.blob())).then((i => {
-            const c = URL.createObjectURL(i);
-            l.href = c, l.download = t, l.target = "_blank", l.click(), URL.revokeObjectURL(c), (o || opener || window).postMessage({
+            const r = URL.createObjectURL(i);
+            l.href = r, l.download = t, l.target = "_blank", l.click(), URL.revokeObjectURL(r), (o || opener || window).postMessage({
                 url: e,
                 title: t,
                 s: !0
@@ -354,8 +354,8 @@
             const n = o.url,
                 l = await o.blob(),
                 i = window.URL.createObjectURL(l),
-                c = document.createElement("a");
-            c.href = i, c.download = t, document.body.appendChild(c), c.click(), document.body.removeChild(c), window.URL.revokeObjectURL(i), console.log(`Video downloaded from: ${n}`)
+                r = document.createElement("a");
+            r.href = i, r.download = t, document.body.appendChild(r), r.click(), document.body.removeChild(r), window.URL.revokeObjectURL(i), console.log(`Video downloaded from: ${n}`)
         } catch (e) {
             console.error("Failed to download video:", e)
         }
@@ -795,12 +795,12 @@
                                         download: l,
                                         target: i
                                     });
-                                    let c = new element("a", {
+                                    let r = new element("a", {
                                         href: n,
                                         download: l,
                                         target: i
                                     });
-                                    document.body.append(c.element), c.element.click(), await o(500), c.element.remove()
+                                    document.body.append(r.element), r.element.click(), await o(500), r.element.remove()
                                 }
                             }, "/call/" == location.pathname) {
                             ! function() {
@@ -1139,44 +1139,64 @@
                                 }
                                 _wfs = wfs, _copyElm = copyElm, async function() {
                                     location.href;
-                                    let e = (await _wfs(".ScCoreButtonLabel-sc-s7h2b7-0")).parentElement.parentElement.parentElement.parentElement;
-                                    new _e(_copyElm(e)).on("click", (function() {
-                                        var e;
-                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "1080")
-                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "1080P", new _e(_copyElm(e)).on("click", (function() {
-                                        var e;
-                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "720")
-                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "720P", new _e(_copyElm(e)).on("click", (function() {
-                                        var e;
-                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "480")
-                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "480P", new _e(_copyElm(e)).on("click", (function() {
-                                        var e;
-                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "360")
-                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "360P", new _e(_copyElm(e)).on("click", (function() {
-                                        var e;
-                                        open((e => e.href)(((e = new URL(location.href)).host = "clipr.xyz", e)), "VOD")
-                                    })).appendTo(e.parentNode).element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = "VOD";
-                                    var t;
-                                    d && (setTimeout((() => {
-                                        close()
-                                    }), 200), open((e => e.href)(((t = new URL(location.href)).host = "clipr.xyz", t)), "1080"))
+                                    let e = ".ScCoreButtonLabel-sc-s7h2b7-0",
+                                        t = (await _wfs(".ScCoreButtonLabel-sc-s7h2b7-0")).parentElement.parentElement.parentElement.parentElement;
+                                    async function o(e, t) {
+                                        return await fetch(e).then((e => !0), (e => !1)) ? (new _e("iframe", {
+                                            src: e,
+                                            width: "100%",
+                                            height: "600px",
+                                            frameborder: "0"
+                                        }).appendTo(document.body), console.log(`Embedded ${t} iframe: `, e)) : (console.warn("Embed failed"), open(e, t))
+                                    }
+                                    if ([{
+                                            label: "1080P",
+                                            resolution: "1080"
+                                        }, {
+                                            label: "720P",
+                                            resolution: "720"
+                                        }, {
+                                            label: "480P",
+                                            resolution: "480"
+                                        }, {
+                                            label: "360P",
+                                            resolution: "360"
+                                        }, {
+                                            label: "VOD",
+                                            resolution: "VOD"
+                                        }].forEach((({
+                                            label: n,
+                                            resolution: l
+                                        }) => {
+                                            let i = new _e(_copyElm(t)).on("click", (function() {
+                                                i.element.querySelector(e).innerText;
+                                                var t;
+                                                i.element.querySelector(e).innerText = "Please wait...", o((e => e.href)(((t = new URL(location.href)).host = "clipr.xyz", t)), l).then((t => i.element.querySelector(e).innerText = n))
+                                            })).appendTo(t.parentNode);
+                                            i.element.querySelector(e).innerText = n
+                                        })), d) {
+                                        setTimeout((() => {
+                                            close()
+                                        }), 200), o((e => e.href)(((n = new URL(location.href)).host = "clipr.xyz", n)), "1080P")
+                                    }
+                                    var n
                                 }().catch(console.warn)
                             } else {
                                 if ("www.twitch.tv" == document.domain) {
                                     async function go() {
-                                        let [e, t, o, n] = location.pathname.split("/");
-                                        if ("clip" != o) return console.warn("User isnt wathcing a clip");
+                                        let [, e, t, o] = location.pathname.split("/");
+                                        if ("clip" !== t) return console.warn("User isnt wathcing a clip");
                                         console.log("User is Watching a CLip");
-                                        const l = e => new Promise((t => setTimeout(t, e)));
-                                        async function i(e, t = 2e4) {
+                                        const n = e => new Promise((t => setTimeout(t, e)));
+                                        async function l(e, t = 2e4) {
                                             let o = !1;
                                             for (setTimeout((() => {
                                                     console.log("TimeOut for", e), o = !0
-                                                }), t); !document.querySelector(e) && (console.log("_", e, o), await l(500), !o););
+                                                }), t); !document.querySelector(e) && (console.log("_", e, o), await n(500), !o););
                                             if (console.log(e, o), o) throw "NotFound";
                                             return document.querySelector(e)
                                         }
-                                        _wfs = i, _wfs_ = i, _copyElm = function(e) {
+                                        _wfs = l, _wfs_ = l, _copyElm = function(e) {
                                             if (!(e instanceof Element)) throw new Error("Provided argument is not a DOM element.");
                                             const t = document.createElement(e.tagName);
                                             for (let o of e.attributes) t.setAttribute(o.name, o.value);
@@ -1184,7 +1204,8 @@
                                         }, await async function() {
                                             location.href;
                                             await _wfs(".Layout-sc-1xcs6mc-0.bMOhzu");
-                                            let l = [...document.querySelectorAll(".Layout-sc-1xcs6mc-0 .bMOhzu")].filter((e => e.querySelector("button") && !e.querySelector("button").disabled))[0];
+                                            let n = [...document.querySelectorAll(".Layout-sc-1xcs6mc-0 .bMOhzu")].filter((e => e.querySelector("button") && !e.querySelector("button").disabled))[0],
+                                                l = ".bFxzAY";
                                             [{
                                                 label: "1080P",
                                                 resolution: "1080"
@@ -1202,13 +1223,21 @@
                                                 resolution: "VOD"
                                             }].forEach((({
                                                 label: i,
-                                                resolution: c
+                                                resolution: r
                                             }) => {
-                                                let r = new _e(_copyElm(l)).on("click", (function() {
-                                                    var l;
-                                                    [e, t, o, n] = location.pathname.split("/"), open((e => e.href)(((l = new URL(location.href)).host = "clipr.xyz", l)), c)
+                                                let c = new _e(_copyElm(n)).on("click", (function() {
+                                                    c.element.querySelector(l).innerText;
+                                                    var n;
+                                                    c.element.querySelector(l).innerText = "Please wait...", [, e, t, o] = location.pathname.split("/"), async function(e, t, o, n) {
+                                                        return await fetch(e).then((e => !0), (e => !1)) ? (new _e("iframe", {
+                                                            src: e,
+                                                            width: "100%",
+                                                            height: "600px",
+                                                            frameborder: "0"
+                                                        }).appendTo(document.body), console.log(`Embedded ${t} iframe: `, e)) : (console.warn("Embed failed"), open(e, t))
+                                                    }((e => e.href)(((n = new URL(location.href)).host = "clipr.xyz", n)), r).then((e => c.element.querySelector(l).innerText = i))
                                                 })).appendTo(document.querySelector(".Layout-sc-1xcs6mc-0.hZUoPp"));
-                                                "VOD" === c ? r.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = i : r.element.querySelector(".bFxzAY").innerText = i
+                                                "VOD" === r ? c.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = i : c.element.querySelector(l).innerText = i
                                             }))
                                         }().catch(console.warn)
                                     }
@@ -1304,14 +1333,14 @@
                 o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
             }
             if (console.log("B?"), _getIds = getIds, info = {}, downloadT = function(e, t = !1, o = !0, n = !1, l = !1, i = "") {
-                    let c = e + (n ? "mp4" : "mp3") + o;
-                    var r;
-                    if (!(r = document.getElementById(c)) || r.remove(), localStorage[c] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
+                    let r = e + (n ? "mp4" : "mp3") + o;
+                    var c;
+                    if (!(c = document.getElementById(r)) || c.remove(), localStorage[r] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
                     let a = i || location;
                     var s = new URL(a.href);
                     s.host = s.host.replace(".com", "mz.com"), console.log("o", s);
                     let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
-                    console.log(c, d);
+                    console.log(r, d);
                     return ad("unload", (function() {
                         info[e].close()
                     }), !0), onmessage = function(e) {
@@ -1321,20 +1350,20 @@
                                     href: t,
                                     title: l,
                                     length: i,
-                                    id: c,
-                                    _: r
+                                    id: r,
+                                    _: c
                                 }
                             } = e;
                             let a = l + (n ? ".mp4" : ".mp3");
                             (e => {
                                 e && e.remove()
-                            })(document.getElementById(r)), console.log("Handled", {
+                            })(document.getElementById(c)), console.log("Handled", {
                                 href: t,
                                 title: l,
                                 length: i,
-                                id: c,
-                                _: r
-                            }, e), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
+                                id: r,
+                                _: c
+                            }, e), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[c] = t
                         } else console.log("Unhandled Post", e)
                     }, info[e] = n ? open(a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500")
                 }, "studio.youtube.com" == document.domain) return;
@@ -1396,8 +1425,8 @@
                                     links: o,
                                     title: n,
                                     length: i,
-                                    id: c,
-                                    mp4: r,
+                                    id: r,
+                                    mp4: c,
                                     info: {
                                         username: a
                                     }
@@ -1407,10 +1436,10 @@
                                     href: t,
                                     title: n,
                                     length: i,
-                                    id: c,
+                                    id: r,
                                     links: o,
-                                    mp4: r
-                                }, e), "https://savetik.co" == e.origin) n = l, downloadFileAsTitle(r ? o[0] : o.pop(), a + " - " + n + (r ? ".mp4" : ".mp3"), tiktikWin);
+                                    mp4: c
+                                }, e), "https://savetik.co" == e.origin) n = l, downloadFileAsTitle(c ? o[0] : o.pop(), a + " - " + n + (c ? ".mp4" : ".mp3"), tiktikWin);
                             else {
                                 if (useT) {
                                     let e = document.createElement("a");
@@ -1815,10 +1844,10 @@
                 i || document.querySelectorAll(".ytp-ad-button-icon")[0] ? (setPlayerBackAd && t.playbackRate == t.duration / adPlayTimeInSeconds || (setPlayerBackAd = 1, console.log("Skipping ad :>")), !cliked && (cliked = !0, setTimeout((() => {
                     i && i.click(), cliked = !1
                 }), 5e3)), setPlayerBack = 0) : !setPlayerBack && t ? (setPlayerBackAd = 0, setPlayerBack = 1, t.playbackRate = currentPB > 2 ? 1 : currentPB, console.log("Fixed playBack")) : t && (setPlayerBackAd = 0, (currentPB = t.playbackRate) > 2 && (t.playbackRate = 1));
-                const c = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
-                c && (c.click(), console.log("Closed ad card"));
-                let r = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
-                r && (r.click(), !isReloading && location.href.includes("watch") && (isReloading = 1, location.href = addSearchParam()))
+                const r = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
+                r && (r.click(), console.log("Closed ad card"));
+                let c = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
+                c && (c.click(), !isReloading && location.href.includes("watch") && (isReloading = 1, location.href = addSearchParam()))
             }), 10)
         }()
 }();
