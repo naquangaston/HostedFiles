@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      9.2
+// @version      9.3
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -90,85 +90,67 @@ class element {
     static get br() {
         return new element("br");
     }
-    constructor(name, obj) {
-        //findhref2(id('skin-message'))[0].constructor.name
-
-        this.element = name.constructor.name.includes('HTML')&&(name)||(function () {
-            for (let i in arguments[1]) {
-                arguments[0].setAttribute(i, arguments[1][i]);
+    constructor(tag, props = {}) {
+        // If tag is already an HTML element, use it directly.
+        if (tag instanceof HTMLElement) {
+            this.element = tag;
+        } else {
+            this.element = document.createElement(tag);
+            for (let key in props) {
+                if (key === "className") {
+                    // Set the class properly.
+                    this.element.className = props[key];
+                } else {
+                    this.element.setAttribute(key, props[key]);
+                }
             }
-            return arguments[0];
-        })(document.createElement(arguments[0]), arguments[1]);
+        }
     }
-    style(obj) {
-        for (let i in obj) {
-            this.element.style[i] = obj[i];
+    style(styles) {
+        for (let prop in styles) {
+            this.element.style[prop] = styles[prop];
         }
         return this;
     }
-    append(target,...targets) {
+    append(target, ...targets) {
         this.element.append(target.element || target);
-        console.log("T:",{targets,fe:targets&&targets.forEach})
-        for(let i=0;i<targets.length;i++){
-            let a=targets[i];
-            console.log('Appending:',{element:a,target:this})
-            this.element.append(a.element || a);
+        for (let i = 0; i < targets.length; i++) {
+            this.element.append(targets[i].element || targets[i]);
         }
         return this;
     }
     appendTo(target) {
-        (target.element || typeof target=='string'?document.querySelector(target):target).append(this.element);
+        (target.element || (typeof target === 'string' ? document.querySelector(target) : target)).append(this.element);
         return this;
     }
-    on(event, a) {
-        this.element[`on${event}`] = a;
+    on(event, callback) {
+        this.element.addEventListener(event, callback);
         return this;
     }
     set(prop, value) {
-        this.element[prop] = value;
+        if (prop === "className") {
+            // Remove a leading period if it's there.
+            if (typeof value === "string" && value.startsWith('.')) {
+                value = value.substring(1);
+            }
+            this.element.className = value;
+        } else {
+            this.element[prop] = value;
+        }
         return this;
     }
     remove() {
         this.element.remove();
         return this;
     }
-    get() {
-        return this.element[arguments[0]];
+    get(prop) {
+        return this.element[prop];
     }
     get children() {
-        return new (class $ {
-            constructor(arr) {
-                for (var i = 0; i < arr.length; i += 1) {
-                    this[i] = arr[i];
-                }
-
-                // length is readonly
-                Object.defineProperty(this, "length", {
-                    get: function () {
-                        return arr.length;
-                    }
-                });
-
-                // a HTMLCollection is immutable
-                Object.freeze(this);
-            }
-            item(i) {
-                return this[i] != null ? this[i] : null;
-            }
-            namedItem(name) {
-                for (var i = 0; i < this.length; i += 1) {
-                    if (this[i].id === name || this[i].name === name) {
-                        return this[i];
-                    }
-                }
-                return null;
-            }
-            get toArray() {
-                return [...this];
-            }
-        })([...this.element.children]);
+        return Array.from(this.element.children);
     }
 }
+
 _element=_e=element;
 function dispatchAllInputEvents(target, value) {
     const inputEvents = ['focus', 'input', 'change', 'blur'];
@@ -650,11 +632,41 @@ async function downloadVideo(url,title) {
             test(url){
                 return(new URL(url)).host.includes('tiktok')
             },
-            action(){
+            action() {
+                console.log("OK, let's go2");
+                addEventListener("load", function() {
+                    console.log("OK, let's go");
+
+                    // Polling function that checks for the fallback element and appends buttons if missing
+                    function pollAndAppendButtons() {
+                        // Get the fallback target element
+                        const targetEl = (abc_('browse-copy', 'data-e2e') || abc_('browse-user-avatar', 'data-e2e'))?(abc_('browse-copy', 'data-e2e') || abc_('browse-user-avatar', 'data-e2e')).parentNode:null;
+                        if (!targetEl) {
+                            console.log("Target element not found, fam.");
+                            return;
+                        }
+                        // If button with class .tt1 isn't found, append the buttons
+                        if (!targetEl.querySelector('.tt1')) {
+                            console.log("Buttons not found, appending now.");
+                            targetEl.append(tiktokButton.element);
+                            targetEl.append(tiktokButton2.element);
+                        } else {
+                            console.log("Buttons already exist, chillin'.");
+                        }
+                    }
+
+                    // Run the polling function right away
+                    pollAndAppendButtons();
+                    // Set up an indefinite loop that checks every 4 seconds
+                    setInterval(pollAndAppendButtons, 4000);
+                });
+            },
+            action2(){
                 console.log('OK lets go2')
                 addEventListener("load", function () {
                     console.log('OK lets go');
                     // Initialize the function
+                    return
                     tF(function () {
                         if (document.getElementById("tt1")) throw "Cant Append";
 
@@ -664,12 +676,13 @@ async function downloadVideo(url,title) {
                         function _ex() {
                             try {
                                 // Select elements by class or fallback
-                                const elements = document.querySelectorAll('.eqrezik18, .e1mecfx011, .ees02z00').length
+                                const elements = [...document.querySelectorAll('.eqrezik18, .e1mecfx011, .ees02z00'),abc_('browse-copy', 'data-e2e')?abc_('browse-copy', 'data-e2e').parentNode:null,abc_('browse-user-avatar', 'data-e2e')?abc_('browse-user-avatar', 'data-e2e').parentNode:null]
+                                /*document.querySelectorAll('.eqrezik18, .e1mecfx011, .ees02z00').length
                                 ? document.querySelectorAll('.eqrezik18, .e1mecfx011, .ees02z00')
-                                : [abc_('browse-copy', 'data-e2e').parentNode];
+                                : [abc_('browse-copy', 'data-e2e').parentNode];*/
 
                                 // Filter visible elements and exclude those with a child `#tt1`
-                                const visibleElements = getVisiable(elements).filter(el => !el.querySelector(".tt1"));
+                                const visibleElements = getVisiable(elements).filter(el => el&&!el.querySelector(".tt1"));
 
                                 // Return visible elements or false
                                 if (visibleElements.length) return visibleElements;
@@ -684,7 +697,8 @@ async function downloadVideo(url,title) {
                         // Polling mechanism to detect changes
                         setInterval(() => {
                             const currentVisible = _ex();
-                            if (exist !== currentVisible && currentVisible) {
+                            if (exist != currentVisible && currentVisible) {
+                                console.log({currentVisible,exist})
                                 console.log("Added playlist buttons");
 
                                 // Append buttons to all new visible elements
@@ -692,12 +706,12 @@ async function downloadVideo(url,title) {
                                     a.append(tiktokButton.element);
                                     a.append(tiktokButton2.element);
                                 });
-                            } else if (exist !== currentVisible && !currentVisible) {
+                            } else if (exist != currentVisible && !currentVisible) {
                                 console.log("buttons are gone?!?!");
                             }
 
                             exist = currentVisible;
-                        }, 100);
+                        }, 4000);
                     }, { callback: function () { } });
                 });
             }
@@ -1937,6 +1951,9 @@ async function downloadVideo(url,title) {
 
         //tiktok
         "savetik.co":async()=>{
+            if(location.pathname.split('/')[1]!=GM_getValue("savetik.co")){
+                GM_setValue("savetik.co",location.pathname.split('/')[1])
+            }
             var [id,mp4]=name.split(",")
             addEventListener("load",function(){
                 tF(function(){
@@ -1949,7 +1966,7 @@ async function downloadVideo(url,title) {
                 console.log("Found")
                 let title=document.getElementsByClassName("clearfix")[0].innerText
                 let links=findhref2(document.getElementsByClassName("tik-video")[0]).map(e=>e.href)
-                let f={title,links,mp4:mp4==1,info:setElement2(id)}
+                let f={id,title,links,mp4:mp4==1,info:setElement2(id)}
                 let Porigin='https://www.tiktok.com'
                 onmessage=function(e){
                     if(e.origin==Porigin){
@@ -1964,7 +1981,14 @@ async function downloadVideo(url,title) {
                 ;(opener||window).postMessage(f,'*')
                 //setTimeout(close,100)
             }
-
+            GM_addValueChangeListener(id, async function(a, b, c, d) {
+                console.log({ a, b, c, d });
+                if (c!=b&&c){
+                    GM_deleteValue(id)
+                    await sleep(5000)
+                    close()
+                }
+            });
             tF(function(){document.getElementsByClassName("clearfix")[0].innerText;Fin()},{callback(){}})
 
         },
@@ -2204,7 +2228,7 @@ async function downloadVideo(url,title) {
                 const {data:{href,title,length,id,_}}=e
                 let n=(title)+(mp4?".mp4":".mp3")
                 !((a)=>a&&a.remove())(document.getElementById(_))
-                console.log('Handled',{href,title,length,id,_},e)
+                console.log('Handled',{href,title,length,id,_},e,document.getElementById(_),document.getElementById(_)&&document.getElementById(_).remove())
                 //info[id].close()
                 button.set("innerText","Get MP3")
                 button.set("disabled",false)
@@ -2220,10 +2244,49 @@ async function downloadVideo(url,title) {
         }
         //`https://downvideo.quora-wiki.com/tiktok-video-downloader#url=https://www.youtube.com/watch?v=${id}`
         //open([o.protocol,'//',o.host,o.pathname,'?v=',setElement(location.href)].join(''))
+        let alturl2=(l_).pathname.startsWith('/shorts/')?"https://www.socialplug.io/free-tools/youtube-video-downloader":`https://qdownloader.cc/youtube-video-downloader.html?v=${id}`
         return info[id]=mp4?
-            open((l_).pathname.startsWith('/shorts/')?"https://www.socialplug.io/free-tools/youtube-video-downloader":`https://qdownloader.cc/youtube-video-downloader.html?v=${id}`,[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
-        :!function(){
-            return open(altUrl.join(''),[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false,useT+false],`width=400,height=500`)
+            open(alturl2,[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
+        :!async function(){
+            if(info[id]=mp4){
+                let canFrame2=await fetch(alturl2.join('')).then(a=>true,a=>false)
+                if(canFrame2){
+                    var frame = new _e('iframe', {
+                        src: alturl2.join(''),
+                        id: _,
+                        useT,
+                        loading: "lazy",
+                        referrerpolicy: "no-referrer",
+                        allowfullscreen: true,
+                        sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
+                        allow: "autoplay; fullscreen; geolocation; microphone; camera"
+                    }).style({
+                        border: 0,
+                        position: 'absolute',
+                        // Optional: width and height set to 0 to make the iframe visually disappear but still load content
+                        width: 1920,
+                        height: 1080,
+                        // Optional: move the iframe offscreen if you don't want to set width and height to 0
+                        // top: '-9999px',
+                        // left: '-9999px',
+                        // Ensure the iframe does not capture pointer events
+                        'pointer-events': 'none',
+                        // Set maximum opacity
+                        opacity: 1
+                    });
+                    frame.appendTo(document.body);
+                    frame.closed=false;
+                    return frame
+                }else{
+                    return open(alturl2,[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false],`width=400,height=500`)
+                }
+                return
+            }
+            let canFrame=await fetch(altUrl.join('')).then(a=>true,a=>false)
+            if(!canFrame){
+                console.warn('Cant Frame')
+                return open(altUrl.join(''),[id,l_.pathname.startsWith('/shorts/')?1:0,mp4+false,useT+false],`width=400,height=500`)
+            }
             var frame = new _e('iframe', {
                 src: altUrl.join(''),
                 id: _,
@@ -2264,6 +2327,7 @@ async function downloadVideo(url,title) {
 
     downloadTikTok=function(a,b){
         (async function(mp4,info){
+            let base=`https://savetik.co/${GM_getValue("savetik.co")}`
             await waitTT()
             console.log('ez')
             let id=info.videoID
@@ -2273,6 +2337,7 @@ async function downloadVideo(url,title) {
                 if(e.origin==Porigin||e.origin.match(/https?:\/{2}savetik\.csavetik.coo/)||e.origin.match(/https?:\/{2}en\.onlymp3\.to/)||e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/)||e.origin=="https://savetik.co"){
                     var {data:{href,links,title,length,id,mp4,info:{username}}}=e
                     console.log('Handled',{href,title,length,id,links,mp4},e)
+                    GM_setValue(id,true)
                     //info[id].close()
                     if(e.origin=="https://savetik.co"){
                         title=title_
@@ -2291,7 +2356,50 @@ async function downloadVideo(url,title) {
                     }
                 }else console.log('Unhandled Post',e)
             }
-            tiktikWin=open("https://savetik.co/en",[`https://www.tiktok.com/${user}/video/${id}`,mp4+false],`width=400,height=500`)
+            if(await fetch(base).then(e=>true,t=>false)){
+                var frame
+                GM_addValueChangeListener('savetik.co', async function(a, b, c, d) {
+                    console.log({ a, b, c, d });
+                    if (c!=b&&c){
+                        base=`https://savetik.co/${c}`
+                        frame.set('src',`${base}?user=${user}&id=${id}`)
+                    }
+                });
+                frame = new _e('iframe', {
+                    src: `${base}?user=${user}&id=${id}`,
+                    id: id,
+                    useT,
+                    loading: "lazy",
+                    referrerpolicy: "no-referrer",
+                    allowfullscreen: true,
+                    sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
+                    allow: "autoplay; fullscreen; geolocation; microphone; camera"
+                }).style({
+                    border: 0,
+                    position: 'absolute',
+                    // Optional: width and height set to 0 to make the iframe visually disappear but still load content
+                    width: 1920,
+                    height: 1080,
+                    // Optional: move the iframe offscreen if you don't want to set width and height to 0
+                    // top: '-9999px',
+                    // left: '-9999px',
+                    // Ensure the iframe does not capture pointer events
+                    'pointer-events': 'none',
+                    // Set maximum opacity
+                    opacity: 1
+                });
+                return
+            }
+            GM_addValueChangeListener('savetik.co', async function(a, b, c, d) {
+                console.log('savetik.co',{ a, b, c, d });
+                if (c!=b&&c){
+                    tiktikWin?.close()
+                    base=`https://savetik.co/${c}`
+                    console.log('Updaed stuff')
+                    tiktikWin=open(base,[`https://www.tiktok.com/${user}/video/${id}`,mp4+false],`width=400,height=500`)
+                }
+            });
+            tiktikWin=open(base,[`https://www.tiktok.com/${user}/video/${id}`,mp4+false],`width=400,height=500`)
         })(a,b).then(console.log,console.warn)
     }
     function abc(label, item = 'aria-label', doc = document.body) {
@@ -2423,9 +2531,9 @@ async function downloadVideo(url,title) {
     var button2 = (new element('button')).set("innerText","Get MP4").on('click',function(e){downloadT(setElement(location.href),true,true,true,true)})
     var button3 = (new element('button')).set("innerText","PlayList MP3").on('click',function(e){WIP_(2,false,false)})
     var button4 = (new element('button')).set("innerText","PlayList MP4").on('click',function(e){WIP_(2,true,false)})
-    var tiktokButton=(new element('button',{className:"tt1"})).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'blue'})
+    var tiktokButton=(new element('button',{className:"tt1"})).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'blue'}).set('className','.tt1')
     var tiktokButton3=(new element('button',{className:"tt3"})).set("innerText","Get MP4").on('click',function(e){downloadTikTok(true,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))}).style({color:'blue'})
-    var tiktokButton2=(new element('button')).set("innerText","Get MP3").on('click',function(e){
+    var tiktokButton2=(new element('button',{className:"tt2"})).set("innerText","Get MP3").on('click',function(e){
         downloadTikTok(false,setElement2(getClass("ehlq8k34")?getClass("ehlq8k34").innerText:location.href))
     }).style({color:'blue'})
     function _ex_(){
@@ -2506,7 +2614,7 @@ async function downloadVideo(url,title) {
                     // Polling mechanism to detect changes
                     setInterval(() => {
                         const currentVisible = _ex();
-                        if (exist !== currentVisible && currentVisible) {
+                        if (exits !== currentVisible && currentVisible) {
                             console.log("Added playlist buttons");
 
                             // Append buttons to all new visible elements
