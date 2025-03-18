@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 9.2
+// @version 9.3
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -44,66 +44,66 @@
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
+// @name:en Gaston's - Video/Image Downloader
 // @name:zh Gaston's - Video/Image Downloader
+// @name:fr Gaston's - téléchargeur vidéo / image
 // @name:ar Gaston's - Video/Image Downloader
 // @name:de Gaston's - Video/Image Downloader
-// @name:es Gaston's - Video/Image Descarger
-// @name:en Gaston's - Video/Image Downloader More actions
+// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
+// @name:pt Gaston's - Downloader de vídeo/imagem
 // @name:ru Gaston's - Video/Image Скачатель
 // @name:ja Gaston's -Video/Image Downloader
-// @name:pt Gaston's - Downloader de vídeo/imagem
-// @name:fr Gaston's - téléchargeur vidéo / image
-// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
+// @name:es Gaston's - Video/Image Descarger
+// @name:nl Gaston's - Video/Image Downloader
+// @name:tr Gaston's - Video/Resim İndirici
 // @name:ro Gaston's - descărcător video/imagini
 // @name:id Gaston's - Video/Image Downloader
+// @name:vi Gaston's - Trình tải xuống video/hình ảnh
+// @name:pl Gaston - pobierca wideo/obrazu
 // @name:it Gaston's - Downloader di video/immagine
 // @name:th Gaston's - Video/Image Downloader
-// @name:vi Gaston's - Trình tải xuống video/hình ảnh
-// @name:ko Gaston 's- 비디오/이미지 다운로더
-// @name:nl Gaston's - Video/Image Downloader
-// @name:pl Gaston - pobierca wideo/obrazu
-// @name:tr Gaston's - Video/Resim İndirici
 // @name:uk GASTON'S - Відео/зображення завантажувача
-// @name:no Gaston's - Video/Image Downloader More actions
-// @name:bg Gaston's - видео/изтегляне на изображения
-// @name:cs Gaston's - Video/Image Downloader
+// @name:ko Gaston 's- 비디오/이미지 다운로더 More actions
 // @name:sk Gaston's - Video/Image Downloader More actions
-// @name:sv Gaston's - Video/Image Downloader
-// @name:da Gastons - Video/Image Downloader
-// @name:el Gaston's - Video/Image Downloader
-// @name:hu Gaston's - Videó/kép letöltő
+// @name:bg Gaston's - видео/изтегляне на изображения
 // @name:fi Gaston's - Video/kuvan lataaja
+// @name:da Gastons - Video/Image Downloader
+// @name:sv Gaston's - Video/Image Downloader
+// @name:hu Gaston's - Videó/kép letöltő
+// @name:el Gaston's - Video/Image Downloader
+// @name:cs Gaston's - Video/Image Downloader
+// @name:no Gaston's - Video/Image Downloader
 // @name:he Gaston's - הורדת וידאו/תמונה
 // @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
-// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) More actions
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
-// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
-// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
-// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
+// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
+// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
 // @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
-// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado) Explain More actions
-// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour) More actions
-// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
-// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
-// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
-// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent) More actions
-// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
-// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
+// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
 // @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
-// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent) More actions
+// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
 // @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
+// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
+// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
+// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
+// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
+// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
+// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
 // @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
 // @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
 // @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
-// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
-// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
-// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
 // @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované) More actions
-// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
-// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
-// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
 // @license MIT
 // ==/UserScript==
 ! function() {
@@ -140,67 +140,39 @@
         static get br() {
             return new element("br")
         }
-        constructor(e, t) {
-            this.element = e.constructor.name.includes("HTML") && e || function() {
-                for (let e in arguments[1]) arguments[0].setAttribute(e, arguments[1][e]);
-                return arguments[0]
-            }(document.createElement(arguments[0]), arguments[1])
+        constructor(e, t = {}) {
+            if (e instanceof HTMLElement) this.element = e;
+            else {
+                this.element = document.createElement(e);
+                for (let e in t) "className" === e ? this.element.className = t[e] : this.element.setAttribute(e, t[e])
+            }
         }
         style(e) {
             for (let t in e) this.element.style[t] = e[t];
             return this
         }
         append(e, ...t) {
-            this.element.append(e.element || e), console.log("T:", {
-                targets: t,
-                fe: t && t.forEach
-            });
-            for (let e = 0; e < t.length; e++) {
-                let o = t[e];
-                console.log("Appending:", {
-                    element: o,
-                    target: this
-                }), this.element.append(o.element || o)
-            }
+            this.element.append(e.element || e);
+            for (let e = 0; e < t.length; e++) this.element.append(t[e].element || t[e]);
             return this
         }
         appendTo(e) {
-            return (e.element || "string" == typeof e ? document.querySelector(e) : e).append(this.element), this
+            return (e.element || ("string" == typeof e ? document.querySelector(e) : e)).append(this.element), this
         }
         on(e, t) {
-            return this.element[`on${e}`] = t, this
+            return this.element.addEventListener(e, t), this
         }
         set(e, t) {
-            return this.element[e] = t, this
+            return "className" === e ? ("string" == typeof t && t.startsWith(".") && (t = t.substring(1)), this.element.className = t) : this.element[e] = t, this
         }
         remove() {
             return this.element.remove(), this
         }
-        get() {
-            return this.element[arguments[0]]
+        get(e) {
+            return this.element[e]
         }
         get children() {
-            return new class {
-                constructor(e) {
-                    for (var t = 0; t < e.length; t += 1) this[t] = e[t];
-                    Object.defineProperty(this, "length", {
-                        get: function() {
-                            return e.length
-                        }
-                    }), Object.freeze(this)
-                }
-                item(e) {
-                    return null != this[e] ? this[e] : null
-                }
-                namedItem(e) {
-                    for (var t = 0; t < this.length; t += 1)
-                        if (this[t].id === e || this[t].name === e) return this[t];
-                    return null
-                }
-                get toArray() {
-                    return [...this]
-                }
-            }([...this.element.children])
+            return Array.from(this.element.children)
         }
     }
 
@@ -476,27 +448,17 @@
                 }, {
                     test: e => new URL(e).host.includes("tiktok"),
                     action() {
+                        console.log("OK, let's go2"), addEventListener("load", (function() {
+                            function e() {
+                                const e = abc_("browse-copy", "data-e2e") || abc_("browse-user-avatar", "data-e2e") ? (abc_("browse-copy", "data-e2e") || abc_("browse-user-avatar", "data-e2e")).parentNode : null;
+                                e ? e.querySelector(".tt1") ? console.log("Buttons already exist, chillin'.") : (console.log("Buttons not found, appending now."), e.append(tiktokButton.element), e.append(tiktokButton2.element)) : console.log("Target element not found, fam.")
+                            }
+                            console.log("OK, let's go"), e(), setInterval(e, 4e3)
+                        }))
+                    },
+                    action2() {
                         console.log("OK lets go2"), addEventListener("load", (function() {
-                            console.log("OK lets go"), tF((function() {
-                                if (document.getElementById("tt1")) throw "Cant Append";
-                                console.log("Posted Buttons");
-                                var e = !1;
-                                setInterval((() => {
-                                    const t = function() {
-                                        try {
-                                            const e = getVisiable(document.querySelectorAll(".eqrezik18, .e1mecfx011, .ees02z00").length ? document.querySelectorAll(".eqrezik18, .e1mecfx011, .ees02z00") : [abc_("browse-copy", "data-e2e").parentNode]).filter((e => !e.querySelector(".tt1")));
-                                            return !!e.length && e
-                                        } catch (e) {
-                                            return !1
-                                        }
-                                    }();
-                                    e !== t && t ? (console.log("Added playlist buttons"), t.forEach((e => {
-                                        e.append(tiktokButton.element), e.append(tiktokButton2.element)
-                                    }))) : e === t || t || console.log("buttons are gone?!?!"), e = t
-                                }), 100)
-                            }), {
-                                callback: function() {}
-                            })
+                            console.log("OK lets go")
                         }))
                     }
                 }, {
@@ -1283,6 +1245,7 @@
                         (opener || window).postMessage(t, "*")
                     },
                     "savetik.co": async() => {
+                        location.pathname.split("/")[1] != GM_getValue("savetik.co") && GM_setValue("savetik.co", location.pathname.split("/")[1]);
                         var [e, t] = name.split(",");
                         addEventListener("load", (function() {
                             tF((function() {
@@ -1290,16 +1253,26 @@
                             }), {
                                 callback() {}
                             })
+                        })), GM_addValueChangeListener(e, (async function(t, o, n, l) {
+                            console.log({
+                                a: t,
+                                b: o,
+                                c: n,
+                                d: l
+                            }), n != o && n && (GM_deleteValue(e), await sleep(5e3), close())
                         })), tF((function() {
                             document.getElementsByClassName("clearfix")[0].innerText,
                                 function() {
                                     console.log("Found");
-                                    let o = {
-                                        title: document.getElementsByClassName("clearfix")[0].innerText,
-                                        links: findhref2(document.getElementsByClassName("tik-video")[0]).map((e => e.href)),
-                                        mp4: 1 == t,
-                                        info: setElement2(e)
-                                    };
+                                    let o = document.getElementsByClassName("clearfix")[0].innerText,
+                                        n = findhref2(document.getElementsByClassName("tik-video")[0]).map((e => e.href)),
+                                        l = {
+                                            id: e,
+                                            title: o,
+                                            links: n,
+                                            mp4: 1 == t,
+                                            info: setElement2(e)
+                                        };
                                     onmessage = function(e) {
                                         if ("https://www.tiktok.com" == e.origin) {
                                             var {
@@ -1315,7 +1288,7 @@
                                                 title: n
                                             }, e), t ? setTimeout(close, 100) : downloadFileAsTitle(o, n, null, close)
                                         } else console.log("Unhandled Post", e)
-                                    }, (opener || window).postMessage(o, "*")
+                                    }, (opener || window).postMessage(l, "*")
                                 }()
                         }), {
                             callback() {}
@@ -1557,7 +1530,7 @@
                 s.host = s.host.replace(".com", "mz.com"), console.log("o", s);
                 let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
                 console.log(c, d);
-                return ad("unload", (function() {
+                ad("unload", (function() {
                     info[e].close()
                 }), !0), onmessage = function(e) {
                     if (e.origin == Porigin || e.origin.match(/https?:\/{2}onlymp3\.to/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://sss.instasaverpro.com" == e.origin || "https://y2mate.nu" == e.origin || "https://snapsave.io" == e.origin || "https://www.socialplug.io" == e.origin || "https://tubemp4.is" == e.origin) {
@@ -1579,47 +1552,123 @@
                             length: i,
                             id: c,
                             _: r
-                        }, e), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
+                        }, e, document.getElementById(r), document.getElementById(r) && document.getElementById(r).remove()), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
                     } else console.log("Unhandled Post", e)
-                }, info[e] = n ? open(a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500")
+                };
+                let u = a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`;
+                return info[e] = n ? open(u, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !async function() {
+                    if (info[e] = n) {
+                        return await fetch(u.join("")).then((e => !0), (e => !1)) ? ((t = new _e("iframe", {
+                            src: u.join(""),
+                            id: c,
+                            useT: o,
+                            loading: "lazy",
+                            referrerpolicy: "no-referrer",
+                            allowfullscreen: !0,
+                            sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
+                            allow: "autoplay; fullscreen; geolocation; microphone; camera"
+                        }).style({
+                            border: 0,
+                            position: "absolute",
+                            width: 1920,
+                            height: 1080,
+                            "pointer-events": "none",
+                            opacity: 1
+                        })).appendTo(document.body), t.closed = !1, t) : open(u, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500")
+                    }
+                    if (!await fetch(d.join("")).then((e => !0), (e => !1))) return console.warn("Cant Frame"), open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500");
+                    var t = new _e("iframe", {
+                        src: d.join(""),
+                        id: c,
+                        useT: o,
+                        loading: "lazy",
+                        referrerpolicy: "no-referrer",
+                        allowfullscreen: !0,
+                        sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
+                        allow: "autoplay; fullscreen; geolocation; microphone; camera"
+                    }).style({
+                        border: 0,
+                        position: "absolute",
+                        width: 1920,
+                        height: 1080,
+                        "pointer-events": "none",
+                        opacity: 1
+                    });
+                    return ev = GM_addValueChangeListener("y2mate.nu", (function(l, i, c, r) {
+                        d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "0HzX") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o], t.set("src", d.join(""))
+                    })), t.appendTo(document.body), t.closed = !1, t
+                }()
             }, downloadTikTok = function(e, t) {
                 (async function(e, t) {
+                    let o = `https://savetik.co/${GM_getValue("savetik.co")}`;
                     await waitTT(), console.log("ez");
-                    let o = t.videoID,
-                        n = t.username,
-                        l = getTikTokTittle();
-                    onmessage = function(e) {
-                        if (e.origin == Porigin || e.origin.match(/https?:\/{2}savetik\.csavetik.coo/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://savetik.co" == e.origin) {
-                            var {
-                                data: {
-                                    href: t,
-                                    links: o,
-                                    title: n,
-                                    length: i,
-                                    id: c,
-                                    mp4: r,
-                                    info: {
-                                        username: a
+                    let n = t.videoID,
+                        l = t.username,
+                        i = getTikTokTittle();
+                    var c;
+                    if (onmessage = function(e) {
+                            if (e.origin == Porigin || e.origin.match(/https?:\/{2}savetik\.csavetik.coo/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://savetik.co" == e.origin) {
+                                var {
+                                    data: {
+                                        href: t,
+                                        links: o,
+                                        title: n,
+                                        length: l,
+                                        id: c,
+                                        mp4: r,
+                                        info: {
+                                            username: a
+                                        }
                                     }
+                                } = e;
+                                if (console.log("Handled", {
+                                        href: t,
+                                        title: n,
+                                        length: l,
+                                        id: c,
+                                        links: o,
+                                        mp4: r
+                                    }, e), GM_setValue(c, !0), "https://savetik.co" == e.origin) n = i, downloadFileAsTitle(r ? o[0] : o.pop(), a + " - " + n + (r ? ".mp4" : ".mp3"), tiktikWin);
+                                else {
+                                    if (useT) {
+                                        let e = document.createElement("a");
+                                        e.download = n + ".mp3", e.href = t, document.body.appendChild(e), e.click(), e.remove()
+                                    } else open(t);
+                                    localStorage[_] = t
                                 }
-                            } = e;
-                            if (console.log("Handled", {
-                                    href: t,
-                                    title: n,
-                                    length: i,
-                                    id: c,
-                                    links: o,
-                                    mp4: r
-                                }, e), "https://savetik.co" == e.origin) n = l, downloadFileAsTitle(r ? o[0] : o.pop(), a + " - " + n + (r ? ".mp4" : ".mp3"), tiktikWin);
-                            else {
-                                if (useT) {
-                                    let e = document.createElement("a");
-                                    e.download = n + ".mp3", e.href = t, document.body.appendChild(e), e.click(), e.remove()
-                                } else open(t);
-                                localStorage[_] = t
-                            }
-                        } else console.log("Unhandled Post", e)
-                    }, tiktikWin = open("https://savetik.co/en", [`https://www.tiktok.com/${n}/video/${o}`, e + !1], "width=400,height=500")
+                            } else console.log("Unhandled Post", e)
+                        }, await fetch(o).then((e => !0), (e => !1))) return GM_addValueChangeListener("savetik.co", (async function(e, t, i, r) {
+                        console.log({
+                            a: e,
+                            b: t,
+                            c: i,
+                            d: r
+                        }), i != t && i && (o = `https://savetik.co/${i}`, c.set("src", `${o}?user=${l}&id=${n}`))
+                    })), void(c = new _e("iframe", {
+                        src: `${o}?user=${l}&id=${n}`,
+                        id: n,
+                        useT: useT,
+                        loading: "lazy",
+                        referrerpolicy: "no-referrer",
+                        allowfullscreen: !0,
+                        sandbox: "allow-same-origin allow-scripts allow-popups allow-forms",
+                        allow: "autoplay; fullscreen; geolocation; microphone; camera"
+                    }).style({
+                        border: 0,
+                        position: "absolute",
+                        width: 1920,
+                        height: 1080,
+                        "pointer-events": "none",
+                        opacity: 1
+                    }));
+                    GM_addValueChangeListener("savetik.co", (async function(t, i, c, r) {
+                        console.log("savetik.co", {
+                            a: t,
+                            b: i,
+                            c: c,
+                            d: r
+                        }), c != i && c && (tiktikWin ? .close(), o = `https://savetik.co/${c}`, console.log("Updaed stuff"), tiktikWin = open(o, [`https://www.tiktok.com/${l}/video/${n}`, e + !1], "width=400,height=500"))
+                    })), tiktikWin = open(o, [`https://www.tiktok.com/${l}/video/${n}`, e + !1], "width=400,height=500")
                 })(e, t).then(console.log, console.warn)
             }, abc_ = abc, M = Mute, Um = Unmute;
             var didmute = 0;
@@ -1689,7 +1738,7 @@
                     downloadTikTok(!0, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
                 })).style({
                     color: "blue"
-                }),
+                }).set("className", ".tt1"),
                 tiktokButton3 = new element("button", {
                     className: "tt3"
                 }).set("innerText", "Get MP4").on("click", (function(e) {
@@ -1697,7 +1746,9 @@
                 })).style({
                     color: "blue"
                 }),
-                tiktokButton2 = new element("button").set("innerText", "Get MP3").on("click", (function(e) {
+                tiktokButton2 = new element("button", {
+                    className: "tt2"
+                }).set("innerText", "Get MP3").on("click", (function(e) {
                     downloadTikTok(!1, setElement2(getClass("ehlq8k34") ? getClass("ehlq8k34").innerText : location.href))
                 })).style({
                     color: "blue"
