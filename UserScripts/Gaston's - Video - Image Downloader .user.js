@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      9.3
+// @version      9.4
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -2393,7 +2393,7 @@ async function downloadVideo(url,title) {
             GM_addValueChangeListener('savetik.co', async function(a, b, c, d) {
                 console.log('savetik.co',{ a, b, c, d });
                 if (c!=b&&c){
-                    tiktikWin?.close()
+                    tiktikWin&&tiktikWin.close()
                     base=`https://savetik.co/${c}`
                     console.log('Updaed stuff')
                     tiktikWin=open(base,[`https://www.tiktok.com/${user}/video/${id}`,mp4+false],`width=400,height=500`)
