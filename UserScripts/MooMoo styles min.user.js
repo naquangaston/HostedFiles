@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 3.8
+// @version 3.9
 // @description Moomoo.io/Sploop.io mod [Texture pack editor/ MUSIC PLAYER/HAT KEYBINDS/ MUSIC VISUALIZER/ SKIN SWITCHER/ ANTI-KICK/AUTO LOGIN]
 // @author Gaston
 // @match *://moomoo.io/*
@@ -373,8 +373,11 @@
                     i = n[2] || "unknown",
                     l = n[3] || "unknown",
                     a = t(i, l);
-                o[a] || (o[a] = {}), o[a][l] = {
-                    src: await GM_getValue(`${a}_${l}`, e.key)
+                o[a] || (o[a] = {});
+                let s = await GM_getValue(`${a}_${l}`, e.key);
+                o[a][l] = {
+                    src: s,
+                    default: e.key
                 }
             } catch (e) {
                 console.error("Error parsing saved image:", e)
@@ -382,41 +385,52 @@
             let i = new element(document.getElementById("da-right")),
                 l = new element("h2");
 
-            function a(e, t, n) {
-                let i = new element("div");
-                i.style({
+            function a(e, t, n, i) {
+                let l = new element("div");
+                l.style({
                     marginBottom: "5px"
                 });
-                let l = new element("label");
-                l.set("innerText", t), l.style({
+                let a = new element("label");
+                a.set("innerText", t), a.style({
                     display: "block",
                     fontSize: "12px"
                 });
-                let a = new element("div");
-                a.style({
+                let s = new element("div");
+                s.style({
                     display: "flex",
                     alignItems: "center"
                 });
-                let s = new element("input", {
+                let r = new element("input", {
                     type: "text"
                 });
-                s.style({
+                r.style({
                     width: "50%",
                     fontSize: "12px"
-                }), s.element.value = n;
-                let r = new element("img", {
+                }), r.element.value = n;
+                let c = new element("img", {
                     src: n
                 });
-                return r.style({
+                c.style({
                     width: "50px",
                     height: "auto",
                     marginLeft: "10px"
-                }), s.element.addEventListener("change", (async function() {
-                    let n = s.element.value;
+                });
+                let d = new element("button");
+                return d.set("innerText", "Reset"), d.style({
+                    fontSize: "12px",
+                    marginLeft: "10px"
+                }), d.element.addEventListener("click", (async function() {
+                    r.element.value = i, await GM_setValue(`${e}_${t}`, i), o[e][t] = {
+                        src: i,
+                        default: i
+                    }, c.element.src = i, console.log(`Reset ${e}_${t} to default`)
+                })), r.element.addEventListener("change", (async function() {
+                    let n = r.element.value;
                     await GM_setValue(`${e}_${t}`, n), o[e][t] = {
-                        src: n
-                    }, r.element.src = n, console.log(`Updated ${e}_${t} to ${n}`)
-                })), a.append(s, r), i.append(l, a), i
+                        src: n,
+                        default: i
+                    }, c.element.src = n, console.log(`Updated ${e}_${t} to ${n}`)
+                })), s.append(r, c, d), l.append(a, s), l
             }
             l.set("innerText", "Texture Pack Editor"), l.style({
                 fontSize: "16px",
@@ -435,8 +449,9 @@
                     margin: "10px 0 5px 0"
                 }), t.append(n);
                 for (const n in o[e]) {
-                    let i = a(e, n, o[e][n].src);
-                    t.append(i)
+                    const i = o[e][n];
+                    let l = a(e, n, i.src, i.default);
+                    t.append(l)
                 }
                 i.append(t)
             }
@@ -469,9 +484,10 @@
                         }
                         if (!o[r][s]) {
                             o[r][s] = {
-                                src: e.src
+                                src: e.src,
+                                default: e.src
                             };
-                            let t = a(r, s, e.src);
+                            let t = a(r, s, e.src, e.src);
                             i.append(t)
                         }
                     } catch (e) {
@@ -629,9 +645,9 @@
             }))
         }
         console.log("Set called", SetUpSploop.callee);
-        var y = null;
+        var f = null;
 
-        function f(e = 0, t = 0, n = 0) {
+        function y(e = 0, t = 0, n = 0) {
             w(0);
             try {
                 !Number.isNaN(e) && findhref2(id("skins-middle-main"), "img").filter((t => t.src.includes(`skin${e}`)))[0].click()
@@ -650,8 +666,8 @@
         function w(e) {
             findhref2(id("skins-categories"), "img")[e].click()
         }
-        if (_loadFit = f, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async e => {
-                await k(1e3), alt || f(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
+        if (_loadFit = y, _GM_setValue = GM_setValue, _GM_getValue = GM_getValue, new Promise(((e, t) => t = setInterval((() => findhref2(id("skins-middle-main"), "img").length && (clearInterval(t), e())), 100))).then((async e => {
+                await k(1e3), alt || y(GM_getValue("skin"), GM_getValue("accessory$"), GM_getValue("BACK"))
             })), id("game-left-content-main").style.overflow = "scroll", id("da-right").parentNode.style.overflow = "scroll", _setUp) return;
         add_Style("\n#log{\n    background-color: rgba(0,0,0,0);\n    color: lightgreen;\n}\n.empty{\n    content: attr(value);\n}\nselect,select:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: none;\n    color: rgb(255, 136, 0);\n}\nbutton{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(208, 255, 0);\n    color: rgb(94, 255, 0);\n}\nbutton:hover,input:focus{\n    background-color: rgba(0,0,0,0);\n    outline: none;\n    border: 2px solid rgb(255, 0, 0);\n    color: rgb(0, 132, 255);\n}\n#skin-message{\n\tborder: 2px solid red;\n    background-color: rgba(0,0,0,0);\n}\n.green{border: 2px solid green;}\n.red{border: 2px solid blue;}\n::-webkit-scrollbar{\n    display:none;\n}\nspan.first{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-left: 1px solid white;\n}\nspan.middle{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n}\nspan.last{\n    border-top: 1px solid white;\n    border-bottom: 1px solid white;\n    border-right: 1px solid white;\n}\ndel{\n    text-decoration: line-through;\n    color: red;\n    border-radius: 3px;\n    border: 1px solid coral;\n    background-color: rgba(111,8,8,1);\n}\nins{\n    background-color: rgba(7,92,7,1);\n    color: rgba(56,233,56,1);\n    border-radius: 3px;\n    border: 1px solid lightgreen;\n}\ntextarea{\n    text-overflow: clip;\n\n}"), GM_getValue("sm") && l.toggle(), await v("#clan-menu"), await v("#pop-login");
         let b = id("clan-menu");
@@ -665,18 +681,18 @@
                     back: t,
                     accessory: n
                 } = localStorage;
-                y = {
+                f = {
                     skin: e,
                     back: t,
                     accessory: n
-                }, console.log("Got fit", y)
-            } else if (y) {
+                }, console.log("Got fit", f)
+            } else if (f) {
                 const {
                     skin: e,
                     back: t,
                     accessory: n
-                } = y;
-                f(e, n, t)
+                } = f;
+                y(e, n, t)
             }
             play.click(), setTimeout(x, 200)
         };
@@ -836,7 +852,7 @@
                         back: n,
                         accessory: o
                     } = localStorage;
-                    y = {
+                    f = {
                         skin: t,
                         back: n,
                         accessory: o
@@ -927,7 +943,7 @@
                     back: o,
                     accessory: i
                 } = localStorage;
-                !f && (y = {
+                !y && (f = {
                     skin: n,
                     back: o,
                     accessory: i
