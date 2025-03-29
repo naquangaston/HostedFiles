@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MooMoo styles
 // @namespace    http://tampermonkey.net/
-// @version      3.8
+// @version      3.9
 // @description  Moomoo.io/Sploop.io mod [Texture pack editor/ MUSIC PLAYER/HAT KEYBINDS/ MUSIC VISUALIZER/ SKIN SWITCHER/ ANTI-KICK/AUTO LOGIN]
 // @author       Gaston
 // @match        *://moomoo.io/*
@@ -512,8 +512,9 @@ async function _SetUpSploop(){
                 let name = parts[3] || 'unknown';
                 let type = getCategoryFromName(originalType, name);
                 if (!stuff[type]) stuff[type] = {};
-                // Use the same key for saving and loading.
-                stuff[type][name] = { src: await GM_getValue(`${type}_${name}`, e.key) };
+                // Use the same key for saving and loading; store both current src and default.
+                let savedSrc = await GM_getValue(`${type}_${name}`, e.key);
+                stuff[type][name] = { src: savedSrc, default: e.key };
             } catch (err) {
                 console.error('Error parsing saved image:', err);
             }
@@ -526,8 +527,8 @@ async function _SetUpSploop(){
         title.style({ fontSize: '16px', margin: '0 0 10px 0' });
         panel.append(title);
 
-        // Helper: Create an image input group with label and preview (input left, preview right)
-        function createImageInput(type, name, src) {
+        // Helper: Create an image input group with label, input, preview, and reset button.
+        function createImageInput(type, name, src, defaultSrc) {
             let container = new element('div');
             container.style({ marginBottom: '5px' });
 
@@ -535,7 +536,7 @@ async function _SetUpSploop(){
             label.set('innerText', name);
             label.style({ display: 'block', fontSize: '12px' });
 
-            // Create a flex container for input and preview
+            // Create a flex container for input, preview, and reset button
             let row = new element('div');
             row.style({ display: 'flex', alignItems: 'center' });
 
@@ -547,17 +548,30 @@ async function _SetUpSploop(){
             let preview = new element('img', { src: src });
             preview.style({ width: '50px', height: 'auto', marginLeft: '10px' });
 
-            // Update GM storage and preview when the input changes
+            // Create a reset button that reverts to the default image URL.
+            let resetBtn = new element('button');
+            resetBtn.set('innerText', 'Reset');
+            resetBtn.style({ fontSize: '12px', marginLeft: '10px' });
+            resetBtn.element.addEventListener('click', async function() {
+                input.element.value = defaultSrc;
+                await GM_setValue(`${type}_${name}`, defaultSrc);
+                // Update stuff with both the current src and retain the default.
+                stuff[type][name] = { src: defaultSrc, default: defaultSrc };
+                preview.element.src = defaultSrc;
+                console.log(`Reset ${type}_${name} to default`);
+            });
+
+            // Update GM storage and preview when the input changes.
             input.element.addEventListener('change', async function() {
                 let newSrc = input.element.value;
                 await GM_setValue(`${type}_${name}`, newSrc);
-                // Update stuff as an object with a src property.
-                stuff[type][name] = { src: newSrc };
+                // Update stuff while retaining the original default.
+                stuff[type][name] = { src: newSrc, default: defaultSrc };
                 preview.element.src = newSrc;
                 console.log(`Updated ${type}_${name} to ${newSrc}`);
             });
 
-            row.append(input, preview);
+            row.append(input, preview, resetBtn);
             container.append(label, row);
             return container;
         }
@@ -580,7 +594,7 @@ async function _SetUpSploop(){
             // Loop through all images in this type and add their input groups.
             for (const name in stuff[type]) {
                 const imageData = stuff[type][name];
-                let inputGroup = createImageInput(type, name, imageData.src);
+                let inputGroup = createImageInput(type, name, imageData.src, imageData.default);
                 typeContainer.append(inputGroup);
             }
 
@@ -616,8 +630,9 @@ async function _SetUpSploop(){
                         panel.append(typeContainer);
                     }
                     if (!stuff[type][name]) {
-                        stuff[type][name] = { src: img.src };
-                        let inputGroup = createImageInput(type, name, img.src);
+                        // Store both the current and default src as img.src.
+                        stuff[type][name] = { src: img.src, default: img.src };
+                        let inputGroup = createImageInput(type, name, img.src, img.src);
                         panel.append(inputGroup);
                     }
                 } catch (err) {
@@ -707,6 +722,7 @@ async function _SetUpSploop(){
         textElement.style.color = 'rgba(0, 0, 0, 0.05)';
         document.body.appendChild(textElement);
     })();
+
 
 
 
