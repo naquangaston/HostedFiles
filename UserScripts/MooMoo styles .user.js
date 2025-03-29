@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         MooMoo styles
 // @namespace    http://tampermonkey.net/
-// @version      3.7
-// @description  Moomoo.io/Sploop.io mod [MUSIC PLAYER/HAT KEYBINDS/MUSIC VISUALIZER/SKIN SWITCHER/ANTI-KICK/AUTO LOGIN]
+// @version      3.8
+// @description  Moomoo.io/Sploop.io mod [Texture pack editor/ MUSIC PLAYER/HAT KEYBINDS/ MUSIC VISUALIZER/ SKIN SWITCHER/ ANTI-KICK/AUTO LOGIN]
 // @author       Gaston
 // @match        *://moomoo.io/*
 // @match        *://dev.moomoo.io/*
@@ -478,14 +478,166 @@ async function SetUpSploop() {
 async function _SetUpSploop(){
     var spinSpeed = 3.1; //Change the speed that the spikes rotate
 
-    (function() {
+    (async function() {
         const spikeUrls = new Set([
-
-            //Remove spikes that you do not want to spin
-            "https://sploop.io/img/entity/spike.png?v=1923912", ////////wood spike
-            "https://sploop.io/img/entity/hard_spike.png?v=1923912", //hard spike
-            "https://sploop.io/img/entity/big_spike.png?v=1923912", //castle spike
+            // Remove spikes that you don't want to spin
+            "https://sploop.io/img/entity/spike.png?v=1923912",     // wood spike
+            "https://sploop.io/img/entity/hard_spike.png?v=1923912", // hard spike
+            "https://sploop.io/img/entity/big_spike.png?v=1923912"   // castle spike
         ]);
+
+        // Helper: Determine category from original type and file name.
+        function getCategoryFromName(originalType, name) {
+            if (name.includes("inv_")) {
+                return "inventory";
+            } else if (name.includes("hat")) {
+                return "hat";
+            } else if (name.includes("accessory")) {
+                return "accessory";
+            } else {
+                return originalType;
+            }
+        }
+
+        // Load your allImages array from GM storage (or default to an empty array)
+        let allImages = await GM_getValue('allImaes', []);
+        let stuff = {};
+
+        // Populate our 'stuff' object from saved images, sorting by category.
+        for (const e of allImages) {
+            try {
+                let urlObj = new URL(e.key);
+                let parts = urlObj.pathname.split('/');
+                let originalType = parts[2] || 'unknown';
+                let name = parts[3] || 'unknown';
+                let type = getCategoryFromName(originalType, name);
+                if (!stuff[type]) stuff[type] = {};
+                // Use the same key for saving and loading.
+                stuff[type][name] = { src: await GM_getValue(`${type}_${name}`, e.key) };
+            } catch (err) {
+                console.error('Error parsing saved image:', err);
+            }
+        }
+
+        // Create the panel using your custom 'element' class and append it to #da-right
+        let panel = new element(document.getElementById('da-right'));
+        let title = new element('h2');
+        title.set('innerText', 'Texture Pack Editor');
+        title.style({ fontSize: '16px', margin: '0 0 10px 0' });
+        panel.append(title);
+
+        // Helper: Create an image input group with label and preview (input left, preview right)
+        function createImageInput(type, name, src) {
+            let container = new element('div');
+            container.style({ marginBottom: '5px' });
+
+            let label = new element('label');
+            label.set('innerText', name);
+            label.style({ display: 'block', fontSize: '12px' });
+
+            // Create a flex container for input and preview
+            let row = new element('div');
+            row.style({ display: 'flex', alignItems: 'center' });
+
+            let input = new element('input', { type: 'text' });
+            input.style({ width: '50%', fontSize: '12px' });
+            input.element.value = src;
+
+            // Create a mini preview of the image, placed to the right of the input
+            let preview = new element('img', { src: src });
+            preview.style({ width: '50px', height: 'auto', marginLeft: '10px' });
+
+            // Update GM storage and preview when the input changes
+            input.element.addEventListener('change', async function() {
+                let newSrc = input.element.value;
+                await GM_setValue(`${type}_${name}`, newSrc);
+                // Update stuff as an object with a src property.
+                stuff[type][name] = { src: newSrc };
+                preview.element.src = newSrc;
+                console.log(`Updated ${type}_${name} to ${newSrc}`);
+            });
+
+            row.append(input, preview);
+            container.append(label, row);
+            return container;
+        }
+
+        // Organize UI by type: create a container for each type with its heading and inputs.
+        for (const type in stuff) {
+            // Create a container for this type.
+            let typeContainer = new element('div');
+            typeContainer.style({
+                marginBottom: '10px',
+                borderBottom: '1px solid #444',
+                paddingBottom: '5px'
+            });
+
+            let typeHeading = new element('h3');
+            typeHeading.set('innerText', type);
+            typeHeading.style({ fontSize: '14px', margin: '10px 0 5px 0' });
+            typeContainer.append(typeHeading);
+
+            // Loop through all images in this type and add their input groups.
+            for (const name in stuff[type]) {
+                const imageData = stuff[type][name];
+                let inputGroup = createImageInput(type, name, imageData.src);
+                typeContainer.append(inputGroup);
+            }
+
+            // Append the type container to the panel.
+            panel.append(typeContainer);
+        }
+
+        // Helper: Record each new spike draw if it's not already in allImages,
+        // update the 'stuff' object and add its input group to the UI.
+        function recordSpike(img, x, y, width, height) {
+            const key = `${img.src}`;
+            if (!allImages.some(record => record.key === key)) {
+                allImages.push({ key, src: img.src });
+                console.log(`img recorded for texture pack: ${key}`);
+                try {
+                    let urlObj = new URL(img.src);
+                    let parts = urlObj.pathname.split('/');
+                    let originalType = parts[2] || 'unknown';
+                    let name = parts[3] || 'unknown';
+                    let type = getCategoryFromName(originalType, name);
+                    if (!stuff[type]) {
+                        stuff[type] = {};
+                        let typeContainer = new element('div');
+                        typeContainer.style({
+                            marginBottom: '10px',
+                            borderBottom: '1px solid #444',
+                            paddingBottom: '5px'
+                        });
+                        let typeHeading = new element('h3');
+                        typeHeading.set('innerText', type);
+                        typeHeading.style({ fontSize: '14px', margin: '10px 0 5px 0' });
+                        typeContainer.append(typeHeading);
+                        panel.append(typeContainer);
+                    }
+                    if (!stuff[type][name]) {
+                        stuff[type][name] = { src: img.src };
+                        let inputGroup = createImageInput(type, name, img.src);
+                        panel.append(inputGroup);
+                    }
+                } catch (err) {
+                    console.error('Error processing new spike image:', err);
+                }
+            }
+        }
+
+        // Save the updated allImages array back to GM storage when leaving the page.
+        window.onbeforeunload = async function() {
+            await GM_setValue('allImaes', allImages);
+        };
+
+        // Expose recordSpike globally for external calls.
+        window.recordSpike = recordSpike;
+
+        // Save the original drawImage method.
+        const ogdraw = CanvasRenderingContext2D.prototype.drawImage;
+
+        // Function to update and spin the spike image.
         const spikeUpdate = (ctx, img, x, y, width, height, rotation) => {
             ctx.save();
             ctx.translate(x + width / 2, y + height / 2);
@@ -493,9 +645,13 @@ async function _SetUpSploop(){
             ogdraw.call(ctx, img, -width / 2, -height / 2, width, height);
             ctx.restore();
         };
-        const ogdraw = CanvasRenderingContext2D.prototype.drawImage;
+
+        // Overwrite drawImage to hook into spike rendering.
         CanvasRenderingContext2D.prototype.drawImage = function(img, ...args) {
-            if (this.canvas && this.canvas.id === "game-canvas" && img instanceof HTMLImageElement && img.src && spikeUrls.has(img.src)) {
+            if (
+                this.canvas && this.canvas.id === "game-canvas" &&
+                img instanceof HTMLImageElement && img.src
+            ) {
                 let x, y, width, height;
                 if (args.length === 2) {
                     [x, y] = args;
@@ -508,20 +664,52 @@ async function _SetUpSploop(){
                 } else {
                     return ogdraw.apply(this, [img, ...args]);
                 }
-                this.globalAlpha = 0;
-                ogdraw.apply(this, [img, ...args]);
-                this.globalAlpha = 1;
-                const rotation = (performance.now() / 1000 * spinSpeed) % (2 * Math.PI);
-                spikeUpdate(this, img, x, y, width, height, rotation);
+                recordSpike(img, x, y, width, height);
+                if (spikeUrls.has(img.src)) {
+                    // Draw the original spike image invisibly.
+                    this.globalAlpha = 0;
+                    ogdraw.apply(this, [img, ...args]);
+                    this.globalAlpha = 1;
+                    const rotation = (performance.now() / 1000 * spinSpeed) % (2 * Math.PI);
+                    spikeUpdate(this, img, x, y, width, height, rotation);
+                } else {
+                    // Render mapped images from our stuff object.
+                    try {
+                        let o = new URL(img.src);
+                        let parts = o.pathname.split('/');
+                        let originalType = parts[2] || 'unknown';
+                        let name = parts[3] || 'unknown';
+                        let type = getCategoryFromName(originalType, name);
+                        let mappedSrc = (stuff && stuff[type] && stuff[type][name] && stuff[type][name].src)
+                        ? stuff[type][name].src
+                        : img.src;
+                        let mappedImg = new Image();
+                        mappedImg.src = mappedSrc;
+                        ogdraw.apply(this, [mappedImg, ...args]);
+                    } catch (err) {
+                        console.error('Error mapping image:', err);
+                        ogdraw.apply(this, [img, ...args]);
+                    }
+                }
             } else {
                 return ogdraw.apply(this, [img, ...args]);
-            }};var textElement = document.createElement('span');var data = atob('YnkgZml6eml4d3c=');
-        textElement.textContent = data;textElement.style.position = 'absolute';
+            }
+        };
+
+        // Optional: Adding a subtle watermark text element.
+        const textElement = document.createElement('span');
+        const data = atob('QnkgR2FzdG9u');
+        textElement.textContent = data;
+        textElement.style.position = 'absolute';
         textElement.style.top = '0';
         textElement.style.left = '80px';
         textElement.style.zIndex = '9999';
-        textElement.style.color = 'rgba(0, 0, 0, 0.05)';document.body.appendChild(textElement);
+        textElement.style.color = 'rgba(0, 0, 0, 0.05)';
+        document.body.appendChild(textElement);
     })();
+
+
+
     _log=console.log
 
 
@@ -1401,9 +1589,9 @@ fetch(wordWurl).then(e=>e.json()).then(e=>(GM_setValue('moowords',e),(e.join()!=
         else if (type === 'entity') {
             try{
                 if (!categorizedImages.entities[name]) {
-                categorizedImages.entities[name] = [];
-            }
-            categorizedImages.entities[name].push(imageObject);
+                    categorizedImages.entities[name] = [];
+                }
+                categorizedImages.entities[name].push(imageObject);
             }catch(err){
                 console.log(err)
             }
@@ -1477,7 +1665,7 @@ fetch(wordWurl).then(e=>e.json()).then(e=>(GM_setValue('moowords',e),(e.join()!=
     };
 
 
-   
+
 
     // Expose the arrays and functions globally
     window.imagesArray = imagesArray;
