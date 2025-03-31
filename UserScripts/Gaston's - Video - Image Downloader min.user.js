@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 9.4
+// @version 9.5
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -46,64 +46,64 @@
 // @grant GM_removeValueChangeListener
 // @name:en Gaston's - Video/Image Downloader
 // @name:zh Gaston's - Video/Image Downloader
-// @name:fr Gaston's - téléchargeur vidéo / image
+// @name:fr Gaston's - tÃ©lÃ©chargeur vidÃ©o / image
 // @name:ar Gaston's - Video/Image Downloader
 // @name:de Gaston's - Video/Image Downloader
-// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
-// @name:pt Gaston's - Downloader de vídeo/imagem
-// @name:ru Gaston's - Video/Image Скачатель
+// @name:hi à¤à¥à¤¸à¥à¤à¤¨ - à¤µà¥à¤¡à¤¿à¤¯à¥/à¤à¤µà¤¿ à¤¡à¤¾à¤à¤¨à¤²à¥à¤¡à¤°
+// @name:pt Gaston's - Downloader de vÃ­deo/imagem
+// @name:ru Gaston's - Video/Image Ð¡ÐºÐ°ÑÐ°ÑÐµÐ»Ñ
 // @name:ja Gaston's -Video/Image Downloader
 // @name:es Gaston's - Video/Image Descarger
 // @name:nl Gaston's - Video/Image Downloader
-// @name:tr Gaston's - Video/Resim İndirici
-// @name:ro Gaston's - descărcător video/imagini
+// @name:tr Gaston's - Video/Resim Ä°ndirici
+// @name:ro Gaston's - descÄrcÄtor video/imagini
 // @name:id Gaston's - Video/Image Downloader
-// @name:vi Gaston's - Trình tải xuống video/hình ảnh
+// @name:vi Gaston's - TrÃ¬nh táº£i xuá»ng video/hÃ¬nh áº£nh
 // @name:pl Gaston - pobierca wideo/obrazu
 // @name:it Gaston's - Downloader di video/immagine
 // @name:th Gaston's - Video/Image Downloader
-// @name:uk GASTON'S - Відео/зображення завантажувача
-// @name:ko Gaston 's- 비디오/이미지 다운로더 More actions
+// @name:uk GASTON'S - ÐÑÐ´ÐµÐ¾/Ð·Ð¾Ð±ÑÐ°Ð¶ÐµÐ½Ð½Ñ Ð·Ð°Ð²Ð°Ð½ÑÐ°Ð¶ÑÐ²Ð°ÑÐ°
+// @name:ko Gaston 's- ë¹ëì¤/ì´ë¯¸ì§ ë¤ì´ë¡ë More actions
 // @name:sk Gaston's - Video/Image Downloader More actions
-// @name:bg Gaston's - видео/изтегляне на изображения
+// @name:bg Gaston's - Ð²Ð¸Ð´ÐµÐ¾/Ð¸Ð·ÑÐµÐ³Ð»ÑÐ½Ðµ Ð½Ð° Ð¸Ð·Ð¾Ð±ÑÐ°Ð¶ÐµÐ½Ð¸Ñ
 // @name:fi Gaston's - Video/kuvan lataaja
 // @name:da Gastons - Video/Image Downloader
 // @name:sv Gaston's - Video/Image Downloader
-// @name:hu Gaston's - Videó/kép letöltő
+// @name:hu Gaston's - VideÃ³/kÃ©p letÃ¶ltÅ
 // @name:el Gaston's - Video/Image Downloader
 // @name:cs Gaston's - Video/Image Downloader
 // @name:no Gaston's - Video/Image Downloader
-// @name:he Gaston's - הורדת וידאו/תמונה
+// @name:he Gaston's - ×××¨××ª ×××××/×ª××× ×
 // @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
 // @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
-// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour)
-// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется)
-// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر)
-// @description:ja Instagram/Twitch/YouTube/Tiktokビデオ/オーディオダウンローダー（頻繁に更新）
-// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert)
-// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया)
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequência)
-// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi)
+// @description:fr Instagram / twitch / youtube / tiktok vidÃ©o / tÃ©lÃ©chargeur audio (frÃ©quemment mis Ã  jour)
+// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ÑÐ°ÑÑÐ¾ Ð¾Ð±Ð½Ð¾Ð²Ð»ÑÐµÑÑÑ)
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ØªÙ ØªØ­Ø¯ÙØ«Ù Ø¨Ø´ÙÙ ÙØªÙØ±Ø±)
+// @description:ja Instagram/Twitch/YouTube/Tiktokãããª/ãªã¼ãã£ãªãã¦ã³ã­ã¼ãã¼ï¼é »ç¹ã«æ´æ°ï¼
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (hÃ¤ufig aktualisiert)
+// @description:hi Instagram/Twitch/YouTube/Tiktok à¤µà¥à¤¡à¤¿à¤¯à¥/à¤à¤¡à¤¿à¤¯à¥ à¤¡à¤¾à¤à¤¨à¤²à¥à¤¡à¤° (à¤à¤à¥à¤¸à¤° à¤à¤ªà¤¡à¥à¤ à¤à¤¿à¤¯à¤¾ à¤à¤¯à¤¾)
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequÃªncia)
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sÄ±klÄ±kla gÃ¼ncellendi)
 // @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent) More actions
 // @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
-// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)
-// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (thường xuyên được cập nhật)
-// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто оновлений)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany)
-// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (อัปเดตบ่อยครั้ง)
+// @description:ko Instagram/Twitch/YouTube/Tiktok ë¹ëì¤/ì¤ëì¤ ë¤ì´ë¡ë (ìì£¼ ìë°ì´í¸)
+// @description:vi Instagram/twitch/youtube/tiktok video/trÃ¬nh táº£i xuá»ng Ã¢m thanh (thÆ°á»ng xuyÃªn ÄÆ°á»£c cáº­p nháº­t)
+// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ÑÐ°ÑÑÐ¾ Ð¾Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ð¹)
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (czÄsto aktualizowany)
+// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (à¸­à¸±à¸à¹à¸à¸à¸à¹à¸­à¸¢à¸à¸£à¸±à¹à¸)
 // @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
 // @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
-// @description:fi Instagram/twitch/youtube/tiktok video/äänen lataus (päivitetty usein)
-// @description:he אינסטגרם/טוויץ '/YouTube/Tiktok וידאו/הורדת שמע (מעודכן לעתים קרובות)
-// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
+// @description:fi Instagram/twitch/youtube/tiktok video/Ã¤Ã¤nen lataus (pÃ¤ivitetty usein)
+// @description:he ××× ×¡×××¨×/×××××¥ '/YouTube/Tiktok ×××××/×××¨××ª ×©××¢ (××¢×××× ××¢×ª×× ×§×¨××××ª)
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ÏÏÏÎ½Î¬ ÎµÎ½Î·Î¼ÎµÏÏÎ¼Î­Î½Î¿)
 // @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
-// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizováno)
-// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран)
+// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (Äasto aktualizovÃ¡no)
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ÑÐµÑÑÐ¾ Ð°ÐºÑÑÐ°Ð»Ð¸Ð·Ð¸ÑÐ°Ð½)
 // @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
-// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve)
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissÃ­tve)
 // @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
-// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované) More actions
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (Äasto aktualizovanÃ©) More actions
 // @license MIT
 // ==/UserScript==
 ! function() {
@@ -186,28 +186,6 @@
         }))
     }
     _element = _e = element,
-        function() {
-            "use strict";
-            const e = "feedbackPromptLastDate",
-                t = "isFirstTimeKey";
-            async function o() {
-                const t = function() {
-                    if ("undefined" != typeof GM_info && GM_info.scriptUpdateURL) {
-                        const e = GM_info.scriptUpdateURL.match(/\/scripts\/(\d+)\//);
-                        if (e && e[1]) return e[1]
-                    }
-                    return console.error("Script ID not found in the update URL."), null
-                }();
-                if (t) {
-                    const o = `https://greasyfork.org/en/scripts/${t}/feedback`;
-                    confirm("Are you enjoying this script? Would you like to provide feedback?") && window.open(o, "_blank"), await GM.setValue(e, Date.now())
-                }
-            }!async function() {
-                const n = await GM.getValue(t, !0),
-                    l = await GM.getValue(e, Date.now());
-                Date.now() - l > 12096e5 && (o(), n && GM.setValue(t, !1)), console.log("FirstTime:", n)
-            }()
-        }(),
         function() {
             Object.assign(this || arguments[0], {
                 CustomLog: class {
