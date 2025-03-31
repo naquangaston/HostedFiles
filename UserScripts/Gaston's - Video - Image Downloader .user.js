@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      9.4
+// @version      9.5
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
@@ -166,6 +166,7 @@ function dispatchAllInputEvents(target, value) {
     });
 };
 (function() {
+    return "no more askinf for feed back";
     'use strict';
 
     // Interval between prompts in milliseconds (2 weeks)
