@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 9.5
+// @version 9.6
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
-// @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
 // @author gaston1799
 // @match *://www.youtube.com/*
 // @match *://yt.savetube.me/*
@@ -37,10 +37,13 @@
 // @match *://sss.instasaverpro.com/*
 // @icon data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
+// @require https://update.greasyfork.org/scripts/439099/1203718/MonkeyConfig%20Modern%20Reloaded.js
 // @grant GM_info
 // @grant GM_xmlhttpRequest
 // @grant GM_getValue
 // @grant GM_setValue
+// @grant GM_addStyle
+// @grant GM_registerMenuCommand
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
@@ -74,36 +77,38 @@
 // @name:cs Gaston's - Video/Image Downloader
 // @name:no Gaston's - Video/Image Downloader
 // @name:he Gaston's - ×××¨××ª ×××××/×ª××× ×
-// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
-// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (frecuentemente actualizado)
-// @description:fr Instagram / twitch / youtube / tiktok vidÃ©o / tÃ©lÃ©chargeur audio (frÃ©quemment mis Ã  jour)
-// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ÑÐ°ÑÑÐ¾ Ð¾Ð±Ð½Ð¾Ð²Ð»ÑÐµÑÑÑ)
-// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ØªÙ ØªØ­Ø¯ÙØ«Ù Ø¨Ø´ÙÙ ÙØªÙØ±Ø±)
-// @description:ja Instagram/Twitch/YouTube/Tiktokãããª/ãªã¼ãã£ãªãã¦ã³ã­ã¼ãã¼ï¼é »ç¹ã«æ´æ°ï¼
-// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (hÃ¤ufig aktualisiert)
-// @description:hi Instagram/Twitch/YouTube/Tiktok à¤µà¥à¤¡à¤¿à¤¯à¥/à¤à¤¡à¤¿à¤¯à¥ à¤¡à¤¾à¤à¤¨à¤²à¥à¤¡à¤° (à¤à¤à¥à¤¸à¤° à¤à¤ªà¤¡à¥à¤ à¤à¤¿à¤¯à¤¾ à¤à¤¯à¤¾)
-// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (atualizado com frequÃªncia)
-// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sÄ±klÄ±kla gÃ¼ncellendi)
-// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent) More actions
-// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt)
-// @description:ko Instagram/Twitch/YouTube/Tiktok ë¹ëì¤/ì¤ëì¤ ë¤ì´ë¡ë (ìì£¼ ìë°ì´í¸)
-// @description:vi Instagram/twitch/youtube/tiktok video/trÃ¬nh táº£i xuá»ng Ã¢m thanh (thÆ°á»ng xuyÃªn ÄÆ°á»£c cáº­p nháº­t)
-// @description:uk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ÑÐ°ÑÑÐ¾ Ð¾Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ð¹)
-// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (czÄsto aktualizowany)
-// @description:th Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (à¸­à¸±à¸à¹à¸à¸à¸à¹à¸­à¸¢à¸à¸£à¸±à¹à¸)
-// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato)
-// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui)
-// @description:fi Instagram/twitch/youtube/tiktok video/Ã¤Ã¤nen lataus (pÃ¤ivitetty usein)
-// @description:he ××× ×¡×××¨×/×××××¥ '/YouTube/Tiktok ×××××/×××¨××ª ×©××¢ (××¢×××× ××¢×ª×× ×§×¨××××ª)
-// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ÏÏÏÎ½Î¬ ÎµÎ½Î·Î¼ÎµÏÏÎ¼Î­Î½Î¿)
-// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert)
-// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (Äasto aktualizovÃ¡no)
-// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ÑÐµÑÑÐ¾ Ð°ÐºÑÑÐ°Ð»Ð¸Ð·Ð¸ÑÐ°Ð½)
-// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad)
-// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissÃ­tve)
-// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret)
-// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (Äasto aktualizovanÃ©) More actions
+// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:zh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (actualizado con frecuencia) incluye el bloque de anuncios YT
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert) enthält YT -Anzeigenblock
+// @description:ja Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader（頻繁に更新）には、YT広告ブロックが含まれています
+// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется) включает в себя объявление YT More actions
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر) يتضمن كتلة yt ad
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया) में yt विज्ञापन ब्लॉक शामिल है
+// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour) comprend un bloc d'annonce YT
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (freqüentemente atualizado) Inclui YT AD Block
+// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt) bevat YT -advertentieblok
+// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato) include YT Ad Block
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)에는 YT AD 블록이 포함됩니다
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi) YT reklam bloğunu içerir
+// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizat frecvent) include blocul de anunțuri YT More actions
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany) zawiera blok reklam YT
+// @description:uk Instagram/twitch/youtube/tiktok відео/аудіо завантажувач (часто оновлений) включає блок yt ad
+// @description:th Instagram/Twitch/YouTube/Tiktok วิดีโอ/เสียงดาวน์โหลด (อัปเดตบ่อยครั้ง) รวมถึงบล็อกโฆษณา yt
+// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (được cập nhật thường xuyên) bao gồm khối quảng cáo YT
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui) Termasuk blok iklan YT
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve) tartalmazza az YT hirdetési blokkot
+// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované) zahrnuje YT AD Block
+// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret) Inkluderer YT AD -blokken
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран) Включва YT рекламен блок
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad) Inkluderar YT AD -block
+// @description:he אינסטגרם/טוויץ
+// @description:fi Instagram/twitch/youtube/tiktok video/audio lataaja (usein päivitetty) sisältää YT -mainoslohkon
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované) Zahŕňa blok YT AD
+// @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert) inkluderer YT -annonseblokk
+// @updateURL https://update.greasyfork.org/scripts/496975/Gaston's%20-%20Video/Image%20Downloader.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/496975/Gaston's%20-%20Video/Image%20Downloader.usedr.js
 // @license MIT
 // ==/UserScript==
 ! function() {
@@ -312,8 +317,8 @@
     _downloadFileAsTitle = async function(e, t, o, n) {
         const l = document.createElement("a");
         return l.style.display = "none", document.body.appendChild(l), fetch(e).then((e => e.blob())).then((i => {
-            const c = URL.createObjectURL(i);
-            l.href = c, l.download = t, l.target = "_blank", l.click(), URL.revokeObjectURL(c), (o || opener || window).postMessage({
+            const r = URL.createObjectURL(i);
+            l.href = r, l.download = t, l.target = "_blank", l.click(), URL.revokeObjectURL(r), (o || opener || window).postMessage({
                 url: e,
                 title: t,
                 s: !0
@@ -340,8 +345,8 @@
             const n = o.url,
                 l = await o.blob(),
                 i = window.URL.createObjectURL(l),
-                c = document.createElement("a");
-            c.href = i, c.download = t, document.body.appendChild(c), c.click(), document.body.removeChild(c), window.URL.revokeObjectURL(i), console.log(`Video downloaded from: ${n}`)
+                r = document.createElement("a");
+            r.href = i, r.download = t, document.body.appendChild(r), r.click(), document.body.removeChild(r), window.URL.revokeObjectURL(i), console.log(`Video downloaded from: ${n}`)
         } catch (e) {
             console.error("Failed to download video:", e)
         }
@@ -835,14 +840,14 @@
                             var t = e.innerText.match(/(?<res>\d+)(p|P)/i) || {};
                             t.groups && (t = Number(t.groups.res), i[0] < t && (i[0] = t, i[1] = findhref2(e)[0].href, i[2] = e))
                         }));
-                        let c = {
+                        let r = {
                             id: t,
                             title: l,
                             href: i[1],
                             mp4: !0,
                             res: i[0]
                         };
-                        (opener || window).postMessage(c, "*"), location.href = c.href
+                        (opener || window).postMessage(r, "*"), location.href = r.href
                     },
                     "en3.onlinevideoconverter.pro": async() => {
                         let [e, t] = name.split(",");
@@ -979,21 +984,21 @@
                                     resolution: "VOD"
                                 }].forEach((({
                                     label: i,
-                                    resolution: c
+                                    resolution: r
                                 }) => {
-                                    let r = new _e(_copyElm(n)).on("click", (function() {
-                                        r.element.querySelector(l).innerText;
+                                    let c = new _e(_copyElm(n)).on("click", (function() {
+                                        c.element.querySelector(l).innerText;
                                         var n;
-                                        r.element.querySelector(l).innerText = "Please wait...", [, e, t, o] = location.pathname.split("/"), async function(e, t, o, n) {
+                                        c.element.querySelector(l).innerText = "Please wait...", [, e, t, o] = location.pathname.split("/"), async function(e, t, o, n) {
                                             return await fetch(e).then((e => !0), (e => !1)) ? (new _e("iframe", {
                                                 src: e,
                                                 width: "100%",
                                                 height: "600px",
                                                 frameborder: "0"
                                             }).appendTo(document.body), console.log(`Embedded ${t} iframe: `, e)) : (console.warn("Embed failed"), open(e, t))
-                                        }((e => e.href)(((n = new URL(location.href)).host = "clipr.xyz", n)), c).then((e => r.element.querySelector(l).innerText = i))
+                                        }((e => e.href)(((n = new URL(location.href)).host = "clipr.xyz", n)), r).then((e => c.element.querySelector(l).innerText = i))
                                     })).appendTo(document.querySelector(".Layout-sc-1xcs6mc-0.hZUoPp"));
-                                    "VOD" === c ? r.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = i : r.element.querySelector(l).innerText = i
+                                    "VOD" === r ? c.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = i : c.element.querySelector(l).innerText = i
                                 }))
                             }().catch(console.warn)
                         }
@@ -1500,14 +1505,14 @@
                     }), 1e3 * e.duration)
                 } else console.error("Invalid video element or source.")
             }, _getIds = getIds, info = {}, downloadT = function(e, t = !1, o = !0, n = !1, l = !1, i = "") {
-                let c = e + (n ? "mp4" : "mp3") + o;
-                var r;
-                if (!(r = document.getElementById(c)) || r.remove(), localStorage[c] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
+                let r = e + (n ? "mp4" : "mp3") + o;
+                var c;
+                if (!(c = document.getElementById(r)) || c.remove(), localStorage[r] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
                 let a = i || location;
                 var s = new URL(a.href);
                 s.host = s.host.replace(".com", "mz.com"), console.log("o", s);
                 let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
-                console.log(c, d);
+                console.log(r, d);
                 ad("unload", (function() {
                     info[e].close()
                 }), !0), onmessage = function(e) {
@@ -1517,20 +1522,20 @@
                                 href: t,
                                 title: l,
                                 length: i,
-                                id: c,
-                                _: r
+                                id: r,
+                                _: c
                             }
                         } = e;
                         let a = l + (n ? ".mp4" : ".mp3");
                         (e => {
                             e && e.remove()
-                        })(document.getElementById(r)), console.log("Handled", {
+                        })(document.getElementById(c)), console.log("Handled", {
                             href: t,
                             title: l,
                             length: i,
-                            id: c,
-                            _: r
-                        }, e, document.getElementById(r), document.getElementById(r) && document.getElementById(r).remove()), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[r] = t
+                            id: r,
+                            _: c
+                        }, e, document.getElementById(c), document.getElementById(c) && document.getElementById(c).remove()), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[c] = t
                     } else console.log("Unhandled Post", e)
                 };
                 let u = a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`;
@@ -1538,7 +1543,7 @@
                     if (info[e] = n) {
                         return await fetch(u.join("")).then((e => !0), (e => !1)) ? ((t = new _e("iframe", {
                             src: u.join(""),
-                            id: c,
+                            id: r,
                             useT: o,
                             loading: "lazy",
                             referrerpolicy: "no-referrer",
@@ -1557,7 +1562,7 @@
                     if (!await fetch(d.join("")).then((e => !0), (e => !1))) return console.warn("Cant Frame"), open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500");
                     var t = new _e("iframe", {
                         src: d.join(""),
-                        id: c,
+                        id: r,
                         useT: o,
                         loading: "lazy",
                         referrerpolicy: "no-referrer",
@@ -1572,7 +1577,7 @@
                         "pointer-events": "none",
                         opacity: 1
                     });
-                    return ev = GM_addValueChangeListener("y2mate.nu", (function(l, i, c, r) {
+                    return ev = GM_addValueChangeListener("y2mate.nu", (function(l, i, r, c) {
                         d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "0HzX") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o], t.set("src", d.join(""))
                     })), t.appendTo(document.body), t.closed = !1, t
                 }()
@@ -1583,7 +1588,7 @@
                     let n = t.videoID,
                         l = t.username,
                         i = getTikTokTittle();
-                    var c;
+                    var r;
                     if (onmessage = function(e) {
                             if (e.origin == Porigin || e.origin.match(/https?:\/{2}savetik\.csavetik.coo/) || e.origin.match(/https?:\/{2}en\.onlymp3\.to/) || e.origin.match(/https?:\/{2}en(\d)\.onlinevideoconverter\.pro/) || "https://savetik.co" == e.origin) {
                                 var {
@@ -1592,8 +1597,8 @@
                                         links: o,
                                         title: n,
                                         length: l,
-                                        id: c,
-                                        mp4: r,
+                                        id: r,
+                                        mp4: c,
                                         info: {
                                             username: a
                                         }
@@ -1603,10 +1608,10 @@
                                         href: t,
                                         title: n,
                                         length: l,
-                                        id: c,
+                                        id: r,
                                         links: o,
-                                        mp4: r
-                                    }, e), GM_setValue(c, !0), "https://savetik.co" == e.origin) n = i, downloadFileAsTitle(r ? o[0] : o.pop(), a + " - " + n + (r ? ".mp4" : ".mp3"), tiktikWin);
+                                        mp4: c
+                                    }, e), GM_setValue(r, !0), "https://savetik.co" == e.origin) n = i, downloadFileAsTitle(c ? o[0] : o.pop(), a + " - " + n + (c ? ".mp4" : ".mp3"), tiktikWin);
                                 else {
                                     if (useT) {
                                         let e = document.createElement("a");
@@ -1615,14 +1620,14 @@
                                     localStorage[_] = t
                                 }
                             } else console.log("Unhandled Post", e)
-                        }, await fetch(o).then((e => !0), (e => !1))) return GM_addValueChangeListener("savetik.co", (async function(e, t, i, r) {
+                        }, await fetch(o).then((e => !0), (e => !1))) return GM_addValueChangeListener("savetik.co", (async function(e, t, i, c) {
                         console.log({
                             a: e,
                             b: t,
                             c: i,
-                            d: r
-                        }), i != t && i && (o = `https://savetik.co/${i}`, c.set("src", `${o}?user=${l}&id=${n}`))
-                    })), void(c = new _e("iframe", {
+                            d: c
+                        }), i != t && i && (o = `https://savetik.co/${i}`, r.set("src", `${o}?user=${l}&id=${n}`))
+                    })), void(r = new _e("iframe", {
                         src: `${o}?user=${l}&id=${n}`,
                         id: n,
                         useT: useT,
@@ -1639,13 +1644,13 @@
                         "pointer-events": "none",
                         opacity: 1
                     }));
-                    GM_addValueChangeListener("savetik.co", (async function(t, i, c, r) {
+                    GM_addValueChangeListener("savetik.co", (async function(t, i, r, c) {
                         console.log("savetik.co", {
                             a: t,
                             b: i,
-                            c: c,
-                            d: r
-                        }), c != i && c && (tiktikWin && tiktikWin.close(), o = `https://savetik.co/${c}`, console.log("Updaed stuff"), tiktikWin = open(o, [`https://www.tiktok.com/${l}/video/${n}`, e + !1], "width=400,height=500"))
+                            c: r,
+                            d: c
+                        }), r != i && r && (tiktikWin && tiktikWin.close(), o = `https://savetik.co/${r}`, console.log("Updaed stuff"), tiktikWin = open(o, [`https://www.tiktok.com/${l}/video/${n}`, e + !1], "width=400,height=500"))
                     })), tiktikWin = open(o, [`https://www.tiktok.com/${l}/video/${n}`, e + !1], "width=400,height=500")
                 })(e, t).then(console.log, console.warn)
             }, abc_ = abc, M = Mute, Um = Unmute;
@@ -1811,33 +1816,113 @@
                 let e = new URL(location.href);
                 return e.searchParams.set("s", tr), e.toString()
             }
-            setInterval((e => {
-                const t = document.querySelector("video"),
-                    o = document.querySelector("#video-companion-root") || document.querySelector("#secondary-inner") || document.querySelector("#secondary.ytd-watch-flexy");
-                url = `https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`, src = policy ? policy.createScriptURL("https://loader.to/api/card2/?url=" + url) : "https://loader.to/api/card2/?url=" + url, o && (!o.querySelector("#cardApiIframe") && (toggleIframeCollapse(!0), o.parentNode.prepend(styleElement), o.prepend(containerDiv.element), console.log("Added That Thing")), setElement(location.href) != yedID && (toggleIframeCollapse(!0), iframeElement.set("src", src), console.log("Fixed That Thing"), yedID = setElement(location.href)));
-                const n = query("yt-button-view-model#dismiss-button");
-                n && !isHidden(n) && n.click();
-                const l = document.getElementsByClassName("ytp-ad-button-icon")[0];
+            const isYouTubeMobile = "m.youtube.com" === location.hostname,
+                isYouTubeDesktop = !isYouTubeMobile,
+                isYouTubeMusic = "music.youtube.com" === location.hostname,
+                isYouTubeVideo = !isYouTubeMusic;
+            ! function() {
+                "use strict";
+                const e = new MonkeyConfig({
+                    title: "YouTube Ad Element Toggles",
+                    menuCommand: !0,
+                    params: {
+                        hideTopRightBanner: {
+                            type: "checkbox",
+                            default: !0,
+                            label: "Top-right banner ad above playlist"
+                        },
+                        hideSidePanelAd: {
+                            type: "checkbox",
+                            default: !0,
+                            label: "Side engagement panel ads"
+                        },
+                        hideMastheadAd: {
+                            type: "checkbox",
+                            default: !0,
+                            label: "Home page masthead ad"
+                        },
+                        hideMealbarPromo: {
+                            type: "checkbox",
+                            default: !0,
+                            label: "YouTube promo banner (mealbar)"
+                        },
+                        hideFeaturedProduct: {
+                            type: "checkbox",
+                            default: !0,
+                            label: "Featured product (bottom left of video)"
+                        },
+                        hideMerchShelf: {
+                            type: "checkbox",
+                            default: !0,
+                            label: "Merch shelf below description"
+                        },
+                        hideMusicPromo: {
+                            type: "checkbox",
+                            default: !0,
+                            label: "YT Music promo dialog (bottom left)"
+                        },
+                        hideMusicBanner: {
+                            type: "checkbox",
+                            default: !0,
+                            label: "YT Music banner on home"
+                        }
+                    }
+                });
+
+                function t() {
+                    let t = "";
+                    e.get("hideTopRightBanner") && (t += "#player-ads { display: none !important; } "), e.get("hideSidePanelAd") && (t += '#panels > ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"] { display: none !important; } '), e.get("hideMastheadAd") && (t += "#masthead-ad { display: none !important; } "), e.get("hideMealbarPromo") && (t += ".yt-mealbar-promo-renderer { display: none !important; } "), e.get("hideFeaturedProduct") && (t += ".ytp-featured-product { display: none !important; } "), e.get("hideMerchShelf") && (t += "ytd-merch-shelf-renderer { display: none !important; } "), e.get("hideMusicPromo") && (t += "ytmusic-mealbar-promo-renderer { display: none !important; } "), e.get("hideMusicBanner") && (t += "ytmusic-statement-banner-renderer { display: none !important; } ");
+                    let o = document.getElementById("ytAdToggleCSS");
+                    o && o.remove(), o = document.createElement("style"), o.id = "ytAdToggleCSS", o.textContent = t, document.head.appendChild(o)
+                }
+                t(), e.onSave = t
+            }(), setInterval((e => {
+                const t = document.querySelector(".ad-showing"),
+                    o = document.querySelector(".ytp-ad-timed-pie-countdown-container"),
+                    n = document.querySelector(".ytp-ad-survey-questions");
+                if (null === t && null === o && null === n) return;
+                const l = document.querySelector("video");
+                let [i, r, c] = [...document.querySelector("#ytd-player") ? [document.querySelector("#ytd-player"), document.querySelector("#ytd-player").getPlayer()] : [document.querySelector("#movie_player"), document.querySelector("#movie_player")], null === o && null === n && document.querySelector("#ytd-player video.html5-main-video, #song-video video.html5-main-video")];
+                if (null === c || !c.src || c.paused || isNaN(c.duration)) return;
+                isYouTubeMusic && null !== c && (c.currentTime = c.duration);
+                const a = document.querySelector("#video-companion-root") || document.querySelector("#secondary-inner") || document.querySelector("#secondary.ytd-watch-flexy");
+                url = `https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`, src = policy ? policy.createScriptURL("https://loader.to/api/card2/?url=" + url) : "https://loader.to/api/card2/?url=" + url, a && (!a.querySelector("#cardApiIframe") && (toggleIframeCollapse(!0), a.parentNode.prepend(styleElement), a.prepend(containerDiv.element), console.log("Added That Thing")), setElement(location.href) != yedID && (toggleIframeCollapse(!0), iframeElement.set("src", src), console.log("Fixed That Thing"), yedID = setElement(location.href)));
+                const s = query("yt-button-view-model#dismiss-button");
+                s && !isHidden(s) && s.click();
+                document.getElementsByClassName("ytp-ad-button-icon")[0];
+                document.querySelector("#ytd-player") && document.querySelector("#ytd-player").getPlayer().getVideoData().video_id;
                 try {
-                    if (l && !didmute) console.log(p_), console.log("Muted ad"), console.log("Started at", tr), didmute = 1, t.playbackRate = document.querySelector("video").duration > 6 && check(t.duration / adPlayTimeInSeconds, 16), t.muted = 1;
-                    else if (!l && didmute) {
+                    if (t && !didmute) console.log(p_), console.log("Muted ad"), console.log("Started at", tr), didmute = 1, l.playbackRate = document.querySelector("video").duration > 6 && check(l.duration / adPlayTimeInSeconds, 16), l.muted = 1;
+                    else if (!t && didmute) {
                         console.log("Unmuted video");
                         try {
-                            t.muted = 0
+                            l.muted = 0
                         } catch (e) {
                             console.warn("Failed unmuting")
                         }
                         didmute = 0
                     }
                 } catch {}!didmute && document.querySelector("video") && 0 != document.querySelector("video").currentTime && (tr = document.querySelector("video") && document.querySelector("video").currentTime.toFixed(), localStorage[setElement(location.href)], tr);
-                const i = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player"), ...document.getElementsByTagName("video")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
-                i || document.querySelectorAll(".ytp-ad-button-icon")[0] ? (setPlayerBackAd && t.playbackRate == t.duration / adPlayTimeInSeconds || (setPlayerBackAd = 1, console.log("Skipping ad :>")), !cliked && (cliked = !0, setTimeout((() => {
-                    i && i.click(), cliked = !1
-                }), 5e3)), setPlayerBack = 0) : !setPlayerBack && t ? (setPlayerBackAd = 0, setPlayerBack = 1, t.playbackRate = currentPB > 2 ? 1 : currentPB, console.log("Fixed playBack")) : t && (setPlayerBackAd = 0, (currentPB = t.playbackRate) > 2 && (t.playbackRate = 1));
-                const c = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
-                c && (c.click(), console.log("Closed ad card"));
-                let r = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
-                r && (r.click(), !isReloading && location.href.includes("watch") && (isReloading = 1, location.href = addSearchParam()))
+                const d = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player"), ...document.getElementsByTagName("video")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
+                if (d || t) {
+                    if (!(setPlayerBackAd && l.playbackRate == check(l.duration / adPlayTimeInSeconds, 16) || (setPlayerBackAd = 1, l.currentTime < 4800 && (l.duration = 4999), console.log("Skipping ad :>"), isYouTubeMusic))) {
+                        const e = l.getVideoData().video_id,
+                            t = Math.floor(l.getCurrentTime());
+                        "loadVideoWithPlayerVars" in i ? i.loadVideoWithPlayerVars({
+                            videoId: e,
+                            start: t
+                        }) : i.loadVideoByPlayerVars({
+                            videoId: e,
+                            start: t
+                        })
+                    }!cliked && (cliked = !0, setTimeout((() => {
+                        d && d.click(), cliked = !1
+                    }), 5e3)), setPlayerBack = 0
+                } else !setPlayerBack && l ? (setPlayerBackAd = 0, setPlayerBack = 1, l.playbackRate = currentPB > 2 ? 1 : currentPB, console.log("Fixed playBack")) : l && (setPlayerBackAd = 0, (currentPB = l.playbackRate) > 2 && (l.playbackRate = 1));
+                const u = document.getElementsByClassName("ytp-ad-overlay-close-button")[2];
+                u && (u.click(), console.log("Closed ad card"));
+                let m = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
+                m && (m.click(), !isReloading && location.href.includes("watch") && (isReloading = 1, location.href = addSearchParam()))
             }), 10)
         }()
 }();
