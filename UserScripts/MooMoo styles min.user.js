@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name MooMoo styles
 // @namespace http://tampermonkey.net/
-// @version 3.9
+// @version 4.0
 // @description Moomoo.io/Sploop.io mod [Texture pack editor/ MUSIC PLAYER/HAT KEYBINDS/ MUSIC VISUALIZER/ SKIN SWITCHER/ ANTI-KICK/AUTO LOGIN]
 // @author Gaston
 // @match *://moomoo.io/*
@@ -77,6 +77,9 @@
 // @description:no Moomoo.io/sploop.io mod [Texture Pack Editor/ Music Player/ Hat KeyBinds/ Music Visualizer/ Skin Switcher/ Anti-Kick/ Auto Login]
 // @description:he Moomoo.io/sploop.io mod [עורך חבילות טקסטורה/ נגן מוסיקה/ כובע מקש/ מוסיקה Visualizer/ Skiner Stringer/ Anti-בעיטה/ כניסה אוטומטית]
 // @description:bg Moomoo.io/sploop.io mod [Редактор на текстурен пакет/ музикален плейър/ шапка ключове/ музикален визуализатор/ превключвател на кожата/ анти-удар/ автоматично влизане]
+// @updateURL https://update.greasyfork.org/scripts/498902/MooMoo%20styles.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/498902/MooMoo%20styles.usedr.js
+// @supportURL https://greasyfork.org/en/scripts/498902/feedback
 // @license MIT
 // ==/UserScript==
 ! function() {
@@ -384,53 +387,63 @@
             }
             let i = new element(document.getElementById("da-right")),
                 l = new element("h2");
+            async function a(e) {
+                const t = await fetch(e),
+                    n = await t.blob();
+                return new Promise(((e, t) => {
+                    const o = new FileReader;
+                    o.onloadend = () => e(o.result), o.onerror = t, o.readAsDataURL(n)
+                }))
+            }
 
-            function a(e, t, n, i) {
+            function s(e, t, n, i) {
                 let l = new element("div");
                 l.style({
                     marginBottom: "5px"
                 });
-                let a = new element("label");
-                a.set("innerText", t), a.style({
+                let s = new element("label");
+                s.set("innerText", t), s.style({
                     display: "block",
                     fontSize: "12px"
                 });
-                let s = new element("div");
-                s.style({
+                let r = new element("div");
+                r.style({
                     display: "flex",
                     alignItems: "center"
                 });
-                let r = new element("input", {
+                let c = new element("input", {
                     type: "text"
                 });
-                r.style({
+                c.style({
                     width: "50%",
                     fontSize: "12px"
-                }), r.element.value = n;
-                let c = new element("img", {
+                }), c.element.value = n;
+                let d = new element("img", {
                     src: n
                 });
-                c.style({
+                d.style({
                     width: "50px",
                     height: "auto",
                     marginLeft: "10px"
                 });
-                let d = new element("button");
-                return d.set("innerText", "Reset"), d.style({
+                let u = new element("button");
+                return u.set("innerText", "Reset"), u.style({
                     fontSize: "12px",
                     marginLeft: "10px"
-                }), d.element.addEventListener("click", (async function() {
-                    r.element.value = i, await GM_setValue(`${e}_${t}`, i), o[e][t] = {
+                }), u.element.addEventListener("click", (async function() {
+                    c.element.value = i, await GM_setValue(`${e}_${t}`, i), o[e][t] = {
                         src: i,
                         default: i
-                    }, c.element.src = i, console.log(`Reset ${e}_${t} to default`)
-                })), r.element.addEventListener("change", (async function() {
-                    let n = r.element.value;
-                    await GM_setValue(`${e}_${t}`, n), o[e][t] = {
+                    }, d.element.src = i, console.log(`Reset ${e}_${t} to default`)
+                })), c.element.addEventListener("change", (async function() {
+                    let n = c.element.value,
+                        l = await a(n);
+                    await GM_setValue(`${e}_${t}`, n), await GM_setValue(`${e}_${t}_uri`, l), o[e][t] = {
                         src: n,
-                        default: i
-                    }, c.element.src = n, console.log(`Updated ${e}_${t} to ${n}`)
-                })), s.append(r, c, d), l.append(a, s), l
+                        default: i,
+                        dataURI: l
+                    }, d.element.src = n, console.log(`Updated ${e}_${t} to ${n}`)
+                })), r.append(c, d, u), l.append(s, r), l
             }
             l.set("innerText", "Texture Pack Editor"), l.style({
                 fontSize: "16px",
@@ -450,13 +463,14 @@
                 }), t.append(n);
                 for (const n in o[e]) {
                     const i = o[e][n];
-                    let l = a(e, n, i.src, i.default);
+                    o[e][n] || a(i.src).then((t => o[e][n].dataURI = t));
+                    let l = s(e, n, i.src, i.default);
                     t.append(l)
                 }
                 i.append(t)
             }
 
-            function s(e, l, s, r, c) {
+            function r(e, l, a, r, c) {
                 const d = `${e.src}`;
                 if (!n.some((e => e.key === d))) {
                     n.push({
@@ -466,8 +480,8 @@
                     try {
                         let n = new URL(e.src).pathname.split("/"),
                             l = n[2] || "unknown",
-                            s = n[3] || "unknown",
-                            r = t(l, s);
+                            a = n[3] || "unknown",
+                            r = t(l, a);
                         if (!o[r]) {
                             o[r] = {};
                             let e = new element("div");
@@ -482,12 +496,12 @@
                                 margin: "10px 0 5px 0"
                             }), e.append(t), i.append(e)
                         }
-                        if (!o[r][s]) {
-                            o[r][s] = {
+                        if (!o[r][a]) {
+                            o[r][a] = {
                                 src: e.src,
                                 default: e.src
                             };
-                            let t = a(r, s, e.src, e.src);
+                            let t = s(r, a, e.src, e.src);
                             i.append(t)
                         }
                     } catch (e) {
@@ -497,38 +511,38 @@
             }
             window.onbeforeunload = async function() {
                 await GM_setValue("allImaes", n)
-            }, window.recordSpike = s;
-            const r = CanvasRenderingContext2D.prototype.drawImage;
+            }, window.recordSpike = r;
+            const c = CanvasRenderingContext2D.prototype.drawImage;
             CanvasRenderingContext2D.prototype.drawImage = function(n, ...i) {
-                if (!(this.canvas && "game-canvas" === this.canvas.id && n instanceof HTMLImageElement && n.src)) return r.apply(this, [n, ...i]); {
-                    let l, a, c, d;
-                    if (2 === i.length)[l, a] = i, c = n.width, d = n.height;
-                    else if (4 === i.length)[l, a, c, d] = i;
+                if (!(this.canvas && "game-canvas" === this.canvas.id && n instanceof HTMLImageElement && n.src)) return c.apply(this, [n, ...i]); {
+                    let l, a, s, d;
+                    if (2 === i.length)[l, a] = i, s = n.width, d = n.height;
+                    else if (4 === i.length)[l, a, s, d] = i;
                     else {
-                        if (8 !== i.length) return r.apply(this, [n, ...i]);
-                        [, , , , l, a, c, d] = i
+                        if (8 !== i.length) return c.apply(this, [n, ...i]);
+                        [, , , , l, a, s, d] = i
                     }
-                    if (s(n), e.has(n.src)) {
-                        this.globalAlpha = 0, r.apply(this, [n, ...i]), this.globalAlpha = 1;
+                    if (r(n), e.has(n.src)) {
+                        this.globalAlpha = 0, c.apply(this, [n, ...i]), this.globalAlpha = 1;
                         ((e, t, n, o, i, l, a) => {
-                            e.save(), e.translate(n + i / 2, o + l / 2), e.rotate(a), r.call(e, t, -i / 2, -l / 2, i, l), e.restore()
-                        })(this, n, l, a, c, d, performance.now() / 1e3 * 3.1 % (2 * Math.PI))
+                            e.save(), e.translate(n + i / 2, o + l / 2), e.rotate(a), c.call(e, t, -i / 2, -l / 2, i, l), e.restore()
+                        })(this, n, l, a, s, d, performance.now() / 1e3 * 3.1 % (2 * Math.PI))
                     } else try {
                         let e = new URL(n.src).pathname.split("/"),
                             l = e[2] || "unknown",
                             a = e[3] || "unknown",
                             s = t(l, a),
-                            c = o && o[s] && o[s][a] && o[s][a].src ? o[s][a].src : n.src,
+                            r = o && o[s] && o[s][a] && (o[s][a].dataURI || o[s][a].src) ? o[s][a].src : n.src,
                             d = new Image;
-                        d.src = c, r.apply(this, [d, ...i])
+                        d.src = r, c.apply(this, [d, ...i])
                     } catch (e) {
-                        console.error("Error mapping image:", e), r.apply(this, [n, ...i])
+                        console.error("Error mapping image:", e), c.apply(this, [n, ...i])
                     }
                 }
             };
-            const c = document.createElement("span"),
-                d = atob("QnkgR2FzdG9u");
-            c.textContent = d, c.style.position = "absolute", c.style.top = "0", c.style.left = "80px", c.style.zIndex = "9999", c.style.color = "rgba(0, 0, 0, 0.05)", document.body.appendChild(c)
+            const d = document.createElement("span"),
+                u = atob("QnkgR2FzdG9u");
+            d.textContent = u, d.style.position = "absolute", d.style.top = "0", d.style.left = "80px", d.style.zIndex = "9999", d.style.color = "rgba(0, 0, 0, 0.05)", document.body.appendChild(d)
         }(), _log = console.log;
         let e = GM_getValue("rbi") || 100;
         const t = {
@@ -959,9 +973,9 @@
                 } = localStorage;
                 GM_setValue("skin", localStorage.skin || 0), GM_setValue("accessory", localStorage.accessory || 0), GM_setValue("back", localStorage.back || 0), GM_setValue("nn", localStorage.nickname), GM_setValue("gm", [id("ffa-mode"), id("sandbox-mode"), id("event-mode")].map((e => [...e.classList].includes("dark-blue-button-3-active"))).indexOf(!0))
             }));
-            var C = "";
+            var L = "";
             _loop = setInterval((() => {
-                b.children[0].innerText != C && (C = b.children[0].innerText, GM_setValue("clan_", {
+                b.children[0].innerText != L && (L = b.children[0].innerText, GM_setValue("clan_", {
                     inCLan: "block" != id("create_clan").style.display,
                     name: b.children[0].innerText
                 }))
