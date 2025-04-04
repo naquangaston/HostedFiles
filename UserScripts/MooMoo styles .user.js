@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MooMoo styles
 // @namespace    http://tampermonkey.net/
-// @version      3.9
+// @version      4.0
 // @description  Moomoo.io/Sploop.io mod [Texture pack editor/ MUSIC PLAYER/HAT KEYBINDS/ MUSIC VISUALIZER/ SKIN SWITCHER/ ANTI-KICK/AUTO LOGIN]
 // @author       Gaston
 // @match        *://moomoo.io/*
@@ -526,6 +526,17 @@ async function _SetUpSploop(){
         title.set('innerText', 'Texture Pack Editor');
         title.style({ fontSize: '16px', margin: '0 0 10px 0' });
         panel.append(title);
+        async function fetchImageAsDataURL(url) {
+            const response = await fetch(url);
+            const blob = await response.blob();
+
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result); // this is the Data URL
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
 
         // Helper: Create an image input group with label, input, preview, and reset button.
         function createImageInput(type, name, src, defaultSrc) {
@@ -564,9 +575,11 @@ async function _SetUpSploop(){
             // Update GM storage and preview when the input changes.
             input.element.addEventListener('change', async function() {
                 let newSrc = input.element.value;
+                let dataURI=await fetchImageAsDataURL(newSrc)
                 await GM_setValue(`${type}_${name}`, newSrc);
+                await GM_setValue(`${type}_${name}_uri`, dataURI);
                 // Update stuff while retaining the original default.
-                stuff[type][name] = { src: newSrc, default: defaultSrc };
+                stuff[type][name] = { src: newSrc, default: defaultSrc,dataURI};
                 preview.element.src = newSrc;
                 console.log(`Updated ${type}_${name} to ${newSrc}`);
             });
@@ -594,6 +607,9 @@ async function _SetUpSploop(){
             // Loop through all images in this type and add their input groups.
             for (const name in stuff[type]) {
                 const imageData = stuff[type][name];
+                if(!stuff[type][name]){
+                    fetchImageAsDataURL(imageData.src).then(dataURI=>stuff[type][name].dataURI=dataURI)
+                }
                 let inputGroup = createImageInput(type, name, imageData.src, imageData.default);
                 typeContainer.append(inputGroup);
             }
@@ -695,7 +711,7 @@ async function _SetUpSploop(){
                         let originalType = parts[2] || 'unknown';
                         let name = parts[3] || 'unknown';
                         let type = getCategoryFromName(originalType, name);
-                        let mappedSrc = (stuff && stuff[type] && stuff[type][name] && stuff[type][name].src)
+                        let mappedSrc = (stuff && stuff[type] && stuff[type][name] && (stuff[type][name].dataURI||stuff[type][name].src))
                         ? stuff[type][name].src
                         : img.src;
                         let mappedImg = new Image();
