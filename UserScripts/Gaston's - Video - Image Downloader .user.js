@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      9.6
+// @version      9.7
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
@@ -2943,9 +2943,9 @@ async function downloadVideo(url,title) {
                 }*/
                 console.log('Skipping ad :>');
                 if(!isYouTubeMusic){
-                    const videoData = player.getVideoData()
+                    const videoData = pl.getVideoData()
                     const videoId = videoData.video_id
-                    const start = Math.floor(player.getCurrentTime())
+                    const start = Math.floor(pl.getCurrentTime())
 
                     if ('loadVideoWithPlayerVars' in playerEl) {
                         playerEl.loadVideoWithPlayerVars({ videoId, start })
