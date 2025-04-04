@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      9.5
+// @version      9.6
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston2
-// @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated)
+// @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
 // @author       gaston1799
 // @match         *://www.youtube.com/*
 // @match         *://yt.savetube.me/*
@@ -37,15 +37,19 @@
 // @match         *://sss.instasaverpro.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @require      https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
-// @grant    GM_info
-// @grant    GM_xmlhttpRequest
+// @grant   GM_info
+// @grant   GM_xmlhttpRequest
 // @grant   GM_getValue
 // @grant   GM_setValue
+// @grant   GM_addStyle
+// @grant   GM_registerMenuCommand
 // @grant   GM_deleteValue
+// @require        https://update.greasyfork.org/scripts/439099/1203718/MonkeyConfig%20Modern%20Reloaded.js
 // @grant   GM_addValueChangeListener
 // @grant   GM_removeValueChangeListener
 // @run-at document-start
 // ==/UserScript==
+
 class videoPlayer{
     #isF=function(){
         return this.isFullScreen
@@ -2758,10 +2762,128 @@ async function downloadVideo(url,title) {
         url.searchParams.set('s', tr); // Adds or updates the 's' search parameter
         return url.toString(); // Returns the modified URL as a string
     }
-    setInterval(e => {
-        const player = document.querySelector('video');
-        const target = document.querySelector('#video-companion-root')||document.querySelector('#secondary-inner')||document.querySelector('#secondary.ytd-watch-flexy');
+    const isYouTubeMobile = location.hostname === 'm.youtube.com'
+    const isYouTubeDesktop = !isYouTubeMobile
 
+    const isYouTubeMusic = location.hostname === 'music.youtube.com'
+    const isYouTubeVideo = !isYouTubeMusic;
+
+
+
+    (function () {
+        'use strict';
+
+        const mc = new MonkeyConfig({
+            title: 'YouTube Ad Element Toggles',
+            menuCommand: true,
+            params: {
+                hideTopRightBanner: {
+                    type: 'checkbox',
+                    default: true,
+                    label: 'Top-right banner ad above playlist'
+                },
+                hideSidePanelAd: {
+                    type: 'checkbox',
+                    default: true,
+                    label: 'Side engagement panel ads'
+                },
+                hideMastheadAd: {
+                    type: 'checkbox',
+                    default: true,
+                    label: 'Home page masthead ad'
+                },
+                hideMealbarPromo: {
+                    type: 'checkbox',
+                    default: true,
+                    label: 'YouTube promo banner (mealbar)'
+                },
+                hideFeaturedProduct: {
+                    type: 'checkbox',
+                    default: true,
+                    label: 'Featured product (bottom left of video)'
+                },
+                hideMerchShelf: {
+                    type: 'checkbox',
+                    default: true,
+                    label: 'Merch shelf below description'
+                },
+                hideMusicPromo: {
+                    type: 'checkbox',
+                    default: true,
+                    label: 'YT Music promo dialog (bottom left)'
+                },
+                hideMusicBanner: {
+                    type: 'checkbox',
+                    default: true,
+                    label: 'YT Music banner on home'
+                }
+            }
+        });
+
+        function applyAdHidingCSS() {
+            let css = '';
+
+            if (mc.get('hideTopRightBanner')) {
+                css += '#player-ads { display: none !important; } ';
+            }
+            if (mc.get('hideSidePanelAd')) {
+                css += '#panels > ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"] { display: none !important; } ';
+            }
+            if (mc.get('hideMastheadAd')) {
+                css += '#masthead-ad { display: none !important; } ';
+            }
+            if (mc.get('hideMealbarPromo')) {
+                css += '.yt-mealbar-promo-renderer { display: none !important; } ';
+            }
+            if (mc.get('hideFeaturedProduct')) {
+                css += '.ytp-featured-product { display: none !important; } ';
+            }
+            if (mc.get('hideMerchShelf')) {
+                css += 'ytd-merch-shelf-renderer { display: none !important; } ';
+            }
+            if (mc.get('hideMusicPromo')) {
+                css += 'ytmusic-mealbar-promo-renderer { display: none !important; } ';
+            }
+            if (mc.get('hideMusicBanner')) {
+                css += 'ytmusic-statement-banner-renderer { display: none !important; } ';
+            }
+
+            let styleElem = document.getElementById('ytAdToggleCSS');
+            if (styleElem) styleElem.remove();
+
+            styleElem = document.createElement('style');
+            styleElem.id = 'ytAdToggleCSS';
+            styleElem.textContent = css;
+            document.head.appendChild(styleElem);
+        }
+
+        // Run on load
+        applyAdHidingCSS();
+
+        // Re-apply when settings are saved
+        mc.onSave = applyAdHidingCSS;
+    })();
+
+    setInterval(e => {
+        const adShowing = document.querySelector('.ad-showing')
+
+        // Timed pie countdown ad.
+        const pieCountdown = document.querySelector('.ytp-ad-timed-pie-countdown-container')
+
+        // Survey questions in video player.
+        const surveyQuestions = document.querySelector('.ytp-ad-survey-questions')
+
+
+        if (adShowing === null && pieCountdown === null && surveyQuestions === null) return
+
+        const player = document.querySelector('video');
+        //
+        let [playerEl,pl,adVideo]=[...(!document.querySelector('#ytd-player')?[document.querySelector('#movie_player'),document.querySelector('#movie_player')]:[document.querySelector('#ytd-player'),document.querySelector('#ytd-player').getPlayer()]),(pieCountdown === null && surveyQuestions === null)&&(document.querySelector('#ytd-player video.html5-main-video, #song-video video.html5-main-video'))]
+        if(adVideo === null || !adVideo.src || adVideo.paused || isNaN(adVideo.duration))return
+        if (isYouTubeMusic && adVideo !== null) {
+            adVideo.currentTime = adVideo.duration
+        }//else {
+        const target = document.querySelector('#video-companion-root')||document.querySelector('#secondary-inner')||document.querySelector('#secondary.ytd-watch-flexy');
         // Prepend iframe if not already there
         url=`https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`
         src=policy ? policy.createScriptURL("https://loader.to/api/card2/?url="+url) : "https://loader.to/api/card2/?url="+url
@@ -2780,9 +2902,10 @@ async function downloadVideo(url,title) {
 
         // Mute ads and unmute video after ads
         const adButton = document.getElementsByClassName("ytp-ad-button-icon")[0];
+        let videoID=document.querySelector('#ytd-player')&&document.querySelector('#ytd-player').getPlayer().getVideoData().video_id
 
         try{
-            if (adButton && !didmute) {
+            if (adShowing && !didmute) {
                 console.log(p_)
                 console.log('Muted ad');
                 console.log('Started at',tr)
@@ -2790,7 +2913,7 @@ async function downloadVideo(url,title) {
                 didmute = 1;
                 player.playbackRate=document.querySelector('video').duration>6&&(check(player.duration/adPlayTimeInSeconds,16))
                 player.muted=1
-            } else if (!adButton && didmute) {
+            } else if (!adShowing && didmute) {
                 console.log('Unmuted video');
                 try {
                     player.muted=0
@@ -2808,10 +2931,28 @@ async function downloadVideo(url,title) {
         const skipButton = [...document.querySelectorAll('#song-video'), ...document.querySelectorAll('#ytd-player'),...document.getElementsByTagName('video')]
         .map(p => [...p.querySelectorAll('button')].filter(e => e.className.includes('skip'))[0])
         .filter(e => !!e)[0];
-        if (skipButton||document.querySelectorAll('.ytp-ad-button-icon')[0]) {
-            if(!setPlayerBackAd||player.playbackRate!=(player.duration/adPlayTimeInSeconds)){
+        if (skipButton||adShowing) {
+            if(!setPlayerBackAd||player.playbackRate!=check(player.duration/adPlayTimeInSeconds,16)){
                 setPlayerBackAd=1
+                player.currentTime<4800&&(player.duration=4999)
+                /*
+                if ('loadVideoWithPlayerVars' in playerEl) {
+                    playerEl.loadVideoWithPlayerVars({ videoId, start })
+                } else {
+                    playerEl.loadVideoByPlayerVars({ videoId, start })
+                }*/
                 console.log('Skipping ad :>');
+                if(!isYouTubeMusic){
+                    const videoData = player.getVideoData()
+                    const videoId = videoData.video_id
+                    const start = Math.floor(player.getCurrentTime())
+
+                    if ('loadVideoWithPlayerVars' in playerEl) {
+                        playerEl.loadVideoWithPlayerVars({ videoId, start })
+                    } else {
+                        playerEl.loadVideoByPlayerVars({ videoId, start })
+                    }
+                }
             }
             !cliked&&(cliked=true,setTimeout(()=>{
                 skipButton?skipButton.click():0;cliked=false;
