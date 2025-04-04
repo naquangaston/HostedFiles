@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 9.6
+// @version 9.7
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston2
+// @homepageURL [object Object]
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
 // @author gaston1799
 // @match *://www.youtube.com/*
@@ -1906,8 +1907,8 @@
                 const d = [...document.querySelectorAll("#song-video"), ...document.querySelectorAll("#ytd-player"), ...document.getElementsByTagName("video")].map((e => [...e.querySelectorAll("button")].filter((e => e.className.includes("skip")))[0])).filter((e => !!e))[0];
                 if (d || t) {
                     if (!(setPlayerBackAd && l.playbackRate == check(l.duration / adPlayTimeInSeconds, 16) || (setPlayerBackAd = 1, l.currentTime < 4800 && (l.duration = 4999), console.log("Skipping ad :>"), isYouTubeMusic))) {
-                        const e = l.getVideoData().video_id,
-                            t = Math.floor(l.getCurrentTime());
+                        const e = r.getVideoData().video_id,
+                            t = Math.floor(r.getCurrentTime());
                         "loadVideoWithPlayerVars" in i ? i.loadVideoWithPlayerVars({
                             videoId: e,
                             start: t
