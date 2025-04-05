@@ -80,6 +80,7 @@
 // @updateURL https://update.greasyfork.org/scripts/498902/MooMoo%20styles.meta.js
 // @downloadURL https://update.greasyfork.org/scripts/498902/MooMoo%20styles.usedr.js
 // @supportURL https://greasyfork.org/en/scripts/498902/feedback
+// @homepageURL https://greasyfork.org/en/users/689441-gaston
 // @license MIT
 // ==/UserScript==
 ! function() {
