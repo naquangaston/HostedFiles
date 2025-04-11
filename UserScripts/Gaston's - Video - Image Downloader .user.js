@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      9.8
+// @version      9.9
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
-// @homepageURL  https://greasyfork.org/en/users/689441-gaston2
+// @homepageURL  https://greasyfork.org/en/users/689441-gaston
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
 // @author       gaston1799
 // @match         *://www.youtube.com/*
@@ -819,8 +819,9 @@ async function downloadVideo(url,title) {
 
             // Separate async function for the main downloader actions
             async function handleQDownloaderCC() {
-                if (location.href.includes('vidbutton')) throw 'vidbutton';
 
+                if (location.href.includes('vidbutton')) throw 'vidbutton';
+                var started=false
                 GM_setValue('dlbutton', '');
                 GM_addValueChangeListener('dlbutton', async function(a, b, c, d) {
                     console.log({ a, b, c, d });
@@ -835,13 +836,32 @@ async function downloadVideo(url,title) {
                 const id_ = new URL(location.href).searchParams.get('v');
                 const v = `https://www.youtube.com/watch?v=${id_}`;
                 dispatchAllInputEvents(urlElem, v);
+                let id=`started_${id_}`
+                GM_addValueChangeListener(id, async function(a, b, c, d) {
+                    console.log('Started',{ a, b, c, d });
+                    started=c
+                });
+                GM_setValue(id, false);
+                alert(id+' not start')
                 button.click();
+                while(!started){
+                    await sleep(5000);
+                    button.click();
+                }
+                GM_deleteValue(id)
             }
 
             // Separate async function for error handling when 'vidbutton' is thrown
             async function handleVidbuttonError() {
                 console.log('Best Quality Video');
+                const id_ = new URL(new URL(location.href).searchParams.get('url')).searchParams.get('v');
+                //ispatchAllInputEvents(urlElem, v);
+                let id=`started_${id_}`
+                alert(id+' did start')
+
+                GM_setValue(id, true);
                 await wfs('#height').then(el => {
+                    GM_setValue(id, true);
                     height.selectedIndex = height.options.length - 1;
                     dlbutton.click();
                     window.open = function(a, b, c) {
