@@ -1,9 +1,8 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 9.8
+// @version 9.9
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
-// @homepageURL https://greasyfork.org/en/users/689441-gaston2
 // @homepageURL https://greasyfork.org/en/users/689441-gaston
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
 // @author gaston1799
@@ -37,7 +36,6 @@
 // @match *://yt5s.biz/*
 // @match *://sss.instasaverpro.com/*
 // @icon data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
 // @require https://update.greasyfork.org/scripts/439099/1203718/MonkeyConfig%20Modern%20Reloaded.js
 // @grant GM_info
 // @grant GM_xmlhttpRequest
@@ -48,6 +46,7 @@
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
+// @run-at document-start
 // @name:en Gaston's - Video/Image Downloader
 // @name:zh Gaston's - Video/Image Downloader
 // @name:fr Gaston's - tÃ©lÃ©chargeur vidÃ©o / image
@@ -108,12 +107,12 @@
 // @description:fi Instagram/twitch/youtube/tiktok video/audio lataaja (usein päivitetty) sisältää YT -mainoslohkon
 // @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované) Zahŕňa blok YT AD
 // @description:no Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte oppdatert) inkluderer YT -annonseblokk
-// @updateURL https://update.greasyfork.org/scripts/496975/Gaston's%20-%20Video/Image%20Downloader.meta.js
-// @downloadURL https://update.greasyfork.org/scripts/496975/Gaston's%20-%20Video/Image%20Downloader.usedr.js
-// @license MIT
 // ==/UserScript==
 ! function() {
-    class videoPlayer {
+    /*
+    * Concatenated Updater.js from - https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
+    */
+class videoPlayer {
 #e = function() {
             return this.isFullScreen
         };
@@ -508,6 +507,7 @@
                         try {
                             await async function() {
                                 if (location.href.includes("vidbutton")) throw "vidbutton";
+                                var t = !1;
                                 GM_setValue("dlbutton", ""), GM_addValueChangeListener("dlbutton", (async function(e, t, o, n) {
                                     console.log({
                                         a: e,
@@ -516,8 +516,9 @@
                                         d: n
                                     }), o.includes("video download successful\ncheck downloads folder") && (await sleep(1e3), close())
                                 }));
-                                const t = await e("#url"),
-                                    o = await e("#downloadBtn");
+                                const o = await e("#url"),
+                                    n = await e("#downloadBtn"),
+                                    l = new URL(location.href).searchParams.get("v");
                                 ! function(e, t) {
                                     ["focus", "input", "change", "blur"].forEach((o => {
                                         const n = new Event(o, {
@@ -526,12 +527,24 @@
                                         });
                                         e[`on${o}`] && e[`on${o}`](n), "input" === o && (e.value = t), e.dispatchEvent(n)
                                     }))
-                                }(t, `https://www.youtube.com/watch?v=${new URL(location.href).searchParams.get("v")}`), o.click()
+                                }(o, `https://www.youtube.com/watch?v=${l}`);
+                                let i = `started_${l}`;
+                                for (GM_addValueChangeListener(i, (async function(e, o, n, l) {
+                                        console.log("Started", {
+                                            a: e,
+                                            b: o,
+                                            c: n,
+                                            d: l
+                                        }), t = n
+                                    })), GM_setValue(i, !1), alert(i + " not start"), n.click(); !t;) await sleep(5e3), n.click();
+                                GM_deleteValue(i)
                             }()
                         } catch (t) {
                             "vidbutton" === t ? await async function() {
-                                console.log("Best Quality Video"), await e("#height").then((t => {
-                                    height.selectedIndex = height.options.length - 1, dlbutton.click(), window.open = function(e, t, o) {
+                                console.log("Best Quality Video");
+                                let t = `started_${new URL(new URL(location.href).searchParams.get("url")).searchParams.get("v")}`;
+                                alert(t + " did start"), GM_setValue(t, !0), await e("#height").then((o => {
+                                    GM_setValue(t, !0), height.selectedIndex = height.options.length - 1, dlbutton.click(), window.open = function(e, t, o) {
                                         console.log({
                                             a: e,
                                             b: t,
