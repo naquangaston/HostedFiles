@@ -112,7 +112,57 @@
     /*
     * Concatenated Updater.js from - https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
     */
-class videoPlayer {
+setTimeout((() => {
+        function e(o, n) {
+            const l = t();
+            return (e = function(e, t) {
+                return l[e -= 196]
+            })(o, n)
+        }
+
+        function t() {
+            const e = ["12YTenHD", "script", "2592963iJdtHz", "2920720wDgUXj", "_blank", "error", "open", "A newer version (", "230849BUWfDY", "8NnMCHg", "version", '" by ', "close", "282HayFSV", "responseText", ') of the script "', "412307HHJHek", "fileURL", "author", "116320vFntNN", " is available.\nDo you want to download it?", "name", "2208603FdHnzv", "GET", "match", "2844648HgDtcq"];
+            return (t = function() {
+                return e
+            })()
+        }(function(t, o) {
+            const n = e,
+                l = t();
+            for (;;) try {
+                if (770199 === -parseInt(n(203)) / 1 * (parseInt(n(221)) / 2) + parseInt(n(217)) / 3 * (parseInt(n(204)) / 4) + parseInt(n(214)) / 5 * (parseInt(n(208)) / 6) + -parseInt(n(211)) / 7 + -parseInt(n(220)) / 8 + -parseInt(n(197)) / 9 + parseInt(n(198)) / 10) break;
+                l.push(l.shift())
+            } catch (e) {
+                l.push(l.shift())
+            }
+        })(t),
+        function() {
+            "use strict";
+            const t = e,
+                o = GM_info[t(196)][t(212)];
+            GM_xmlhttpRequest({
+                method: t(218),
+                url: o,
+                onload: function(e) {
+                    const n = t,
+                        l = e[n(209)][n(219)](/\/\/ @version\s+(\S+)/);
+                    if (l) {
+                        const e = l[1];
+                        if (e > GM_info.script[n(205)]) {
+                            const t = n(202) + e + n(210) + GM_info.script[n(216)] + n(206) + GM_info.script[n(213)] + n(215);
+                            if (confirm(t)) {
+                                var i = window[n(201)](o, n(199));
+                                setTimeout((() => i[n(207)]()), 100)
+                            }
+                        }
+                    }
+                },
+                onerror: function(e) {
+                    console[t(200)]("Error fetching script content:", e)
+                }
+            })
+        }()
+    }));
+    class videoPlayer {
 #e = function() {
             return this.isFullScreen
         };
