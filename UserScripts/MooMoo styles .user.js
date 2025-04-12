@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MooMoo styles
 // @namespace    http://tampermonkey.net/
-// @version      4.0
+// @version      4.1
 // @description  Moomoo.io/Sploop.io mod [Texture pack editor/ MUSIC PLAYER/HAT KEYBINDS/ MUSIC VISUALIZER/ SKIN SWITCHER/ ANTI-KICK/AUTO LOGIN]
 // @author       Gaston
 // @match        *://moomoo.io/*
