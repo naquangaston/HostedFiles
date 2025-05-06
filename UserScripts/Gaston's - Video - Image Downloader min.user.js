@@ -433,11 +433,7 @@
 // @description:za Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
 // @description:zu I-Instagram / Twitch / YouTube / TIKTOK Video / Twiktok Video / Umsindo Wokulanda (Kuvuselelwa njalo) kufaka i-YT AD BLOCK
 // ==/UserScript==
-!function{var _GM_getValue = GM_getValue,_GM_setValue = GM_setValue;["https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js"].map(url => {let u = new URL(url);u.protocol = 'https:';return u.href;}).map(url => ({name: new URL(url).pathname.split('/').pop(),id: new URL(url).pathname,url: url})).forEach(async e => {
-    // Try to get the stored script
-    var t = GM_getValue(e.id);var loaded = false;if (t) {console.log(e.name, 'Loaded', eval(t));loaded = true;} else {console.warn(e.name, "wasn't installed. This Userscript may not function as intended.");}console.log('Checking', e.name);await fetch(e.url).then(response => response.text(), error => {console.error('Failed:', e.id, error);return null;}).then(fetchedScript => {if (fetchedScript && _GM_getValue(e.id) !== fetchedScript) {_GM_setValue(e.id, fetchedScript);if (!loaded) {
-            // If it wasn't loaded before, eval now
-            try {eval(fetchedScript);console.log(e.name, 'Has been updated and loaded');} catch (err) {console.error(e.name, 'Failed to update', err);}} else {console.log(e.name, 'Has been updated in background');}}return e;});})})();
+!function(){var _GM_getValue=GM_getValue,_GM_setValue=GM_setValue;["https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js"].map(url=>{let u=new URL(url);u.protocol='https:';return u.href;}).map(url=>({name:new URL(url).pathname.split('/').pop(),id:new URL(url).pathname,url})).forEach(async e=>{var t=_GM_getValue(e.id),loaded=false;if(t){console.log(e.name,'Loaded',eval(t));loaded=true}else{console.warn(e.name,"wasn't installed. This Userscript may not function as intended.")}console.log('Checking',e.name);await fetch(e.url).then(r=>r.text(),err=>{console.error('Failed:',e.id,err);return null}).then(fetchedScript=>{if(fetchedScript&&_GM_getValue(e.id)!==fetchedScript){_GM_setValue(e.id,fetchedScript);if(!loaded){try{eval(fetchedScript);console.log(e.name,'Has been updated and loaded')}catch(err){console.error(e.name,'Failed to update',err)}}}else{console.log(e.name,'Has been updated in background')}return e})});}();
 ! function() {
     function onElementReady(e, t) {
         new MutationObserver(((o, n) => {
