@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 10.2
+// @version 10.3
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
@@ -523,6 +523,11 @@
             e[`on${o}`] && e[`on${o}`](n), "input" === o && (e.value = t), e.dispatchEvent(n)
         }))
     }
+
+    function downloadFileAsTitle(e, t) {
+        const o = document.createElement("a");
+        o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
+    }
     _element = _e = element,
         function() {
             Object.assign(this || arguments[0], {
@@ -557,35 +562,7 @@
                     }
                 }
             })
-        }(top);
-    const olog = console.log,
-        logger = new CustomLog("Script Logger"),
-        consoleLogOriginal = console.log;
-
-    function downloadFileAsTitle(e, t) {
-        const o = document.createElement("a");
-        o.href = e, o.download = t, document.body.appendChild(o), o.click(), document.body.removeChild(o)
-    }
-    console.log1 = function(...e) {
-        const t = e.some((e => "object" == typeof e && null !== e));
-        let o = "Anonymous";
-        try {
-            throw new Error
-        } catch (e) {
-            if (e.stack) {
-                const t = e.stack.split("\n");
-                if (t.length >= 3) {
-                    const e = t[2].match(/at\s+(.*?)\s*\(/);
-                    o = e && e[1] ? e[1] : "Anonymous"
-                }
-            }
-        }
-        if (t) consoleLogOriginal(`og:[${o}]`, ...e);
-        else {
-            const t = e.map((e => String(e))).join(" ");
-            logger.log(`[${o}]`, t)
-        }
-    }, console.log("ok");
+        }(top), console.log("ok");
     var CurrentPlayingSymbol = "▶",
         adev, set_;
 
@@ -1301,7 +1278,7 @@
                                 for (o(t).then((e => n = !0)); !document.querySelector(e) && (await o(0), !n););
                                 return document.querySelector(e)
                             }(".rewards-list", 3e3);
-                            return t || (get_aria_label("Bits and Points Balances") ? .click(), e())
+                            return t || (get_aria_label("Bits and Points Balances") && get_aria_label("Bits and Points Balances").click(), e())
                         }
                         let t = {};
                         async function o() {
@@ -1346,19 +1323,19 @@
                                     label: i,
                                     resolution: r
                                 }) => {
-                                    let c = new _e(_copyElm(n)).on("click", (function() {
-                                        c.element.querySelector(l).innerText;
+                                    let a = new _e(_copyElm(n)).on("click", (function() {
+                                        a.element.querySelector(l).innerText;
                                         var n;
-                                        c.element.querySelector(l).innerText = "Please wait...", [, e, t, o] = location.pathname.split("/"), async function(e, t, o, n) {
+                                        a.element.querySelector(l).innerText = "Please wait...", [, e, t, o] = location.pathname.split("/"), async function(e, t, o, n) {
                                             return await fetch(e).then((e => !0), (e => !1)) ? (new _e("iframe", {
                                                 src: e,
                                                 width: "100%",
                                                 height: "600px",
                                                 frameborder: "0"
                                             }).appendTo(document.body), console.log(`Embedded ${t} iframe: `, e)) : (console.warn("Embed failed"), open(e, t))
-                                        }((e => e.href)(((n = new URL(location.href)).host = "clipr.xyz", n)), r).then((e => c.element.querySelector(l).innerText = i))
+                                        }((e => e.href)(((n = new URL(location.href)).host = "clipr.xyz", n)), r).then((e => a.element.querySelector(l).innerText = i))
                                     })).appendTo(document.querySelector(".Layout-sc-1xcs6mc-0.hZUoPp"));
-                                    "VOD" === r ? c.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = i : c.element.querySelector(l).innerText = i
+                                    "VOD" === r ? a.element.querySelector(".ScCoreButtonLabel-sc-s7h2b7-0").innerText = i : a.element.querySelector(l).innerText = i
                                 }))
                             }().catch(console.warn)
                         }
@@ -1390,8 +1367,8 @@
                         }, unlockRNG = async function() {
                             const e = e => new Promise((t => setTimeout(t, e)));
                             await setRwards();
-                            let o = document.querySelector('[data-test-selector="bits-balance-string"]') ? .innerText || 0,
-                                n = document.querySelector('[data-test-selector="copo-balance-string"') ? .innerText || 0;
+                            let o = document.querySelector('[data-test-selector="bits-balance-string"]') ? document.querySelector('[data-test-selector="bits-balance-string"]').innerText : 0,
+                                n = document.querySelector('[data-test-selector="copo-balance-string"') ? document.querySelector('[data-test-selector="copo-balance-string"').innerText : 0;
                             if (console.log({
                                     totalPoints: n,
                                     totalBits: o
@@ -1402,7 +1379,9 @@
                             for (; document.getElementById("channel-points-reward-center-body").querySelector(".ScCoreButton-sc-ocjdkq-0");) document.getElementById("channel-points-reward-center-body").querySelector(".ScCoreButton-sc-ocjdkq-0").click(), await e(1e3)
                         }, console.log("running points"), async function() {
                             let e = !1;
-                            for (0;;) get_aria_label("Leave feedback for this Ad") ? (console.log("AdFound"), document.querySelector("video").muted || e || (document.querySelector("video").muted = !0, e = !0)) : get_aria_label("Ad") && e && (document.querySelector("video").muted = !1), document.querySelector('[aria-label="Claim Bonus"]') && (console.log("Bonus claimed"), document.querySelector('[aria-label="Claim Bonus"]').click()), await sleep(100)
+                            for (0;;) try {
+                                document.querySelector('[aria-label="Claim Bonus"]') && (console.log("Bonus claimed"), document.querySelector('[aria-label="Claim Bonus"]').click()), a, get_aria_label("Leave feedback for this Ad") ? (console.log("AdFound"), document.querySelector("video").muted || e || (document.querySelector("video").muted = !0, e = !0)) : get_aria_label("Ad") && e && (document.querySelector("video").muted = !1), await sleep(100)
+                            } catch {}
                         }(), setInterval((() => {
                             n != location.href && o(), n = location.href
                         }), 100)
@@ -1906,13 +1885,14 @@
                 } else console.error("Invalid video element or source.")
             }, _getIds = getIds, info = {}, downloadT = function(e, t = !1, o = !0, n = !1, l = !1, i = "") {
                 let r = e + (n ? "mp4" : "mp3") + o;
-                var c;
-                if (!(c = document.getElementById(r)) || c.remove(), localStorage[r] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
+                if ((e => {
+                        e && e.remove()
+                    })(document.getElementById(r)), localStorage[r] && !t && (!l || !confirm(`You have already download this video as .${n?"mp4":"mp3"}\nStill download?`))) return;
                 let a = i || location;
-                var s = new URL(a.href);
-                s.host = s.host.replace(".com", "mz.com"), console.log("o", s);
-                let d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
-                console.log(r, d);
+                var c = new URL(a.href);
+                c.host = c.host.replace(".com", "mz.com"), console.log("o", c);
+                let s = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "en1") + "/", "?v=", e, "&s=", c.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o];
+                console.log(r, s);
                 ad("unload", (function() {
                     info[e].close()
                 }), !0), onmessage = function(e) {
@@ -1923,26 +1903,26 @@
                                 title: l,
                                 length: i,
                                 id: r,
-                                _: c
+                                _: a
                             }
                         } = e;
-                        let a = l + (n ? ".mp4" : ".mp3");
+                        let c = l + (n ? ".mp4" : ".mp3");
                         (e => {
                             e && e.remove()
-                        })(document.getElementById(c)), console.log("Handled", {
+                        })(document.getElementById(a)), console.log("Handled", {
                             href: t,
                             title: l,
                             length: i,
                             id: r,
-                            _: c
-                        }, e, document.getElementById(c), document.getElementById(c) && document.getElementById(c).remove()), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, a)) : open(t), localStorage[c] = t
+                            _: a
+                        }, e, document.getElementById(a), document.getElementById(a) && document.getElementById(a).remove()), button.set("innerText", "Get MP3"), button.set("disabled", !1), o ? (console.log("Getting video"), downloadFileAsTitle(t, c)) : open(t), localStorage[a] = t
                     } else console.log("Unhandled Post", e)
                 };
-                let u = a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`;
-                return info[e] = n ? open(u, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !async function() {
+                let d = a.pathname.startsWith("/shorts/") ? "https://www.socialplug.io/free-tools/youtube-video-downloader" : `https://qdownloader.cc/youtube-video-downloader.html?v=${e}`;
+                return info[e] = n ? open(d, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500") : !async function() {
                     if (info[e] = n) {
-                        return await fetch(u.join("")).then((e => !0), (e => !1)) ? ((t = new _e("iframe", {
-                            src: u.join(""),
+                        return await fetch(d.join("")).then((e => !0), (e => !1)) ? ((t = new _e("iframe", {
+                            src: d.join(""),
                             id: r,
                             useT: o,
                             loading: "lazy",
@@ -1957,11 +1937,11 @@
                             height: 1080,
                             "pointer-events": "none",
                             opacity: 1
-                        })).appendTo(document.body), t.closed = !1, t) : open(u, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500")
+                        })).appendTo(document.body), t.closed = !1, t) : open(d, [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1], "width=400,height=500")
                     }
-                    if (!await fetch(d.join("")).then((e => !0), (e => !1))) return console.warn("Cant Frame"), open(d.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500");
+                    if (!await fetch(s.join("")).then((e => !0), (e => !1))) return console.warn("Cant Frame"), open(s.join(""), [e, a.pathname.startsWith("/shorts/") ? 1 : 0, n + !1, o + !1], "width=400,height=500");
                     var t = new _e("iframe", {
-                        src: d.join(""),
+                        src: s.join(""),
                         id: r,
                         useT: o,
                         loading: "lazy",
@@ -1977,8 +1957,8 @@
                         "pointer-events": "none",
                         opacity: 1
                     });
-                    return ev = GM_addValueChangeListener("y2mate.nu", (function(l, i, r, c) {
-                        d = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "0HzX") + "/", "?v=", e, "&s=", s.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o], t.set("src", d.join(""))
+                    return ev = GM_addValueChangeListener("y2mate.nu", (function(l, i, r, a) {
+                        s = ["https://y2mate.nu/" + (GM_getValue("y2mate.nu") || "0HzX") + "/", "?v=", e, "&s=", c.pathname.startsWith("/shorts/") ? 1 : 0, "&mp4=", n ? "mp4" : "mp3", "&useT=", o], t.set("src", s.join(""))
                     })), t.appendTo(document.body), t.closed = !1, t
                 }()
             }, downloadTikTok = function(e, t) {
@@ -1998,9 +1978,9 @@
                                         title: n,
                                         length: l,
                                         id: r,
-                                        mp4: c,
+                                        mp4: a,
                                         info: {
-                                            username: a
+                                            username: c
                                         }
                                     }
                                 } = e;
@@ -2010,8 +1990,8 @@
                                         length: l,
                                         id: r,
                                         links: o,
-                                        mp4: c
-                                    }, e), GM_setValue(r, !0), "https://savetik.co" == e.origin) n = i, downloadFileAsTitle(c ? o[0] : o.pop(), a + " - " + n + (c ? ".mp4" : ".mp3"), tiktikWin);
+                                        mp4: a
+                                    }, e), GM_setValue(r, !0), "https://savetik.co" == e.origin) n = i, downloadFileAsTitle(a ? o[0] : o.pop(), c + " - " + n + (a ? ".mp4" : ".mp3"), tiktikWin);
                                 else {
                                     if (useT) {
                                         let e = document.createElement("a");
@@ -2020,12 +2000,12 @@
                                     localStorage[_] = t
                                 }
                             } else console.log("Unhandled Post", e)
-                        }, await fetch(o).then((e => !0), (e => !1))) return GM_addValueChangeListener("savetik.co", (async function(e, t, i, c) {
+                        }, await fetch(o).then((e => !0), (e => !1))) return GM_addValueChangeListener("savetik.co", (async function(e, t, i, a) {
                         console.log({
                             a: e,
                             b: t,
                             c: i,
-                            d: c
+                            d: a
                         }), i != t && i && (o = `https://savetik.co/${i}`, r.set("src", `${o}?user=${l}&id=${n}`))
                     })), void(r = new _e("iframe", {
                         src: `${o}?user=${l}&id=${n}`,
@@ -2044,12 +2024,12 @@
                         "pointer-events": "none",
                         opacity: 1
                     }));
-                    GM_addValueChangeListener("savetik.co", (async function(t, i, r, c) {
+                    GM_addValueChangeListener("savetik.co", (async function(t, i, r, a) {
                         console.log("savetik.co", {
                             a: t,
                             b: i,
                             c: r,
-                            d: c
+                            d: a
                         }), r != i && r && (tiktikWin && tiktikWin.close(), o = `https://savetik.co/${r}`, console.log("Updaed stuff"), tiktikWin = open(o, [`https://www.tiktok.com/${l}/video/${n}`, e + !1], "width=400,height=500"))
                     })), tiktikWin = open(o, [`https://www.tiktok.com/${l}/video/${n}`, e + !1], "width=400,height=500")
                 })(e, t).then(console.log, console.warn)
@@ -2282,11 +2262,11 @@
                     n = document.querySelector(".ytp-ad-survey-questions");
                 if (null === t && null === o && null === n) return;
                 const l = document.querySelector("video");
-                let [i, r, c] = [...document.querySelector("#ytd-player") ? [document.querySelector("#ytd-player"), document.querySelector("#ytd-player").getPlayer()] : [document.querySelector("#movie_player"), document.querySelector("#movie_player")], null === o && null === n && document.querySelector("#ytd-player video.html5-main-video, #song-video video.html5-main-video")];
-                if (null === c || !c.src || c.paused || isNaN(c.duration)) return;
-                isYouTubeMusic && null !== c && (c.currentTime = c.duration);
-                const a = document.querySelector("#video-companion-root") || document.querySelector("#secondary-inner") || document.querySelector("#secondary.ytd-watch-flexy");
-                url = `https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`, src = policy ? policy.createScriptURL("https://loader.to/api/card2/?url=" + url) : "https://loader.to/api/card2/?url=" + url, a && (!a.querySelector("#cardApiIframe") && (toggleIframeCollapse(!0), a.parentNode.prepend(styleElement), a.prepend(containerDiv.element), console.log("Added That Thing")), setElement(location.href) != yedID && (toggleIframeCollapse(!0), iframeElement.set("src", src), console.log("Fixed That Thing"), yedID = setElement(location.href)));
+                let [i, r, a] = [...document.querySelector("#ytd-player") ? [document.querySelector("#ytd-player"), document.querySelector("#ytd-player").getPlayer()] : [document.querySelector("#movie_player"), document.querySelector("#movie_player")], null === o && null === n && document.querySelector("#ytd-player video.html5-main-video, #song-video video.html5-main-video")];
+                if (null === a || !a.src || a.paused || isNaN(a.duration)) return;
+                isYouTubeMusic && null !== a && (a.currentTime = a.duration);
+                const c = document.querySelector("#video-companion-root") || document.querySelector("#secondary-inner") || document.querySelector("#secondary.ytd-watch-flexy");
+                url = `https://www.youtube.com/watch?v=${setElement(location.href)}&adUrl=https://www.youtube.com/channel/UCOA8lE9-0XnEIdHqjfQUz1A?sub_confirm=1`, src = policy ? policy.createScriptURL("https://loader.to/api/card2/?url=" + url) : "https://loader.to/api/card2/?url=" + url, c && (!c.querySelector("#cardApiIframe") && (toggleIframeCollapse(!0), c.parentNode.prepend(styleElement), c.prepend(containerDiv.element), console.log("Added That Thing")), setElement(location.href) != yedID && (toggleIframeCollapse(!0), iframeElement.set("src", src), console.log("Fixed That Thing"), yedID = setElement(location.href)));
                 const s = query("yt-button-view-model#dismiss-button");
                 s && !isHidden(s) && s.click();
                 document.getElementsByClassName("ytp-ad-button-icon")[0];
