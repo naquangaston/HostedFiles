@@ -1,5 +1,437 @@
 // ==UserScript==
-
+// @name Gaston's - Video/Image Downloader
+// @namespace http://tampermonkey.net
+// @version 10.3
+// @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
+// @homepageURL https://greasyfork.org/en/users/689441-gaston
+// @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @author gaston1799
+// @match *://www.youtube.com/*
+// @match *://yt.savetube.me/*
+// @match *://production.assets.clips.twitchcdn.net/*
+// @match *://www.instagram.com/*
+// @match *://music.youtube.com/*
+// @match *://y2mate.nu/*
+// @match *://www.twitch.tv/*
+// @match *://www.socialplug.io/*
+// @match *://snapinst.app/*
+// @match *://loader.to/*
+// @match *://onlymp3.app/*
+// @match *://qdownloader.cc/*
+// @match *://tubemp4.is/*
+// @match *://snapsave.io/*
+// @match *://clips.twitch.tv/*
+// @match *://twitch.tv/*
+// @match *://onlymp3.to/*
+// @match *://fastdl.app/*
+// @match *://en.onlymp3.app/*
+// @match *://clipr.xyz/*
+// @match *://studio.youtube.com/*
+// @match *://www.yt2conv.com/*
+// @match *://soundcloud.com/*
+// @match *://sclouddownloader.net/*
+// @match *://www.tiktok.com/*
+// @match *://en3.onlinevideoconverter.pro/*
+// @match *://savetik.co/*
+// @match *://yt5s.biz/*
+// @match *://sss.instasaverpro.com/*
+// @icon data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @grant GM_info
+// @grant GM_xmlhttpRequest
+// @grant GM_getValue
+// @grant GM_setValue
+// @grant GM_addStyle
+// @grant GM_registerMenuCommand
+// @grant GM_xmlhttpRequest
+// @grant GM_deleteValue
+// @grant GM_addValueChangeListener
+// @grant GM_removeValueChangeListener
+// @require https://update.greasyfork.org/scripts/439099/1203718/MonkeyConfig%20Modern%20Reloaded.js
+// @run-at document-start
+// @name:en Gaston's - Video/Image Downloader
+// @name:bg Gaston's - видео/изтегляне на изображения
+// @name:ar Gaston's - Video/Image Downloader
+// @name:de Gaston's - Video/Image Downloader
+// @name:cs Gaston's - Video/Image Downloader
+// @name:el Gaston's - Video/Image Downloader
+// @name:da Gastons - Video/Image Downloader
+// @name:fi Gaston's - Video/kuvan lataaja
+// @name:eo Gaston's - Video/Bildo -Elŝutilo
+// @name:es Gaston's - Video/Image Descarger
+// @name:it Gaston's - Downloader di video/immagine
+// @name:ko Gaston 's- 비디오/이미지 다운로더
+// @name:fr Gaston's - téléchargeur vidéo / image
+// @name:hu Gaston's - Videó/kép letöltő
+// @name:id Gaston's - Video/Image Downloader
+// @name:hr Gaston's - Download Video/Image
+// @name:mr गॅस्टनचा - व्हिडिओ/प्रतिमा डाउनलोडर
+// @name:ja Gaston's -Video/Image Downloader
+// @name:he Gaston's - הורדת וידאו/תמונה
+// @name:ka გასტონის - ვიდეო/გამოსახულების ჩამოტვირთვა
+// @name:nb Gaston's - Video/Image Downloader
+// @name:pt-BR Gaston's - Video/Image Downloader
+// @name:th Gaston's - Video/Image Downloader
+// @name:ro Gaston's - descărcător video/imagini
+// @name:nl Gaston's - Video/Image Downloader
+// @name:sr Гастон'с - Видео / Имаге Довнлоадер
+// @name:sk Gaston's - Video/Image Downloader
+// @name:sv Gaston's - Video/Image Downloader
+// @name:ru Gaston's - Video/Image Скачатель
+// @name:pl Gaston - pobierca wideo/obrazu
+// @name:es-419 Gaston's - Video/Image Downloader
+// @name:zh-CN 加斯顿的 - 视频/图像下载器
+// @name:vi Gaston's - Trình tải xuống video/hình ảnh
+// @name:zh-TW 加斯頓的 - 視頻/圖像下載器
+// @name:tr Gaston's - Video/Resim İndirici
+// @name:ckb GASTON'S - DOCHOVDLOUNDER
+// @name:uk GASTON'S - Відео/зображення завантажувача
+// @name:fr-CA Gaston's - téléchargeur vidéo / image
+// @name:ug Gaston's - سىن / رەسىم چۈشۈرۈش
+// @name:aa Gaston's- Vidiyo/Gaddat oobise
+// @name:ae Gaston's - Video/Image Downloader
+// @name:ast Gaston's - Video/Image Downloader
+// @name:af Gaston's - Video/Image Downloader More actions
+// @name:ab Гастон - Авидео/Асахьа Ахҩага
+// @name:ay Gaston's - Video/Image Ukax mä jach'a uñacht'äwiwa.
+// @name:am ነዳጅ - ቪዲዮ / ምስል ማውረድ
+// @name:ak Gaston's - video/mfonini a wɔtwe mfonini .
+// @name:av Гастон - Видео/Имаж Скачать
+// @name:as Gaston's - Video/Image Downloader
+// @name:az Gaston's - Video / Şəkil Yükləyicisi
+// @name:bi Gaston's - Video/Image Downloader
+// @name:bh Gaston's - Video/Image Downloader
+// @name:ca Gaston's - Descàrrega de vídeo/imatge
+// @name:bm Gaston's - Video/Image Téléchargeur .
+// @name:bs Gaston's - Video / Image Downloadower
+// @name:bn গ্যাস্টনের - ভিডিও/চিত্র ডাউনলোডার
+// @name:be Gaston's - Загрузка відэа/малюнка
+// @name:bo Gaston’s Video/Image Downloader More actions
+// @name:ba Гастон - Видео/Һүрәт Скачатель
+// @name:br Gaston - Video/Skeudenn Pellgargañ .
+// @name:chr Gaston's - Video/Image Downloader
+// @name:cr Gaston's - Video/Image Downloader
+// @name:cu Gaston's - Video/Image Downloader
+// @name:ce Гастон - Видео/Имаж Скачать еш верг More actions
+// @name:dv ގޭސްޓަންގެ - ވީޑިއޯ/އިމޭޖް ޑައުންލޯޑަރ
+// @name:cv Гастон - Видео/Сăн ÿкерчĕк скачать
+// @name:ceb Gaston's - Video / I-imahen nga Downloader
+// @name:cy Gaston's - Downloader Fideo/Delwedd
+// @name:co Scaricamentu Video / Image di Gaston
+// @name:ch Gaston Gaston - Videt/Inagof
+// @name:fa Gaston's - Downloader Video/Image
+// @name:fy Gaston's - Video / image Downloader
+// @name:dz གཱསི་ཊོན་གྱི་ - བརྙན་འཕྲིན་/པར་རིས་ཕབ་ལེན་པ།
+// @name:fj Gaston ni Gastos - Video/Image Lavetaki
+// @name:ee Gaston ƒe - Video/Nɔnɔmetata ƒe Ðeɖefiamɔ̃ .
+// @name:et Gastoni - video/pildi allalaadija
+// @name:eu Gaston's - Video / Image Downloader
+// @name:fil Gaston's - Video/Image Downloader
+// @name:fo Gaston's - Video/Mynd Downloader
+// @name:ff Gaston's - Video/Imageer Natal
+// @name:gsw-berne Gaston's - Video/Image Downloader
+// @name:gl Gaston's - Video/Image Downloader
+// @name:gv Gaston - Ta'n Lught-thie Video/Image
+// @name:gu ગેસ્ટન - વિડિઓ/ઇમેજ ડાઉનલોડર
+// @name:gn Gaston's - vídeo/Ta'angamýi .
+// @name:hmn Gaston's - Yees duab / Duab Downloader
+// @name:ha Gaston's - Bidiyo / Download Video / Download
+// @name:ga Gaston's - Íoslódáil Físeáin/Íomhá
+// @name:gd Luchdaich sìos bhidio / ìomhaigh Gaston
+// @name:hi गैस्टन - वीडियो/छवि डाउनलोडर
+// @name:ia Gaston's - Video/Image Downloader
+// @name:ik Gaston's - Video/Image Downloader
+// @name:ho Gaston's - Video/Image Downloader
+// @name:ie Gaston's - Video/Image Downloader
+// @name:hz Gaston's - Video/Image Downloader
+// @name:ht Gaston's - Videyo/Imaj Downloader
+// @name:hy Գաստոն - տեսանյութ / պատկերի ներբեռնիչ
+// @name:iu ᒑᔅᑕᓐ - ᑕᕐᕆᔭᓕᐊᖅ/ᐊᔾᔨᙳᐊᖅ ᖃᕆᑕᐅᔭᒃᑯᑦ ᑎᒍᓯᔾᔪᑎ
+// @name:ig Gaston - Video / Imase Downlown
+// @name:is Gaston's - Video/Image Downloader
+// @name:ki Gaston's - Video/Image Downloader
+// @name:kj Gaston's - Video/Image Downloader
+// @name:ks Gaston's - Video/Image Downloader
+// @name:jv Download Gaston - Video / Gambar Downloader
+// @name:kl Gaston's - Video/Assilisassiaq
+// @name:kg Ba Gaston - Video/Kupesa bifwanisu
+// @name:kn ಗ್ಯಾಸ್ಟನ್ - ವಿಡಿಯೋ/ಇಮೇಜ್ ಡೌನ್‌ಲೋಡರ್
+// @name:kr Gastonbe - Video/Sura Downloader
+// @name:km Gaston's - ទាញយកវីដេអូ / រូបភាព
+// @name:kk Гастонның - бейне / image жүктеушісі
+// @name:kw Gaston's - Video/Image Downloader
+// @name:lif Gaston's - Video/Image Downloader
+// @name:la Gasto - Video / Image Download
+// @name:kv Гастон - Видео/Серпас Скачать .
+// @name:lg Gaston's - Video/Ekifaananyi ekiwanula .
+// @name:lb Gaston's - Video / Bild Downloader More actions
+// @name:ln Gaston's - Vidéo/Image Téléchargeur
+// @name:ky Гастон - Видео / Сүрөт жүктөөчү
+// @name:lo Gaston's - ດາວໂຫລດວິດີໂອ / ຮູບພາບ / ຮູບພາບ
+// @name:ku Gaston's - Video / image Downloader
+// @name:mo Gaston's - Video/Image Downloader
+// @name:mg Gaston's - Video / Sary Downloader
+// @name:ml ഗാസ്റ്റൺസ് - വീഡിയോ / ഇമേജ് ഡ download ൺലോഡർ
+// @name:mk Гастон - преземач на видео/слика
+// @name:mh Gaston - Vidio/Pija
+// @name:lv Gaston's - video/attēlu lejupielādētājs More actions
+// @name:mi Gaston's - Kaihoko / Whakaahua Whakaahua
+// @name:mn Гастоны - видео / зураг татаж авагч
+// @name:ms Gaston's - Video/Image Downloader
+// @name:lt „Gaston's“ - vaizdo/vaizdo atsisiuntimo priemonė
+// @name:nv Gaston's - Video/Image Downloader
+// @name:na Gaston's - Video/Image Downloader
+// @name:ng Gaston's - Video/Image Downloader
+// @name:nn Gaston's - Video/Image Downloader
+// @name:nd Gaston's - Video/Image Downloader
+// @name:my Gaston ၏ - ဗွီဒီယို / image downloader
+// @name:nr 10 U-Ama 1000 .
+// @name:mt Gaston's - Video / Image Downloader
+// @name:ny Mapata a gaston - kanema / chithunzi More actions
+// @name:ne Gaston - भिडियो / छवि डाउनलोडर
+// @name:pi Gaston's - Video/Image Downloader
+// @name:pt-PT Gaston's - Downloader de vídeo/imagem
+// @name:pt Gaston's - Downloader de vídeo/imagem
+// @name:os Гастоны - Видео/Ныв скачать
+// @name:oc Gaston's - Video/Déleagés d'Image
+// @name:ps د ګاسټن - ویډیو / عکس ډاونلوډر
+// @name:or ଗ୍ୟାଷ୍ଟନ୍ ର - ଭିଡିଓ / ଇମେଜ୍ ଡାଉନଲୋଡର୍ |
+// @name:pa GABTons ਦਾ - ਵੀਡੀਓ / ਚਿੱਤਰ ਡਾ er ਡਰਰ
+// @name:om Gaston's - viidiyoo/fakkii downloader .
+// @name:qu Gaston's - Video/Imagen Descargar .
+// @name:sc Gaston's - Video/Image Downloader
+// @name:sco Gaston's - Video/Image Downloader
+// @name:sh Gaston's - Video/Image Downloader More actions
+// @name:rm Gaston's - Video/Image Downloader
+// @name:sg Gaston’s - Vidéo/Mime Télécharger
+// @name:rw Gaston's - Video / Ishusho
+// @name:se Gaston's - Video/govva.
+// @name:sa Gaston's - Video/Image Downloader
+// @name:rn Gaston - Video/Ishusho y'Ivyiyumviro
+// @name:sd گيسٽن جي - وڊيو / تصويري ڊائون لوڊ ڪندڙ
+// @name:sw Gaston's - video/picha ya kupakua
+// @name:sn Gaston's - Vhidhiyo / Mufananidzo Downloader
+// @name:sq Gaston's - Shkarkues i Video/Imazhit
+// @name:si ගැස්ටන්ස් - වීඩියෝ / රූප බාගත කරන්නා
+// @name:ss Gaston's - Ividiyo/Sitfombe Umlandziso
+// @name:st Gaston's - Download Download Morekisi oa Video
+// @name:sl Gaston's - Video/Image Downloader
+// @name:so Gaston's - Video / imsit Downloader
+// @name:sm Gastton's - Vitio / Ata Downloader
+// @name:su Gaston - pidéo / pidéo / gambar
+// @name:syr Gaston's - Video/Image Downloader
+// @name:tl Gaston's - Video/Image Downloader
+// @name:tk Gadon's - Wideo / surat ýükleýjisi
+// @name:te గాస్టన్స్ - వీడియో/ఇమేజ్ డౌన్‌లోడ్
+// @name:tg Гаста - Видео / зеркашӣ
+// @name:ti ጋስቶን - ቪድዮ/ስእሊ ዳውንሎደር
+// @name:ts Gaston's - Xifaniso xa vhidiyo/xifaniso .
+// @name:to Gaston's - Vitio/'Imisi Downloader
+// @name:ta காஸ்டனின் - வீடியோ/பட பதிவிறக்குபவர்
+// @name:tn Gaston ya - Video/Setshwantsho sa Ditshwantsho
+// @name:tw Gaston's - Video/Image Downloader
+// @name:xh I-Gageton-ividiyo / umxholo wokukhuphela
+// @name:ur گیسٹن کا - ویڈیو/تصویری ڈاؤن لوڈر
+// @name:ty Te mau hoho'a - Te hoho'a/te hoho'a i te mau hoho'a
+// @name:yo GASTON - Fidio / Download aworan
+// @name:yi Gaston ס - ווידעא / בילד דאָוונלאָאַדער
+// @name:uz Gaston's - video / rasmni yuklab olish
+// @name:wo Gaston - Video/New-xew
+// @name:ve Gaston - Video/Tshifanyiso.
+// @name:tt Гастонның - видео / Рәсем йөкләүче
+// @name:za Gaston's - Video/Image Downloader
+// @name:zu Gaston's - Video / Image Downloader
+// @description:ar Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (تم تحديثه بشكل متكرر) يتضمن كتلة yt ad
+// @description:en Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:es Instagram/Twitch/YouTube/Tiktok Video/Audio Descarger (actualizado con frecuencia) incluye el bloque de anuncios YT
+// @description:cs Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované) zahrnuje YT AD Block
+// @description:bg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (често актуализиран) Включва YT рекламен блок
+// @description:eo Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte ĝisdatigita) inkluzivas YT Ad -blokon
+// @description:el Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (συχνά ενημερωμένο)
+// @description:de Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (häufig aktualisiert) enthält YT -Anzeigenblock Explain More actions
+// @description:da Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofte opdateret) Inkluderer YT AD -blokken
+// @description:fi Instagram/twitch/youtube/tiktok video/audio lataaja (usein päivitetty) sisältää YT -mainoslohkon
+// @description:fr Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour) comprend un bloc d'annonce YT
+// @description:ja Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader（頻繁に更新）には、YT広告ブロックが含まれています
+// @description:ko Instagram/Twitch/YouTube/Tiktok 비디오/오디오 다운로더 (자주 업데이트)에는 YT AD 블록이 포함됩니다
+// @description:it Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (frequentemente aggiornato) include YT Ad Block
+// @description:id Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (sering diperbarui) Termasuk blok iklan YT
+// @description:hr Instagram/Twitch/YouTube/Tiktok Video/Audio Download (često ažurirano) uključuje YT AD Block
+// @description:he אינסטגרם/טוויץ
+// @description:mr इन्स्टाग्राम/ट्विच/यूट्यूब/टिकटोक व्हिडिओ/ऑडिओ डाउनलोडर (वारंवार अद्यतनित) वायटी अ‍ॅड ब्लॉक समाविष्ट करते More actions
+// @description:ka Instagram/Twitch/YouTube/Tiktok ვიდეო/აუდიო ჩამოტვირთვა (ხშირად განახლებულია) მოიცავს YT სარეკლამო ბლოკს
+// @description:hu Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gyakran frissítve) tartalmazza az YT hirdetési blokkot
+// @description:pt-BR Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block More actions
+// @description:nl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (vaak bijgewerkt) bevat YT -advertentieblok More actions
+// @description:nb Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block More actions
+// @description:pl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (często aktualizowany) zawiera blok reklam YT
+// @description:th Instagram/Twitch/YouTube/Tiktok วิดีโอ/เสียงดาวน์โหลด (อัปเดตบ่อยครั้ง) รวมถึงบล็อกโฆษณา yt
+// @description:ru Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часто обновляется) включает в себя объявление YT
+// @description:sr Инстаграм / Твитцх / ИоуТубе / Тикток Видео / Аудио Довнлоадер (Често ажуриран) укључује ит Ад Ад More actions
+// @description:ro Instagram/Twitch/YouTube/Tiktok Video/Downloader audio (actualizat frecvent) include blocul de anunțuri YT
+// @description:sk Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (často aktualizované) Zahŕňa blok YT AD
+// @description:sv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (ofta uppdaterad) Inkluderar YT AD -block
+// @description:es-419 Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:zh-CN Instagram/Twitch/YouTube/tiktok视频/音频下载器（经常更新）包括YT广告块
+// @description:zh-TW Instagram/Twitch/YouTube/tiktok視頻/音頻下載器（經常更新）包括YT廣告塊
+// @description:fr-CA Instagram / twitch / youtube / tiktok vidéo / téléchargeur audio (fréquemment mis à jour) comprend un bloc d'annonce YT
+// @description:tr Instagram/Twitch/YouTube/Tiktok Video/Ses Downloader (sıklıkla güncellendi) YT reklam bloğunu içerir
+// @description:vi Instagram/twitch/youtube/tiktok video/trình tải xuống âm thanh (được cập nhật thường xuyên) bao gồm khối quảng cáo YT
+// @description:uk Instagram/twitch/youtube/tiktok відео/аудіо завантажувач (часто оновлений) включає блок yt ad
+// @description:ckb Instagram/Twitch/Youtube/Tiktok Video/Audio Downloader (زۆر نوێکراوەتەوە) بلۆکی ڕێکلامەکانی YT لەخۆدەگرێت
+// @description:ug Instagram / twitch / YouTube / Tiktok Video / Audio چۈشۈرۈش (دائىم يېڭىلىنىدۇ) YT ئېلاننى ئۆز ئىچىگە ئالىدۇ
+// @description:aa Institushin/YouToobe/Tiktook video/Audio downio oobise ( kaxxam asqassaabe)
+// @description:ae Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:ast Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:ay Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (Sapa kutiw machaqar tukuyapxi) YT anuncio bloque ukaw utji
+// @description:av Инстаграм/YouTube/TikTok Video/Audio Downloader (постоянно обновляется) Включает в себя блок Ad
+// @description:af Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (gereeld bygewerk) bevat YT AD -blok
+// @description:az Instagram / Twitch / YouTube / Tiktok video / audio yükləyicisi (tez-tez yenilənən) YT reklam blokunu ehtiva edir
+// @description:ak Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (wɔtaa yɛ no foforo) YT ad Block ka ho
+// @description:am Instagram / Twitch / YouTube / Toutube / Toutube / Touty ማውጫ (ኦዲዮ ማውረድ) የ YT ማስታወቂያ አግድንም ያካትታል
+// @description:ab Instagram/Twitch/YouTube/TikTok Авидео/Аудио Алаҟәра (лассы-лассы иҿыцхоит) Иаҵанакуеит YT Ad аблок More actions
+// @description:as ইনস্টাগ্ৰাম/Twitch/YouTube/Tiktok Video/Audio Downloader (সঘনাই আপডেট কৰা হৈছে)
+// @description:bh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:bi Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:bn ইনস্টাগ্রাম/টুইচ/ইউটিউব/টিকটোক ভিডিও/অডিও ডাউনলোডার (প্রায়শই আপডেট হওয়া) ওয়াইটি অ্যাড ব্লক অন্তর্ভুক্ত
+// @description:bs Instagram / Twitch / YouTube / Tiktok Video / Audio Downloader (često ažurirano) uključuje YT blok oglasa
+// @description:bo Instagram/Twitch/YouTube/TikTok བརྙན་འཕྲིན། More actions
+// @description:bm Instagram/Twitch/Youtube/Tiktok Video/Audio Downloader (a ka ca a la) yt annonce bloc
+// @description:br Instagram/Tritch/YouTube/TikTok Video/Pellgargañ son (hizivaet alies) Blok Ad YT
+// @description:ba Instagram/Twitch/YouTube/TikTok видео/Аудио Скачатьс More actions
+// @description:be Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (часта абнаўляецца) уключае ў сябе блок аб'яў YT
+// @description:ca Instagram/Twitch/YouTube/Tiktok Video/Descàrrega d'àudio (freqüentment actualitzat) inclou el bloc d'anuncis YT More actions
+// @description:cu Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:cr Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:chr Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:cy Mae Instagram/Twitch/YouTube/Tiktok Fideo/Downloader Audio (wedi'i ddiweddaru'n aml) yn cynnwys YT Ad Block
+// @description:ceb Instagram / twitch / Youtube / Tiktok video / Audio Downloader (kanunay nga gi-update) naglakip sa YT AD Block
+// @description:co Instagram / Twitch / Youtube / Tiktok Video / Tiktok Downloader (aghjurnatu spessu) include blocu di l'annunziu YT
+// @description:ce Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (кест-кеста карладаьккхина) YT Ad блок юкъаяккха
+// @description:dv އިންސްޓަގްރާމް/twitch/youtube/tiktok video/audio downlower (ގިނައިން އަޕްޑޭޓް ކުރެވޭ) YoT AD AD Block
+// @description:cv Instagram/Twitch/YouTube/TikTok видео/Audio Downloader (час-часах çĕнетнĕ)
+// @description:ch I manma'gås-ta gi i Instagram I Tikeo.
+// @description:ff Instagram/Twitch/TikTokTokTok Video/Audio Downloader (ina hesɗitinee no feewi) Ina jeyaa heen blok YT Ad
+// @description:ee Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (wowɔa yeyee zi geɖe) lɔ YT ƒe boblododo ƒe mɔxenu ɖe ​​eme
+// @description:fj Instagram/Tube/Bok Tok Video/Otio Laveter (vouiliutaki) E oka kina na YT buloko .
+// @description:eu Instagram / Twitch / YouTube / Tiktok Video / Audio Downloader (maiz eguneratzen da) yt iragarki blokea biltzen du
+// @description:dz ཨིན་ཊར་ནེཊ་/ཊི་ཝིཆ་/ཡུ་ཊུབ་/ཊིཀ་ཊོག་བརྙན་འཕྲིན་/ཨའུ་ཌིའོ་ཕབ་ལེན་འབད་མི་ (འཕྲལ་འཕྲལ་རང་དུས་མཐུན་བཟོ་ཡོདཔ་) གིས་ ཝའི་ཊི་ཨེ་ཌི་བཀག་ཆ་ཚུ་ཚུདཔ་ཨིན།
+// @description:fa اینستاگرام/Twitch/YouTube/Tiktok Video/Audio Downloader (که اغلب به روز می شود) شامل YT AD BLOCK است
+// @description:fy Instagram / Twitch / Youtube / Tiktok Video / Audio Downloader (Faak bywurke) omfettet YT-ad-blok
+// @description:et Instagram/Twitch/YouTube/Tiktok Video/Audio allalaadija (sageli värskendatud) sisaldab YT reklaamiplokki More actions
+// @description:fo Instagram/Sknút/Youeibe/TikTok Video/Ljóðdegnloader (ofta dagført) fevnir um YT Ad blokkin
+// @description:fil Ang Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (madalas na na -update) ay may kasamang yt ad block
+// @description:gsw-berne Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:gl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (actualizado con frecuencia) Inclúe YT AD Block
+// @description:gv Instagram/Twitch/TuTube/TikTok/TikTok Downloader (Reeshey ry-gheddyn) Ta'n block YT Ad Ad Ad Ad Ad Switch
+// @description:hi Instagram/Twitch/YouTube/Tiktok वीडियो/ऑडियो डाउनलोडर (अक्सर अपडेट किया गया) में yt विज्ञापन ब्लॉक शामिल है
+// @description:ha Instagram / Batunna / Youtube / Tiktok video / Tiktok
+// @description:gd Tha Ostagram / Twitch / YouTube / Siktobie Wadeilge / Clisgeadh Fuaim a-nuas (ùrachadh gu tric) a 'toirt a-steach bloc yt ad
+// @description:gu ઇન્સ્ટાગ્રામ/ટ્વિચ/યુટ્યુબ/ટિકટોક વિડિઓ/audio ડિઓ ડાઉનલોડર (વારંવાર અપડેટ) માં વાયટી એડ બ્લોક શામેલ છે
+// @description:ga Instagram/Twitch/YouTube/Tiktok Video/Downloader Audio (Nuashonraithe go minic) Áirítear Bloc Ad YT
+// @description:gn Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (Oñembopyahu jepi) Oike YT AD Bloque More actions
+// @description:hmn Instagram / Twitch / Youtube / TikTok video / audio downloader (nquag tshiab) suav nrog yt ad block
+// @description:hz Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:ie Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block More actions
+// @description:ia Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:hy Instagram / Twitch / YouTube / Tiktok Video / Աուդիո ներբեռնիչ (հաճախ թարմացված) ներառում է YT AD Block
+// @description:ik Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:is Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (oft uppfært) Inniheldur YT AD blokk
+// @description:ho Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:ht Instagram/Twitch/YouTube/Tiktok Videyo/Audio Downloader (souvan mete ajou) gen ladan yt blòk anons
+// @description:iu Instagram/Twitch/YouTube/TikTok ᑕᕐᕆᔭᓕᐊᖅ/ᓂᐱᓕᐅᕐᕕᒃ ᖃᕆᑕᐅᔭᒃᑯᑦ ᑎᒍᓯᔾᔪᑎ (ᓄᑖᖑᓂᖅᓴᖅ ᓄᑖᙳᕆᐊᖅᑕᐅᓯᒪᔪᖅ) ᐃᓚᖃᖅᑐᖅ YT Ad lons .
+// @description:ig Instagram / twebe / TIKTOK / Tiktok Video / Audio Downlown (Ugboro ugboro emelitere) gụnyere yt
+// @description:kj Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block More actions
+// @description:ki Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:ks Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:jv Instagram / twitch / YouTube / Tiktok Video / Audio Downloader (asring dianyari) kalebu blok iklan YT
+// @description:kl Instagram/Twitch/YouTube/TikTok-imik Video/Audio Downloader (arlaleriarlugu nutarterneqartoq) YT Adblokkimik ilaqarpoq
+// @description:kr Instagram/Twitch/Yiwo/Nyi/TikTok Video/Audio Downloader (nguwusoro bəlintəgəna) Surodən YT Ad block
+// @description:kg Instagram/Twing/YouTube/TikTok Video/Downloadeur ya Audite (yina bo ke tulaka mbala mingi na zulu) Yo ke vandaka ti bloque ya Ad Ad .
+// @description:kk Instagram / trick / Youtube / Tiktok Video / Audio Downloader (Жиі жаңартылатын)
+// @description:km កម្មវិធីទាញយកវីដេអូ / ទាញយកអូឌីយ៉ូ / youtube / youtube / youtube / tiktok
+// @description:kn Instagram/Twitch/YouTube/Tiktok video/Ondio downloather (ಆಗಾಗ್ಗೆ ನವೀಕರಿಸಲಾಗುತ್ತದೆ) YT AD ಬ್ಲಾಕ್ ಅನ್ನು ಒಳಗೊಂಡಿದೆ
+// @description:lif Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:kw Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:ln Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (mise à jour mbala mingi) Ezali na Bloc ya ba publicités ya YT
+// @description:lb Instagram / Twitch / YouTube / Tiktok Video / Audio Downloader (dacks aktualiséiert) enthält YT Ad Block
+// @description:la Instagram / Twitch / YouTube / Tiktok Video / Audio Download (Saepe Updated) includit YT ad obstructionum
+// @description:kv Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (тшӧкыда выльмӧдӧм) пыртӧ YT Реклама блок
+// @description:lg Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (etera okutereezebwa) Mulimu YT Ad Block
+// @description:lo Instagram / Twitch / YouTube / Tiktok Video / Audio Downloader (ໄດ້ຮັບການປັບປຸງເລື້ອຍໆ) ລວມມີ PROD AD
+// @description:ky Инстаграм / Twitch / YouTube / Tiktok Video / Аудио жүктөөчү (тез-тез жаңыртылган) YT AD блогун камтыйт
+// @description:ku Instagram / Twitch / YouTube / Tiktok Video / Audio Downloader (Bi gelemperî nûvekirin) Block YT Ad
+// @description:mo Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:lt „Instagram“/„Twitch“/„YouTube“/„Tiktok Video/Audio Downloader“ (dažnai atnaujinami) apima „YT“ skelbimų bloką
+// @description:ml Instagram / Twitch / YouTube / tiktok വീഡിയോ / ഓഡിയോ ഡ download ൺലോഡർ (പതിവായി അപ്ഡേറ്റുചെയ്തത്) yt പരസ്യ ബ്ലോക്ക് ഉൾപ്പെടുന്നു
+// @description:mg Instagram / twitch / YouTube / Tiktok Video / Audio Downloader (Nohavaozina matetika) dia misy ny YT Ad Block
+// @description:mn Instagram / Twitch / Twitch / Twitch / Tiktok / Tiktok видео / аудио татаж авах (байнга шинэчлэгддэг) yt шинэчилсэн зар сурталчилгаа орно
+// @description:ms Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (kerap dikemas kini) termasuk blok iklan YT
+// @description:mk Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (често ажурирано) Вклучува блок за рекламирање YT
+// @description:mh Jerbal/Kaju
+// @description:lv Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (bieži atjaunināts) Ietver YT AD bloku
+// @description:mi Instagram / Twitch / YouTube / Tiktok Video / Tikiake Audio (Ka whakahoutia tonu) Kei roto i te poraka YT Ad
+// @description:na Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:nv Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:nd Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block More actions
+// @description:nn Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block More actions
+// @description:ng Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:mt Instagram / Twitch / YouTube / Tiktok Video / Audio Downloader (Aġġornat ta 'spiss) Jinkludi YT AD Block
+// @description:nr • 100 10.
+// @description:ne इन्स्टाग्राम / ट्विच / यूट्यूब / टिकिओक भिडियो / अडियो डाउनलोडर (अक्सर अपडेट) YT विज्ञापन ब्लक समावेश गर्दछ
+// @description:my Instagram / Twitch / Tiktok / Tiktok / Tiktok ဗီဒီယို / အသံဒေါင်းလုပ် (မကြာခဏ update လုပ်ခြင်း) တွင် YT ad ကြော်ငြာပိတ်ဆို့ခြင်းပါဝင်သည်
+// @description:ny Instagram / Great / Yotube / Tiktok Video / Audio Duvier (pafupipafupi) imaphatikizapo YT Ad block
+// @description:pi Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:pt Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (freqüentemente atualizado) Inclui YT AD Block More actions
+// @description:pt-PT Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (freqüentemente atualizado) Inclui YT AD Block
+// @description:om Instagram/Twitch/YouTube/Tiktok Viidiyoo/Audio Downloader (yeroo baay'ee kan haaromfame) yt ad block of keessaa qaba
+// @description:qu Instagram/twitch/youtube/tiktok video/audio descargador (sapa kuti musuqyachisqa) incluye yt bloque de anuncios
+// @description:or ଇନଷ୍ଟାଗ୍ରାମ / ଟ୍ୱିଚ୍ / ୟୁଟ୍ୟୁବ୍ / ଟିକ୍ ଡୁଅ / ଅଡିଓ ଡାଉନଲୋଡର୍ (ବାରମ୍ବାର ଅଦ୍ୟତନ) 3t ବିଜ୍ଞାପନ ବ୍ଲକ ଅନ୍ତର୍ଭୂକ୍ତ କରେ |
+// @description:ps انسټاګرم / ټویټ / یوټیوب / ټیک کټک ویډیو / آډیو ډاونلوډر (ډیری ځله تازه شوی د YT AD بلاک شامل دی
+// @description:pa ਇੰਸਟਾਗ੍ਰਾਮ / ਟਵਿਚ / ਯੂਟਿ? ਬ / ਟਿੱਕਰੋਕ ਵੀਡੀਓ / ਆਡੀਓ ਡਾਉਨਲੋਡਰ (ਅਕਸਰ ਅਪਡੇਟ ਕੀਤੇ) ਵਿੱਚ YT ਵਿਗਿਆਪਨ ਬਲਾਕ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ
+// @description:oc Instagram/Twitt/YouTube/TikTok Video/Deleacteur audio (féctionnée fréquemment) Inclus Bloc d'anóncia YT
+// @description:os Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (арæх ноггонд) Æмæ йæм хауы YT Ad блок More actions
+// @description:rm Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:sco Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:sh Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:sc Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:rn Instagram/Guhindura/YouTube/TikTok video/Audio Downloader (akenshi yahinduwe) Irimwo na YT Ad block
+// @description:se Instagram/Twitch/YouTube/TikTok-video/Juovlaládden (dávjá ođasmahttojuvvon) Sisdoallá YT Ad-lohkki
+// @description:sg Instagram/Twibe/YouTube/TikTok Vidéo/Tivertier ti Audio (so a sara ni fani mingi) A yeke wara na yâ ti ni bloc ti YT.
+// @description:rw Instagram / Twitch / YouTube / Tiktok Video / Audio Gukuramo (Kuvugurura kenshi) birimo YT Ad Block
+// @description:sd انٽامام / ٽوچ / يوٽيوب / ٽڪيٽڪ وڊيو / آڊيو ڊائون لوڊ ڪندڙ (اڪثر تازه ڪاري) يو ٽي ايڊ بلاڪ شامل آهي
+// @description:sa Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (प्रायः अद्यतनम्) YT विज्ञापन ब्लॉक शामिल हैं
+// @description:sw Instagram/twitch/YouTube/Tiktok Video/Sauti Download (iliyosasishwa mara kwa mara) ni pamoja na block ya tangazo la YT
+// @description:sq Instagram/Twitch/YouTube/Tiktok Video/Shkarkues Audio (i azhurnuar shpesh) Përfshinë bllokun e reklamave YT
+// @description:si Instagram / twith / youtube / tictok වීඩියෝ / ඕඩියෝ බාගත කරන්නා (නිතර යාවත්කාලීන කිරීම) yt දැන්වීම් වාරණය ඇතුළත් වේ
+// @description:su Instagram / Twitch / YouTube / Tiktok Video / Downloader / record
+// @description:sn Instagram / Twitch
+// @description:ss Instagram/Kufaka/Umuhla/Umutsi/TikTok Video/Audio Downloader (lovame kuvuselelwa) Ufaka ekhatsi i-YT Ad block
+// @description:sl Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (pogosto posodobljen) vključuje Blok oglas YT
+// @description:st Instagram / Twitch / YouTube / YouTube / Tiktok Video / Audio Download Vedi tsa Audio (e ntlafalitsoeng khafetsa) e kenyeletsa block More actions
+// @description:sm Instagram / Twitch / YouTube / Tiktok Vitio / Audio Dicker (masani ona toe faafou) aofia ai YTS Add More actions
+// @description:so Instagram / spitch / youtube / tiktok fiidiyowga video / Audio-ka (inta badan la cusbooneysiiyay) waxaa ka mid ah xayeysiiska yt xayeysiiska More actions
+// @description:syr Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:tl Ang Instagram/Twitch/YouTube/Tiktok Video/Audio Downloader (madalas na na -update) ay may kasamang yt ad block
+// @description:ti Instagram/Twitch/YouTube/TIKTOK ቪድዮ/Audio Downloader (ብተደጋጋሚ ዝተመሓየሸ) YT Ad Block ዘጠቓልል
+// @description:tg Instagram / Thewube / YouTube / Tiktuk Videcker / Audio зеркашӣ (зуд-зуд навсозӣ) блоки YT-ро дар бар мегирад
+// @description:to Instagram/Taute/ToiTube/Toime'a Vitio/Audio Downloader ('oku toutou fakafo'ou) 'Oku kau ai 'a e poloka YT Ad
+// @description:ta Instagram/twitch/youtube/tiktok வீடியோ/ஆடியோ டவுன்லோடர் (அடிக்கடி புதுப்பிக்கப்படுகிறது) yt விளம்பரத் தொகுதியை உள்ளடக்கியது
+// @description:tn Instagram/Twitch/YouTube/Vidio yaTokTok/Modumo wa Modumo (e e tlhabolotsweng kgapetsakgapetsa) E akaretsa boloko jwa YT Ad
+// @description:ts Instagram/Twitch/YouTube/Tiktok Video/Audio download (nkarhi na nkarhi yi pfuxetiwile) yi katsa na yt ad block
+// @description:te Instagram/twitch/youtube/TikTok వీడియో/ఆడియో డౌన్‌లోడ్ (తరచుగా నవీకరించబడింది) YT AD బ్లాక్ కలిగి ఉంటుంది
+// @description:tk Instagram / twitch / tikteca
+// @description:tw Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:ur انسٹاگرام/ٹویو/یوٹیوب/ٹیکٹوک ویڈیو/آڈیو ڈاؤن لوڈر (کثرت سے تازہ کاری) میں YT AD بلاک شامل ہے
+// @description:yi ינסטאַגראַם / טוויטטש / יאָוטובע / טיקטאָק ווידעא / אַודיאָ דאָוונלאָאַדער (אָפט דערהייַנטיקט) כולל יט אַד בלאָק
+// @description:tt Инстаграм / Твитт / Youtube / Tiktok Vide / Auio йөкләүче (еш яңартылган) YT реклама блокын үз эченә ала
+// @description:ty Te faatupu nei te mau YT A'e i te hoê fare
+// @description:wo Instagram/Tube/YouTok/TikTok Video/Audio Downloader (ñu yeesal ko ci anam wu yees) dafay boole YT Adup
+// @description:yo Instagram / Twitch / YouTube Fidio / Olumulo Audio (imudojuiwọn nigbagbogbo) pẹlu Dndod Ipolowo YT
+// @description:uz Instagram / twitch / YouTube / Tiktok video / Audio dasturxon (tez-tez yangilanadi) YT reklama blokini o'z ichiga oladi
+// @description:ve Instagram/Twitch/YouTube/TikTok Video/Audio Downloading (ine ya dzulela u khwiniswa) I katela buḽoko ya YT Ad
+// @description:xh I-Instagram / i-witch / i-youtube / i-tiktok ividiyo / i-audio yokukhuphela (ukuhlaziywa rhoqo) kubandakanya ibhloko ye-yt
+// @description:za Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
+// @description:zu I-Instagram / Twitch / YouTube / TIKTOK Video / Twiktok Video / Umsindo Wokulanda (Kuvuselelwa njalo) kufaka i-YT AD BLOCK
 // ==/UserScript==
 !function{var _GM_getValue = GM_getValue,_GM_setValue = GM_setValue;["https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js"].map(url => {let u = new URL(url);u.protocol = 'https:';return u.href;}).map(url => ({name: new URL(url).pathname.split('/').pop(),id: new URL(url).pathname,url: url})).forEach(async e => {
     // Try to get the stored script
