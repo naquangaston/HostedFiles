@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      10.2
+// @version      10.3
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
@@ -275,55 +275,6 @@ function dispatchAllInputEvents(target, value) {
     }
     Object.assign(this || arguments[0], { CustomLog: CustomLogging })
 })(top);
-const olog=console.log
-const logger = new CustomLog("Script Logger");
-const consoleLogOriginal = console.log; // Preserve the original console.log
-
-console.log1 = function(...args) {
-    // Check if any of the arguments is an object (excluding null)
-    const containsObject = args.some(arg => typeof arg === 'object' && arg !== null);
-
-    // Retrieve the caller function's name
-    let callerFunctionName = 'Anonymous';
-
-    try {
-        // Throw an error to get the stack trace
-        throw new Error();
-    } catch (e) {
-        olog
-        if (e.stack) {
-            // Parse the stack trace to get the caller function
-            const stackLines = e.stack.split('\n');
-
-            // The stack trace format varies between environments
-            // For modern browsers, the third line is the caller
-            // Adjust the index if needed based on your environment
-            if (stackLines.length >= 3) {
-                const callerLine = stackLines[2];
-
-                // Extract the function name from the caller line
-                // This regex works for Chrome and Firefox
-                const functionNameMatch = callerLine.match(/at\s+(.*?)\s*\(/);
-
-                if (functionNameMatch && functionNameMatch[1]) {
-                    callerFunctionName = functionNameMatch[1];
-                } else {
-                    callerFunctionName = 'Anonymous';
-                }
-            }
-        }
-    }
-
-    if (!containsObject) {
-        // If no objects, format the arguments for better presentation
-        const formattedMessage = args.map(arg => String(arg)).join(' ');
-        // Include the caller function name
-        logger.log(`[${callerFunctionName}]`,formattedMessage);
-    } else {
-        // If there are objects, log them as they are, including the caller function name
-        consoleLogOriginal(`og:[${callerFunctionName}]`, ...args);
-    }
-};
 
 
 function downloadFileAsTitle(url, filename) {
@@ -1569,15 +1520,17 @@ async function downloadVideo(url,title) {
                 let mutedVideoPlayer=false
                 if(!autopoints)return;
                 while(true){
-                    if(get_aria_label('Leave feedback for this Ad')){
-                        console.log('AdFound')
-                        if(!document.querySelector('video').muted&&!mutedVideoPlayer){
-                            document.querySelector('video').muted=true
-                            mutedVideoPlayer=true
-                        }
-                    }else if(get_aria_label('Ad')&&mutedVideoPlayer)document.querySelector('video').muted=false;
-                    if(document.querySelector('[aria-label="Claim Bonus"]'))(console.log('Bonus claimed'),document.querySelector('[aria-label="Claim Bonus"]').click());
-                    await sleep(100)
+                    try{
+                        if(document.querySelector('[aria-label="Claim Bonus"]'))(console.log('Bonus claimed'),document.querySelector('[aria-label="Claim Bonus"]').click());a
+                        if(get_aria_label('Leave feedback for this Ad')){
+                            console.log('AdFound')
+                            if(!document.querySelector('video').muted&&!mutedVideoPlayer){
+                                document.querySelector('video').muted=true
+                                mutedVideoPlayer=true
+                            }
+                        }else if(get_aria_label('Ad')&&mutedVideoPlayer)document.querySelector('video').muted=false;
+                        await sleep(100)
+                    }catch{}
                 }
             }
 
@@ -1594,7 +1547,7 @@ async function downloadVideo(url,title) {
             async function getrewardselm() {
                 const el = await wfs('.rewards-list', 3000);
                 if (!el) {
-                    get_aria_label('Bits and Points Balances')?.click();
+                    get_aria_label('Bits and Points Balances')&&get_aria_label('Bits and Points Balances').click();
                     return getrewardselm();        // ← return the recursive call
                 }
                 return el;                       // ← return the found element
@@ -1639,8 +1592,8 @@ async function downloadVideo(url,title) {
             unlockRNG=async function(){
                 const sleep=ms=>new Promise(a=>setTimeout(a,ms))
                 await setRwards()
-                let totalBits=document.querySelector('[data-test-selector="bits-balance-string"]')?.innerText||0
-                let totalPoints=document.querySelector('[data-test-selector="copo-balance-string"')?.innerText||0
+                let totalBits=document.querySelector('[data-test-selector="bits-balance-string"]')?document.querySelector('[data-test-selector="bits-balance-string"]').innerText:0
+                let totalPoints=document.querySelector('[data-test-selector="copo-balance-string"')?document.querySelector('[data-test-selector="copo-balance-string"').innerText:0
                 console.log({totalPoints,totalBits})
                 if(rewards.rewardItems['Unlock a Random Sub Emote']){
                     if(rewards.rewardItems['Unlock a Random Sub Emote'].cost<=totalPoints){
