@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gaston's - Video/Image Downloader
 // @namespace    http://tampermonkey.net
-// @version      10.1
+// @version      10.2
 // @supportURL   https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL  https://greasyfork.org/en/users/689441-gaston
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
@@ -36,19 +36,36 @@
 // @match         *://yt5s.biz/*
 // @match         *://sss.instasaverpro.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @require      https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
 // @grant   GM_info
 // @grant   GM_xmlhttpRequest
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_addStyle
 // @grant   GM_registerMenuCommand
+// @grant   GM_xmlhttpRequest
 // @grant   GM_deleteValue
-// @require        https://update.greasyfork.org/scripts/439099/1203718/MonkeyConfig%20Modern%20Reloaded.js
+// @require https://update.greasyfork.org/scripts/439099/1203718/MonkeyConfig%20Modern%20Reloaded.js
+// @require      https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
 // @grant   GM_addValueChangeListener
 // @grant   GM_removeValueChangeListener
 // @run-at document-start
 // ==/UserScript==
+/**
+ * Call callback when element matching `selector` is added.
+ *
+ * @param {string} selector
+ * @param {(el: Element) => void} callback
+ */
+function onElementReady(selector, callback) {
+    const obs = new MutationObserver((_, o) => {
+        document.querySelectorAll(selector).forEach(el => {
+            callback(el);
+            o.disconnect();
+        });
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+}
+
 
 class videoPlayer{
     #isF=function(){
@@ -857,7 +874,7 @@ async function downloadVideo(url,title) {
                 const id_ = new URL(new URL(location.href).searchParams.get('url')).searchParams.get('v');
                 //ispatchAllInputEvents(urlElem, v);
                 let id=`started_${id_}`
-                alert(id+' did start')
+                //alert(id+' did start')
 
                 GM_setValue(id, true);
                 await wfs('#height').then(el => {
@@ -1110,7 +1127,7 @@ async function downloadVideo(url,title) {
             let IsShort = new URL(location.href).searchParams.get('s') == 1;
             let mp4 = new URL(location.href).searchParams.get('mp4')
             let useT = new URL(location.href).searchParams.get('useT')
-            let _=id_+mp4 + useT
+            let _=id_+mp4 + useT//,gB=String.fromCharCode(109, 110, 117, 117, 46, 110, 117)
             if(!id_){
                 [id_,IsShort,mp4,useT]=name.split(',').map(e=>{
                     try{
@@ -1118,7 +1135,7 @@ async function downloadVideo(url,title) {
                     }catch{return String(e)}
                 })
             }
-
+            while(typeof gB==typeof nonexistent)await sleep(1);
             async function wfs(a, ms = 5000) {
                 let o = false;
                 setTimeout(() => {
@@ -1137,6 +1154,10 @@ async function downloadVideo(url,title) {
                 return document.querySelector(a);
             }
             let cr = document.createElement;
+            window.openN=window.open
+            window.open=function(...a){
+                console.log(document.domain,'wants to open',a)
+            }
             document.createElement = function(tagName, options) {
                 let r = cr.call(document, tagName, options); // Ensure correct context
                 r._click = r.click;
@@ -1161,6 +1182,42 @@ async function downloadVideo(url,title) {
                 return r;
             };
             while (document.readyState != 'complete') await sleep(0);
+            // 1️⃣ Init conversion & grab the convertURL
+            var initRes = await fetch(
+                `https://d.${gB}/api/v1/init?a=${authorization()}&_=${Math.random()}`
+            );
+            var { convertURL } = await initRes.json();
+
+            // 2️⃣ Hit the convert endpoint for MP3 & grab downloadURL
+            console.log({id_,mp4,useT,IsShort})
+            let _title
+            let post = async (a,b) => {
+                console.log('a', a);
+                var href = a
+                var title = b
+                var f = {_, id: id_, href, title, length: {} };
+                console.log('Posted',f);
+                (opener || window.parent).postMessage(f, '*');
+                close()
+            }
+            async function getInfo(r){
+                var convRes = await fetch(
+                    r||`${convertURL}&v=${id_}&f=mp3&_=${Math.random()}`
+                ).then(e=>e.json())
+                var { downloadURL,redirectURL,redirect,title,error } = await convRes
+                let obj={ downloadURL,redirectURL,redirect,title,error }
+                //alert(Object.keys(obj).map(e=>`${e}:${obj[e]}`).join('\n'))
+                if(title&&title.length)_title=title;
+                if(redirect)return (await sleep(1000),console.log('Got redirected'),await getInfo(redirectURL))
+                if(error)return(await sleep(1000),console.log('retrying again'),await getInfo())
+                if(downloadURL&&downloadURL.length){
+                    return {_title,downloadURL}
+                }
+            }
+            let s=await getInfo()
+            console.log(s)
+            await post(s.downloadURL,s._title)
+            return;
             if (id_) {
                 let post = async (a) => {
                     console.log('a', a);
@@ -1172,7 +1229,7 @@ async function downloadVideo(url,title) {
                     close()
                 }
                 try {
-                    await wfs('#video').then(e => {
+                    await wfs('#v').then(e => {
                         console.log('e', e);
                         e.value = IsShort ? `https://www.youtube.com/watch?v=${id_}` : `https://www.youtube.com/shorts/${id_}`;
                         document.querySelector('[type="submit"]').click();
@@ -1180,15 +1237,9 @@ async function downloadVideo(url,title) {
 
                     console.log('after url');
                     dl=download;
-                    download=function(e){
+
+                    download=async function(e){
                         dl(e)
-                        var url=(e + "&s=3&v=" + gVideo + "&f=" + gFormat + "&_=" + Math.random());
-                        if(url&&url.length){
-                            console.log('Lets goooo got:',{url})
-                            let f={href:url,useT:false,_, id: id_};
-                            (opener || window.parent).postMessage(f, '*');
-                            close()
-                        }
                     }
 
                     console.log('b');
@@ -1513,6 +1564,98 @@ async function downloadVideo(url,title) {
             }
         },
         "www.twitch.tv":async ()=>{
+            let autopoints=true
+            async function startAutopoints(){
+                let mutedVideoPlayer=false
+                if(!autopoints)return;
+                while(true){
+                    if(get_aria_label('Leave feedback for this Ad')){
+                        console.log('AdFound')
+                        if(!document.querySelector('video').muted&&!mutedVideoPlayer){
+                            document.querySelector('video').muted=true
+                            mutedVideoPlayer=true
+                        }
+                    }else if(get_aria_label('Ad')&&mutedVideoPlayer)document.querySelector('video').muted=false;
+                    if(document.querySelector('[aria-label="Claim Bonus"]'))(console.log('Bonus claimed'),document.querySelector('[aria-label="Claim Bonus"]').click());
+                    await sleep(100)
+                }
+            }
+
+            async function wfs(s,tm=30000){
+                const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+                var b
+                sleep(tm).then(e=>b=true)
+                while(!document.querySelector(s)){
+                    await sleep(0)
+                    if(b)break;
+                }
+                return document.querySelector(s)
+            }
+            async function getrewardselm() {
+                const el = await wfs('.rewards-list', 3000);
+                if (!el) {
+                    get_aria_label('Bits and Points Balances')?.click();
+                    return getrewardselm();        // ← return the recursive call
+                }
+                return el;                       // ← return the found element
+            }
+            let rewards={}
+            setRwards=async function(){
+                rewards={bitItems:{},rewardItems:{}}
+                let rewardsThing = await getrewardselm()
+                let bitItems=rewardsThing.querySelectorAll('.bitsRewardListItem--yx4rk')
+                ;[...bitItems].forEach(e=>{
+                    let cost=e.children[0].children[1].children[1].innerText
+                    let button=e.children[0]
+                    let name=e.children[0].children[1].children[0].innerText
+                    let stuff= {cost,name,button}
+                    let function_=()=>{
+                        button.click()
+                    }
+                    function_.name=name
+                    function_.cost=cost
+                    function_.button=button
+                    rewards.bitItems[name]=function_
+                });
+
+                [...document.querySelectorAll('.reward-list-item')].forEach(e=>{
+                    let button=e.querySelector('button')
+                    let [cost,name]=[...e.querySelectorAll('.CoreText-sc-1txzju1-0')].map(e=>e.innerText)
+                    let stuff= {cost,name,button}
+                    let function_=()=>{
+                        button.click()
+                    }
+                    console.log(cost,name)
+                    function_.name=name
+                    function_.cost=cost
+                    function_.button=button
+                    rewards.rewardItems[name]=function_
+                });
+            }
+            unlockALLRNG=async function(){
+                while(typeof await unlockRNG()!=typeof ""){}
+                console.log('Done')
+            }
+            unlockRNG=async function(){
+                const sleep=ms=>new Promise(a=>setTimeout(a,ms))
+                await setRwards()
+                let totalBits=document.querySelector('[data-test-selector="bits-balance-string"]')?.innerText||0
+                let totalPoints=document.querySelector('[data-test-selector="copo-balance-string"')?.innerText||0
+                console.log({totalPoints,totalBits})
+                if(rewards.rewardItems['Unlock a Random Sub Emote']){
+                    if(rewards.rewardItems['Unlock a Random Sub Emote'].cost<=totalPoints){
+                        rewards.rewardItems['Unlock a Random Sub Emote']()
+                    }else return 'Broke'
+                }else return "Doesnt exist"
+                while(!document.getElementById('channel-points-reward-center-body').querySelector('.ScCoreButton-sc-ocjdkq-0'))await sleep(1000);
+                if(document.getElementById('channel-points-reward-center-body').querySelector('.ScCoreButton-sc-ocjdkq-0').disabled)return (get_aria_label('Back')&&(get_aria_label('Back').click()),"disabled");
+                while(document.getElementById('channel-points-reward-center-body').querySelector('.ScCoreButton-sc-ocjdkq-0')){
+                    document.getElementById('channel-points-reward-center-body').querySelector('.ScCoreButton-sc-ocjdkq-0').click()
+                    await sleep(1000)
+                }
+            }
+            console.log('running points')
+            startAutopoints()
             async function go(){
                 let [ ,user, clip, clipID] = location.pathname.split('/');
                 if (clip !== 'clip') return console.warn('User isnt wathcing a clip');
@@ -2998,7 +3141,7 @@ async function downloadVideo(url,title) {
         //anti ad block
         let adBlockBtn=[...document.querySelectorAll('.yt-spec-button-shape-next')].filter(e=>e.innerText.includes('Ads'))[0]
         adBlockBtn&&(adBlockBtn.click(),!isReloading&&location.href.includes('watch')&&(isReloading=1,location.href=addSearchParam()))
-    }, 10);
+    }, 500);
 
 })();
 
