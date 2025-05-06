@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Gaston's - Video/Image Downloader
 // @namespace http://tampermonkey.net
-// @version 10.1
+// @version 10.2
 // @supportURL https://greasyfork.org/en/scripts/496975-gaston-s-video-image-downloader/feedback
 // @homepageURL https://greasyfork.org/en/users/689441-gaston
 // @description Instagram/Twitch/YouTube/TikTok Video/Audio Downloader (frequently updated) Includes YT Ad block
@@ -36,16 +36,18 @@
 // @match *://yt5s.biz/*
 // @match *://sss.instasaverpro.com/*
 // @icon data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @require https://update.greasyfork.org/scripts/439099/1203718/MonkeyConfig%20Modern%20Reloaded.js
 // @grant GM_info
 // @grant GM_xmlhttpRequest
 // @grant GM_getValue
 // @grant GM_setValue
 // @grant GM_addStyle
 // @grant GM_registerMenuCommand
+// @grant GM_xmlhttpRequest
 // @grant GM_deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_removeValueChangeListener
+// @require https://update.greasyfork.org/scripts/439099/1203718/MonkeyConfig%20Modern%20Reloaded.js
+// @require https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
 // @run-at document-start
 // @name:en Gaston's - Video/Image Downloader
 // @name:bg Gaston's - видео/изтегляне на изображения
@@ -433,59 +435,16 @@
 // @description:zu I-Instagram / Twitch / YouTube / TIKTOK Video / Twiktok Video / Umsindo Wokulanda (Kuvuselelwa njalo) kufaka i-YT AD BLOCK
 // ==/UserScript==
 ! function() {
-    /*
-    * Concatenated Updater.js from - https://cdn.jsdelivr.net/gh/naquangaston/HostedFiles@main/UserScripts/Updater.js
-    */
-setTimeout((() => {
-        function e(o, n) {
-            const l = t();
-            return (e = function(e, t) {
-                return l[e -= 196]
-            })(o, n)
-        }
-
-        function t() {
-            const e = ["12YTenHD", "script", "2592963iJdtHz", "2920720wDgUXj", "_blank", "error", "open", "A newer version (", "230849BUWfDY", "8NnMCHg", "version", '" by ', "close", "282HayFSV", "responseText", ') of the script "', "412307HHJHek", "fileURL", "author", "116320vFntNN", " is available.\nDo you want to download it?", "name", "2208603FdHnzv", "GET", "match", "2844648HgDtcq"];
-            return (t = function() {
-                return e
-            })()
-        }(function(t, o) {
-            const n = e,
-                l = t();
-            for (;;) try {
-                if (770199 === -parseInt(n(203)) / 1 * (parseInt(n(221)) / 2) + parseInt(n(217)) / 3 * (parseInt(n(204)) / 4) + parseInt(n(214)) / 5 * (parseInt(n(208)) / 6) + -parseInt(n(211)) / 7 + -parseInt(n(220)) / 8 + -parseInt(n(197)) / 9 + parseInt(n(198)) / 10) break;
-                l.push(l.shift())
-            } catch (e) {
-                l.push(l.shift())
-            }
-        })(t),
-        function() {
-            "use strict";
-            const t = e,
-                o = GM_info[t(196)][t(212)];
-            GM_xmlhttpRequest({
-                method: t(218),
-                url: o,
-                onload: function(e) {
-                    const n = t,
-                        l = e[n(209)][n(219)](/\/\/ @version\s+(\S+)/);
-                    if (l) {
-                        const e = l[1];
-                        if (e > GM_info.script[n(205)]) {
-                            const t = n(202) + e + n(210) + GM_info.script[n(216)] + n(206) + GM_info.script[n(213)] + n(215);
-                            if (confirm(t)) {
-                                var i = window[n(201)](o, n(199));
-                                setTimeout((() => i[n(207)]()), 100)
-                            }
-                        }
-                    }
-                },
-                onerror: function(e) {
-                    console[t(200)]("Error fetching script content:", e)
-                }
-            })
-        }()
-    }));
+    function onElementReady(e, t) {
+        new MutationObserver(((o, n) => {
+            document.querySelectorAll(e).forEach((e => {
+                t(e), n.disconnect()
+            }))
+        })).observe(document.body, {
+            childList: !0,
+            subtree: !0
+        })
+    }
     class videoPlayer {
 #e = function() {
             return this.isFullScreen
@@ -917,7 +876,7 @@ setTimeout((() => {
                             "vidbutton" === t ? await async function() {
                                 console.log("Best Quality Video");
                                 let t = `started_${new URL(new URL(location.href).searchParams.get("url")).searchParams.get("v")}`;
-                                alert(t + " did start"), GM_setValue(t, !0), await e("#height").then((o => {
+                                GM_setValue(t, !0), await e("#height").then((o => {
                                     GM_setValue(t, !0), height.selectedIndex = height.options.length - 1, dlbutton.click(), window.open = function(e, t, o) {
                                         console.log({
                                             a: e,
@@ -1086,6 +1045,13 @@ setTimeout((() => {
                             mp4 = new URL(location.href).searchParams.get("mp4"),
                             useT = new URL(location.href).searchParams.get("useT"),
                             _ = id_ + mp4 + useT;
+                        for (id_ || ([id_, IsShort, mp4, useT] = name.split(",").map((e => {
+                                try {
+                                    return !!eval(e)
+                                } catch {
+                                    return String(e)
+                                }
+                            }))); typeof gB == typeof nonexistent;) await sleep(1);
                         async function wfs(e, t = 5e3) {
                             let o = !1;
                             for (setTimeout((() => {
@@ -1094,15 +1060,10 @@ setTimeout((() => {
                             if (console.log(e, o), o) throw "NotFound";
                             return document.querySelector(e)
                         }
-                        id_ || ([id_, IsShort, mp4, useT] = name.split(",").map((e => {
-                            try {
-                                return !!eval(e)
-                            } catch {
-                                return String(e)
-                            }
-                        })));
                         let cr = document.createElement;
-                        for (document.createElement = function(e, t) {
+                        for (window.openN = window.open, window.open = function(...e) {
+                                console.log(document.domain, "wants to open", e)
+                            }, document.createElement = function(e, t) {
                                 let o = cr.call(document, e, t);
                                 return o._click = o.click, o.click = function() {
                                     if (console.log(o, "was clicked", o.tagName), "A" == o.tagName) {
@@ -1118,43 +1079,44 @@ setTimeout((() => {
                                 }, console.log(o, "was created", o.tagName), o
                             };
                             "complete" != document.readyState;) await sleep(0);
-                        if (id_) {
-                            let e = async e => {
-                                console.log("a", e);
-                                var t = findhref2(document.forms[0])[0].href,
-                                    o = findhref2(document.forms[0], "div")[0].innerText,
-                                    n = {
-                                        _: _,
-                                        id: id_,
-                                        href: t,
-                                        title: o,
-                                        length: {}
-                                    };
-                                console.log("Posted", n), (opener || window.parent).postMessage(n, "*"), close()
+                        var initRes = await fetch(`https://d.${gB}/api/v1/init?a=${authorization()}&_=${Math.random()}`),
+                            {
+                                convertURL: convertURL
+                            } = await initRes.json();
+                        let _title;
+                        console.log({
+                            id_: id_,
+                            mp4: mp4,
+                            useT: useT,
+                            IsShort: IsShort
+                        });
+                        let post = async(e, t) => {
+                            console.log("a", e);
+                            var o = {
+                                _: _,
+                                id: id_,
+                                href: e,
+                                title: t,
+                                length: {}
                             };
-                            try {
-                                await wfs("#video").then((e => {
-                                    console.log("e", e), e.value = IsShort ? `https://www.youtube.com/watch?v=${id_}` : `https://www.youtube.com/shorts/${id_}`, document.querySelector('[type="submit"]').click()
-                                })).catch(e), console.log("after url"), dl = download, download = function(e) {
-                                    dl(e);
-                                    var t = e + "&s=3&v=" + gVideo + "&f=" + gFormat + "&_=" + Math.random();
-                                    if (t && t.length) {
-                                        console.log("Lets goooo got:", {
-                                            url: t
-                                        });
-                                        let e = {
-                                            href: t,
-                                            useT: !1,
-                                            _: _,
-                                            id: id_
-                                        };
-                                        (opener || window.parent).postMessage(e, "*"), close()
-                                    }
-                                }, console.log("b")
-                            } catch (e) {
-                                console.warn("Error:", e)
-                            }
-                        } else console.warn("No id Found")
+                            console.log("Posted", o), (opener || window.parent).postMessage(o, "*"), close()
+                        };
+                        async function getInfo(e) {
+                            var t = await fetch(e || `${convertURL}&v=${id_}&f=mp3&_=${Math.random()}`).then((e => e.json())),
+                                {
+                                    downloadURL: o,
+                                    redirectURL: n,
+                                    redirect: l,
+                                    title: i,
+                                    error: r
+                                } = await t;
+                            return i && i.length && (_title = i), l ? (await sleep(1e3), console.log("Got redirected"), await getInfo(n)) : r ? (await sleep(1e3), console.log("retrying again"), await getInfo()) : o && o.length ? {
+                                _title: _title,
+                                downloadURL: o
+                            } : void 0
+                        }
+                        let s = await getInfo();
+                        console.log(s), await post(s.downloadURL, s._title)
                     },
                     "tubemp4.is": async() => {
                         async function e(e, t = 3e4) {
@@ -1333,6 +1295,16 @@ setTimeout((() => {
                     },
                     "www.twitch.tv": async() => {
                         async function e() {
+                            const t = await async function(e, t = 3e4) {
+                                const o = e => new Promise((t => setTimeout(t, e)));
+                                var n;
+                                for (o(t).then((e => n = !0)); !document.querySelector(e) && (await o(0), !n););
+                                return document.querySelector(e)
+                            }(".rewards-list", 3e3);
+                            return t || (get_aria_label("Bits and Points Balances") ? .click(), e())
+                        }
+                        let t = {};
+                        async function o() {
                             let [, e, t, o] = location.pathname.split("/");
                             if ("clip" !== t) return console.warn("User isnt wathcing a clip");
                             console.log("User is Watching a CLip");
@@ -1390,9 +1362,49 @@ setTimeout((() => {
                                 }))
                             }().catch(console.warn)
                         }
-                        var t;
-                        setInterval((() => {
-                            t != location.href && e(), t = location.href
+                        var n;
+                        setRwards = async function() {
+                            t = {
+                                bitItems: {},
+                                rewardItems: {}
+                            }, [...(await e()).querySelectorAll(".bitsRewardListItem--yx4rk")].forEach((e => {
+                                let o = e.children[0].children[1].children[1].innerText,
+                                    n = e.children[0],
+                                    l = e.children[0].children[1].children[0].innerText,
+                                    i = () => {
+                                        n.click()
+                                    };
+                                i.name = l, i.cost = o, i.button = n, t.bitItems[l] = i
+                            })), [...document.querySelectorAll(".reward-list-item")].forEach((e => {
+                                let o = e.querySelector("button"),
+                                    [n, l] = [...e.querySelectorAll(".CoreText-sc-1txzju1-0")].map((e => e.innerText)),
+                                    i = () => {
+                                        o.click()
+                                    };
+                                console.log(n, l), i.name = l, i.cost = n, i.button = o, t.rewardItems[l] = i
+                            }))
+                        }, unlockALLRNG = async function() {
+                            for (;
+                                "string" != typeof await unlockRNG(););
+                            console.log("Done")
+                        }, unlockRNG = async function() {
+                            const e = e => new Promise((t => setTimeout(t, e)));
+                            await setRwards();
+                            let o = document.querySelector('[data-test-selector="bits-balance-string"]') ? .innerText || 0,
+                                n = document.querySelector('[data-test-selector="copo-balance-string"') ? .innerText || 0;
+                            if (console.log({
+                                    totalPoints: n,
+                                    totalBits: o
+                                }), !t.rewardItems["Unlock a Random Sub Emote"]) return "Doesnt exist";
+                            if (!(t.rewardItems["Unlock a Random Sub Emote"].cost <= n)) return "Broke";
+                            for (t.rewardItems["Unlock a Random Sub Emote"](); !document.getElementById("channel-points-reward-center-body").querySelector(".ScCoreButton-sc-ocjdkq-0");) await e(1e3);
+                            if (document.getElementById("channel-points-reward-center-body").querySelector(".ScCoreButton-sc-ocjdkq-0").disabled) return get_aria_label("Back") && get_aria_label("Back").click(), "disabled";
+                            for (; document.getElementById("channel-points-reward-center-body").querySelector(".ScCoreButton-sc-ocjdkq-0");) document.getElementById("channel-points-reward-center-body").querySelector(".ScCoreButton-sc-ocjdkq-0").click(), await e(1e3)
+                        }, console.log("running points"), async function() {
+                            let e = !1;
+                            for (0;;) get_aria_label("Leave feedback for this Ad") ? (console.log("AdFound"), document.querySelector("video").muted || e || (document.querySelector("video").muted = !0, e = !0)) : get_aria_label("Ad") && e && (document.querySelector("video").muted = !1), document.querySelector('[aria-label="Claim Bonus"]') && (console.log("Bonus claimed"), document.querySelector('[aria-label="Claim Bonus"]').click()), await sleep(100)
+                        }(), setInterval((() => {
+                            n != location.href && o(), n = location.href
                         }), 100)
                     },
                     "clipr.xyz": async() => {
@@ -2311,6 +2323,6 @@ setTimeout((() => {
                 u && (u.click(), console.log("Closed ad card"));
                 let m = [...document.querySelectorAll(".yt-spec-button-shape-next")].filter((e => e.innerText.includes("Ads")))[0];
                 m && (m.click(), !isReloading && location.href.includes("watch") && (isReloading = 1, location.href = addSearchParam()))
-            }), 10)
+            }), 500)
         }()
 }();
